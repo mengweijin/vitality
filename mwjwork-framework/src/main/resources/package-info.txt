@@ -1,0 +1,10 @@
+1、favicon.ico:
+    放在springboot默认的任意静态资源文件夹下，自动会使用favicon.ico作为应用的favicon
+
+2、把静态index.html或者模板引擎的index.html文件放在如下目录：
+    classpath:/META-INF/resources/index.html
+    classpath:/resources/index.html
+    classpath:/static/index.html
+    classpath:/public/index.html
+    classpath:/resources/templates/index.html
+    当我们访问http://localhot:8080/时，会直接映射。

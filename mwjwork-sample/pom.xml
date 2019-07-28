@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mwj</groupId>
+        <artifactId>mwjwork</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <!--<relativePath/>--> <!-- lookup parent from repository -->
+    </parent>
+
+    <artifactId>mwjwork-sample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>mwjwork-sample</name>
+    <description>Demo project for Spring Boot</description>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mwj</groupId>
+            <artifactId>mwjwork-framework</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <!-- 已经包含Junit, mockito及其所有依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- 将所有依赖包全部打到一个Jar包里面 -->
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- 最终打出来的Jar的名称 -->
+        <finalName>${project.artifactId}</finalName>
+    </build>
+
+</project>

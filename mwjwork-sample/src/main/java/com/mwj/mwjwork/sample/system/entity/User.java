@@ -1,8 +1,6 @@
 package com.mwj.mwjwork.sample.system.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mwj.mwjwork.common.util.date.DateFormatUtil;
-import com.mwj.mwjwork.framework.entity.BaseEntity;
+import com.mwj.mwjwork.framework.web.entity.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;

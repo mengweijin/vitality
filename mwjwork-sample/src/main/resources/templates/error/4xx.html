@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mwj-cms - 404</title>
+    <!--/** content="5，即5秒后返回首页(url=/表示首页)，可根据需要修改或者删除这段代码 **/-->
+    <meta http-equiv="refresh" content="5;url=/">
+</head>
+<body>
+<h1>404</h1>
+<h3>找不到网页！</h3>
+<div>
+    对不起，网页走丢了。
+    <div th:fragment="backIndexInterval" style="display:inline-block;">
+        <span id="seconds" style="display:inline-block;color: red;text-decoration: underline;">5</span>
+        秒后返回主页。<a href="javascript:top.document.location.href='/'">主页</a>
+
+        <script type="text/javascript">
+            //循环执行，每隔1秒钟执行一次 1000
+            let interval = window.setInterval(function () {
+                let seconds = document.getElementById("seconds");
+                if(seconds.innerText > 0){
+                    seconds.innerText = seconds.innerText - 1;
+                } else {
+                    //去掉定时器的方法
+                    window.clearInterval(interval);
+                }
+            }, 1000);
+
+        </script>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="include :: header"></head>
+
+<body class="container">
+    <div class="row center-block">
+        <div class="col-md-12">
+            <blockquote class="layui-elem-quote" style="margin-bottom: -10px;">
+                <p style="font-weight: bold;">技术选型：</p>
+            </blockquote>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>分类</th>
+                    <th>名称</th>
+                    <th>说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>应用基础框架</td>
+                    <td>Spring Boot</td>
+                    <td>Spring Boot 2.0以上版本，使用JDK 1.8以上版本</td>
+                </tr>
+                <tr>
+                    <td>模板引擎</td>
+                    <td>Thymeleaf</td>
+                    <td>前台HTML页面渲染模板引擎</td>
+                </tr>
+                <tr>
+                    <td>ORM框架</td>
+                    <td>Spring Data JPA</td>
+                    <td>操作数据库，方便的增删改查操作</td>
+                </tr>
+                <tr>
+                    <td>应用服务器</td>
+                    <td>Apache Tomcat</td>
+                    <td>应用服务器</td>
+                </tr>
+                <tr>
+                    <td>数据库</td>
+                    <td>H2</td>
+                    <td>Java内存数据库</td>
+                </tr>
+                <tr>
+                    <td>压缩工具</td>
+                    <td>7z</td>
+                    <td>压缩/解压缩工具，全格式支持</td>
+                </tr>
+                <tr>
+                    <td>工具类库</td>
+                    <td>apache commons系列、Google Guava、fastJSON、JSoup、hutool</td>
+                    <td>常用工具类库，避免重复造轮子</td>
+                </tr>
+                <tr>
+                    <td>前端框架/组件</td>
+                    <td>jquery、layui、bootstrap</td>
+                    <td>jquery前端js库；layui前端UI库；bootstrap前端css库。</td>
+                </tr>
+                <tr>
+                    <td>字体图标</td>
+                    <td>Font Awesome、Glyphicons、Layui icon</td>
+                    <td>支持Font Awesome、Glyphicons、Layui字体图标</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div style="text-align: center">
+        联系作者
+        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes" class="mwj-mgr">
+            <i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
+        </a>
+        The MIT License (MIT) Copyright © 2018~<span id="nowYear"></span> Meng Wei Jin
+    </div>
+
+<div th:include="include::footer"></div>
+<script>
+    $(function () {
+        $("#nowYear").text(new Date().getFullYear());
+    });
+</script>
+</body>
+
+</html>

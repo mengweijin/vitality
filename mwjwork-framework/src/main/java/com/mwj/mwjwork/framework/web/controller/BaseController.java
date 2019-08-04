@@ -15,7 +15,7 @@ import java.util.List;
  * @author Meng Wei Jin
  * @description
  **/
-@Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+@Transactional(rollbackFor = {Exception.class})
 @Slf4j
 public class BaseController {
 

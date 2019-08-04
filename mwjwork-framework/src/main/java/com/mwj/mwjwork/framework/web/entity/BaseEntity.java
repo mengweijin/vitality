@@ -1,4 +1,4 @@
-package com.mwj.mwjwork.framework.entity;
+package com.mwj.mwjwork.framework.web.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mwj.mwjwork.common.util.date.DateFormatUtil;

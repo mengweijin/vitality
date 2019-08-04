@@ -99,9 +99,7 @@ public class Result<T> {
     }
 
     public static Result resultByBoolean(Boolean flag, String msg) {
-        if(StringUtils.isBlank(msg)){
-            return  flag ? success() : error();
-        }
+        msg = StringUtils.isBlank(msg) ? Const.EMPTY : msg;
         return flag ? success(msg) : error(msg);
     }
 }

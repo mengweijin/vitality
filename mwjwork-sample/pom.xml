@@ -15,6 +15,18 @@
     <description>Demo project for Spring Boot</description>
 
 
+    <properties>
+        <!-- webjars -->
+        <webjars-locator.version>0.36</webjars-locator.version>
+        <jquery.version>3.4.1</jquery.version>
+        <bootstrap.version>4.3.1</bootstrap.version>
+        <font-awesome.version>5.8.2</font-awesome.version>
+        <layui.version>2.4.5</layui.version>
+        <respond.version>1.4.2</respond.version>
+        <html5shiv.version>3.7.3</html5shiv.version>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>com.mwj</groupId>
@@ -27,6 +39,73 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- SpringBoot集成thymeleaf模板 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- webjars -->
+        <!--
+            Webjars版本定位工具（前端）
+            解决访问WebJars静态资源时必须携带版本号的繁琐问题。
+            1、不加该工具访问静态资源路径：必须携带版本号
+            快速访问：http://localhost:8080/webjars/jquery/3.3.1/jquery.js
+            2、加上该工具访问静态资源路径：不需要携带版本号
+            快速访问：http://localhost:8080/webjars/jquery/jquery.js （推荐）
+
+            举个例子，某项目准备将BootStrap 3.3.x 升级到 4.x 大版本，此时除了在POM文件调整之外，
+            还需要大面积的在页面中调整因为版本号变更引起问题的路径，而使用定位器之后无需输入版本号自动定位。
+        -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${webjars-locator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars</groupId>
+                    <artifactId>jquery</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${font-awesome.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>layui</artifactId>
+            <version>${layui.version}</version>
+        </dependency>
+
+        <!-- respond和html5shiv：让IE8/9支持媒体查询 -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>respond</artifactId>
+            <version>${respond.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>html5shiv</artifactId>
+            <version>${html5shiv.version}</version>
         </dependency>
     </dependencies>
 

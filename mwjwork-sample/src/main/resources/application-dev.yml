@@ -32,11 +32,20 @@ spring:
     console:
       # 是否允许网页访问，默认false
       enabled: true
-      # h2数据库的访问路径：http://localhost:8080/h2-console（默认为/h2-console）
-      path: /h2-console
+      # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
+      path: /h2
       settings:
         # 是否允许从其他地方访问，还是只允许从本地访问
         web-allow-others: true
-
+  thymeleaf:
+    #thymeleaf的默认配置
+    #prefix: classpath:/templates/
+    #suffix: .html
+    #mode: HTML5
+    #encoding: UTF-8
+    #content-type: text/html
+    # 禁用缓存。Thymeleaf缓存在开发过程中，肯定是不行的，那么就要在开发的时候把缓存关闭
+    cache: false
+    #默认错误页面位置：classpath:/templates/error，错误页面以错误编码命名，如404.html，或者5xx.html（表示匹配所有以5开头的错误http状态）
 
 

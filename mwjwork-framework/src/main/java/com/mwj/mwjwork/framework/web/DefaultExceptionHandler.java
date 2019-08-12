@@ -1,6 +1,7 @@
 package com.mwj.mwjwork.framework.web;
 
 import com.mwj.mwjwork.common.exception.SystemException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,9 @@ import javax.servlet.http.HttpServletRequest;
  * @description 自定义异常处理器
  * 注意，不要重复定义异常捕获，对于父类里已经定义好的，只要overwrite就好，不要重复声明异常拦截。
  **/
+@Slf4j
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
 
     @ExceptionHandler({
             SystemException.class,
@@ -31,7 +29,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     })
     @ResponseBody
     ResponseEntity handleException(HttpServletRequest request, Throwable e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
         return new ResponseEntity<>(status);
     }

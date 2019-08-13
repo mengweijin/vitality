@@ -43,7 +43,7 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(id);
         user.setName("Tom");
-        userRepository.saveDynamicAndFlush(id, user);
+        userRepository.saveDynamic(id, user);
     }
 
     @PostMapping("/findAll")

@@ -6,6 +6,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.beans.FeatureDescriptor;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
  * @description
  * @date Create in 2019-08-12 22:09
  **/
+@Transactional(rollbackFor = Exception.class)
 @NoRepositoryBean
 public class SimpleBaseRepository<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 

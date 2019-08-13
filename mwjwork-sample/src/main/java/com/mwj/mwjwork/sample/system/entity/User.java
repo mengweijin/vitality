@@ -1,7 +1,7 @@
 package com.mwj.mwjwork.sample.system.entity;
 
 import com.mwj.mwjwork.framework.web.entity.BaseEntity;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
@@ -18,7 +18,10 @@ import javax.persistence.*;
 @SelectBeforeUpdate
 @DynamicUpdate
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class User extends BaseEntity {
 
     @Column(length = 30)

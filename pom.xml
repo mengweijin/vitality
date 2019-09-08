@@ -39,6 +39,9 @@
         <jsoup.version>1.12.1</jsoup.version>
 
         <h2.version>1.4.199</h2.version>
+        <mockito.version>3.0.0</mockito.version>
+        <powermock.version>2.0.2</powermock.version>
+        <orika-starter.version>1.8.0</orika-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +70,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.rakugakibox.spring.boot</groupId>
+                <artifactId>orika-spring-boot-starter</artifactId>
+                <version>${orika-starter.version}</version>
             </dependency>
 
             <dependency>
@@ -130,6 +139,27 @@
                 <artifactId>h2</artifactId>
                 <scope>runtime</scope>
                 <version>${h2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>

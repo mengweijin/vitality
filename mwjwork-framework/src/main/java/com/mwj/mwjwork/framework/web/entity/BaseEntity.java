@@ -2,6 +2,7 @@ package com.mwj.mwjwork.framework.web.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mwj.mwjwork.common.util.date.DateFormatUtil;
+import com.mwj.mwjwork.framework.idgenerator.TimestampIdGenerator;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,12 +23,16 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+public abstract class BaseEntity {
 
     private static final String ID_GENERATOR_NAME = "ID_GENERATOR";
 
+    private static final String STRATEGY_TIMESTAMP = "com.mwj.mwjwork.framework.idgenerator.TimestampIdGenerator";
+
+    private static final String STRATEGY_SNOWFLAKE = "com.mwj.mwjwork.framework.idgenerator.SnowflakeIdGenerator";
+
     @Id
-    @GenericGenerator(name = ID_GENERATOR_NAME, strategy = "com.mwj.mwjwork.framework.idgenerator.TimestampIdGenerator")
+    @GenericGenerator(name = ID_GENERATOR_NAME, strategy = STRATEGY_TIMESTAMP)
     @GeneratedValue(generator = ID_GENERATOR_NAME)
     protected Long id;
 

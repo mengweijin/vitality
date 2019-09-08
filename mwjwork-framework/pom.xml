@@ -46,6 +46,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.rakugakibox.spring.boot</groupId>
+            <artifactId>orika-spring-boot-starter</artifactId>
+            <version>${orika-starter.version}</version>
+        </dependency>
+
         <!-- SpringBoot devtools 注意：和 mybatis-plus枚举扫描冲突 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,10 +62,28 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 已经包含Junit, mockito及其所有依赖 -->
+        <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
             <scope>test</scope>
         </dependency>
 

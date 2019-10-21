@@ -1,5 +1,6 @@
 package com.mwj.mwjwork.sample.system.entity;
 
+import com.mwj.mwjwork.framework.validator.CharsetLength;
 import com.mwj.mwjwork.framework.web.entity.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -24,6 +25,7 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 public class User extends BaseEntity {
 
+    @CharsetLength(max = 10)
     @Column(length = 30)
     private String name;
 

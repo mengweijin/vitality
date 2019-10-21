@@ -18,9 +18,9 @@ public class UserService {
 
     public void insert(){
         User user;
-        for(int i = 1; i <= 100; i++){
+        for(int i = 1; i <= 1; i++){
             user = new User();
-            user.setName("vitas " + i);
+            user.setName("四个汉字" + i);
             user.setAge(i);
             user = userRepository.saveAndFlush(user);
         }

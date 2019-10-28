@@ -2,6 +2,7 @@ package com.mwj.mwjwork.sample.system.entity;
 
 import com.mwj.mwjwork.framework.validator.CharsetLength;
 import com.mwj.mwjwork.framework.web.entity.BaseEntity;
+import com.mwj.mwjwork.sample.system.enums.HttpMethod;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -19,8 +20,7 @@ import javax.persistence.*;
 @SelectBeforeUpdate
 @DynamicUpdate
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class User extends BaseEntity {
@@ -32,5 +32,7 @@ public class User extends BaseEntity {
     @Column(length = 3)
     private Integer age;
 
-
+    @Enumerated(value = EnumType.STRING)
+    @Column
+    private HttpMethod httpMethod;
 }

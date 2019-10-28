@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -15,8 +16,9 @@ import java.util.List;
  * @author Meng Wei Jin
  * @description
  **/
-@Transactional(rollbackFor = {Exception.class})
 @Slf4j
+@Validated
+@Transactional(rollbackFor = {Exception.class})
 public class BaseController {
 
     /**

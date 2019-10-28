@@ -1,6 +1,8 @@
 package com.mwj.mwjwork.framework.jpa;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -14,4 +16,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing
 @EnableJpaRepositories(repositoryBaseClass = SimpleBaseRepository.class, basePackages = {"com.mwj"})
 public class JpaConfig {
+
+    /**
+     * 自动填充 @CreatedBy， @LastModifiedBy
+     * @return
+     */
+    @Bean
+    public AuditorAware getAuditorAware(){
+        return new AuditorAwareImpl();
+    }
 }

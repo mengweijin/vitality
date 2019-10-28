@@ -1,6 +1,7 @@
 package com.mwj.mwjwork.framework.web;
 
 import com.mwj.mwjwork.common.exception.SystemException;
+import com.mwj.mwjwork.framework.web.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity handleException(HttpServletRequest request, Throwable e) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
-        return new ResponseEntity<>(status);
+        return new ResponseEntity<>(Result.error(status.value(), e.getMessage()), status);
     }
 
     /**

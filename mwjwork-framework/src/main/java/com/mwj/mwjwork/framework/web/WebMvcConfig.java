@@ -2,8 +2,10 @@ package com.mwj.mwjwork.framework.web;
 
 import com.mwj.mwjwork.framework.page.PageArgumentResolver;
 import com.mwj.mwjwork.framework.util.SpringUtils;
+import com.mwj.mwjwork.framework.web.converter.EnumConverterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -39,6 +41,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(SpringUtils.getBean(PageArgumentResolver.class));
+    }
+
+    /**
+     * 传参转换枚举，子类实现 BaseEnum
+     * @param registry
+     */
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverterFactory(new EnumConverterFactory());
     }
 
     /**

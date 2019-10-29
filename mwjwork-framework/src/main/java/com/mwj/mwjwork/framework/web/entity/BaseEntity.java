@@ -65,4 +65,5 @@ public abstract class BaseEntity {
     @LastModifiedBy
     @Column(name = "UPDATE_BY")
     protected String updateBy;
+
 }

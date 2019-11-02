@@ -1,4 +1,6 @@
 package com.mwj.mwjwork.sample.system.controller;
+import com.mwj.mwjwork.sample.system.enums.UserType;
+import java.time.LocalDateTime;
 
 import com.mwj.mwjwork.framework.page.Pager;
 import com.mwj.mwjwork.framework.web.controller.BaseController;
@@ -26,16 +28,15 @@ import java.util.List;
 public class UserController extends BaseController {
 
     @Autowired
-    private UserRepository userRepository;
-
-
-    @Autowired
     private UserService userService;
 
 
     @PostMapping("/insert")
-    public void insert(){
-        userService.insert();
+    public void insert(User user){
+        user.setName("张三");
+        user.setAge(13);
+        user.setUserType(UserType.USER);
+        userService.saveAndFlush(user);
     }
 
     @PostMapping("/update/{id}")
@@ -43,17 +44,17 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(id);
         user.setName("Tom");
-        userRepository.saveDynamic(id, user);
+        userService.saveDynamic(id, user);
     }
 
-    @PostMapping("/findAll")
+    @PostMapping("/all")
     public List<User> findAll(){
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
-    @PostMapping("/findPage")
+    @PostMapping("/page")
     public Page findPage(Pager pager){
         Pageable pageable = PageRequest.of(pager.getPage(), pager.getLimit());
-        return userRepository.findAll(pageable);
+        return userService.findAll(pageable);
     }
 }

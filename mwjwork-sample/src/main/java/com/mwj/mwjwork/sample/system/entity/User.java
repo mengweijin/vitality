@@ -2,7 +2,7 @@ package com.mwj.mwjwork.sample.system.entity;
 
 import com.mwj.mwjwork.framework.validator.CharsetLength;
 import com.mwj.mwjwork.framework.web.entity.BaseEntity;
-import com.mwj.mwjwork.sample.system.enums.HttpMethod;
+import com.mwj.mwjwork.sample.system.enums.UserType;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,11 +16,8 @@ import javax.persistence.*;
  * @date Create in 2019-07-27 12:49
  **/
 
-@DynamicInsert
-@SelectBeforeUpdate
-@DynamicUpdate
-@Entity
 @Data
+@Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class User extends BaseEntity {
@@ -34,5 +31,5 @@ public class User extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
     @Column
-    private HttpMethod httpMethod;
+    private UserType userType;
 }

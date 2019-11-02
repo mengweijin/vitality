@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.mwj.mwjwork.common.util.date.DateFormatUtil;
-import com.mwj.mwjwork.framework.idgenerator.TimestampIdGenerator;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SelectBeforeUpdate;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,11 +20,23 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
+ * 注释：@DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+ * 注释：@JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+ * 注释：启用UTC时间就不需要了
+ *
+ * 格式化日期相关配置（不知道为什么不生效）：
+ * # GMT+8, UTC
+ * spring.jackson.time-zone=GMT+8
+ * spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+ *
  * @author Meng Wei Jin
  * @description
  * @date Create in 2019-07-28 15:18
  **/
 @Data
+@DynamicInsert
+@DynamicUpdate
+@SelectBeforeUpdate
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
@@ -47,14 +59,14 @@ public abstract class BaseEntity {
     protected Long id;
 
     @CreatedDate
-    @DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
-    @JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+    //@DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+    //@JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
     @Column(name = "CREATE_TIME")
     protected LocalDateTime createTime;
 
     @LastModifiedDate
-    @DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
-    @JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+    //@DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
+    //@JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
     @Column(name = "UPDATE_TIME")
     protected LocalDateTime updateTime;
 
@@ -66,4 +78,15 @@ public abstract class BaseEntity {
     @Column(name = "UPDATE_BY")
     protected String updateBy;
 
+    /**
+     * 删除标记 --系统只做逻辑删除
+     */
+    @Column
+    protected Boolean deleted = Boolean.FALSE;
+
+    /**
+     * 启用标记 --默认启用
+     */
+    @Column
+    protected Boolean enabled = Boolean.TRUE;
 }

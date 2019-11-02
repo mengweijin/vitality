@@ -10,7 +10,8 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: messages
-  jackson:
-    time-zone: GMT+8
+  #jackson:
+    # 默认就是UTC时区
+    #time-zone: UTC
     # 加上这个配置，从前台接收LocalDateTime类型可直接使用@DateTimeFormat注解
-    date-format: yyyy-MM-dd HH:mm:ss
+    #date-format: yyyy-MM-dd HH:mm:ss

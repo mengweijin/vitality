@@ -50,7 +50,7 @@ public class PageArgumentResolver implements HandlerMethodArgumentResolver {
         int limit = NumberUtils.toInt(sizeStr, Pager.DEFAULT_LIMIT);
 
         // 前台分页一般从1开始，Jpa分页从0开始计数，这里做个转换
-        page = page < 0 ? 0 : page - 1;
+        page = page <= 0 ? 0 : page - 1;
 
         return new Pager().setPage(page).setLimit(limit);
     }

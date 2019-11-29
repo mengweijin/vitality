@@ -39,6 +39,7 @@
         <jsoup.version>1.12.1</jsoup.version>
 
         <h2.version>1.4.199</h2.version>
+        <junit4.version>4.12</junit4.version>
         <mockito.version>3.0.0</mockito.version>
         <powermock.version>2.0.2</powermock.version>
         <orika-starter.version>1.8.0</orika-starter.version>
@@ -139,6 +140,13 @@
                 <artifactId>h2</artifactId>
                 <scope>runtime</scope>
                 <version>${h2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit4.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>

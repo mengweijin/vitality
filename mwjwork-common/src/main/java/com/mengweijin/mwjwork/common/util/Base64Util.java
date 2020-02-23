@@ -7,6 +7,7 @@ import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Meng Wei Jin
@@ -25,7 +26,7 @@ public class Base64Util {
      * @return
      */
     public static String encode(String str){
-        return base64Encoder.encode(str.getBytes(Charset.forName(Const.UTF_8)));
+        return base64Encoder.encode(str.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
@@ -34,7 +35,7 @@ public class Base64Util {
      * @return
      */
     public static String decode(String str) throws IOException {
-        return new String(base64Decoder.decodeBuffer(str), Const.UTF_8);
+        return new String(base64Decoder.decodeBuffer(str), StandardCharsets.UTF_8);
     }
 
     /**

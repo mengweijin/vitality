@@ -1,5 +1,6 @@
 package com.mengweijin.mwjwork.common.constant;
 
+import java.io.File;
 import java.nio.charset.Charset;
 
 /**
@@ -144,14 +145,6 @@ public interface Const {
 
     String HASH_LEFT_BRACE = "#{";
 
-    String UTF_8 = "UTF-8";
-
-    String GBK = "GBK";
-
-    String US_ASCII = "US-ASCII";
-
-    String ISO_8859_1 = "ISO-8859-1";
-
     /**
      * 系统字符集编码
      */
@@ -160,11 +153,11 @@ public interface Const {
     /**
      * java项目根路径
      */
-    String PROJECT_PATH = System.getProperty("user.dir");
+    String PROJECT_PATH = System.getProperty("user.dir")  + File.separatorChar;
 
     /**
      * 操作系统的临时目录
      */
-    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
+    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir")  + File.separatorChar;
 
 }

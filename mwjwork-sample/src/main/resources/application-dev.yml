@@ -5,9 +5,7 @@ logging:
   file: logs/app.log
   level:
     root: info
-    com.mwj: debug
-    org.springframework: info
-    org.spring.springboot.dao: debug
+    com.mengweijin: debug
 spring:
   devtools:
     restart:

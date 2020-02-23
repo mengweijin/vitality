@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mwj</groupId>
+    <groupId>com.mengweijin</groupId>
     <artifactId>mwjwork</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -24,7 +24,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <skipTests>true</skipTests>
 
-        <springboot.version>2.1.6.RELEASE</springboot.version>
+        <springboot.version>2.2.4.RELEASE</springboot.version>
 
         <lombok.version>1.18.8</lombok.version>
         <guava.version>27.1-jre</guava.version>
@@ -35,8 +35,8 @@
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.58</fastjson.version>
         <json.version>20180813</json.version>
-        <hutool.version>4.6.0</hutool.version>
-        <jsoup.version>1.12.1</jsoup.version>
+        <hutool.version>5.1.3</hutool.version>
+        <jsoup.version>1.12.2</jsoup.version>
 
         <h2.version>1.4.199</h2.version>
         <junit4.version>4.12</junit4.version>

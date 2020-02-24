@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +32,7 @@ public class AjaxResponse<T> {
     /**
      * 附加描述信息
      */
-    private List<String> messageList = Collections.emptyList();
+    private List<String> messageList = new ArrayList<>();
 
     /**
      * 返回数据

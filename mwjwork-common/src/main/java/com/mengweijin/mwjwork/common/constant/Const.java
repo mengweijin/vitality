@@ -156,8 +156,8 @@ public interface Const {
     String PROJECT_PATH = System.getProperty("user.dir")  + File.separatorChar;
 
     /**
-     * 操作系统的临时目录
+     * 操作系统的临时目录 Temp\  已经携带 File.separatorChar 字符
      */
-    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir")  + File.separatorChar;
+    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
 
 }

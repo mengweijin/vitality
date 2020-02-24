@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-        <skipTests>true</skipTests>
+        <!-- <skipTests>true</skipTests> -->
 
         <springboot.version>2.2.4.RELEASE</springboot.version>
 

@@ -7,6 +7,8 @@ server:
 spring:
   profiles:
     active: local
+  mvc:
+    throw-exception-if-no-handler-found: true
   messages:
     # 国际化资源文件路径
     basename: messages

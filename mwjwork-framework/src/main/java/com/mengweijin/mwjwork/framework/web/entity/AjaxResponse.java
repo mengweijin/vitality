@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Meng Wei Jin
  * @description 实体类属性名称对应layui表格请求和响应所需要的默认参数名称
@@ -18,7 +21,7 @@ import org.springframework.http.HttpStatus;
 @Accessors(chain = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Result<T> {
+public class AjaxResponse<T> {
 
     private static final long serialVersionUID = 1967183638333866256L;
 
@@ -30,7 +33,7 @@ public class Result<T> {
     /**
      * 附加描述信息
      */
-    private String msg = Const.EMPTY;
+    private List<String> messageList = Collections.emptyList();
 
     /**
      * 返回数据
@@ -38,20 +41,23 @@ public class Result<T> {
     @NonNull
     private T data;
 
+    public AjaxResponse<?> addMessage(String message){
+        messageList.add(message);
+        return this;
+    }
+
     /**
      * 返回成功消息
      *
      * @param msg 内容
      * @return 成功消息
      */
-    public static Result success(String msg) {
-        Result result = new Result();
-        result.setMsg(msg);
-        return result;
+    public AjaxResponse<?> success(String msg) {
+        return this.addMessage(msg);
     }
 
-    public static Result success() {
-        return success(MessageSourceUtils.message("operation.successful"));
+    public AjaxResponse<?> success() {
+        return this.success(MessageSourceUtils.message("operation.successful"));
     }
 
     /**
@@ -61,11 +67,8 @@ public class Result<T> {
      * @param msg  内容
      * @return
      */
-    public static Result error(int code, String msg) {
-        Result result = new Result();
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
+    public AjaxResponse<?> error(int code, String msg) {
+        return this.setCode(code).addMessage(msg);
     }
 
     /**
@@ -74,19 +77,19 @@ public class Result<T> {
      * @param msg
      * @return
      */
-    public static Result error(String msg) {
-        return error(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
+    public AjaxResponse<?> error(String msg) {
+        return this.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
     }
 
-    public static Result error() {
-        return error(MessageSourceUtils.message("operation.failed"));
+    public AjaxResponse<?> error() {
+        return this.error(MessageSourceUtils.message("operation.failed"));
     }
 
     /**
      * @param rows 受影响的行数
      * @return
      */
-    public static Result resultByRows(int rows) {
+    public AjaxResponse<?> resultByRows(int rows) {
         return rows > 0 ? success() : error();
     }
 
@@ -94,11 +97,11 @@ public class Result<T> {
      * @param flag
      * @return
      */
-    public static Result resultByBoolean(Boolean flag) {
+    public AjaxResponse<?> resultByBoolean(Boolean flag) {
         return flag ? success() : error();
     }
 
-    public static Result resultByBoolean(Boolean flag, String msg) {
+    public AjaxResponse<?> resultByBoolean(Boolean flag, String msg) {
         msg = StringUtils.isBlank(msg) ? Const.EMPTY : msg;
         return flag ? success(msg) : error(msg);
     }

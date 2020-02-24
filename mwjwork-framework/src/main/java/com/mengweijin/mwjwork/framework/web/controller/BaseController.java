@@ -2,7 +2,7 @@ package com.mengweijin.mwjwork.framework.web.controller;
 
 import com.mengweijin.mwjwork.common.constant.Const;
 import com.mengweijin.mwjwork.framework.util.ServletUtils;
-import com.mengweijin.mwjwork.framework.web.entity.Result;
+import com.mengweijin.mwjwork.framework.web.entity.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,13 +42,18 @@ public class BaseController {
      * @param bindingResult
      * @return
      */
-    public Result validateErrorResult(BindingResult bindingResult){
-        StringBuilder sb = new StringBuilder();
+    public AjaxResponse<?> validateErrorResult(BindingResult bindingResult){
         List<ObjectError> errors = bindingResult.getAllErrors();
+
+        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         for (ObjectError err : errors) {
-            sb.append(err.getDefaultMessage() + Const.SEMICOLON + Const.NEWLINE + Const.NEWLINE_HTML);
+            ajaxResponse.addMessage(err.getDefaultMessage() + Const.SEMICOLON);
         }
 
-        return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), sb.toString());
+        return ajaxResponse;
+    }
+
+    public AjaxResponse<?> success() {
+        return new AjaxResponse<>().success();
     }
 }

@@ -1,16 +1,22 @@
 package com.mengweijin.mwjwork.framework.web;
 
-import com.mengweijin.mwjwork.common.exception.SystemException;
-import com.mengweijin.mwjwork.framework.web.entity.Result;
+import com.mengweijin.mwjwork.framework.web.entity.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Meng Wei Jin
@@ -21,16 +27,26 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({
-            SystemException.class,
-            RuntimeException.class,
-            Exception.class
-    })
+    @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseBody
-    ResponseEntity handleException(HttpServletRequest request, Throwable e) {
+    ResponseEntity<?> handleException(HttpServletRequest request, Throwable e) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
-        return new ResponseEntity<>(Result.error(status.value(), e.getMessage()), status);
+        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(status.value()).addMessage(e.getMessage());
+        return new ResponseEntity<>(ajaxResponse, status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleBindException(
+            BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        BindingResult bindingResult = ex.getBindingResult();
+        final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(HttpStatus.BAD_REQUEST.value());
+        for (FieldError error: fieldErrors) {
+            ajaxResponse.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
+        }
+        return new ResponseEntity<>(ajaxResponse, HttpStatus.BAD_REQUEST);
     }
 
     /**

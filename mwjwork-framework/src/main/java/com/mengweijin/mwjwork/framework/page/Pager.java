@@ -3,6 +3,8 @@ package com.mengweijin.mwjwork.framework.page;
 import com.mengweijin.mwjwork.common.constant.Const;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +16,8 @@ import java.util.List;
  * @author Meng Wei Jin
  * @description 需要在layui的前台设置请求参数名和返回的数据的参数名根当前类对应
  **/
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Pager<T> extends PageImpl<T> {

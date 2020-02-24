@@ -26,7 +26,7 @@ public class DefaultApplicationRunner implements ApplicationRunner {
         if(new OsInfo().isWindows()){
             // 从应用程序jar里面的classpath下的files目录，拷贝 7z等文件到应用程序jar包同级目录
             FileUtil.copyJarDirectoryToDirectory("files", Const.PROJECT_PATH);
-            log.info("Copy classpath:files to " + Const.PROJECT_PATH + File.separator + "files finished!");
+            log.info("Copy classpath:files to " + Const.PROJECT_PATH + "files finished!");
         }
     }
 

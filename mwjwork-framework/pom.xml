@@ -52,6 +52,11 @@
             <version>${orika-starter.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+        </dependency>
+
         <!-- SpringBoot devtools 注意：和 mybatis-plus枚举扫描冲突 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

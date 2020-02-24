@@ -22,7 +22,7 @@ import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
  **/
 public class TrimStringType extends AbstractSingleColumnStandardBasicType<String> implements DiscriminatorType<String> {
 
-    private static final String TYPE = "com.mwj.mwjwork.framework.jpa.TrimStringType";
+    private static final String TYPE = "com.mengweijin.mwjwork.framework.jpa.TrimStringType";
 
     public static final TrimStringType INSTANCE = new TrimStringType();
 

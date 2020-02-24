@@ -14,6 +14,7 @@
     <modules>
         <module>mwjwork-common</module>
         <module>mwjwork-framework</module>
+        <module>mwjwork-framework-jpa</module>
         <module>mwjwork-sample</module>
     </modules>
 

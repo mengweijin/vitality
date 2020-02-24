@@ -1,7 +1,6 @@
-package com.mengweijin.mwjwork.framework.page;
+package com.mengweijin.mwjwork.framework.jpa.page;
 
 import com.mengweijin.mwjwork.common.constant.Const;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

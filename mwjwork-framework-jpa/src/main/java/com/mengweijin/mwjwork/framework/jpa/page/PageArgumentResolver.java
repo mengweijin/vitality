@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.page;
+package com.mengweijin.mwjwork.framework.jpa.page;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.core.MethodParameter;

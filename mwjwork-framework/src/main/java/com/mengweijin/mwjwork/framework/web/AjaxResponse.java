@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.web.entity;
+package com.mengweijin.mwjwork.framework.web;
 
 import com.mengweijin.mwjwork.common.constant.Const;
 import com.mengweijin.mwjwork.framework.util.MessageSourceUtils;

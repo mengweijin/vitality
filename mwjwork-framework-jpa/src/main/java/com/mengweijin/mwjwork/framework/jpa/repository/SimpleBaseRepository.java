@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.jpa;
+package com.mengweijin.mwjwork.framework.jpa.repository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

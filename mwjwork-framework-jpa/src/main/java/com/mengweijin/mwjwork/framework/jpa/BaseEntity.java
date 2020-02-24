@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.web.entity;
+package com.mengweijin.mwjwork.framework.jpa;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -40,9 +40,9 @@ public abstract class BaseEntity {
 
     private static final String ID_GENERATOR_NAME = "ID_GENERATOR";
 
-    private static final String STRATEGY_TIMESTAMP = "com.mengweijin.mwjwork.framework.idgenerator.TimestampIdGenerator";
+    private static final String STRATEGY_TIMESTAMP = "com.mengweijin.mwjwork.framework.jpa.idgenerator.TimestampIdGenerator";
 
-    private static final String STRATEGY_SNOWFLAKE = "com.mengweijin.mwjwork.framework.idgenerator.SnowflakeIdGenerator";
+    private static final String STRATEGY_SNOWFLAKE = "com.mengweijin.mwjwork.framework.jpa.idgenerator.SnowflakeIdGenerator";
 
     /**
      * 自动生成主键

@@ -1,5 +1,6 @@
 package com.mengweijin.mwjwork.framework.jpa;
 
+import com.mengweijin.mwjwork.framework.jpa.repository.SimpleBaseRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

@@ -1,7 +1,7 @@
 package com.mengweijin.mwjwork.sample.system.entity;
 
 import com.mengweijin.mwjwork.framework.validator.CharsetLength;
-import com.mengweijin.mwjwork.framework.web.entity.BaseEntity;
+import com.mengweijin.mwjwork.framework.jpa.BaseEntity;
 import com.mengweijin.mwjwork.sample.system.enums.UserType;
 import lombok.*;
 

@@ -1,6 +1,6 @@
-package com.mengweijin.mwjwork.framework.web;
+package com.mengweijin.mwjwork.framework.jpa;
 
-import com.mengweijin.mwjwork.framework.page.PageArgumentResolver;
+import com.mengweijin.mwjwork.framework.jpa.page.PageArgumentResolver;
 import com.mengweijin.mwjwork.framework.util.SpringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

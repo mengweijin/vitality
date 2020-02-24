@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.sample.system.repository;
 
-import com.mengweijin.mwjwork.framework.jpa.BaseRepository;
+import com.mengweijin.mwjwork.framework.jpa.repository.BaseRepository;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import org.springframework.stereotype.Repository;
 

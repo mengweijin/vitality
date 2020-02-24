@@ -1,8 +1,7 @@
 package com.mengweijin.mwjwork.sample.system.controller;
+import com.mengweijin.mwjwork.framework.jpa.page.Pager;
 import com.mengweijin.mwjwork.sample.system.enums.UserType;
-
-import com.mengweijin.mwjwork.framework.page.Pager;
-import com.mengweijin.mwjwork.framework.web.controller.BaseController;
+import com.mengweijin.mwjwork.framework.web.BaseController;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**

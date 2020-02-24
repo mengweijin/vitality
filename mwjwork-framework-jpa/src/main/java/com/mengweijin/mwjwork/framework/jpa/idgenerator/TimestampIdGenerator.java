@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.idgenerator;
+package com.mengweijin.mwjwork.framework.jpa.idgenerator;
 
 import com.mengweijin.mwjwork.common.util.IdUtils;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

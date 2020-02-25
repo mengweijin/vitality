@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mwjwork</artifactId>
+        <groupId>com.mengweijin</groupId>
+        <version>1.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mwjwork-web</artifactId>
+
+    <properties>
+        <!-- webjars -->
+        <webjars-locator.version>0.38</webjars-locator.version>
+        <jquery.version>3.4.1</jquery.version>
+        <vue.version>2.6.11</vue.version>
+        <element-ui.version>2.13.0</element-ui.version>
+        <respond.version>1.4.2</respond.version>
+        <html5shiv.version>3.7.3</html5shiv.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- webjars -->
+        <!--
+            Webjars版本定位工具（前端）
+            解决访问WebJars静态资源时必须携带版本号的繁琐问题。
+            1、不加该工具访问静态资源路径：必须携带版本号
+            快速访问：http://localhost:8080/webjars/jquery/3.3.1/jquery.js
+            2、加上该工具访问静态资源路径：不需要携带版本号
+            快速访问：http://localhost:8080/webjars/jquery/jquery.js （推荐）
+
+            举个例子，某项目准备将BootStrap 3.3.x 升级到 4.x 大版本，此时除了在POM文件调整之外，
+            还需要大面积的在页面中调整因为版本号变更引起问题的路径，而使用定位器之后无需输入版本号自动定位。
+        -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${webjars-locator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>vue</artifactId>
+            <version>${vue.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>element-ui</artifactId>
+            <version>${element-ui.version}</version>
+        </dependency>
+
+        <!-- respond和html5shiv：让IE8/9支持媒体查询 -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>respond</artifactId>
+            <version>${respond.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>html5shiv</artifactId>
+            <version>${html5shiv.version}</version>
+        </dependency>
+    </dependencies>
+</project>

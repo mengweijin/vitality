@@ -18,11 +18,16 @@
 
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>com.mengweijin</groupId>
-            <artifactId>mwjwork-web-jpa</artifactId>
+            <artifactId>mwjwork-framework-jpa</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mengweijin</groupId>
+            <artifactId>mwjwork-web</artifactId>
             <version>${parent.version}</version>
         </dependency>
 

@@ -16,7 +16,6 @@
         <module>mwjwork-framework</module>
         <module>mwjwork-framework-jpa</module>
         <module>mwjwork-web</module>
-        <module>mwjwork-web-jpa</module>
         <module>mwjwork-web-jpa-sample</module>
     </modules>
 

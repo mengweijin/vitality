@@ -46,7 +46,7 @@ public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
         pager.setPage(page.getNumber() + 1)
               .setLimit(page.getSize())
               .setCount(page.getTotalElements())
-              .setData(page.getContent());
+              .setDataList(page.getContent());
 
         return pager;
     }

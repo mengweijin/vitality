@@ -81,7 +81,7 @@ public class Pager<T> extends PageImpl<T> {
     /**
      * 查询数据列表 Layui table返回对象
      */
-    private List<T> data = Collections.emptyList();
+    private List<T> dataList = Collections.emptyList();
 
     /**
      * 成功的状态码，默认 0 为成功

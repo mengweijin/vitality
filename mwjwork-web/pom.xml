@@ -14,9 +14,10 @@
     <properties>
         <!-- webjars -->
         <webjars-locator.version>0.38</webjars-locator.version>
-        <jquery.version>3.4.1</jquery.version>
         <vue.version>2.6.11</vue.version>
         <element-ui.version>2.13.0</element-ui.version>
+        <axios.version>0.19.2</axios.version>
+        <momentjs.version>2.24.0</momentjs.version>
         <respond.version>1.4.2</respond.version>
         <html5shiv.version>3.7.3</html5shiv.version>
     </properties>
@@ -45,12 +46,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${jquery.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>vue</artifactId>
             <version>${vue.version}</version>
@@ -60,6 +55,18 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>element-ui</artifactId>
             <version>${element-ui.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>axios</artifactId>
+            <version>${axios.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>momentjs</artifactId>
+            <version>${momentjs.version}</version>
         </dependency>
 
         <!-- respond和html5shiv：让IE8/9支持媒体查询 -->

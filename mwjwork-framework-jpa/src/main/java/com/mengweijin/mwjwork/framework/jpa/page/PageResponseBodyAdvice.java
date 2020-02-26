@@ -39,15 +39,12 @@ public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
      */
     @Override
     public Page beforeBodyWrite(Page page, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-
         Pager pager = new Pager<>();
-        // layui page response parameter
         // 前台分页一般从1开始，Jpa分页从0开始计数，这里做个转换
-        pager.setPage(page.getNumber() + 1)
-              .setLimit(page.getSize())
-              .setCount(page.getTotalElements())
+        pager.setCurrent(page.getNumber() + 1)
+              .setSize(page.getSize())
+              .setTotal(page.getTotalElements())
               .setDataList(page.getContent());
-
         return pager;
     }
 }

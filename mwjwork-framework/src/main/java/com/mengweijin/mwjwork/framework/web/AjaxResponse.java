@@ -56,7 +56,7 @@ public class AjaxResponse<T> {
     }
 
     public AjaxResponse<?> success() {
-        return this.success(MessageSourceUtils.message("operation.successful"));
+        return this.success(Const.SUCCESS);
     }
 
     /**
@@ -81,7 +81,7 @@ public class AjaxResponse<T> {
     }
 
     public AjaxResponse<?> error() {
-        return this.error(MessageSourceUtils.message("operation.failed"));
+        return this.error(Const.FAILED);
     }
 
     /**

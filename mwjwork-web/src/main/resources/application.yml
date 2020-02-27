@@ -6,7 +6,7 @@ server:
     uri-encoding: UTF-8
 spring:
   profiles:
-    active: local
+    active: dev
   mvc:
     throw-exception-if-no-handler-found: true
   messages:

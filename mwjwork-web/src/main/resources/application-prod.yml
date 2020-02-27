@@ -1,29 +1,21 @@
-# 调试模式。核心Logger（包含嵌入式容器、hibernate、spring）会输出更多内容，但是你自己应用的日志并不会输出为DEBUG级别。
-debug: true
-#日志配置
-logging:
-  file: logs/app.log
-  level:
-    root: info
-    com.mengweijin: debug
 spring:
   devtools:
     restart:
-      enabled: true
+      enabled: false
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
   datasource:
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    driver-class-name: org.h2.Driver
     # 以本地文件存储数据的方式使用H2数据库。
     # ./h2/test 在项目根路径下保存数据库文件
     # AUTO_SERVER=true 启动自动混合模式，允许开启多个连接，该参数不支持在内存中运行模式
     # DB_CLOSE_ON_EXIT 当虚拟机退出时并不关闭数据库
-    url: jdbc:p6spy:h2:file:./h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:./h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
     # 以内存方式使用数据库（这里会创建一个数据库名为 test 的数据库实例）
     # MODE=MYSQL 兼容模式
     # url: jdbc:h2:mem:test;MODE=MYSQL
@@ -32,7 +24,7 @@ spring:
   h2:
     console:
       # 是否允许网页访问，默认false
-      enabled: true
+      enabled: false
       # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
       path: /h2
       settings:
@@ -46,7 +38,29 @@ spring:
     #encoding: UTF-8
     #content-type: text/html
     # 禁用缓存。Thymeleaf缓存在开发过程中，肯定是不行的，那么就要在开发的时候把缓存关闭
-    cache: false
+    cache: true
     #默认错误页面位置：classpath:/templates/error，错误页面以错误编码命名，如404.html，或者5xx.html（表示匹配所有以5开头的错误http状态）
-
-
+# 调试模式。核心Logger（包含嵌入式容器、hibernate、spring）会输出更多内容，但是你自己应用的日志并不会输出为DEBUG级别。
+debug: false
+#日志配置
+logging:
+  file: logs/app.log
+  level:
+    root: info
+    com.mengweijin: debug
+decorator:
+  datasource:
+    enabled: false
+    p6spy:
+      # Register P6LogFactory to log JDBC events
+      enable-logging: true
+      # Use com.p6spy.engine.spy.appender.MultiLineFormat instead of com.p6spy.engine.spy.appender.SingleLineFormat
+      multiline: true
+      # Use logging for default listeners [slf4j, sysout, file]
+      logging: slf4j
+      # Log file to use (only with logging=file)
+      #log-file: spy.log
+      # Custom log format, if specified com.p6spy.engine.spy.appender.CustomLineFormat will be used with this log format
+      #log-format:
+      tracing:
+        include-parameter-values: true

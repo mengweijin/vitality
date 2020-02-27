@@ -44,12 +44,15 @@
         <dependency>
             <groupId>net.rakugakibox.spring.boot</groupId>
             <artifactId>orika-spring-boot-starter</artifactId>
-            <version>${orika-starter.version}</version>
         </dependency>
 
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- SpringBoot devtools 注意：和 mybatis-plus枚举扫描冲突 -->

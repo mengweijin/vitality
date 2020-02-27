@@ -50,7 +50,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/page")
     public Page findPage(Pager pager){
-        Pageable pageable = PageRequest.of(pager.getPage(), pager.getLimit());
+        Pageable pageable = PageRequest.of(pager.getCurrent(), pager.getSize());
         return userService.findAll(pageable);
     }
 }

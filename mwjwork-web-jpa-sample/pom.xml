@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.mengweijin</groupId>
-            <artifactId>mwjwork-framework-jpa</artifactId>
+            <artifactId>mwjwork-jpa</artifactId>
             <version>${parent.version}</version>
         </dependency>
 

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mwjwork-framework-jpa</artifactId>
+    <artifactId>mwjwork-jpa</artifactId>
 
     <dependencies>
         <dependency>

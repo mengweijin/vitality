@@ -1,11 +1,11 @@
 package com.mengweijin.mwjwork.sample.system.entity;
 
-import com.mengweijin.mwjwork.framework.validator.CharsetLength;
 import com.mengweijin.mwjwork.framework.jpa.BaseEntity;
 import com.mengweijin.mwjwork.sample.system.enums.UserType;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author Meng Wei Jin
@@ -19,7 +19,7 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 public class User extends BaseEntity {
 
-    @CharsetLength(max = 10)
+    @NotBlank
     @Column(length = 30)
     private String name;
 

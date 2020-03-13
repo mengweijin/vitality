@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -19,6 +22,7 @@ import java.util.List;
  * @description
  * @date Create in 2019-07-27 17:27
  **/
+@Validated
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -28,7 +32,7 @@ public class UserController extends BaseController {
 
 
     @PostMapping("/insert")
-    public void insert(User user){
+    public void insert(@Valid User user){
         user.setName("张三");
         user.setAge(13);
         user.setUserType(UserType.USER);

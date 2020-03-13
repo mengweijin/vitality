@@ -1,4 +1,6 @@
-package com.mengweijin.mwjwork.framework.validator;
+package com.mengweijin.mwjwork.framework.validator.annotation;
+
+import com.mengweijin.mwjwork.framework.validator.CharsetLengthValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -1,5 +1,6 @@
 package com.mengweijin.mwjwork.framework.validator;
 
+import com.mengweijin.mwjwork.framework.validator.annotation.CharsetLength;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 

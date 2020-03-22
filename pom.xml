@@ -37,7 +37,7 @@
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.62</fastjson.version>
         <json.version>20190722</json.version>
-        <hutool.version>5.1.5</hutool.version>
+        <hutool.version>5.2.4</hutool.version>
         <jsoup.version>1.12.2</jsoup.version>
         <p6spy.version>3.8.7</p6spy.version>
         <p6spy-spring-boot-starter.version>1.6.1</p6spy-spring-boot-starter.version>

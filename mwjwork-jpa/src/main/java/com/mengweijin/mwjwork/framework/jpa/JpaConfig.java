@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.framework.jpa;
 
-import com.mengweijin.mwjwork.framework.jpa.repository.SimpleBaseRepository;
+import com.mengweijin.mwjwork.framework.jpa.repository.SimpleBaseJpaRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  **/
 @Configuration
 @EnableJpaAuditing
-@EnableJpaRepositories(repositoryBaseClass = SimpleBaseRepository.class, basePackages = {"com.mengweijin"})
+@EnableJpaRepositories(repositoryBaseClass = SimpleBaseJpaRepository.class, basePackages = {"com.mengweijin"})
 public class JpaConfig {
 
     /**

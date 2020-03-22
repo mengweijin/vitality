@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.framework.jpa.service;
 
-import com.mengweijin.mwjwork.framework.jpa.repository.BaseRepository;
+import com.mengweijin.mwjwork.framework.jpa.repository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author Meng Wei Jin
  * @date Create in 2019-10-29 22:45
  **/
-public abstract class BaseServiceImpl<T, ID extends Serializable, R extends BaseRepository<T, ID>> implements BaseService<T, ID, R> {
+public abstract class BaseServiceImpl<T, ID extends Serializable, R extends BaseJpaRepository<T, ID>> implements BaseService<T, ID, R> {
 
     @Autowired
     protected R baseRepository;
@@ -26,13 +26,13 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
-    public T saveDynamic(ID id, T entity) {
-        return baseRepository.saveDynamic(id, entity);
+    public T update(ID id, T entity) {
+        return baseRepository.update(id, entity);
     }
 
     @Override
-    public T saveDynamicAndFlush(ID id, T entity) {
-        return baseRepository.saveDynamicAndFlush(id, entity);
+    public T updateAndFlush(ID id, T entity) {
+        return baseRepository.updateAndFlush(id, entity);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.mengweijin.mwjwork.sample.system.controller;
 import com.mengweijin.mwjwork.framework.jpa.page.Pager;
-import com.mengweijin.mwjwork.sample.system.enums.UserType;
 import com.mengweijin.mwjwork.framework.web.BaseController;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.service.UserService;
@@ -33,9 +32,6 @@ public class UserController extends BaseController {
 
     @PostMapping("/insert")
     public void insert(@Valid User user){
-        user.setName("张三");
-        user.setAge(13);
-        user.setUserType(UserType.USER);
         userService.saveAndFlush(user);
     }
 
@@ -44,7 +40,7 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(id);
         user.setName("Tom");
-        userService.saveDynamic(id, user);
+        userService.update(id, user);
     }
 
     @PostMapping("/all")

@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.framework.jpa.service;
 
-import com.mengweijin.mwjwork.framework.jpa.repository.BaseRepository;
+import com.mengweijin.mwjwork.framework.jpa.repository.BaseJpaRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import java.util.Optional;
  * @author Meng Wei Jin
  * @date Create in 2019-10-29 22:42
  **/
-public interface BaseService<T, ID extends Serializable, R extends BaseRepository<T, ID>> {
+public interface BaseService<T, ID extends Serializable, R extends BaseJpaRepository<T, ID>> {
 
     /**
      * 获取Repository
@@ -23,9 +23,9 @@ public interface BaseService<T, ID extends Serializable, R extends BaseRepositor
      */
     R getRepository();
 
-    T saveDynamic(ID id, T entity);
+    T update(ID id, T entity);
 
-    T saveDynamicAndFlush(ID id, T entity);
+    T updateAndFlush(ID id, T entity);
 
     List<T> findAll();
 

@@ -19,20 +19,20 @@ import java.util.stream.Stream;
  **/
 @Transactional(rollbackFor = Exception.class)
 @NoRepositoryBean
-public class SimpleBaseRepository<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> implements BaseJpaRepository<T, ID> {
 
     private final JpaEntityInformation<T, ?> entityInformation;
 
     private final EntityManager entityManager;
 
-    SimpleBaseRepository(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+    SimpleBaseJpaRepository(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.entityManager = entityManager;
     }
 
     @Override
-    public <S extends T> S saveDynamic(ID id, S entity) {
+    public <S extends T> S update(ID id, S entity) {
         if (entityInformation.isNew(entity)) {
             entityManager.persist(entity);
             return entity;
@@ -44,8 +44,8 @@ public class SimpleBaseRepository<T, ID> extends SimpleJpaRepository<T, ID> impl
     }
 
     @Override
-    public <S extends T> S saveDynamicAndFlush(ID id, S entity) {
-        S result = saveDynamic(id, entity);
+    public <S extends T> S updateAndFlush(ID id, S entity) {
+        S result = update(id, entity);
         this.flush();
         return result;
     }

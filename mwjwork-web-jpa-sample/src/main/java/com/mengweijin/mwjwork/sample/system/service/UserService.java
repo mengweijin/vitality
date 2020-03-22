@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.sample.system.service;
 
-import com.mengweijin.mwjwork.framework.jpa.service.BaseService;
+import com.mengweijin.mwjwork.jpa.service.BaseService;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.repository.UserRepository;
 

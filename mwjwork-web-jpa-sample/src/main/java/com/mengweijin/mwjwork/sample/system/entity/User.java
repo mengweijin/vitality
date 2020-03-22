@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.sample.system.entity;
 
-import com.mengweijin.mwjwork.framework.jpa.BaseEntity;
+import com.mengweijin.mwjwork.jpa.BaseEntity;
 import com.mengweijin.mwjwork.sample.system.enums.Role;
 import lombok.*;
 

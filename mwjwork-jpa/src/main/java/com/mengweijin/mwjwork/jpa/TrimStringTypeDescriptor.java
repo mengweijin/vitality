@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.jpa;
+package com.mengweijin.mwjwork.jpa;
 
 import org.hibernate.engine.jdbc.CharacterStream;
 import org.hibernate.engine.jdbc.internal.CharacterStreamImpl;

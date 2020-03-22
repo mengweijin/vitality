@@ -1,6 +1,6 @@
-package com.mengweijin.mwjwork.framework.jpa.service;
+package com.mengweijin.mwjwork.jpa.service;
 
-import com.mengweijin.mwjwork.framework.jpa.repository.BaseJpaRepository;
+import com.mengweijin.mwjwork.jpa.repository.BaseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;

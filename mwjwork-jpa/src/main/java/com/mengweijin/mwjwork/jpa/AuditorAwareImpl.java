@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.jpa;
+package com.mengweijin.mwjwork.jpa;
 
 import org.springframework.data.domain.AuditorAware;
 

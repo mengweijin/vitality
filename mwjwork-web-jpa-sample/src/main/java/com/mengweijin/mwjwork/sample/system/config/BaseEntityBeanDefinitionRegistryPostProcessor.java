@@ -1,7 +1,7 @@
 package com.mengweijin.mwjwork.sample.system.config;
 
 import cn.hutool.core.util.ClassUtil;
-import com.mengweijin.mwjwork.framework.jpa.BaseEntity;
+import com.mengweijin.mwjwork.jpa.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

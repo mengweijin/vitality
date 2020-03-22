@@ -1,5 +1,5 @@
 package com.mengweijin.mwjwork.sample.system.controller;
-import com.mengweijin.mwjwork.framework.jpa.page.Pager;
+import com.mengweijin.mwjwork.jpa.page.Pager;
 import com.mengweijin.mwjwork.framework.web.BaseController;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.service.UserService;

@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.jpa.idgenerator;
+package com.mengweijin.mwjwork.jpa.idgenerator;
 
 import com.mengweijin.mwjwork.common.util.IdUtils;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -11,10 +11,10 @@ import java.io.Serializable;
  * @description 自定义ID生成规则
  * @date Create in 2019-07-27 22:32
  **/
-public class TimestampIdGenerator implements IdentifierGenerator {
+public class SnowflakeIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor s, Object obj) {
-        return Long.valueOf(IdUtils.timestampId());
+        return Long.valueOf(IdUtils.getSnowflakeId());
     }
 }

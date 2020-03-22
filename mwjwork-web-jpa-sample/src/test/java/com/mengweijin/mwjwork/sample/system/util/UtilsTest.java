@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.sample.system.util;
 
-import com.mengweijin.mwjwork.framework.jpa.BaseEntity;
+import com.mengweijin.mwjwork.jpa.BaseEntity;
 import org.junit.Test;
 
 public class UtilsTest {

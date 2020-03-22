@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.jpa.page;
+package com.mengweijin.mwjwork.jpa.page;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;

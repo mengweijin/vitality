@@ -1,13 +1,10 @@
-package com.mengweijin.mwjwork.framework.jpa.page;
+package com.mengweijin.mwjwork.jpa.page;
 
-import com.mengweijin.mwjwork.common.constant.Const;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 import java.util.Collections;

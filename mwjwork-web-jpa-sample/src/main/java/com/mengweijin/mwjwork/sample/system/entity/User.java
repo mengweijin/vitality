@@ -2,9 +2,14 @@ package com.mengweijin.mwjwork.sample.system.entity;
 
 import com.mengweijin.mwjwork.jpa.BaseEntity;
 import com.mengweijin.mwjwork.sample.system.enums.Role;
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +22,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class User extends BaseEntity {
@@ -33,4 +39,8 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     @Column
     private Role role;
+
+    @Column
+    private Long addressId;
+
 }

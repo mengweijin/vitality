@@ -3,6 +3,7 @@ package com.mengweijin.mwjwork.sample.system.service;
 import com.mengweijin.mwjwork.jpa.service.BaseService;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.repository.UserRepository;
+import java.util.List;
 
 /**
  * @author Meng Wei Jin
@@ -11,5 +12,7 @@ import com.mengweijin.mwjwork.sample.system.repository.UserRepository;
  **/
 public interface UserService extends BaseService<User, Long, UserRepository> {
 
+    List<User> findAllByQueryDsl(User user);
 
+    List<Object> findStudentAddress(String userName, String city);
 }

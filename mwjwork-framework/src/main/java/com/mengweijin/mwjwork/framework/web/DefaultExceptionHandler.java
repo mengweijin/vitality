@@ -30,8 +30,8 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<?> handleException(HttpServletRequest request, Throwable e) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
-        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(status.value()).addMessage(e.getMessage());
-        return new ResponseEntity<>(ajaxResponse, status);
+        ErrorInfo errorInfo = new ErrorInfo().setCode(status.value()).addMessage(e.getMessage());
+        return new ResponseEntity<>(errorInfo, status);
     }
 
     @Override
@@ -40,11 +40,11 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
         BindingResult bindingResult = ex.getBindingResult();
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
-        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(HttpStatus.BAD_REQUEST.value());
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value());
         for (FieldError error: fieldErrors) {
-            ajaxResponse.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
+            errorInfo.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
         }
-        return new ResponseEntity<>(ajaxResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 
     /**

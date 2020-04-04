@@ -1,5 +1,7 @@
 package com.mengweijin.mwjwork.jpa.repository;
 
+import com.mengweijin.mwjwork.jpa.EntityMapCamelCaseResultTransformer;
+import org.hibernate.query.internal.NativeQueryImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -7,9 +9,12 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.beans.FeatureDescriptor;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -48,6 +53,44 @@ public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> i
         S result = update(id, entity);
         this.flush();
         return result;
+    }
+
+    /**
+     * native query
+     * @param sql sql
+     * @param paramMap parameter map
+     * @return List
+     */
+    @Override
+    public List findByNativeSQL(String sql , Map<String, Serializable> paramMap) {
+        Query query = entityManager.createNativeQuery(sql);
+        query.unwrap(NativeQueryImpl.class).setResultTransformer(EntityMapCamelCaseResultTransformer.INSTANCE);
+        fillParameter(query, paramMap);
+        return query.getResultList();
+    }
+
+    /**
+     * native update
+     * @param sql sql
+     * @param paramMap parameter map
+     * @return int
+     */
+    @Override
+    public int updateByNativeSQL(String sql, Map<String, Serializable> paramMap) {
+        Query query = entityManager.createNativeQuery(sql);
+        fillParameter(query, paramMap);
+        return query.executeUpdate();
+    }
+
+    /**
+     * fill parameter in sql
+     * @param query query
+     * @param paramMap parameter map
+     */
+    private void fillParameter(Query query, Map<String, Serializable> paramMap) {
+        if(paramMap != null && !paramMap.isEmpty()){
+            paramMap.forEach(query::setParameter);
+        }
     }
 
     private static String[] getNullPropertyNames(Object source) {

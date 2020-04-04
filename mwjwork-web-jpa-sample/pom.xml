@@ -22,13 +22,13 @@
         <dependency>
             <groupId>com.mengweijin</groupId>
             <artifactId>mwjwork-jpa</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.mengweijin</groupId>
             <artifactId>mwjwork-web</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->

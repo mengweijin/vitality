@@ -39,18 +39,15 @@ public class BaseController {
      * @param bindingResult
      * @return
      */
-    public AjaxResponse<?> validateErrorResult(BindingResult bindingResult){
+    public ErrorInfo validateErrorResult(BindingResult bindingResult){
         List<ObjectError> errors = bindingResult.getAllErrors();
 
-        AjaxResponse<?> ajaxResponse = new AjaxResponse<>().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         for (ObjectError err : errors) {
-            ajaxResponse.addMessage(err.getDefaultMessage() + Const.SEMICOLON);
+            errorInfo.addMessage(err.getDefaultMessage() + Const.SEMICOLON);
         }
 
-        return ajaxResponse;
+        return errorInfo;
     }
 
-    public AjaxResponse<?> success() {
-        return new AjaxResponse<>().success();
-    }
 }

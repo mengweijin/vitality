@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.mengweijin</groupId>
             <artifactId>mwjwork-common</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>

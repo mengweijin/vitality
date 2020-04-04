@@ -46,6 +46,7 @@
         <mockito.version>3.3.0</mockito.version>
         <powermock.version>2.0.5</powermock.version>
         <orika-starter.version>1.9.0</orika-starter.version>
+        <querydsl.version>4.3.1</querydsl.version>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +81,13 @@
                 <groupId>net.rakugakibox.spring.boot</groupId>
                 <artifactId>orika-spring-boot-starter</artifactId>
                 <version>${orika-starter.version}</version>
+            </dependency>
+
+            <!-- querydsl-jpa -->
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>${querydsl.version}</version>
             </dependency>
 
             <dependency>
@@ -207,25 +215,26 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
     <repositories>
         <repository>
             <id>public</id>
-            <name>aliyun nexus</name>
+            <name>aliyun public nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>public</id>
-            <name>aliyun nexus</name>
+            <name>aliyun public nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
@@ -235,4 +244,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
 </project>

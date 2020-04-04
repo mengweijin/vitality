@@ -1,8 +1,9 @@
 package com.mengweijin.mwjwork.common.util;
 
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import com.mengweijin.mwjwork.common.util.date.DateFormatUtil;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.util.Date;
 
@@ -48,7 +49,7 @@ public class IdUtils extends IdUtil {
 	 */
 	public static String timestampId() {
 		synchronized(TIMESTAMP_ID){
-			return DateFormatUtil.format(new Date(), DateFormatUtil.YYYYMMDDHHMMSSSSS);
+			return DateFormatUtils.format(new Date(), DatePattern.PURE_DATETIME_MS_PATTERN);
 		}
 
 	}

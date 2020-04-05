@@ -14,4 +14,21 @@ public class BeanA {
     private Integer ageA;
 
     private String mail;
+
+    private String localDate;
+
+    private String localTime;
+
+    private String localDateTime;
+
+    private String normDate;
+
+    private String normDateTimeMinute;
+
+    private String normDateTimeMs;
+
+    private String normDateTime;
+
+    private String chineseDate;
+
 }

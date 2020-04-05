@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.orika;
+package com.mengweijin.mwjwork.framework.orika.converter;
 
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;

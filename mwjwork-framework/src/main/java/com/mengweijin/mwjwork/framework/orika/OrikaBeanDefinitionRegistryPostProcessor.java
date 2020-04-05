@@ -1,8 +1,8 @@
-package com.mengweijin.mwjwork.sample.system.config;
+package com.mengweijin.mwjwork.framework.orika;
 
 import cn.hutool.core.util.ClassUtil;
-import com.mengweijin.mwjwork.jpa.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
+import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
@@ -18,17 +18,17 @@ import java.util.Set;
  */
 @Component
 @Slf4j
-public class BaseEntityBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+public class OrikaBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     /**
-     * 将所有BaseEntity的子类注册到spring中
+     * 将所有OrikaMapperFactoryConfigurer的子类注册到spring中
      *
      * @param registry
      * @throws BeansException
      */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        Set<Class<?>> classes = ClassUtil.scanPackageBySuper("com.mengweijin", BaseEntity.class);
+        Set<Class<?>> classes = ClassUtil.scanPackageBySuper("com.mengweijin", OrikaMapperFactoryConfigurer.class);
         classes.forEach(cls -> {
             if (!cls.isInterface() && !ClassUtil.isAbstract(cls)) {
                 GenericBeanDefinition beanDefinition = new GenericBeanDefinition();

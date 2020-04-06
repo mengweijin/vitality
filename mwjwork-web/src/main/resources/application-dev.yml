@@ -64,3 +64,19 @@ decorator:
       #log-format:
       tracing:
         include-parameter-values: true
+# 允许跨域
+cors:
+  # 启用自动配置
+  enabled: true
+  urlWhiteList:
+    - http://localhost:80
+    - http://127.0.0.1:80
+    - http://localhost:8010
+    - http://127.0.0.1:8010
+  headerWhiteList:
+  methodWhiteList:
+    - GET
+    - POST
+    - PATCH
+    - PUT
+    - DELETE

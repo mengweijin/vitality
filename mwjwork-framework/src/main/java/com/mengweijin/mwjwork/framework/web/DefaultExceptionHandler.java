@@ -1,5 +1,7 @@
 package com.mengweijin.mwjwork.framework.web;
 
+import com.mengweijin.mwjwork.common.exception.ClientException;
+import com.mengweijin.mwjwork.common.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,15 @@ import java.util.List;
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({RuntimeException.class, Exception.class})
+    @ExceptionHandler({ClientException.class})
+    @ResponseBody
+    ResponseEntity<?> handleClientException(HttpServletRequest request, Throwable e) {
+        log.error(e.getMessage(), e);
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value()).addMessage(e.getMessage());
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ServerException.class, RuntimeException.class, Exception.class})
     @ResponseBody
     ResponseEntity<?> handleException(HttpServletRequest request, Throwable e) {
         log.error(e.getMessage(), e);

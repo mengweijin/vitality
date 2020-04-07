@@ -2,7 +2,7 @@ package com.mengweijin.mwjwork.common.util;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.mengweijin.mwjwork.common.exception.SystemException;
+import com.mengweijin.mwjwork.common.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -67,11 +67,11 @@ public class TreeUtils {
         return resultList;
     }
 
-    public static <T> List<T> filterBeanByPid(List<T> list, String... parentIds) throws SystemException {
+    public static <T> List<T> filterBeanByPid(List<T> list, String... parentIds) throws ServerException {
         return filterBeanByRootId("id", "pid", list, parentIds);
     }
 
-    public static <T> List<T> filterBeanByParentId(List<T> list, String... parentIds) throws SystemException {
+    public static <T> List<T> filterBeanByParentId(List<T> list, String... parentIds) throws ServerException {
         return filterBeanByRootId("id", "parentId", list, parentIds);
     }
 
@@ -83,9 +83,9 @@ public class TreeUtils {
      * @param parentIds 父id数组
      * @param <E>
      * @return
-     * @throws SystemException
+     * @throws ServerException
      */
-    public static <E> List<E> filterBeanByRootId(String idName, String parentIdName, List<E> list, String... parentIds) throws SystemException {
+    public static <E> List<E> filterBeanByRootId(String idName, String parentIdName, List<E> list, String... parentIds) throws ServerException {
         List<E> resultList = new ArrayList<>();
         try{
             for (String parentId: parentIds){
@@ -106,17 +106,17 @@ public class TreeUtils {
             }
         } catch (RuntimeException e){
             log.error(e.getMessage(), e);
-            throw new SystemException(e);
+            throw new ServerException(e);
         }
 
         return resultList;
     }
 
-    public static <T> List<JSONObject> buildJsonBeanTreeByPid(List<T> list, String rootId) throws SystemException {
+    public static <T> List<JSONObject> buildJsonBeanTreeByPid(List<T> list, String rootId) throws ServerException {
         return buildJsonBeanTree(list, rootId, "id", "pid");
     }
 
-    public static <T> List<JSONObject> buildJsonBeanTreeByParentId(List<T> list, String rootId) throws SystemException {
+    public static <T> List<JSONObject> buildJsonBeanTreeByParentId(List<T> list, String rootId) throws ServerException {
         return buildJsonBeanTree(list, rootId, "id", "parentId");
     }
 
@@ -127,7 +127,7 @@ public class TreeUtils {
      * @param pidName 实体类对应的父id的属性名。如：Person对象下有parentId属性，属性名即为parentId
      * @param <E>     实体类泛型
      * @return
-     * @throws SystemException
+     * @throws ServerException
      */
     public static <E> List<JSONObject> buildJsonBeanTree(List<E> list, String rootId, String idName, String pidName) {
         List<JSONObject> jsonTreeList = new ArrayList<>();
@@ -151,7 +151,7 @@ public class TreeUtils {
             }
         } catch (RuntimeException e){
             log.error(e.getMessage(), e);
-            throw new SystemException(e);
+            throw new ServerException(e);
         }
 
         return jsonTreeList;
@@ -171,7 +171,7 @@ public class TreeUtils {
      * @param idName  实体类对应的id的属性名。如：Person对象下有id属性，属性名即为id
      * @param pidName 实体类对应的父id的属性名。如：Person对象下有parentId属性，属性名即为parentId
      * @return
-     * @throws SystemException
+     * @throws ServerException
      */
     public static List<JSONObject> buildJsonMapTree(List<Map<String, Object>> list, String rootId, String idName, String pidName) {
         List<JSONObject> jsonTreeList = new ArrayList<>();

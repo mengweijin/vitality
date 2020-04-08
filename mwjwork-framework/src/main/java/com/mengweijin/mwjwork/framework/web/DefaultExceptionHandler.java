@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,6 +55,19 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
         for (FieldError error: fieldErrors) {
             errorInfo.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
         }
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        BindingResult bindingResult = ex.getBindingResult();
+        final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value());
+        for (FieldError error: fieldErrors) {
+            errorInfo.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
+        }
+
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 

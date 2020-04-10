@@ -1,14 +1,14 @@
 spring:
   devtools:
     restart:
-      enabled: false
+      enabled: true
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
   datasource:
     driver-class-name: org.h2.Driver
     # 以本地文件存储数据的方式使用H2数据库。
@@ -24,24 +24,14 @@ spring:
   h2:
     console:
       # 是否允许网页访问，默认false
-      enabled: false
+      enabled: true
       # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
       path: /h2
       settings:
         # 是否允许从其他地方访问，还是只允许从本地访问
         web-allow-others: true
-  thymeleaf:
-    #thymeleaf的默认配置
-    #prefix: classpath:/templates/
-    #suffix: .html
-    #mode: HTML5
-    #encoding: UTF-8
-    #content-type: text/html
-    # 禁用缓存。Thymeleaf缓存在开发过程中，肯定是不行的，那么就要在开发的时候把缓存关闭
-    cache: true
-    #默认错误页面位置：classpath:/templates/error，错误页面以错误编码命名，如404.html，或者5xx.html（表示匹配所有以5开头的错误http状态）
 # 调试模式。核心Logger（包含嵌入式容器、hibernate、spring）会输出更多内容，但是你自己应用的日志并不会输出为DEBUG级别。
-debug: false
+debug: true
 #日志配置
 logging:
   file: logs/app.log
@@ -50,7 +40,7 @@ logging:
     com.mengweijin: debug
 decorator:
   datasource:
-    enabled: false
+    enabled: true
     p6spy:
       # Register P6LogFactory to log JDBC events
       enable-logging: true
@@ -64,3 +54,21 @@ decorator:
       #log-format:
       tracing:
         include-parameter-values: true
+# 允许跨域
+cors:
+  # 启用自动配置
+  enabled: true
+  urlWhiteList:
+    - http://localhost:80
+    - http://127.0.0.1:80
+    - http://localhost:8080
+    - http://127.0.0.1:8080
+    - http://localhost:8010
+    - http://127.0.0.1:8010
+  headerWhiteList:
+  methodWhiteList:
+    - GET
+    - POST
+    - PATCH
+    - PUT
+    - DELETE

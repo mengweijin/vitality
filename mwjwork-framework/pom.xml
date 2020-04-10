@@ -90,12 +90,5 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 内存数据库h2-->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
     </dependencies>
 </project>

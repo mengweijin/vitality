@@ -54,8 +54,10 @@ public class CorsConfig {
      */
     private void addAllowedOrigin(CorsConfiguration config) {
         List<String> whiteList = corsProperties.getUrlWhiteList();
-        if(!CollectionUtils.isEmpty(whiteList)) {
-            whiteList.forEach(origin -> config.addAllowedOrigin(origin));
+        if(CollectionUtils.isEmpty(whiteList)) {
+            config.addAllowedOrigin("*");
+        } else {
+            whiteList.forEach(config::addAllowedOrigin);
         }
     }
 
@@ -68,7 +70,7 @@ public class CorsConfig {
         if(CollectionUtils.isEmpty(whiteList)) {
             config.addAllowedHeader("*");
         } else {
-            whiteList.forEach(header -> config.addAllowedHeader(header));
+            whiteList.forEach(config::addAllowedHeader);
         }
     }
 
@@ -81,7 +83,7 @@ public class CorsConfig {
         if(CollectionUtils.isEmpty(whiteList)) {
             config.addAllowedMethod("*");
         } else {
-            whiteList.forEach(method -> config.addAllowedMethod(method));
+            whiteList.forEach(config::addAllowedMethod);
         }
     }
 }

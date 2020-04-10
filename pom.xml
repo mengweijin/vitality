@@ -33,7 +33,6 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-codec.version>1.12</commons-codec.version>
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.62</fastjson.version>
         <json.version>20190722</json.version>

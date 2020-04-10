@@ -30,6 +30,16 @@ spring:
       settings:
         # 是否允许从其他地方访问，还是只允许从本地访问
         web-allow-others: true
+  thymeleaf:
+    #thymeleaf的默认配置
+    #prefix: classpath:/templates/
+    #suffix: .html
+    #mode: HTML5
+    #encoding: UTF-8
+    #content-type: text/html
+    # 禁用缓存。Thymeleaf缓存在开发过程中，肯定是不行的，那么就要在开发的时候把缓存关闭
+    cache: false
+    #默认错误页面位置：classpath:/templates/error，错误页面以错误编码命名，如404.html，或者5xx.html（表示匹配所有以5开头的错误http状态）
 # 调试模式。核心Logger（包含嵌入式容器、hibernate、spring）会输出更多内容，但是你自己应用的日志并不会输出为DEBUG级别。
 debug: true
 #日志配置

@@ -109,4 +109,19 @@ public class FileUtil extends FileUtils {
         }
     }
 
+
+    /**
+     * windows下文件名中不能含有：\ / : * ? " < > | 英文的这些字符 ，这里使用"."、"'"进行替换。
+     * \/:?| 用.替换
+     * "<> 用'替换
+     */
+    public static String replaceSpecialCharactersInFileName(String dirPath) {
+        if(dirPath == null){
+            return null;
+        }
+        dirPath = dirPath.replaceAll("[/\\\\:*?|]", ".");
+        dirPath = dirPath.replaceAll("[\"<>]", "'");
+        return dirPath;
+    }
+
 }

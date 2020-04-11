@@ -115,7 +115,10 @@ public class ProcessUtils {
             // 读取子线程输入流和错误流
             readCache(process);
             // 阻塞，等待process的子进程执行完毕后继续执行
-            process.waitFor();
+            int status = process.waitFor();
+            if(status != 0) {
+                throw new RuntimeException("Execute command failed! command => " + command);
+            }
         } catch (IOException | InterruptedException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException(e);

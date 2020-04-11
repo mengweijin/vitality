@@ -119,7 +119,7 @@ public class ProcessUtils {
             if(status != 0) {
                 throw new RuntimeException("Execute command failed! command => " + command);
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException | RuntimeException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException(e);
         }

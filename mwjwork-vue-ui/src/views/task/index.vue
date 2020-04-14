@@ -99,7 +99,7 @@
         methods: {
             loadTableData(current, size) {
                 let _this = this;
-                this.$get('/task/page', {current: current, size: size})
+                this.$get('/video-downloader/task/page', {current: current, size: size})
                 .then(function (response) {
                     _this.tableData = response.dataList
                     _this.totalCount = response.total
@@ -115,7 +115,7 @@
                 this.loadTableData(this.currentPage, this.pageSize)
             },
             handleDownloadClick(row) {
-                window.location.href = this.$axios.defaults.baseURL + '/download/' + row.id
+                window.location.href = this.$axios.defaults.baseURL + '/video-downloader/download/' + row.id
             },
             handleDeleteClick(index, row) {
                 let _this = this
@@ -124,7 +124,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    _this.$delete('/task/delete/' + row.id, {deleteVideo: true})
+                    _this.$delete('/video-downloader/task/delete/' + row.id, {deleteVideo: true})
                         .then(function (res) {
                             _this.tableData.splice(index, 1)
                             _this.totalCount--
@@ -149,7 +149,7 @@
                 let _this = this
                 this.$refs[formName].validate(valid => {
                     if(valid) {
-                        this.$post('/task/add', this.form)
+                        this.$post('/video-downloader/task/add', this.form)
                         .then(function (response) {
                             _this.$message({ message: '操作成功！', type: 'success'})
                             _this.open = false

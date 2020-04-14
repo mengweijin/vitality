@@ -30,7 +30,7 @@
           aspectRatio: '16:9',
           sources: [
             {
-              src: this.$axios.defaults.baseURL + '/player/' + this.$route.params.taskId,
+              src: this.$axios.defaults.baseURL + '/video-downloader/download/player/' + this.$route.params.taskId,
               type: "video/mp4"
             }
           ]
@@ -48,7 +48,7 @@
     methods: {
       queryTask() {
       let _this = this;
-      this.$get('/task/' + this.$route.params.taskId)
+      this.$get('/video-downloader/task/' + this.$route.params.taskId)
       .then(function (response) {
           _this.task = response
       })

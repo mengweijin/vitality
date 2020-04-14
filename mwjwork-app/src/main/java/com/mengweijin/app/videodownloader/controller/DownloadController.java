@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,8 @@ import java.util.Optional;
  * @author Meng Wei Jin
  **/
 @Slf4j
-@RestController("/video-downloader/download")
+@RestController
+@RequestMapping("/video-downloader/download")
 public class DownloadController extends BaseController {
 
     @Autowired
@@ -36,7 +38,7 @@ public class DownloadController extends BaseController {
     public void player(@PathVariable(value = "taskId") long taskId, HttpServletResponse response, HttpServletRequest request) throws IOException {
         Optional<Task> optional = taskService.findById(taskId);
         if (optional.isPresent()) {
-            String attachment = optional.get().getAttachment();
+            String attachment = optional.get().getAttachmentPath();
             File file = FileUtil.file(attachment);
             ChunkDownLoadUtils.download(file, request, response);
         } else {
@@ -48,7 +50,7 @@ public class DownloadController extends BaseController {
     public void download(@PathVariable(value = "taskId") long taskId, HttpServletResponse response, HttpServletRequest request) throws IOException {
         Optional<Task> optional = taskService.findById(taskId);
         if (optional.isPresent()) {
-            String attachment = optional.get().getAttachment();
+            String attachment = optional.get().getAttachmentPath();
             File file = FileUtil.file(attachment);
             response.setCharacterEncoding("utf-8");
             response.setContentType("multipart/form-data");

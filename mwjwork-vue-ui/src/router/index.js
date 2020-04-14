@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout/index'
-import SimpleLayout from '@/layout/simpleLayout'
 import MengweijinHeader from '@/layout/mengweijinHeader'
 import Header from '@/layout/header'
 import Footer from '@/layout/footer'
@@ -31,29 +30,25 @@ export const Routers = [{
                 }
             },
             {
-                path: '/task',
+                path: '/video-downloader/task',
                 components: {
                     mengweijinHeader: MengweijinHeader,
                     header: Header,
                     default: () =>
-                        import ('@/views/task/index'),
+                        import ('@/views/videoDownloader/index'),
                     footer: Footer
                 }
             }
         ]
     },
     {
-        path: '/2',
-        component: SimpleLayout,
-        children: [{
-            path: '/2/play/:taskId',
-            components: {
-                mengweijinHeader: MengweijinHeader,
-                default: () =>
-                    import ('@/views/task/play'),
-                footer: Footer
-            }
-        }]
+        path: '/video-downloader/play/:taskId',
+        components: {
+            mengweijinHeader: MengweijinHeader,
+            default: () =>
+                import ('@/views/videoDownloader/play'),
+            footer: Footer
+        }
     },
     {
         path: '/404',

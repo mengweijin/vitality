@@ -1,19 +1,39 @@
 <template>
-  <div style="width:60%; margin:0 auto;">
-    <el-row style="height:40px; lineHeight:40px; color:red">
-      <el-col :span="6">
-        {{this.$route.params.taskId}}
-      </el-col>
-      <el-col :span="18" v-text="attachmentName">
+  <div>
+    <router-view name="mengweijinHeader"/>
+
+    <el-container>
+
+      <el-header style="line-height:44px; height:44px;">
         
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24">
-        <video-player class="vjs-big-play-centered" :options="videoOptions"></video-player>
-      </el-col>
-    </el-row> 
+      </el-header>
+
+      <el-main>
+        <div style="width:60%; margin:0 auto;">
+          <el-row style="height:40px; lineHeight:40px; color:red">
+            <el-col :span="6">
+              {{this.$route.params.taskId}}
+            </el-col>
+            <el-col :span="18" v-text="attachmentName">
+              
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <video-player class="vjs-big-play-centered" :options="videoOptions"></video-player>
+            </el-col>
+          </el-row> 
+        </div>
+      </el-main>
+
+      <el-footer>
+        <router-view name="footer"/>
+      </el-footer>
+
+    </el-container>
   </div>
+
+  
 </template>
 
 <script type="text/ecmascript-6">

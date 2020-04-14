@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +20,13 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @Accessors(chain = true)
-@Entity
+@Entity(name = "video_downloader_task")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class Task extends BaseEntity {
 
-    @Column(length = 255, nullable = true)
+    @Length(max = 60)
+    @Column(length = 60, nullable = true)
     private String name;
 
     /**
@@ -38,11 +40,11 @@ public class Task extends BaseEntity {
     private String url;
 
     @Enumerated(value = EnumType.STRING)
-    @Column
+    @Column(length = 10)
     private TaskStatus status;
 
     @Column(length = 255)
-    private String attachment;
+    private String attachmentPath;
 
     @Column(length = 255)
     private String attachmentName;

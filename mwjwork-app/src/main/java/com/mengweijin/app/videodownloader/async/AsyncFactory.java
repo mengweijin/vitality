@@ -45,7 +45,7 @@ public class AsyncFactory {
         if(CollectionUtil.isNotEmpty(taskList)) {
             // 已经有相同url已经成功的任务，直接获取结果
             resultTask.setStatus(TaskStatus.SUCCESS);
-            resultTask.setAttachment(taskList.get(0).getAttachment());
+            resultTask.setAttachmentPath(taskList.get(0).getAttachmentPath());
             resultTask.setAttachmentName(taskList.get(0).getAttachmentName());
             taskService.update(id, resultTask);
         } else {
@@ -53,7 +53,7 @@ public class AsyncFactory {
             try {
                 File file = baseDownloadRunner.execute();
                 resultTask.setStatus(TaskStatus.SUCCESS);
-                resultTask.setAttachment(file.getAbsolutePath());
+                resultTask.setAttachmentPath(file.getAbsolutePath());
                 resultTask.setAttachmentName(file.getName());
             } catch (Throwable e) {
                 log.error(e.getMessage(), e);

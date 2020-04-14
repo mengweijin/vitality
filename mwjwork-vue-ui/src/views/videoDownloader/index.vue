@@ -5,6 +5,7 @@
     </el-row>
     <el-table :data="tableData" :row-style="{height:'40px'}" :cell-style="{padding:'5px 0'}">
         <el-table-column prop="id" label="任务ID" min-width="180" sortable v-show="false"></el-table-column>
+        <el-table-column prop="name" label="任务名称" min-width="180" sortable v-show="false"></el-table-column>
         <el-table-column prop="url" label="URL" min-width="300">
             <template slot-scope="scope">
                 <a :href="scope.row.url" target="_blank">{{ scope.row.url }}</a>
@@ -25,14 +26,14 @@
         <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
                 <el-button v-if="scope.row.status==='SUCCESS'" type="text" size="medium">
-                    <router-link tag="a" target="_blank" :to="{path: '/2/play/' + scope.row.id}">
+                    <router-link tag="a" target="_blank" :to="{path: '/video-downloader/play/' + scope.row.id}">
                         <svg class="icon" aria-hidden="true"><use xlink:href="#iconvideoplay"></use></svg>
                     </router-link>
                 </el-button>
                 <el-button v-if="scope.row.status==='SUCCESS'" @click="handleDownloadClick(scope.row)" type="text" size="medium">
                     <svg class="icon" aria-hidden="true"><use xlink:href="#iconxiazai"></use></svg>
                 </el-button>
-                <el-button @click="handleDeleteClick(scope.$index, scope.row)" type="text" size="medium">
+                <el-button v-if="scope.row.status==='SUCCESS' || scope.row.status==='FAILED'" @click="handleDeleteClick(scope.$index, scope.row)" type="text" size="medium">
                     <svg class="icon" aria-hidden="true" color="red"><use xlink:href="#iconshanchu"></use></svg>
                 </el-button>
             </template>
@@ -52,7 +53,7 @@
     <!-- 添加任务对话框 -->
     <el-dialog title="新增" :visible.sync="open" width="500px">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="任务名称" prop="name" v-show="false">
+        <el-form-item label="任务名称" prop="name" v-show="true">
           <el-input v-model="form.name" placeholder="请输入任务名称" />
         </el-form-item>
         <el-form-item label="URL" prop="url">
@@ -154,6 +155,7 @@
                             _this.$message({ message: '操作成功！', type: 'success'})
                             _this.open = false
                             _this.loadTableData(1, _this.pageSize)
+                            this.form = {}
                         })
                     }
                 })

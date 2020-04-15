@@ -25,16 +25,12 @@
         <el-table-column prop="errorMessage" label="失败信息" min-width="200"></el-table-column>
         <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-                <el-button v-if="scope.row.status==='SUCCESS'" type="text" size="medium">
-                    <router-link tag="a" target="_blank" :to="{path: '/video-downloader/play/' + scope.row.id}">
-                        <svg class="icon" aria-hidden="true"><use xlink:href="#iconvideoplay"></use></svg>
-                    </router-link>
+                <router-link tag="a" target="_blank" :to="{path: '/video-downloader/play/' + scope.row.id}" style="margin-right:10px">
+                    <el-button v-if="scope.row.status==='SUCCESS'" type="text" size="medium" icon="el-icon-video-play"></el-button>
+                </router-link>
+                <el-button v-if="scope.row.status==='SUCCESS'" @click="handleDownloadClick(scope.row)" type="text" size="medium" icon="el-icon-download">
                 </el-button>
-                <el-button v-if="scope.row.status==='SUCCESS'" @click="handleDownloadClick(scope.row)" type="text" size="medium">
-                    <svg class="icon" aria-hidden="true"><use xlink:href="#iconxiazai"></use></svg>
-                </el-button>
-                <el-button v-if="scope.row.status==='SUCCESS' || scope.row.status==='FAILED'" @click="handleDeleteClick(scope.$index, scope.row)" type="text" size="medium">
-                    <svg class="icon" aria-hidden="true" color="red"><use xlink:href="#iconshanchu"></use></svg>
+                <el-button v-if="scope.row.status==='SUCCESS' || scope.row.status==='FAILED'" @click="handleDeleteClick(scope.$index, scope.row)" type="text" size="medium" icon="el-icon-delete" style="color:red">
                 </el-button>
             </template>
         </el-table-column>

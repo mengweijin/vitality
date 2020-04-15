@@ -13,13 +13,6 @@
       "unicode_decimal": 58940
     },
     {
-      "icon_id": "947982",
-      "name": "video_play",
-      "font_class": "videoplay",
-      "unicode": "e624",
-      "unicode_decimal": 58916
-    },
-    {
       "icon_id": "2510123",
       "name": "mail",
       "font_class": "mail",
@@ -27,53 +20,11 @@
       "unicode_decimal": 59249
     },
     {
-      "icon_id": "2570144",
-      "name": "上传",
-      "font_class": "shangchuan-tianchong",
-      "unicode": "e666",
-      "unicode_decimal": 58982
-    },
-    {
       "icon_id": "3506928",
       "name": "qq",
       "font_class": "qq",
       "unicode": "e601",
       "unicode_decimal": 58881
-    },
-    {
-      "icon_id": "8765247",
-      "name": "下载",
-      "font_class": "xiazai",
-      "unicode": "e63b",
-      "unicode_decimal": 58939
-    },
-    {
-      "icon_id": "10292039",
-      "name": "删 除",
-      "font_class": "shanchu",
-      "unicode": "e614",
-      "unicode_decimal": 58900
-    },
-    {
-      "icon_id": "10909115",
-      "name": "plus",
-      "font_class": "plus",
-      "unicode": "e602",
-      "unicode_decimal": 58882
-    },
-    {
-      "icon_id": "11833219",
-      "name": "编辑",
-      "font_class": "bianji",
-      "unicode": "e609",
-      "unicode_decimal": 58889
-    },
-    {
-      "icon_id": "12331656",
-      "name": "查看",
-      "font_class": "chakan",
-      "unicode": "e664",
-      "unicode_decimal": 58980
     },
     {
       "icon_id": "3506983",

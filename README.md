@@ -1,19 +1,6 @@
 # mwjwork
 
 #### 介绍
-springboot项目模块快速集成
+梦未尽个人站（个人主页、广场舞视频下载）
 
-#### 模块结构
-~~~~
-(1)
-mwjwork
-├─mwjwork-common
-├─mwjwork-framework
-└─mwjwork-framework-jpa        +    mwjwork-web    -->    mwjwork-web-jpa-sample
-
-(2)
-mwjwork
-├─mwjwork-common
-├─mwjwork-framework
-└─mwjwork-framework-mybatis    +    mwjwork-web    -->    mwjwork-web-mybatis-sample
-~~~~
+springboot 2.0+, JPA, Vue, Element-UI

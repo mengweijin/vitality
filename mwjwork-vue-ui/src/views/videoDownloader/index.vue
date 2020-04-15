@@ -3,7 +3,14 @@
     <el-row>
         <el-button @click="handleAddClick()" type="primary" plain  icon="el-icon-plus">创建任务</el-button>
     </el-row>
-    <el-table :data="tableData" :row-style="{height:'40px'}" :cell-style="{padding:'5px 0'}">
+    <el-table 
+        v-loading="loading" 
+        element-loading-text="拼命加载中" 
+        element-loading-spinner="el-icon-loading" 
+        element-loading-background="rgba(0, 0, 0, 0.5)" 
+        :data="tableData" 
+        :row-style="{height:'40px'}" 
+        :cell-style="{padding:'5px 0'}">
         <el-table-column prop="id" label="任务ID" min-width="180" sortable v-show="false"></el-table-column>
         <el-table-column prop="name" label="任务名称" min-width="180" sortable v-show="false"></el-table-column>
         <el-table-column prop="url" label="URL" min-width="300">
@@ -74,6 +81,7 @@
     export default {
         data: function() {
             return {
+                loading: true,
                 tableData: [],
                 currentPage: 1,
                 totalCount: 0,
@@ -100,6 +108,7 @@
                 .then(function (response) {
                     _this.tableData = response.dataList
                     _this.totalCount = response.total
+                    _this.loading = false
                 })
             },
             handleSizeChange(val) {

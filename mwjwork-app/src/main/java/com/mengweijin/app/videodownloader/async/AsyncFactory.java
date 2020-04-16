@@ -6,9 +6,14 @@ import com.mengweijin.app.videodownloader.enums.TaskStatus;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.service.TaskService;
 import com.mengweijin.mwjwork.common.constant.Const;
+import com.mengweijin.mwjwork.common.util.lambda.LambdaWrapper;
 import com.mengweijin.mwjwork.framework.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -63,6 +68,26 @@ public class AsyncFactory {
                 taskService.update(id, resultTask);
             }
         }
+        return new AsyncResult<>(Const.SUCCESS);
+    }
+
+    /**
+     * Delete video-downloader task
+     *
+     * @return
+     */
+    @Async
+    public Future<String> deleteVideoDownloaderTask() {
+        int maxRecord = 15;
+        TaskService taskService = SpringUtils.getBean(TaskService.class);
+        long count = taskService.count();
+        if (count >= maxRecord) {
+            Sort sort = Sort.by(Sort.Direction.ASC, LambdaWrapper.getFieldName(Task::getCreateTime));
+            Pageable pageable = PageRequest.of(0, Math.toIntExact(count - maxRecord), sort);
+            Page<Task> page = taskService.findAll(pageable);
+            page.get().forEach(task -> taskService.deleteById(task.getId()));
+        }
+
         return new AsyncResult<>(Const.SUCCESS);
     }
 }

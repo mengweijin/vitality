@@ -51,8 +51,23 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
+    public <S extends T> List<S> saveAll(Iterable<S> entities) {
+        return baseRepository.saveAll(entities);
+    }
+
+    @Override
     public <S extends T> S saveAndFlush(S entity) {
         return baseRepository.saveAndFlush(entity);
+    }
+
+    @Override
+    public void deleteInBatch(Iterable<T> entities) {
+        baseRepository.deleteInBatch(entities);
+    }
+
+    @Override
+    public void deleteAllInBatch() {
+        baseRepository.deleteAllInBatch();
     }
 
     @Override
@@ -68,6 +83,11 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     @Override
     public <S extends T> List<S> findAll(Example<S> example, Sort sort) {
         return baseRepository.findAll(example, sort);
+    }
+
+    @Override
+    public <S extends T> Optional<S> findOne(Example<S> example) {
+        return baseRepository.findOne(example);
     }
 
     @Override
@@ -96,11 +116,6 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
-    public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
-        return baseRepository.saveAll(entities);
-    }
-
-    @Override
     public Optional<T> findById(ID id) {
         return baseRepository.findById(id);
     }
@@ -111,8 +126,23 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
+    public long count() {
+        return baseRepository.count();
+    }
+
+    @Override
     public void deleteById(ID id) {
         baseRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(T entity) {
+        baseRepository.delete(entity);
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends T> entities) {
+        baseRepository.deleteAll(entities);
     }
 
     @Override

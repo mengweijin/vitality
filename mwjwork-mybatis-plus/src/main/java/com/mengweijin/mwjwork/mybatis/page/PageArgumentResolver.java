@@ -1,8 +1,8 @@
-package com.mengweijin.mwjwork.jpa.page;
+package com.mengweijin.mwjwork.mybatis.page;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Meng Wei Jin
  * @description
  **/
-@Component
 public class PageArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
@@ -38,12 +37,9 @@ public class PageArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-
-        int current = NumberUtils.toInt(request.getParameter("current"), Pager.CURRENT);
-        int size = NumberUtils.toInt(request.getParameter("size"), Pager.SIZE);
-
-        // 前台分页一般从1开始，Jpa分页从0开始计数，这里做个转换
-        current = current <= 0 ? 0 : current - 1;
-        return new Pager<>().setCurrent(current).setSize(size);
+        long current = NumberUtils.toLong(request.getParameter("current"), Pager.CURRENT);
+        long size = NumberUtils.toLong(request.getParameter("size"), Pager.SIZE);
+        long total = NumberUtils.toLong(request.getParameter("total"), Pager.TOTAL);
+        return new Page(current, size, total);
     }
 }

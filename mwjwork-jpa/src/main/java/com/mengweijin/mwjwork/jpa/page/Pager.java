@@ -50,7 +50,7 @@ public class Pager<T> extends PageImpl<T> implements Serializable {
     private long total = 0;
 
     /**
-     * 查询数据列表 Layui table返回对象
+     * 查询数据列表table返回对象
      */
     private List<T> dataList = Collections.emptyList();
 

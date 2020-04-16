@@ -19,3 +19,17 @@ spring:
     #date-format: yyyy-MM-dd HH:mm:ss
     # 序列化所有实体类的字段，包括值为null的
     default-property-inclusion: ALWAYS
+# Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # 要暴露出来的接口，可配置：health(默认), info（默认）, * 代表所有
+        #include: ["*"]
+        #exclude: ["trace"]
+  #server:
+    #不配置的话默认使用应用程序下的端口
+    #port: 80
+      #servlet:
+      # 默认即为：/actuator
+    #context-path: /actuator

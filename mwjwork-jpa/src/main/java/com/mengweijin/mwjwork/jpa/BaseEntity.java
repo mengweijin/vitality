@@ -79,7 +79,7 @@ public abstract class BaseEntity {
      * 删除标记 --系统只做逻辑删除
      */
     @Column
-    protected Boolean deleted = Boolean.FALSE;
+    protected Integer deleted;
 
     /**
      * 启用标记 --默认启用

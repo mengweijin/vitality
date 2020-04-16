@@ -16,6 +16,7 @@
         <module>mwjwork-framework</module>
         <module>mwjwork-jpa</module>
         <module>mwjwork-web</module>
+        <module>mwjwork-mybatis-plus</module>
     </modules>
 
     <properties>

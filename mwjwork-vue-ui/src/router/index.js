@@ -19,6 +19,7 @@ Vue.use(Router)
 export const Routers = [{
         path: '',
         component: Layout,
+        redirect: '/index',
         children: [{
                 path: '/index',
                 components: {
@@ -38,17 +39,18 @@ export const Routers = [{
                         import ('@/views/videoDownloader/index'),
                     footer: Footer
                 }
+            },
+            {
+                path: '/video-downloader/task/play/:taskId',
+                components: {
+                    mengweijinHeader: MengweijinHeader,
+                    header: Header,
+                    default: () =>
+                        import ('@/views/videoDownloader/play'),
+                    footer: Footer
+                }
             }
         ]
-    },
-    {
-        path: '/video-downloader/play/:taskId',
-        components: {
-            mengweijinHeader: MengweijinHeader,
-            default: () =>
-                import ('@/views/videoDownloader/play'),
-            footer: Footer
-        }
     },
     {
         path: '/404',

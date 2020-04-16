@@ -52,7 +52,13 @@ $ vue init webpack {project name}
 
 3. 测试初始化工程, 浏览器访问
 $ npm run dev
+
+4. 安装npm-check, 用来检查npm依赖包是否有更新
+$ cnpm install -g npm-check
 ```
+5. 通过npm-check一次性升级所有全局包或项目依赖包的版本
+https://blog.csdn.net/pcaxb/article/details/81773475
+谨慎操作，可能导致包版本不兼容，启动失败
 
 ## 常见命令
 ```
@@ -70,8 +76,8 @@ $ cnpm install -g npm@6.14.4
 $ cnpm list element-ui
 
 5. 升级组件到最新版（指定版本）
-$ cnpm update element-ui
-$ cnpm update element-ui@2.13.0
+$ cnpm update element-ui --save
+$ cnpm update element-ui@2.13.0 --save
 
 6. 卸载组件
 $ cnpm uninstall element-ui

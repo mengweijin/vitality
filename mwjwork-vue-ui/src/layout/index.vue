@@ -34,7 +34,6 @@
       
     },
     created: function() {
-        this.$router.push("/index")
     }
   }
 </script>

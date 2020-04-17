@@ -33,7 +33,7 @@
         <hutool.version>5.2.4</hutool.version>
         <json.version>20190722</json.version>
         <jsoup.version>1.12.2</jsoup.version>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <mybatis-plus.version>3.3.1</mybatis-plus.version>
         <orika-starter.version>1.9.0</orika-starter.version>
         <p6spy.version>3.8.7</p6spy.version>
         <p6spy-spring-boot-starter.version>1.6.1</p6spy-spring-boot-starter.version>

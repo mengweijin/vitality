@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -25,8 +26,8 @@ public abstract class BaseEntity implements Serializable {
      * 自动生成主键
      * JsonSerialize：JavaScript 无法处理 Java 的长整型 Long 导致精度丢失，具体表现为主键最后两位永远为 0
      */
-    @JsonSerialize(using= ToStringSerializer.class)
-    @TableId(value = "id", type = IdType.AUTO)
+    @JsonSerialize(using = ToStringSerializer.class)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     protected Long id;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)

@@ -67,13 +67,6 @@
                 <version>${orika-starter.version}</version>
             </dependency>
 
-            <!-- querydsl-jpa -->
-            <dependency>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-jpa</artifactId>
-                <version>${querydsl.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>

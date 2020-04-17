@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "dayjs": "^1.8.24",
     "element-ui": "^2.13.1",
     "es6-promise": "^4.2.8",
-    "moment": "^2.24.0",
     "qs": "^6.9.3",
     "vue": "^2.5.2",
     "vue-router": "^3.1.6",

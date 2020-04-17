@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.framework.web;
 
-import com.mengweijin.mwjwork.common.constant.Const;
+import com.mengweijin.mwjwork.framework.constant.Const;
 import com.mengweijin.mwjwork.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

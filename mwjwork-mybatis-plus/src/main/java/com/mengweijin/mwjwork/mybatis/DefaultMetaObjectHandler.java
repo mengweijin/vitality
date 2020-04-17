@@ -1,9 +1,8 @@
 package com.mengweijin.mwjwork.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.mengweijin.mwjwork.common.util.lambda.LambdaWrapper;
+import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import org.apache.ibatis.reflection.MetaObject;
-
 import java.time.LocalDateTime;
 
 /**

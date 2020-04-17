@@ -6,7 +6,7 @@ import 'es6-promise/auto'
 import Vuex from 'vuex'
 import store from './store/index'
 import ElementUI from 'element-ui'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import axios from 'axios'
 import {get, post, patch, put, deletes } from './utils/http'
 import './assets/iconfont/iconfont.js'
@@ -24,7 +24,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Vuex)
 
-Vue.prototype.$moment = moment
+Vue.prototype.$dayjs = dayjs
 Vue.prototype.$axios = axios
 Vue.prototype.$get = get
 Vue.prototype.$post = post

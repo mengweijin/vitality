@@ -6,12 +6,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.mengweijin.app.videodownloader.entity.Task;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.runner.enums.EWebSite;
-import com.mengweijin.mwjwork.common.exception.ServerException;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import java.io.File;
 import java.io.IOException;
 

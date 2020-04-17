@@ -15,7 +15,6 @@
 
 	<properties>
 		<selenium-server.version>3.141.59</selenium-server.version>
-		<htmlunit.version>2.37.0</htmlunit.version>
 	</properties>
 
 	<dependencies>
@@ -29,6 +28,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+			<!--<version>${h2.version}</version> 从springboot中获取版本-->
 		</dependency>
 
 		<dependency>
@@ -40,7 +40,7 @@
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>${htmlunit.version}</version>
+			<!--<version>${htmlunit.version}</version> 从springboot获取版本-->
 		</dependency>
 
 		<dependency>

@@ -27,6 +27,7 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
+            <!--<version>${querydsl.version}</version>从springboot获取-->
         </dependency>
 
         <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->

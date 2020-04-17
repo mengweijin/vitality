@@ -1,5 +1,12 @@
 <template>
   <div>
+      <el-alert
+        title="提示"
+        type="error"
+        :closable="false" 
+        description="数据会每天清理，请及时保存。">
+    </el-alert>
+    <br>
     <el-row>
         <el-button @click="handleAddClick()" type="primary" plain  icon="el-icon-plus">创建任务</el-button>
     </el-row>
@@ -143,7 +150,7 @@
             dateTimeFormat(row, column) {
                 let date = row[column.property]
                 if(date == undefined){return ''}
-                return this.$moment(date).format("YYYY-MM-DD HH:mm:ss")
+                return this.$dayjs(date).format("YYYY-MM-DD HH:mm:ss")
             },
             handleAddClick() {
                 this.open = true

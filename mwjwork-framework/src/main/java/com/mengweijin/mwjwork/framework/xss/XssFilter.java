@@ -1,9 +1,8 @@
 package com.mengweijin.mwjwork.framework.xss;
 
-import com.mengweijin.mwjwork.common.constant.Const;
+import com.mengweijin.mwjwork.framework.constant.Const;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

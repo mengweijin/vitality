@@ -1,10 +1,9 @@
 package com.mengweijin.app.videodownloader.runner;
 
 import com.mengweijin.app.videodownloader.entity.Task;
-import com.mengweijin.mwjwork.common.constant.Const;
+import com.mengweijin.mwjwork.framework.constant.Const;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.File;
 
 /**

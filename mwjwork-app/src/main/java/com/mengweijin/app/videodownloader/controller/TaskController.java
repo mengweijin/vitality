@@ -5,7 +5,7 @@ import com.mengweijin.app.videodownloader.entity.Task;
 import com.mengweijin.app.videodownloader.enums.TaskStatus;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.service.TaskService;
-import com.mengweijin.mwjwork.common.util.lambda.LambdaWrapper;
+import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import com.mengweijin.mwjwork.framework.web.BaseController;
 import com.mengweijin.mwjwork.jpa.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;

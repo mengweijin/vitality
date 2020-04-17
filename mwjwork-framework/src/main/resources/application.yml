@@ -25,7 +25,7 @@ management:
     web:
       exposure:
         # 要暴露出来的接口，可配置：health(默认), info（默认）, * 代表所有
-        #include: ["*"]
+        include: ["*"]
         #exclude: ["trace"]
   #server:
     #不配置的话默认使用应用程序下的端口

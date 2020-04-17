@@ -4,7 +4,7 @@ import com.mengweijin.app.videodownloader.entity.Task;
 import com.mengweijin.app.videodownloader.runner.enums.EWebSite;
 import com.mengweijin.app.videodownloader.runner.impl.BoosjDownloadRunner;
 import com.mengweijin.app.videodownloader.runner.impl.GcwdpDownloadRunner;
-import com.mengweijin.mwjwork.common.exception.ClientException;
+import com.mengweijin.mwjwork.framework.exception.ClientException;
 
 /**
  * @author mengweijin

@@ -12,7 +12,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>mwjwork-common</module>
         <module>mwjwork-framework</module>
         <module>mwjwork-jpa</module>
         <module>mwjwork-web</module>
@@ -26,26 +25,20 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
-        <springboot.version>2.2.5.RELEASE</springboot.version>
-
-        <lombok.version>1.18.12</lombok.version>
-        <guava.version>28.2-jre</guava.version>
-        <commons-lang3.version>3.9</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <json.version>20190722</json.version>
+        <guava.version>28.2-jre</guava.version>
         <hutool.version>5.2.4</hutool.version>
+        <json.version>20190722</json.version>
         <jsoup.version>1.12.2</jsoup.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <orika-starter.version>1.9.0</orika-starter.version>
         <p6spy.version>3.8.7</p6spy.version>
         <p6spy-spring-boot-starter.version>1.6.1</p6spy-spring-boot-starter.version>
-        <h2.version>1.4.200</h2.version>
-        <junit4.version>4.12</junit4.version>
-        <mockito.version>3.3.0</mockito.version>
         <powermock.version>2.0.5</powermock.version>
-        <orika-starter.version>1.9.0</orika-starter.version>
-        <querydsl.version>4.3.1</querydsl.version>
+        <springboot.version>2.2.6.RELEASE</springboot.version>
     </properties>
 
     <dependencyManagement>
@@ -60,14 +53,6 @@
                     实际开发中，用户很可能需要继承自己公司的标准parent配置，这个时候可以使用 scope=import 来实现多继承。
                 -->
                 <scope>import</scope>
-            </dependency>
-
-            <!-- 引入lombok，IDE需要安装对应插件 -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <!--<scope>provided</scope>-->
-                <version>${lombok.version}</version>
             </dependency>
 
             <dependency>
@@ -87,12 +72,6 @@
                 <groupId>com.querydsl</groupId>
                 <artifactId>querydsl-jpa</artifactId>
                 <version>${querydsl.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
             </dependency>
 
             <dependency>
@@ -147,28 +126,6 @@
                 <groupId>com.github.gavlyukovskiy</groupId>
                 <artifactId>p6spy-spring-boot-starter</artifactId>
                 <version>${p6spy-spring-boot-starter.version}</version>
-            </dependency>
-
-            <!-- 内存数据库h2-->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <scope>runtime</scope>
-                <version>${h2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit4.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>

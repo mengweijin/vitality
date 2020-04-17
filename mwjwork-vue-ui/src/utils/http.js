@@ -1,5 +1,4 @@
 import axios from 'axios'
-import QS from 'qs'
 import { Message } from 'element-ui'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'

@@ -1,15 +1,13 @@
 package com.mengweijin.mwjwork.framework;
 
 import cn.hutool.system.OsInfo;
-import com.mengweijin.mwjwork.common.constant.Const;
-import com.mengweijin.mwjwork.common.util.FileUtil;
+import com.mengweijin.mwjwork.framework.constant.Const;
+import com.mengweijin.mwjwork.framework.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 /**
  * @author Meng Wei Jin

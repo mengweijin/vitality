@@ -1,6 +1,6 @@
 package com.mengweijin.app.videodownloader.exception;
 
-import com.mengweijin.mwjwork.common.exception.ServerException;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
 
 /**
  * @author mengweijin

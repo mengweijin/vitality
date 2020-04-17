@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.mengweijin.app.videodownloader.exception.M3U8Exception;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
-import com.mengweijin.mwjwork.common.util.UrlUtils;
+import com.mengweijin.mwjwork.framework.util.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

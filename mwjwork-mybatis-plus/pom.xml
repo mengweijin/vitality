@@ -11,10 +11,6 @@
 
     <artifactId>mwjwork-mybatis-plus</artifactId>
 
-    <properties>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.mengweijin</groupId>
@@ -27,6 +23,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <!--<version>${flyway.version}</version> 从springboot中获取版本 -->
         </dependency>
 
         <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->

@@ -1,13 +1,14 @@
 package com.mengweijin.app.videodownloader.async;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.FileUtil;
 import com.mengweijin.app.videodownloader.entity.Task;
 import com.mengweijin.app.videodownloader.enums.TaskStatus;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.service.TaskService;
-import com.mengweijin.mwjwork.common.constant.Const;
-import com.mengweijin.mwjwork.common.util.lambda.LambdaWrapper;
+import com.mengweijin.mwjwork.framework.constant.Const;
 import com.mengweijin.mwjwork.framework.util.SpringUtils;
+import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -85,7 +85,10 @@ public class AsyncFactory {
             Sort sort = Sort.by(Sort.Direction.ASC, LambdaWrapper.getFieldName(Task::getCreateTime));
             Pageable pageable = PageRequest.of(0, Math.toIntExact(count - maxRecord), sort);
             Page<Task> page = taskService.findAll(pageable);
-            page.get().forEach(task -> taskService.deleteById(task.getId()));
+            page.get().forEach(task -> {
+                taskService.deleteById(task.getId());
+                FileUtil.del(BaseDownloadRunner.OUTPUT_PATH + task.getId());
+            });
         }
 
         return new AsyncResult<>(Const.SUCCESS);

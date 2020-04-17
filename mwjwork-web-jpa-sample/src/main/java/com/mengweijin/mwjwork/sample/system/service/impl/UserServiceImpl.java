@@ -1,7 +1,7 @@
 package com.mengweijin.mwjwork.sample.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.mengweijin.mwjwork.common.util.lambda.LambdaWrapper;
+import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import com.mengweijin.mwjwork.jpa.service.BaseServiceImpl;
 import com.mengweijin.mwjwork.sample.system.entity.User;
 import com.mengweijin.mwjwork.sample.system.enums.Role;

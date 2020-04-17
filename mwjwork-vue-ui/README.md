@@ -91,7 +91,7 @@ $ cnpm install vue-router --save
 # vuex 依赖 Promise, 需要es6-promise, 在使用 Vuex 之前的一个地方import 'es6-promise/auto'后，window.Promise 会自动可用
 $ cnpm install es6-promise --save
 $ cnpm install vuex --save
-$ cnpm install moment --save
+$ cnpm install dayjs --save
 $ cnpm install axios --save
 # 增加了一些安全性的查询字符串解析和序列化字符串的库
 $ cnpm install qs --save

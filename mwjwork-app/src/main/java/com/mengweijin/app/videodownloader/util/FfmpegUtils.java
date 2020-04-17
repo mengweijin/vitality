@@ -1,9 +1,9 @@
 package com.mengweijin.app.videodownloader.util;
 
 import cn.hutool.system.OsInfo;
-import com.mengweijin.mwjwork.common.constant.Const;
-import com.mengweijin.mwjwork.common.exception.ServerException;
-import com.mengweijin.mwjwork.common.util.ProcessUtils;
+import com.mengweijin.mwjwork.framework.constant.Const;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
+import com.mengweijin.mwjwork.framework.util.ProcessUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

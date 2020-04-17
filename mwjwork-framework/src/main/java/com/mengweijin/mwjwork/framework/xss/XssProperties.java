@@ -1,6 +1,6 @@
 package com.mengweijin.mwjwork.framework.xss;
 
-import com.mengweijin.mwjwork.common.constant.Const;
+import com.mengweijin.mwjwork.framework.constant.Const;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;

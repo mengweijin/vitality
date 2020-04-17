@@ -9,14 +9,13 @@ import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.runner.model.BoosjVideoInfo;
 import com.mengweijin.app.videodownloader.util.FfmpegUtils;
 import com.mengweijin.app.videodownloader.util.M3U8Utils;
-import com.mengweijin.mwjwork.common.constant.Const;
-import com.mengweijin.mwjwork.common.exception.ServerException;
-import com.mengweijin.mwjwork.common.util.http.JsoupUtils;
+import com.mengweijin.mwjwork.framework.constant.Const;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
+import com.mengweijin.mwjwork.framework.util.http.JsoupUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -46,7 +45,7 @@ public class BoosjDownloadRunner extends BaseDownloadRunner {
         FfmpegUtils.convert(tsFile.getAbsolutePath(), mp4FilePath);
         FileUtil.del(tsFile);
 
-        String videoName = com.mengweijin.mwjwork.common.util.FileUtil.replaceSpecialCharactersInFileName(videoInfo.getVideoName());
+        String videoName = com.mengweijin.mwjwork.framework.util.FileUtil.replaceSpecialCharactersInFileName(videoInfo.getVideoName());
         return FileUtil.rename(FileUtil.file(mp4FilePath), videoName + Const.UNDERSCORE + this.getTask().getId(), true, true);
     }
 

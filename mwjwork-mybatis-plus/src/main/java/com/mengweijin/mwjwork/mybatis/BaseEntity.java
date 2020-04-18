@@ -48,8 +48,6 @@ public abstract class BaseEntity implements Serializable {
     @TableLogic
     protected Integer deleted;
 
-    protected Boolean enabled = Boolean.TRUE;
-
     /**
      * 乐观锁
      */

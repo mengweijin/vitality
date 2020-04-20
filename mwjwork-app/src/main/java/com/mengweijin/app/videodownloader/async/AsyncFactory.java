@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -29,7 +30,7 @@ import java.util.concurrent.Future;
 @Component
 public class AsyncFactory {
 
-    @Async("simpleAsync")
+    @Async("simple")
     public Future<String> downloadRunnerTask(BaseDownloadRunner baseDownloadRunner) {
         // 修改任为状态为执行中
         Long id = baseDownloadRunner.getTask().getId();

@@ -1,6 +1,7 @@
 package com.mengweijin.mwjwork.mybatis;
 
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -45,10 +46,21 @@ public class MybatisConfig {
 
     /**
      * 乐观锁插件。注解实体字段 @Version
+     *
      * @return
      */
     @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
+    }
+
+    /**
+     * 自动填充
+     *
+     * @return
+     */
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new DefaultMetaObjectHandler();
     }
 }

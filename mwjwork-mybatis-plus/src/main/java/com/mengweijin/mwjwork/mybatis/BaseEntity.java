@@ -3,7 +3,6 @@ package com.mengweijin.mwjwork.mybatis;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -37,8 +36,8 @@ public abstract class BaseEntity implements Serializable {
     protected Integer deleted;
 
     /**
-     * 乐观锁
+     * 乐观锁。不是每张表都需要
      */
-    @Version
-    protected Long version = 1L;
+    //@Version
+    //protected Long version;
 }

@@ -30,7 +30,7 @@
           aspectRatio: '16:9',
           sources: [
             {
-              src: this.$axios.defaults.baseURL + '/video-downloader/download/player/' + this.$route.params.taskId,
+              src: this.$axios.defaults.baseURL + '/video-downloader/task/player/' + this.$route.params.taskId,
               type: "video/mp4"
             }
           ]

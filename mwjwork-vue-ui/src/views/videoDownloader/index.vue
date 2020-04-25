@@ -128,7 +128,7 @@
                 this.loadTableData(this.currentPage, this.pageSize)
             },
             handleDownloadClick(row) {
-                window.location.href = this.$axios.defaults.baseURL + '/video-downloader/download/' + row.id
+                window.location.href = this.$axios.defaults.baseURL + '/video-downloader/task/download/' + row.id
             },
             handleDeleteClick(index, row) {
                 let _this = this

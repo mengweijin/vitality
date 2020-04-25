@@ -3,10 +3,13 @@ package com.mengweijin.mwjwork.mybatis;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import org.apache.ibatis.reflection.MetaObject;
+
 import java.time.LocalDateTime;
 
 /**
  * 自动填充
+ *
+ * @author mengweijin
  */
 public class DefaultMetaObjectHandler implements MetaObjectHandler {
 

@@ -5,6 +5,8 @@ import com.mengweijin.app.videodownloader.entity.Task;
 import com.mengweijin.app.videodownloader.enums.TaskStatus;
 import com.mengweijin.app.videodownloader.runner.BaseDownloadRunner;
 import com.mengweijin.app.videodownloader.service.TaskService;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
+import com.mengweijin.mwjwork.framework.util.DownLoadUtils;
 import com.mengweijin.mwjwork.framework.util.lambda.LambdaWrapper;
 import com.mengweijin.mwjwork.framework.web.BaseController;
 import com.mengweijin.mwjwork.jpa.page.Pager;
@@ -26,7 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
 import java.util.Optional;
 
 /**
@@ -63,10 +68,34 @@ public class TaskController extends BaseController {
     public ResponseEntity<Object> delete(@PathVariable("id") Long id,
                                          @RequestParam(value = "deleteVideo", defaultValue = "FALSE") boolean deleteVideo) {
 
-        if(deleteVideo) {
+        if (deleteVideo) {
             FileUtil.del(BaseDownloadRunner.OUTPUT_PATH + id);
         }
         taskService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/player/{taskId}")
+    public void player(@PathVariable(value = "taskId") long taskId, HttpServletResponse response, HttpServletRequest request) {
+        Optional<Task> optional = taskService.findById(taskId);
+        if (optional.isPresent()) {
+            String attachment = optional.get().getAttachmentPath();
+            File file = FileUtil.file(attachment);
+            DownLoadUtils.chunkDownload(file, request, response);
+        } else {
+            throw new ServerException("File not found in server by current taskId " + taskId);
+        }
+    }
+
+    @GetMapping("/download/{taskId}")
+    public void download(@PathVariable(value = "taskId") long taskId, HttpServletResponse response, HttpServletRequest request) {
+        Optional<Task> optional = taskService.findById(taskId);
+        if (optional.isPresent()) {
+            String attachment = optional.get().getAttachmentPath();
+            File file = FileUtil.file(attachment);
+            DownLoadUtils.download(file, request, response);
+        } else {
+            throw new ServerException("File not found in server by current taskId " + taskId);
+        }
     }
 }

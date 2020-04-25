@@ -1,30 +1,73 @@
 package com.mengweijin.mwjwork.framework.util;
 
 import com.mengweijin.mwjwork.framework.constant.Const;
+import com.mengweijin.mwjwork.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
  * @author mengweijin
  */
 @Slf4j
-public class ChunkDownLoadUtils {
+public class DownLoadUtils {
+
+    public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.setContentType("multipart/form-data");
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment;fileName=" + setDownloadHeader(request, file.getName()));
+            FileUtils.copyFile(file, response.getOutputStream());
+        } catch (ClientAbortException e) {
+            //捕获此异常表示用户停止下载
+            log.warn("User cancel download.");
+        } catch (IOException e) {
+            throw new ServerException(e);
+        }
+    }
+
+    private static String setDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+        final String agent = request.getHeader("USER-AGENT");
+        String encodeFileName = fileName;
+        if (agent.contains("MSIE")) {
+            // IE浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = encodeFileName.replace("+", " ");
+        } else if (agent.contains("Firefox")) {
+            // 火狐浏览器
+            encodeFileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        } else if (agent.contains("Chrome")) {
+            // google浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = encodeFileName.replace("+", " ");
+        } else {
+            // 其它浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+        }
+        return encodeFileName;
+
+    }
 
     /**
      * 文件支持分块下载和断点续传
-     * @param file 文件
-     * @param request 请求
+     *
+     * @param file     文件
+     * @param request  请求
      * @param response 响应
      */
-    public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
+    public static void chunkDownload(File file, HttpServletRequest request, HttpServletResponse response) {
         String range = request.getHeader(HttpHeaders.RANGE);
         log.debug("current request rang:" + range);
         //开始下载位置
@@ -69,7 +112,7 @@ public class ChunkDownLoadUtils {
         //文件类型
         String contentType = request.getServletContext().getMimeType(fileName);
 
-        ////解决下载文件时文件名乱码问题
+        //解决下载文件时文件名乱码问题
         byte[] fileNameBytes = fileName.getBytes(StandardCharsets.UTF_8);
         fileName = new String(fileNameBytes, 0, fileNameBytes.length, StandardCharsets.ISO_8859_1);
 

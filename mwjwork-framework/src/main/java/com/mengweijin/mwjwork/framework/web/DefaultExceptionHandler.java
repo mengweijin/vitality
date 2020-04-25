@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({ClientException.class})
+    @ExceptionHandler({ConstraintViolationException.class, ClientException.class})
     @ResponseBody
     ResponseEntity<?> handleClientException(HttpServletRequest request, Throwable e) {
         log.error(e.getMessage(), e);

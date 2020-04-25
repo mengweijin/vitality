@@ -38,7 +38,7 @@ public class DownLoadUtils {
         }
     }
 
-    private static String setDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+    public static String setDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
         final String agent = request.getHeader("USER-AGENT");
         String encodeFileName = fileName;
         if (agent.contains("MSIE")) {

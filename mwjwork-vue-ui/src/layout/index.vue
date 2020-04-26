@@ -8,7 +8,7 @@
         <router-view name="header"/>
       </el-header>
 
-      <el-main>
+      <el-main style="margin-bottom: 60px">
         <router-view/>
       </el-main>
 

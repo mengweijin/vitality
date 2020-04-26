@@ -1,10 +1,10 @@
 <template>
   <div>
       <el-alert
-        title="提示"
+        title="警告"
         type="error"
         :closable="false" 
-        description="数据会每天清理，请及时保存。">
+        description="数据会每天清理，内容仅供程序技术学习使用。">
     </el-alert>
     <br>
     <el-row>

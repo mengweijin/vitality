@@ -15,6 +15,7 @@
 
 	<properties>
 		<selenium-server.version>3.141.59</selenium-server.version>
+		<code-generator.version>1.0-SNAPSHOT</code-generator.version>
 	</properties>
 
 	<dependencies>
@@ -22,6 +23,13 @@
 			<groupId>com.mengweijin</groupId>
 			<artifactId>mwjwork-jpa</artifactId>
 			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mengweijin</groupId>
+			<artifactId>code-generator</artifactId>
+			<version>${code-generator.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

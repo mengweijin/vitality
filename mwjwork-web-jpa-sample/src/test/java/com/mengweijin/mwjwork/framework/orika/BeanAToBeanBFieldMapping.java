@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class BeanAToBeanBFieldMapping extends BaseOrikaMapperFactoryConfigurator<BeanA, BeanB> {
 
     @Override
-    void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {
+    public void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {
         classMapBuilder
                 .field("nameA", "nameB")
                 .fieldMap("normDate", "normDate").converter(DatePattern.NORM_DATE_PATTERN).add()

@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 public class CodeGeneratorTest {
 
     @Test
-    void codeGenerator() {
+    public void codeGenerator() {
         ConfigProperty config = new ConfigProperty();
         config.setAuthor("Meng Wei Jin");
         config.setTemplateLocation("templates/jpa/");
         config.setPackagePath("com.mengweijin.aaaaaaaaaaaaaaaaaaaaaaaaa");
         config.setTables(new String[]{"AT_TEST_CASE", "AT_TEST_STEP"});
-        config.setTablePrefix("");
+        config.setTablePrefix("AT_");
         config.setSuperEntityClass(BaseEntity.class);
         config.setSuperDaoClass(BaseJpaRepository.class);
         config.setSuperServiceClass(BaseService.class);

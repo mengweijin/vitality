@@ -5,6 +5,9 @@ import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.metadata.ClassMapBuilder;
 import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
 
+/**
+ * @author mengweijin
+ */
 public abstract class BaseOrikaMapperFactoryConfigurator<A, B> implements OrikaMapperFactoryConfigurer {
 
     /**
@@ -12,7 +15,7 @@ public abstract class BaseOrikaMapperFactoryConfigurator<A, B> implements OrikaM
      *
      * @param classMapBuilder classMapBuilder
      */
-    abstract void fieldMapping(ClassMapBuilder<A, B> classMapBuilder);
+    public abstract void fieldMapping(ClassMapBuilder<A, B> classMapBuilder);
 
     @Override
     public void configure(MapperFactory mapperFactory) {

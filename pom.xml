@@ -34,7 +34,7 @@
         <json.version>20190722</json.version>
         <jsoup.version>1.12.2</jsoup.version>
         <mybatis-plus.version>3.3.1</mybatis-plus.version>
-        <orika-starter.version>1.9.0</orika-starter.version>
+        <orika.version>1.5.4</orika.version>
         <p6spy.version>3.8.7</p6spy.version>
         <p6spy-spring-boot-starter.version>1.6.1</p6spy-spring-boot-starter.version>
         <powermock.version>2.0.5</powermock.version>
@@ -62,9 +62,9 @@
             </dependency>
 
             <dependency>
-                <groupId>net.rakugakibox.spring.boot</groupId>
-                <artifactId>orika-spring-boot-starter</artifactId>
-                <version>${orika-starter.version}</version>
+                <groupId>ma.glasnost.orika</groupId>
+                <artifactId>orika-core</artifactId>
+                <version>${orika.version}</version>
             </dependency>
 
             <dependency>

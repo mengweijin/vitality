@@ -2,10 +2,8 @@ package com.mengweijin.mwjwork.framework.orika;
 
 import cn.hutool.core.date.DatePattern;
 import ma.glasnost.orika.metadata.ClassMapBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class BeanAToBeanBFieldMapping extends BaseOrikaMapperFactoryConfigurator<BeanA, BeanB> {
+public class BeanAToBeanBFieldMapping extends OrikaFieldMapping<BeanA, BeanB> {
 
     @Override
     public void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {

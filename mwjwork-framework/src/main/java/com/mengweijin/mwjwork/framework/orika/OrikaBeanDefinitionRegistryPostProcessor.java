@@ -2,7 +2,6 @@ package com.mengweijin.mwjwork.framework.orika;
 
 import cn.hutool.core.util.ClassUtil;
 import lombok.extern.slf4j.Slf4j;
-import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
@@ -28,7 +27,7 @@ public class OrikaBeanDefinitionRegistryPostProcessor implements BeanDefinitionR
      */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        Set<Class<?>> classes = ClassUtil.scanPackageBySuper("com.mengweijin", OrikaMapperFactoryConfigurer.class);
+        Set<Class<?>> classes = ClassUtil.scanPackageBySuper("com.mengweijin", OrikaFieldMapping.class);
         classes.forEach(cls -> {
             if (!cls.isInterface() && !ClassUtil.isAbstract(cls)) {
                 GenericBeanDefinition beanDefinition = new GenericBeanDefinition();

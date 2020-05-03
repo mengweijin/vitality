@@ -19,6 +19,8 @@ public class DefaultMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateBy), String.class, SYSTEM);
+        this.strictUpdateFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, LocalDateTime.now());
+        this.strictUpdateFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), String.class, SYSTEM);
     }
 
     @Override

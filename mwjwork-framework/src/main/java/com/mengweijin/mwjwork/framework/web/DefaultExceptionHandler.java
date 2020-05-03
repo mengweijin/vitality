@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -65,15 +66,24 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
         BindingResult bindingResult = ex.getBindingResult();
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value());
-        for (FieldError error: fieldErrors) {
-            errorInfo.addMessage(error.getField() + ": " + error.getDefaultMessage()+"!");
+        for (FieldError error : fieldErrors) {
+            errorInfo.addMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
         }
 
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.error(ex.getMessage(), ex);
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value()).addMessage(ex.getMessage());
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
     /**
      * 获取请求状态码
+     *
      * @param request
      * @return
      */

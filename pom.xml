@@ -28,6 +28,7 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
         <fastjson.version>1.2.62</fastjson.version>
         <guava.version>28.2-jre</guava.version>
         <hutool.version>5.2.4</hutool.version>
@@ -83,6 +84,12 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
 
             <dependency>

@@ -2,6 +2,7 @@ package com.mengweijin.mwjwork.framework.web;
 
 import com.mengweijin.mwjwork.framework.constant.Const;
 import com.mengweijin.mwjwork.framework.util.ServletUtils;
+import com.mengweijin.mwjwork.framework.web.handler.ErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,7 @@ public class BaseController {
      * @param bindingResult
      * @return
      */
+    @Deprecated
     public ErrorInfo validateErrorResult(BindingResult bindingResult){
         List<ObjectError> errors = bindingResult.getAllErrors();
 

@@ -1,4 +1,4 @@
-package com.mengweijin.mwjwork.framework.web;
+package com.mengweijin.mwjwork.framework.web.handler;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

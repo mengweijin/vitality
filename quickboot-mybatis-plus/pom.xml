@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mwjwork</artifactId>
+        <artifactId>quickboot</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.1</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mwjwork-mybatis-plus</artifactId>
+    <artifactId>quickboot-mybatis-plus</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>mwjwork-framework</artifactId>
+            <artifactId>quickboot-framework</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

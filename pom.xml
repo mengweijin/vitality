@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mengweijin</groupId>
-    <artifactId>mwjwork</artifactId>
-    <version>1.0.1</version>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>quickboot</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
 
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>
 
     <modules>
-        <module>mwjwork-framework</module>
-        <module>mwjwork-jpa</module>
-        <module>mwjwork-web</module>
-        <module>mwjwork-mybatis-plus</module>
+        <module>quickboot-framework</module>
+        <module>quickboot-jpa</module>
+        <module>quickboot-web</module>
+        <module>quickboot-mybatis-plus</module>
     </modules>
 
     <properties>
@@ -167,32 +167,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>aliyun public nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <name>aliyun public nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
 </project>

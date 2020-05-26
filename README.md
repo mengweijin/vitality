@@ -1,6 +1,4 @@
-# mwjwork
+# quickboot
 
 #### 介绍
-梦未尽个人站（个人主页、广场舞视频下载）
-
-springboot 2.0+, JPA, Vue, Element-UI
+springboot 2.0+, JPA/Mybatis-plus, Vue, Element-UI

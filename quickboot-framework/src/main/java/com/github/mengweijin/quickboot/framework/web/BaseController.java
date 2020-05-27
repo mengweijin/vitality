@@ -21,23 +21,28 @@ public class BaseController {
 
     /**
      * 页面重定向
+     * 建议使用Restful风格，前后端分离
      */
+    @Deprecated
     public String redirect(String url) {
         return String.format("redirect:%s", url);
     }
 
     /**
      * 设置请求参数
+     * 建议使用Restful风格提供接口获取数据，前后端分离，而不是在后台通过在request中获取数据
      * @param key
      * @param value
      */
+    @Deprecated
     public void setAttribute(String key, Object value){
         ServletUtils.getRequest().setAttribute(key, value);
     }
 
     /**
      * 数据校验发现不合法结果处理
-     * @param bindingResult
+     * 建议使用全局异常捕获处理
+     * @param bindingResult bindingResult
      * @return
      */
     @Deprecated

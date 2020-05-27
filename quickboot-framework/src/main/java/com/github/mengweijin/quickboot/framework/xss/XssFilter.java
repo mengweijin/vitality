@@ -39,7 +39,7 @@ public class XssFilter implements Filter {
             }
         }
         if (StringUtils.isNotEmpty(tempEnabled)) {
-            enabled = Boolean.valueOf(tempEnabled);
+            enabled = Boolean.parseBoolean(tempEnabled);
         }
     }
 

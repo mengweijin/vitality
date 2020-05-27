@@ -5,8 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
+/**
+ * @author mengweijin
+ */
 @Data
-@ConfigurationProperties("cors")
+@ConfigurationProperties("quickboot.cors")
 public class CorsProperties {
 
     /**

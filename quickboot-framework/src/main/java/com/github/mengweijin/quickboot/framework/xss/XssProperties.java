@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * 加@Validated可对配置属性进行数据格式校验
  **/
-@ConfigurationProperties(prefix = "app.xss")
+@ConfigurationProperties(prefix = "quickboot.xss")
 @Data
 @Validated
 public class XssProperties {

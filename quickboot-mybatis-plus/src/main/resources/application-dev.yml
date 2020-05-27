@@ -82,21 +82,3 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，默认对返回类型为Map的对象的key不起作用，所以需要使用自定义MybatisMapWrapperFactory类来处理
     map-underscore-to-camel-case: true
-# 允许跨域
-cors:
-  # 启用自动配置
-  enabled: true
-  urlWhiteList:
-#    - http://localhost:80
-#    - http://127.0.0.1:80
-#    - http://localhost:8080
-#    - http://127.0.0.1:8080
-#    - http://localhost:8010
-#    - http://127.0.0.1:8010
-  headerWhiteList:
-  methodWhiteList:
-    - GET
-    - POST
-    - PATCH
-    - PUT
-    - DELETE

@@ -1,7 +1,7 @@
 package com.github.mengweijin.mwjwork.framework.orika;
 
 import cn.hutool.core.date.DatePattern;
-import com.github.mengweijin.mwjwork.sample.MwjworkSampleApplication;
+import com.github.mengweijin.mwjwork.sample.QuickBootSampleApplication;
 import ma.glasnost.orika.MapperFacade;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.format.DateTimeFormatter;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MwjworkSampleApplication.class)
+@SpringBootTest(classes = QuickBootSampleApplication.class)
 public class OrikaTest {
 
     @Autowired

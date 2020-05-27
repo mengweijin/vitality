@@ -25,7 +25,7 @@ import java.util.Map;
  **/
 @Configuration
 @EnableConfigurationProperties(XssProperties.class)
-@ConditionalOnProperty(prefix = "app.xss", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "quickboot.xss", name = "enabled", havingValue = "true")
 @AllArgsConstructor
 public class XssFilterAutoConfiguration {
 
@@ -34,14 +34,14 @@ public class XssFilterAutoConfiguration {
     /**
      * 对所有请求都进行xss过滤
      */
-    private static final String urlPatterns = "/*";
+    private static final String URL_PATTERNS = "/*";
 
     @Bean
     public FilterRegistrationBean xssFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setDispatcherTypes(DispatcherType.REQUEST);
         registration.setFilter(new XssFilter());
-        registration.addUrlPatterns(urlPatterns);
+        registration.addUrlPatterns(URL_PATTERNS);
         registration.setName("xssFilter");
         registration.setOrder(Integer.MAX_VALUE);
         Map<String, String> initParameters = new HashMap<>(2);

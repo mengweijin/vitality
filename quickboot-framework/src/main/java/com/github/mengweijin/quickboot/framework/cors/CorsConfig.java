@@ -18,7 +18,7 @@ import java.util.List;
  * Cors configuration
  * @author mengweijin
  */
-@ConditionalOnProperty(name = "cors.enabled", matchIfMissing = true)
+@ConditionalOnProperty(name = "quickboot.cors.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(CorsProperties.class)
 @Configuration
 @AllArgsConstructor

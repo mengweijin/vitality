@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * spring scheduling
+ * @author mengweijin
  */
 @EnableScheduling
 @Configuration

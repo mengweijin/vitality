@@ -8,14 +8,19 @@ import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
 /**
+ * 在这里如果注册OrikaFieldMapping到实现类，扫描包路径时：
+ * 1. 如果写死，如：com.mengweijin, 那么子工程在依赖的时候，包名就必须以com.mengweijin开头，这样不够灵活；
+ * 2. 如果写为ClassUtil.scanPackageBySuper(null, OrikaFieldMapping.class); 即扫描类加载器加载的所有的类，这样应用程序启动时耗时太长；
+ *
+ * 因此目前推荐的做法是：在OrikaFieldMapping的实现类上加@Component注解来注册到spring容器中
  * @author mengweijin
  */
-@Component
+@Deprecated
+//@Component
 @Slf4j
 public class OrikaBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
@@ -27,7 +32,8 @@ public class OrikaBeanDefinitionRegistryPostProcessor implements BeanDefinitionR
      */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        Set<Class<?>> classes = ClassUtil.scanPackageBySuper("com.github.mengweijin", OrikaFieldMapping.class);
+        // packageName=null: 扫描类加载器加载的所有的类
+        Set<Class<?>> classes = ClassUtil.scanPackageBySuper(null, OrikaFieldMapping.class);
         classes.forEach(cls -> {
             if (!cls.isInterface() && !ClassUtil.isAbstract(cls)) {
                 GenericBeanDefinition beanDefinition = new GenericBeanDefinition();

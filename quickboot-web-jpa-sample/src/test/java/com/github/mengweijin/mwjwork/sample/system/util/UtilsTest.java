@@ -1,6 +1,6 @@
 package com.github.mengweijin.mwjwork.sample.system.util;
 
-import com.github.mengweijin.mwjwork.jpa.BaseEntity;
+import com.github.mengweijin.quickboot.jpa.BaseEntity;
 import org.junit.Test;
 
 public class UtilsTest {

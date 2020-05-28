@@ -1,6 +1,7 @@
 package com.github.mengweijin.mwjwork.sample.system.repository;
 
-import com.github.mengweijin.mwjwork.sample.system.entity.User;
+import com.github.mengweijin.quickboot.sample.system.entity.User;
+import com.github.mengweijin.quickboot.sample.system.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

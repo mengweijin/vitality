@@ -1,7 +1,7 @@
 package com.github.mengweijin.mwjwork.framework.orika;
 
 import cn.hutool.core.date.DatePattern;
-import com.github.mengweijin.mwjwork.sample.QuickBootSampleApplication;
+import com.github.mengweijin.quickboot.sample.QuickBootSampleApplication;
 import ma.glasnost.orika.MapperFacade;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.github.mengweijin.mwjwork.framework.orika;
+package com.github.mengweijin.mwjwork.quickboot.orika;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

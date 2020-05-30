@@ -25,7 +25,7 @@ import java.util.List;
 public class CorsConfig {
 
     /**
-     * The configuration properties for Orika.
+     * The configuration properties for Cors.
      */
     private final CorsProperties corsProperties;
 

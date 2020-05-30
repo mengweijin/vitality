@@ -1,4 +1,4 @@
-package com.github.mengweijin.mwjwork.framework.orika;
+package com.github.mengweijin.mwjwork.quickboot.orika;
 
 import cn.hutool.core.date.DatePattern;
 import com.github.mengweijin.quickboot.sample.QuickBootSampleApplication;

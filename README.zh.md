@@ -1,5 +1,7 @@
 # quickboot
 
+Language: [English](README.md)
+
 <p align="center">	
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-parent%22">
 		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-parent" />
@@ -27,3 +29,38 @@
     - [quickboot-jpa document](doc/quickboot-jpa.zh.md)
     - [quickboot-mybatis-plus document](doc/quickboot-mybatis-plus.zh.md)
     - [quickboot-web document](doc/quickboot-web.zh.md)
+
+## 如何使用? 
+以使用quickboot-mybatis-plus为例。Maven: 
+~~~~xml
+<project>
+    <properties>
+        <quickboot.version>Latest version</quickboot.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-mybatis-plus</artifactId>
+            <version>${quickboot.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>quickboot-parent</artifactId>
+				<version>${quickboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
+~~~~
+
+在你的启动类上添加: 
+~~~~
+@SpringBootApplication(scanBasePackages = {"your package path", "com.github.mengweijin"})
+~~~~

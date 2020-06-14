@@ -18,10 +18,10 @@
 	</a>
 </p>
 
-## Introduction
- Quickly build the SpringBoot 2.0 project, integrate and configure common module functions, and save time to build the project.
+## 介绍
+快速搭建springboot 2.0项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
 
-## modular structure
+## 模块结构
 - [quickboot-parent document](README.md)
     - [quickboot-framework document](doc/quickboot-framework.zh.md)
     - [quickboot-jpa document](doc/quickboot-jpa.zh.md)

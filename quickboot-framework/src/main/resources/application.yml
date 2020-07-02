@@ -13,7 +13,7 @@ spring:
     add-mappings: false
   messages:
     # 国际化资源文件路径
-    basename: messages
+    basename: i18n/messages
   jackson:
     # 默认就是UTC时区
     #time-zone: UTC

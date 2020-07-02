@@ -10,8 +10,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author Meng Wei Jin
@@ -41,17 +41,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * I18n国际化
-     *
+     * <p>
      * SessionLocaleResolver保存客户的Locale到HttpSession对象中，并且支持获取和修改。
      * 它提供了在cookie中保存Locale状态的一个很好的替代方案。
      * 与CookieLocaleResolver一样，如果在会话中没有找到Locale，该类将回退调用HttpServletRequest的getLocale()方法。
+     * <p>
+     * 建议不要设置默认语言，如果这里设置了默认语言，则无法根据浏览器语言来实现国际化，会始终为默认语言，国际化不生效。
+     * 如果这里没有设置默认语言，页面访问时（thymeleaf）url参数需要添加 lang=zh_CN或lang=en_US这样的参数来实现国际化
+     * thymeleaf中取国际化资源：<a th:text="#{key}"></a>
+     *
      * @return
      */
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        // 默认语言
-        slr.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
+        // 默认语言,
+        //slr.setDefaultLocale(Locale.US);
         return slr;
     }
 

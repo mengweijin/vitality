@@ -6,7 +6,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>

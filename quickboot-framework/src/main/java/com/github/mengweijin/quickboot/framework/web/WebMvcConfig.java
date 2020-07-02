@@ -47,7 +47,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * 与CookieLocaleResolver一样，如果在会话中没有找到Locale，该类将回退调用HttpServletRequest的getLocale()方法。
      * <p>
      * 建议不要设置默认语言，如果这里设置了默认语言，则无法根据浏览器语言来实现国际化，会始终为默认语言，国际化不生效。
-     * 如果这里没有设置默认语言，页面访问时（thymeleaf）url参数需要添加 lang=zh_CN或lang=en_US这样的参数来实现国际化
+     * <p>
+     * 如果这里没有设置默认语言，页面访问时（thymeleaf）url参数可以添加 lang=zh_CN或lang=en_US这样的参数来实现国际化，也可以不添加。
+     * 当不添加lang=en_US参数时，如果测试时语言没变化，一般是由于浏览器缓存，Shift+F5刷新一下即可。
+     * <p>
      * thymeleaf中取国际化资源：<a th:text="#{key}"></a>
      *
      * @return
@@ -55,7 +58,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        // 默认语言,
+        // 默认语言
         //slr.setDefaultLocale(Locale.US);
         return slr;
     }

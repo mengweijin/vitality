@@ -25,7 +25,8 @@ spring:
         # 是否允许从其他地方访问，还是只允许从本地访问
         web-allow-others: true
   flyway:
-    enabled: true
+    # 默认不启用
+    enabled: false
     locations:
       - classpath:db/h2
       # - classpath:db/mysql

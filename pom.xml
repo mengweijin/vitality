@@ -29,7 +29,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
-        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>

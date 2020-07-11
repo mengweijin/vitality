@@ -29,6 +29,8 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
+        <quickboot.version>1.0.3-SNAPSHOT</quickboot.version>
+
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.6</commons-io.version>
@@ -48,6 +50,30 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-framework</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-jpa</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-mybatis-plus</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-web</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

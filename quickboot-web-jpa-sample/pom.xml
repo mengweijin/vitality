@@ -25,13 +25,11 @@
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-jpa</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-web</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>

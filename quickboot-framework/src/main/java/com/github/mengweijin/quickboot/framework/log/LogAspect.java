@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 public class LogAspect {
 
-    @Pointcut("@annotation(org.springframework.stereotype.Controller)")
+    @Pointcut("@within(org.springframework.stereotype.Controller)")
     public void logPointCut() {
     }
 

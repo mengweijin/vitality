@@ -34,9 +34,11 @@ Language: [中文](README.zh.md)
 Take the example of using quickboot-mybatis-plus. Maven: 
 ~~~~xml
 <project>
-    <properties>
-        <quickboot.version>Latest version</quickboot.version>
-    </properties>
+	<parent>
+		<artifactId>quickboot-parent</artifactId>
+		<groupId>com.github.mengweijin</groupId>
+		<version>Latest version</version>
+	</parent>
     
     <dependencies>
         <dependency>
@@ -45,18 +47,6 @@ Take the example of using quickboot-mybatis-plus. Maven:
             <version>${quickboot.version}</version>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.github.mengweijin</groupId>
-				<artifactId>quickboot-parent</artifactId>
-				<version>${quickboot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>
 ~~~~
 

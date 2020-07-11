@@ -122,11 +122,11 @@ public interface Const {
     /**
      * 失败
      */
-    String FAILED = "FAILED";
+    String FAILURE = "FAILURE";
 
     String SUCCESS_CODE = ZERO;
 
-    String FAILED_CODE = ONE;
+    String FAILURE_CODE = ONE;
 
 
     String DOT_XML = ".xml";

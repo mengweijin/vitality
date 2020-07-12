@@ -20,7 +20,8 @@ import java.util.List;
 public class BaseController {
 
     /**
-     * 页面重定向
+     * 页面重定向: UrlBasedViewResolver.REDIRECT_URL_PREFIX
+     * 页面转发: UrlBasedViewResolver.FORWARD_URL_PREFIX
      * 建议使用Restful风格，前后端分离
      */
     @Deprecated

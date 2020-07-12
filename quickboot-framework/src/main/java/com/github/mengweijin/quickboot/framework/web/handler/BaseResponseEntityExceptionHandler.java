@@ -39,7 +39,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
      * @param status HttpStatus
      * @return ResponseEntity<Object>
      */
-    public ResponseEntity<Object> errorResponseEntity(Throwable e, HttpStatus status) {
+    public ResponseEntity<Object> errorResponseEntity(Exception e, HttpStatus status) {
         log.error(e.getMessage(), e);
         ErrorInfo errorInfo = new ErrorInfo().setCode(status.value()).addMessage(e.getMessage());
         return ResponseEntity.status(status).body(errorInfo);
@@ -48,12 +48,12 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
     /**
      * response binding result response entity
      *
-     * @param bindingResult bindingResult
      * @param e             Throwable
+     * @param bindingResult bindingResult
      * @param status        HttpStatus
      * @return ResponseEntity<Object>
      */
-    public ResponseEntity<Object> errorBindingResultResponseEntity(BindingResult bindingResult, Throwable e, HttpStatus status) {
+    public ResponseEntity<Object> errorBindingResultResponseEntity(Exception e, BindingResult bindingResult, HttpStatus status) {
         log.error(e.getMessage(), e);
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
@@ -117,7 +117,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return errorBindingResultResponseEntity(ex.getBindingResult(), ex, status);
+        return errorBindingResultResponseEntity(ex, ex.getBindingResult(), status);
     }
 
     @Override
@@ -127,7 +127,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
 
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return errorBindingResultResponseEntity(ex.getBindingResult(), ex, status);
+        return errorBindingResultResponseEntity(ex, ex.getBindingResult(), status);
     }
 
     @Override

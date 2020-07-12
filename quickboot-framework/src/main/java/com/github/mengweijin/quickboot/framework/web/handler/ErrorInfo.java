@@ -25,7 +25,7 @@ public class ErrorInfo {
     /**
      * Error message list
      */
-    private List<String> messageList = new ArrayList<>();
+    private List<String> messages = new ArrayList<>();
 
     /**
      * add an error message
@@ -33,7 +33,7 @@ public class ErrorInfo {
      * @return this
      */
     public ErrorInfo addMessage(String message){
-        this.messageList.add(message);
+        this.messages.add(message);
         return this;
     }
 

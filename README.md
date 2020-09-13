@@ -23,7 +23,7 @@ Language: [中文](README.zh.md)
 ## Introduction
  Quickly build the SpringBoot 2.0 project, integrate and configure common module functions, and save time to build the project.
 
-## modular structure
+## Module Documentation
 - [quickboot-parent document](README.md)
     - [quickboot-framework document](doc/quickboot-framework.zh.md)
     - [quickboot-jpa document](doc/quickboot-jpa.zh.md)

@@ -23,7 +23,7 @@ Language: [English](README.md)
 ## 介绍
 快速搭建springboot 2.0项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
 
-## 模块结构
+## 模块文档
 - [quickboot-parent document](README.md)
     - [quickboot-framework document](doc/quickboot-framework.zh.md)
     - [quickboot-jpa document](doc/quickboot-jpa.zh.md)

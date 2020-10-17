@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 多模块项目要配置scanBasePackages
  * @author mengweijin
  */
-@SpringBootApplication(scanBasePackages = {"com.github.mengweijin"})
+@SpringBootApplication
 public class QuickBootSampleApplication {
 
     public static void main(String[] args) {

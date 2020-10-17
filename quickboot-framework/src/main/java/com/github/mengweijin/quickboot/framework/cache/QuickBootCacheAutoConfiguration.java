@@ -7,6 +7,7 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,20 +21,21 @@ import java.time.Duration;
  **/
 @Configuration
 @EnableCaching
-public class CacheConfig {
+public class QuickBootCacheAutoConfiguration {
 
     public static final String DEFAULT_CACHE_ALIAS = "defaultCache";
 
     /**
-    * EhCache缓存管理器
-    * 手动放入/取出缓存：
-    * Cache<Serializable, Serializable> cache = ehCacheManager.getCache(DEFAULT_CACHE_ALIAS, Serializable.class, Serializable.class);
-    * 放入：cache.put("a", "b");
-    * 取出：cache.get("a");
-    *
+     * EhCache缓存管理器
+     * 手动放入/取出缓存：
+     * Cache<Serializable, Serializable> cache = ehCacheManager.getCache(DEFAULT_CACHE_ALIAS, Serializable.class, Serializable.class);
+     * 放入：cache.put("a", "b");
+     * 取出：cache.get("a");
+     *
     * @return
     */
     @Bean
+    @ConditionalOnMissingBean
     public CacheManager ehCacheManager() {
         // EhCacheManager管理缓存
         return CacheManagerBuilder.newCacheManagerBuilder()

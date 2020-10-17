@@ -9,6 +9,7 @@ import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.converter.ConverterFactory;
 import ma.glasnost.orika.converter.builtin.DateToStringConverter;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,9 +17,10 @@ import org.springframework.context.annotation.Configuration;
  * @author mengweijin
  */
 @Configuration
-public class OrikaConfig {
+public class QuickBootOrikaAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean
     public DefaultMapperFactory.MapperFactoryBuilder<?, ?> orikaMapperFactoryBuilder() {
         DefaultMapperFactory.Builder orikaMapperFactoryBuilder = new DefaultMapperFactory.Builder();
         return orikaMapperFactoryBuilder;
@@ -29,6 +31,7 @@ public class OrikaConfig {
      * classMapBuilder.fieldMap("startDate", "startDate").converter(DatePattern.NORM_DATE_PATTERN).add();
      */
     @Bean
+    @ConditionalOnMissingBean
     public MapperFactory orikaMapperFactory(DefaultMapperFactory.MapperFactoryBuilder<?, ?> orikaMapperFactoryBuilder) {
         DefaultMapperFactory mapperFactory = orikaMapperFactoryBuilder.build();
         ConverterFactory converterFactory = mapperFactory.getConverterFactory();
@@ -44,6 +47,7 @@ public class OrikaConfig {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public MapperFacade orikaMapperFacade(MapperFactory orikaMapperFactory) {
         MapperFacade orikaMapperFacade = orikaMapperFactory.getMapperFacade();
         return orikaMapperFacade;

@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework.async;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -19,9 +20,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @EnableAsync
 @Configuration
-public class ExecutorConfig {
+public class QuickBootExecutorAutoConfiguration {
 
     @Bean("simple")
+    @ConditionalOnMissingBean(value = Executor.class, name = "simple")
     public Executor simple() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(1);
@@ -33,6 +35,7 @@ public class ExecutorConfig {
     }
 
     @Bean("pool")
+    @ConditionalOnMissingBean(value = Executor.class, name = "pool")
     public Executor threadPool() {
         int processors = Runtime.getRuntime().availableProcessors();
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

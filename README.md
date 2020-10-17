@@ -49,8 +49,3 @@ Take the example of using quickboot-mybatis-plus. Maven:
     </dependencies>
 </project>
 ~~~~
-
-Add it to your startup class: 
-~~~~
-@SpringBootApplication(scanBasePackages = {"your package path", "com.github.mengweijin"})
-~~~~

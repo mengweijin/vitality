@@ -1,6 +1,6 @@
-package com.github.mengweijin.quickboot.mybatis.sping.jdbc;
+package com.github.mengweijin.quickboot.framework.sping.jdbc;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 
 /**
@@ -19,6 +19,6 @@ public class CamelColumnMapRowMapper extends ColumnMapRowMapper {
      */
     @Override
     protected String getColumnKey(String columnName) {
-        return StringUtils.underlineToCamel(super.getColumnKey(columnName));
+        return StrUtil.toCamelCase(columnName);
     }
 }

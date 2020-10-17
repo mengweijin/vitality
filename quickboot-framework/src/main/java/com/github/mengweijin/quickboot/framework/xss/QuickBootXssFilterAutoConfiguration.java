@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.framework.xss;
 
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -27,7 +28,7 @@ import java.util.Map;
 @EnableConfigurationProperties(XssProperties.class)
 @ConditionalOnProperty(prefix = "quickboot.xss", name = "enabled", havingValue = "true")
 @AllArgsConstructor
-public class XssFilterAutoConfiguration {
+public class QuickBootXssFilterAutoConfiguration {
 
     private final XssProperties xssProperties;
 
@@ -37,6 +38,7 @@ public class XssFilterAutoConfiguration {
     private static final String URL_PATTERNS = "/*";
 
     @Bean
+    @ConditionalOnMissingBean
     public FilterRegistrationBean xssFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setDispatcherTypes(DispatcherType.REQUEST);

@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.framework.web;
 
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -16,10 +17,9 @@ import java.util.List;
 /**
  * @author Meng Wei Jin
  * @description
- *
  **/
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     /**
      * 注册视图控制器
@@ -56,6 +56,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @return
      */
     @Bean
+    @ConditionalOnMissingBean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
         // 默认语言
@@ -64,6 +65,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         // 参数名

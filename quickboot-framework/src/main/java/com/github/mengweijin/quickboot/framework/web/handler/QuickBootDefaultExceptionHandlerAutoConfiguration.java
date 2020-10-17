@@ -3,6 +3,7 @@ package com.github.mengweijin.quickboot.framework.web.handler;
 import com.github.mengweijin.quickboot.framework.exception.ClientException;
 import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +22,8 @@ import javax.validation.ValidationException;
  **/
 @Slf4j
 @ControllerAdvice
-public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler {
+@Configuration
+public class QuickBootDefaultExceptionHandlerAutoConfiguration extends BaseResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             ValidationException.class,

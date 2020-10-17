@@ -50,7 +50,3 @@ Language: [English](README.md)
 </project>
 ~~~~
 
-在你的启动类上添加: 
-~~~~
-@SpringBootApplication(scanBasePackages = {"your package path", "com.github.mengweijin"})
-~~~~

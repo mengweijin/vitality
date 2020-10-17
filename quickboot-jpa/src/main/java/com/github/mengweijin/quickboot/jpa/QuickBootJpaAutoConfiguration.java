@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.jpa;
 
 import com.github.mengweijin.quickboot.jpa.repository.SimpleBaseJpaRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -16,14 +17,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaAuditing
 @EnableJpaRepositories(repositoryBaseClass = SimpleBaseJpaRepository.class, basePackages = {"com"})
-public class JpaConfig {
+public class QuickBootJpaAutoConfiguration {
 
     /**
      * 自动填充 @CreatedBy， @LastModifiedBy
+     *
      * @return
      */
     @Bean
-    public AuditorAware getAuditorAware(){
+    @ConditionalOnMissingBean
+    public AuditorAware getAuditorAware() {
         return new AuditorAwareImpl();
     }
 }

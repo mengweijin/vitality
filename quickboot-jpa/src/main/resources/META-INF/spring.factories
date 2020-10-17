@@ -1,0 +1,12 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.mengweijin.quickboot.jpa.page.QuickBootJpaPagerArgumentResolverAutoConfiguration,\
+com.github.mengweijin.quickboot.jpa.page.QuickBootPageResponseBodyAdviceAutoConfiguration,\
+com.github.mengweijin.quickboot.jpa.QuickBootJpaAutoConfiguration
+
+
+
+
+
+
+

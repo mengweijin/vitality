@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,16 +17,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @EnableTransactionManagement
 @Configuration
-public class MybatisConfig {
+public class QuickBootMybatisPlusAutoConfiguration {
 
     /**
      * map-underscore-to-camel-case: true。
      * 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，
      * 默认对返回类型为Map的对象的key不起作用，所以需要自定义 MybatisMapWrapperFactory 类来处理
+     *
      * @return
      */
     @Bean
-    public ConfigurationCustomizer mybatisConfigurationCustomizer(){
+    @ConditionalOnMissingBean
+    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
         return configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
     }
 
@@ -33,6 +36,7 @@ public class MybatisConfig {
      * mybatis-plus 分页插件
      */
     @Bean
+    @ConditionalOnMissingBean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
@@ -50,6 +54,7 @@ public class MybatisConfig {
      * @return
      */
     @Bean
+    @ConditionalOnMissingBean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }
@@ -60,6 +65,7 @@ public class MybatisConfig {
      * @return
      */
     @Bean
+    @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
         return new DefaultMetaObjectHandler();
     }

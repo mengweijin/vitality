@@ -1,3 +1,15 @@
+# http://localhost:8080/actuator/info
+info:
+  app:
+    groupId: @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @java.version@
+      target: @java.version@
+    quickboot: @quickboot.version@
+    springboot: @springboot.version@
 server:
   port: 8080
   servlet:

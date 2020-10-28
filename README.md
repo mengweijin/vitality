@@ -44,7 +44,6 @@ Take the example of using quickboot-mybatis-plus. Maven:
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-mybatis-plus</artifactId>
-            <version>${quickboot.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -6,7 +6,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>
@@ -29,33 +29,26 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
-        <quickboot.version>1.0.6</quickboot.version>
+        <quickboot.version>1.0.7</quickboot.version>
 
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
-        <fastjson.version>1.2.70</fastjson.version>
+        <fastjson.version>1.2.74</fastjson.version>
         <guava.version>28.2-jre</guava.version>
-        <hutool.version>5.2.4</hutool.version>
+        <hutool.version>5.4.6</hutool.version>
         <json.version>20190722</json.version>
-        <jsoup.version>1.12.2</jsoup.version>
-        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <jsoup.version>1.13.1</jsoup.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <orika.version>1.5.4</orika.version>
-        <p6spy.version>3.8.7</p6spy.version>
-        <p6spy-spring-boot-starter.version>1.6.1</p6spy-spring-boot-starter.version>
+        <p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
         <powermock.version>2.0.5</powermock.version>
-        <springboot.version>2.3.0.RELEASE</springboot.version>
+        <springboot.version>2.3.3.RELEASE</springboot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-common</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>quickboot-framework</artifactId>
@@ -153,11 +146,6 @@
                 <version>${jsoup.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>p6spy</groupId>
-                <artifactId>p6spy</artifactId>
-                <version>${p6spy.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.github.gavlyukovskiy</groupId>
                 <artifactId>p6spy-spring-boot-starter</artifactId>

@@ -6,7 +6,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.7</version>
 
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>
@@ -29,7 +29,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
-        <quickboot.version>1.0.8</quickboot.version>
+        <quickboot.version>1.0.7</quickboot.version>
 
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -174,6 +174,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>

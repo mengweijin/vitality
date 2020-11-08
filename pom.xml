@@ -6,7 +6,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>
@@ -29,7 +29,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
 
-        <quickboot.version>1.0.8</quickboot.version>
+        <quickboot.version>1.0.9</quickboot.version>
 
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -43,6 +43,7 @@
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <orika.version>1.5.4</orika.version>
         <p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>3.0.1</knife4j-spring-boot-starter.version>
         <powermock.version>2.0.5</powermock.version>
         <springboot.version>2.3.4.RELEASE</springboot.version>
     </properties>
@@ -150,6 +151,12 @@
                 <groupId>com.github.gavlyukovskiy</groupId>
                 <artifactId>p6spy-spring-boot-starter</artifactId>
                 <version>${p6spy-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j-spring-boot-starter.version}</version>
             </dependency>
 
             <dependency>

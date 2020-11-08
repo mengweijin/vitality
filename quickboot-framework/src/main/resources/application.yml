@@ -52,6 +52,27 @@ management:
       #servlet:
       # 默认即为：/actuator
     #context-path: /actuator
+knife4j:
+  enable: true
+  documents:
+    - group: 1.2.x
+      name: 测试自定义标题分组
+      locations: classpath:md/*
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    enableHost: false
+    enableHostText: http://localhost:999
+    enableRequestCache: true
+    enableFilterMultipartApis: false
+    enableFilterMultipartApiMethodType: POST
+    language: zh-CN
+  cors: false
+  production: false
+  basic:
+    enable: false
+    username: test
+    password: 123
 quickboot:
   # 允许跨域
   cors:

@@ -1,3 +1,15 @@
+# 需要在子工程覆盖info下的参数，否则拿到的信息是这个父工程的，而不是所期待的子工程的。http://localhost:8080/actuator/info
+info:
+  app:
+    groupId: @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @java.version@
+      target: @java.version@
+    quickboot: @quickboot.version@
+    springboot: @springboot.version@
 server:
   port: 8080
   servlet:
@@ -24,15 +36,19 @@ spring:
     default-property-inclusion: ALWAYS
 # Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
 management:
+  endpoint:
+    health:
+      # always / never
+      show-details: always
   endpoints:
     web:
       exposure:
         # 要暴露出来的接口，可配置：health(默认), info（默认）, * 代表所有
-        include: ["*"]
+        include: [ "*" ]
         #exclude: ["trace"]
-  #server:
-    #不配置的话默认使用应用程序下的端口
-    #port: 80
+      #server:
+      #不配置的话默认使用应用程序下的端口
+      #port: 80
       #servlet:
       # 默认即为：/actuator
     #context-path: /actuator
@@ -43,12 +59,12 @@ quickboot:
     enabled: true
     # url白名单， 默认 * ，即允许所有ip跨域
     urlWhiteList:
-        #- http://localhost:80
-        #- http://127.0.0.1:80
-        #- http://localhost:8080
-        #- http://127.0.0.1:8080
-        #- http://localhost:8010
-        #- http://127.0.0.1:8010
+    #- http://localhost:80
+    #- http://127.0.0.1:80
+    #- http://localhost:8080
+    #- http://127.0.0.1:8080
+    #- http://localhost:8010
+    #- http://127.0.0.1:8010
     # header 白名单
     headerWhiteList:
     methodWhiteList:

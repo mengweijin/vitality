@@ -68,6 +68,7 @@
     <build>
         <resources>
             <resource>
+                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
@@ -75,6 +76,7 @@
 
         <plugins>
             <plugin>
+                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>

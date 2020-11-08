@@ -38,8 +38,8 @@ spring:
 management:
   endpoint:
     health:
-      # always / never
-      show-details: always
+      # always / never / when-authorized
+      show-details: never
   endpoints:
     web:
       exposure:

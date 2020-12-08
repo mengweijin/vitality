@@ -52,6 +52,7 @@ management:
       #servlet:
       # 默认即为：/actuator
     #context-path: /actuator
+# http://localhost:8080/doc.html
 knife4j:
   enable: true
   documents:

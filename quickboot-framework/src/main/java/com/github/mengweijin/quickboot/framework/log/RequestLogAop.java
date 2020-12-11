@@ -9,10 +9,12 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -37,8 +39,51 @@ public class RequestLogAop {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private final ThreadLocal<AopLogger> threadLocal = new ThreadLocal<>();
+
     @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")
     public void logPointCut() {
+    }
+
+    @Before("logPointCut()")
+    public void before(JoinPoint joinPoint){
+        try {
+            AopLogger aopLogger = new AopLogger();
+            HttpServletRequest request = ServletUtils.getRequest();
+            String httpMethod = request.getMethod();
+
+            String requestParameter;
+            if(HttpMethod.GET.name().equals(httpMethod)) {
+                // 保存request，参数和值
+                // 获取请求的参数
+                // 通过ServletUtils.getRequest().getParameterMap()获得的对象为被锁定的对象，不能修改
+                // 这里通过putAll方法，可以对基本数据类型的集合进行深拷贝，而对其他引用类型putAll不能实现深拷贝
+                Map<String, String[]> paramsMap = new HashMap<>(request.getParameterMap());
+                // 移除_csrf参数
+                paramsMap.remove("_csrf");
+                requestParameter = objectMapper.writeValueAsString(paramsMap);
+            } else {
+                Object[] args = joinPoint.getArgs();
+                requestParameter = objectMapper.writeValueAsString(args);
+            }
+
+            // 设置方法名称
+            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
+            String url = request.getRequestURI();
+            String ip = ServletUtil.getClientIP(request);
+
+            aopLogger.setRequestParameter(requestParameter);
+            aopLogger.setMethodName(methodName);
+            aopLogger.setUrl(url);
+            aopLogger.setHttpMethod(httpMethod);
+            aopLogger.setOperateUtcTime(ZonedDateTime.now(ZoneOffset.UTC));
+            aopLogger.setOperateLocalTime(LocalDateTime.now());
+            aopLogger.setIp(ip);
+
+            threadLocal.set(aopLogger);
+        } catch (Exception e){
+            log.error("An exception has occurred to record the Controller logs in the LogAspect!", e);
+        }
     }
 
     /**
@@ -69,30 +114,8 @@ public class RequestLogAop {
      */
     protected void recordLog(final JoinPoint joinPoint, final Object object, final Exception e) {
         try {
-            AopLogger aopLogger = new AopLogger();
-
-            // 保存request，参数和值
-            // 获取请求的参数
-            // 通过ServletUtils.getRequest().getParameterMap()获得的对象为被锁定的对象，不能修改
-            // 这里通过putAll方法，可以对基本数据类型的集合进行深拷贝，而对其他引用类型putAll不能实现深拷贝
-            Map<String, String[]> map = new HashMap<>(ServletUtils.getRequest().getParameterMap());
-            // 移除_csrf参数
-            map.remove("_csrf");
-
-            // 设置方法名称
-            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
-            String url = ServletUtils.getRequest().getRequestURI();
-            String httpMethod = ServletUtils.getRequest().getMethod();
-            String operateIP = ServletUtil.getClientIP(ServletUtils.getRequest());
-
+            AopLogger aopLogger = threadLocal.get();
             aopLogger.setResponseJson(objectMapper.writeValueAsString(object));
-            aopLogger.setRequestParameter(objectMapper.writeValueAsString(map));
-            aopLogger.setMethodName(methodName);
-            aopLogger.setUrl(url);
-            aopLogger.setHttpMethod(httpMethod);
-            aopLogger.setOperateUtcTime(ZonedDateTime.now(ZoneOffset.UTC));
-            aopLogger.setOperateLocalTime(LocalDateTime.now());
-            aopLogger.setOperateIP(operateIP);
             if (e != null) {
                 aopLogger.setStatus(Const.FAILURE);
                 aopLogger.setErrorInfo(e.getMessage());
@@ -104,6 +127,8 @@ public class RequestLogAop {
             log.debug(objectMapper.writeValueAsString(aopLogger));
         } catch (Exception ex) {
             log.error("An exception has occurred to record the Controller logs in the LogAspect!", ex);
+        } finally {
+            threadLocal.remove();
         }
     }
 }

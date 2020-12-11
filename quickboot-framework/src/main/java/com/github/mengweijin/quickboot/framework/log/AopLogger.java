@@ -49,7 +49,7 @@ public class AopLogger implements Serializable {
     /**
      * operate IP
      */
-    private String operateIP;
+    private String ip;
 
     /**
      * Operate status, Const.SUCCESS, Const.FAILURE

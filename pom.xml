@@ -6,7 +6,7 @@
 
 	<groupId>com.github.mengweijin</groupId>
 	<artifactId>quickboot-parent</artifactId>
-	<version>1.0.12</version>
+	<version>1.0.13</version>
 
 	<!-- 父模块打包类型必须为pom -->
 	<packaging>pom</packaging>
@@ -29,14 +29,12 @@
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<!-- <skipTests>true</skipTests> -->
 
-		<quickboot.version>1.0.12</quickboot.version>
+		<quickboot.version>1.0.13</quickboot.version>
 
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-io.version>2.6</commons-io.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
-		<fastjson.version>1.2.74</fastjson.version>
-		<guava.version>28.2-jre</guava.version>
 		<hutool.version>5.4.6</hutool.version>
 		<json.version>20190722</json.version>
 		<jsoup.version>1.13.1</jsoup.version>
@@ -87,12 +85,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>ma.glasnost.orika</groupId>
 				<artifactId>orika-core</artifactId>
 				<version>${orika.version}</version>
@@ -120,12 +112,6 @@
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
 				<version>${commons-fileupload.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>${fastjson.version}</version>
 			</dependency>
 
 			<dependency>

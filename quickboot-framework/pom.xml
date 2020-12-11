@@ -5,7 +5,7 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.12</version>
+        <version>1.0.13</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -89,11 +89,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <!--<version>${commons-lang3.version}</version> 从springboot中获取版本 -->
@@ -117,11 +112,6 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
         </dependency>
 
         <dependency>

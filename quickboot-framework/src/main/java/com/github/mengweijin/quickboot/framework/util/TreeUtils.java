@@ -1,10 +1,8 @@
 package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -110,88 +108,6 @@ public class TreeUtils {
         }
 
         return resultList;
-    }
-
-    public static <T> List<JSONObject> buildJsonBeanTreeByPid(List<T> list, String rootId) throws ServerException {
-        return buildJsonBeanTree(list, rootId, "id", "pid");
-    }
-
-    public static <T> List<JSONObject> buildJsonBeanTreeByParentId(List<T> list, String rootId) throws ServerException {
-        return buildJsonBeanTree(list, rootId, "id", "parentId");
-    }
-
-    /**
-     * @param list    所有数据集合
-     * @param rootId  根id
-     * @param idName  实体类对应的id的属性名。如：Person对象下有id属性，属性名即为id
-     * @param pidName 实体类对应的父id的属性名。如：Person对象下有parentId属性，属性名即为parentId
-     * @param <E>     实体类泛型
-     * @return
-     * @throws ServerException
-     */
-    public static <E> List<JSONObject> buildJsonBeanTree(List<E> list, String rootId, String idName, String pidName) {
-        List<JSONObject> jsonTreeList = new ArrayList<>();
-        try {
-            for (E e: list){
-                String pid = String.valueOf(ReflectUtil.getFieldValue(e, pidName));
-                if (rootId.equals(pid)) {
-                    // 获取主键值 id
-                    String id = String.valueOf(ReflectUtil.getFieldValue(e, idName));
-
-                    JSONObject newNode = new JSONObject();
-
-                    Field[] fields = e.getClass().getDeclaredFields();
-                    for (Field field: fields) {
-                        newNode.fluentPut(field.getName(), ReflectUtil.getFieldValue(e, field));
-                    }
-                    newNode.fluentPut("children", buildJsonBeanTree(list, id, idName, pidName));
-
-                    jsonTreeList.add(newNode);
-                }
-            }
-        } catch (RuntimeException e){
-            log.error(e.getMessage(), e);
-            throw new ServerException(e);
-        }
-
-        return jsonTreeList;
-    }
-
-    public static List<JSONObject> buildJsonMapTreeByPid(List<Map<String, Object>> list, String rootId) {
-        return buildJsonMapTree(list, rootId, "id", "pid");
-    }
-
-    public static List<JSONObject> buildJsonMapTreeByParentId(List<Map<String, Object>> list, String rootId) {
-        return buildJsonMapTree(list, rootId, "id", "parentId");
-    }
-
-    /**
-     * @param list    所有数据集合
-     * @param rootId  根id
-     * @param idName  实体类对应的id的属性名。如：Person对象下有id属性，属性名即为id
-     * @param pidName 实体类对应的父id的属性名。如：Person对象下有parentId属性，属性名即为parentId
-     * @return
-     * @throws ServerException
-     */
-    public static List<JSONObject> buildJsonMapTree(List<Map<String, Object>> list, String rootId, String idName, String pidName) {
-        List<JSONObject> jsonTreeList = new ArrayList<>();
-
-        list.forEach(map -> {
-            String pid = String.valueOf(map.get(pidName));
-            if (rootId.equals(pid)) {
-                // 获取主键值 id
-                String id = String.valueOf(map.get(idName));
-
-                JSONObject newNode = new JSONObject();
-
-                newNode.putAll(map);
-                newNode.fluentPut("children", buildJsonMapTree(list, id, idName, pidName));
-
-                jsonTreeList.add(newNode);
-            }
-        });
-
-        return jsonTreeList;
     }
 
 }

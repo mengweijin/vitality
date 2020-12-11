@@ -9,7 +9,7 @@ public class QuickBootAopLogAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public LogAop logAop() {
-        return new LogAop();
+    public RequestLogAop logAop() {
+        return new RequestLogAop();
     }
 }

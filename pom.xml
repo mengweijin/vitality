@@ -1,297 +1,297 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.mengweijin</groupId>
-    <artifactId>quickboot-parent</artifactId>
-    <version>1.0.11</version>
+	<groupId>com.github.mengweijin</groupId>
+	<artifactId>quickboot-parent</artifactId>
+	<version>1.0.12</version>
 
-    <!-- 父模块打包类型必须为pom -->
-    <packaging>pom</packaging>
+	<!-- 父模块打包类型必须为pom -->
+	<packaging>pom</packaging>
 
-    <name>quickboot</name>
-    <description>Quick boot for spring boot project.</description>
-    <url>https://github.com/mengweijin/quickboot</url>
+	<name>quickboot</name>
+	<description>Quick boot for spring boot project.</description>
+	<url>https://github.com/mengweijin/quickboot</url>
 
-    <modules>
-        <module>quickboot-framework</module>
-        <module>quickboot-jpa</module>
-        <module>quickboot-web</module>
-        <module>quickboot-mybatis-plus</module>
-    </modules>
+	<modules>
+		<module>quickboot-framework</module>
+		<module>quickboot-jpa</module>
+		<module>quickboot-mybatis-plus</module>
+		<module>quickboot-web</module>
+	</modules>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-        <!-- <skipTests>true</skipTests> -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+		<!-- <skipTests>true</skipTests> -->
 
-        <quickboot.version>1.0.11</quickboot.version>
+		<quickboot.version>1.0.12</quickboot.version>
 
-        <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-io.version>2.6</commons-io.version>
-        <commons-fileupload.version>1.4</commons-fileupload.version>
-        <fastjson.version>1.2.74</fastjson.version>
-        <guava.version>28.2-jre</guava.version>
-        <hutool.version>5.4.6</hutool.version>
-        <json.version>20190722</json.version>
-        <jsoup.version>1.13.1</jsoup.version>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
-        <orika.version>1.5.4</orika.version>
-        <p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
-        <knife4j-spring-boot-starter.version>3.0.1</knife4j-spring-boot-starter.version>
-        <powermock.version>2.0.5</powermock.version>
-        <springboot.version>2.4.0</springboot.version>
-    </properties>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<commons-io.version>2.6</commons-io.version>
+		<commons-fileupload.version>1.4</commons-fileupload.version>
+		<fastjson.version>1.2.74</fastjson.version>
+		<guava.version>28.2-jre</guava.version>
+		<hutool.version>5.4.6</hutool.version>
+		<json.version>20190722</json.version>
+		<jsoup.version>1.13.1</jsoup.version>
+		<mybatis-plus.version>3.4.1</mybatis-plus.version>
+		<orika.version>1.5.4</orika.version>
+		<p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
+		<knife4j-spring-boot-starter.version>3.0.1</knife4j-spring-boot-starter.version>
+		<powermock.version>2.0.5</powermock.version>
+		<springboot.version>2.4.0</springboot.version>
+	</properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-framework</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>quickboot-framework</artifactId>
+				<version>${quickboot.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-jpa</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>quickboot-jpa</artifactId>
+				<version>${quickboot.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-mybatis-plus</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>quickboot-mybatis-plus</artifactId>
+				<version>${quickboot.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-web</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>quickboot-web</artifactId>
+				<version>${quickboot.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${springboot.version}</version>
-                <type>pom</type>
-                <!--
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springboot.version}</version>
+				<type>pom</type>
+				<!--
                     通过parent继承的方法，只能继承一个 spring-boot-start-parent。
                     实际开发中，用户很可能需要继承自己公司的标准parent配置，这个时候可以使用 scope=import 来实现多继承。
                 -->
-                <scope>import</scope>
-            </dependency>
+				<scope>import</scope>
+			</dependency>
 
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>ma.glasnost.orika</groupId>
-                <artifactId>orika-core</artifactId>
-                <version>${orika.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>ma.glasnost.orika</groupId>
+				<artifactId>orika-core</artifactId>
+				<version>${orika.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons-collections4.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>${json.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${json.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>${hutool.version}</version>
+			</dependency>
 
-            <!-- JSOUP HTML解析器 -->
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
-            </dependency>
+			<!-- JSOUP HTML解析器 -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.github.gavlyukovskiy</groupId>
-                <artifactId>p6spy-spring-boot-starter</artifactId>
-                <version>${p6spy-spring-boot-starter.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.github.gavlyukovskiy</groupId>
+				<artifactId>p6spy-spring-boot-starter</artifactId>
+				<version>${p6spy-spring-boot-starter.version}</version>
+			</dependency>
 
-            <!-- http://localhost:8080/doc.html -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j-spring-boot-starter.version}</version>
-            </dependency>
+			<!-- http://localhost:8080/doc.html -->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-spring-boot-starter</artifactId>
+				<version>${knife4j-spring-boot-starter.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito2</artifactId>
+				<version>${powermock.version}</version>
+				<scope>test</scope>
+			</dependency>
 
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-junit4</artifactId>
-                <version>${powermock.version}</version>
-                <scope>test</scope>
-            </dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>${powermock.version}</version>
+				<scope>test</scope>
+			</dependency>
 
-        </dependencies>
-    </dependencyManagement>
+		</dependencies>
+	</dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <!-- Source -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Javadoc -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <charset>UTF-8</charset>
-                    <docencoding>UTF-8</docencoding>
-                    <additionalOptions>
-                        <!--由于JDK8的java doc生成机制比之前的要严谨许多,导致项目用maven打包的时候出错 解决办法: 添加-Xdoclint:none配置-->
-                        <additionalOption>-Xdoclint:none</additionalOption>
-                    </additionalOptions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- GPG -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>oss</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- Source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+					<additionalOptions>
+						<!--由于JDK8的java doc生成机制比之前的要严谨许多,导致项目用maven打包的时候出错 解决办法: 添加-Xdoclint:none配置-->
+						<additionalOption>-Xdoclint:none</additionalOption>
+					</additionalOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- GPG -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>oss</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <!--  提交到资料库的地址  -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+	<!--  提交到资料库的地址  -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>oss</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
-    <!-- 开源许可证 -->
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+	<!-- 开源许可证 -->
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
-    <!-- 开发者信息 -->
-    <developers>
-        <developer>
-            <name>Meng Wei Jin</name>
-            <email>mengweijin.work@foxmail.com</email>
-        </developer>
-    </developers>
+	<!-- 开发者信息 -->
+	<developers>
+		<developer>
+			<name>Meng Wei Jin</name>
+			<email>mengweijin.work@foxmail.com</email>
+		</developer>
+	</developers>
 
-    <!--开源地址-->
-    <scm>
-        <connection>scm:git:git@github.com:mengweijin/quickboot.git</connection>
-        <developerConnection>scm:git:git@github.com:mengweijin/quickboot.git</developerConnection>
-        <url>git@github.com:mengweijin/quickboot.git</url>
-    </scm>
+	<!--开源地址-->
+	<scm>
+		<connection>scm:git:git@github.com:mengweijin/quickboot.git</connection>
+		<developerConnection>scm:git:git@github.com:mengweijin/quickboot.git</developerConnection>
+		<url>git@github.com:mengweijin/quickboot.git</url>
+	</scm>
 
-    <!--  Issue地址  -->
-    <issueManagement>
-        <system>Github Issue</system>
-        <url>https://github.com/mengweijin/quickboot/issues</url>
-    </issueManagement>
+	<!--  Issue地址  -->
+	<issueManagement>
+		<system>Github Issue</system>
+		<url>https://github.com/mengweijin/quickboot/issues</url>
+	</issueManagement>
 
 </project>

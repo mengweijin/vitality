@@ -5,13 +5,14 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author mengweiijin
  */
 @Data
 @Accessors(chain = true)
-public class ControllerLog implements Serializable {
+public class AopLogger implements Serializable {
 
     private static final long serialVersionUID = 8755408793880948573L;
 
@@ -21,19 +22,29 @@ public class ControllerLog implements Serializable {
     private String url;
 
     /**
+     * Http request method
+     */
+    private String httpMethod;
+
+    /**
      * request parameters
      */
     private String requestParameter;
 
     /**
-     * request method
+     * request methodName
      */
-    private String method;
+    private String methodName;
 
     /**
-     * operate time
+     * operate time UTC
      */
-    private LocalDateTime operateTime;
+    private ZonedDateTime operateUtcTime;
+
+    /**
+     * operate time local
+     */
+    private LocalDateTime operateLocalTime;
 
     /**
      * operate IP
@@ -51,8 +62,8 @@ public class ControllerLog implements Serializable {
     private String errorInfo;
 
     /**
-     * response object
+     * response object in json format
      */
-    private Object responseObject;
+    private String responseJson;
 
 }

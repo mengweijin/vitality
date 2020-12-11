@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.quickboot.framework.util.lambda.LambdaWrapper;
 import org.apache.ibatis.reflection.MetaObject;
 
-import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 /**
  * 自动填充
@@ -17,15 +18,17 @@ public class DefaultMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, LocalDateTime.now());
+        ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateTime), ZonedDateTime.class, utc);
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateBy), String.class, SYSTEM);
-        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), ZonedDateTime.class, utc);
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), String.class, SYSTEM);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName(LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.now(), metaObject);
+        ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
+        this.setFieldValByName(LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), utc, metaObject);
         this.setFieldValByName(LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), SYSTEM, metaObject);
     }
 }

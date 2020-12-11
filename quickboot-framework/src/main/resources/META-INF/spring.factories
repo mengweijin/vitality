@@ -10,8 +10,7 @@ com.github.mengweijin.quickboot.framework.util.QuickBootUtilAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.web.client.QuickBootRestTemplateAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.web.handler.QuickBootDefaultExceptionHandlerAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.web.QuickBootWebMvcAutoConfiguration,\
-com.github.mengweijin.quickboot.framework.xss.QuickBootXssFilterAutoConfiguration,\
-com.github.mengweijin.quickboot.framework.QuickBootCopyFilesAutoConfiguration
+com.github.mengweijin.quickboot.framework.xss.QuickBootXssFilterAutoConfiguration
 
 
 

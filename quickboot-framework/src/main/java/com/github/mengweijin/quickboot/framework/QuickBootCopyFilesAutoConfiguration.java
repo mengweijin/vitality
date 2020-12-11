@@ -6,7 +6,6 @@ import com.github.mengweijin.quickboot.framework.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -14,7 +13,8 @@ import org.springframework.core.annotation.Order;
  * @description 应用启动初始化
  * 注解@Order如果多个自定义ApplicationRunner，用来标明执行顺序，从小到大加载
  **/
-@Configuration
+@Deprecated
+//@Configuration
 @Order(1)
 @Slf4j
 public class QuickBootCopyFilesAutoConfiguration implements ApplicationRunner {

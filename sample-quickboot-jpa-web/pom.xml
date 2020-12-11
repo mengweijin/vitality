@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.github.mengweijin</groupId>
         <artifactId>quickboot-parent</artifactId>
-        <version>1.0.11</version>
+        <version>1.0.12</version>
         <!--<relativePath/>-->
     </parent>
 
-    <artifactId>quickboot-web-jpa-sample</artifactId>
+    <artifactId>sample-quickboot-jpa-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>quickboot-web-jpa-sample</name>
+    <name>sample-quickboot-jpa-web</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

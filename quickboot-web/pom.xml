@@ -5,7 +5,7 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.11</version>
+        <version>1.0.12</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,10 +15,9 @@
         <!-- webjars -->
         <webjars-locator.version>0.38</webjars-locator.version>
         <vue.version>2.6.11</vue.version>
-        <vue-router.version>3.1.3</vue-router.version>
-        <element-ui.version>2.13.0</element-ui.version>
-        <axios.version>0.19.2</axios.version>
-        <momentjs.version>2.24.0</momentjs.version>
+        <element-ui.version>2.14.0</element-ui.version>
+        <axios.version>0.21.0</axios.version>
+        <dayjs.version>1.9.6</dayjs.version>
         <respond.version>1.4.2</respond.version>
         <html5shiv.version>3.7.3</html5shiv.version>
     </properties>
@@ -47,17 +46,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars.npm</groupId>
+            <groupId>org.webjars</groupId>
             <artifactId>vue</artifactId>
             <version>${vue.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>vue-router</artifactId>
-            <version>${vue-router.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.webjars.npm</groupId>
@@ -72,9 +64,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>momentjs</artifactId>
-            <version>${momentjs.version}</version>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>dayjs</artifactId>
+            <version>${dayjs.version}</version>
         </dependency>
 
         <!-- respond和html5shiv：让IE8/9支持媒体查询 -->

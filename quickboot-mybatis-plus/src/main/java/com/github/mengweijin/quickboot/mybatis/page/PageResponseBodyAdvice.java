@@ -14,9 +14,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author Meng Wei Jin
  * @description
  **/
-@Configuration
 @ControllerAdvice
-public class QuickBootPageResponseBodyAdviceAutoConfiguration implements ResponseBodyAdvice<IPage> {
+public class PageResponseBodyAdvice implements ResponseBodyAdvice<IPage> {
 
     /**
      * 判断是否支持要转换的参数类型

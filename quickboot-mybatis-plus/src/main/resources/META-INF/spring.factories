@@ -1,7 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.mengweijin.quickboot.mybatis.page.QuickBootMybatisPagerArgumentResolverAutoConfiguration,\
-com.github.mengweijin.quickboot.mybatis.page.QuickBootPageResponseBodyAdviceAutoConfiguration,\
 com.github.mengweijin.quickboot.mybatis.QuickBootMybatisPlusAutoConfiguration
 
 

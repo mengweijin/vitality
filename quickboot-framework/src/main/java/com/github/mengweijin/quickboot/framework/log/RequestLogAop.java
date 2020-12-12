@@ -13,7 +13,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -33,7 +32,6 @@ import java.util.Map;
  **/
 @Slf4j
 @Aspect
-@Component
 public class RequestLogAop {
 
     @Autowired

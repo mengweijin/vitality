@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.quickboot.framework.util.lambda.LambdaWrapper;
 import org.apache.ibatis.reflection.MetaObject;
 
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
@@ -28,7 +29,7 @@ public class DefaultMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
-        this.setFieldValByName(LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), utc, metaObject);
-        this.setFieldValByName(LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), SYSTEM, metaObject);
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), ZonedDateTime.class, utc);
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), String.class, SYSTEM);
     }
 }

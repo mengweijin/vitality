@@ -50,7 +50,7 @@ public class BaseController {
     public ErrorInfo validateErrorResult(BindingResult bindingResult){
         List<ObjectError> errors = bindingResult.getAllErrors();
 
-        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value());
         for (ObjectError err : errors) {
             errorInfo.addMessage(err.getDefaultMessage() + Const.SEMICOLON);
         }

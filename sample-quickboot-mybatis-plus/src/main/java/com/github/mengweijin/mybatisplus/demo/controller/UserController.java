@@ -1,7 +1,9 @@
 package com.github.mengweijin.mybatisplus.demo.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
+import com.github.mengweijin.quickboot.mybatis.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,11 @@ public class UserController {
     @GetMapping("/get")
     public List<User> getUser(){
         return userService.list();
+    }
+
+    @GetMapping("/page")
+    public IPage<User> getPage(Pager<User> pager){
+        return userService.page(pager);
     }
 
     @GetMapping("/get/{id}")

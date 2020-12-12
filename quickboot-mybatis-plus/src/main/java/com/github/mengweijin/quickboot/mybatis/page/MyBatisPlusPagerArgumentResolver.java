@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.mybatis.page;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.quickboot.framework.web.PagerArgumentResolver;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -15,8 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Meng Wei Jin
  * @description
  **/
-@Configuration
-public class QuickBootMybatisPagerArgumentResolverAutoConfiguration extends PagerArgumentResolver {
+public class MyBatisPlusPagerArgumentResolver extends PagerArgumentResolver {
 
     /**
      * 判断是否支持要转换的参数类型
@@ -26,7 +26,7 @@ public class QuickBootMybatisPagerArgumentResolverAutoConfiguration extends Page
      */
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return methodParameter.getParameterType().isAssignableFrom(Pager.class);
+        return IPage.class.isAssignableFrom(methodParameter.getParameterType());
     }
 
     /**
@@ -44,6 +44,11 @@ public class QuickBootMybatisPagerArgumentResolverAutoConfiguration extends Page
         long current = NumberUtils.toLong(request.getParameter("current"), Pager.CURRENT);
         long size = NumberUtils.toLong(request.getParameter("size"), Pager.SIZE);
         long total = NumberUtils.toLong(request.getParameter("total"), Pager.TOTAL);
-        return new Page(current, size, total);
+
+        Pager pager = new Pager();
+        pager.setCurrent(current);
+        pager.setSize(size);
+        pager.setTotal(total);
+        return pager;
     }
 }

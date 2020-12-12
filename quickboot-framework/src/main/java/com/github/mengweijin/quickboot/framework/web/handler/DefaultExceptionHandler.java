@@ -22,8 +22,7 @@ import javax.validation.ValidationException;
  **/
 @Slf4j
 @ControllerAdvice
-@Configuration
-public class QuickBootDefaultExceptionHandlerAutoConfiguration extends BaseResponseEntityExceptionHandler {
+public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             ValidationException.class,

@@ -1,11 +1,19 @@
 package com.github.mengweijin.quickboot.mybatis;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import com.github.mengweijin.quickboot.framework.web.PagerArgumentResolver;
+import com.github.mengweijin.quickboot.mybatis.page.MyBatisPlusPagerArgumentResolver;
+import com.github.mengweijin.quickboot.mybatis.page.PageResponseBodyAdvice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,35 +36,38 @@ public class QuickBootMybatisPlusAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
-        return configuration -> configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -> {
+            configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
+            configuration.setUseDeprecatedExecutor(false);
+        };
     }
 
     /**
-     * mybatis-plus 分页插件
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
-        // paginationInterceptor.setOverflow(false);
-        // 设置最大单页限制数量，默认 500 条，-1 不受限制
-        // paginationInterceptor.setLimit(500);
-        // 开启 count 的 join 优化,只针对部分 left join
-        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
-        return paginationInterceptor;
-    }
-
-    /**
-     * 乐观锁插件。注解实体字段 @Version
+     * 目前已有的功能:
      *
-     * @return
+     * 自动分页: PaginationInnerInterceptor
+     * 多租户: TenantLineInnerInterceptor
+     * 动态表名: DynamicTableNameInnerInterceptor
+     * 乐观锁: OptimisticLockerInnerInterceptor
+     * sql性能规范: IllegalSQLInnerInterceptor
+     * 防止全表更新与删除: BlockAttackInnerInterceptor
      */
     @Bean
     @ConditionalOnMissingBean
-    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInterceptor();
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 新的分页插件,一缓和二缓遵循mybatis的规则,
+        // 需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除),
+        // 如上面的 configuration.setUseDeprecatedExecutor(false);
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+
+        // 乐观锁插件。注解实体字段 @Version
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
+        // 防止全表更新与删除
+        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+        return interceptor;
     }
 
     /**
@@ -68,5 +79,17 @@ public class QuickBootMybatisPlusAutoConfiguration {
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
         return new DefaultMetaObjectHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public PagerArgumentResolver pagerArgumentResolver(){
+        return new MyBatisPlusPagerArgumentResolver();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public PageResponseBodyAdvice pageResponseBodyAdvice(){
+        return new PageResponseBodyAdvice();
     }
 }

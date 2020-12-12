@@ -35,7 +35,7 @@
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-io.version>2.6</commons-io.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
-		<hutool.version>5.4.6</hutool.version>
+		<hutool.version>5.5.2</hutool.version>
 		<json.version>20190722</json.version>
 		<jsoup.version>1.13.1</jsoup.version>
 		<mybatis-plus.version>3.4.1</mybatis-plus.version>

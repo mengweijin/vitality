@@ -19,9 +19,18 @@
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<skipTests>true</skipTests>
+
+		<code-generator.version>1.0.3</code-generator.version>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.github.mengweijin</groupId>
+			<artifactId>code-generator</artifactId>
+			<version>${code-generator.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.mengweijin</groupId>
 			<artifactId>quickboot-mybatis-plus</artifactId>
@@ -57,6 +66,7 @@
 			<artifactId>powermock-module-junit4</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>

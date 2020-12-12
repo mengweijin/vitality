@@ -60,7 +60,7 @@ public class QuickBootMybatisPlusAutoConfiguration {
         // 新的分页插件,一缓和二缓遵循mybatis的规则,
         // 需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除),
         // 如上面的 configuration.setUseDeprecatedExecutor(false);
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        interceptor.addInnerInterceptor(paginationInnerInterceptor());
 
         // 乐观锁插件。注解实体字段 @Version
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
@@ -68,6 +68,16 @@ public class QuickBootMybatisPlusAutoConfiguration {
         // 防止全表更新与删除
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
+    }
+
+    /**
+     * 如果子工程不使用 H2 数据库，只需在子工程中实例化一个PaginationInnerInterceptor Bean.
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public PaginationInnerInterceptor paginationInnerInterceptor(){
+        return new PaginationInnerInterceptor(DbType.H2);
     }
 
     /**

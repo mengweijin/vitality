@@ -6,7 +6,7 @@
 
 	<groupId>com.github.mengweijin</groupId>
 	<artifactId>quickboot-parent</artifactId>
-	<version>1.0.14</version>
+	<version>1.0.15-SNAPSHOT</version>
 
 	<!-- 父模块打包类型必须为pom -->
 	<packaging>pom</packaging>
@@ -29,7 +29,7 @@
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<!-- <skipTests>true</skipTests> -->
 
-		<quickboot.version>1.0.14</quickboot.version>
+		<quickboot.version>1.0.15-SNAPSHOT</quickboot.version>
 
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-collections4.version>4.4</commons-collections4.version>

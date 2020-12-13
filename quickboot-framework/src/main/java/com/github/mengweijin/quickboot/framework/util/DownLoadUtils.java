@@ -28,7 +28,7 @@ public class DownLoadUtils {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.setContentType("multipart/form-data");
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                    "attachment;fileName=" + setDownloadHeader(request, file.getName()));
+                    "attachment;fileName=" + setFileName(request, file.getName()));
             FileUtils.copyFile(file, response.getOutputStream());
         } catch (ClientAbortException e) {
             //捕获此异常表示用户停止下载
@@ -38,7 +38,7 @@ public class DownLoadUtils {
         }
     }
 
-    public static String setDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+    public static String setFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
         final String agent = request.getHeader("USER-AGENT");
         String encodeFileName = fileName;
         if (agent.contains("MSIE")) {
@@ -117,11 +117,11 @@ public class DownLoadUtils {
         fileName = new String(fileNameBytes, 0, fileNameBytes.length, StandardCharsets.ISO_8859_1);
 
         //各种响应头设置
-        //支持断点续传，获取部分字节内容：
-        response.setHeader(HttpHeaders.ACCEPT_RANGES, "bytes");
         //http状态码要为206：表示获取部分内容
         response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
         response.setContentType(contentType);
+        //支持断点续传，获取部分字节内容：
+        response.setHeader(HttpHeaders.ACCEPT_RANGES, "bytes");
         response.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
         //inline表示浏览器直接使用，attachment表示下载，fileName表示下载的文件名
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + fileName);

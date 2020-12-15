@@ -113,7 +113,7 @@ public class RequestLogAop {
     protected void recordLog(final JoinPoint joinPoint, final Object object, final Exception e) {
         try {
             AopLogger aopLogger = threadLocal.get();
-            aopLogger.setResponseJson(objectMapper.writeValueAsString(object));
+            aopLogger.setResponseBody(objectMapper.writeValueAsString(object));
             if (e != null) {
                 aopLogger.setStatus(Const.FAILURE);
                 aopLogger.setErrorInfo(e.getMessage());

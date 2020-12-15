@@ -34,6 +34,17 @@ spring:
     #date-format: yyyy-MM-dd HH:mm:ss
     # 序列化所有实体类的字段，包括值为null的
     default-property-inclusion: ALWAYS
+  task:
+    # @Async Spring异步任务
+    execution:
+      pool:
+        # default 8  TaskExecutionProperties
+        core-size: 8
+    # scheduler Spring调度任务
+    scheduling:
+      pool:
+        # default 1  TaskSchedulingProperties
+        size: 8
 # Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
 management:
   endpoint:

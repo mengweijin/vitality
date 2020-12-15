@@ -7,12 +7,10 @@ import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
 import com.github.mengweijin.quickboot.sample.system.repository.UserRepository;
 import com.github.mengweijin.quickboot.sample.system.service.UserService;
-import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
@@ -31,9 +29,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private MapperFacade mapperFacade;
 
     @Override
     public List<User> findAllByQueryDsl(User user) {

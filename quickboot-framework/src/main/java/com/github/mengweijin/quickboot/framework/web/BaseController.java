@@ -24,7 +24,6 @@ public class BaseController {
      * 页面转发: UrlBasedViewResolver.FORWARD_URL_PREFIX
      * 建议使用Restful风格，前后端分离
      */
-    @Deprecated
     public String redirect(String url) {
         return String.format("redirect:%s", url);
     }
@@ -35,7 +34,6 @@ public class BaseController {
      * @param key
      * @param value
      */
-    @Deprecated
     public void setAttribute(String key, Object value){
         ServletUtils.getRequest().setAttribute(key, value);
     }

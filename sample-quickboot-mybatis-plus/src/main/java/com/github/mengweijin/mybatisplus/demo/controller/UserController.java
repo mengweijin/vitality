@@ -1,9 +1,12 @@
 package com.github.mengweijin.mybatisplus.demo.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
+import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import com.github.mengweijin.quickboot.mybatis.page.Pager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author mengweijin
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AsyncFactory asyncFactory;
 
     @GetMapping("/get")
     public List<User> getUser(){
@@ -53,5 +62,19 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public void updateUser(@PathVariable("id") Long id){
         userService.removeById(id);
+    }
+
+    @GetMapping("/i18n")
+    public String i18n(){
+        return SpringUtils.getMessage("operation.successful");
+    }
+
+    @GetMapping("/async")
+    public String async(String name) throws ExecutionException, InterruptedException {
+        Future<String> stringFuture = asyncFactory.doTaskInAsync(name);
+        log.info("Continue execute code.");
+        String s = stringFuture.get();
+        log.info("Async Completed. result=" + s);
+        return "async";
     }
 }

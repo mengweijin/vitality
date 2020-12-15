@@ -62,8 +62,8 @@ public class AopLogger implements Serializable {
     private String errorInfo;
 
     /**
-     * response object in json format
+     * response body in json format
      */
-    private String responseJson;
+    private String responseBody;
 
 }

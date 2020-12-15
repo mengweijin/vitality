@@ -4,9 +4,7 @@ import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
-import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -16,6 +14,8 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author mengweijin
@@ -29,7 +29,7 @@ public class DownLoadUtils {
             response.setContentType("multipart/form-data");
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment;fileName=" + setFileName(request, file.getName()));
-            FileUtils.copyFile(file, response.getOutputStream());
+            Files.copy(Paths.get(file.toURI()), response.getOutputStream());
         } catch (ClientAbortException e) {
             //捕获此异常表示用户停止下载
             log.warn("User cancel download.");

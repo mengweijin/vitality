@@ -31,18 +31,12 @@
 
 		<quickboot.version>1.0.15-SNAPSHOT</quickboot.version>
 
-		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-collections4.version>4.4</commons-collections4.version>
-		<commons-io.version>2.6</commons-io.version>
-		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<hutool.version>5.5.2</hutool.version>
-		<json.version>20190722</json.version>
 		<jsoup.version>1.13.1</jsoup.version>
 		<mybatis-plus.version>3.4.1</mybatis-plus.version>
-		<orika.version>1.5.4</orika.version>
 		<p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
 		<knife4j-spring-boot-starter.version>3.0.1</knife4j-spring-boot-starter.version>
-		<powermock.version>2.0.5</powermock.version>
+		<powermock.version>2.0.9</powermock.version>
 		<springboot.version>2.4.0</springboot.version>
 	</properties>
 
@@ -77,47 +71,7 @@
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${springboot.version}</version>
 				<type>pom</type>
-				<!--
-                    通过parent继承的方法，只能继承一个 spring-boot-start-parent。
-                    实际开发中，用户很可能需要继承自己公司的标准parent配置，这个时候可以使用 scope=import 来实现多继承。
-                -->
 				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>ma.glasnost.orika</groupId>
-				<artifactId>orika-core</artifactId>
-				<version>${orika.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>${commons-beanutils.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-collections4</artifactId>
-				<version>${commons-collections4.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>${commons-fileupload.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.json</groupId>
-				<artifactId>json</artifactId>
-				<version>${json.version}</version>
 			</dependency>
 
 			<dependency>

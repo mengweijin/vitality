@@ -6,7 +6,6 @@
 ## 依赖包
 |groupId   |artifactId  |备注  |
 |----      |----        |---- |
-|org.springframework.boot|spring-boot-starter||
 |org.springframework.boot|spring-boot-starter-web||
 |org.springframework.boot|spring-boot-starter-validation|springboot 2.3.0 以后，spring-boot-starter-web中不再包含validation starter|
 |org.springframework.boot|spring-boot-starter-aop||
@@ -15,35 +14,11 @@
 |javax.cache|cache-api||
 |org.ehcache|ehcache|ehcache3|
 |org.springframework.boot|spring-boot-starter-actuator||
-|ma.glasnost.orika|orika-core||
-|p6spy|p6spy||
 |com.github.gavlyukovskiy|p6spy-spring-boot-starter||
-|com.google.guava|guava||
-|org.apache.commons|commons-lang3||
-|commons-beanutils|commons-beanutils||
-|org.apache.commons|commons-collections4||
-|commons-io|commons-io||
-|commons-fileupload|commons-fileupload||
-|com.alibaba|fastjson||
-|org.json|json||
 |cn.hutool|hutool-all||
 |org.jsoup|jsoup||
 
 ## 详细介绍
-### async
-启用异步注解@EnableAsync，初始化了两个Executor实例：
-* @Bean("simple") 单线程的线程池
-* @Bean("pool") 多线程的线程池，线程池的个数根据CPU的核心数计算。
-~~~~
-在你的工程中如何使用？
-在你的异步任务方法上加上注解：@Async("simple")或者@Async("pool")，如：
-
-@Async("simple")
-public Future<String> doTask() {
-    // do something
-    return new AsyncResult<>("SUCCESS");
-}
-~~~~
 
 ### cache
 启用缓存注解@EnableCaching，实例化了一个CacheManager：
@@ -96,62 +71,9 @@ quickboot:
 * ClientException：客户端异常
 * ServerException：服务端异常
 
-### orika
-Bean字段映射工具，更多使用参考Orika官方文档。除了默认的转换器，quickboot还添加了以下转换器：
-* converterFactory.registerConverter(new LocalDateToStringConverter());
-* converterFactory.registerConverter(new LocalTimeToStringConverter());
-* converterFactory.registerConverter(new LocalDateTimeToStringConverter());
-* converterFactory.registerConverter(DatePattern.NORM_DATETIME_MS_PATTERN, new DateToStringConverter(DatePattern.NORM_DATETIME_MS_PATTERN));
-* converterFactory.registerConverter(DatePattern.NORM_DATETIME_PATTERN, new DateToStringConverter(DatePattern.NORM_DATETIME_PATTERN));
-* converterFactory.registerConverter(DatePattern.NORM_DATETIME_MINUTE_PATTERN, new DateToStringConverter(DatePattern.NORM_DATETIME_MINUTE_PATTERN));
-* converterFactory.registerConverter(DatePattern.NORM_DATE_PATTERN, new DateToStringConverter(DatePattern.NORM_DATE_PATTERN));
-* converterFactory.registerConverter(DatePattern.CHINESE_DATE_PATTERN, new DateToStringConverter(DatePattern.CHINESE_DATE_PATTERN));
-~~~~
-在你的工程中如何使用？
-
-@Autowired
-private MapperFacade mapperFacade;
-在方法中使用其方法，把Bean A转为Bean B:
-B b = mapperFacade.map(A, B);
-~~~~
-Bean字段映射规则配置：自定义一个类继承类OrikaFieldMapping<A, B>，添加@Component注解，重写fieldMapping方法：
-~~~~java
-package com.github.mengweijin.mwjwork.quickboot.orika;
-
-import cn.hutool.core.date.DatePattern;
-import com.github.mengweijin.quickboot.framework.orika.OrikaFieldMapping;
-import ma.glasnost.orika.metadata.ClassMapBuilder;
-
-@Component
-public class BeanAToBeanBFieldMapping extends OrikaFieldMapping<BeanA, BeanB> {
-
-    @Override
-    public void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {
-        classMapBuilder
-                .field("nameA", "nameB")
-                .fieldMap("normDate", "normDate").converter(DatePattern.NORM_DATE_PATTERN).add()
-                .fieldMap("normDateTimeMinute", "normDateTimeMinute").converter(DatePattern.NORM_DATETIME_MINUTE_PATTERN).add()
-                .fieldMap("normDateTimeMs", "normDateTimeMs").converter(DatePattern.NORM_DATETIME_MS_PATTERN).add()
-                .fieldMap("normDateTime", "normDateTime").converter(DatePattern.NORM_DATETIME_PATTERN).add()
-                .fieldMap("chineseDate", "chineseDate").converter(DatePattern.CHINESE_DATE_PATTERN).add()
-        ;
-    }
-}
-~~~~
-
-### scheduler
-启用Spring调度器，启用注解@EnableScheduling
-~~~~
-在你的工程中如何使用？
-
-/**
- * 每天晚上4点执行一次
- */
-@Scheduled(cron = "0 0 4 * * ?")
-public void doTask() {
-    // do something
-}
-~~~~
+### async and scheduler
+启用Spring调度器，注解@EnableScheduling
+启用异步任务，注解@EnableAsync
 
 ### util
 常用工具类

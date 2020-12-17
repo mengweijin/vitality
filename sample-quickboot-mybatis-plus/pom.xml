@@ -19,18 +19,9 @@
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<skipTests>true</skipTests>
-
-		<code-generator.version>1.0.3</code-generator.version>
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>com.github.mengweijin</groupId>
-			<artifactId>code-generator</artifactId>
-			<version>${code-generator.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>com.github.mengweijin</groupId>
@@ -80,6 +71,17 @@
 		</resources>
 
 		<plugins>
+			<plugin>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>code-generator-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<configProperty>
+						<packagePath>com.mengweijin</packagePath>
+					</configProperty>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
 				<groupId>org.apache.maven.plugins</groupId>

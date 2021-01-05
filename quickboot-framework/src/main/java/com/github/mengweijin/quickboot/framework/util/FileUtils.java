@@ -42,7 +42,7 @@ public class FileUtils extends FileUtil {
      */
     public static void copyJarDirectoryToDirectory(String folderPath, String targetDir) throws IOException, URISyntaxException {
         URL url = Thread.currentThread().getContextClassLoader().getResource(folderPath);
-        if(url == null){
+        if(url == null) {
             throw new IllegalArgumentException("this argument is error! argument=" + folderPath);
         }
         URLConnection urlConnection = url.openConnection();

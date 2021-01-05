@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.mengweijin</groupId>
 		<artifactId>quickboot-parent</artifactId>
-		<version>1.0.15</version>
+		<version>1.0.16</version>
 		<!--<relativePath/>-->
 	</parent>
 
@@ -19,6 +19,8 @@
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<skipTests>true</skipTests>
+
+		<mysql-driver.version>8.0.13</mysql-driver.version>
 	</properties>
 
 	<dependencies>
@@ -33,6 +35,12 @@
 			<artifactId>h2</artifactId>
 			<!--<scope>runtime</scope>-->
 			<!--<version>${h2.version}</version> 从springboot中获取版本-->
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-driver.version}</version>
 		</dependency>
 
 		<dependency>
@@ -74,11 +82,20 @@
 			<plugin>
 				<groupId>com.github.mengweijin</groupId>
 				<artifactId>code-generator-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0.1-SNAPSHOT</version>
 				<configuration>
-					<configProperty>
-						<packagePath>com.mengweijin</packagePath>
-					</configProperty>
+					<parameters>
+						<tables>sys_user</tables>
+						<tablePrefix>sys_</tablePrefix>
+						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
+						<lombokModel>false</lombokModel>
+						<dbInfo>
+							<username>root</username>
+							<password>root</password>
+							<driverName>com.mysql.cj.jdbc.Driver</driverName>
+							<url>jdbc:mysql://192.168.83.128:3306/mwj_cms</url>
+						</dbInfo>
+					</parameters>
 				</configuration>
 			</plugin>
 

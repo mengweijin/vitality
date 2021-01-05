@@ -42,10 +42,10 @@ public abstract class BaseEntity implements Serializable {
     protected String updateBy;
 
     /**
-     * 逻辑删除
+     * 逻辑删除。不是每张表都需要
      */
-    @TableLogic
-    protected Integer deleted;
+    //@TableLogic
+    //protected Integer deleted;
 
     /**
      * 乐观锁。不是每张表都需要

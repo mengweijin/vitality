@@ -24,4 +24,6 @@ public class User extends BaseEntity {
      */
     private HttpMethod httpMethod;
 
+    private Integer deleted;
+
 }

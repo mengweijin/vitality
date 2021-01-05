@@ -82,7 +82,7 @@ public abstract class BaseEntity {
     /**
      * 删除标记 --系统只做逻辑删除
      */
-    @Column
-    protected Integer deleted;
+    //@Column
+    //protected Integer deleted;
 
 }

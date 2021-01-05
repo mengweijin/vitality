@@ -20,7 +20,7 @@
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<skipTests>true</skipTests>
 
-		<mysql-driver.version>8.0.13</mysql-driver.version>
+		<mysql-driver.version>8.0.16</mysql-driver.version>
 	</properties>
 
 	<dependencies>

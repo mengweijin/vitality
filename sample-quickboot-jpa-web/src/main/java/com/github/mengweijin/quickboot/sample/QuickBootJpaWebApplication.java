@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author mengweijin
  */
 @SpringBootApplication
-public class QuickBootSampleApplication {
+public class QuickBootJpaWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QuickBootSampleApplication.class, args);
+        SpringApplication.run(QuickBootJpaWebApplication.class, args);
     }
 
 }

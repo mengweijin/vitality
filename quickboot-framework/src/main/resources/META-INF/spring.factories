@@ -2,7 +2,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.github.mengweijin.quickboot.framework.QuickBootAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.cache.QuickBootCacheAutoConfiguration,\
-com.github.mengweijin.quickboot.framework.cors.QuickBootCORSAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.web.QuickBootWebMvcAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.xss.QuickBootXssFilterAutoConfiguration
 

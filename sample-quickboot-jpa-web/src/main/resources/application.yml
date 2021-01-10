@@ -88,25 +88,7 @@ knife4j:
     password: 123
 quickboot:
   # 允许跨域
-  cors:
-    # 是否启用自动配置，如果为false, 则默认不能跨域请求；如果为true，需要配置白名单来允许跨域请求
-    enabled: true
-    # url白名单， 默认 * ，即允许所有ip跨域
-    urlWhiteList:
-    #- http://localhost:80
-    #- http://127.0.0.1:80
-    #- http://localhost:8080
-    #- http://127.0.0.1:8080
-    #- http://localhost:8010
-    #- http://127.0.0.1:8010
-    # header 白名单
-    headerWhiteList:
-    methodWhiteList:
-      - GET
-      - POST
-      - PATCH
-      - PUT
-      - DELETE
+  cors: true
   xss:
     # 是否启用xss过滤
     enabled: true

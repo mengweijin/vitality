@@ -35,7 +35,12 @@ public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         if(cors) {
-            registry.addMapping("/**");
+            registry.addMapping("/**")
+                    .allowedOriginPatterns("*")
+                    .allowedHeaders("*")
+                    .allowedMethods("*")
+                    .allowCredentials(true)
+                    .maxAge(3600);
         }
     }
 

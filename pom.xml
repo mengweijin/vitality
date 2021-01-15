@@ -33,11 +33,10 @@
 
 		<hutool.version>5.5.2</hutool.version>
 		<jsoup.version>1.13.1</jsoup.version>
-		<mybatis-plus.version>3.4.1</mybatis-plus.version>
+		<mybatis-plus.version>3.4.2</mybatis-plus.version>
 		<p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>
 		<knife4j-spring-boot-starter.version>3.0.1</knife4j-spring-boot-starter.version>
-		<powermock.version>2.0.9</powermock.version>
-		<springboot.version>2.4.0</springboot.version>
+		<springboot.version>2.4.2</springboot.version>
 	</properties>
 
 	<dependencyManagement>
@@ -99,21 +98,6 @@
 				<artifactId>knife4j-spring-boot-starter</artifactId>
 				<version>${knife4j-spring-boot-starter.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-api-mockito2</artifactId>
-				<version>${powermock.version}</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-module-junit4</artifactId>
-				<version>${powermock.version}</version>
-				<scope>test</scope>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 

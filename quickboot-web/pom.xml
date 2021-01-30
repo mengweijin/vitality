@@ -5,13 +5,15 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.20</version>
+        <version>1.0.21</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>quickboot-web</artifactId>
 
     <properties>
+        <!-- 不上传此jar包到中央仓库或私服 -->
+        <maven.deploy.skip>true</maven.deploy.skip>
         <!-- webjars -->
         <webjars-locator.version>0.38</webjars-locator.version>
         <vue.version>2.6.11</vue.version>

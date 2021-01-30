@@ -6,7 +6,7 @@
 
 	<groupId>com.github.mengweijin</groupId>
 	<artifactId>quickboot-parent</artifactId>
-	<version>1.0.20</version>
+	<version>1.0.21</version>
 
 	<!-- 父模块打包类型必须为pom -->
 	<packaging>pom</packaging>
@@ -29,9 +29,9 @@
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<!-- <skipTests>true</skipTests> -->
 
-		<quickboot.version>1.0.20</quickboot.version>
+		<quickboot.version>1.0.21</quickboot.version>
 
-		<hutool.version>5.5.2</hutool.version>
+		<hutool.version>5.5.7</hutool.version>
 		<jsoup.version>1.13.1</jsoup.version>
 		<mybatis-plus.version>3.4.2</mybatis-plus.version>
 		<p6spy-spring-boot-starter.version>1.6.2</p6spy-spring-boot-starter.version>

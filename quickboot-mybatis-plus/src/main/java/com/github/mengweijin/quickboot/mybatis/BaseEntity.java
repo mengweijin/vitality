@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
-
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -30,13 +28,13 @@ public abstract class BaseEntity implements Serializable {
     protected Long id;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)
-    protected ZonedDateTime createTime;
+    protected LocalDateTime createTime;
 
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     protected String createBy;
 
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    protected ZonedDateTime updateTime;
+    protected LocalDateTime updateTime;
 
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     protected String updateBy;

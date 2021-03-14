@@ -19,17 +19,17 @@ public class DefaultMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
-        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateTime), ZonedDateTime.class, utc);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, localDateTime);
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getCreateBy), String.class, SYSTEM);
-        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), ZonedDateTime.class, utc);
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), String.class, SYSTEM);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
-        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), ZonedDateTime.class, utc);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
         this.strictInsertFill(metaObject, LambdaWrapper.getFieldName(BaseEntity::getUpdateBy), String.class, SYSTEM);
     }
 }

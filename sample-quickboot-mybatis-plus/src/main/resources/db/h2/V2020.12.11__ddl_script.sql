@@ -11,3 +11,5 @@ CREATE TABLE sys_user (
   PRIMARY KEY (id),
   UNIQUE KEY sys_user_key_name_index (name) USING BTREE
 ) COMMENT='用户表';
+
+insert into sys_user values(1, '张三', 'GET', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());

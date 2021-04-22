@@ -1,6 +1,8 @@
 package com.github.mengweijin.mybatisplus.demo.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -35,9 +37,25 @@ public class UserController {
     @Autowired
     private AsyncFactory asyncFactory;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @GetMapping("/get")
     public List<User> getUser(){
         return userService.list();
+    }
+
+    @GetMapping("/call")
+    public String callApi(String api) throws JsonProcessingException {
+        log.info("api=" + api);
+        Object object = restTemplate.getForObject(api, Object.class);
+        log.info("object=" + object);
+        String result = objectMapper.writeValueAsString(object);
+        log.info("result=" + result);
+        return result;
     }
 
     @GetMapping("/page")

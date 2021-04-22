@@ -46,9 +46,11 @@
 	<build>
 		<resources>
 			<resource>
-				<!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
+				<!--found character '@' that cannot start any token. (Do not use @ for indentation) 出现这个问题需要设置为 true-->
+				<!--配置 ssl 双向认证时出现 java.io.IOException:Invalid keystore format 出现这个问题需要设置为 false-->
+				<!--这便出现矛盾了，先去掉 application.yaml 中的 info.app 下的配置-->
 				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 

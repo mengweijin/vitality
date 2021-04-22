@@ -1,15 +1,16 @@
 # 需要在子工程覆盖info下的参数，否则拿到的信息是这个父工程的，而不是所期待的子工程的。http://localhost:8080/actuator/info
-info:
-  app:
-    groupId: @project.groupId@
-    artifactId: @project.artifactId@
-    version: @project.version@
-    encoding: @project.build.sourceEncoding@
-    java:
-      source: @java.version@
-      target: @java.version@
-    quickboot: @quickboot.version@
-    springboot: @springboot.version@
+# 配置 SSL 双向认证时 maven 的配置会有冲突，详情参见 sample-quickboot-mybatis-plus 中的 pom.xml 中 build 标签下的 resources 标签
+#info:
+#  app:
+#    groupId: @project.groupId@
+#    artifactId: @project.artifactId@
+#    version: @project.version@
+#    encoding: @project.build.sourceEncoding@
+#    java:
+#      source: @java.version@
+#      target: @java.version@
+#    quickboot: @quickboot.version@
+#    springboot: @springboot.version@
 server:
   port: 8080
   servlet:

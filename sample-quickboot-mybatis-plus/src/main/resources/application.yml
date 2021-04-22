@@ -1,21 +1,36 @@
 # 需要在子工程覆盖info下的参数，否则拿到的信息是这个父工程的，而不是所期待的子工程的。http://localhost:8080/actuator/info
-info:
-  app:
-    groupId: @project.groupId@
-    artifactId: @project.artifactId@
-    version: @project.version@
-    encoding: @project.build.sourceEncoding@
-    java:
-      source: @java.version@
-      target: @java.version@
-    quickboot: @quickboot.version@
-    springboot: @springboot.version@
+#info:
+#  app:
+#    groupId: @project.groupId@
+#    artifactId: @project.artifactId@
+#    version: @project.version@
+#    encoding: @project.build.sourceEncoding@
+#    java:
+#      source: @java.version@
+#      target: @java.version@
+#    quickboot: @quickboot.version@
+#    springboot: @springboot.version@
 server:
   port: 8080
   servlet:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
+  ssl:
+    enabled: false
+    # 服务端证书，单向认证
+    key-store: classpath:mengweijin.jks
+    # key-store: C:\Users\mengweijin\mengweijin.jks
+    key-store-password: 123456
+    key-store-type: JKS
+    key-alias: mengweijin
+    # 客户端证书认证，双向认证。可选值为：none、want 和 need
+    client-auth: need
+    # 这里也需要配置 mengweijin.jks 而不是 client.jks
+    trust-store: classpath:mengweijin.jks
+    trust-store-password: 123456
+    trust-store-type: JKS
+    trust-store-provider: SUN
 spring:
   profiles:
     active: dev

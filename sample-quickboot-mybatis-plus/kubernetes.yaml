@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-quickboot-mybatis-plus
+  labels:
+    app: sample-quickboot-mybatis-plus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-quickboot-mybatis-plus
+  template:
+    metadata:
+      labels:
+        app: sample-quickboot-mybatis-plus
+    spec:
+      containers:
+      - name: sample-quickboot-mybatis-plus
+        image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1-SNAPSHOT
+        # IfNotPresent, Always, Never
+        imagePullPolicy: IfNotPresent
+        args: ['--server.ssl.enabled=true']
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-quickboot-mybatis-plus
+spec:
+  # type: NodePort
+  selector:
+    app: sample-quickboot-mybatis-plus
+  ports:
+      # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sample-quickboot-mybatis-plus
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+#    nginx.ingress.kubernetes.io/auth-tls-secret: "default/backend-tls"
+#    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "5"
+#    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+    nginx.ingress.kubernetes.io/proxy-ssl-secret: "default/client-tls"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "on"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify-depth: "5"
+spec:
+  rules:
+    - host: mengweijin.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sample-quickboot-mybatis-plus
+                port:
+                  number: 8080
+#  tls:
+#    - hosts:
+#        - mengweijin.com
+

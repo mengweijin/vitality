@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sample-quickboot-mybatis-plus
-          image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1-SNAPSHOT
+          image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1.1-SNAPSHOT
           # IfNotPresent, Always, Never
           imagePullPolicy: IfNotPresent
           args: ['--server.ssl.enabled=false']
@@ -53,7 +53,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "*"
+        - "mengweijin.com"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -62,7 +62,7 @@ metadata:
 spec:
   # 使用 hosts 字段列举虚拟服务的主机——即用户指定的目标或是路由规则设定的目标。这是客户端向服务发送请求时使用的一个或多个地址。
   hosts:
-    - "*"
+    - "mengweijin.com"
   gateways:
     - sample-quickboot-mybatis-plus
   http:

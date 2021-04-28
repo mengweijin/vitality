@@ -13,6 +13,7 @@ ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/app
 EXPOSE 8080
 
 # docker build -t sample-quickboot-mybatis-plus:latest ./sample-quickboot-mybatis-plus
+# docker build -t registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1.1-SNAPSHOT ./sample-quickboot-mybatis-plus
 
 # docker login --username=***@**.com registry.cn-hangzhou.aliyuncs.com
 # docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1-SNAPSHOT

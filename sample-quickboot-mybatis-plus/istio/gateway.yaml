@@ -1,0 +1,38 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: apps-gateway
+spec:
+  selector:
+    # use Istio default gateway implementation
+    istio: ingressgateway
+  servers:
+    - port:
+        # 需要指定一个公开的端口，80、443
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "mengweijin.com"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apps-virtual-service
+spec:
+  # 使用 hosts 字段列举虚拟服务的主机——即用户指定的目标或是路由规则设定的目标。这是客户端向服务发送请求时使用的一个或多个地址。
+  hosts:
+    - "mengweijin.com"
+  gateways:
+    - apps-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+
+      route:
+        - destination:
+            port:
+              number: 8080
+            # 这里应该时服务名（Service 的名称）
+            host: app1

@@ -89,3 +89,6 @@ spec:
 #kubectl create secret generic client-p12 --from-file=client.p12=./client.p12
 
 # kubectl create secret tls backend-tls --cert=client.crt --key=client.key
+
+#
+

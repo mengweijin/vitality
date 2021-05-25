@@ -29,7 +29,6 @@ spec:
     - match:
         - uri:
             prefix: /
-
       route:
         - destination:
             port:

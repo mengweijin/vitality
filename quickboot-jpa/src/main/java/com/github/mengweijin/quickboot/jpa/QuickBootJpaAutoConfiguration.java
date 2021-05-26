@@ -1,5 +1,7 @@
 package com.github.mengweijin.quickboot.jpa;
 
+import com.github.mengweijin.quickboot.jpa.page.JpaPageArgumentResolver;
+import com.github.mengweijin.quickboot.jpa.page.PageResponseBodyAdvice;
 import com.github.mengweijin.quickboot.jpa.repository.SimpleBaseJpaRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +30,17 @@ public class QuickBootJpaAutoConfiguration {
     @ConditionalOnMissingBean
     public AuditorAware getAuditorAware() {
         return new AuditorAwareImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public JpaPageArgumentResolver pagerArgumentResolver(){
+        return new JpaPageArgumentResolver();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public PageResponseBodyAdvice pageResponseBodyAdvice(){
+        return new PageResponseBodyAdvice();
     }
 }

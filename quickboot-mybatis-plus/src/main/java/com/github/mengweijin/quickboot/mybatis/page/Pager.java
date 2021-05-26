@@ -22,36 +22,6 @@ public class Pager<T> extends Page<T> {
     private static final long serialVersionUID = -5428777368936766478L;
 
     /**
-     * 默认当前页
-     */
-    public static final long CURRENT = 1;
-
-    /**
-     * 默认每页展示数目
-     */
-    public static final long SIZE = 10;
-
-    /**
-     * 默认总数
-     */
-    public static final long TOTAL = 0;
-
-    /**
-     * 当前页
-     */
-    private long current = CURRENT;
-
-    /**
-     * 每页显示条数，默认 10
-     */
-    private long size = SIZE;
-
-    /**
-     * 总数，当 count 不为 0 时分页插件不会进行 count 查询
-     */
-    private long total = TOTAL;
-
-    /**
      * 查询数据列表table返回对象
      */
     private List<T> dataList = Collections.emptyList();
@@ -67,7 +37,7 @@ public class Pager<T> extends Page<T> {
         if(list == null){
             list = Collections.EMPTY_LIST;
         } else {
-            page.setTotal((long)list.size());
+            page.setTotal(list.size());
         }
 
         int current = (int)page.getCurrent();

@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.jpa.page;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -14,9 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author Meng Wei Jin
  * @description
  **/
-@Configuration
 @ControllerAdvice
-public class QuickBootPageResponseBodyAdviceAutoConfiguration implements ResponseBodyAdvice<Page> {
+public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
 
     /**
      * 判断是否支持要转换的参数类型

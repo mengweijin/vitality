@@ -1,13 +1,13 @@
 package com.github.mengweijin.mybatisplus.demo.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import com.github.mengweijin.quickboot.mybatis.page.Pager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -59,8 +60,8 @@ public class UserController {
     }
 
     @GetMapping("/page")
-    public IPage<User> getPage(Pager<User> pager){
-        return userService.page(pager);
+    public IPage<User> getPage(Page<User> page){
+        return userService.page(page);
     }
 
     @GetMapping("/get/{id}")

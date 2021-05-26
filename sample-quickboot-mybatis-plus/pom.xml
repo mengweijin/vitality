@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.mengweijin</groupId>
 		<artifactId>quickboot-parent</artifactId>
-		<version>1.0.22</version>
+		<version>1.0.23</version>
 		<!--<relativePath/>-->
 	</parent>
 
@@ -89,9 +89,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${springboot.version}</version>
-				<configuration>
-					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-				</configuration>
 				<executions>
 					<execution>
 						<goals>

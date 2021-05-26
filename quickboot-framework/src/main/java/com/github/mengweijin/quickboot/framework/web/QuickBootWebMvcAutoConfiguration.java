@@ -16,7 +16,7 @@ import java.util.List;
 public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     @Autowired
-    private PagerArgumentResolver pagerArgumentResolver;
+    private PageArgumentResolver pageArgumentResolver;
 
     @Value("${quickboot.cors: false}")
     private boolean cors;
@@ -43,6 +43,6 @@ public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(pagerArgumentResolver);
+        argumentResolvers.add(pageArgumentResolver);
     }
 }

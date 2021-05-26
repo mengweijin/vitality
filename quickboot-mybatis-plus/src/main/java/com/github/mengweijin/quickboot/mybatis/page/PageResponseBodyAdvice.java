@@ -1,7 +1,6 @@
 package com.github.mengweijin.quickboot.mybatis.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -40,13 +39,10 @@ public class PageResponseBodyAdvice implements ResponseBodyAdvice<IPage> {
      * @return
      */
     @Override
-    public IPage beforeBodyWrite(IPage page, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        Pager pager = new Pager<>();
-        pager.setCurrent(page.getCurrent());
-        pager.setSize(page.getSize());
-        pager.setTotal(page.getTotal());
+    public IPage<?> beforeBodyWrite(IPage page, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        Pager<?> pager = new Pager<>();
+        pager.setCurrent(page.getCurrent()).setSize(page.getSize()).setTotal(page.getTotal());
         pager.setDataList(page.getRecords());
-
         return pager;
     }
 }

@@ -2,21 +2,19 @@ package com.github.mengweijin.quickboot.mybatis.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.mengweijin.quickboot.framework.web.PagerArgumentResolver;
+import com.github.mengweijin.quickboot.framework.web.PageArgumentResolver;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Meng Wei Jin
  * @description
  **/
-public class MyBatisPlusPagerArgumentResolver extends PagerArgumentResolver {
+public class MyBatisPlusPageArgumentResolver implements PageArgumentResolver {
 
     /**
      * 判断是否支持要转换的参数类型
@@ -39,16 +37,12 @@ public class MyBatisPlusPagerArgumentResolver extends PagerArgumentResolver {
      * @throws Exception
      */
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+    public Page<?> resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+        Page<?> page = new Page<>();
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        long current = NumberUtils.toLong(request.getParameter("current"), Pager.CURRENT);
-        long size = NumberUtils.toLong(request.getParameter("size"), Pager.SIZE);
-        long total = NumberUtils.toLong(request.getParameter("total"), Pager.TOTAL);
-
-        Pager pager = new Pager();
-        pager.setCurrent(current);
-        pager.setSize(size);
-        pager.setTotal(total);
-        return pager;
+        long current = NumberUtils.toLong(request.getParameter("current"), page.getCurrent());
+        long size = NumberUtils.toLong(request.getParameter("size"), page.getSize());
+        long total = NumberUtils.toLong(request.getParameter("total"), page.getTotal());
+        return page.setCurrent(current).setSize(size).setTotal(total);
     }
 }

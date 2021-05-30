@@ -58,13 +58,13 @@
 			<plugin>
 				<groupId>com.github.mengweijin</groupId>
 				<artifactId>code-generator-maven-plugin</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.5-SNAPSHOT</version>
 				<configuration>
 					<parameters>
 						<tables>sys_user</tables>
 						<tablePrefix>sys_</tablePrefix>
 						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
-						<lombokModel>false</lombokModel>
+						<lombokModel>true</lombokModel>
 						<dbInfo>
 							<username>root</username>
 							<password>root</password>

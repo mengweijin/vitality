@@ -1,0 +1,7 @@
+# kubectl label namespace ns2 istio-injection=enabled
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns2
+  labels:
+    name: ns2

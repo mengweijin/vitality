@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>sample-quickboot-mybatis-plus</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1.2-SNAPSHOT</version>
 	<name>sample-quickboot-mybatis-plus</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -34,6 +34,12 @@
 			<!--<scope>runtime</scope>-->
 			<!--<version>${h2.version}</version> 从springboot中获取版本-->
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<version>8.0.25</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,8 +74,7 @@
 						<dbInfo>
 							<username>root</username>
 							<password>root</password>
-							<driverName>com.mysql.cj.jdbc.Driver</driverName>
-							<url>jdbc:mysql://192.168.83.128:3306/mwj_cms</url>
+							<url>jdbc:mysql://localhost:3306/app_master</url>
 						</dbInfo>
 					</parameters>
 				</configuration>

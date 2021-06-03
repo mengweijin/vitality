@@ -31,15 +31,9 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<!--<scope>runtime</scope>-->
+			<scope>runtime</scope>
 			<!--<version>${h2.version}</version> 从springboot中获取版本-->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<!--		<dependency>-->
-<!--			<groupId>mysql</groupId>-->
-<!--			<artifactId>mysql-connector-java</artifactId>-->
-<!--			<version>8.0.25</version>-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,17 +58,18 @@
 			<plugin>
 				<groupId>com.github.mengweijin</groupId>
 				<artifactId>code-generator-maven-plugin</artifactId>
-				<version>1.0.5-SNAPSHOT</version>
+				<version>1.0.5</version>
 				<configuration>
 					<parameters>
-						<tables>sys_user</tables>
+						<tables>SYS_USER</tables>
 						<tablePrefix>sys_</tablePrefix>
 						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
 						<lombokModel>true</lombokModel>
 						<dbInfo>
-							<username>root</username>
-							<password>root</password>
-							<url>jdbc:mysql://localhost:3306/app_master</url>
+							<username>sa</username>
+							<password></password>
+							<url>jdbc:h2:file:./../h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
+<!--							<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
 						</dbInfo>
 					</parameters>
 				</configuration>

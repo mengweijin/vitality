@@ -83,15 +83,15 @@ spec:
       name: http
 ---
 # Istio 内部 mtls 双向认证策略
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-  name: ns1-peer-authentication
-  # 要使用自动双向认证策略的命名空间
-  namespace: ns1
-spec:
-  mtls:
-    mode: STRICT
+#apiVersion: security.istio.io/v1beta1
+#kind: PeerAuthentication
+#metadata:
+#  name: ns1-peer-authentication
+#  # 要使用自动双向认证策略的命名空间
+#  namespace: ns1
+#spec:
+#  mtls:
+#    mode: STRICT
 ---
 # 跨命名空间服务之间认证策略
 apiVersion: security.istio.io/v1beta1
@@ -105,12 +105,21 @@ spec:
     - from:
         - source:
             # 只允许 namespace=ns1 中的服务访问，并且允许的命名空间必须都开启了Istio Label，否则依然无法访问成功
-            namespaces: ["ns1", "ns2"]
-#        - source:
-#            ipBlocks: ["192.168.49.2", "192.168.171.138"]
+            namespaces: ["ns1"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ns1-authorization-policy-2
+  namespace: ns1
+spec:
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            remoteIpBlocks: ["127.0.0.1", "192.168.171.138", "192.168.49.2"]
 ---
 apiVersion: networking.istio.io/v1alpha3
-
 kind: Gateway
 metadata:
   name: apps-gateway
@@ -149,4 +158,5 @@ spec:
               number: 8080
             # 这里应该时服务名（Service 的名称）
             host: app1
+
 

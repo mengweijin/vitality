@@ -58,7 +58,7 @@
 			<plugin>
 				<groupId>com.github.mengweijin</groupId>
 				<artifactId>code-generator-maven-plugin</artifactId>
-				<version>1.0.5</version>
+				<version>1.0.6</version>
 				<configuration>
 					<parameters>
 						<tables>SYS_USER</tables>

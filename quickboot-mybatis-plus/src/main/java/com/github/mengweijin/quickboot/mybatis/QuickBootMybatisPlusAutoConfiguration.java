@@ -2,16 +2,21 @@ package com.github.mengweijin.quickboot.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
 import com.github.mengweijin.quickboot.framework.web.PageArgumentResolver;
 import com.github.mengweijin.quickboot.mybatis.page.MyBatisPlusPageArgumentResolver;
 import com.github.mengweijin.quickboot.mybatis.page.PageResponseBodyAdvice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -22,7 +27,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @EnableTransactionManagement
 @Configuration
+@AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class QuickBootMybatisPlusAutoConfiguration {
+
+    @Autowired
+    private DataSourceProperties dataSourceProperties;
 
     /**
      * map-underscore-to-camel-case: true。
@@ -65,13 +74,15 @@ public class QuickBootMybatisPlusAutoConfiguration {
     }
 
     /**
-     * 如果子工程不使用 H2 数据库，只需在子工程中实例化一个PaginationInnerInterceptor Bean.
+     * 如果子工程不使用 DataSourceProperties 中配置的数据库（如使用自定义配置的多数据源的情况下），
+     * 只需在子工程中实例化一个 PaginationInnerInterceptor Bean，指定具体的 DbType 即可.
      * @return
      */
     @Bean
     @ConditionalOnMissingBean
     public PaginationInnerInterceptor paginationInnerInterceptor(){
-        return new PaginationInnerInterceptor(DbType.H2);
+        DbType dbType = JdbcUtils.getDbType(dataSourceProperties.getUrl());
+        return new PaginationInnerInterceptor(dbType);
     }
 
     /**

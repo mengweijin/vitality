@@ -6,7 +6,7 @@
 
 	<groupId>com.github.mengweijin</groupId>
 	<artifactId>quickboot-parent</artifactId>
-	<version>1.0.24-SNAPSHOT</version>
+	<version>1.0.24</version>
 
 	<!-- 父模块打包类型必须为pom -->
 	<packaging>pom</packaging>
@@ -29,7 +29,7 @@
 		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
 		<!-- <skipTests>true</skipTests> -->
 
-		<quickboot.version>1.0.24-SNAPSHOT</quickboot.version>
+		<quickboot.version>1.0.24</quickboot.version>
 
 		<hutool.version>5.7.0</hutool.version>
 		<jsoup.version>1.13.1</jsoup.version>

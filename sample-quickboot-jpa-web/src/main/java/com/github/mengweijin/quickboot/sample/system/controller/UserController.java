@@ -4,6 +4,8 @@ import com.github.mengweijin.quickboot.framework.web.BaseController;
 import com.github.mengweijin.quickboot.jpa.page.Pager;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
+import com.github.mengweijin.quickboot.sample.system.enums.Role;
+import com.github.mengweijin.quickboot.sample.system.repository.UserRepository;
 import com.github.mengweijin.quickboot.sample.system.service.AddressService;
 import com.github.mengweijin.quickboot.sample.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -42,6 +44,26 @@ public class UserController extends BaseController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("/insertDemoData")
+    public void insertDemoData(String name) {
+        Address address = new Address();
+        address.setCountry("CN");
+        address.setProvince("SHAANXI");
+        address.setCity("XI'AN");
+        address.setHouseNumber(12);
+
+        address = addressService.save(address);
+        User user = new User();
+        user.setName("Lisa");
+        user.setAge(12);
+        user.setRole(Role.USER);
+        user.setAddressId(address.getId());
+        userService.saveAndFlush(user);
+    }
 
     @PostMapping("/insert")
     public void insert(@Valid User user, @Valid Address address) {
@@ -85,5 +107,10 @@ public class UserController extends BaseController {
     @GetMapping("/nativeSql")
     public List<Object> findStudentAddress(String userName, String city) {
         return userService.findStudentAddress(userName, city);
+    }
+
+    @GetMapping("/school")
+    public List<UserRepository.UserSchoolDTO> findUserSchoolDTO() {
+        return userRepository.findUserSchoolDTO();
     }
 }

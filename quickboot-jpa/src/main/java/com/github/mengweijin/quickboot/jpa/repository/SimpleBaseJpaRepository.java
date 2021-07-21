@@ -62,6 +62,7 @@ public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> i
      * @return List
      */
     @Override
+
     public List findByNativeSQL(String sql , Map<String, Serializable> paramMap) {
         Query query = entityManager.createNativeQuery(sql);
         query.unwrap(NativeQueryImpl.class).setResultTransformer(EntityMapCamelCaseResultTransformer.INSTANCE);

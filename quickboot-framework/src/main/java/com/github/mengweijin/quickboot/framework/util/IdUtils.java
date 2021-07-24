@@ -1,11 +1,11 @@
 package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import org.apache.commons.lang3.time.DateFormatUtils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author mengweijin
@@ -45,12 +45,12 @@ public class IdUtils extends IdUtil {
 
 	/**
 	 * 时间戳ID
-	 * TODO synchronized 存在高并发下的性能问题，考虑使用 Lock, cas 等机制来处理
-	 * @return
+	 *
+	 * @return 标准日期格式：yyyyMMddHHmmssSSS
 	 */
 	public static String timestampId() {
-		synchronized(LOCK){
-			return DateFormatUtils.format(new Date(), DatePattern.PURE_DATETIME_MS_PATTERN);
+		synchronized (LOCK) {
+			return LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_MS_PATTERN);
 		}
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.beans.FeatureDescriptor;
@@ -42,7 +43,7 @@ public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> i
             entityManager.persist(entity);
             return entity;
         } else {
-            S target = (S) this.getOne(id);
+            S target = (S) this.getById(id);
             BeanUtils.copyProperties(entity, target, getNullPropertyNames(entity));
             return entityManager.merge(target);
         }

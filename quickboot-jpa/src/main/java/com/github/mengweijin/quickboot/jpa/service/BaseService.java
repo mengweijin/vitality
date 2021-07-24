@@ -61,7 +61,7 @@ public interface BaseService<T, ID extends Serializable, R extends BaseJpaReposi
     /**
      * extend JpaRepository
      */
-    void deleteInBatch(Iterable<T> entities);
+    void deleteAllInBatch(Iterable<T> entities);
 
     /**
      * extend JpaRepository
@@ -71,7 +71,7 @@ public interface BaseService<T, ID extends Serializable, R extends BaseJpaReposi
     /**
      * extend JpaRepository
      */
-    T getOne(ID id);
+    T getById(ID id);
 
     /**
      * extend JpaRepository

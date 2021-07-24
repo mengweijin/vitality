@@ -61,8 +61,8 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
-    public void deleteInBatch(Iterable<T> entities) {
-        baseRepository.deleteInBatch(entities);
+    public void deleteAllInBatch(Iterable<T> entities) {
+        baseRepository.deleteAllInBatch(entities);
     }
 
     @Override
@@ -71,8 +71,8 @@ public abstract class BaseServiceImpl<T, ID extends Serializable, R extends Base
     }
 
     @Override
-    public T getOne(ID id) {
-        return baseRepository.getOne(id);
+    public T getById(ID id) {
+        return baseRepository.getById(id);
     }
 
     @Override

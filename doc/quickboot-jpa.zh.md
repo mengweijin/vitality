@@ -20,7 +20,6 @@ quickboot:
 ### Maven 引入:
 
 ~~~xml
-
 <project>
     <parent>
         <artifactId>quickboot-parent</artifactId>

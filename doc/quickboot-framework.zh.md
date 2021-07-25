@@ -40,45 +40,89 @@ Cache<Serializable, Serializable> cache = ehCacheManager.getCache(CacheConfig.DE
 ### Const类
 枚举了常用的特殊String字符
 
-### cors
+### cors 跨域配置
 跨域配置。根据规则在application.yml中配置：
 ~~~~yaml
 quickboot:
   cors:
-    # 是否启用自动配置。如果为false, 则默认采用Springboot规则（不能跨域请求）；如果为true，需要配置白名单来允许跨域请求
+    # 是否启用自动配置，默认 false。如果为 false, 则默认采用 SpringBoot 规则（不能跨域请求）；
     enabled: true
-    # url白名单， 默认 * ，即允许所有ip跨域
-    urlWhiteList:
-        - http://localhost:80
-        - http://127.0.0.1:80
-        - http://localhost:8080
-        - http://127.0.0.1:8080
-        - http://localhost:8010
-        - http://127.0.0.1:8010
-    # header 白名单， 默认 * ，即允许所有类型的header跨域
-    headerWhiteList:
-    # method 白名单， 默认 * ，即允许所有方式的http请求跨域
-    methodWhiteList:
-      - GET
-      - POST
-      - PATCH
-      - PUT
-      - DELETE
 ~~~~
 
 ### exception
+
 自定义异常类：
+
 * ClientException：客户端异常
 * ServerException：服务端异常
 
+### AOP debug 级别请求、响应参数详情等日志记录
+
+- RequestLogAop
+- AopLogger
+
+### p6spy 数据库查询日志记录
+
+自动记录每一条真实查询的 SQL 记录到 debug 日志中。
+
+~~~yaml
+decorator:
+  datasource:
+    enabled: true
+    p6spy:
+      # Register P6LogFactory to log JDBC events
+      enable-logging: true
+      # Use com.p6spy.engine.spy.appender.MultiLineFormat instead of com.p6spy.engine.spy.appender.SingleLineFormat
+      multiline: true
+      # Use logging for default listeners [slf4j, sysout, file]
+      logging: slf4j
+      # Log file to use (only with logging=file)
+      #log-file: spy.log
+      # Custom log format, if specified com.p6spy.engine.spy.appender.CustomLineFormat will be used with this log format
+      #log-format:
+      tracing:
+        include-parameter-values: true
+~~~
+
+### knife4j 自动文档接口（Swagger）
+
+启动服务后访问 url: http://localhost:8080/doc.html
+
+~~~yaml
+# http://localhost:8080/doc.html
+knife4j:
+  enable: true
+  documents:
+    - group: 1.2.x
+      name: 测试自定义标题分组
+      locations: classpath:md/*
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    enableHost: false
+    enableHostText: http://localhost:999
+    enableRequestCache: true
+    enableFilterMultipartApis: false
+    enableFilterMultipartApiMethodType: POST
+    language: zh-CN
+  cors: false
+  production: false
+  basic:
+    enable: false
+    username: test
+    password: 123
+~~~
+
 ### async and scheduler
-启用Spring调度器，注解@EnableScheduling
-启用异步任务，注解@EnableAsync
+
+启用Spring调度器，注解@EnableScheduling 启用异步任务，注解@EnableAsync
 
 ### util
+
 常用工具类
 
 ### web
+
 Spring MVC 工程常用配置
 * 注入Bean RestTemplate
 * Default ExceptionHandler，统一异常处理

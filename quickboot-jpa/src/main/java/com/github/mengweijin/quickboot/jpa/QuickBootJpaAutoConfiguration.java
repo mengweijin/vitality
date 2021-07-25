@@ -13,12 +13,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * @author Meng Wei Jin
  * @description
- * @EnableJpaRepositories 一定要配置basePackages，或者在启动类上配置这个注解，否则启动报错
+ * @EnableJpaRepositories 一定要配置basePackages，或者在启动类上配置这个注解，否则启动报错。如果不配置默认 basePackages = com
  * @date Create in 2019-08-12 19:58
  **/
 @Configuration
 @EnableJpaAuditing
-@EnableJpaRepositories(repositoryBaseClass = SimpleBaseJpaRepository.class, basePackages = {"com"})
+@EnableJpaRepositories(repositoryBaseClass = SimpleBaseJpaRepository.class, basePackages = "${quickboot.jpa.basePackages:com}")
 public class QuickBootJpaAutoConfiguration {
 
     /**

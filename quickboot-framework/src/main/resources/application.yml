@@ -146,3 +146,7 @@ quickboot:
     enabled: true
     # 不需要xss校验的链接（配置示例：/system/*,/tool/*）
     #excludes: /druid/*,/actuator/*
+  # 如果不配置下面这个，默认 basePackages = com
+  jpa:
+    basePackages:
+      - com

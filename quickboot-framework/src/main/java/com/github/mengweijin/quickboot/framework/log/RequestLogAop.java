@@ -13,11 +13,14 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,7 +53,7 @@ public class RequestLogAop {
             HttpServletRequest request = ServletUtils.getRequest();
             String httpMethod = request.getMethod();
 
-            String requestParameter;
+            Object requestParameter;
             if(HttpMethod.GET.name().equals(httpMethod)) {
                 // 保存request，参数和值
                 // 获取请求的参数
@@ -59,10 +62,18 @@ public class RequestLogAop {
                 Map<String, String[]> paramsMap = new HashMap<>(request.getParameterMap());
                 // 移除_csrf参数
                 paramsMap.remove("_csrf");
-                requestParameter = objectMapper.writeValueAsString(paramsMap);
+                requestParameter = paramsMap;
             } else {
-                Object[] args = joinPoint.getArgs();
-                requestParameter = objectMapper.writeValueAsString(args);
+                // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
+                final Object[] args = joinPoint.getArgs();
+
+                List<Map<String, Object>> list = new ArrayList<>(args.length);
+                for (Object object : args) {
+                    Map<String, Object> map = objectMapper.readValue(objectMapper.writeValueAsString(object), Map.class);
+                    list.add(map);
+                }
+
+                requestParameter = list;
             }
 
             // 设置方法名称
@@ -113,7 +124,7 @@ public class RequestLogAop {
     protected void recordLog(final JoinPoint joinPoint, final Object object, final Exception e) {
         try {
             AopLogger aopLogger = threadLocal.get();
-            aopLogger.setResponseBody(objectMapper.writeValueAsString(object));
+            aopLogger.setResponseBody(object);
             if (e != null) {
                 aopLogger.setStatus(Const.FAILURE);
                 aopLogger.setErrorInfo(e.getMessage());

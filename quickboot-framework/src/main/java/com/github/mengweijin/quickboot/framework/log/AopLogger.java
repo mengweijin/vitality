@@ -29,7 +29,7 @@ public class AopLogger implements Serializable {
     /**
      * request parameters
      */
-    private String requestParameter;
+    private Object requestParameter;
 
     /**
      * request methodName
@@ -62,8 +62,8 @@ public class AopLogger implements Serializable {
     private String errorInfo;
 
     /**
-     * response body in json format
+     * response body object
      */
-    private String responseBody;
+    private Object responseBody;
 
 }

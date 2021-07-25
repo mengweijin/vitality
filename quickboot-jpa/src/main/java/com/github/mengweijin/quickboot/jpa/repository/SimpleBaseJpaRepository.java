@@ -8,7 +8,6 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -23,7 +22,6 @@ import java.util.stream.Stream;
  * @description
  * @date Create in 2019-08-12 22:09
  **/
-@Transactional(rollbackFor = Exception.class)
 @NoRepositoryBean
 public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> implements BaseJpaRepository<T, ID> {
 

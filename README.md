@@ -38,13 +38,15 @@ Take the example of using quickboot-mybatis-plus. Maven:
 		<artifactId>quickboot-parent</artifactId>
 		<groupId>com.github.mengweijin</groupId>
 		<version>Latest version</version>
-	</parent>
-    
-    <dependencies>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-mybatis-plus</artifactId>
-        </dependency>
-    </dependencies>
+    </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.mengweijin</groupId>
+      <artifactId>quickboot-mybatis-plus</artifactId>
+    </dependency>
+  </dependencies>
 </project>
 ~~~~
+
+Refer to the documentation of each module for additional information.

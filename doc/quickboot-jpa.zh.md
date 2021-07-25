@@ -30,7 +30,7 @@ quickboot:
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-mybatis-jpa</artifactId>
+            <artifactId>quickboot-jpa</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -2,13 +2,10 @@
 
 ## 介绍
 
-springboot 2.0+, thymeleaf
-
-公共 include.html, index.html 页面，以及常用前端组件。
+springboot 2.0+, thymeleaf，公共 include.html, index.html 页面，以及常用前端组件。
 
 ## 使用
 ~~~xml
-
 <project>
     <parent>
         <artifactId>quickboot-parent</artifactId>
@@ -27,7 +24,6 @@ springboot 2.0+, thymeleaf
 
 引用的包如下：
 ~~~xml
-
 <webjars-locator.version>0.38</webjars-locator.version>
 <vue.version>2.6.11</vue.version>
 <element-ui.version>2.14.0</element-ui.version>

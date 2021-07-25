@@ -42,7 +42,6 @@ mybatis-plus:
 ~~~
 
 ### Maven
-
 ~~~xml
 
 <project>
@@ -62,9 +61,7 @@ mybatis-plus:
 ~~~
 
 ## 功能
-
 ### flyway
-
 ~~~yaml
 spring:
   # flyway在spring boot中默认配置位置为：classpath:db/migration
@@ -80,28 +77,22 @@ spring:
 ~~~
 
 ### 分页 Pager
-
 提供默认的分页对象的入参和返回对象统一处理。
-
 - MyBatisPlusPageArgumentResolver
 - PageResponseBodyAdvice
 
 使用如下：
-
 ~~~java
 @GetMapping("/page")
 public IPage<User> getPage(Page<User> page){
-        return userService.page(page);
-        }
+    return userService.page(page);
+}
 ~~~
 
 ### createBy, createTime, updateBy, updateTime 字段的自动填充
-
 参考类：
-
 - DefaultMetaObjectHandler 默认填充为 SYSTEM， 可以修改。
 - BaseEntity 示例如下：
-
 ~~~java
 @TableField(value = "create_time", fill = FieldFill.INSERT)
 protected LocalDateTime createTime;

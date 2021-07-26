@@ -41,12 +41,29 @@ Language: [English](README.md)
 	</parent>
     
     <dependencies>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-mybatis-plus</artifactId>
-        </dependency>
+      <dependency>
+        <groupId>com.github.mengweijin</groupId>
+        <artifactId>quickboot-mybatis-plus</artifactId>
+      </dependency>
     </dependencies>
 </project>
 ~~~~
 
 其他参考各模块文档。
+
+## 依赖包文档
+
+|依赖|文档|代码|最新版本|
+|---:|:---|:---|:---|
+|Hutool|[https://hutool.cn/](https://hutool.cn/)|[https://gitee.com/dromara/hutool/](https://gitee.com/dromara/hutool/) <br> [https://github.com/dromara/hutool/](https://github.com/dromara/hutool/)|<a target="_blank" href="https://search.maven.org/search?q=g:%22cn.hutool%22%20AND%20a:%22hutool-all%22"><img src="https://img.shields.io/maven-central/v/cn.hutool/hutool-all"/></a>|
+|jsoup|[https://jsoup.org/](https://jsoup.org/)|[https://github.com/jhy/jsoup](https://github.com/jhy/jsoup)|<a target="_blank" href="https://search.maven.org/search?q=g:%22org.jsoup%22%20AND%20a:%22jsoup%22"><img src="https://img.shields.io/maven-central/v/org.jsoup/jsoup"/></a>|
+|mybatis-plus|[https://baomidou.com/](https://baomidou.com/)|[https://gitee.com/baomidou/mybatis-plus](https://gitee.com/baomidou/mybatis-plus) <br> [https://github.com/baomidou/mybatis-plus](https://github.com/baomidou/mybatis-plus)|<a target="_blank" href="https://search.maven.org/search?q=g:%22com.baomidou%22%20AND%20a:%22mybatis-plus-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.baomidou/mybatis-plus-boot-starter"/></a>|					
+|p6spy|[https://p6spy.readthedocs.io/en/latest/integration.html#spring-boot-autoconfiguration](https://p6spy.readthedocs.io/en/latest/integration.html#spring-boot-autoconfiguration)|[https://github.com/p6spy/p6spy](https://github.com/p6spy/p6spy)|<a target="_blank" href="https://search.maven.org/search?q=g:%22p6spy%22%20AND%20a:%22p6spy%22"><img src="https://img.shields.io/maven-central/v/p6spy/p6spy"/></a>|
+|p6spy-spring-boot-starter| |[https://github.com/gavlyukovskiy/spring-boot-data-source-decorator](https://github.com/gavlyukovskiy/spring-boot-data-source-decorator)|<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.gavlyukovskiy%22%20AND%20a:%22p6spy-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.gavlyukovskiy/p6spy-spring-boot-starter"/></a>|
+|knife4j-spring-boot-starter|[https://doc.xiaominfo.com/knife4j/documentation/](https://doc.xiaominfo.com/knife4j/documentation/)|[https://gitee.com/xiaoym/knife4j](https://gitee.com/xiaoym/knife4j)|<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.xiaoymin%22%20AND%20a:%22knife4j-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.xiaoymin/knife4j-spring-boot-starter"/></a>|
+|springboot|[https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)|[https://github.com/spring-projects/spring-boot](https://github.com/spring-projects/spring-boot)|<a target="_blank" href="https://search.maven.org/search?q=g:%22org.springframework.boot%22%20AND%20a:%22spring-boot-dependencies%22"><img src="https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-dependencies"/></a>|
+
+
+
+
+

@@ -36,9 +36,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        /**
-         * 命令行中获取密钥  --quickboot.key
-         */
+        // 命令行中获取密钥  --quickboot.key
         String mpwKey = null;
         for (PropertySource<?> ps : environment.getPropertySources()) {
             if (ps instanceof SimpleCommandLinePropertySource) {
@@ -47,9 +45,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                 break;
             }
         }
-        /**
-         * 处理加密内容
-         */
+        // 处理加密内容
         if (StrUtil.isNotBlank(mpwKey)) {
             HashMap<String, Object> map = new HashMap<>();
             for (PropertySource<?> ps : environment.getPropertySources()) {

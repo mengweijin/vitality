@@ -18,7 +18,6 @@ quickboot:
 ~~~
 
 ### Maven 引入:
-
 ~~~xml
 <project>
     <parent>
@@ -104,7 +103,7 @@ public Page findPage(Pager pager){
 - AuditorAwareImpl 默认填充为 SYSTEM， 可以修改。
 - BaseEntity 示例如下：
 
-~~~java
+```java
 @CreatedDate
 //@DateTimeFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
 //@JsonFormat(pattern = DateFormatUtil.YYYY_MM_DD_HH_MM_SS)
@@ -124,6 +123,25 @@ protected String createBy;
 @LastModifiedBy
 @Column(name = "UPDATE_BY")
 protected String updateBy;
-~~~
+```
+
+### SafetyEncryptEnvironmentPostProcessor 安全加密处理器
+
+可以实现配置文件敏感信息的加密配置。比如：数据库密码等信息。 使用方式：
+
+```
+1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --quickboot.key 传递到应用程序中
+SecretKey key = SecureUtil.generateKey("AES");
+
+2. 密钥加密：配置在 application.yaml 中的加密值
+String result = SecureUtil.aes(key).encrypt("password");
+
+3. YML 配置：加密配置 quickboot: 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
+spring:
+    datasource:
+        url: quickboot:qRhvCwF4GOqjessEB3G+a5okP+uXXr96wcucn2Pev6Bf1oEMZ1gVpPPhdDmjQqoM
+        password: quickboot:Hzy5iliJbwDHhjLs1L0j6w==
+        username: quickboot:Xb+EgsyuYRXw7U7sBJjBpA==
+```
 
 

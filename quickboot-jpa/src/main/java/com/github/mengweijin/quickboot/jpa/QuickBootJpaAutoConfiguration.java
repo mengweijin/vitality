@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.jpa;
 
+import com.github.mengweijin.quickboot.jpa.environment.SafetyEncryptEnvironmentPostProcessor;
 import com.github.mengweijin.quickboot.jpa.page.JpaPageArgumentResolver;
 import com.github.mengweijin.quickboot.jpa.page.PageResponseBodyAdvice;
 import com.github.mengweijin.quickboot.jpa.repository.SimpleBaseJpaRepository;
@@ -34,13 +35,19 @@ public class QuickBootJpaAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JpaPageArgumentResolver pagerArgumentResolver(){
+    public JpaPageArgumentResolver pagerArgumentResolver() {
         return new JpaPageArgumentResolver();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public PageResponseBodyAdvice pageResponseBodyAdvice(){
+    public PageResponseBodyAdvice pageResponseBodyAdvice() {
         return new PageResponseBodyAdvice();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SafetyEncryptEnvironmentPostProcessor safetyEncryptEnvironmentPostProcessor() {
+        return new SafetyEncryptEnvironmentPostProcessor();
     }
 }

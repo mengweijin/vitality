@@ -31,11 +31,11 @@
 
 		<quickboot.version>1.0.26-SNAPSHOT</quickboot.version>
 
-		<hutool.version>5.7.5</hutool.version>
-		<jsoup.version>1.13.1</jsoup.version>
+		<hutool.version>5.7.6</hutool.version>
+		<jsoup.version>1.14.1</jsoup.version>
 		<mybatis-plus.version>3.4.3.1</mybatis-plus.version>
 		<p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
-		<knife4j-spring-boot-starter.version>3.0.2</knife4j-spring-boot-starter.version>
+		<knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
 		<springboot.version>2.5.3</springboot.version>
 	</properties>
 

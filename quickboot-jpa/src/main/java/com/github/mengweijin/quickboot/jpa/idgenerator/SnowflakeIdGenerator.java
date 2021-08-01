@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.jpa.idgenerator;
 
-import com.github.mengweijin.quickboot.framework.util.IdUtils;
+import cn.hutool.core.util.IdUtil;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
@@ -15,6 +15,6 @@ public class SnowflakeIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor s, Object obj) {
-        return Long.valueOf(IdUtils.getSnowflakeId());
+        return IdUtil.getSnowflake().nextId();
     }
 }

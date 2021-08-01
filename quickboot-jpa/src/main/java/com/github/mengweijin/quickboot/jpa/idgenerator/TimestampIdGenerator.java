@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.jpa.idgenerator;
 
-import com.github.mengweijin.quickboot.framework.util.IdUtils;
+import com.github.mengweijin.quickboot.framework.util.TimestampIdUtils;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
@@ -15,6 +15,6 @@ public class TimestampIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor s, Object obj) {
-        return Long.valueOf(IdUtils.timestampId());
+        return TimestampIdUtils.timestampId();
     }
 }

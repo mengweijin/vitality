@@ -7,18 +7,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-class IdUtilsTest {
-
-    @Test
-    void getSnowflakeId() {
-        String id = String.valueOf(IdUtils.getSnowflakeId());
-        log.debug(id);
-        assertTrue(ReUtil.isMatch("\\d+", id));
-    }
+class TimestampIdUtilsTest {
 
     @Test
     void timestampId() {
-        String id = String.valueOf(IdUtils.timestampId());
+        String id = String.valueOf(TimestampIdUtils.timestampId());
         log.debug(id);
         assertTrue(ReUtil.isMatch("\\d+", id));
     }

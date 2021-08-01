@@ -1,15 +1,15 @@
 package com.github.mengweijin.quickboot.framework.xss;
 
-import com.github.mengweijin.quickboot.framework.constant.Const;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Meng Wei Jin
- * @description
- *
- * 加@Validated可对配置属性进行数据格式校验
+ * @description 加@Validated可对配置属性进行数据格式校验
  **/
 @ConfigurationProperties(prefix = "quickboot.xss")
 @Data
@@ -22,8 +22,14 @@ public class XssProperties {
     private Boolean enabled = true;
 
     /**
-     * 不需要xss校验的链接（配置示例：/system/*,/tool/*）
+     * 不需要xss校验的链接
+     * <p>
+     * 配置示例：
+     * quickboot:
+     * xss:
+     * - /system/*
+     * - /tool/*
      */
-    private String excludes = Const.EMPTY;
+    private List<String> excludes = new ArrayList<>();
 
 }

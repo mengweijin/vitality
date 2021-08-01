@@ -25,7 +25,7 @@ import java.util.List;
  * @author mengweijin
  */
 @Slf4j
-public class UploadUtils {
+public class WebUploadUtils {
 
     public static final String UPLOAD_PATH = Const.PROJECT_PATH + "upload" + File.separatorChar;
 

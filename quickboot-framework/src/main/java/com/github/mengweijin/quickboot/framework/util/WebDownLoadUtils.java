@@ -5,6 +5,7 @@ import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpHeaders;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -21,7 +22,7 @@ import java.nio.file.Paths;
  * @author mengweijin
  */
 @Slf4j
-public class DownLoadUtils {
+public class WebDownLoadUtils {
 
     public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
         try {

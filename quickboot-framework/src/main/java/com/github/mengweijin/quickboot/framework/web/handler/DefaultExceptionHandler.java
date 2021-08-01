@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.framework.web.handler;
 import com.github.mengweijin.quickboot.framework.exception.ClientException;
 import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,7 +30,6 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     ResponseEntity<?> handleClientException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
         ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value()).addMessage(e.getMessage());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInfo);
     }
 
@@ -47,14 +45,11 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     /**
      * 获取请求状态码
      *
-     * @param request
+     * @param request HttpServletRequest
      * @return
      */
     private HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.valueOf(statusCode);
+        return statusCode == null ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.valueOf(statusCode);
     }
 }

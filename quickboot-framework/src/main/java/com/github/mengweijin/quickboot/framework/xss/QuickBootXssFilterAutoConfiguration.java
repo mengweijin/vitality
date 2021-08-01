@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework.xss;
 
+import com.github.mengweijin.quickboot.framework.constant.Const;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -7,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 import javax.servlet.DispatcherType;
 import java.util.HashMap;
@@ -35,20 +37,20 @@ public class QuickBootXssFilterAutoConfiguration {
     /**
      * 对所有请求都进行xss过滤
      */
-    private static final String URL_PATTERNS = "/*";
+    private static final String[] URL_PATTERNS = {"/*"};
 
     @Bean
     @ConditionalOnMissingBean
-    public FilterRegistrationBean xssFilterRegistration() {
+    public FilterRegistrationBean xssFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setDispatcherTypes(DispatcherType.REQUEST);
         registration.setFilter(new XssFilter());
         registration.addUrlPatterns(URL_PATTERNS);
         registration.setName("xssFilter");
-        registration.setOrder(Integer.MAX_VALUE);
+        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
         Map<String, String> initParameters = new HashMap<>(2);
-        initParameters.put("excludes", this.xssProperties.getExcludes());
-        initParameters.put("enabled", String.valueOf(this.xssProperties.getEnabled()));
+        initParameters.put(XssFilter.EXCLUDES, String.join(Const.COMMA, xssProperties.getExcludes()));
+        initParameters.put(XssFilter.ENABLED, String.valueOf(this.xssProperties.getEnabled()));
         registration.setInitParameters(initParameters);
         return registration;
     }

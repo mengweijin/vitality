@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.framework.xss;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
-     * @param request
+     * @param request HttpServletRequest
      */
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -28,7 +28,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             String[] escapeValues = new String[length];
             for (int i = 0; i < length; i++) {
                 // 防xss攻击和过滤前后空格
-                escapeValues[i] = Jsoup.clean(values[i], Whitelist.relaxed()).trim();
+                escapeValues[i] = Jsoup.clean(values[i], Safelist.relaxed()).trim();
             }
             return escapeValues;
         }

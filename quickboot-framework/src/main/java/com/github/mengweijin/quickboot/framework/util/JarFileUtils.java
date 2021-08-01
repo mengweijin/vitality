@@ -4,18 +4,14 @@ import cn.hutool.core.io.FileUtil;
 import com.github.mengweijin.quickboot.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 import sun.net.www.protocol.file.FileURLConnection;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -24,7 +20,7 @@ import java.util.jar.JarFile;
  * @author Meng Wei Jin
  */
 @Slf4j
-public class FileUtils extends FileUtil {
+public class JarFileUtils {
 
     /**
      * if (new OsInfo().isWindows()) {
@@ -76,7 +72,7 @@ public class FileUtils extends FileUtil {
                 if (jarEntryName.startsWith(connection.getEntryName())
                         && !jarEntryName.endsWith(Const.SLASH)) {
                     inputStream = classLoader.getResource(jarEntryName).openConnection().getInputStream();
-                    fileTargetDir = FileUtils.file(targetDir + File.separator + jarEntryName);
+                    fileTargetDir = FileUtil.file(targetDir + File.separator + jarEntryName);
                     FileUtil.writeFromStream(inputStream, fileTargetDir);
                 }
             }
@@ -90,27 +86,6 @@ public class FileUtils extends FileUtil {
             if(jarFile != null){
                 jarFile.close();
             }
-        }
-    }
-
-    /**
-     * 使用类Files, Path, Paths 复制文件到java临时目录
-     * @param srcFile
-     * @return 临时路径
-     * @throws IOException
-     */
-    public static String copyTmp(File srcFile) throws IOException {
-        try(InputStream in = new FileInputStream(srcFile)) {
-            Path outDirPath = Paths.get(Const.JAVA_TMP_PATH + File.separator + IdUtils.timestampId());
-            if(!Files.exists(outDirPath)){
-                Files.createDirectories(outDirPath);
-            }
-            Path outFilePath = Files.createFile(Paths.get(outDirPath.toAbsolutePath().toString() + File.separator + srcFile.getName()));
-            Files.copy(in, outFilePath, StandardCopyOption.REPLACE_EXISTING);
-            return outFilePath.toAbsolutePath().toString();
-        } catch (IOException e){
-            log.error(e.getMessage(), e);
-            throw new IOException(e);
         }
     }
 }

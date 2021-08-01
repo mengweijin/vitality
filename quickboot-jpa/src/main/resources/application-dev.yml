@@ -1,5 +1,7 @@
 spring:
   jpa:
+    # spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering.
+    open-in-view: false
     hibernate:
       ddl-auto: update
     show-sql: false

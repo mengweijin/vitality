@@ -1,4 +1,4 @@
-package com.github.mengweijin.mybatisplus.demo.importannotation;
+package com.github.mengweijin.mybatisplus.demo.sourcecode.importannotation;
 
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;

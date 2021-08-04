@@ -24,7 +24,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * 添加默认扫描的组件为：
  * Component.class
  * <p>
- * Test ConfigurationClassPostProcessor.java
+ * ConfigurationClassPostProcessor.java
  * parse @Configuration     - Parse each @Configuration class  源码 331 行
  * 进而在 ConfigurationClassParser.java 这个类按照顺序依次支撑了以下注解：
  * 支撑 @Conditional         - this.conditionEvaluator.shouldSkip 源码 226 行

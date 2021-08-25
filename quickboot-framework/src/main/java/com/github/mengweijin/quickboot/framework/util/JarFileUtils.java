@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.framework.util;
 import cn.hutool.core.io.FileUtil;
 import com.github.mengweijin.quickboot.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
-import sun.net.www.protocol.file.FileURLConnection;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,14 +40,14 @@ public class JarFileUtils {
         if(url == null) {
             throw new IllegalArgumentException("this argument is error! argument=" + folderPath);
         }
-        URLConnection urlConnection = url.openConnection();
 
-        if (urlConnection instanceof FileURLConnection) {
-            // 在IDE里运行会得到FileURLConnection，使用普通方式复制文件夹即可
-            FileUtil.copy(FileUtil.file(url.toURI()), FileUtil.file(targetDir), true);
-        } else if (urlConnection instanceof JarURLConnection) {
+        URLConnection urlConnection = url.openConnection();
+        if (urlConnection instanceof JarURLConnection) {
             // 项目打成jar时运行会得到JarURLConnection
             copyJarDirectoryToDirectory((JarURLConnection) urlConnection, targetDir);
+        } else {
+            // 在IDE里运行使用普通方式复制文件夹即可
+            FileUtil.copy(FileUtil.file(url.toURI()), FileUtil.file(targetDir), true);
         }
     }
 

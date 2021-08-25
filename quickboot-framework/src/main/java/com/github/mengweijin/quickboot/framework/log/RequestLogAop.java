@@ -101,6 +101,7 @@ public class RequestLogAop {
 
     /**
      * @param joinPoint 切点
+     * @param object    返回的对象，参数名必须和注解中配置的名称保持一致。
      */
     @AfterReturning(pointcut = "logPointCut()", returning = "object")
     public void afterReturning(JoinPoint joinPoint, Object object) {

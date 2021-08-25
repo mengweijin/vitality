@@ -1,4 +1,4 @@
-package com.github.mengweijin.mybatisplus.demo.sourcecode.configuration;
+package com.github.mengweijin.mybatisplus.demo.configuration.entity;
 
 import lombok.Getter;
 import lombok.Setter;

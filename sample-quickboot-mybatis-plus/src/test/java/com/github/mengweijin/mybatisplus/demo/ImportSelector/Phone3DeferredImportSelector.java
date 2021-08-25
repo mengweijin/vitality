@@ -1,5 +1,6 @@
-package com.github.mengweijin.mybatisplus.demo.sourcecode.importannotation;
+package com.github.mengweijin.mybatisplus.demo.ImportSelector;
 
+import com.github.mengweijin.mybatisplus.demo.ImportSelector.entity.Phone3;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.DeferredImportSelector;
@@ -22,8 +23,4 @@ public class Phone3DeferredImportSelector implements DeferredImportSelector {
         return DeferredImportSelector.super.getExclusionFilter();
     }
 
-    @Override
-    public Class<? extends Group> getImportGroup() {
-        return DeferredImportSelector.super.getImportGroup();
-    }
 }

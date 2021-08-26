@@ -14,7 +14,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
@@ -55,43 +54,33 @@ public class RequestLogAop {
         try {
             AopLogger aopLogger = new AopLogger();
             HttpServletRequest request = ServletUtils.getRequest();
-            String httpMethod = request.getMethod();
 
-            Object requestParameter;
-            if(HttpMethod.GET.name().equals(httpMethod)) {
-                // 保存request，参数和值
-                // 获取请求的参数
-                // 通过ServletUtils.getRequest().getParameterMap()获得的对象为被锁定的对象，不能修改
-                // 这里通过putAll方法，可以对基本数据类型的集合进行深拷贝，而对其他引用类型putAll不能实现深拷贝
-                Map<String, String[]> paramsMap = new HashMap<>(request.getParameterMap());
-                // 移除_csrf参数
-                paramsMap.remove("_csrf");
-                requestParameter = paramsMap;
-            } else {
-                // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
-                final Object[] args = joinPoint.getArgs();
+            RequestParameter requestParameter = new RequestParameter();
 
-                List<Map<String, Object>> list = new ArrayList<>(args.length);
-                for (Object object : args) {
-                    Map<String, Object> map = objectMapper.readValue(objectMapper.writeValueAsString(object), Map.class);
-                    list.add(map);
-                }
+            // 通过ServletUtils.getRequest().getParameterMap()获得的对象为被锁定的对象，不能修改
+            // 这里通过putAll方法，可以对基本数据类型的集合进行深拷贝，而对其他引用类型putAll不能实现深拷贝
+            Map<String, String[]> paramsMap = new HashMap<>(request.getParameterMap());
+            // 移除_csrf参数
+            paramsMap.remove("_csrf");
+            requestParameter.setRequestArgs(paramsMap);
 
-                requestParameter = list;
+            // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
+            final Object[] args = joinPoint.getArgs();
+            List<Map<String, Object>> list = new ArrayList<>(args.length);
+            for (Object object : args) {
+                Map<String, Object> map = objectMapper.readValue(objectMapper.writeValueAsString(object), Map.class);
+                list.add(map);
             }
-
-            // 设置方法名称
-            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
-            String url = request.getRequestURI();
-            String ip = ServletUtil.getClientIP(request);
+            requestParameter.setMethodArgs(list);
 
             aopLogger.setRequestParameter(requestParameter);
+            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
             aopLogger.setMethodName(methodName);
-            aopLogger.setUrl(url);
-            aopLogger.setHttpMethod(httpMethod);
+            aopLogger.setUrl(request.getRequestURI());
+            aopLogger.setHttpMethod(request.getMethod());
             aopLogger.setOperateUtcTime(ZonedDateTime.now(ZoneOffset.UTC));
             aopLogger.setOperateLocalTime(LocalDateTime.now());
-            aopLogger.setIp(ip);
+            aopLogger.setIp(ServletUtil.getClientIP(request));
 
             threadLocal.set(aopLogger);
         } catch (Exception e){

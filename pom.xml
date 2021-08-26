@@ -23,21 +23,21 @@
 	</modules>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-		<!-- <skipTests>true</skipTests> -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+        <!-- <skipTests>true</skipTests> -->
 
-		<quickboot.version>1.0.27-SNAPSHOT</quickboot.version>
+        <quickboot.version>1.0.27-SNAPSHOT</quickboot.version>
 
-		<hutool.version>5.7.6</hutool.version>
-		<jsoup.version>1.14.1</jsoup.version>
-		<mybatis-plus.version>3.4.3.1</mybatis-plus.version>
-		<p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
-		<knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
-		<springboot.version>2.5.3</springboot.version>
-	</properties>
+        <hutool.version>5.7.9</hutool.version>
+        <jsoup.version>1.14.2</jsoup.version>
+        <mybatis-plus.version>3.4.3.2</mybatis-plus.version>
+        <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <springboot.version>2.5.4</springboot.version>
+    </properties>
 
 	<dependencyManagement>
 		<dependencies>

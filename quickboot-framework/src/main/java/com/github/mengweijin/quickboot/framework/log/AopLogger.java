@@ -29,7 +29,7 @@ public class AopLogger implements Serializable {
     /**
      * request parameters
      */
-    private Object requestParameter;
+    private RequestParameter requestParameter;
 
     /**
      * request methodName

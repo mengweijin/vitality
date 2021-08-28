@@ -73,6 +73,9 @@ public class JarFileUtils {
                     inputStream = classLoader.getResource(jarEntryName).openConnection().getInputStream();
                     fileTargetDir = FileUtil.file(targetDir + File.separator + jarEntryName);
                     FileUtil.writeFromStream(inputStream, fileTargetDir);
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
                 }
             }
         } catch (IOException e) {

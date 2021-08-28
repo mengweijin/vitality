@@ -44,8 +44,9 @@ public class ChangePomVersion {
             Optional<Element> rootOptional = Optional.of(rootElement);
 
             // change quickboot-parent version in pom.xml
-            setQuickBootParentVersion(rootElement);
+            boolean parentVersionChanged = setQuickBootParentVersion(rootElement);
 
+            boolean parentPropertiesVersionChanged = false;
             // change quickboot-parent version in pom.xml properties
             Element quickBootVersionElement = rootOptional
                     .map(e -> e.element("properties"))
@@ -53,20 +54,27 @@ public class ChangePomVersion {
 
             if (quickBootVersionElement != null && oldVersion.equals(quickBootVersionElement.getStringValue())) {
                 quickBootVersionElement.setText(newVersion);
+                parentPropertiesVersionChanged = true;
             }
 
             Element parentElement = rootOptional
                     .map(e -> e.element("parent")).orElse(null);
             // change quickboot children project version in pom.xml parent element
-            setQuickBootParentVersion(parentElement);
+            boolean childrenQuickBootVersionChanged = setQuickBootParentVersion(parentElement);
 
-            write(document, file);
+            if (parentVersionChanged || parentPropertiesVersionChanged || childrenQuickBootVersionChanged) {
+                write(document, file);
+            }
         }
     }
 
-    private static void setQuickBootParentVersion(Element element) {
+    /**
+     * @param element
+     * @return true if version changed. Otherwise, return false.
+     */
+    private static boolean setQuickBootParentVersion(Element element) {
         if (element == null) {
-            return;
+            return false;
         }
         Optional<Element> optional = Optional.ofNullable(element);
         String groupId = optional
@@ -86,7 +94,10 @@ public class ChangePomVersion {
                 && OLD_VERSION.equals(version)) {
             // 更新 Version
             versionElement.setText(NEW_VERSION);
+            return true;
         }
+
+        return false;
     }
 
     private static void write(Document document, File outFile) {

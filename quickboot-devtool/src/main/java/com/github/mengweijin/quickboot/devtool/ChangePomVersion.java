@@ -69,14 +69,14 @@ public class ChangePomVersion {
     }
 
     /**
-     * @param element
+     * @param element parent element
      * @return true if version changed. Otherwise, return false.
      */
     private static boolean setQuickBootParentVersion(Element element) {
         if (element == null) {
             return false;
         }
-        Optional<Element> optional = Optional.ofNullable(element);
+        Optional<Element> optional = Optional.of(element);
         String groupId = optional
                 .map(e -> e.element("groupId"))
                 .map(Element::getStringValue).orElse(null);

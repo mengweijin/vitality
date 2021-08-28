@@ -1,5 +1,6 @@
-package com.github.mengweijin.quickboot.framework.web.handler;
+package com.github.mengweijin.quickboot.framework.web;
 
+import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.exception.ClientException;
 import com.github.mengweijin.quickboot.framework.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +26,13 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
 
     @ExceptionHandler({
             ValidationException.class,
-            ClientException.class})
+            ClientException.class
+    })
     @ResponseBody
     ResponseEntity<?> handleClientException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
-        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value()).addMessage(e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInfo);
+        R<Object> r = R.msg(HttpStatus.BAD_REQUEST.value(), null, e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }
 
     @ExceptionHandler({ServerException.class, RuntimeException.class, Exception.class})
@@ -38,8 +40,7 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     ResponseEntity<?> handleException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
-        ErrorInfo errorInfo = new ErrorInfo().setCode(status.value()).addMessage(e.getMessage());
-        return ResponseEntity.status(status).body(errorInfo);
+        return ResponseEntity.status(status).body(R.msg(status.value(), null, e.getMessage()));
     }
 
     /**

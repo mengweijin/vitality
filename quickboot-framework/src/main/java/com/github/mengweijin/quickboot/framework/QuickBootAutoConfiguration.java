@@ -2,7 +2,7 @@ package com.github.mengweijin.quickboot.framework;
 
 import com.github.mengweijin.quickboot.framework.log.RequestLogAop;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import com.github.mengweijin.quickboot.framework.web.handler.DefaultExceptionHandler;
+import com.github.mengweijin.quickboot.framework.web.DefaultExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

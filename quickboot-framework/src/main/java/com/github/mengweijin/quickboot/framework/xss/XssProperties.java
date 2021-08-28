@@ -19,7 +19,7 @@ public class XssProperties {
     /**
      * xss过滤开关.
      */
-    private Boolean enabled = true;
+    private Boolean enabled = false;
 
     /**
      * 不需要xss校验的链接

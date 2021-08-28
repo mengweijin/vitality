@@ -1,8 +1,7 @@
 package com.github.mengweijin.quickboot.framework.web;
 
-import com.github.mengweijin.quickboot.framework.constant.Const;
+import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
-import com.github.mengweijin.quickboot.framework.web.handler.ErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -41,19 +40,20 @@ public class BaseController {
     /**
      * 数据校验发现不合法结果处理
      * 建议使用全局异常捕获处理
+     *
      * @param bindingResult bindingResult
      * @return
      */
     @Deprecated
-    public ErrorInfo validateErrorResult(BindingResult bindingResult){
+    public R<Object> validateErrorResult(BindingResult bindingResult) {
         List<ObjectError> errors = bindingResult.getAllErrors();
 
-        ErrorInfo errorInfo = new ErrorInfo().setCode(HttpStatus.BAD_REQUEST.value());
+        R<Object> r = R.msg(HttpStatus.BAD_REQUEST.value(), null);
         for (ObjectError err : errors) {
-            errorInfo.addMessage(err.getDefaultMessage() + Const.SEMICOLON);
+            r.addMessage(err.getDefaultMessage());
         }
 
-        return errorInfo;
+        return r;
     }
 
 }

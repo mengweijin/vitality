@@ -143,7 +143,7 @@ quickboot:
   cors: true
   xss:
     # 是否启用xss过滤
-    enabled: true
+    enabled: false
     # 不需要xss校验的链接（配置示例：/system/*,/tool/*）
     #excludes: /druid/*,/actuator/*
   # 如果不配置下面这个，默认 basePackages = com

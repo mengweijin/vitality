@@ -20,12 +20,34 @@
 
 ## 详细介绍
 
+### SafetyEncryptEnvironmentPostProcessor 安全加密处理器
+
+可以实现配置文件敏感信息的加密配置。比如：数据库密码等信息。 使用方式：
+
+```
+1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key 传递到应用程序中
+SecretKey key = SecureUtil.generateKey("AES");
+
+2. 密钥加密：配置在 application.yaml 中的加密值
+String result = SecureUtil.aes(key).encrypt("password");
+
+3. YML 配置：加密配置 quickboot: 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
+spring:
+    datasource:
+        url: {cipher}qRhvCwF4GOqjessEB3G+a5okP+uXXr96wcucn2Pev6Bf1oEMZ1gVpPPhdDmjQqoM
+        password: {cipher}Hzy5iliJbwDHhjLs1L0j6w==
+        username: {cipher}Xb+EgsyuYRXw7U7sBJjBpA==
+```
+
 ### cache
+
 启用缓存注解@EnableCaching，实例化了一个CacheManager：
+
 * 默认缓存名称：CacheConfig.DEFAULT_CACHE_ALIAS
 * heap(1000L, EntryUnit.ENTRIES)
 * withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofMinutes(10L)))
 * withExpiry(ExpiryPolicyBuilder.timeToIdleExpiration(Duration.ofMinutes(10L)))
+
 ~~~~
 在你的工程中如何使用？
 1. 使用注解的方式（自行google）

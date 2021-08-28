@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.jpa.environment;
+package com.github.mengweijin.quickboot.framework.environment;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 /**
  * 安全加密处理器 参考自：com.baomidou.mybatisplus.autoconfigure.SafetyEncryptProcessor
  * <p>
- * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --quickboot.key 传递到应用程序中
+ * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key 传递到应用程序中
  * SecretKey key = SecureUtil.generateKey("AES");
  * <p>
  * 2. 密钥加密：配置在 application.yaml 中的加密值
@@ -26,9 +26,11 @@ import java.util.HashMap;
  * 3. YML 配置：加密配置 quickboot: 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
  * spring:
  * datasource:
- * url: quickboot:qRhvCwF4GOqjessEB3G+a5okP+uXXr96wcucn2Pev6Bf1oEMZ1gVpPPhdDmjQqoM
- * password: quickboot:Hzy5iliJbwDHhjLs1L0j6w==
- * username: quickboot:Xb+EgsyuYRXw7U7sBJjBpA==
+ * url: {cipher}qRhvCwF4GOqjessEB3G+a5okP+uXXr96wcucn2Pev6Bf1oEMZ1gVpPPhdDmjQqoM
+ * password: {cipher}Hzy5iliJbwDHhjLs1L0j6w==
+ * username: {cipher}Xb+EgsyuYRXw7U7sBJjBpA==
+ * <p>
+ * 4. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
  *
  * @author mengweijin
  */
@@ -41,7 +43,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
         for (PropertySource<?> ps : environment.getPropertySources()) {
             if (ps instanceof SimpleCommandLinePropertySource) {
                 SimpleCommandLinePropertySource source = (SimpleCommandLinePropertySource) ps;
-                mpwKey = source.getProperty("quickboot.key");
+                mpwKey = source.getProperty("cipher.key");
                 break;
             }
         }
@@ -55,8 +57,8 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                         Object value = source.getProperty(name);
                         if (value instanceof String) {
                             String str = (String) value;
-                            if (str.startsWith("quickboot:")) {
-                                map.put(name, SecureUtil.aes(mpwKey.getBytes(StandardCharsets.UTF_8)).decrypt(str.substring(4)));
+                            if (str.startsWith("{cipher}")) {
+                                map.put(name, SecureUtil.aes(mpwKey.getBytes(StandardCharsets.UTF_8)).decrypt(str.substring(8)));
                             }
                         }
                     }

@@ -30,7 +30,6 @@ public class ChangePomVersion {
 
     @SneakyThrows
     public static void main(String[] args) {
-
         execute(OLD_VERSION, NEW_VERSION);
     }
 
@@ -57,8 +56,7 @@ public class ChangePomVersion {
                 parentPropertiesVersionChanged = true;
             }
 
-            Element parentElement = rootOptional
-                    .map(e -> e.element("parent")).orElse(null);
+            Element parentElement = rootOptional.map(e -> e.element("parent")).orElse(null);
             // change quickboot children project version in pom.xml parent element
             boolean childrenQuickBootVersionChanged = setQuickBootParentVersion(parentElement);
 

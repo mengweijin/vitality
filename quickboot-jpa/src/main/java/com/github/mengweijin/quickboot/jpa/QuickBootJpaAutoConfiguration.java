@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.jpa;
 
-import com.github.mengweijin.quickboot.jpa.environment.SafetyEncryptEnvironmentPostProcessor;
 import com.github.mengweijin.quickboot.jpa.page.JpaPageArgumentResolver;
 import com.github.mengweijin.quickboot.jpa.page.PageResponseBodyAdvice;
 import com.github.mengweijin.quickboot.jpa.repository.SimpleBaseJpaRepository;
@@ -13,8 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * @author Meng Wei Jin
- * @description
- * @EnableJpaRepositories 一定要配置basePackages，或者在启动类上配置这个注解，否则启动报错。如果不配置默认 basePackages = com
+ * 注解 @EnableJpaRepositories 一定要配置 basePackages，或者在启动类上配置这个注解，否则启动报错。如果不配置默认 basePackages = com
  * @date Create in 2019-08-12 19:58
  **/
 @Configuration
@@ -25,11 +23,11 @@ public class QuickBootJpaAutoConfiguration {
     /**
      * 自动填充 @CreatedBy， @LastModifiedBy
      *
-     * @return
+     * @return AuditorAware
      */
     @Bean
     @ConditionalOnMissingBean
-    public AuditorAware getAuditorAware() {
+    public AuditorAware<String> auditorAware() {
         return new AuditorAwareImpl();
     }
 
@@ -45,9 +43,4 @@ public class QuickBootJpaAutoConfiguration {
         return new PageResponseBodyAdvice();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public SafetyEncryptEnvironmentPostProcessor safetyEncryptEnvironmentPostProcessor() {
-        return new SafetyEncryptEnvironmentPostProcessor();
-    }
 }

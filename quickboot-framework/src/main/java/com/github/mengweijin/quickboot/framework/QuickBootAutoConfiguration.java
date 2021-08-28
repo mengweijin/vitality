@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework;
 
+import com.github.mengweijin.quickboot.framework.environment.SafetyEncryptEnvironmentPostProcessor;
 import com.github.mengweijin.quickboot.framework.log.RequestLogAop;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import com.github.mengweijin.quickboot.framework.web.DefaultExceptionHandler;
@@ -47,5 +48,11 @@ public class QuickBootAutoConfiguration {
     @ConditionalOnMissingBean
     public DefaultExceptionHandler defaultExceptionHandler() {
         return new DefaultExceptionHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SafetyEncryptEnvironmentPostProcessor safetyEncryptEnvironmentPostProcessor() {
+        return new SafetyEncryptEnvironmentPostProcessor();
     }
 }

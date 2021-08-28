@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.27</version>
+        <version>1.0.28-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>quickboot-web</artifactId>
-
     <properties>
         <!-- 不上传此jar包到中央仓库或私服 -->
         <maven.deploy.skip>false</maven.deploy.skip>
@@ -23,7 +21,6 @@
         <respond.version>1.4.2</respond.version>
         <html5shiv.version>3.7.3</html5shiv.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,38 +43,32 @@
             <artifactId>webjars-locator</artifactId>
             <version>${webjars-locator.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>vue</artifactId>
             <version>${vue.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>element-ui</artifactId>
             <version>${element-ui.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>axios</artifactId>
             <version>${axios.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>dayjs</artifactId>
             <version>${dayjs.version}</version>
         </dependency>
-
         <!-- respond和html5shiv：让IE8/9支持媒体查询 -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>respond</artifactId>
             <version>${respond.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>html5shiv</artifactId>

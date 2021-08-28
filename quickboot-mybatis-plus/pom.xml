@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.27</version>
+        <version>1.0.28-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>quickboot-mybatis-plus</artifactId>
-
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-framework</artifactId>
             <version>${quickboot.version}</version>
         </dependency>
-
         <!-- mybatis-plus 无需再单独引入mybatis -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <!--<version>${flyway.version}</version> 从springboot中获取版本 -->
         </dependency>
-
         <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -11,8 +11,6 @@
 |org.springframework.boot|spring-boot-starter-aop||
 |org.springframework.boot|spring-boot-configuration-processor||
 |org.springframework.boot|spring-boot-starter-cache||
-|javax.cache|cache-api||
-|org.ehcache|ehcache|ehcache3|
 |org.springframework.boot|spring-boot-starter-actuator||
 |com.github.gavlyukovskiy|p6spy-spring-boot-starter||
 |cn.hutool|hutool-all||
@@ -39,30 +37,49 @@ spring:
         username: {cipher}Xb+EgsyuYRXw7U7sBJjBpA==
 ```
 
-### cache
+### Cache 以及缓存过期 CacheExpire
 
-启用缓存注解@EnableCaching，实例化了一个CacheManager：
+启用缓存注解@EnableCaching，SpringBoot 默认会根据引入的依赖实例化了一个 CacheManager：
 
-* 默认缓存名称：CacheConfig.DEFAULT_CACHE_ALIAS
-* heap(1000L, EntryUnit.ENTRIES)
-* withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofMinutes(10L)))
-* withExpiry(ExpiryPolicyBuilder.timeToIdleExpiration(Duration.ofMinutes(10L)))
+#### @CacheExpire
 
-~~~~
-在你的工程中如何使用？
-1. 使用注解的方式（自行google）
-2. 使用手动方式放入/取出缓存
+QuickBoot 扩展了缓存功能，提供 @CacheExpire 注解配合 @Cacheable 等 SpringBoot 提供的注解一起工作。
+
+@CacheExpire 参数说明：
+
+- expire：缓存过期时间，默认值为 0，即缓存永不过期。如果同时配置了 cron 和 expire > 0, 优先使用 expire 规则。
+- chronoUnit：ChronoUnit 类，默认值为 ChronoUnit.MINUTES。即默认单位为分钟。和 expire 搭配使用。
+- cron：cron 表达式来控制缓存过期时间。
+
+```java
+/**
+ * 此示例中，配置了 user 缓存 20秒 自动过期，被清除。
+ */
+@CacheExpire(expire = 20, chronoUnit = ChronoUnit.SECONDS)
+@Cacheable(cacheNames = "user")
+@GetMapping("/get")
+public List<User> getUser(){
+    return userService.list();
+}
+```
+
+#### CacheManager 的使用
+
+* 放入缓存：cache.put(Object key, @Nullable Object value);
+* 取出缓存：cache.get(Object key);
+
+```java
 @Autowired
-private CacheManager ehCacheManager;
-Cache<Serializable, Serializable> cache = ehCacheManager.getCache(CacheConfig.DEFAULT_CACHE_ALIAS, Serializable.class, Serializable.class);
-* 放入缓存：cache.put("a", "b");
-* 取出缓存：cache.get("a");
-~~~~
+private CacheManager cacheManager;
+        Cache cache=cacheManager.getCache("cacheName");
+```
 
 ### Const类
+
 枚举了常用的特殊String字符
 
 ### cors 跨域配置
+
 跨域配置。根据规则在application.yml中配置：
 ~~~~yaml
 quickboot:

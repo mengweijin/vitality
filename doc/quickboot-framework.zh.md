@@ -37,7 +37,7 @@ spring:
         username: {cipher}Xb+EgsyuYRXw7U7sBJjBpA==
 ```
 
-### Cache 以及缓存过期 CacheExpire
+### Cache 以及自定义缓存过期注解 @CacheExpire
 
 启用缓存注解@EnableCaching，SpringBoot 默认会根据引入的依赖实例化了一个 CacheManager：
 

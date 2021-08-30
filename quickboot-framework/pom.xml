@@ -5,7 +5,7 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.28</version>
+        <version>1.0.29-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>quickboot-framework</artifactId>
@@ -29,7 +29,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
-        <!-- 引入缓存框架接口依赖，如果不引人其他缓存框架，spring boot 默认使用SimpleCacheConfiguration -->
+        <!-- 引入缓存框架接口依赖，如果不引人其他缓存框架，spring boot 默认使用 SimpleCacheConfiguration -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>

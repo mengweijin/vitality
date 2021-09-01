@@ -2,8 +2,10 @@ package com.github.mengweijin.quickboot.framework.cache;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.cache.CacheManager;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author mengweijin
@@ -12,7 +14,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class CacheExpireTask implements Serializable {
 
-    private String cacheName;
+    private CacheManager cacheManager;
+
+    private Set<String> cacheNames;
 
     private Object cacheKey;
 }

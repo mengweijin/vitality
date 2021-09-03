@@ -43,7 +43,7 @@ spring:
 
 #### @CacheExpire
 
-QuickBoot 扩展了缓存功能，提供 @CacheExpire 注解配合 @Cacheable 等 SpringBoot 提供的注解一起工作。
+QuickBoot 扩展了缓存功能，提供 @CacheExpire 注解配合 @Cacheable 或 @CachePut 使用。
 
 @CacheExpire 参数说明：
 
@@ -71,7 +71,7 @@ public List<User> getUser(){
 ```java
 @Autowired
 private CacheManager cacheManager;
-        Cache cache=cacheManager.getCache("cacheName");
+Cache cache=cacheManager.getCache("cacheName");
 ```
 
 ### Const类

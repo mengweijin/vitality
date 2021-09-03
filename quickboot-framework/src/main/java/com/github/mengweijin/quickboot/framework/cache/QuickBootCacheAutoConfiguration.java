@@ -5,7 +5,10 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.annotation.ProxyCachingConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -18,6 +21,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Slf4j
 @Configuration
 @EnableCaching
+@AutoConfigureAfter({ProxyCachingConfiguration.class})
 public class QuickBootCacheAutoConfiguration {
 
     /**
@@ -61,6 +65,7 @@ public class QuickBootCacheAutoConfiguration {
      * @return
      */
     @Bean
+    @ConditionalOnMissingBean
     public ThreadPoolTaskScheduler cachingExpireTaskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(1);

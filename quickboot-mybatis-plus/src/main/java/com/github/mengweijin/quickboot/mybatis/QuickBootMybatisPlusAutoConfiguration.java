@@ -19,13 +19,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Meng Wei Jin
  * @description
  **/
-@EnableTransactionManagement
 @Configuration
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class QuickBootMybatisPlusAutoConfiguration {

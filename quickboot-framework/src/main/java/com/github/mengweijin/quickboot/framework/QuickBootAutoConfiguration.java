@@ -32,9 +32,18 @@ public class QuickBootAutoConfiguration {
         return new RequestLogAop();
     }
 
+    /**
+     * 为什么这里要加 static? 必须要标记为 static 方法，以示优先加载。否则会给出警告。
+     * ConfigurationClassEnhancer
+     * : @Bean method QuickBootAutoConfiguration.springUtils is non-static and returns an object assignable to
+     * Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations
+     * such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class.
+     * Add the 'static' modifier to this method to avoid these container lifecycle issues;
+     * see @Bean javadoc for complete details.
+     */
     @Bean
     @ConditionalOnMissingBean
-    public SpringUtils springUtils() {
+    public static SpringUtils springUtils() {
         return new SpringUtils();
     }
 

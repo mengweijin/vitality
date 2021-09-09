@@ -9,7 +9,6 @@ import org.springframework.cache.interceptor.CacheInterceptor;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -20,8 +19,7 @@ import java.util.TreeSet;
 /**
  * @author mengweijin
  */
-@Component
-public class AnnotationArgsParser implements ApplicationContextAware {
+public class CacheExpireOperationSource implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 

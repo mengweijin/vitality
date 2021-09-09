@@ -47,7 +47,7 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @CacheExpire(expire = 20, chronoUnit = ChronoUnit.SECONDS)
+    @CacheExpire(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = "user")
     @GetMapping("/get")
     public List<User> getUser() {

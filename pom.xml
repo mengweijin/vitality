@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.29-SNAPSHOT</version>
+    <version>1.0.29</version>
     <!-- 父模块打包类型必须为pom -->
     <packaging>pom</packaging>
     <name>quickboot</name>
@@ -23,7 +23,7 @@
         <java.version>1.8</java.version>
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
-        <quickboot.version>1.0.29-SNAPSHOT</quickboot.version>
+        <quickboot.version>1.0.29</quickboot.version>
         <hutool.version>5.7.11</hutool.version>
         <jsoup.version>1.14.2</jsoup.version>
         <mybatis-plus.version>3.4.3.3</mybatis-plus.version>

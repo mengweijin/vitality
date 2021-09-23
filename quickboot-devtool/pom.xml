@@ -5,7 +5,7 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.29</version>
+        <version>1.0.30-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>quickboot-devtool</artifactId>
@@ -20,10 +20,11 @@
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-framework</artifactId>
         </dependency>
+        <!-- https://dom4j.github.io/ -->
         <dependency>
-            <groupId>dom4j</groupId>
+            <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <version>2.1.3</version>
         </dependency>
     </dependencies>
 </project>

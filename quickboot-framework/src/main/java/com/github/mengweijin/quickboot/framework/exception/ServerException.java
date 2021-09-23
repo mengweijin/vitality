@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.framework.exception;
 
-
 /**
  * @author Meng Wei Jin
  * @description 应用

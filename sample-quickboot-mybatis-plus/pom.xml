@@ -49,7 +49,7 @@
             <plugin>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>code-generator-maven-plugin</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.8</version>
                 <configuration>
                     <parameters>
                         <tables>SYS_USER</tables>
@@ -60,7 +60,7 @@
                             <username>sa</username>
                             <password>sa</password>
                             <url>jdbc:h2:file:./../h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
-                            <!--							<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
+                            <!--<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
                         </dbInfo>
                     </parameters>
                 </configuration>

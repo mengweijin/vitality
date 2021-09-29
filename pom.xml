@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <name>quickboot</name>
     <description>Quick boot for spring boot project.</description>
-    <url>https://github.com/mengweijin/quickboot</url>
+    <url>https://gitee.com/mengweijin/quickboot</url>
     <modules>
         <module>quickboot-framework</module>
         <module>quickboot-jpa</module>
@@ -24,12 +24,12 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
         <quickboot.version>1.0.30-SNAPSHOT</quickboot.version>
-        <hutool.version>5.7.11</hutool.version>
+        <hutool.version>5.7.13</hutool.version>
         <jsoup.version>1.14.2</jsoup.version>
-        <mybatis-plus.version>3.4.3.3</mybatis-plus.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
-        <springboot.version>2.5.4</springboot.version>
+        <springboot.version>2.5.5</springboot.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -192,7 +192,7 @@
     </scm>
     <!--  Issue地址  -->
     <issueManagement>
-        <system>Github Issue</system>
-        <url>https://github.com/mengweijin/quickboot/issues</url>
+        <system>Gitee Issue</system>
+        <url>https://gitee.com/mengweijin/quickboot/issues</url>
     </issueManagement>
 </project>

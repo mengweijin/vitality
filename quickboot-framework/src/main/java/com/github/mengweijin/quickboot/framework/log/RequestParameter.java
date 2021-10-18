@@ -2,7 +2,6 @@ package com.github.mengweijin.quickboot.framework.log;
 
 import lombok.Data;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,12 +11,12 @@ import java.util.Map;
 public class RequestParameter {
 
     /**
-     * Args from Request Args
+     * Args from Http Request
      */
     private Map<String, String[]> requestArgs;
 
     /**
-     * Args from Controller Method Args
+     * Args from Controller Method or URL
      */
-    private List<Map<String, Object>> methodArgs;
+    private Object[] args;
 }

@@ -19,7 +19,7 @@ spec:
         image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1.1-SNAPSHOT
         # IfNotPresent, Always, Never
         imagePullPolicy: IfNotPresent
-        args: ['--server.ssl.enabled=true']
+        args: [ '--server.ssl.enabled=false' ]
         ports:
         - containerPort: 8080
 ---
@@ -42,19 +42,19 @@ metadata:
   name: sample-quickboot-mybatis-plus
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 #    nginx.ingress.kubernetes.io/rewrite-target: /$1
 #    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
 #    nginx.ingress.kubernetes.io/auth-tls-secret: "default/mengweijin-certs"
 #    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "2"
 #    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
-    nginx.ingress.kubernetes.io/proxy-ssl-secret: "default/client-certs"
-    nginx.ingress.kubernetes.io/proxy-ssl-verify: "on"
-    nginx.ingress.kubernetes.io/proxy-ssl-verify-depth: "1"
-    nginx.ingress.kubernetes.io/proxy-ssl-server-name: "on"
-    nginx.ingress.kubernetes.io/proxy-ssl-protocols: "SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2 TLSv1.3"
-    nginx.ingress.kubernetes.io/proxy-ssl-name: "mengweijin.com"
-    nginx.ingress.kubernetes.io/proxy-ssl-redirect: ""
+#    nginx.ingress.kubernetes.io/proxy-ssl-secret: "default/client-certs"
+#    nginx.ingress.kubernetes.io/proxy-ssl-verify: "on"
+#    nginx.ingress.kubernetes.io/proxy-ssl-verify-depth: "1"
+#    nginx.ingress.kubernetes.io/proxy-ssl-server-name: "on"
+#    nginx.ingress.kubernetes.io/proxy-ssl-protocols: "SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2 TLSv1.3"
+#    nginx.ingress.kubernetes.io/proxy-ssl-name: "mengweijin.com"
+#    nginx.ingress.kubernetes.io/proxy-ssl-redirect: ""
 #    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:

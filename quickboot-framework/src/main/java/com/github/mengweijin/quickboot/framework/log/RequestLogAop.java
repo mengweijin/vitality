@@ -21,9 +21,7 @@ import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,12 +64,9 @@ public class RequestLogAop {
 
             // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
             final Object[] args = joinPoint.getArgs();
-            List<Map<String, Object>> list = new ArrayList<>(args.length);
-            for (Object object : args) {
-                Map<String, Object> map = objectMapper.readValue(objectMapper.writeValueAsString(object), Map.class);
-                list.add(map);
-            }
-            requestParameter.setMethodArgs(list);
+            byte[] bytes = objectMapper.writeValueAsBytes(args);
+            Object[] objectArgs = objectMapper.readValue(bytes, Object[].class);
+            requestParameter.setArgs(objectArgs);
 
             aopLogger.setRequestParameter(requestParameter);
             String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();

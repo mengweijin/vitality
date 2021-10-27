@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.beans.Introspector;
 import java.util.Map;
 
 @Slf4j
@@ -27,14 +26,9 @@ public class AppleService {
     /**
      * 根据类型调用不同的实现类方法
      *
-     * @param cls
-     * @param <T>
+     * @param beanName
      */
-    public <T extends Apple> void execute(Class<T> cls) {
-        String beanName = Introspector.decapitalize(cls.getSimpleName());
-        Apple apple = appleMap.get(beanName);
-        if (apple != null) {
-            apple.execute();
-        }
+    public void execute(String beanName) {
+        appleMap.get(beanName).execute();
     }
 }

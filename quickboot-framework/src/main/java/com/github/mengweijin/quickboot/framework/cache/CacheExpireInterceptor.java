@@ -72,7 +72,10 @@ public class CacheExpireInterceptor implements MethodInterceptor {
                 // do nothing
             }
 
-            // 不为空，并且之前没有添加过这个缓存的 CacheExpire 任务，才进行下面的操作
+            // 不为空，才进行下面的操作。也无需把 cacheExpireTask 维护到一个容器中来避免重复任务，因为不可能发生。
+            // 原因是配置了 cacheExpireAdvisor 的 order 为最低优先级，即 cacheExpireAdvisor 在 cacheAdvisor 之后执行
+            // 那么当执行 cacheAdvisor 命中缓存时，就不会进行火炬传递的，因此不会执行 cacheExpireAdvisor 了。
+            // 所有就不会给线程池中提交多个相同的 cacheExpireTask 任务。
             if (cacheExpireTask != null) {
                 this.submitExpireTask(cacheExpire, cacheExpireTask);
             }

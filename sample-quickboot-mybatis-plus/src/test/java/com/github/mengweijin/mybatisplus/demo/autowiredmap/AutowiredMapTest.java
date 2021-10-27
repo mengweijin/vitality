@@ -1,6 +1,5 @@
 package com.github.mengweijin.mybatisplus.demo.autowiredmap;
 
-import com.github.mengweijin.mybatisplus.demo.autowiredmap.bean.Apple;
 import com.github.mengweijin.mybatisplus.demo.autowiredmap.bean.BigApple;
 import com.github.mengweijin.mybatisplus.demo.autowiredmap.bean.SmallApple;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +22,8 @@ public class AutowiredMapTest {
         log.debug("******************************************************");
 
         // 根据类型调用不同的实现类方法
-        bean.execute(BigApple.class);
-        bean.execute(SmallApple.class);
-        log.debug("******************************************************");
-
-        // 下面这个不会有任何输出，因为 Spring 容器中没有一个名字为 apple 的 bean.
-        bean.execute(Apple.class);
+        bean.execute(BigApple.BEAN_NAME);
+        bean.execute(SmallApple.BEAN_NAME);
         log.debug("******************************************************");
 
         context.close();

@@ -15,13 +15,19 @@ spec:
         app: sample-quickboot-mybatis-plus
     spec:
       containers:
-      - name: sample-quickboot-mybatis-plus
-        image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1.1-SNAPSHOT
-        # IfNotPresent, Always, Never
-        imagePullPolicy: IfNotPresent
-        args: [ '--server.ssl.enabled=false' ]
-        ports:
-        - containerPort: 8080
+        - name: sample-quickboot-mybatis-plus
+          image: registry.cn-hangzhou.aliyuncs.com/mengweijin/sample-quickboot-mybatis-plus:0.0.1.4-SNAPSHOT
+          # IfNotPresent, Always, Never
+          imagePullPolicy: IfNotPresent
+          args: [ '--server.ssl.enabled=false' ]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: applog
+              mountPath: /app/log
+      volumes:
+        - name: applog
+          emptyDir: { }
 ---
 apiVersion: v1
 kind: Service

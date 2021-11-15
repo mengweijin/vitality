@@ -94,9 +94,10 @@ management:
       #servlet:
       # 默认即为：/actuator
     #context-path: /actuator
-#日志配置
+#日志配置, 2.5.5 以后的配置。以前的版本好像是 logging.file: logs/application.log
 logging:
-  file: logs/application.log
+  file:
+    name: logs/application.log
   level:
     root: info
     com.github.mengweijin: debug

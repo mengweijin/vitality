@@ -24,7 +24,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
         <quickboot.version>1.0.30-SNAPSHOT</quickboot.version>
-        <hutool.version>5.7.13</hutool.version>
+        <hutool.version>5.7.16</hutool.version>
         <jsoup.version>1.14.2</jsoup.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>

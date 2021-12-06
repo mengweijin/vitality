@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * @author mengweijin
  */
+@Deprecated
 @FunctionalInterface
 public interface ISetterFunction<T, U> extends Serializable {
     /**

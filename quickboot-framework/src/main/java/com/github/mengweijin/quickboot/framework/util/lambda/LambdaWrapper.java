@@ -9,9 +9,13 @@ import java.lang.reflect.Method;
 
 /**
  * 根据Getter/Setter方法名获取属性
+ * <p>
+ * Deprecated. Can be instead of LambdaWrapper by cn.hutool.core.lang.func.LambdaUtil.java
+ *
  * @author mengweijin
  */
 @Slf4j
+@Deprecated
 public class LambdaWrapper {
 
     private static final String GET = "get";

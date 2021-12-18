@@ -28,6 +28,11 @@
             <version>${cache-expired-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>xss-spring-boot-starter</artifactId>
+            <version>1.0.30</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

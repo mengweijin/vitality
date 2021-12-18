@@ -4,6 +4,8 @@ import com.github.mengweijin.cache.expired.CacheExpired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.temporal.ChronoUnit;
@@ -23,5 +25,16 @@ public class UserController {
     public String hello(){
         log.info("Entered hello method.");
         return "Hello";
+    }
+
+    /**
+     * http://localhost:8080/user/xss?html=<script>aaaaa</script>bbbb
+     * @param html
+     * @return bbbb
+     */
+    @GetMapping("/xss")
+    public String xss(String html){
+        log.info("Entered xss method.");
+        return html;
     }
 }

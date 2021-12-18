@@ -16,8 +16,9 @@
     <description>quickboot-parent</description>
     <modules>
         <module>../cache-expired-spring-boot-starter</module>
-        <module>../quickboot-framework</module>
+        <module>../quickboot-framework-spring-boot-starter</module>
         <module>../sample-springboot</module>
+        <module>../xss-spring-boot-starter</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -27,7 +28,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.7.17</hutool.version>
-        <jsoup.version>1.14.3</jsoup.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
@@ -64,12 +64,6 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
-            </dependency>
-            <!-- JSOUP HTML解析器 -->
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.gavlyukovskiy</groupId>

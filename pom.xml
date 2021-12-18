@@ -24,12 +24,13 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <!-- <skipTests>true</skipTests> -->
         <quickboot.version>1.0.30-SNAPSHOT</quickboot.version>
-        <hutool.version>5.7.16</hutool.version>
-        <jsoup.version>1.14.2</jsoup.version>
+        <hutool.version>5.7.17</hutool.version>
+        <jsoup.version>1.14.3</jsoup.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
-        <springboot.version>2.5.5</springboot.version>
+        <springboot.version>2.6.1</springboot.version>
+        <testable.version>0.7.1</testable.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -82,10 +83,24 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j-spring-boot-starter.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.testable</groupId>
+                <artifactId>testable-all</artifactId>
+                <version>${testable.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <argLine>-javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

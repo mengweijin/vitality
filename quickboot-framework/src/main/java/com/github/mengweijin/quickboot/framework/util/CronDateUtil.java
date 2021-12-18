@@ -1,9 +1,6 @@
 package com.github.mengweijin.quickboot.framework.util;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
-import java.text.ParseException;
+import cn.hutool.core.date.DateUtil;
 import java.util.Date;
 
 /**
@@ -20,7 +17,7 @@ public class CronDateUtil {
      * @return
      */
     public static String formatCron(Date date){
-        return DateFormatUtils.format(date, CRON);
+        return DateUtil.format(date, CRON);
     }
 
     /**
@@ -28,7 +25,7 @@ public class CronDateUtil {
      *
      * @return
      */
-    public static Date parseCron(String cron) throws ParseException {
-        return DateUtils.parseDate(cron, CronDateUtil.CRON);
+    public static Date parseCron(String cron) {
+        return DateUtil.parse(cron,CRON);
     }
 }

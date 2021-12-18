@@ -2,8 +2,7 @@ package com.github.mengweijin.quickboot.framework.xss;
 
 import cn.hutool.core.util.ReUtil;
 import com.github.mengweijin.quickboot.framework.constant.Const;
-import org.apache.commons.lang3.StringUtils;
-
+import io.micrometer.core.instrument.util.StringUtils;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

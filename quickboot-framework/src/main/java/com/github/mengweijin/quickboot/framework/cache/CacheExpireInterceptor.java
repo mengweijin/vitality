@@ -12,9 +12,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronExpression;
 import org.springframework.scheduling.support.CronTrigger;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.util.concurrent.ScheduledFuture;
@@ -56,9 +53,8 @@ public class CacheExpireInterceptor implements MethodInterceptor {
     @Setter
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-    @Nullable
     @Override
-    public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
+    public Object invoke(MethodInvocation invocation) throws Throwable {
         log.debug("Enter CacheExpireInterceptor");
         Method method = invocation.getMethod();
         CacheExpire cacheExpire = method.getAnnotation(CacheExpire.class);

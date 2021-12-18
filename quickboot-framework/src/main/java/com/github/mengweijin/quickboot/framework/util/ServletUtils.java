@@ -1,14 +1,13 @@
 package com.github.mengweijin.quickboot.framework.util;
 
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,21 +53,20 @@ public class ServletUtils extends ServletUtil {
      * 获取String参数
      */
     public static String getParameter(String name, String defaultValue) {
-        return StringUtils.defaultIfBlank(getRequest().getParameter(name), defaultValue);
+        return StrUtil.blankToDefault(getParameter(name), defaultValue);
     }
 
     /**
      * 获取Integer参数
      */
     public static Integer getParameterToInt(String name) {
-        return NumberUtils.toInt(getRequest().getParameter(name), -1);
+        String parameter = getParameter(name, null);
+        return parameter == null ? null : NumberUtil.parseInt(parameter);
     }
 
-    /**
-     * 获取Integer参数
-     */
-    public static Integer getParameterToInt(String name, Integer defaultValue) {
-        return NumberUtils.toInt(getRequest().getParameter(name), defaultValue);
+    public static Integer getParameterToInt(String name, int defaultValue) {
+        String parameter = getParameter(name, String.valueOf(defaultValue));
+        return NumberUtil.parseInt(parameter);
     }
 
     /**
@@ -132,37 +130,6 @@ public class ServletUtils extends ServletUtil {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().print(string);
-    }
-
-    /**
-     * 是否是Ajax异步请求
-     *
-     * @param request
-     */
-    @SuppressWarnings("AlibabaUndefineMagicConstant")
-    public static boolean isAjaxRequest(HttpServletRequest request) {
-
-        String accept = request.getHeader("accept");
-        if (accept != null && accept.indexOf("application/json") != -1) {
-            return true;
-        }
-
-        String xRequestedWith = request.getHeader("X-Requested-With");
-        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
-            return true;
-        }
-
-        String uri = request.getRequestURI();
-        if (StringUtils.equalsAnyIgnoreCase(uri, ".json", ".xml")) {
-            return true;
-        }
-
-        String ajax = request.getParameter("__ajax");
-        if (StringUtils.equalsAnyIgnoreCase(ajax, ".json", ".xml")) {
-            return true;
-        }
-
-        return false;
     }
 
 }

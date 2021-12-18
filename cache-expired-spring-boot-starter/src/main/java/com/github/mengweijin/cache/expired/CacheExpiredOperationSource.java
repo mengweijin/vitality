@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.cache;
+package com.github.mengweijin.cache.expired;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.BeansException;
@@ -19,11 +19,11 @@ import java.util.TreeSet;
 /**
  * @author mengweijin
  */
-public class CacheExpireOperationSource implements ApplicationContextAware {
+public class CacheExpiredOperationSource implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    public CacheExpireTask parseCacheableAnnotation(MethodInvocation invocation) {
+    public CacheExpiredTask parseCacheableAnnotation(MethodInvocation invocation) {
         Method method = invocation.getMethod();
         Cacheable cacheable = method.getAnnotation(Cacheable.class);
 
@@ -47,10 +47,10 @@ public class CacheExpireOperationSource implements ApplicationContextAware {
         cacheNameSet.addAll(Arrays.asList(cacheable.cacheNames()));
         cacheNameSet.addAll(Arrays.asList(cacheable.value()));
 
-        return new CacheExpireTask().setCacheKey(key).setCacheNames(cacheNameSet).setCacheManager(cacheManager);
+        return new CacheExpiredTask().setCacheKey(key).setCacheNames(cacheNameSet).setCacheManager(cacheManager);
     }
 
-    public CacheExpireTask parseCachePutAnnotation(MethodInvocation invocation) {
+    public CacheExpiredTask parseCachePutAnnotation(MethodInvocation invocation) {
         Method method = invocation.getMethod();
         CachePut cachePut = method.getAnnotation(CachePut.class);
 
@@ -74,7 +74,7 @@ public class CacheExpireOperationSource implements ApplicationContextAware {
         cacheNameSet.addAll(Arrays.asList(cachePut.cacheNames()));
         cacheNameSet.addAll(Arrays.asList(cachePut.value()));
 
-        return new CacheExpireTask().setCacheKey(key).setCacheNames(cacheNameSet).setCacheManager(cacheManager);
+        return new CacheExpiredTask().setCacheKey(key).setCacheNames(cacheNameSet).setCacheManager(cacheManager);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.cache;
+package com.github.mengweijin.cache.expired;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.Advisor;
@@ -19,17 +19,17 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * to enable proxy-based annotation-driven cache expire management.
  * <p>
  * 参考类 ProxyCachingConfiguration 写的。
- * 注意：@Configuration(proxyBeanMethods = false) 和 @Role(BeanDefinition.ROLE_INFRASTRUCTURE) 很重要。参考 CacheExpireInterceptor 类注释中的问题。
+ * 注意：@Configuration(proxyBeanMethods = false) 和 @Role(BeanDefinition.ROLE_INFRASTRUCTURE) 很重要。参考 CacheExpiredInterceptor 类注释中的问题。
  *
  * @author mengweijin
- * @see CacheExpireOperationSource
- * @see CacheExpireInterceptor
+ * @see CacheExpiredOperationSource
+ * @see CacheExpiredInterceptor
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@AutoConfigureAfter({QuickBootCacheAutoConfiguration.class})
-public class ProxyCachingExpireConfiguration {
+@AutoConfigureAfter({CacheExpiredAutoConfiguration.class})
+public class ProxyCachingExpiredConfiguration {
 
     public static final String CACHING_THREAD_POOL_NAME = "cachingExpireTaskScheduler";
 
@@ -41,16 +41,16 @@ public class ProxyCachingExpireConfiguration {
      */
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public Advisor cacheExpireAdvisor(CacheExpireInterceptor cacheExpireInterceptor) {
+    public Advisor cacheExpireAdvisor(CacheExpiredInterceptor cacheExpiredInterceptor) {
         log.info("Create bean cacheExpireAdvisor");
-        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, CacheExpire.class, true);
+        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, CacheExpired.class, true);
         // 配置增强类 advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
         advisor.setPointcut(pointcut);
-        advisor.setAdvice(cacheExpireInterceptor);
-        // 如果需要 @CacheExpire 在 @Cacheable 之前执行, @EnableCaching 中指定的 order 需要小于这个 order。
-        // 下面这个配置是 @CacheExpire 在 @Cacheable 之后执行，而 @Cacheable 的业务逻辑是如果缓存命中，就不进行火炬传递了，也就是说此时 @CacheExpire 不会执行。
-        // 需要在 CacheExpireInterceptor 中处理当使用存储到磁盘的缓存管理器时，应用重启后，已经缓存的数据无法使其缓存过期的问题。
+        advisor.setAdvice(cacheExpiredInterceptor);
+        // 如果需要 @CacheExpired 在 @Cacheable 之前执行, @EnableCaching 中指定的 order 需要小于这个 order。
+        // 下面这个配置是 @CacheExpired 在 @Cacheable 之后执行，而 @Cacheable 的业务逻辑是如果缓存命中，就不进行火炬传递了，也就是说此时 @CacheExpired 不会执行。
+        // 需要在 CacheExpiredInterceptor 中处理当使用存储到磁盘的缓存管理器时，应用重启后，已经缓存的数据无法使其缓存过期的问题。
         // 此时建议当使用存储到磁盘的缓存管理器时，设置好缓存过期时间，达到双重清理缓存的目的。这样就能同时兼容使用保存在内存或者磁盘的缓存管理器。
         advisor.setOrder(Ordered.LOWEST_PRECEDENCE);
 
@@ -59,17 +59,17 @@ public class ProxyCachingExpireConfiguration {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheExpireOperationSource cacheExpireOperationSource() {
-        return new CacheExpireOperationSource();
+    public CacheExpiredOperationSource cacheExpireOperationSource() {
+        return new CacheExpiredOperationSource();
     }
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheExpireInterceptor cacheExpireMethodInterceptor(
-            CacheExpireOperationSource cacheExpireOperationSource,
-            @Qualifier(ProxyCachingExpireConfiguration.CACHING_THREAD_POOL_NAME) ThreadPoolTaskScheduler threadPoolTaskScheduler) {
-        CacheExpireInterceptor interceptor = new CacheExpireInterceptor();
-        interceptor.setCacheExpireOperationSource(cacheExpireOperationSource);
+    public CacheExpiredInterceptor cacheExpireMethodInterceptor(
+            CacheExpiredOperationSource cacheExpiredOperationSource,
+            @Qualifier(ProxyCachingExpiredConfiguration.CACHING_THREAD_POOL_NAME) ThreadPoolTaskScheduler threadPoolTaskScheduler) {
+        CacheExpiredInterceptor interceptor = new CacheExpiredInterceptor();
+        interceptor.setCacheExpiredOperationSource(cacheExpiredOperationSource);
         interceptor.setThreadPoolTaskScheduler(threadPoolTaskScheduler);
 
         return interceptor;
@@ -85,7 +85,7 @@ public class ProxyCachingExpireConfiguration {
      *
      * @return ThreadPoolTaskScheduler
      */
-    @Bean(ProxyCachingExpireConfiguration.CACHING_THREAD_POOL_NAME)
+    @Bean(ProxyCachingExpiredConfiguration.CACHING_THREAD_POOL_NAME)
     @ConditionalOnMissingBean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public ThreadPoolTaskScheduler cachingExpireTaskScheduler() {

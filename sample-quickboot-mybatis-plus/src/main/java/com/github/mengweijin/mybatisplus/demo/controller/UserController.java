@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.cache.expired.CacheExpired;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
-import com.github.mengweijin.quickboot.framework.cache.CacheExpire;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -47,7 +46,7 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @CacheExpire(expire = 10, chronoUnit = ChronoUnit.SECONDS)
+    @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = "user")
     @GetMapping("/get")
     public List<User> getUser() {

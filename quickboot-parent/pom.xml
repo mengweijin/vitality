@@ -1,66 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.1</version>
+    </parent>
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.30-SNAPSHOT</version>
-    <!-- 父模块打包类型必须为pom -->
+    <version>1.0.30</version>
     <packaging>pom</packaging>
-    <name>quickboot</name>
-    <description>Quick boot for spring boot project.</description>
-    <url>https://gitee.com/mengweijin/quickboot</url>
+    <name>quickboot-parent</name>
+    <description>quickboot-parent</description>
     <modules>
-        <module>quickboot-framework</module>
-        <module>quickboot-jpa</module>
-        <module>quickboot-mybatis-plus</module>
-        <module>quickboot-web</module>
+        <module>../quickboot-framework</module>
+        <module>../cache-expired-spring-boot-starter</module>
+        <module>../sample-springboot</module>
     </modules>
     <properties>
+        <java.version>1.8</java.version>
+        <resource.delimiter>@</resource.delimiter>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-        <!-- <skipTests>true</skipTests> -->
-        <quickboot.version>1.0.30-SNAPSHOT</quickboot.version>
         <hutool.version>5.7.17</hutool.version>
         <jsoup.version>1.14.3</jsoup.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
-        <springboot.version>2.6.1</springboot.version>
         <testable.version>0.7.1</testable.version>
     </properties>
+    <url>https://gitee.com/mengweijin/quickboot-parent</url>
+    <!-- 开源许可证 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <name>Meng Wei Jin</name>
+            <email>mengweijin.work@foxmail.com</email>
+        </developer>
+    </developers>
+    <!--开源地址-->
+    <scm>
+        <url>https://github.com/mengweijin/quickboot-parent</url>
+    </scm>
+    <!--  Issue地址  -->
+    <issueManagement>
+        <system>Gitee Issue</system>
+        <url>https://gitee.com/mengweijin/quickboot-parent/issues</url>
+    </issueManagement>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-framework</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-jpa</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-mybatis-plus</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-web</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${springboot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -185,29 +184,4 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-    <!-- 开源许可证 -->
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-    <!-- 开发者信息 -->
-    <developers>
-        <developer>
-            <name>Meng Wei Jin</name>
-            <email>mengweijin.work@foxmail.com</email>
-        </developer>
-    </developers>
-    <!--开源地址-->
-    <scm>
-        <connection>scm:git:git@github.com:mengweijin/quickboot.git</connection>
-        <developerConnection>scm:git:git@github.com:mengweijin/quickboot.git</developerConnection>
-        <url>git@github.com:mengweijin/quickboot.git</url>
-    </scm>
-    <!--  Issue地址  -->
-    <issueManagement>
-        <system>Gitee Issue</system>
-        <url>https://gitee.com/mengweijin/quickboot/issues</url>
-    </issueManagement>
 </project>

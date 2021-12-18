@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>quickboot-parent</artifactId>
+    <version>1.0.30-SNAPSHOT</version>
+    <!-- 父模块打包类型必须为pom -->
+    <packaging>pom</packaging>
+    <name>quickboot</name>
+    <description>Quick boot for spring boot project.</description>
+    <url>https://gitee.com/mengweijin/quickboot</url>
+    <modules>
+        <module>quickboot-framework</module>
+        <module>quickboot-jpa</module>
+        <module>quickboot-mybatis-plus</module>
+        <module>quickboot-web</module>
+        <module>CacheExpired-spring-boot-starter</module>
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+        <!-- <skipTests>true</skipTests> -->
+        <quickboot.version>1.0.30-SNAPSHOT</quickboot.version>
+        <CacheExpired-spring-boot-starter.version>1.0.30-SNAPSHOT</CacheExpired-spring-boot-starter.version>
+        <hutool.version>5.7.17</hutool.version>
+        <jsoup.version>1.14.3</jsoup.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
+        <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <springboot.version>2.6.1</springboot.version>
+        <testable.version>0.7.1</testable.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-framework</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-jpa</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-mybatis-plus</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-web</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>CacheExpired-spring-boot-starter</artifactId>
+                <version>${CacheExpired-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- JSOUP HTML解析器 -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.gavlyukovskiy</groupId>
+                <artifactId>p6spy-spring-boot-starter</artifactId>
+                <version>${p6spy-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- http://localhost:8080/doc.html -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.testable</groupId>
+                <artifactId>testable-all</artifactId>
+                <version>${testable.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <argLine>-javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                    <additionalOptions>
+                        <!--由于JDK8的java doc生成机制比之前的要严谨许多,导致项目用maven打包的时候出错 解决办法: 添加-Xdoclint:none配置-->
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- GPG -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>oss</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!--  提交到资料库的地址  -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <!-- 开源许可证 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <name>Meng Wei Jin</name>
+            <email>mengweijin.work@foxmail.com</email>
+        </developer>
+    </developers>
+    <!--开源地址-->
+    <scm>
+        <connection>scm:git:git@github.com:mengweijin/quickboot.git</connection>
+        <developerConnection>scm:git:git@github.com:mengweijin/quickboot.git</developerConnection>
+        <url>git@github.com:mengweijin/quickboot.git</url>
+    </scm>
+    <!--  Issue地址  -->
+    <issueManagement>
+        <system>Gitee Issue</system>
+        <url>https://gitee.com/mengweijin/quickboot/issues</url>
+    </issueManagement>
+</project>

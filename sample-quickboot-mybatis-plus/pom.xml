@@ -25,6 +25,10 @@
             <artifactId>quickboot-mybatis-plus</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>CacheExpired-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>

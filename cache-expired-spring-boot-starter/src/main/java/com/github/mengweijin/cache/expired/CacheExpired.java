@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.cache;
+package com.github.mengweijin.cache.expired;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface CacheExpire {
+public @interface CacheExpired {
 
     /**
      * 缓存过期时间

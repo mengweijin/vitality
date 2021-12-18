@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.cache;
+package com.github.mengweijin.cache.expired;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,19 +35,19 @@ import java.util.concurrent.ScheduledFuture;
  * 如果以上两个不能解决问题，使用 @Configuration(proxyBeanMethods = false) 来阻止配置类中的所有 @Bean 被代理。
  * <p>
  * <p>
- * 如果需要 @CacheExpire 在 @Cacheable 之前执行, @EnableCaching 中指定的 order 需要小于配置中的 order。
- * 如果配置是 @CacheExpire 在 @Cacheable 之后执行，而 @Cacheable 的业务逻辑是如果缓存命中，就不进行火炬传递了，也就是说此时 @CacheExpire 不会执行。
- * 此时需要在 CacheExpireInterceptor 中处理当使用存储到磁盘的缓存管理器时，应用重启后，已经缓存的数据无法使其缓存过期的问题。
+ * 如果需要 @CacheExpired 在 @Cacheable 之前执行, @EnableCaching 中指定的 order 需要小于配置中的 order。
+ * 如果配置是 @CacheExpired 在 @Cacheable 之后执行，而 @Cacheable 的业务逻辑是如果缓存命中，就不进行火炬传递了，也就是说此时 @CacheExpired 不会执行。
+ * 此时需要在 CacheExpiredInterceptor 中处理当使用存储到磁盘的缓存管理器时，应用重启后，已经缓存的数据无法使其缓存过期的问题。
  * 此时建议当使用存储到磁盘的缓存管理器时，设置好缓存过期时间，达到双重清理缓存的目的。这样就能同时兼容使用保存在内存或者磁盘的缓存管理器。
  *
  * @author mengweijin
  */
 @Slf4j
-public class CacheExpireInterceptor implements MethodInterceptor {
+public class CacheExpiredInterceptor implements MethodInterceptor {
 
     @Getter
     @Setter
-    private CacheExpireOperationSource cacheExpireOperationSource;
+    private CacheExpiredOperationSource cacheExpiredOperationSource;
 
     @Getter
     @Setter
@@ -55,49 +55,49 @@ public class CacheExpireInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        log.debug("Enter CacheExpireInterceptor");
+        log.debug("Enter CacheExpiredInterceptor");
         Method method = invocation.getMethod();
-        CacheExpire cacheExpire = method.getAnnotation(CacheExpire.class);
-        if (cacheExpire.expire() > 0 || CronExpression.isValidExpression(cacheExpire.cron())) {
-            CacheExpireTask cacheExpireTask = null;
+        CacheExpired cacheExpired = method.getAnnotation(CacheExpired.class);
+        if (cacheExpired.expire() > 0 || CronExpression.isValidExpression(cacheExpired.cron())) {
+            CacheExpiredTask cacheExpiredTask = null;
             if (method.isAnnotationPresent(Cacheable.class)) {
-                cacheExpireTask = cacheExpireOperationSource.parseCacheableAnnotation(invocation);
+                cacheExpiredTask = cacheExpiredOperationSource.parseCacheableAnnotation(invocation);
             } else if (method.isAnnotationPresent(CachePut.class)) {
-                cacheExpireTask = cacheExpireOperationSource.parseCachePutAnnotation(invocation);
+                cacheExpiredTask = cacheExpiredOperationSource.parseCachePutAnnotation(invocation);
             } else {
                 // do nothing
             }
 
-            // 不为空，才进行下面的操作。也无需把 cacheExpireTask 维护到一个容器中来避免重复任务，因为不可能发生。
+            // 不为空，才进行下面的操作。也无需把 cacheExpiredTask 维护到一个容器中来避免重复任务，因为不可能发生。
             // 原因是配置了 cacheExpireAdvisor 的 order 为最低优先级，即 cacheExpireAdvisor 在 cacheAdvisor 之后执行
             // 那么当执行 cacheAdvisor 命中缓存时，就不会进行火炬传递的，因此不会执行 cacheExpireAdvisor 了。
-            // 所有就不会给线程池中提交多个相同的 cacheExpireTask 任务。
-            if (cacheExpireTask != null) {
-                this.submitExpireTask(cacheExpire, cacheExpireTask);
+            // 所有就不会给线程池中提交多个相同的 cacheExpiredTask 任务。
+            if (cacheExpiredTask != null) {
+                this.submitExpireTask(cacheExpired, cacheExpiredTask);
             }
         } else {
-            String message = "Invalid @CacheExpire parameters. expire=" + cacheExpire.expire()
-                    + ", chronoUnit=" + cacheExpire.chronoUnit()
-                    + ", cron=" + cacheExpire.cron();
+            String message = "Invalid @CacheExpired parameters. expire=" + cacheExpired.expire()
+                    + ", chronoUnit=" + cacheExpired.chronoUnit()
+                    + ", cron=" + cacheExpired.cron();
             log.warn(message);
         }
 
         return invocation.proceed();
     }
 
-    public void submitExpireTask(CacheExpire cacheExpire, CacheExpireTask cacheExpireTask) {
-        if (cacheExpire.expire() > 0) {
+    public void submitExpireTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
+        if (cacheExpired.expire() > 0) {
             log.debug("Submitted a delay execute expire cache task!");
-            this.submitDelayTask(cacheExpire, cacheExpireTask);
-        } else if (CronExpression.isValidExpression(cacheExpire.cron())) {
+            this.submitDelayTask(cacheExpired, cacheExpiredTask);
+        } else if (CronExpression.isValidExpression(cacheExpired.cron())) {
             log.debug("Submitted a cron execute expire cache task!");
-            this.submitCronTask(cacheExpire, cacheExpireTask);
+            this.submitCronTask(cacheExpired, cacheExpiredTask);
         }
     }
 
-    private ScheduledFuture<?> submitDelayTask(CacheExpire cacheExpire, CacheExpireTask cacheExpireTask) {
+    private ScheduledFuture<?> submitDelayTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
         return threadPoolTaskScheduler.schedule(() ->
-                this.deleteCache(cacheExpireTask), Instant.now().plus(cacheExpire.expire(), cacheExpire.chronoUnit()));
+                this.deleteCache(cacheExpiredTask), Instant.now().plus(cacheExpired.expire(), cacheExpired.chronoUnit()));
     }
 
     /**
@@ -106,20 +106,20 @@ public class CacheExpireInterceptor implements MethodInterceptor {
      * 3. CronExpression cronExpression = CronExpression.parse(cron);
      * 4. LocalDateTime nextExecuteTime = cronExpression.next(LocalDateTime.now());
      *
-     * @param cacheExpire CacheExpire
+     * @param cacheExpired CacheExpired
      */
-    private ScheduledFuture<?> submitCronTask(CacheExpire cacheExpire, CacheExpireTask cacheExpireTask) {
+    private ScheduledFuture<?> submitCronTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
         return threadPoolTaskScheduler.schedule(() ->
-                this.deleteCache(cacheExpireTask), new CronTrigger(cacheExpire.cron()));
+                this.deleteCache(cacheExpiredTask), new CronTrigger(cacheExpired.cron()));
     }
 
-    private void deleteCache(CacheExpireTask cacheExpireTask) {
-        CacheManager cacheManager = cacheExpireTask.getCacheManager();
-        cacheExpireTask.getCacheNames().forEach(cacheName -> {
+    private void deleteCache(CacheExpiredTask cacheExpiredTask) {
+        CacheManager cacheManager = cacheExpiredTask.getCacheManager();
+        cacheExpiredTask.getCacheNames().forEach(cacheName -> {
             // 从 cacheManager 中移除
             Cache cache = cacheManager.getCache(cacheName);
             if (cache != null) {
-                cache.evictIfPresent(cacheExpireTask.getCacheKey());
+                cache.evictIfPresent(cacheExpiredTask.getCacheKey());
             }
         });
     }

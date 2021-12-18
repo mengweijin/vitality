@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.cache;
+package com.github.mengweijin.cache.expired;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableCaching
 @AutoConfigureAfter({ProxyCachingConfiguration.class})
-public class QuickBootCacheAutoConfiguration {
-
+public class CacheExpiredAutoConfiguration {
 
 }

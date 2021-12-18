@@ -9,47 +9,7 @@
         <version>1.0.30</version>
         <!--<relativePath/>-->
     </parent>
-
     <artifactId>cache-expired-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
-    <name>cache-expired-spring-boot-starter</name>
-    <description>cache-expired-spring-boot-starter</description>
-    <url>https://gitee.com/mengweijin/spring-boot-starters</url>
-    <!-- 开源许可证 -->
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-    <!-- 开发者信息 -->
-    <developers>
-        <developer>
-            <name>Meng Wei Jin</name>
-            <email>mengweijin.work@foxmail.com</email>
-        </developer>
-    </developers>
-    <!--开源地址-->
-    <scm>
-        <url>https://github.com/mengweijin/spring-boot-starters</url>
-    </scm>
-    <!--  Issue地址  -->
-    <issueManagement>
-        <system>Gitee Issue</system>
-        <url>https://gitee.com/mengweijin/spring-boot-starters/issues</url>
-    </issueManagement>
-    <!--  提交到资料库的地址  -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

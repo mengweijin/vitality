@@ -15,8 +15,8 @@
     <name>quickboot-parent</name>
     <description>quickboot-parent</description>
     <modules>
-        <module>../quickboot-framework</module>
         <module>../cache-expired-spring-boot-starter</module>
+        <module>../quickboot-framework</module>
         <module>../sample-springboot</module>
     </modules>
     <properties>
@@ -33,7 +33,7 @@
         <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
         <testable.version>0.7.1</testable.version>
     </properties>
-    <url>https://gitee.com/mengweijin/quickboot-parent</url>
+    <url>https://gitee.com/mengweijin/quickboot</url>
     <!-- 开源许可证 -->
     <licenses>
         <license>
@@ -50,12 +50,12 @@
     </developers>
     <!--开源地址-->
     <scm>
-        <url>https://github.com/mengweijin/quickboot-parent</url>
+        <url>https://github.com/mengweijin/quickboot</url>
     </scm>
     <!--  Issue地址  -->
     <issueManagement>
         <system>Gitee Issue</system>
-        <url>https://gitee.com/mengweijin/quickboot-parent/issues</url>
+        <url>https://gitee.com/mengweijin/quickboot/issues</url>
     </issueManagement>
 
     <dependencyManagement>

@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.github.mengweijin</groupId>
-        <artifactId>quickboot-parent</artifactId>
-        <version>1.0.31-SNAPSHOT</version>
-        <relativePath>../quickboot-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>sample-quickboot-jpa-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>sample-quickboot-jpa-web</name>
-    <description>Demo project for Spring Boot</description>
-    <properties>
-        <!-- 不上传此jar包到中央仓库或私服 -->
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-        <skipTests>true</skipTests>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-jpa-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <!--<scope>runtime</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <delimiters>@</delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <!-- 最终打出来的Jar的名称 -->
-        <!--<finalName>${project.artifactId}</finalName>-->
-    </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <parent> 
+        <groupId>com.github.mengweijin</groupId>  
+        <artifactId>quickboot-parent</artifactId>  
+        <version>1.0.31</version>  
+        <relativePath>../quickboot-parent/pom.xml</relativePath> 
+    </parent>  
+    <artifactId>sample-quickboot-jpa-web</artifactId>  
+    <version>0.0.1-SNAPSHOT</version>  
+    <name>sample-quickboot-jpa-web</name>  
+    <description>Demo project for Spring Boot</description>  
+    <properties> 
+        <!-- 不上传此jar包到中央仓库或私服 -->  
+        <maven.deploy.skip>true</maven.deploy.skip>  
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
+        <skipTests>true</skipTests> 
+    </properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-jpa-spring-boot-starter</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-web</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.h2database</groupId>  
+            <artifactId>h2</artifactId>  
+            <!--<scope>runtime</scope>--> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <resources> 
+            <resource> 
+                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->  
+                <directory>src/main/resources</directory>  
+                <filtering>true</filtering> 
+            </resource> 
+        </resources>  
+        <plugins> 
+            <plugin> 
+                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-resources-plugin</artifactId>  
+                <configuration> 
+                    <delimiters>@</delimiters>  
+                    <useDefaultDelimiters>false</useDefaultDelimiters> 
+                </configuration> 
+            </plugin>  
+            <plugin> 
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId> 
+            </plugin> 
+        </plugins>  
+        <!-- 最终打出来的Jar的名称 -->  
+        <!--<finalName>${project.artifactId}</finalName>--> 
+    </build> 
 </project>

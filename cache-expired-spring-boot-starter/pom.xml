@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.github.mengweijin</groupId>
-        <artifactId>quickboot-parent</artifactId>
-        <version>1.0.31-SNAPSHOT</version>
-        <relativePath>../quickboot-parent/pom.xml</relativePath>
-    </parent>
-    <artifactId>cache-expired-spring-boot-starter</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <!-- SpringBoot AOP -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <!-- @ConfigurationProperties 注解依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-        <!-- 引入缓存框架接口依赖，如果不引人其他缓存框架，spring boot 默认使用 SimpleCacheConfiguration -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.testable</groupId>
-            <artifactId>testable-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>-javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <parent> 
+        <groupId>com.github.mengweijin</groupId>  
+        <artifactId>quickboot-parent</artifactId>  
+        <version>1.0.31</version>  
+        <relativePath>../quickboot-parent/pom.xml</relativePath> 
+    </parent>  
+    <artifactId>cache-expired-spring-boot-starter</artifactId>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter</artifactId> 
+        </dependency>  
+        <!-- SpringBoot AOP -->  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-aop</artifactId> 
+        </dependency>  
+        <!-- @ConfigurationProperties 注解依赖 -->  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-configuration-processor</artifactId> 
+        </dependency>  
+        <!-- 引入缓存框架接口依赖，如果不引人其他缓存框架，spring boot 默认使用 SimpleCacheConfiguration -->  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-cache</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.alibaba.testable</groupId>  
+            <artifactId>testable-all</artifactId>  
+            <scope>test</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-surefire-plugin</artifactId>  
+                <configuration> 
+                    <argLine>-javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine> 
+                </configuration> 
+            </plugin> 
+        </plugins> 
+    </build> 
 </project>

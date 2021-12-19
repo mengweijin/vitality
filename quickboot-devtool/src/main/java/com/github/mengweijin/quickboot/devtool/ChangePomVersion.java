@@ -9,7 +9,6 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,9 +23,9 @@ public class ChangePomVersion {
 
     private static final String POM_XML = "pom.xml";
 
-    private static final String OLD_VERSION = "1.0.29";
+    private static final String OLD_VERSION = "1.0.31-SNAPSHOT";
 
-    private static final String NEW_VERSION = "1.0.30-SNAPSHOT";
+    private static final String NEW_VERSION = "1.0.31";
 
     @SneakyThrows
     public static void main(String[] args) {

@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>quickboot-parent</artifactId>
-        <groupId>com.github.mengweijin</groupId>
-        <version>1.0.31-SNAPSHOT</version>
-        <relativePath>../quickboot-parent/pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>quickboot-web</artifactId>
-    <properties>
-        <!-- webjars -->
-        <webjars-locator.version>0.38</webjars-locator.version>
-        <vue.version>2.6.11</vue.version>
-        <element-ui.version>2.14.0</element-ui.version>
-        <axios.version>0.21.0</axios.version>
-        <dayjs.version>1.9.6</dayjs.version>
-        <respond.version>1.4.2</respond.version>
-        <html5shiv.version>3.7.3</html5shiv.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- webjars -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <parent> 
+        <artifactId>quickboot-parent</artifactId>  
+        <groupId>com.github.mengweijin</groupId>  
+        <version>1.0.31</version>  
+        <relativePath>../quickboot-parent/pom.xml</relativePath> 
+    </parent>  
+    <modelVersion>4.0.0</modelVersion>  
+    <artifactId>quickboot-web</artifactId>  
+    <properties> 
+        <!-- webjars -->  
+        <webjars-locator.version>0.38</webjars-locator.version>  
+        <vue.version>2.6.11</vue.version>  
+        <element-ui.version>2.14.0</element-ui.version>  
+        <axios.version>0.21.0</axios.version>  
+        <dayjs.version>1.9.6</dayjs.version>  
+        <respond.version>1.4.2</respond.version>  
+        <html5shiv.version>3.7.3</html5shiv.version> 
+    </properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-thymeleaf</artifactId> 
+        </dependency>  
+        <!-- webjars -->  
         <!--
             Webjars版本定位工具（前端）
             解决访问WebJars静态资源时必须携带版本号的繁琐问题。
@@ -36,42 +35,42 @@
 
             举个例子，某项目准备将BootStrap 3.3.x 升级到 4.x 大版本，此时除了在POM文件调整之外，
             还需要大面积的在页面中调整因为版本号变更引起问题的路径，而使用定位器之后无需输入版本号自动定位。
-        -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-            <version>${webjars-locator.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>vue</artifactId>
-            <version>${vue.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>element-ui</artifactId>
-            <version>${element-ui.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>axios</artifactId>
-            <version>${axios.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>dayjs</artifactId>
-            <version>${dayjs.version}</version>
-        </dependency>
-        <!-- respond和html5shiv：让IE8/9支持媒体查询 -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>respond</artifactId>
-            <version>${respond.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>html5shiv</artifactId>
-            <version>${html5shiv.version}</version>
-        </dependency>
-    </dependencies>
+        -->  
+        <dependency> 
+            <groupId>org.webjars</groupId>  
+            <artifactId>webjars-locator</artifactId>  
+            <version>${webjars-locator.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.webjars</groupId>  
+            <artifactId>vue</artifactId>  
+            <version>${vue.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.webjars.npm</groupId>  
+            <artifactId>element-ui</artifactId>  
+            <version>${element-ui.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.webjars.npm</groupId>  
+            <artifactId>axios</artifactId>  
+            <version>${axios.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.webjars.npm</groupId>  
+            <artifactId>dayjs</artifactId>  
+            <version>${dayjs.version}</version> 
+        </dependency>  
+        <!-- respond和html5shiv：让IE8/9支持媒体查询 -->  
+        <dependency> 
+            <groupId>org.webjars</groupId>  
+            <artifactId>respond</artifactId>  
+            <version>${respond.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.webjars</groupId>  
+            <artifactId>html5shiv</artifactId>  
+            <version>${html5shiv.version}</version> 
+        </dependency> 
+    </dependencies> 
 </project>

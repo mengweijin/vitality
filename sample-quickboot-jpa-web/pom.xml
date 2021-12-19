@@ -6,7 +6,7 @@
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
         <version>1.0.31</version>  
-        <relativePath>../quickboot-parent/pom.xml</relativePath> 
+<!--        <relativePath>../quickboot-parent/pom.xml</relativePath> -->
     </parent>  
     <artifactId>sample-quickboot-jpa-web</artifactId>  
     <version>0.0.1-SNAPSHOT</version>  

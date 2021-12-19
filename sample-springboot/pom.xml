@@ -17,7 +17,6 @@
         <maven.deploy.skip>true</maven.deploy.skip>
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
         <skipTests>true</skipTests>
-        <cache-expired-spring-boot-starter.version>1.0.0</cache-expired-spring-boot-starter.version>
         <testable.version>0.7.1</testable.version>
     </properties>
 
@@ -25,12 +24,12 @@
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>cache-expired-spring-boot-starter</artifactId>
-            <version>${cache-expired-spring-boot-starter.version}</version>
+            <version>1.0.31-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>xss-spring-boot-starter</artifactId>
-            <version>1.0.30</version>
+            <version>1.0.31-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

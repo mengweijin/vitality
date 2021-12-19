@@ -45,53 +45,6 @@ spring:
       pool:
         # default 1  TaskSchedulingProperties
         size: 8
-  # SQL Script DataSource Initialization(Since version 2.5.0): SqlInitializationProperties.java
-  sql:
-    init:
-      enabled: false
-      schemaLocations:
-        -
-      dataLocations:
-        -
-  datasource:
-    driver-class-name: org.h2.Driver
-    # 以本地文件存储数据的方式使用H2数据库。
-    # ./h2/test 在项目根路径下保存数据库文件
-    # AUTO_SERVER=true 启动自动混合模式，允许开启多个连接，该参数不支持在内存中运行模式
-    # DB_CLOSE_ON_EXIT 当虚拟机退出时并不关闭数据库
-    url: jdbc:h2:file:./h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
-    # 以内存方式使用数据库（这里会创建一个数据库名为 test 的数据库实例）
-    # MODE=MYSQL 兼容模式
-    # url: jdbc:h2:mem:test;MODE=MYSQL
-    username: sa
-    password: sa
-  h2:
-    console:
-      # 是否允许网页访问，默认false
-      enabled: true
-      # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
-      path: /h2
-      settings:
-        # 是否允许从其他地方访问，还是只允许从本地访问
-        web-allow-others: true
-# Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
-management:
-  endpoint:
-    health:
-      # always / never / when-authorized
-      show-details: never
-  endpoints:
-    web:
-      exposure:
-        # 要暴露出来的接口，可配置：health(默认), info（2.5.0后不再默认暴露出去）, * 代表所有
-        include: [ "*" ]
-        #exclude: ["trace"]
-      #server:
-      #不配置的话默认使用应用程序下的端口
-      #port: 80
-      #servlet:
-      # 默认即为：/actuator
-    #context-path: /actuator
 #日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
 logging:
   file:
@@ -99,22 +52,6 @@ logging:
   level:
     root: info
     com.github.mengweijin: debug
-decorator:
-  datasource:
-    enabled: true
-    p6spy:
-      # Register P6LogFactory to log JDBC events
-      enable-logging: true
-      # Use com.p6spy.engine.spy.appender.MultiLineFormat instead of com.p6spy.engine.spy.appender.SingleLineFormat
-      multiline: true
-      # Use logging for default listeners [slf4j, sysout, file]
-      logging: slf4j
-      # Log file to use (only with logging=file)
-      #log-file: spy.log
-      # Custom log format, if specified com.p6spy.engine.spy.appender.CustomLineFormat will be used with this log format
-      #log-format:
-      tracing:
-        include-parameter-values: true
 # http://localhost:8080/doc.html
 knife4j:
   enable: true
@@ -137,14 +74,27 @@ knife4j:
     enable: false
     username: test
     password: 123
+# Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
+management:
+  endpoint:
+    health:
+      # always / never / when-authorized
+      show-details: never
+  endpoints:
+    web:
+      exposure:
+      # 要暴露出来的接口，可配置：health(默认), info（2.5.0后不再默认暴露出去）, * 代表所有
+      #include: [ "*" ]
+      #exclude: ["trace"]
+      #server:
+      #不配置的话默认使用应用程序下的端口
+      #port: 80
+      #servlet:
+      # 默认即为：/actuator
+    #context-path: /actuator
 quickboot:
   # 是否允许跨域
   cors: true
-  xss:
-    # 是否启用xss过滤
-    enabled: false
-    # 不需要xss校验的链接（配置示例：/system/*,/tool/*）
-    #excludes: /druid/*,/actuator/*
   # 如果不配置下面这个，默认 basePackages = com
   jpa:
     basePackages:

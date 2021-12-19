@@ -3,6 +3,7 @@ package com.github.mengweijin.quickboot.framework;
 import com.github.mengweijin.quickboot.framework.environment.SafetyEncryptEnvironmentPostProcessor;
 import com.github.mengweijin.quickboot.framework.log.RequestLogAop;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
+import com.github.mengweijin.quickboot.framework.web.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.framework.web.DefaultExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -24,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync
 @EnableScheduling
 @Configuration
-public class QuickBootAutoConfiguration {
+public class QuickBootFrameworkAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
@@ -35,7 +36,7 @@ public class QuickBootAutoConfiguration {
     /**
      * 为什么这里要加 static? 必须要标记为 static 方法，以示优先加载。否则会给出警告。
      * ConfigurationClassEnhancer
-     * : @Bean method QuickBootAutoConfiguration.springUtils is non-static and returns an object assignable to
+     * : @Bean method QuickBootFrameworkAutoConfiguration.springUtils is non-static and returns an object assignable to
      * Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations
      * such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class.
      * Add the 'static' modifier to this method to avoid these container lifecycle issues;
@@ -63,5 +64,11 @@ public class QuickBootAutoConfiguration {
     @ConditionalOnMissingBean
     public SafetyEncryptEnvironmentPostProcessor safetyEncryptEnvironmentPostProcessor() {
         return new SafetyEncryptEnvironmentPostProcessor();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CorsWebMvcConfigurer corsWebMvcConfigurer() {
+        return new CorsWebMvcConfigurer();
     }
 }

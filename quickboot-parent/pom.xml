@@ -10,17 +10,19 @@
     </parent>
     <groupId>com.github.mengweijin</groupId>
     <artifactId>quickboot-parent</artifactId>
-    <version>1.0.30</version>
+    <version>1.0.31-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>quickboot-parent</name>
     <description>quickboot-parent</description>
     <modules>
         <module>../cache-expired-spring-boot-starter</module>
         <module>../quickboot-framework-spring-boot-starter</module>
+        <module>../quickboot-mybatis-plus-spring-boot-starter</module>
         <module>../sample-springboot</module>
         <module>../xss-spring-boot-starter</module>
     </modules>
     <properties>
+        <quickboot.version>1.0.31-SNAPSHOT</quickboot.version>
         <java.version>1.8</java.version>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -60,6 +62,21 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-framework-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>cache-expired-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>xss-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>

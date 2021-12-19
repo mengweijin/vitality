@@ -4,10 +4,10 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.mengweijin.quickboot.framework.web.PageArgumentResolver;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Meng Wei Jin
  * @description
  **/
-public class MyBatisPlusPageArgumentResolver implements PageArgumentResolver {
+public class PageArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 判断是否支持要转换的参数类型

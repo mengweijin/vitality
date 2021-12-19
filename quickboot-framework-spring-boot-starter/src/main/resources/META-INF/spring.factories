@@ -1,7 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.mengweijin.quickboot.framework.QuickBootAutoConfiguration,\
-com.github.mengweijin.quickboot.framework.web.QuickBootWebMvcAutoConfiguration
+com.github.mengweijin.quickboot.framework.QuickBootFrameworkAutoConfiguration
 
 
 

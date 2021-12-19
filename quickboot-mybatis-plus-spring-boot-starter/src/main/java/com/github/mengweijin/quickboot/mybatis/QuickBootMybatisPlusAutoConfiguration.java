@@ -10,8 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
-import com.github.mengweijin.quickboot.framework.web.PageArgumentResolver;
-import com.github.mengweijin.quickboot.mybatis.page.MyBatisPlusPageArgumentResolver;
+import com.github.mengweijin.quickboot.mybatis.page.PageArgumentResolver;
 import com.github.mengweijin.quickboot.mybatis.page.PageResponseBodyAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -19,6 +18,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import java.util.List;
 
 /**
  * @author Meng Wei Jin
@@ -26,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
-public class QuickBootMybatisPlusAutoConfiguration {
+public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private DataSourceProperties dataSourceProperties;
@@ -85,24 +87,32 @@ public class QuickBootMybatisPlusAutoConfiguration {
 
     /**
      * 自动填充
+     * BaseEntityMetaObjectHandler
+     * 可以使用 BaseEntityMetaObjectHandler 来填充创建时间，修改时间。
+     * 或者使用 BaseCreatorEntityMetaObjectHandler 来填充创建时间，修改时间，创建人、修改人。
+     *
+     * return new BaseCreatorEntityMetaObjectHandler(ServletUtils.SESSION_USER);
      *
      * @return
      */
     @Bean
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
-        return new DefaultMetaObjectHandler();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public PageArgumentResolver pagerArgumentResolver(){
-        return new MyBatisPlusPageArgumentResolver();
+        return new BaseEntityMetaObjectHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public PageResponseBodyAdvice pageResponseBodyAdvice(){
         return new PageResponseBodyAdvice();
+    }
+
+    /**
+     * 注册参数解析器
+     * @param argumentResolvers
+     */
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new PageArgumentResolver());
     }
 }

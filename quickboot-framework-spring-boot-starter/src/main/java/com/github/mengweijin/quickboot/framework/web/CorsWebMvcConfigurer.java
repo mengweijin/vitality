@@ -1,22 +1,14 @@
 package com.github.mengweijin.quickboot.framework.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import java.util.List;
 
 /**
  * @author Meng Wei Jin
  * @description
  **/
-@Configuration
-public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
-
-    @Autowired
-    private PageArgumentResolver pageArgumentResolver;
+public class CorsWebMvcConfigurer implements WebMvcConfigurer {
 
     @Value("${quickboot.cors: false}")
     private boolean cors;
@@ -35,14 +27,5 @@ public class QuickBootWebMvcAutoConfiguration implements WebMvcConfigurer {
                     .allowCredentials(true)
                     .maxAge(3600);
         }
-    }
-
-    /**
-     * 注册参数解析器
-     * @param argumentResolvers
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(pageArgumentResolver);
     }
 }

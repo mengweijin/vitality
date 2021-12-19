@@ -5,15 +5,15 @@
     <parent>
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
-        <version>1.0.30-SNAPSHOT</version>
+        <version>1.0.31-SNAPSHOT</version>
+        <relativePath>../quickboot-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>quickboot-mybatis-plus</artifactId>
+    <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-framework</artifactId>
-            <version>${quickboot.version}</version>
+            <artifactId>quickboot-framework-spring-boot-starter</artifactId>
         </dependency>
         <!-- mybatis-plus 无需再单独引入mybatis -->
         <dependency>
@@ -22,11 +22,23 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <!--<version>${flyway.version}</version> 从springboot中获取版本 -->
         </dependency>
-        <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

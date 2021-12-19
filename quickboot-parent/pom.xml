@@ -19,6 +19,7 @@
         <module>../quickboot-framework-spring-boot-starter</module>
         <module>../quickboot-mybatis-plus-spring-boot-starter</module>
         <module>../sample-springboot</module>
+        <module>../sample-quickboot-mybatis-plus</module>
         <module>../xss-spring-boot-starter</module>
     </modules>
     <properties>
@@ -65,6 +66,11 @@
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>quickboot-framework-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>

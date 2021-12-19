@@ -1,6 +1,6 @@
 package com.github.mengweijin.mybatisplus.demo.AdvisorPointcutAdvice;
 
-import com.github.mengweijin.quickboot.framework.cache.CacheExpire;
+import com.github.mengweijin.cache.expired.CacheExpired;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
@@ -32,7 +32,7 @@ public class UserServicePointCut implements Pointcut, ClassFilter, MethodMatcher
     public boolean matches(Method method, Class<?> targetClass) {
         // 拿到原始方法对象，这个方法上才有注解
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
-        if (AnnotatedElementUtils.hasAnnotation(specificMethod, CacheExpire.class)) {
+        if (AnnotatedElementUtils.hasAnnotation(specificMethod, CacheExpired.class)) {
             System.err.println("*************************************" + method.getName());
             return true;
         }

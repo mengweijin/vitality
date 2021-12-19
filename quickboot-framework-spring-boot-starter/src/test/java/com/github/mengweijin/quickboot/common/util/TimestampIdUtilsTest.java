@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.common.util;
 
 import cn.hutool.core.util.ReUtil;
+import com.github.mengweijin.quickboot.framework.util.TimestampIdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

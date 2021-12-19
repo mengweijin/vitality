@@ -6,8 +6,8 @@
     <parent>
         <groupId>com.github.mengweijin</groupId>
         <artifactId>quickboot-parent</artifactId>
-        <version>1.0.30-SNAPSHOT</version>
-        <!--<relativePath/>-->
+        <version>1.0.31-SNAPSHOT</version>
+        <relativePath>../quickboot-parent/pom.xml</relativePath>
     </parent>
     <artifactId>sample-quickboot-mybatis-plus</artifactId>
     <version>0.0.1.4-SNAPSHOT</version>
@@ -22,16 +22,25 @@
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-mybatis-plus</artifactId>
+            <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>CacheExpired-spring-boot-starter</artifactId>
+            <artifactId>cache-expired-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>xss-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,7 +62,7 @@
             <plugin>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>code-generator-maven-plugin</artifactId>
-                <version>1.0.8</version>
+                <version>1.0.9</version>
                 <configuration>
                     <parameters>
                         <tables>SYS_USER</tables>
@@ -62,34 +71,17 @@
                         <lombokModel>true</lombokModel>
                         <dbInfo>
                             <username>sa</username>
-                            <password>sa</password>
+                            <password></password>
                             <url>jdbc:h2:file:./../h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
                             <!--<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/test;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
                         </dbInfo>
                     </parameters>
                 </configuration>
             </plugin>
-            <plugin>
-                <!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <delimiters>@</delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springboot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 将所有依赖包全部打到一个Jar包里面 -->
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <!-- 最终打出来的Jar的名称 -->

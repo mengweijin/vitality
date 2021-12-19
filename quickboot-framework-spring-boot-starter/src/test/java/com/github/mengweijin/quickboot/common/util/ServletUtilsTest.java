@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.common.util;
 
 import com.alibaba.testable.core.annotation.MockInvoke;
+import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;

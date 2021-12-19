@@ -3,7 +3,7 @@ package com.github.mengweijin.mybatisplus.demo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.mybatisplus.demo.enums.Gender;
-import com.github.mengweijin.quickboot.mybatis.BaseEntity;
+import com.github.mengweijin.quickboot.mybatis.entity.BaseCreatorEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName("SYS_USER")
-public class User extends BaseEntity {
+public class User extends BaseCreatorEntity {
 
     @TableField("name")
     private String name;

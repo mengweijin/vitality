@@ -48,6 +48,23 @@ public class UserController {
 
     @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = "user")
+    @GetMapping("/cache")
+    public String hello(){
+        log.info("Entered hello method.");
+        return "Hello";
+    }
+
+    /**
+     * http://localhost:8080/user/xss?html=<script>aaaaa</script>bbbb
+     * @param html
+     * @return bbbb
+     */
+    @GetMapping("/xss")
+    public String xss(String html){
+        log.info("Entered xss method.");
+        return html;
+    }
+
     @GetMapping("/get")
     public List<User> getUser() {
         return userService.list();

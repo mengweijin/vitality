@@ -17,7 +17,7 @@ server:
     context-path: /
 spring:
   profiles:
-    active: dev
+    active: quickboot,dev
   mvc:
     throw-exception-if-no-handler-found: false
   resources:
@@ -76,22 +76,21 @@ knife4j:
     password: 123
 # Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
 management:
+  # server:
+    # 不配置的话默认使用应用程序下的端口
+    # port: 8080
   endpoint:
     health:
       # always / never / when-authorized
       show-details: never
   endpoints:
     web:
-      exposure:
-      # 要暴露出来的接口，可配置：health(默认), info（2.5.0后不再默认暴露出去）, * 代表所有
-      #include: [ "*" ]
-      #exclude: ["trace"]
-      #server:
-      #不配置的话默认使用应用程序下的端口
-      #port: 80
-      #servlet:
       # 默认即为：/actuator
-    #context-path: /actuator
+      # base-path: /actuator
+      exposure:
+        # 要暴露出来的接口，可配置：health(默认), info（2.5.0后不再默认暴露出去）, 配置为 * 代表所有
+        include: [ "health" ]
+        # exclude: ["trace"]
 quickboot:
   # 是否允许跨域
   cors: true

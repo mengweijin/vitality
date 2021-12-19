@@ -18,7 +18,6 @@
         <module>../cache-expired-spring-boot-starter</module>
         <module>../quickboot-framework-spring-boot-starter</module>
         <module>../quickboot-mybatis-plus-spring-boot-starter</module>
-        <module>../sample-springboot</module>
         <module>../sample-quickboot-mybatis-plus</module>
         <module>../xss-spring-boot-starter</module>
     </modules>

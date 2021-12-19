@@ -21,32 +21,5 @@ Language: [中文](README.zh.md)
 </p>
 
 ## Introduction
- Quickly build the SpringBoot 2.0 project, integrate and configure common module functions, and save time to build the project.
+ Quickly build the SpringBoot project, integrate and configure common module functions, and save time to build the project.
 
-## Module Documentation
-- [quickboot-parent document](README.md)
-    - [quickboot-framework document](doc/quickboot-framework.zh.md)
-    - [quickboot-jpa document](doc/quickboot-jpa.zh.md)
-    - [quickboot-mybatis-plus document](doc/quickboot-mybatis-plus.zh.md)
-    - [quickboot-web document](doc/quickboot-web.zh.md)
-
-## How to use it?
-Take the example of using quickboot-mybatis-plus. Maven: 
-~~~~xml
-<project>
-	<parent>
-		<artifactId>quickboot-parent</artifactId>
-		<groupId>com.github.mengweijin</groupId>
-		<version>Latest version</version>
-    </parent>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.github.mengweijin</groupId>
-      <artifactId>quickboot-mybatis-plus</artifactId>
-    </dependency>
-  </dependencies>
-</project>
-~~~~
-
-Refer to the documentation of each module for additional information.

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @description XssFilter 配置, 集成Spring Security后，不需要，security自带xss和csrf验证
+ * XssFilter 配置, 集成Spring Security后，不需要，security自带xss和csrf验证
  *
  * @author Meng Wei Jin
  *

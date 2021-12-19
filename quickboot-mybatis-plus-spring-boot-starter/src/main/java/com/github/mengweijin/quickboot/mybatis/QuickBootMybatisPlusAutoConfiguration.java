@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 @Configuration
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
@@ -38,7 +37,6 @@ public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
      * 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，
      * 默认对返回类型为Map的对象的key不起作用，所以需要自定义 MybatisMapWrapperFactory 类来处理
      *
-     * @return
      */
     @Bean
     @ConditionalOnMissingBean
@@ -76,7 +74,6 @@ public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
     /**
      * 如果子工程不使用 DataSourceProperties 中配置的数据库（如使用自定义配置的多数据源的情况下），
      * 只需在子工程中实例化一个 PaginationInnerInterceptor Bean，指定具体的 DbType 即可.
-     * @return
      */
     @Bean
     @ConditionalOnMissingBean
@@ -93,7 +90,6 @@ public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
      *
      * return new BaseCreatorEntityMetaObjectHandler(ServletUtils.SESSION_USER);
      *
-     * @return
      */
     @Bean
     @ConditionalOnMissingBean
@@ -109,7 +105,6 @@ public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
 
     /**
      * 注册参数解析器
-     * @param argumentResolvers
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

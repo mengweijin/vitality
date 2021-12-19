@@ -5,7 +5,6 @@ import java.util.Date;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 public class CronDateUtil {
 
@@ -13,8 +12,8 @@ public class CronDateUtil {
 
     /**
      * 日期转cron表达式
-     * @param date
-     * @return
+     * @param date date
+     * @return String
      */
     public static String formatCron(Date date){
         return DateUtil.format(date, CRON);
@@ -23,7 +22,7 @@ public class CronDateUtil {
     /**
      * cron表达式转Date
      *
-     * @return
+     * @return Date
      */
     public static Date parseCron(String cron) {
         return DateUtil.parse(cron,CRON);

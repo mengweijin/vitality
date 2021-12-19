@@ -31,7 +31,6 @@ import java.time.LocalDateTime;
  * spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
  *
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-28 15:18
  **/
 @Data

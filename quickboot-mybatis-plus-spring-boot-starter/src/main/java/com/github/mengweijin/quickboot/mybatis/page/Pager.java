@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -28,10 +27,6 @@ public class Pager<T> extends Page<T> {
 
     /**
      * 手动分页
-     * @param page
-     * @param list
-     * @param <E>
-     * @return
      */
     public static <E> IPage<E> handPage(IPage<E> page, List<E> list){
         if(list == null){

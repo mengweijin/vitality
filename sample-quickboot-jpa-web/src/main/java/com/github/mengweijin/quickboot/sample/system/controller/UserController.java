@@ -23,7 +23,6 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-27 17:27
  **/
 @Validated

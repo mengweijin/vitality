@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 /**
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-08-12 22:09
  **/
 @NoRepositoryBean
@@ -61,7 +60,6 @@ public class SimpleBaseJpaRepository<T, ID> extends SimpleJpaRepository<T, ID> i
      * @return List
      */
     @Override
-
     public List findByNativeSQL(String sql , Map<String, Serializable> paramMap) {
         Query query = entityManager.createNativeQuery(sql);
         query.unwrap(NativeQueryImpl.class).setResultTransformer(EntityMapCamelCaseResultTransformer.INSTANCE);

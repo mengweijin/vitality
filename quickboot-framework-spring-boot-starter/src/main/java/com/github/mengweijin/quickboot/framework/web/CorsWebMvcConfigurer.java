@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 public class CorsWebMvcConfigurer implements WebMvcConfigurer {
 

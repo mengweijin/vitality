@@ -6,7 +6,6 @@ import com.github.mengweijin.quickboot.sample.system.repository.AddressRepositor
 
 /**
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-28 0:36
  **/
 public interface AddressService extends BaseService<Address, Long, AddressRepository> {

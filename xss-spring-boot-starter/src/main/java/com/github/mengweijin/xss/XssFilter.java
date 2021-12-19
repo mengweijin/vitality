@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author
- * @description XSS 攻击过滤器
+ * XSS 攻击过滤器
  **/
 public class XssFilter implements Filter {
 
@@ -35,7 +35,7 @@ public class XssFilter implements Filter {
     public boolean enabled = false;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String tempEnabled = filterConfig.getInitParameter(ENABLED);
         if (StrUtil.isNotEmpty(tempEnabled)) {
             enabled = Boolean.parseBoolean(tempEnabled);

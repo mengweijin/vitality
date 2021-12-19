@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 
 /**
- * @description 通用常量信息
+ * 通用常量信息
  *
  * @author Meng Wei Jin
  **/

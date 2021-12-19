@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description 需要在前台设置请求参数名和返回的数据的参数名与当前类对应
+ * 需要在前台设置请求参数名和返回的数据的参数名与当前类对应
  **/
 @Getter
 @Setter

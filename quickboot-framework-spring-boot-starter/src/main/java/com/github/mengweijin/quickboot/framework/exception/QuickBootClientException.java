@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 所以，自定义异常类，也是一种处理全局异常的方式。并非只有 @ControllerAdvice，@ExceptionHandler
  *
  * @author Meng Wei Jin
- * @description Client Exception
+ * Client Exception
  **/
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Bad Request")
 public class QuickBootClientException extends RuntimeException {

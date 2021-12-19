@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 @ControllerAdvice
 public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
@@ -19,9 +18,9 @@ public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
     /**
      * 判断是否支持要转换的参数类型
      *
-     * @param methodParameter
-     * @param aClass
-     * @return
+     * @param methodParameter methodParameter
+     * @param aClass aClass
+     * @return boolean
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -30,13 +29,6 @@ public class PageResponseBodyAdvice implements ResponseBodyAdvice<Page> {
 
     /**
      * 当支持后进行相应的转换
-     * @param page
-     * @param methodParameter
-     * @param mediaType
-     * @param aClass
-     * @param serverHttpRequest
-     * @param serverHttpResponse
-     * @return
      */
     @Override
     public Page beforeBodyWrite(Page page, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {

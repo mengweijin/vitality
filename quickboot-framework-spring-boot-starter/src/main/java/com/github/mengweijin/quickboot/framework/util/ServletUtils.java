@@ -17,7 +17,7 @@ import java.util.Enumeration;
 
 /**
  * @author
- * @description Servlet工具类
+ * Servlet工具类
  **/
 public class ServletUtils extends ServletUtil {
 
@@ -28,7 +28,6 @@ public class ServletUtils extends ServletUtil {
 
     /**
      * 获取UserAgent
-     * @return
      */
     public static UserAgent getUserAgent(HttpServletRequest request){
         return UserAgentUtil.parse(request.getHeader("User-Agent"));
@@ -36,7 +35,6 @@ public class ServletUtils extends ServletUtil {
 
     /**
      * 获取UserAgent
-     * @return
      */
     public static UserAgent getUserAgent(){
         return getUserAgent(getRequest());
@@ -104,9 +102,6 @@ public class ServletUtils extends ServletUtil {
 
     /**
      * 是否包含某个参数名
-     * @param request
-     * @param parameterName
-     * @return
      */
     public static boolean containsParameter(HttpServletRequest request, String parameterName){
         Enumeration<String> enumeration = request.getParameterNames();
@@ -123,9 +118,7 @@ public class ServletUtils extends ServletUtil {
      *
      * @param response 渲染对象
      * @param string   待渲染的字符串
-     * @return null
      */
-    @SuppressWarnings("AlibabaUndefineMagicConstant")
     public static void renderString(HttpServletResponse response, String string) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

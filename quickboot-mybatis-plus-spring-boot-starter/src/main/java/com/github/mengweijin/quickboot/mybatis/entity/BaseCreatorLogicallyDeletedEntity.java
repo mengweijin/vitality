@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,10 +16,10 @@ import java.time.LocalDateTime;
 /**
  *
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-28 15:18
  **/
 @Data
+@EqualsAndHashCode(callSuper = true)
 public abstract class BaseCreatorLogicallyDeletedEntity extends BaseCreatorEntity {
 
     /**

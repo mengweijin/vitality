@@ -11,15 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 public class JpaPageArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 判断是否支持要转换的参数类型
-     *
-     * @param methodParameter
-     * @return
      */
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -28,12 +24,6 @@ public class JpaPageArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 当支持后进行相应的转换
-     * @param methodParameter
-     * @param modelAndViewContainer
-     * @param nativeWebRequest
-     * @param webDataBinderFactory
-     * @return
-     * @throws Exception
      */
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {

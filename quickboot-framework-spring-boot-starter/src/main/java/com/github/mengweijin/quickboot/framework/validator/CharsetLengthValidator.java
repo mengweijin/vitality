@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 
 /**
  * @author Meng Wei Jin
- * @description 自定义validator, 验证String类型长度，避免出现以下问题：
+ * 自定义validator, 验证String类型长度，避免出现以下问题：
  * 当数据库长度限制为10字节，数据库编码为UTF-8(一个汉字占三个字节)，此时数据库只能存储最多3个汉字，而@Length注解只会判断java中字符串的长度，
  * 当传入字符串：“四个汉字”，@Length(max=10)注解判断长度为4，校验通过，而数据库中，四个汉字的字节长度为：3*4=12，此时插入数据会发生SQL执行异常，
  * 所以需要自定义这个注解，自定义validator.

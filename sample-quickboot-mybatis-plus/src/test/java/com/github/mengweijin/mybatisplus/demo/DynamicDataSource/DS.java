@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Meng Wei Jin
- * @description 自定义多数据源切换注解
+ * 自定义多数据源切换注解
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 /**
  * @author Meng Wei Jin
- * @description 自定义字段验证
+ * 自定义字段验证
  * @date Create in 2019-10-21 19:58
  **/
 @Documented
@@ -21,7 +21,7 @@ public @interface CharsetLength {
 
     /**
      * 数据库可存储的最大字节数
-     * @return
+     * @return int
      */
     int max() default Integer.MAX_VALUE;
 
@@ -31,7 +31,7 @@ public @interface CharsetLength {
      * 采用ISO8859-1编码方式时，一个中文字符与一个英文字符一样只占1个字节；
      * 采用GB2312或GBK编码方式时，一个中文字符占2个字节；
      * 采用UTF-8编码方式时，一个中文字符会占3个字节.
-     * @return
+     * @return String
      */
     String charset() default "UTF-8";
 

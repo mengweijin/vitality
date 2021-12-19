@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description
  **/
 @Slf4j
 @Validated
@@ -29,8 +28,6 @@ public class BaseController {
     /**
      * 设置请求参数
      * 建议使用Restful风格提供接口获取数据，前后端分离，而不是在后台通过在request中获取数据
-     * @param key
-     * @param value
      */
     public void setAttribute(String key, Object value){
         ServletUtils.getRequest().setAttribute(key, value);
@@ -41,7 +38,6 @@ public class BaseController {
      * 建议使用全局异常捕获处理
      *
      * @param bindingResult bindingResult
-     * @return
      */
     @Deprecated
     public R<Object> validateErrorResult(BindingResult bindingResult) {

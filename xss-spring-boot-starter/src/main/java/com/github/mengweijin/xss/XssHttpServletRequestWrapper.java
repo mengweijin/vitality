@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
- * @description XSS过滤处理
+ * XSS过滤处理
  *
- * @author
+ * @author mengweijin
  **/
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 

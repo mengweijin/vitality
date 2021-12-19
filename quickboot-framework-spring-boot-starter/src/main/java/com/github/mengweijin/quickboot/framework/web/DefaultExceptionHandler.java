@@ -14,7 +14,7 @@ import javax.validation.ValidationException;
 
 /**
  * @author Meng Wei Jin
- * @description 自定义异常处理器
+ * 自定义异常处理器
  * 注意:
  * 1. 不要重复定义异常捕获，对于父类里已经定义好的，只要overwrite就好，不要重复声明异常拦截。
  * 2. @ExceptionHandler注解的方法参数不能添加 HttpHeaders 类型的参数，否则异常无法被拦截到。
@@ -46,7 +46,6 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
      * 获取请求状态码
      *
      * @param request HttpServletRequest
-     * @return
      */
     private HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");

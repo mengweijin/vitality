@@ -5,7 +5,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * @author Meng Wei Jin
- * @description spring工具类
+ * spring工具类
  **/
 public final class SpringUtils extends SpringUtil {
 

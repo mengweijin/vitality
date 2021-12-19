@@ -18,7 +18,6 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-27 12:49
  **/
 @Data

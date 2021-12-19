@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Meng Wei Jin
- * @description EnableCaching 开启缓存
+ * EnableCaching 开启缓存
  **/
 @Slf4j
 @Configuration

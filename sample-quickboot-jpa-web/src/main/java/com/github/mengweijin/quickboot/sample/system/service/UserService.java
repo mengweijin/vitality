@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @author Meng Wei Jin
- * @description
  * @date Create in 2019-07-28 0:36
  **/
 public interface UserService extends BaseService<User, Long, UserRepository> {

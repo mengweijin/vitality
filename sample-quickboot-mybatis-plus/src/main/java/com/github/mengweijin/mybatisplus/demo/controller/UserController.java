@@ -55,7 +55,7 @@ public class UserController {
     }
 
     /**
-     * localhost:8080/user/xss?html=<script>aaaaa</script>bbbb
+     * http://localhost:8080/user/xss?html=&lt;script&gt;aaaaa&lt;/script&gt;bbbb
      * @return bbbb
      */
     @GetMapping("/xss")

@@ -15,7 +15,6 @@ public class AsyncFactory {
 
     @Async
     public Future<String> doTaskInAsync(String name) {
-        // do something
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

@@ -55,7 +55,7 @@
     </developers>  
     <!--开源地址-->  
     <scm> 
-        <url>https://github.com/mengweijin/quickboot</url> 
+        <url>https://gitee.com/mengweijin/quickboot</url>
     </scm>  
     <!--  Issue地址  -->  
     <issueManagement> 

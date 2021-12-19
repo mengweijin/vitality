@@ -9,7 +9,7 @@
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.31</version>  
+    <version>1.0.32-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -19,13 +19,13 @@
         <module>../quickboot-jpa-spring-boot-starter</module>  
         <module>../quickboot-mybatis-plus-spring-boot-starter</module>  
         <module>../quickboot-web</module>  
-<!--        <module>../quickboot-devtool</module>  -->
-<!--        <module>../sample-quickboot-mybatis-plus</module>  -->
-<!--        <module>../sample-quickboot-jpa-web</module>  -->
+        <!--        <module>../quickboot-devtool</module>  -->  
+        <!--        <module>../sample-quickboot-mybatis-plus</module>  -->  
+        <!--        <module>../sample-quickboot-jpa-web</module>  -->  
         <module>../xss-spring-boot-starter</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.31</quickboot.version>  
+        <quickboot.version>1.0.32-SNAPSHOT</quickboot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
@@ -55,7 +55,7 @@
     </developers>  
     <!--开源地址-->  
     <scm> 
-        <url>https://gitee.com/mengweijin/quickboot</url>
+        <url>https://gitee.com/mengweijin/quickboot</url> 
     </scm>  
     <!--  Issue地址  -->  
     <issueManagement> 

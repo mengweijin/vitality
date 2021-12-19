@@ -94,7 +94,3 @@ management:
 quickboot:
   # 是否允许跨域
   cors: true
-  # 如果不配置下面这个，默认 basePackages = com
-  jpa:
-    basePackages:
-      - com

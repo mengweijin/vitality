@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    # 以本地文件存储数据的方式使用H2数据库。
+    # ./h2/test 在项目根路径下保存数据库文件
+    # AUTO_SERVER=true 启动自动混合模式，允许开启多个连接，该参数不支持在内存中运行模式
+    # DB_CLOSE_ON_EXIT 当虚拟机退出时并不关闭数据库
+    url: jdbc:h2:file:./h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    # jdbc:h2:file:C:/h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    # 以内存方式使用数据库（这里会创建一个数据库名为 test 的数据库实例）
+    # MODE=MYSQL 兼容模式
+    # url: jdbc:h2:mem:test;MODE=MYSQL
+    username: sa
+    password:
+    h2:
+      console:
+        # 是否允许网页访问，默认false
+        enabled: true
+        # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
+        path: /h2
+        settings:
+          # 是否允许从其他地方访问，还是只允许从本地访问
+          web-allow-others: true
+  jpa:
+    # spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering.
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+decorator:
+  datasource:
+    enabled: true
+    p6spy:
+      # Register P6LogFactory to log JDBC events
+      enable-logging: true
+      # Use com.p6spy.engine.spy.appender.MultiLineFormat instead of com.p6spy.engine.spy.appender.SingleLineFormat
+      multiline: true
+      # Use logging for default listeners [slf4j, sysout, file]
+      logging: slf4j
+      # Log file to use (only with logging=file)
+      #log-file: spy.log
+      # Custom log format, if specified com.p6spy.engine.spy.appender.CustomLineFormat will be used with this log format
+      #log-format:
+      tracing:
+        include-parameter-values: true
+quickboot:
+  # 如果不配置下面这个，默认 basePackages = com
+  jpa:
+    basePackages:
+      - com

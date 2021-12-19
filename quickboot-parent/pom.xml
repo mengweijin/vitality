@@ -19,7 +19,9 @@
         <module>../quickboot-framework-spring-boot-starter</module>
         <module>../quickboot-jpa-spring-boot-starter</module>
         <module>../quickboot-mybatis-plus-spring-boot-starter</module>
+        <module>../quickboot-web</module>
         <module>../sample-quickboot-mybatis-plus</module>
+        <module>../sample-quickboot-jpa-web</module>
         <module>../xss-spring-boot-starter</module>
     </modules>
     <properties>
@@ -75,12 +77,22 @@
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-jpa-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
                 <artifactId>cache-expired-spring-boot-starter</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>xss-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-web</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>

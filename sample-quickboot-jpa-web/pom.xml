@@ -6,8 +6,8 @@
     <parent>
         <groupId>com.github.mengweijin</groupId>
         <artifactId>quickboot-parent</artifactId>
-        <version>1.0.30-SNAPSHOT</version>
-        <!--<relativePath/>-->
+        <version>1.0.31-SNAPSHOT</version>
+        <relativePath>../quickboot-parent/pom.xml</relativePath>
     </parent>
     <artifactId>sample-quickboot-jpa-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-jpa</artifactId>
+            <artifactId>quickboot-jpa-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
@@ -32,9 +32,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <!--<scope>runtime</scope>-->
-            <!--<version>${h2.version}</version> 从springboot中获取版本-->
         </dependency>
-        <!-- 已经包含Junit, mockito及其所有依赖, 但mockito不全，所以添加mockito-core -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -62,19 +65,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springboot.version}</version>
-                <configuration>
-                    <fork>true</fork>
-                    <!-- 如果没有该配置，devtools不会生效 -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 将所有依赖包全部打到一个Jar包里面 -->
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <!-- 最终打出来的Jar的名称 -->

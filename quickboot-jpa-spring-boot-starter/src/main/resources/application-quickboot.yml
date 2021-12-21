@@ -12,15 +12,15 @@ spring:
     # url: jdbc:h2:mem:test;MODE=MYSQL
     username: sa
     password:
-    h2:
-      console:
-        # 是否允许网页访问，默认false
-        enabled: true
-        # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
-        path: /h2
-        settings:
-          # 是否允许从其他地方访问，还是只允许从本地访问
-          web-allow-others: true
+  h2:
+    console:
+      # 是否允许网页访问，默认false
+      enabled: true
+      # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
+      path: /h2
+      settings:
+        # 是否允许从其他地方访问，还是只允许从本地访问
+        web-allow-others: true
   jpa:
     # spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering.
     open-in-view: false

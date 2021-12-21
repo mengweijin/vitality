@@ -1,7 +1,9 @@
 package com.github.mengweijin.quickboot.framework.log;
 
 import cn.hutool.extra.servlet.ServletUtil;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,8 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -53,19 +57,22 @@ public class RequestLogAop {
             HttpServletRequest request = ServletUtils.getRequest();
 
             RequestParameter requestParameter = new RequestParameter();
-
             // 通过ServletUtils.getRequest().getParameterMap()获得的对象为被锁定的对象，不能修改
             // 这里通过putAll方法，可以对基本数据类型的集合进行深拷贝，而对其他引用类型putAll不能实现深拷贝
             Map<String, String[]> paramsMap = new HashMap<>(request.getParameterMap());
             // 移除_csrf参数
             paramsMap.remove("_csrf");
-            requestParameter.setRequestArgs(paramsMap);
+            requestParameter.setUrlArgs(paramsMap);
 
-            // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
-            final Object[] args = joinPoint.getArgs();
-            byte[] bytes = objectMapper.writeValueAsBytes(args);
-            Object[] objectArgs = objectMapper.readValue(bytes, Object[].class);
-            requestParameter.setArgs(objectArgs);
+            String httpMethod = request.getMethod();
+            // 不是 Get 请求方式，还需要从 request body 中获取请求参数
+            if(!HttpMethod.GET.name().equals(httpMethod)) {
+                // 引用的参数对象会随着插入数据库而给 id, createTime 等字段赋默认值，为避免这个，所以 clone 到一个新对象。
+                final Object[] args = joinPoint.getArgs();
+                byte[] bytes = objectMapper.writeValueAsBytes(args);
+                Object[] objectArgs = objectMapper.readValue(bytes, Object[].class);
+                requestParameter.setRequestBodyArgs(objectArgs);
+            }
 
             aopLogger.setRequestParameter(requestParameter);
             String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();

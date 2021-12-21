@@ -11,12 +11,12 @@ import java.util.Map;
 public class RequestParameter {
 
     /**
-     * Args from Http Request
-     */
-    private Map<String, String[]> requestArgs;
-
-    /**
      * Args from Controller Method or URL
      */
-    private Object[] args;
+    private Map<String, String[]> urlArgs;
+
+    /**
+     * Args from Http Request Body
+     */
+    private Object[] requestBodyArgs;
 }

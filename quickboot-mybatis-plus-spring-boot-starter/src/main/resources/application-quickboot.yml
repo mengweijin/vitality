@@ -12,15 +12,15 @@ spring:
     # url: jdbc:h2:mem:test;MODE=MYSQL
     username: sa
     password:
-    h2:
-      console:
-        # 是否允许网页访问，默认false
-        enabled: true
-        # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
-        path: /h2
-        settings:
-          # 是否允许从其他地方访问，还是只允许从本地访问
-          web-allow-others: true
+  h2:
+    console:
+      # 是否允许网页访问，默认false
+      enabled: true
+      # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
+      path: /h2
+      settings:
+        # 是否允许从其他地方访问，还是只允许从本地访问
+        web-allow-others: true
   # flyway在spring boot中默认配置位置为：classpath:db/migration
   # flyway命名规则为：V<VERSION>__<NAME>.sql (with <VERSION> an underscore-separated version, such as ‘1’ or ‘2_1’)
   flyway:

@@ -23,9 +23,9 @@ public class ChangePomVersion {
 
     private static final String POM_XML = "pom.xml";
 
-    private static final String OLD_VERSION = "1.0.31";
+    private static final String OLD_VERSION = "1.0.32-SNAPSHOT";
 
-    private static final String NEW_VERSION = "1.0.32-SNAPSHOT";
+    private static final String NEW_VERSION = "1.0.32";
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -98,6 +98,7 @@ public class ChangePomVersion {
     }
 
     private static void write(Document document, File outFile) {
+        System.out.println("Changing " + outFile.getAbsolutePath());
         OutputFormat format = OutputFormat.createPrettyPrint();
         // 缩进4个空格
         format.setIndentSize(4);

@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.32-SNAPSHOT</version>  
+        <version>1.0.32</version>  
         <relativePath>../quickboot-parent/pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  

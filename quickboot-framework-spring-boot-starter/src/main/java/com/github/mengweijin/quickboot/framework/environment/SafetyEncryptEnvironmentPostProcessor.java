@@ -22,8 +22,8 @@ import java.util.HashMap;
  * String encrypt = AesUtils.encrypt(randomKey, password);
  * <p>
  * 3. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
- * spring.datasource.username={cipher}Xb+EgsyuYRXw7U7sBJjBpA==
- * spring.datasource.password={cipher}Hzy5iliJbwDHhjLs1L0j6w==
+ * spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
+ * spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
  * <p>
  * 4. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
  *

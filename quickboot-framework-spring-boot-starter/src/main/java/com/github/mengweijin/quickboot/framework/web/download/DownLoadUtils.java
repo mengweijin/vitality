@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.util;
+package com.github.mengweijin.quickboot.framework.web.download;
 
 import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
@@ -21,7 +21,7 @@ import java.nio.file.Paths;
  * @author mengweijin
  */
 @Slf4j
-public class WebDownLoadUtils {
+public class DownLoadUtils {
 
     public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -36,28 +36,6 @@ public class WebDownLoadUtils {
         } catch (IOException e) {
             throw new QuickBootException(e);
         }
-    }
-
-    public static String setFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
-        final String agent = request.getHeader("USER-AGENT");
-        String encodeFileName = fileName;
-        if (agent.contains("MSIE")) {
-            // IE浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
-            encodeFileName = encodeFileName.replace("+", " ");
-        } else if (agent.contains("Firefox")) {
-            // 火狐浏览器
-            encodeFileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
-        } else if (agent.contains("Chrome")) {
-            // google浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
-            encodeFileName = encodeFileName.replace("+", " ");
-        } else {
-            // 其它浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
-        }
-        return encodeFileName;
-
     }
 
     /**
@@ -161,4 +139,24 @@ public class WebDownLoadUtils {
         }
     }
 
+    private static String setFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+        final String agent = request.getHeader("USER-AGENT");
+        String encodeFileName = fileName;
+        if (agent.contains("MSIE")) {
+            // IE浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = encodeFileName.replace("+", " ");
+        } else if (agent.contains("Firefox")) {
+            // 火狐浏览器
+            encodeFileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        } else if (agent.contains("Chrome")) {
+            // google浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = encodeFileName.replace("+", " ");
+        } else {
+            // 其它浏览器
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+        }
+        return encodeFileName;
+    }
 }

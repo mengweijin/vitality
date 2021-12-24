@@ -1,7 +1,10 @@
 package com.github.mengweijin.quickboot.framework.util;
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.util.Map;
 
 /**
  * @author Meng Wei Jin
@@ -28,7 +31,11 @@ public final class SpringUtils extends SpringUtil {
      * @return value
      */
     public static String getMessage(String key, Object... args) {
-        return SpringUtil.getApplicationContext().getMessage(key, args, LocaleContextHolder.getLocale());
+        return getApplicationContext().getMessage(key, args, LocaleContextHolder.getLocale());
     }
 
+    public static <T> boolean containBeanType(Class<T> cls) {
+        Map<String, T> map = getApplicationContext().getBeansOfType(cls);
+        return MapUtil.isNotEmpty(map);
+    }
 }

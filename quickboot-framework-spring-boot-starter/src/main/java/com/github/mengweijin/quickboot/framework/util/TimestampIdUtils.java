@@ -2,7 +2,6 @@ package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
-
 import java.time.LocalDateTime;
 
 /**
@@ -32,9 +31,11 @@ public class TimestampIdUtils {
 	 * @return 标准日期格式：yyyyMMddHHmmssSSS
 	 */
 	public static long timestampId() {
+		LocalDateTime now;
 		synchronized (LOCK) {
-			return Long.parseLong(LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.PURE_DATETIME_MS_PATTERN));
+			now = LocalDateTime.now();
 		}
+		return Long.parseLong(LocalDateTimeUtil.format(now, DatePattern.PURE_DATETIME_MS_PATTERN));
 	}
 
 }

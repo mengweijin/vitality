@@ -2,7 +2,7 @@ package com.github.mengweijin.quickboot.framework.environment;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
+import com.github.mengweijin.quickboot.framework.util.AesUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
@@ -10,25 +10,20 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
  * 安全加密处理器 参考自：com.baomidou.mybatisplus.autoconfigure.SafetyEncryptProcessor
  * <p>
- * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key 传递到应用程序中
- * SecretKey key = SecureUtil.generateKey("AES");
+ * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key={randomKey} 传递到应用程序中
+ * String randomKey = AesUtils.generateRandomKey();
  * <p>
  * 2. 密钥加密：配置在 application.yaml 中的加密值
- * String result = SecureUtil.aes(key).encrypt("password");
+ * String encrypt = AesUtils.encrypt(randomKey, password);
  * <p>
- * 3. YML 配置：加密配置 quickboot: 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
- * spring:
- * datasource:
- * url: {cipher}qRhvCwF4GOqjessEB3G+a5okP+uXXr96wcucn2Pev6Bf1oEMZ1gVpPPhdDmjQqoM
- * password: {cipher}Hzy5iliJbwDHhjLs1L0j6w==
- * username: {cipher}Xb+EgsyuYRXw7U7sBJjBpA==
+ * 3. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
+ * spring.datasource.username={cipher}Xb+EgsyuYRXw7U7sBJjBpA==
+ * spring.datasource.password={cipher}Hzy5iliJbwDHhjLs1L0j6w==
  * <p>
  * 4. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
  *
@@ -39,16 +34,16 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         // 命令行中获取密钥
-        String mpwKey = null;
+        String cipherKey = null;
         for (PropertySource<?> ps : environment.getPropertySources()) {
             if (ps instanceof SimpleCommandLinePropertySource) {
                 SimpleCommandLinePropertySource source = (SimpleCommandLinePropertySource) ps;
-                mpwKey = source.getProperty("cipher.key");
+                cipherKey = source.getProperty("cipher.key");
                 break;
             }
         }
         // 处理加密内容
-        if (StrUtil.isNotBlank(mpwKey)) {
+        if (StrUtil.isNotBlank(cipherKey)) {
             HashMap<String, Object> map = new HashMap<>();
             for (PropertySource<?> ps : environment.getPropertySources()) {
                 if (ps instanceof OriginTrackedMapPropertySource) {
@@ -58,7 +53,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                         if (value instanceof String) {
                             String str = (String) value;
                             if (str.startsWith("{cipher}")) {
-                                map.put(name, SecureUtil.aes(mpwKey.getBytes(StandardCharsets.UTF_8)).decrypt(str.substring(8)));
+                                map.put(name, AesUtils.decrypt(cipherKey, str.substring(8)));
                             }
                         }
                     }

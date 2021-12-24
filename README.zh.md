@@ -212,6 +212,7 @@ Spring MVC 工程常用配置
 * 注入Bean RestTemplate
 * Default ExceptionHandler，统一异常处理
 * BaseController
+* WebUploadController 和 WebDownloadController 接口。需要有子类来实现。
 
 ## quickboot-mybatis-plus-spring-boot-starter
 集成 MyBatis-Plus.

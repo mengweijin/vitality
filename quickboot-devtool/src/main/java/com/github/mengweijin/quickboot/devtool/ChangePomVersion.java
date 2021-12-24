@@ -23,9 +23,9 @@ public class ChangePomVersion {
 
     private static final String POM_XML = "pom.xml";
 
-    private static final String OLD_VERSION = "1.0.32-SNAPSHOT";
+    private static final String OLD_VERSION = "1.0.32";
 
-    private static final String NEW_VERSION = "1.0.32";
+    private static final String NEW_VERSION = "1.0.33-SNAPSHOT";
 
     @SneakyThrows
     public static void main(String[] args) {

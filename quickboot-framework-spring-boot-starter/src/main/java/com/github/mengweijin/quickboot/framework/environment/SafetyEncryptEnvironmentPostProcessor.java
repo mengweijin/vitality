@@ -14,8 +14,14 @@ import java.util.HashMap;
 
 /**
  * 安全加密处理器 参考自：com.baomidou.mybatisplus.autoconfigure.SafetyEncryptProcessor
+ * 必须配置在 spring.factories 中的 org.springframework.boot.env.EnvironmentPostProcessor 下面
+ * 就可以自动注入到 Spring 容器。
+ * 不能配置在 org.springframework.boot.autoconfigure.EnableAutoConfiguration 下面，否则不会在启动时执行类里面的方法。
+ *
  * <p>
  * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key={randomKey} 传递到应用程序中
+ * Jar 启动参数（ idea 设置 Program arguments , 服务器可以设置为启动环境变量 ）
+ * 示例：--cipher.key==d1104d7c3b616f0b
  * String randomKey = AesUtils.generateRandomKey();
  * <p>
  * 2. 密钥加密：配置在 application.yaml 中的加密值

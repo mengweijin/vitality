@@ -64,12 +64,6 @@ public class QuickBootFrameworkAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SafetyEncryptEnvironmentPostProcessor safetyEncryptEnvironmentPostProcessor() {
-        return new SafetyEncryptEnvironmentPostProcessor();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
     public CorsWebMvcConfigurer corsWebMvcConfigurer() {
         return new CorsWebMvcConfigurer();
     }

@@ -1,8 +1,5 @@
 package com.github.mengweijin.quickboot.framework.web.download;
 
-import com.github.mengweijin.quickboot.framework.web.download.DownLoadUtils;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,30 +9,27 @@ import java.io.File;
  * 文件下载 controller
  * @author Meng Wei Jin
  **/
-@Validated
 public interface WebDownloadController {
 
     /**
-     * 文件下载
+     * 文件下载          @GetMapping("/download/{fileId}")
      * @param fileId 文件唯一标识
      * @param request request
      * @param response response
      */
-    @GetMapping("/download/{fileId}")
-    default void download(@PathVariable("fileId") String fileId,
+    default void webDownload(@PathVariable("fileId") String fileId,
                           HttpServletRequest request,
                           HttpServletResponse response) {
         DownLoadUtils.download(getFileByFileId(fileId), request, response);
     }
 
     /**
-     * 文件下载，断点续传
+     * 文件下载，断点续传    @GetMapping("/download/chunked/{fileId}")
      * @param fileId 文件唯一标识
      * @param request request
      * @param response response
      */
-    @GetMapping("/download/chunked/{fileId}")
-    default void downloadChunked(@PathVariable("fileId") String fileId,
+    default void webDownloadChunked(@PathVariable("fileId") String fileId,
                           HttpServletRequest request,
                           HttpServletResponse response) {
         DownLoadUtils.chunkDownload(getFileByFileId(fileId), request, response);

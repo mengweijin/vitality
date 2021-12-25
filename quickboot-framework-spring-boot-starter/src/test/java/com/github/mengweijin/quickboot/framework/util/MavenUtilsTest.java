@@ -17,15 +17,8 @@ class MavenUtilsTest {
 
     @Test
     void readPom() {
-        final Model model = MavenUtils.readPom();
+        final Model model = MavenUtils.readPom("com.github.mengweijin", "quickboot-framework-spring-boot-starter");
         Assertions.assertEquals("quickboot-framework-spring-boot-starter", model.getArtifactId());
     }
 
-    @Test
-    @SneakyThrows
-    void findPom() {
-        final File pomXml = MavenUtils.findPom();
-        Assertions.assertNotNull(pomXml);
-        Assertions.assertEquals(MavenUtils.POM_XML, pomXml.getName());
-    }
 }

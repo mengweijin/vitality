@@ -1,8 +1,16 @@
+info:
+  app:
+    parentGroupId: @project.parent.groupId@
+    groupId: @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
 server:
   port: 8080
   servlet:
     context-path: /
 spring:
+#  application:
+#    name: @project.artifactId@
   profiles:
     active: quickboot,dev
   mvc:

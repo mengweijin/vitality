@@ -6,6 +6,7 @@ import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import com.github.mengweijin.quickboot.framework.web.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.framework.web.DefaultExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync
 @EnableScheduling
 @Configuration
+@EnableConfigurationProperties(AppInfoProperties.class)
 public class QuickBootFrameworkAutoConfiguration {
 
     @Bean

@@ -31,5 +31,25 @@
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
         </dependency> 
-    </dependencies> 
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!-- 此处为主入口类-->
+                            <mainClass>com.github.mengweijin.quickboot.devtool.TestResource</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

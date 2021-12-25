@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework.doc;
 
+import com.github.mengweijin.quickboot.framework.AppInfoProperties;
 import com.github.mengweijin.quickboot.framework.util.MavenUtils;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -8,6 +9,7 @@ import org.springdoc.core.Constants;
 import org.springdoc.core.GroupedOpenApi;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springdoc.core.customizers.OperationCustomizer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,35 +26,24 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class SpringDocAutoConfiguration {
 
-    @Bean
-    public Model mavenModel() {
-        return MavenUtils.readPom();
-    }
+    @Autowired
+    private AppInfoProperties appInfoProperties;
 
+    /**
+     * 可以多添加几个这样的 bean,
+     * 按照 .pathsToMatch(Constants.ALL_PATTERN)
+     * 或者 .packagesToScan("com.github.mengweijin")
+     * 来分组展示。
+     */
     @Bean
-    public GroupedOpenApi actuatorApi(OpenApiCustomiser actuatorOpenApiCustomiser,
-                                      OperationCustomizer actuatorCustomizer,
-                                      WebEndpointProperties endpointProperties,
-                                      Model mavenModel) {
+    public GroupedOpenApi applicationAllApi() {
         return GroupedOpenApi.builder()
-                .group("Actuator")
-                .pathsToMatch(endpointProperties.getBasePath() + Constants.ALL_PATTERN)
-                .addOpenApiCustomiser(actuatorOpenApiCustomiser)
-                .addOpenApiCustomiser(openApi -> openApi.info(new Info().title("Actuator API").version(mavenModel.getVersion())))
-                .addOperationCustomizer(actuatorCustomizer)
-                .pathsToExclude(Constants.HEALTH_PATTERN)
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi usersGroup(Model mavenModel) {
-        return GroupedOpenApi.builder().group("users")
-                .addOperationCustomizer((operation, handlerMethod) -> {
-                    operation.addSecurityItem(new SecurityRequirement().addList("basicScheme"));
-                    return operation;
-                })
-                .addOpenApiCustomiser(openApi -> openApi.info(new Info().title("Users API").version(mavenModel.getVersion())))
-                .packagesToScan("org.springdoc.demo.app2")
+                .group("Application All APIs")
+                .pathsToMatch(Constants.ALL_PATTERN)
+                .addOpenApiCustomiser(openApi ->
+                        openApi.info(new Info().title("Application All APIs")
+                        .version(appInfoProperties.getVersion()))
+                )
                 .build();
     }
 }

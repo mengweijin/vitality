@@ -1,17 +1,10 @@
 package com.github.mengweijin.quickboot.framework.doc;
 
 import com.github.mengweijin.quickboot.framework.AppInfoProperties;
-import com.github.mengweijin.quickboot.framework.util.MavenUtils;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import org.apache.maven.model.Model;
 import org.springdoc.core.Constants;
 import org.springdoc.core.GroupedOpenApi;
-import org.springdoc.core.customizers.OpenApiCustomiser;
-import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,10 +31,10 @@ public class SpringDocAutoConfiguration {
     @Bean
     public GroupedOpenApi applicationAllApi() {
         return GroupedOpenApi.builder()
-                .group("Application All APIs")
+                .group("All APIs")
                 .pathsToMatch(Constants.ALL_PATTERN)
                 .addOpenApiCustomiser(openApi ->
-                        openApi.info(new Info().title("Application All APIs")
+                        openApi.info(new Info().title("All APIs")
                         .version(appInfoProperties.getVersion()))
                 )
                 .build();

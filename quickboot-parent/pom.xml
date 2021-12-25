@@ -112,8 +112,9 @@
                 <version>${p6spy-spring-boot-starter.version}</version> 
             </dependency>  
             <dependency> 
-                <!-- Swagger UI page：http://localhost:8080/swagger-ui.html -->  
-                <!--  OpenAPI description：http://localhost:8080/v3/api-docs -->  
+                <!-- Swagger UI page：http://localhost:8080/swagger-ui/index.html -->
+                <!-- Swagger UI page：http://localhost:8080/swagger-ui.html -->
+                <!--  OpenAPI description：http://localhost:8080/v3/api-docs -->
                 <groupId>org.springdoc</groupId>  
                 <artifactId>springdoc-openapi-ui</artifactId>  
                 <version>${springdoc.version}</version> 

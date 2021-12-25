@@ -1,16 +1,3 @@
-# 需要在子工程覆盖info下的参数，否则拿到的信息是这个父工程的，而不是所期待的子工程的。http://localhost:8080/actuator/info
-# 配置 SSL 双向认证时 maven 的配置会有冲突，详情参见 sample-quickboot-mybatis-plus 中的 pom.xml 中 build 标签下的 resources 标签
-#info:
-#  app:
-#    groupId: @project.groupId@
-#    artifactId: @project.artifactId@
-#    version: @project.version@
-#    encoding: @project.build.sourceEncoding@
-#    java:
-#      source: @java.version@
-#      target: @java.version@
-#    quickboot: @quickboot.version@
-#    springboot: @springboot.version@
 server:
   port: 8080
   servlet:
@@ -52,28 +39,6 @@ logging:
   level:
     root: info
     com.github.mengweijin: debug
-# http://localhost:8080/doc.html
-knife4j:
-  enable: true
-  documents:
-    - group: 1.2.x
-      name: 测试自定义标题分组
-      locations: classpath:md/*
-  setting:
-    enableSwaggerModels: true
-    enableDocumentManage: true
-    enableHost: false
-    enableHostText: http://localhost:999
-    enableRequestCache: true
-    enableFilterMultipartApis: false
-    enableFilterMultipartApiMethodType: POST
-    language: zh-CN
-  cors: false
-  production: false
-  basic:
-    enable: false
-    username: test
-    password: 123
 # Spring Boot的actuator（健康监控）功能，访问：http://localhost:80/actuator
 management:
   # server:

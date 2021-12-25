@@ -35,8 +35,9 @@
         <hutool.version>5.7.17</hutool.version>  
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>  
         <p6spy-spring-boot-starter.version>1.7.1</p6spy-spring-boot-starter.version>  
-        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>  
-        <testable.version>0.7.1</testable.version> 
+        <maven-model.version>3.8.4</maven-model.version>
+        <springdoc.version>1.6.2</springdoc.version>
+        <testable.version>0.7.1</testable.version>
     </properties>  
     <url>https://gitee.com/mengweijin/quickboot</url>  
     <!-- 开源许可证 -->  
@@ -98,18 +99,25 @@
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <!-- 读取项目中 pom.xml 中的信息 -->
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>${maven-model.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>com.github.gavlyukovskiy</groupId>  
                 <artifactId>p6spy-spring-boot-starter</artifactId>  
                 <version>${p6spy-spring-boot-starter.version}</version> 
-            </dependency>  
-            <!-- http://localhost:8080/doc.html -->  
-            <dependency> 
-                <groupId>com.github.xiaoymin</groupId>  
-                <artifactId>knife4j-spring-boot-starter</artifactId>  
-                <version>${knife4j-spring-boot-starter.version}</version> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <!-- Swagger UI page：http://localhost:8080/swagger-ui.html -->
+                <!--  OpenAPI description：http://localhost:8080/v3/api-docs -->
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>com.alibaba.testable</groupId>  
                 <artifactId>testable-all</artifactId>  

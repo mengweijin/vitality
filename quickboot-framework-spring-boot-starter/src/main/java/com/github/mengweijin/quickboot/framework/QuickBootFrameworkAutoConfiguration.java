@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.framework;
 
-import com.github.mengweijin.quickboot.framework.environment.SafetyEncryptEnvironmentPostProcessor;
 import com.github.mengweijin.quickboot.framework.log.RequestLogAop;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import com.github.mengweijin.quickboot.framework.web.CorsWebMvcConfigurer;
@@ -29,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 public class QuickBootFrameworkAutoConfiguration {
 
     @Bean
-    @Profile("dev")
+    @Profile({"local", "dev", "test"})
     @ConditionalOnMissingBean
     public RequestLogAop logAop() {
         return new RequestLogAop();

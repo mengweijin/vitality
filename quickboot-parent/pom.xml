@@ -9,7 +9,7 @@
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.34</version>  
+    <version>1.0.35-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -25,7 +25,7 @@
         <module>../xss-spring-boot-starter</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.34</quickboot.version>  
+        <quickboot.version>1.0.35-SNAPSHOT</quickboot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  

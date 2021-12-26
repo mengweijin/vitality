@@ -5,8 +5,8 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.34-SNAPSHOT</version>  
-        <relativePath>../quickboot-parent/pom.xml</relativePath>
+        <version>1.0.34</version>  
+        <relativePath>../quickboot-parent/pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-mybatis-plus</artifactId>  
     <version>0.0.1.4-SNAPSHOT</version>  

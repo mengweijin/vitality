@@ -9,7 +9,7 @@
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.34-SNAPSHOT</version>  
+    <version>1.0.34</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -25,7 +25,7 @@
         <module>../xss-spring-boot-starter</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.34-SNAPSHOT</quickboot.version>  
+        <quickboot.version>1.0.34</quickboot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
@@ -112,9 +112,9 @@
                 <version>${p6spy-spring-boot-starter.version}</version> 
             </dependency>  
             <dependency> 
-                <!-- Swagger UI page：http://localhost:8080/swagger-ui/index.html -->
-                <!-- Swagger UI page：http://localhost:8080/swagger-ui.html -->
-                <!--  OpenAPI description：http://localhost:8080/v3/api-docs -->
+                <!-- Swagger UI page：http://localhost:8080/swagger-ui/index.html -->  
+                <!-- Swagger UI page：http://localhost:8080/swagger-ui.html -->  
+                <!--  OpenAPI description：http://localhost:8080/v3/api-docs -->  
                 <groupId>org.springdoc</groupId>  
                 <artifactId>springdoc-openapi-ui</artifactId>  
                 <version>${springdoc.version}</version> 

@@ -4,7 +4,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.34-SNAPSHOT</version>  
+        <version>1.0.34</version>  
         <relativePath>../quickboot-parent/pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
@@ -31,25 +31,23 @@
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
         </dependency> 
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <!-- 此处为主入口类-->
-                            <mainClass>com.github.mengweijin.quickboot.devtool.TestResource</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+    </dependencies>  
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-jar-plugin</artifactId>  
+                <version>3.0.2</version>  
+                <configuration> 
+                    <archive> 
+                        <manifest> 
+                            <addClasspath>true</addClasspath>  
+                            <!-- 此处为主入口类-->  
+                            <mainClass>com.github.mengweijin.quickboot.devtool.TestResource</mainClass> 
+                        </manifest> 
+                    </archive> 
+                </configuration> 
+            </plugin> 
+        </plugins> 
+    </build> 
 </project>

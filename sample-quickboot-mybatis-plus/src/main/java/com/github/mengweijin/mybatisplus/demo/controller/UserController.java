@@ -8,7 +8,9 @@ import com.github.mengweijin.cache.expired.CacheExpired;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
+import com.github.mengweijin.quickboot.framework.domain.Pager;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
+import com.github.mengweijin.quickboot.mybatis.PagerConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -82,6 +84,12 @@ public class UserController {
     @GetMapping("/page")
     public IPage<User> getPage(Page<User> page){
         return userService.page(page);
+    }
+
+    @GetMapping("/pager")
+    public Pager<User> getPager(Pager<User> pager) {
+        IPage<User> page = userService.page(PagerConverter.toPage(pager));
+        return PagerConverter.toPager(page);
     }
 
     @GetMapping("/get/{id}")

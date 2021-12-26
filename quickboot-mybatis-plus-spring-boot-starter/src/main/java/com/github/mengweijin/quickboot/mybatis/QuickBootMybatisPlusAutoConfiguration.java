@@ -10,24 +10,19 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
-import com.github.mengweijin.quickboot.mybatis.page.PageArgumentResolver;
-import com.github.mengweijin.quickboot.mybatis.page.PageResponseBodyAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import java.util.List;
 
 /**
  * @author Meng Wei Jin
  **/
 @Configuration
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
-public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
+public class QuickBootMybatisPlusAutoConfiguration {
 
     @Autowired
     private DataSourceProperties dataSourceProperties;
@@ -97,17 +92,4 @@ public class QuickBootMybatisPlusAutoConfiguration implements WebMvcConfigurer {
         return new BaseEntityMetaObjectHandler();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public PageResponseBodyAdvice pageResponseBodyAdvice(){
-        return new PageResponseBodyAdvice();
-    }
-
-    /**
-     * 注册参数解析器
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new PageArgumentResolver());
-    }
 }

@@ -1,7 +1,9 @@
 package com.github.mengweijin.quickboot.sample.system.controller;
 
+import cn.hutool.core.util.NumberUtil;
+import com.github.mengweijin.quickboot.framework.domain.Pager;
 import com.github.mengweijin.quickboot.framework.web.BaseController;
-import com.github.mengweijin.quickboot.jpa.page.Pager;
+import com.github.mengweijin.quickboot.jpa.PagerConverter;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
@@ -77,9 +79,9 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/page")
-    public Page findPage(Pager pager) {
-        Pageable pageable = PageRequest.of(pager.getCurrent(), pager.getSize());
-        return userService.findAll(pageable);
+    public Pager<User> findPage(Pager<User> pager) {
+        final Page<User> page = userService.findAll(PagerConverter.toPageable(pager));
+        return PagerConverter.toPager(page);
     }
 
     @GetMapping("/dsl")

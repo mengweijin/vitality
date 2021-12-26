@@ -28,9 +28,9 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations:
-      - classpath:db/h2
-      # - classpath:db/mysql
-      # - classpath:db/oracle
+      - classpath:db/migration/h2
+      # - classpath:db/migration/mysql
+      # - classpath:db/migration/oracle
   devtools:
     restart:
       #热部署开关, 和mybatis-plus枚举扫描冲突，这里不开启

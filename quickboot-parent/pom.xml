@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
-    </parent>
+    <modelVersion>4.0.0</modelVersion>  
+    <parent> 
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-starter-parent</artifactId>  
+        <version>2.6.2</version> 
+    </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.35-SNAPSHOT</version>  
+    <version>1.0.35</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -25,19 +25,19 @@
         <module>../xss-spring-boot-starter</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.35-SNAPSHOT</quickboot.version>
+        <quickboot.version>1.0.35</quickboot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <hutool.version>5.7.18</hutool.version>
-        <mybatis-plus.version>3.5.0</mybatis-plus.version>
-        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>
+        <hutool.version>5.7.18</hutool.version>  
+        <mybatis-plus.version>3.5.0</mybatis-plus.version>  
+        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
         <maven-model.version>3.8.4</maven-model.version>  
-        <springdoc.version>1.6.3</springdoc.version>
-        <testable.version>0.7.2</testable.version>
+        <springdoc.version>1.6.3</springdoc.version>  
+        <testable.version>0.7.2</testable.version> 
     </properties>  
     <url>https://gitee.com/mengweijin/quickboot</url>  
     <!-- 开源许可证 -->  
@@ -94,7 +94,7 @@
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>quickboot-web</artifactId>  
                 <version>${quickboot.version}</version> 
-            </dependency>
+            </dependency>  
             <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  

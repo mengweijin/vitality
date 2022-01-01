@@ -1,9 +1,8 @@
-package com.github.mengweijin.quickboot.framework.web.upload;
+package com.github.mengweijin.quickboot.framework.domain;
 
 import lombok.Data;
 
 /**
- * 参考 WebUploadController
  * @author mengweijin
  * @date 2021/12/24
  */

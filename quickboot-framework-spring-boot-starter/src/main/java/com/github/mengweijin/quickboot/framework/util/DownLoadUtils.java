@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.web.download;
+package com.github.mengweijin.quickboot.framework.util;
 
 import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
@@ -11,17 +11,45 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Function;
 
 /**
  * @author mengweijin
  */
 @Slf4j
 public class DownLoadUtils {
+
+    /**
+     * 文件下载。
+     * @param fileId 文件 ID。根据文件 id 获取文件对象。
+     *               比如数据库中存储的文件表中的 id。或者一个在服务器上的文件绝对路径。
+     *               或者其他情况，根据应用存放文件的方案来实现具体逻辑。return File
+     *               （一般不要实现的是 fileId 为服务器上的绝对全路径这样搞，
+     *               会被恶意用户下载到服务器上所有的文件！）。
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param function 函数式接口，需要开发者自定义逻辑。根据 fileId 返回一个 File 对象。
+     */
+    public static void download(Serializable fileId, HttpServletRequest request, HttpServletResponse response, Function<Serializable, File> function) {
+        download(function.apply(fileId), request, response);
+    }
+
+    /**
+     * 文件下载，断点续传
+     * @param fileId 文件 ID
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param function 函数式接口，需要开发者自定义逻辑。根据 fileId 返回一个 File 对象。
+     */
+    public static void chunkDownload(Serializable fileId, HttpServletRequest request, HttpServletResponse response, Function<Serializable, File> function) {
+        chunkDownload(function.apply(fileId), request, response);
+    }
 
     public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
         try {

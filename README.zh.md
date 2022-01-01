@@ -156,34 +156,9 @@ decorator:
         include-parameter-values: true
 ~~~
 
-### knife4j 自动文档接口（Swagger）
+### SpringDoc OpenAPI（Swagger）
 
-启动服务后访问 url: http://localhost:8080/doc.html
-
-~~~yaml
-# http://localhost:8080/doc.html
-knife4j:
-  enable: true
-  documents:
-    - group: 1.2.x
-      name: 测试自定义标题分组
-      locations: classpath:md/*
-  setting:
-    enableSwaggerModels: true
-    enableDocumentManage: true
-    enableHost: false
-    enableHostText: http://localhost:999
-    enableRequestCache: true
-    enableFilterMultipartApis: false
-    enableFilterMultipartApiMethodType: POST
-    language: zh-CN
-  cors: false
-  production: false
-  basic:
-    enable: false
-    username: test
-    password: 123
-~~~
+启动服务后访问 url: http://localhost:8080/swagger-ui/index.html
 
 ### Const类
 枚举了常用的特殊String字符
@@ -194,7 +169,7 @@ knife4j:
 * QuickBootException：服务端异常
 
 ### AOP debug 级别，请求、响应参数详情等日志记录
-仅当 spring.profiles.active 中配置了 dev 才启用。如：spring.profiles.active=quickboot,dev
+仅当 spring.profiles.active 中配置了 !prod 才启用。如：spring.profiles.active=quickboot,dev 不包含 prod, 就会启用
 - RequestLogAop
 - AopLogger
 
@@ -212,7 +187,6 @@ Spring MVC 工程常用配置
 * 注入Bean RestTemplate
 * Default ExceptionHandler，统一异常处理
 * BaseController
-* WebUploadController 和 WebDownloadController 接口。需要有子类来实现。
 
 ## quickboot-mybatis-plus-spring-boot-starter
 集成 MyBatis-Plus.

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
+import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -78,18 +79,12 @@ public class QuickBootMybatisPlusAutoConfiguration {
     }
 
     /**
-     * 自动填充
-     * BaseEntityMetaObjectHandler
-     * 可以使用 BaseEntityMetaObjectHandler 来填充创建时间，修改时间。
-     * 或者使用 BaseCreatorEntityMetaObjectHandler 来填充创建时间，修改时间，创建人、修改人。
-     *
-     * return new BaseCreatorEntityMetaObjectHandler(ServletUtils.SESSION_USER);
-     *
+     * 自动填充 BaseEntityMetaObjectHandler
      */
     @Bean
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
-        return new BaseEntityMetaObjectHandler();
+        return new BaseEntityMetaObjectHandler(ServletUtils.SESSION_USER);
     }
 
 }

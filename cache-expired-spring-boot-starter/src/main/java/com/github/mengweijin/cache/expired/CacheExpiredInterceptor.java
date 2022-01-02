@@ -73,7 +73,7 @@ public class CacheExpiredInterceptor implements MethodInterceptor {
             // 那么当执行 cacheAdvisor 命中缓存时，就不会进行火炬传递的，因此不会执行 cacheExpireAdvisor 了。
             // 所有就不会给线程池中提交多个相同的 cacheExpiredTask 任务。
             if (cacheExpiredTask != null) {
-                this.submitExpireTask(cacheExpired, cacheExpiredTask);
+                this.submitExpireTask(Expired.toExpired(cacheExpired), cacheExpiredTask);
             }
         } else {
             String message = "Invalid @CacheExpired parameters. expire=" + cacheExpired.expire()
@@ -85,19 +85,21 @@ public class CacheExpiredInterceptor implements MethodInterceptor {
         return invocation.proceed();
     }
 
-    public void submitExpireTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
-        if (cacheExpired.expire() > 0) {
+    public void submitExpireTask(Expired expired, CacheExpiredTask cacheExpiredTask) {
+        if (expired.getExpire() > 0) {
             log.debug("Submitted a delay execute expire cache task!");
-            this.submitDelayTask(cacheExpired, cacheExpiredTask);
-        } else if (CronExpression.isValidExpression(cacheExpired.cron())) {
+            this.submitDelayTask(expired, cacheExpiredTask);
+        } else if (CronExpression.isValidExpression(expired.getCron())) {
             log.debug("Submitted a cron execute expire cache task!");
-            this.submitCronTask(cacheExpired, cacheExpiredTask);
+            this.submitCronTask(expired, cacheExpiredTask);
+        } else {
+            log.error("An invalid cache expire task was added. Expired={}", expired);
         }
     }
 
-    private ScheduledFuture<?> submitDelayTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
+    private ScheduledFuture<?> submitDelayTask(Expired expired, CacheExpiredTask cacheExpiredTask) {
         return threadPoolTaskScheduler.schedule(() ->
-                this.deleteCache(cacheExpiredTask), Instant.now().plus(cacheExpired.expire(), cacheExpired.chronoUnit()));
+                this.deleteCache(cacheExpiredTask), Instant.now().plus(expired.getExpire(), expired.getChronoUnit()));
     }
 
     /**
@@ -106,11 +108,11 @@ public class CacheExpiredInterceptor implements MethodInterceptor {
      * 3. CronExpression cronExpression = CronExpression.parse(cron);
      * 4. LocalDateTime nextExecuteTime = cronExpression.next(LocalDateTime.now());
      *
-     * @param cacheExpired CacheExpired
+     * @param expired expired
      */
-    private ScheduledFuture<?> submitCronTask(CacheExpired cacheExpired, CacheExpiredTask cacheExpiredTask) {
+    private ScheduledFuture<?> submitCronTask(Expired expired, CacheExpiredTask cacheExpiredTask) {
         return threadPoolTaskScheduler.schedule(() ->
-                this.deleteCache(cacheExpiredTask), new CronTrigger(cacheExpired.cron()));
+                this.deleteCache(cacheExpiredTask), new CronTrigger(expired.getCron()));
     }
 
     private void deleteCache(CacheExpiredTask cacheExpiredTask) {

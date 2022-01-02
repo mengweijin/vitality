@@ -3,7 +3,6 @@ package com.github.mengweijin.mybatisplus.demo.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.mybatisplus.demo.enums.Gender;
-import com.github.mengweijin.quickboot.mybatis.entity.BaseCreatorEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

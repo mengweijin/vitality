@@ -32,4 +32,9 @@ public abstract class BaseEntity implements Serializable {
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     protected LocalDateTime updateTime;
 
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    protected String createBy;
+
+    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
+    protected String updateBy;
 }

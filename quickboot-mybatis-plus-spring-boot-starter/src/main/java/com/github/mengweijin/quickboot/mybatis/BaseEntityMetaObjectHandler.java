@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import java.time.LocalDateTime;
 
 /**
@@ -26,19 +28,25 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
         LocalDateTime localDateTime = LocalDateTime.now();
         this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, localDateTime);
         this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
-        this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
-        this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+
+        if(RequestContextHolder.getRequestAttributes() != null) {
+            String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+        }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
         LocalDateTime localDateTime = LocalDateTime.now();
         this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
-        this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+
+        if(RequestContextHolder.getRequestAttributes() != null) {
+            String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+        }
     }
 }

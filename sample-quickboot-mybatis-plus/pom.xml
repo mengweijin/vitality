@@ -61,7 +61,7 @@
                     <parameters> 
                         <tables>SYS_USER</tables>  
                         <tablePrefix>sys_</tablePrefix>  
-                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseCreatorEntity</superEntityClass>  
+                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
                         <lombokModel>true</lombokModel>  
                         <dbInfo> 
                             <username>sa</username>  

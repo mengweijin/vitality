@@ -1,7 +1,6 @@
 package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.io.FileUtil;
-import com.github.mengweijin.quickboot.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

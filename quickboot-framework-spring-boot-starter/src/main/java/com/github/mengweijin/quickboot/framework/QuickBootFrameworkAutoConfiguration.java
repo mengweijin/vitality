@@ -1,19 +1,34 @@
 package com.github.mengweijin.quickboot.framework;
 
-import com.github.mengweijin.quickboot.framework.doc.SpringDocAutoConfiguration;
-import com.github.mengweijin.quickboot.framework.log.RequestLogAop;
+import com.github.mengweijin.quickboot.framework.aspectj.LogAspect;
+import com.github.mengweijin.quickboot.framework.domain.AppLog;
+import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatableFilter;
+import com.github.mengweijin.quickboot.framework.filter.xss.XssFilter;
+import com.github.mengweijin.quickboot.framework.filter.xss.XssProperties;
+import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
+import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
+import com.github.mengweijin.quickboot.framework.util.Const;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import com.github.mengweijin.quickboot.framework.web.CorsWebMvcConfigurer;
-import com.github.mengweijin.quickboot.framework.web.DefaultExceptionHandler;
+import io.swagger.v3.oas.models.info.Info;
+import org.jsoup.Jsoup;
+import org.springdoc.core.Constants;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import javax.servlet.DispatcherType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 当任务新增进来时：
@@ -27,15 +42,14 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync
 @EnableScheduling
 @Configuration
-@EnableConfigurationProperties(AppInfoProperties.class)
+@EnableConfigurationProperties({AppInfoProperties.class, QuickBootProperties.class})
 public class QuickBootFrameworkAutoConfiguration {
 
-    @Bean
-    @Profile({"!prod"})
-    @ConditionalOnMissingBean
-    public RequestLogAop logAop() {
-        return new RequestLogAop();
-    }
+    @Autowired
+    private AppInfoProperties appInfoProperties;
+
+    @Autowired
+    private QuickBootProperties quickBootProperties;
 
     /**
      * 为什么这里要加 static? 必须要标记为 static 方法，以示优先加载。否则会给出警告。
@@ -68,5 +82,60 @@ public class QuickBootFrameworkAutoConfiguration {
     @ConditionalOnMissingBean
     public CorsWebMvcConfigurer corsWebMvcConfigurer() {
         return new CorsWebMvcConfigurer();
+    }
+
+    @Bean
+    public FilterRegistrationBean<RepeatableFilter> repeatableFilter() {
+        FilterRegistrationBean<RepeatableFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new RepeatableFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("repeatableFilter");
+        registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
+        return registration;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnClass(Jsoup.class)
+    public FilterRegistrationBean<XssFilter> xssFilter() {
+        XssProperties xssProperties = quickBootProperties.getXss();
+        FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setFilter(new XssFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("xssFilter");
+        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
+        Map<String, String> initParameters = new HashMap<>(2);
+        initParameters.put(XssFilter.EXCLUDES, String.join(Const.COMMA, xssProperties.getExcludes()));
+        initParameters.put(XssFilter.ENABLED, String.valueOf(xssProperties.getEnabled()));
+        registration.setInitParameters(initParameters);
+        return registration;
+    }
+
+    @Bean
+    @Profile({"!prod"})
+    @ConditionalOnMissingBean
+    public LogAspect logAspect() {
+        return new LogAspect(appLog -> {});
+    }
+
+    /**
+     * 可以多添加几个这样的 bean,
+     * 按照 .pathsToMatch(Constants.ALL_PATTERN)
+     * 或者 .packagesToScan("com.github.mengweijin")
+     * 来分组展示。
+     */
+    @Bean
+    @Profile({"!prod"})
+    @ConditionalOnClass(GroupedOpenApi.class)
+    public GroupedOpenApi applicationAllApi() {
+        return GroupedOpenApi.builder()
+                .group("All APIs")
+                .pathsToMatch(Constants.ALL_PATTERN)
+                .addOpenApiCustomiser(openApi ->
+                        openApi.info(new Info().title("All APIs")
+                                .version(appInfoProperties.getVersion()))
+                )
+                .build();
     }
 }

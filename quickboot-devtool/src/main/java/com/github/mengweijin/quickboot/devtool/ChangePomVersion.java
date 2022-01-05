@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.devtool;
 
 import cn.hutool.core.io.FileUtil;
-import com.github.mengweijin.quickboot.framework.constant.Const;
+import com.github.mengweijin.quickboot.framework.util.Const;
 import lombok.SneakyThrows;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

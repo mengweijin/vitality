@@ -1,8 +1,7 @@
 package com.github.mengweijin.quickboot.sample.system.controller;
 
-import cn.hutool.core.util.NumberUtil;
 import com.github.mengweijin.quickboot.framework.domain.Pager;
-import com.github.mengweijin.quickboot.framework.web.BaseController;
+import com.github.mengweijin.quickboot.framework.mvc.BaseController;
 import com.github.mengweijin.quickboot.jpa.PagerConverter;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
@@ -12,8 +11,6 @@ import com.github.mengweijin.quickboot.sample.system.service.AddressService;
 import com.github.mengweijin.quickboot.sample.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

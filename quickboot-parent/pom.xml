@@ -17,12 +17,11 @@
         <module>../cache-expired-spring-boot-starter</module>  
         <module>../quickboot-framework-spring-boot-starter</module>  
         <module>../quickboot-jpa-spring-boot-starter</module>  
-        <module>../quickboot-mybatis-plus-spring-boot-starter</module>  
-        <module>../quickboot-web</module>  
-        <!--        <module>../quickboot-devtool</module>  -->  
-        <!--        <module>../sample-quickboot-mybatis-plus</module>  -->  
-        <!--        <module>../sample-quickboot-jpa-web</module>  -->  
-        <module>../xss-spring-boot-starter</module> 
+        <module>../quickboot-mybatis-plus-spring-boot-starter</module>
+        <module>../quickboot-web</module>
+        <!--        <module>../quickboot-devtool</module>  -->
+        <!--        <module>../sample-quickboot-mybatis-plus</module>  -->
+        <!--        <module>../sample-quickboot-jpa-web</module>  -->
     </modules>  
     <properties> 
         <quickboot.version>1.0.36-SNAPSHOT</quickboot.version>  
@@ -34,8 +33,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
         <hutool.version>5.7.18</hutool.version>  
         <mybatis-plus.version>3.5.0</mybatis-plus.version>  
-        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
-        <maven-model.version>3.8.4</maven-model.version>  
+        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>
         <springdoc.version>1.6.3</springdoc.version>  
         <testable.version>0.7.2</testable.version> 
     </properties>  
@@ -69,43 +67,32 @@
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>quickboot-framework-spring-boot-starter</artifactId>  
                 <version>${quickboot.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>  
-                <version>${quickboot.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>quickboot-jpa-spring-boot-starter</artifactId>  
-                <version>${quickboot.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>cache-expired-spring-boot-starter</artifactId>  
-                <version>${quickboot.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>xss-spring-boot-starter</artifactId>  
-                <version>${quickboot.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>quickboot-web</artifactId>  
-                <version>${quickboot.version}</version> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-jpa-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>cache-expired-spring-boot-starter</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-web</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
-            </dependency>  
-            <dependency> 
-                <!-- 读取项目中 pom.xml 中的信息 -->  
-                <groupId>org.apache.maven</groupId>  
-                <artifactId>maven-model</artifactId>  
-                <version>${maven-model.version}</version> 
-            </dependency>  
+            </dependency>
             <dependency> 
                 <groupId>com.github.gavlyukovskiy</groupId>  
                 <artifactId>p6spy-spring-boot-starter</artifactId>  

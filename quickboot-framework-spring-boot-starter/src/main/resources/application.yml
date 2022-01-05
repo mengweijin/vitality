@@ -40,6 +40,10 @@ spring:
       pool:
         # default 1  TaskSchedulingProperties
         size: 8
+  redis:
+    host: 192.168.8.126
+    port: 6379
+    password: 123456
 #日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
 logging:
   file:

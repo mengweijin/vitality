@@ -1,5 +1,7 @@
 package com.github.mengweijin.mybatisplus.demo.controller;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,8 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.cache.expired.CacheExpired;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
+import com.github.mengweijin.mybatisplus.demo.enums.Gender;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
+import com.github.mengweijin.quickboot.framework.aspectj.RateLimiter;
 import com.github.mengweijin.quickboot.framework.domain.Pager;
+import com.github.mengweijin.quickboot.framework.inteceptor.RepeatSubmit;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import com.github.mengweijin.quickboot.mybatis.PagerConverter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +26,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -48,6 +57,23 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * 请求：http://localhost:8080/user/repeatable?id=12
+     * requestBody={ "name":"aaaaa" }
+     *
+     * 1. 未添加 RepeatableFilter 时，在 LogAspect 类中报错，
+     *      因为在 SpringMVC 中为了映射 @RequestBody 注释的参数，已经读取过一次 RequestBody 的流数据了，
+     *      而流默认只能被读取一次，第二次就读不到数据了
+     * 2. 添加 RepeatableFilter 后，返回正常结果 id=12, name=aaaaa。此时 LogAspect 类中记录的日志也正常。
+     * @param id RequestParam
+     * @param name RequestBody
+     */
+    @PostMapping("/repeatable")
+    public void repeatable(@RequestParam String id, @RequestBody String name){
+        log.info("id=" + id);
+        log.info("name=" + name);
+    }
+
     @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = "user")
     @GetMapping("/cache")
@@ -66,7 +92,8 @@ public class UserController {
         return html;
     }
 
-    @GetMapping("/get")
+    @RateLimiter(count = 3)
+    @GetMapping("/list")
     public List<User> getUser() {
         return userService.list();
     }
@@ -96,8 +123,14 @@ public class UserController {
     public User getUserById(@PathVariable("id") Long id){
         return userService.getById(id);
     }
+
+    @RepeatSubmit
     @PostMapping("/save")
-    public void addUser(@RequestBody User user){
+    public void addUser(){
+        User user = new User();
+        user.setName("user" + DateUtil.format(new Date(), DatePattern.NORM_DATETIME_MS_PATTERN));
+        user.setGender(Gender.MALE);
+        user.setDeleted(0);
         userService.saveOrUpdate(user);
     }
 

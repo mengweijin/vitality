@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.framework.util;
 
-import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;

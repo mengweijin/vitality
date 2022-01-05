@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.common.util;
 
 import cn.hutool.core.date.DateUtil;
-import com.github.mengweijin.quickboot.framework.util.CronDateUtil;
+import com.github.mengweijin.quickboot.framework.util.CronDateUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +17,13 @@ class CronDateUtilTest {
 
     @Test
     void formatCron() {
-        String cron = CronDateUtil.formatCron(CronDateUtil.parseCron(CRON));
+        String cron = CronDateUtils.formatCron(CronDateUtils.parseCron(CRON));
         Assertions.assertEquals(CRON, cron);
     }
 
     @Test
     void parseCron() {
-        Date date = CronDateUtil.parseCron(CRON);
+        Date date = CronDateUtils.parseCron(CRON);
         Assertions.assertEquals("2021-12-17 18:37:34", DateUtil.formatDateTime(date));
     }
 }

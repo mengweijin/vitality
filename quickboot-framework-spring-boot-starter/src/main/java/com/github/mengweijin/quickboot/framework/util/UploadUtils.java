@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.framework.util;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.github.mengweijin.quickboot.framework.constant.Const;
 import com.github.mengweijin.quickboot.framework.domain.FileInfo;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootException;

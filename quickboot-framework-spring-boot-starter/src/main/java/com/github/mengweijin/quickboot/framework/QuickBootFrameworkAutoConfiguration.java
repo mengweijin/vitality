@@ -1,7 +1,6 @@
 package com.github.mengweijin.quickboot.framework;
 
 import com.github.mengweijin.quickboot.framework.aspectj.LogAspect;
-import com.github.mengweijin.quickboot.framework.domain.AppLog;
 import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.quickboot.framework.filter.xss.XssFilter;
 import com.github.mengweijin.quickboot.framework.filter.xss.XssProperties;
@@ -9,6 +8,7 @@ import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.util.Const;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
+import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.jsoup.Jsoup;
 import org.springdoc.core.Constants;
@@ -127,7 +127,7 @@ public class QuickBootFrameworkAutoConfiguration {
      */
     @Bean
     @Profile({"!prod"})
-    @ConditionalOnClass(GroupedOpenApi.class)
+    @ConditionalOnClass({GroupedOpenApi.class})
     public GroupedOpenApi applicationAllApi() {
         return GroupedOpenApi.builder()
                 .group("All APIs")

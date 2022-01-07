@@ -66,15 +66,18 @@ public class LogAspect {
             // 这里的 request.getParameterMap() 方法的调用必须早于下面 ServletUtils.getBody(request)
             // 否则也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
             Map<String, String[]> argsMap = request.getParameterMap();
-            // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
-            // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
-            // 此时就造成日志这里因为读取不到流数据而报错。
-            // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
-            HashMap<?, ?> requestBodyMap = objectMapper.readValue(ServletUtils.getBody(request), HashMap.class);
-            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
-
             appLog.setArgs(argsMap);
-            appLog.setRequestBody(requestBodyMap);
+
+            if("application/json".equals(request.getContentType())) {
+                // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
+                // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
+                // 此时就造成日志这里因为读取不到流数据而报错。
+                // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
+                HashMap<?, ?> requestBodyMap = objectMapper.readValue(ServletUtils.getBody(request), HashMap.class);
+                appLog.setRequestBody(requestBodyMap);
+            }
+
+            String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();
             appLog.setMethodName(methodName);
             appLog.setUrl(request.getRequestURI());
             appLog.setHttpMethod(request.getMethod());

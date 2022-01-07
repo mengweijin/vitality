@@ -58,8 +58,9 @@
                 <version>1.0.11</version>
                 <configuration>
                     <parameters>
-                        <tables>SYS_USER</tables>
-                        <tablePrefix>sys_</tablePrefix>
+                        <outputPackage>com.github.mengweijin.quickboot.auth</outputPackage>
+                        <tables>QB_ROLE, QB_USER, QB_USER_ROLE, QB_AUTH, QB_ROLE_AUTH, QB_LOGIN_LOG</tables>
+                        <tablePrefix>QB_</tablePrefix>
                         <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
                         <lombokModel>true</lombokModel>
                         <dbInfo>

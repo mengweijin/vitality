@@ -1,0 +1,44 @@
+-- 用户 ----------------------------------------------------------------------------------------------------------------
+INSERT INTO QB_ROLE VALUES (1, '管理员', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_ROLE VALUES (2, '体验用户', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_ROLE VALUES (3, '普通用户', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+
+
+INSERT INTO QB_USER VALUES (1,  'admin',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '管理员', 0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (2,  '扫地僧',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '扫地僧', 0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (3,  '杨过',     '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '杨过',  0,   CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (4,  '小龙女',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '小龙女', 0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (5,  '乔峰',     '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '乔峰',   0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (6,  '虚竹',     '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '虚竹',   0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (7,  '段誉',     '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '段誉',   0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (8,  '王语嫣',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '王语嫣',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (9,  '萧远山',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '萧远山',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (10, '慕容博',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '慕容博',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (11, '慕容复',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '慕容复',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (12, '天山童姥', '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '天山童姥', 0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (13, '李秋水',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '李秋水',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+INSERT INTO QB_USER VALUES (14, '无崖子',   '{bcrypt}$2a$10$rexTyLgtv2KcoKoZKP7oBeeReIGbqmGzVQBypbnLvt3/ulTOJDoTG', '无崖子',  0,  CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+
+
+insert into QB_USER_ROLE values(1, 1, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_USER_ROLE values(2, 2, 2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+
+
+insert into QB_AUTH values (1, 'DBA', 'DBA', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (2, 'actuator', 'Spring Boot actuator', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (3, 'swagger', '接口文档', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (101, 'role_insert', '角色新增', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (102, 'role_update', '角色修改', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (103, 'role_delete', '角色删除', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (201, 'user_insert', '用户新增', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (202, 'user_update', '用户修改', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_AUTH values (203, 'user_delete', '用户删除', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+
+
+insert into QB_ROLE_AUTH values (1, 2, 101, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_ROLE_AUTH values (2, 2, 102, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_ROLE_AUTH values (3, 2, 103, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_ROLE_AUTH values (4, 2, 201, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_ROLE_AUTH values (5, 2, 202, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+insert into QB_ROLE_AUTH values (6, 2, 203, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'SYSTEM', 'SYSTEM');
+

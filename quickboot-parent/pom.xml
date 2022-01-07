@@ -20,9 +20,9 @@
         <module>../quickboot-mybatis-plus-spring-boot-starter</module>
         <module>../quickboot-web</module>
         <module>../quickboot-auth-server</module>
-        <!--        <module>../quickboot-devtool</module>  -->
-        <!--        <module>../sample-quickboot-mybatis-plus</module>  -->
-        <!--        <module>../sample-quickboot-jpa-web</module>  -->
+        <module>../quickboot-devtool</module>
+        <module>../sample-quickboot-mybatis-plus</module>
+        <module>../sample-quickboot-jpa-web</module>
     </modules>  
     <properties> 
         <quickboot.version>1.0.36-SNAPSHOT</quickboot.version>  

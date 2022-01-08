@@ -1,0 +1,72 @@
+package com.github.mengweijin.quickboot.auth.security.handler;
+
+import cn.hutool.core.util.NumberUtil;
+import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
+import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
+import com.github.mengweijin.quickboot.framework.QuickBootProperties;
+import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
+import com.github.mengweijin.quickboot.framework.redis.RedisCache;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * @author mengweijin
+ * @date 2022/1/8
+ */
+@Slf4j
+@Component
+public class QuickBootAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+    /**
+     * 用户登录失败次数 redis key
+     */
+    public static final String LOGIN_FAILED_TIMES_KEY = "login_failed_times:";
+
+    @Autowired
+    private AuthProperties authProperties;
+
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
+
+    @Autowired
+    private DefaultRedisScript<Long> limitScript;
+
+    @Autowired
+    private LoginLogTask loginLogTask;
+
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+        // 先实现自己的业务逻辑
+        try {
+            String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
+            String key = LOGIN_FAILED_TIMES_KEY + username;
+            int expireTime = authProperties.getLogin().getExpire();
+            int count = authProperties.getLogin().getMaxFailureTimes();
+            List<Object> keys = Collections.singletonList(key);
+            // 加入登录失败缓存。调用脚本，没有缓存的话就创建并设置过期时间，有的话就自增 1
+            Long number = redisTemplate.execute(limitScript, keys, count, expireTime);
+
+            // 异步记录登录失败日志
+            loginLogTask.addFailureLoginLog(request, username, exception.getMessage());
+        } catch (Exception e) {
+            log.error("Throw an exception when record authentication failure log.", e);
+        }
+
+        // 再调用父类
+        super.onAuthenticationFailure(request, response, exception);
+    }
+}

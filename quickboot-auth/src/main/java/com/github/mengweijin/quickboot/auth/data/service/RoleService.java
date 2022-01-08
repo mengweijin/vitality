@@ -1,8 +1,8 @@
-package com.github.mengweijin.quickboot.auth.service;
+package com.github.mengweijin.quickboot.auth.data.service;
 
 import lombok.extern.slf4j.Slf4j;
-import com.github.mengweijin.quickboot.auth.entity.Role;
-import com.github.mengweijin.quickboot.auth.mapper.RoleMapper;
+import com.github.mengweijin.quickboot.auth.data.entity.Role;
+import com.github.mengweijin.quickboot.auth.data.mapper.RoleMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

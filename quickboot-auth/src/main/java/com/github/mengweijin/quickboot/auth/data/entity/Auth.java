@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.auth.entity;
+package com.github.mengweijin.quickboot.auth.data.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;

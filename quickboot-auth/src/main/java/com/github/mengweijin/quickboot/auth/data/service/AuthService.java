@@ -1,8 +1,8 @@
-package com.github.mengweijin.quickboot.auth.service;
+package com.github.mengweijin.quickboot.auth.data.service;
 
 import lombok.extern.slf4j.Slf4j;
-import com.github.mengweijin.quickboot.auth.entity.LoginLog;
-import com.github.mengweijin.quickboot.auth.mapper.LoginLogMapper;
+import com.github.mengweijin.quickboot.auth.data.entity.Auth;
+import com.github.mengweijin.quickboot.auth.data.mapper.AuthMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 登录日志表 implement
+ * 权限表 implement
  * Add @Transactional(rollbackFor = Exception.class) if you need.
  * </p>
  *
@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class LoginLogService extends ServiceImpl<LoginLogMapper, LoginLog> implements IService<LoginLog> {
+public class AuthService extends ServiceImpl<AuthMapper, Auth> implements IService<Auth> {
 
     /**
      * <p>
-     * LoginLogMapper
+     * AuthMapper
      * </p>
      */
     @Autowired
-    private LoginLogMapper loginLogMapper;
+    private AuthMapper authMapper;
 }
 

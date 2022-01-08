@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.auth.entity;
+package com.github.mengweijin.quickboot.auth.data.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 角色和权限关联表
+ * 角色信息表
  * </p>
  *
  * @author mengweijin
@@ -18,21 +18,21 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("QB_ROLE_AUTH")
-public class RoleAuth extends BaseEntity {
+@TableName("QB_ROLE")
+public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 角色ID
+     * 角色名称
      */
-    @TableField("ROLE_ID")
-    private Long roleId;
+    @TableField("NAME")
+    private String name;
 
     /**
-     * 权限ID
+     * 父角色ID
      */
-    @TableField("AUTH_ID")
-    private Long authId;
+    @TableField("PARENT_ID")
+    private Long parentId;
 
 }

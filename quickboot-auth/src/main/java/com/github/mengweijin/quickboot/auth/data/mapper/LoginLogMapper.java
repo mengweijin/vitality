@@ -1,6 +1,6 @@
-package com.github.mengweijin.quickboot.auth.mapper;
+package com.github.mengweijin.quickboot.auth.data.mapper;
 
-import com.github.mengweijin.quickboot.auth.entity.LoginLog;
+import com.github.mengweijin.quickboot.auth.data.entity.LoginLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

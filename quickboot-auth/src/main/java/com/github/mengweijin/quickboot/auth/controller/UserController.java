@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.mengweijin.quickboot.auth.entity.User;
-import com.github.mengweijin.quickboot.auth.service.UserService;
+import com.github.mengweijin.quickboot.auth.data.entity.User;
+import com.github.mengweijin.quickboot.auth.data.service.UserService;
 
 import java.io.Serializable;
 
@@ -100,6 +100,7 @@ public class UserController  {
      * </p>
      * @param id id
      */
+    @RolesAllowed("user_delete")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Serializable id) {
         userService.removeById(id);

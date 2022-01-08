@@ -1,8 +1,8 @@
-package com.github.mengweijin.quickboot.auth.service;
+package com.github.mengweijin.quickboot.auth.data.service;
 
 import lombok.extern.slf4j.Slf4j;
-import com.github.mengweijin.quickboot.auth.entity.Auth;
-import com.github.mengweijin.quickboot.auth.mapper.AuthMapper;
+import com.github.mengweijin.quickboot.auth.data.entity.RoleAuth;
+import com.github.mengweijin.quickboot.auth.data.mapper.RoleAuthMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 权限表 implement
+ * 角色和权限关联表 implement
  * Add @Transactional(rollbackFor = Exception.class) if you need.
  * </p>
  *
@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class AuthService extends ServiceImpl<AuthMapper, Auth> implements IService<Auth> {
+public class RoleAuthService extends ServiceImpl<RoleAuthMapper, RoleAuth> implements IService<RoleAuth> {
 
     /**
      * <p>
-     * AuthMapper
+     * RoleAuthMapper
      * </p>
      */
     @Autowired
-    private AuthMapper authMapper;
+    private RoleAuthMapper roleAuthMapper;
 }
 

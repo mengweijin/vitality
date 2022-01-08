@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.mengweijin.quickboot.auth.entity.Role;
-import com.github.mengweijin.quickboot.auth.service.RoleService;
+import com.github.mengweijin.quickboot.auth.data.entity.Role;
+import com.github.mengweijin.quickboot.auth.data.service.RoleService;
 import java.io.Serializable;
 
 /**

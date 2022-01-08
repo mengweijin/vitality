@@ -4,7 +4,7 @@
 
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.entity.LoginLog">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.data.entity.LoginLog">
     <result column="ID" property="id" />
     <result column="CREATE_TIME" property="createTime" />
     <result column="UPDATE_TIME" property="updateTime" />

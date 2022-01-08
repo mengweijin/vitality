@@ -25,15 +25,14 @@ import java.io.IOException;
  * @date 2022/1/8
  */
 @Component
-public class QuickBootLoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class QuickBootAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        String msg = "Failed to authenticate when access to URL " + request.getRequestURI();
-        R<Object> r = R.fail(HttpStatus.UNAUTHORIZED.value(), msg);
+        R<Object> r = R.fail(HttpStatus.UNAUTHORIZED.value(), authException.getMessage());
         ServletUtils.renderString(response, objectMapper.writeValueAsString(r));
     }
 }

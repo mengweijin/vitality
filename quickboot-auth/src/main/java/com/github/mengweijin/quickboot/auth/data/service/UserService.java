@@ -1,9 +1,9 @@
-package com.github.mengweijin.quickboot.auth.service;
+package com.github.mengweijin.quickboot.auth.data.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import com.github.mengweijin.quickboot.auth.entity.User;
-import com.github.mengweijin.quickboot.auth.mapper.UserMapper;
+import com.github.mengweijin.quickboot.auth.data.entity.User;
+import com.github.mengweijin.quickboot.auth.data.mapper.UserMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

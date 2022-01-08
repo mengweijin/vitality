@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.auth.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.mengweijin.quickboot.auth.entity.Auth;
-import com.github.mengweijin.quickboot.auth.service.AuthService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.mengweijin.quickboot.auth.data.entity.Auth;
+import com.github.mengweijin.quickboot.auth.data.service.AuthService;
+
 import java.io.Serializable;
 
 /**

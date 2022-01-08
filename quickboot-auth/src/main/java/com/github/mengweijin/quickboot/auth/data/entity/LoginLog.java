@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.auth.entity;
+package com.github.mengweijin.quickboot.auth.data.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -9,9 +9,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.quickboot.auth.enums.LoginType;
 import com.github.mengweijin.quickboot.auth.enums.LoginStatus;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;

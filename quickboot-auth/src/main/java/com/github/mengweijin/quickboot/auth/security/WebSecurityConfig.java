@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.auth.security;
 
-import com.github.mengweijin.quickboot.auth.security.filter.JwtAuthenticationTokenFilter;
+import com.github.mengweijin.quickboot.auth.security.filter.JwtLoginAuthenticationFilter;
+import com.github.mengweijin.quickboot.auth.security.filter.JwtTokenAuthenticationFilter;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationFailureHandler;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationSuccessHandler;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootLogoutSuccessHandler;
@@ -39,10 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private QuickBootLogoutSuccessHandler quickBootLogoutSuccessHandler;
 
     @Autowired
-    private QuickBootLoginUrlAuthenticationEntryPoint quickBootLoginUrlAuthenticationEntryPoint;
+    private QuickBootAuthenticationEntryPoint quickBootAuthenticationEntryPoint;
 
     @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+    private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
 
     /**
      * 认证输入的用户名和密码匹配
@@ -80,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.exceptionHandling(exception -> {
             // 认证失败处理类
-            exception.authenticationEntryPoint(quickBootLoginUrlAuthenticationEntryPoint);
+            exception.authenticationEntryPoint(quickBootAuthenticationEntryPoint);
         });
 
         httpSecurity.sessionManagement(session -> {
@@ -109,7 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
 
         // 添加 JWT filter
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

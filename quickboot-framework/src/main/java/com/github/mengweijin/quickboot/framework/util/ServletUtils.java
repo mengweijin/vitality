@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -125,4 +126,8 @@ public class ServletUtils extends ServletUtil {
         response.getWriter().print(string);
     }
 
+    public static void renderObject(HttpServletResponse response, Object object) throws IOException {
+        ObjectMapper objectMapper = SpringUtils.getBean(ObjectMapper.class);
+        renderString(response, objectMapper.writeValueAsString(object));
+    }
 }

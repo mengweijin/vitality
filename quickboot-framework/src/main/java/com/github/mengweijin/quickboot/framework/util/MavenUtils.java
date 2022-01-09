@@ -56,7 +56,7 @@ public class MavenUtils {
 
     /**
      * 在IDE里运行使用普通方式文件系统读取文件夹即可
-     * @param url 此时 url = file:/C:/Source/code/gitee/quickboot/quickboot-framework-spring-boot-starter/target/test-classes/
+     * @param url 此时 url = file:/C:/Source/code/gitee/quickboot/quickboot-framework/target/test-classes/
      * @param mavenXpp3Reader
      * @return
      * @throws URISyntaxException

@@ -18,7 +18,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework-spring-boot-starter</artifactId> 
+            <artifactId>quickboot-framework</artifactId>
         </dependency>  
         <!-- https://dom4j.github.io/ -->  
         <dependency> 

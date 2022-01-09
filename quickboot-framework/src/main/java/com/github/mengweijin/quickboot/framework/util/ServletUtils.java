@@ -118,16 +118,12 @@ public class ServletUtils extends ServletUtil {
      * 将字符串渲染到客户端
      *
      * @param response 渲染对象
-     * @param string   待渲染的字符串
+     * @param object   待渲染的字符串/对象
      */
-    public static void render(HttpServletResponse response, String string) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        response.getWriter().print(string);
-    }
-
     public static void render(HttpServletResponse response, Object object) throws IOException {
         ObjectMapper objectMapper = SpringUtils.getBean(ObjectMapper.class);
-        render(response, objectMapper.writeValueAsString(object));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().print(objectMapper.writeValueAsString(object));
     }
 }

@@ -1,13 +1,8 @@
 package com.github.mengweijin.quickboot.auth.security.handler;
 
-import cn.hutool.core.util.NumberUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
-import com.github.mengweijin.quickboot.framework.QuickBootProperties;
 import com.github.mengweijin.quickboot.framework.domain.R;
-import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
-import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +40,6 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
     public static final String LOGIN_FAILED_TIMES_KEY = "login_failed_times:";
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private AuthProperties authProperties;
 
     @Autowired
@@ -75,6 +67,6 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
         loginLogTask.addFailureLoginLog(request, username, exception.getMessage());
 
         R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
-        ServletUtils.renderString(response, objectMapper.writeValueAsString(r));
+        ServletUtils.render(response, r);
     }
 }

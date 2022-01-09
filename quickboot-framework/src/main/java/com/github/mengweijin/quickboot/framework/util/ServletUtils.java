@@ -120,14 +120,14 @@ public class ServletUtils extends ServletUtil {
      * @param response 渲染对象
      * @param string   待渲染的字符串
      */
-    public static void renderString(HttpServletResponse response, String string) throws IOException {
+    public static void render(HttpServletResponse response, String string) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().print(string);
     }
 
-    public static void renderObject(HttpServletResponse response, Object object) throws IOException {
+    public static void render(HttpServletResponse response, Object object) throws IOException {
         ObjectMapper objectMapper = SpringUtils.getBean(ObjectMapper.class);
-        renderString(response, objectMapper.writeValueAsString(object));
+        render(response, objectMapper.writeValueAsString(object));
     }
 }

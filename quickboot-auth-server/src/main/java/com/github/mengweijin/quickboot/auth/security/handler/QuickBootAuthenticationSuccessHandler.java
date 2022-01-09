@@ -1,7 +1,6 @@
 package com.github.mengweijin.quickboot.auth.security.handler;
 
 import cn.hutool.core.util.IdUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.data.entity.User;
 import com.github.mengweijin.quickboot.auth.data.service.UserService;
@@ -47,9 +46,6 @@ import java.util.concurrent.TimeUnit;
 public class QuickBootAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private LoginLogTask loginLogTask;
 
     @Autowired
@@ -80,6 +76,7 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
 
         String token = TokenUtils.createToken(authProperties.getToken().getSecret(), uuid);
 
-        ServletUtils.renderString(response, objectMapper.writeValueAsString(R.ok(Collections.singletonMap("token", token))));
+        final R<?> r = R.ok(Collections.singletonMap("token", token));
+        ServletUtils.render(response, r);
     }
 }

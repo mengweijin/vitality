@@ -1,8 +1,6 @@
 package com.github.mengweijin.quickboot.auth.security.filter;
 
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.quickboot.auth.data.entity.User;
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
 import com.github.mengweijin.quickboot.auth.token.TokenUtils;
@@ -33,9 +31,6 @@ import java.io.IOException;
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private AuthProperties authProperties;
 
     @Autowired
@@ -57,7 +52,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             if(StrUtil.isBlank(token)) {
                 // 请求未携带 token
                 R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), "Please login first!");
-                ServletUtils.renderString(response, objectMapper.writeValueAsString(r));
+                ServletUtils.render(response, r);
             }  else {
                 // 从 token 中获取 uuid
                 String uuid = TokenUtils.getUuidFromToken(authProperties.getToken().getSecret(), token);
@@ -66,7 +61,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                 if(loginUser == null) {
                     // token 已过期
                     R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), "Token expired! Please login again!");
-                    ServletUtils.renderString(response, objectMapper.writeValueAsString(r));
+                    ServletUtils.render(response, r);
                 } else {
                     // 能走到这里redis 中有 user，说明已经登录过了
                     // 刷新 token 过期时间（只要用户有操作，就刷新过期时间，达到自动延长的目的）

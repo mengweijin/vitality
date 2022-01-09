@@ -1,10 +1,8 @@
 package com.github.mengweijin.quickboot.framework.inteceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,9 +20,6 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
      */
     public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
@@ -33,8 +28,8 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
             RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);
             if (annotation != null) {
                 if (this.isRepeatSubmit(request, annotation)) {
-                    String value = objectMapper.writeValueAsString(R.fail(HttpStatus.BAD_REQUEST.value(), annotation.message()));
-                    ServletUtils.renderString(response, value);
+                    R<?> r = R.fail(HttpStatus.BAD_REQUEST.value(), annotation.message());
+                    ServletUtils.render(response, r);
                     return false;
                 }
             }

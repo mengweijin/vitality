@@ -14,17 +14,17 @@
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
     <modules>
-        <module>../quickboot-auth-client</module>
-        <module>../quickboot-auth-data</module>
-        <module>../quickboot-auth-server</module>
-        <module>../quickboot-cache-expired</module>
-        <module>../quickboot-devtool</module>
-        <module>../quickboot-framework</module>
-        <module>../quickboot-jpa</module>
-        <module>../quickboot-mybatis-plus</module>
-        <module>../quickboot-web</module>
-        <module>../sample-quickboot-mybatis-plus</module>
-        <module>../sample-quickboot-jpa-web</module>
+        <module>./quickboot-auth-client</module>
+        <module>./quickboot-auth-data</module>
+        <module>./quickboot-auth-server</module>
+        <module>./quickboot-cache-expired</module>
+        <module>./quickboot-framework</module>
+        <module>./quickboot-jpa</module>
+        <module>./quickboot-mybatis-plus</module>
+        <module>./quickboot-web</module>
+        <module>./sample-quickboot-jpa-web</module>
+        <module>./sample-quickboot-mybatis-plus</module>
+        <module>./tool-quickboot</module>
     </modules>
     <properties> 
         <quickboot.version>1.0.36-SNAPSHOT</quickboot.version>  

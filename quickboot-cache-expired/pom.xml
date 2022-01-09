@@ -6,7 +6,7 @@
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
         <version>1.0.36-SNAPSHOT</version>  
-        <relativePath>../quickboot-parent/pom.xml</relativePath> 
+        <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>quickboot-cache-expired</artifactId>
     <dependencies> 

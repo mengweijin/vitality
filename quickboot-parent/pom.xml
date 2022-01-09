@@ -13,17 +13,19 @@
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
-    <modules> 
-        <module>../cache-expired-spring-boot-starter</module>  
-        <module>../quickboot-framework-spring-boot-starter</module>  
-        <module>../quickboot-jpa-spring-boot-starter</module>  
-        <module>../quickboot-mybatis-plus-spring-boot-starter</module>
-        <module>../quickboot-web</module>
-        <module>../quickboot-auth</module>
+    <modules>
+        <module>../quickboot-auth-client</module>
+        <module>../quickboot-auth-data</module>
+        <module>../quickboot-auth-server</module>
+        <module>../quickboot-cache-expired</module>
         <module>../quickboot-devtool</module>
+        <module>../quickboot-framework</module>
+        <module>../quickboot-jpa</module>
+        <module>../quickboot-mybatis-plus</module>
+        <module>../quickboot-web</module>
         <module>../sample-quickboot-mybatis-plus</module>
         <module>../sample-quickboot-jpa-web</module>
-    </modules>  
+    </modules>
     <properties> 
         <quickboot.version>1.0.36-SNAPSHOT</quickboot.version>  
         <java.version>1.8</java.version>  
@@ -64,25 +66,40 @@
         <url>https://gitee.com/mengweijin/quickboot/issues</url> 
     </issueManagement>  
     <dependencyManagement> 
-        <dependencies> 
+        <dependencies>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-auth-client</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-auth-data</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-auth-server</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-cache-expired</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>com.github.mengweijin</groupId>  
-                <artifactId>quickboot-framework-spring-boot-starter</artifactId>  
+                <artifactId>quickboot-framework</artifactId>
                 <version>${quickboot.version}</version> 
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-mybatis-plus-spring-boot-starter</artifactId>
+                <artifactId>quickboot-jpa</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-jpa-spring-boot-starter</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>cache-expired-spring-boot-starter</artifactId>
+                <artifactId>quickboot-mybatis-plus</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>

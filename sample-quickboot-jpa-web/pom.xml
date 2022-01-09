@@ -21,7 +21,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-jpa-spring-boot-starter</artifactId> 
+            <artifactId>quickboot-jpa</artifactId>
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  

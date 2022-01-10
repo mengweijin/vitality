@@ -1,0 +1,14 @@
+info:
+  app:
+    parentGroupId: @project.parent.groupId@
+    groupId: @project.groupId@
+    artifactId: @project.artifactId@
+    version: @project.version@
+spring:
+  datasource:
+    # 这里以 内存数据库为例，自动化 quartz 集成时 quartz 的表，就不用额外执行数据库脚本了
+    url: jdbc:h2:mem:test;MODE=MYSQL
+  quartz:
+    # 默认就是 memory，因此，最简配置这个可以不配置
+    job-store-type: memory
+    scheduler-name: quartzScheduler

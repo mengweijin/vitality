@@ -6,7 +6,7 @@ import com.github.mengweijin.quickboot.auth.data.entity.User;
 import com.github.mengweijin.quickboot.auth.data.service.UserService;
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
-import com.github.mengweijin.quickboot.auth.token.TokenUtils;
+import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;

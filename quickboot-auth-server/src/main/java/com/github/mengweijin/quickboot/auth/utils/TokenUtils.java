@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.auth.token;
+package com.github.mengweijin.quickboot.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

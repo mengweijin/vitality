@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
-    <artifactId>quickboot-devtool</artifactId>  
+    <artifactId>tool-quickboot</artifactId>
     <properties> 
         <!-- 不上传此jar包到中央仓库或私服 -->  
         <maven.deploy.skip>true</maven.deploy.skip>  

@@ -8,7 +8,6 @@ import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.util.Const;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.jsoup.Jsoup;
 import org.springdoc.core.Constants;

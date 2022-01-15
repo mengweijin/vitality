@@ -15,7 +15,6 @@
     <description>quickboot-parent</description>  
     <modules>
         <module>./quickboot-auth-client</module>
-        <module>quickboot-auth-common</module>
         <module>./quickboot-auth-data</module>
         <module>./quickboot-auth-server</module>
         <module>./quickboot-cache-expired</module>
@@ -70,7 +69,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-auth-common</artifactId>
+                <artifactId>quickboot-auth-client</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>

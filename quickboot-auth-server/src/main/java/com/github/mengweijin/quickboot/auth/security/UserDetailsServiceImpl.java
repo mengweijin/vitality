@@ -2,12 +2,12 @@ package com.github.mengweijin.quickboot.auth.security;
 
 import cn.hutool.core.util.NumberUtil;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
-import com.github.mengweijin.quickboot.auth.data.entity.Auth;
-import com.github.mengweijin.quickboot.auth.data.entity.User;
+import com.github.mengweijin.quickboot.auth.system.entity.Auth;
+import com.github.mengweijin.quickboot.auth.system.entity.User;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationFailureHandler;
-import com.github.mengweijin.quickboot.auth.data.service.AuthService;
-import com.github.mengweijin.quickboot.auth.data.service.UserService;
+import com.github.mengweijin.quickboot.auth.system.service.AuthService;
+import com.github.mengweijin.quickboot.auth.system.service.UserService;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;

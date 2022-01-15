@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.quickboot.auth.system.mapper.LoginLogMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.system.entity.LoginLog">
+    <result column="ID" property="id" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="UPDATE_TIME" property="updateTime" />
+    <result column="USERNAME" property="username" />
+    <result column="LOGIN_TYPE" property="loginType" />
+    <result column="LOGIN_STATUS" property="loginStatus" />
+    <result column="IP" property="ip" />
+    <result column="OS" property="os" />
+    <result column="BROWSER" property="browser" />
+    <result column="MESSAGE" property="message" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID,
+        CREATE_TIME,
+        UPDATE_TIME,
+        USERNAME, LOGIN_TYPE, LOGIN_STATUS, IP, OS, BROWSER, MESSAGE
+    </sql>
+
+</mapper>

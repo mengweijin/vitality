@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.auth.config;
 
-import com.github.mengweijin.quickboot.auth.controller.AuthController;
+import com.github.mengweijin.quickboot.auth.system.controller.AuthController;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
 import com.github.mengweijin.quickboot.framework.AppInfoProperties;
 import com.github.mengweijin.quickboot.framework.util.SpringDocUtils;

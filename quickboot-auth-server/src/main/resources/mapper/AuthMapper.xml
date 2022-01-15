@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.quickboot.auth.system.mapper.AuthMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.system.entity.Auth">
+    <result column="ID" property="id" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="UPDATE_TIME" property="updateTime" />
+    <result column="CREATE_BY" property="createBy" />
+    <result column="UPDATE_BY" property="updateBy" />
+    <result column="AUTH_KEY" property="authKey" />
+    <result column="AUTH_NAME" property="authName" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID,
+        CREATE_TIME,
+        UPDATE_TIME,
+        CREATE_BY,
+        UPDATE_BY,
+        AUTH_KEY, AUTH_NAME
+    </sql>
+    <select id="selectAuthByRoleId" parameterType="java.io.Serializable" resultMap="BaseResultMap">
+        select
+            a.ID,
+            a.CREATE_TIME,
+            a.UPDATE_TIME,
+            a.CREATE_BY,
+            a.UPDATE_BY,
+            a.AUTH_KEY,
+            a.AUTH_NAME
+        from QB_ROLE_AUTH ra
+        left join QB_AUTH a on ra.AUTH_ID=a.ID
+        <where>
+            ra.ROLE_ID = #{roleId}
+        </where>
+    </select>
+
+    <select id="selectAuthByUserId" parameterType="java.io.Serializable" resultMap="BaseResultMap">
+        select
+            a.ID,
+            a.CREATE_TIME,
+            a.UPDATE_TIME,
+            a.CREATE_BY,
+            a.UPDATE_BY,
+            a.AUTH_KEY,
+            a.AUTH_NAME
+        from QB_USER_ROLE ur, QB_ROLE_AUTH ra, QB_AUTH a
+        <where>
+            ur.USER_ID = #{userId} and ur.ROLE_ID=ra.ROLE_ID and ra.AUTH_ID=a.ID
+        </where>
+    </select>
+</mapper>

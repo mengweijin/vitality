@@ -15,7 +15,6 @@
     <description>quickboot-parent</description>  
     <modules>
         <module>./quickboot-auth-client</module>
-        <module>./quickboot-auth-data</module>
         <module>./quickboot-auth-server</module>
         <module>./quickboot-cache-expired</module>
         <module>./quickboot-framework</module>

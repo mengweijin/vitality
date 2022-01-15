@@ -54,7 +54,10 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        // 先实现自己的业务逻辑
+        R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+        ServletUtils.render(response, r);
+
+        // 登录失败次数加入到 Redis
         String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
         String key = LOGIN_FAILED_TIMES_KEY + username;
         int expireTime = authProperties.getLogin().getExpire();
@@ -66,7 +69,5 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
         // 异步记录登录失败日志
         loginLogTask.addFailureLoginLog(request, username, exception.getMessage());
 
-        R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
-        ServletUtils.render(response, r);
     }
 }

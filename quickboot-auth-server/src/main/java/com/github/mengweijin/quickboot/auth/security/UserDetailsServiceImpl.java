@@ -1,19 +1,13 @@
 package com.github.mengweijin.quickboot.auth.security;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.data.entity.Auth;
 import com.github.mengweijin.quickboot.auth.data.entity.User;
-import com.github.mengweijin.quickboot.auth.data.entity.UserRole;
-import com.github.mengweijin.quickboot.auth.data.mapper.AuthMapper;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationFailureHandler;
 import com.github.mengweijin.quickboot.auth.data.service.AuthService;
-import com.github.mengweijin.quickboot.auth.data.service.UserRoleService;
 import com.github.mengweijin.quickboot.auth.data.service.UserService;
-import com.github.mengweijin.quickboot.framework.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +19,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Meng Wei Jin
@@ -40,13 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Autowired
-    private UserRoleService userRoleService;
-
-    @Autowired
     private AuthService authService;
-
-    @Autowired
-    private AuthMapper authMapper;
 
     @Autowired
     private RedisCache redisCache;
@@ -70,13 +57,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             String message = "User was not found!";
             loginLogTask.addFailureLoginLog(ServletUtils.getRequest(), username, message);
-            // spring security 默认不抛出UsernameNotFoundException的前台展示信息, 会转成BadCredentialsException，
-            // 所以前台的错误信息提示总是会为：Bad credentials，所以这里使用自定义的异常类
-            throw new QuickBootClientException(message);
+            throw new UsernameNotFoundException(message);
         }
 
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = createAuthorities(user);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), simpleGrantedAuthorities);
+        List<Auth> authList = authService.selectAuthByUserId(user.getId());
+        List<SimpleGrantedAuthority> authorityList = this.createAuthorities(authList);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorityList);
     }
 
     /**
@@ -85,31 +71,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * security 判断权限时是以ROLE_开头的权限标识，如 "ROLE_USER,ROLE_ADMIN"
      * SimpleGrantedAuthority("ROLE_system_user_add")用户新增的权限
      *
-     * @param user 用户
+     * @param authList authList
      */
-    private List<SimpleGrantedAuthority> createAuthorities(User user) {
-        List<Auth> authList = new ArrayList<>();
-
-        LambdaQueryWrapper<UserRole> roleUserWrapper = new LambdaQueryWrapper<>();
-        roleUserWrapper.eq(UserRole::getUserId, user.getId());
-        List<UserRole> roleUserList = userRoleService.list(roleUserWrapper);
-
-        // 当前用户没有分配角色
-        if(CollectionUtil.isEmpty(roleUserList)) {
-            // ignore. No need to add Authority.
-        } else {
-            // 筛选 roleId=1 的记录（roleId=1 表示角色为管理员，管理员拥有所有权限。）。
-            boolean isAdmin = roleUserList.stream().anyMatch(roleUser -> roleUser.getRoleId() == 1L);
-            if(isAdmin) {
-                authList = authService.list();
-            } else {
-                Optional<List<Auth>> optional = authMapper.selectAuthByUserId(user.getId());
-                if(optional.isPresent()) {
-                    authList = optional.get();
-                }
-            }
-        }
-
+    private List<SimpleGrantedAuthority> createAuthorities(List<Auth> authList) {
         // 添加权限
         List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>(authList.size());
         for (Auth auth: authList) {

@@ -13,6 +13,7 @@ import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -25,8 +26,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 在 spring security 主流程 {@link AbstractAuthenticationProcessingFilter } 中的 doFilter 会处理认证成功，认证失败的逻辑。
@@ -52,31 +56,29 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
     private AuthProperties authProperties;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RedisCache redisCache;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        // 先实现自己的业务逻辑，后面的请求验证时会用到
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String uuid = IdUtil.fastUUID();
+        String token = TokenUtils.createToken(authProperties.getToken().getSecret(), uuid);
 
+        // session 存入到 Redis
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
-        User user = userService.getByUsername(username);
-        LoginUser loginUser = new LoginUser().convert(user);
+        List<String> roleList = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        LoginUser loginUser = new LoginUser().setUsername(username).setRoleList(roleList);
 
-        String uuid = IdUtil.fastUUID();
         redisCache.setCacheObject(TokenUtils.LOGIN_TOKEN_KEY + uuid, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
-
-
-        // 异步记录登录成功的日志
-        loginLogTask.addSuccessLoginLog(request, username);
-
-        String token = TokenUtils.createToken(authProperties.getToken().getSecret(), uuid);
+        // 标记用户已登录，在后面会处理避免用户大量重复登录时，根据 username 取出 uuid, 再根据 uuid 移除之前的key：TokenUtils.LOGIN_TOKEN_KEY + uuid
+        redisCache.setCacheObject(TokenUtils.LOGIN_USER_KEY + username, uuid, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
 
         final R<?> r = R.ok(Collections.singletonMap("token", token));
         ServletUtils.render(response, r);
+
+        // 异步记录登录成功的日志
+        loginLogTask.addSuccessLoginLog(request, username);
     }
 }

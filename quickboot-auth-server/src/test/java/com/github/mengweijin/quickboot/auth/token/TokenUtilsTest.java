@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.auth.token;
 
 import cn.hutool.core.util.IdUtil;
-import io.jsonwebtoken.Claims;
+import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

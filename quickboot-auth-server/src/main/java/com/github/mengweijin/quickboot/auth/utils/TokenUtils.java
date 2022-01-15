@@ -16,9 +16,14 @@ public class TokenUtils {
     public static final String LOGIN_USER_JWT_KEY = "login_user_jwt_key";
 
     /**
-     * 登录用户 redis key
+     * 登录用户 token redis key 前缀
      */
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
+
+    /**
+     * 登录用户 username redis key 前缀
+     */
+    public static final String LOGIN_USER_KEY = "login_users:";
 
     /**
      * 根据 uuid 生成一个 token，然后根据这个 uuid 封装一个 LoginUser 对象，放到 redis 中。

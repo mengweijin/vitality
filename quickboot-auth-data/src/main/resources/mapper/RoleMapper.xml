@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.quickboot.auth.mapper.UserMapper">
+<mapper namespace="com.github.mengweijin.quickboot.auth.data.mapper.RoleMapper">
 
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.data.entity.User">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.quickboot.auth.data.entity.Role">
     <result column="ID" property="id" />
     <result column="CREATE_TIME" property="createTime" />
     <result column="UPDATE_TIME" property="updateTime" />
     <result column="CREATE_BY" property="createBy" />
     <result column="UPDATE_BY" property="updateBy" />
-    <result column="USERNAME" property="username" />
-    <result column="PASSWORD" property="password" />
-    <result column="NICKNAME" property="nickname" />
-    <result column="DELETED" property="deleted" />
+    <result column="NAME" property="name" />
+    <result column="PARENT_ID" property="parentId" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -22,7 +20,7 @@
         UPDATE_TIME,
         CREATE_BY,
         UPDATE_BY,
-        USERNAME, PASSWORD, NICKNAME, DELETED
+        NAME, PARENT_ID
     </sql>
 
 </mapper>

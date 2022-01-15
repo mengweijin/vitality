@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,8 @@ public class R<T> implements Serializable {
      * Error message list
      */
     private List<String> msgList;
+
+    private LocalDateTime time;
 
     private R() {
     }
@@ -64,6 +67,7 @@ public class R<T> implements Serializable {
         r.setCode(code);
         r.setData(data);
         r.setMsgList(msg == null ? null : Arrays.asList(msg));
+        r.setTime(LocalDateTime.now());
         return r;
     }
 

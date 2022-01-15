@@ -3,9 +3,7 @@ package com.github.mengweijin.quickboot.auth.client.filter;
 import com.github.mengweijin.quickboot.auth.client.utils.R;
 import com.github.mengweijin.quickboot.auth.client.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,7 +19,6 @@ import java.nio.charset.StandardCharsets;
  * @author mengweijin
  * @date 2022/1/8
  */
-@Component
 public class ClientTokenVerifyFilter extends OncePerRequestFilter {
 
     public static final String LOGIN_URL = "/login";

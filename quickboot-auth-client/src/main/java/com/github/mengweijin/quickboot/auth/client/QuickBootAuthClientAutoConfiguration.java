@@ -5,7 +5,6 @@ import com.github.mengweijin.quickboot.auth.client.processor.QuickBootAuthClient
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -35,9 +34,9 @@ public class QuickBootAuthClientAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilter(ClientTokenVerifyFilter clientTokenVerifyFilter) {
+    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilter() {
         FilterRegistrationBean<ClientTokenVerifyFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(clientTokenVerifyFilter);
+        registration.setFilter(new ClientTokenVerifyFilter());
         registration.addUrlPatterns("/*");
         registration.setName("clientTokenVerifyFilter");
         registration.setOrder(1);

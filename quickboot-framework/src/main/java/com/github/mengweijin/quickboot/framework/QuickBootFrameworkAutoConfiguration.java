@@ -1,17 +1,14 @@
 package com.github.mengweijin.quickboot.framework;
 
 import com.github.mengweijin.quickboot.framework.aspectj.LogAspect;
+import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.quickboot.framework.filter.xss.XssFilter;
 import com.github.mengweijin.quickboot.framework.filter.xss.XssProperties;
 import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
-import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.util.Const;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import io.swagger.v3.oas.models.info.Info;
 import org.jsoup.Jsoup;
-import org.springdoc.core.Constants;
-import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -25,6 +22,7 @@ import org.springframework.core.Ordered;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+
 import javax.servlet.DispatcherType;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +41,6 @@ import java.util.Map;
 @Configuration
 @EnableConfigurationProperties({AppInfoProperties.class, QuickBootProperties.class})
 public class QuickBootFrameworkAutoConfiguration {
-
-    @Autowired
-    private AppInfoProperties appInfoProperties;
 
     @Autowired
     private QuickBootProperties quickBootProperties;
@@ -118,23 +113,4 @@ public class QuickBootFrameworkAutoConfiguration {
         return new LogAspect(appLog -> {});
     }
 
-    /**
-     * 可以多添加几个这样的 bean,
-     * 按照 .pathsToMatch(Constants.ALL_PATTERN)
-     * 或者 .packagesToScan("com.github.mengweijin")
-     * 来分组展示。
-     */
-    @Bean
-    @Profile({"!prod"})
-    @ConditionalOnClass({GroupedOpenApi.class})
-    public GroupedOpenApi applicationAllApi() {
-        return GroupedOpenApi.builder()
-                .group("All APIs")
-                .pathsToMatch(Constants.ALL_PATTERN)
-                .addOpenApiCustomiser(openApi ->
-                        openApi.info(new Info().title("All APIs")
-                                .version(appInfoProperties.getVersion()))
-                )
-                .build();
-    }
 }

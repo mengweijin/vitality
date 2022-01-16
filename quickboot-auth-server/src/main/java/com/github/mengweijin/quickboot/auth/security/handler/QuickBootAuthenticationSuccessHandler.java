@@ -65,7 +65,7 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
         List<String> roleList = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        LoginUser loginUser = new LoginUser().setUsername(username).setRoleList(roleList);
+        LoginUser loginUser = new LoginUser().setUsername(username).setUuid(uuid).setRoleList(roleList);
 
         redisCache.setCacheObject(TokenUtils.LOGIN_TOKEN_KEY + uuid, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
         // 标记用户已登录，在后面会处理避免用户大量重复登录时，根据 username 取出 uuid, 再根据 uuid 移除之前的key：TokenUtils.LOGIN_TOKEN_KEY + uuid

@@ -35,6 +35,9 @@ public class Tools {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        if(object instanceof R) {
+            response.setStatus(((R<?>) object).getCode());
+        }
         response.getWriter().print(objectMapper.writeValueAsString(object));
     }
 }

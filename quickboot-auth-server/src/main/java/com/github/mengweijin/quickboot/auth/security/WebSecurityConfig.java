@@ -92,7 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/h2/**").hasRole("DBA")
                     .antMatchers("/actuator/**").hasRole("actuator")
                     .antMatchers("/swagger-ui/**").hasRole("swagger")
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/login", "/token/verify").permitAll()
                     // 其他任何请求,登录后才可以访问
                     .anyRequest().authenticated();
         });

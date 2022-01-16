@@ -21,6 +21,8 @@ public class LoginUser implements Serializable {
 
     private String username;
 
+    private String uuid;
+
     /**
      * 如：ROLE_user_add, ROLE_user_delete
      */

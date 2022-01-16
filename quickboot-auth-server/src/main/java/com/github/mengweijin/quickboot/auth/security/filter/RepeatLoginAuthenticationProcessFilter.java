@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.auth.security.filter;
 
 import cn.hutool.core.util.StrUtil;
+import com.github.mengweijin.quickboot.auth.system.service.TokenService;
 import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.Const;
@@ -30,6 +31,9 @@ public class RepeatLoginAuthenticationProcessFilter extends OncePerRequestFilter
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         // 跳过除了登录 url 以外的所有url, 即只有当前请求的 url 为 /login 才需要执行 doFilterInternal 方法。与 TokenVerifyFilter 相反
@@ -42,14 +46,9 @@ public class RepeatLoginAuthenticationProcessFilter extends OncePerRequestFilter
         final String uuid = redisCache.getCacheObject(TokenUtils.LOGIN_USER_KEY + username);
         if(StrUtil.isNotEmpty(uuid)) {
             log.warn("User {} repeat login.", username);
-            // 移除之前的 token
-            redisCache.deleteObject(TokenUtils.LOGIN_TOKEN_KEY + uuid);
-            // 移除之前的 用户已登录的标记
-            redisCache.deleteObject(TokenUtils.LOGIN_USER_KEY + username);
+            tokenService.deleteToken(username, uuid);
         }
 
         filterChain.doFilter(request, response);
     }
-
-
 }

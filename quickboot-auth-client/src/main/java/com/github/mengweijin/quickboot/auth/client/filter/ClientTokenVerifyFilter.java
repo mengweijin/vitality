@@ -23,11 +23,8 @@ public class ClientTokenVerifyFilter extends OncePerRequestFilter {
 
     public static final String LOGIN_URL = "/login";
 
-    public static final String AUTH_HEADER = "Authorization";
-
-    public static final String TOKEN_VERIFY_URL = "http://localhost:8080/token/verify";
-
-    public static final String AUTH_LOGIN_URL = "http://localhost:8080/login";
+    @Autowired
+    private AuthClientProperties authClientProperties;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -42,7 +39,7 @@ public class ClientTokenVerifyFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         // 获取请求携带的令牌
-        String token = request.getHeader(AUTH_HEADER);
+        String token = request.getHeader(authClientProperties.getHeader());
         if(token == null) {
             // 请求未携带 token
             R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), "No token was found!");
@@ -50,7 +47,7 @@ public class ClientTokenVerifyFilter extends OncePerRequestFilter {
             return;
         }
 
-        String url = UriComponentsBuilder.fromHttpUrl(ClientTokenVerifyFilter.TOKEN_VERIFY_URL)
+        String url = UriComponentsBuilder.fromHttpUrl(authClientProperties.getVerifyUrl())
                 .queryParam("token", token)
                 .build().encode(StandardCharsets.UTF_8).toString();
         final Boolean isValid = restTemplate.getForObject(url, Boolean.class);

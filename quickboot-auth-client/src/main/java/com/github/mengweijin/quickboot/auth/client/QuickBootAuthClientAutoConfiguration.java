@@ -1,8 +1,10 @@
 package com.github.mengweijin.quickboot.auth.client;
 
+import com.github.mengweijin.quickboot.auth.client.filter.AuthClientProperties;
 import com.github.mengweijin.quickboot.auth.client.filter.ClientTokenVerifyFilter;
 import com.github.mengweijin.quickboot.auth.client.processor.QuickBootAuthClientBeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
  * @author mengweijin
  * @date 2022/1/9
  */
+@EnableConfigurationProperties(AuthClientProperties.class)
 @Configuration(proxyBeanMethods = false)
 public class QuickBootAuthClientAutoConfiguration {
 

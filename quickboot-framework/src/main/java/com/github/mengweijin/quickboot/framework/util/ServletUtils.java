@@ -6,9 +6,11 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.quickboot.framework.domain.R;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -124,6 +126,9 @@ public class ServletUtils extends ServletUtil {
         ObjectMapper objectMapper = SpringUtils.getBean(ObjectMapper.class);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
+        if(object instanceof R) {
+            response.setStatus(((R<?>) object).getCode());
+        }
         response.getWriter().print(objectMapper.writeValueAsString(object));
     }
 }

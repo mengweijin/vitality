@@ -52,7 +52,7 @@ public class QuickBootLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
             return;
         }
 
-        redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + loginUser.getUsername());
+        redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + loginUser.getUsername());
 
         ServletUtils.render(response, R.ok());
 

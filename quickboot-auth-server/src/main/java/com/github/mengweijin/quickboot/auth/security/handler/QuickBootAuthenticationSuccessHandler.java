@@ -68,11 +68,11 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
         String username = userDetails.getUsername();
 
         // 如果用户已经登录过了，那么删除之前的 token，重新生成一个新的存入 redis。避免在 Redis 中存在同一个用户有多个 token 的登录记录
-        LoginUser loginUser = redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username);
+        LoginUser loginUser = redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + username);
         if(loginUser != null) {
             log.warn("User {} repeat login.", username);
             // 移除之前的 token
-            redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username);
+            redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + username);
         }
 
         String token = TokenUtils.createToken(authProperties.getToken().getSecret(), username);
@@ -81,7 +81,7 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
         List<String> roleList = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         loginUser = new LoginUser().setUsername(username).setRoleList(roleList);
 
-        redisCache.setCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
+        redisCache.setCacheObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + username, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
 
         final R<?> r = R.ok(Collections.singletonMap("token", token));
         ServletUtils.render(response, r);

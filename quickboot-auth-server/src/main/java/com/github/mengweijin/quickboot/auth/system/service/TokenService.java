@@ -38,13 +38,13 @@ public class TokenService {
         // 从 token 中获取 userId
         String userId = TokenUtils.getUserIdFromToken(authProperties.getToken().getSecret(), token);
         // 根据 userId 从 redis 中查找
-        return redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + userId);
+        return redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + userId);
     }
 
     public void expireRefresh(String username) {
         final int expireTime = authProperties.getToken().getExpire();
         // 刷新 token 过期时间（只要用户有操作，就刷新过期时间，达到自动延长的目的）
-        redisCache.expire(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username, expireTime);
+        redisCache.expire(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + username, expireTime);
     }
 
 

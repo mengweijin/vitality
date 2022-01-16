@@ -24,10 +24,8 @@ public class TokenUtils {
      * @return
      */
     public static String createToken(String secretKey, String username) {
-        final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
-        final String secret = authProperties.getToken().getSecret();
         Map<String, Object> claims = new HashMap<>(1);
-        claims.put(SecurityConst.JWT_KEY_LOGIN_USER_ID, AESUtils.encryptByKey(secret, username));
+        claims.put(SecurityConst.JWT_KEY_LOGIN_USER_ID, AESUtils.encryptByKey(getSecret(), username));
         return createToken(secretKey, claims);
     }
 
@@ -44,9 +42,7 @@ public class TokenUtils {
 
     public static String getUserIdFromToken(String secretKey, String token) {
         String usernameEncrypt = parseToken(secretKey, token).get(SecurityConst.JWT_KEY_LOGIN_USER_ID, String.class);
-        final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
-        final String secret = authProperties.getToken().getSecret();
-        return AESUtils.decryptByKey(secret, usernameEncrypt);
+        return AESUtils.decryptByKey(getSecret(), usernameEncrypt);
     }
 
     /**
@@ -58,5 +54,14 @@ public class TokenUtils {
      */
     private static Claims parseToken(String secretKey, String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    }
+
+    /**
+     * AES 要求 secret 的长度必须是 16 的倍数
+     * @return 16 位 secret
+     */
+    private static String getSecret() {
+        final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
+        return authProperties.getToken().getSecret();
     }
 }

@@ -2,6 +2,7 @@ package com.github.mengweijin.quickboot.auth.security.handler;
 
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
+import com.github.mengweijin.quickboot.auth.security.SecurityConst;
 import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +34,6 @@ import java.util.List;
 @Slf4j
 @Component
 public class QuickBootAuthenticationFailureHandler implements AuthenticationFailureHandler {
-    /**
-     * 用户登录失败次数 redis key
-     */
-    public static final String LOGIN_FAILED_TIMES_KEY = "login_failed_times:";
 
     @Autowired
     private AuthProperties authProperties;
@@ -58,7 +55,7 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
 
         // 登录失败次数加入到 Redis
         String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
-        String key = LOGIN_FAILED_TIMES_KEY + username;
+        String key = SecurityConst.REDIS_KEY_LOGIN_FAILED_TIMES + username;
         int expireTime = authProperties.getLogin().getExpire();
         int count = authProperties.getLogin().getMaxFailureTimes();
         List<Object> keys = Collections.singletonList(key);

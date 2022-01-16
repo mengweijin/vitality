@@ -60,7 +60,7 @@ public class TokenVerifyFilter extends OncePerRequestFilter {
         }
 
         // 走到这里说明 redis 中有 user，说明已经登录过了。刷新一下 token 过期时间，达到自动续约的目的
-        tokenService.expireRefresh(loginUser.getUsername(), loginUser.getUuid());
+        tokenService.expireRefresh(loginUser.getUsername());
 
         if(SecurityContextHolder.getContext().getAuthentication() == null) {
             final UserDetails userDetails = loginUser.createUserDetails();

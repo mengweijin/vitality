@@ -3,8 +3,10 @@ package com.github.mengweijin.quickboot.auth.security.handler;
 import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
+import com.github.mengweijin.quickboot.auth.security.SecurityConst;
 import com.github.mengweijin.quickboot.auth.system.service.TokenService;
 import com.github.mengweijin.quickboot.framework.domain.R;
+import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class QuickBootLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private RedisCache redisCache;
 
     @Autowired
     private LoginLogTask loginLogTask;
@@ -47,7 +52,7 @@ public class QuickBootLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
             return;
         }
 
-        tokenService.deleteToken(loginUser.getUsername(), loginUser.getUuid());
+        redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + loginUser.getUsername());
 
         ServletUtils.render(response, R.ok());
 

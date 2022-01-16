@@ -2,10 +2,9 @@ package com.github.mengweijin.quickboot.auth.security;
 
 import cn.hutool.core.util.NumberUtil;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
+import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
 import com.github.mengweijin.quickboot.auth.system.entity.Auth;
 import com.github.mengweijin.quickboot.auth.system.entity.User;
-import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
-import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationFailureHandler;
 import com.github.mengweijin.quickboot.auth.system.service.AuthService;
 import com.github.mengweijin.quickboot.auth.system.service.UserService;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
@@ -44,7 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 获取用户登录失败次数
-        Object loginFailedTimes = redisCache.getCacheObject(QuickBootAuthenticationFailureHandler.LOGIN_FAILED_TIMES_KEY + username);
+        Object loginFailedTimes = redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_FAILED_TIMES + username);
         if(loginFailedTimes != null &&
             NumberUtil.parseInt(String.valueOf(loginFailedTimes)) > authProperties.getLogin().getMaxFailureTimes()) {
             // 已达到最大失败登录次数限制，账号已锁定  已达最大登录次数

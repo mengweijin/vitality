@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.auth.security;
 
-import com.github.mengweijin.quickboot.auth.security.filter.RepeatLoginAuthenticationProcessFilter;
 import com.github.mengweijin.quickboot.auth.security.filter.TokenVerifyFilter;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationFailureHandler;
 import com.github.mengweijin.quickboot.auth.security.handler.QuickBootAuthenticationSuccessHandler;
@@ -42,9 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private QuickBootAuthenticationEntryPoint quickBootAuthenticationEntryPoint;
-
-    @Autowired
-    private RepeatLoginAuthenticationProcessFilter repeatLoginAuthenticationProcessFilter;
 
     @Autowired
     private TokenVerifyFilter tokenVerifyFilter;
@@ -121,6 +117,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
 
         httpSecurity.formLogin()
+                //.loginProcessingUrl("/token") // 默认为 /login
                 .successHandler(quickBootAuthenticationSuccessHandler)
                 .failureHandler(quickBootAuthenticationFailureHandler);
 
@@ -132,8 +129,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
 
         // 添加JWT filter
-        httpSecurity.addFilterBefore(repeatLoginAuthenticationProcessFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.addFilterBefore(tokenVerifyFilter, RepeatLoginAuthenticationProcessFilter.class);
+        httpSecurity.addFilterBefore(tokenVerifyFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

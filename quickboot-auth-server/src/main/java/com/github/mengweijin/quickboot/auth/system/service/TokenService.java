@@ -2,6 +2,7 @@ package com.github.mengweijin.quickboot.auth.system.service;
 
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
+import com.github.mengweijin.quickboot.auth.security.SecurityConst;
 import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import lombok.extern.slf4j.Slf4j;
@@ -34,26 +35,18 @@ public class TokenService {
     }
 
     public LoginUser getLoginUser(String token) {
-        // 从 token 中获取 uuid
-        String uuid = TokenUtils.getUuidFromToken(authProperties.getToken().getSecret(), token);
-        // 根据 uuid 从 redis 中查找
-        return redisCache.getCacheObject(TokenUtils.LOGIN_TOKEN_KEY + uuid);
+        // 从 token 中获取 userId
+        String userId = TokenUtils.getUserIdFromToken(authProperties.getToken().getSecret(), token);
+        // 根据 userId 从 redis 中查找
+        return redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + userId);
     }
 
-    public void expireRefresh(String username, String uuid) {
+    public void expireRefresh(String username) {
         final int expireTime = authProperties.getToken().getExpire();
         // 刷新 token 过期时间（只要用户有操作，就刷新过期时间，达到自动延长的目的）
-        redisCache.expire(TokenUtils.LOGIN_TOKEN_KEY + uuid, expireTime);
-        // 同时刷新用户已登录标记的过期时间
-        redisCache.expire(TokenUtils.LOGIN_USER_KEY + username, expireTime);
+        redisCache.expire(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username, expireTime);
     }
 
-    public void deleteToken(String username, String uuid) {
-        // 移除之前的 token
-        redisCache.deleteObject(TokenUtils.LOGIN_TOKEN_KEY + username);
-        // 移除之前的 用户已登录的标记
-        redisCache.deleteObject(TokenUtils.LOGIN_USER_KEY + uuid);
-    }
 
 }
 

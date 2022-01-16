@@ -1,11 +1,10 @@
 package com.github.mengweijin.quickboot.auth.token;
 
-import cn.hutool.core.util.IdUtil;
 import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author mengweijin
@@ -18,13 +17,12 @@ class TokenUtilsTest {
 
     @Test
     public void createToken() {
-        String uuid = IdUtil.fastUUID();
-        log.debug(uuid);
-        String token = TokenUtils.createToken(secretKey, uuid);
+        String userId = "aaaa";
+        String token = TokenUtils.createToken(secretKey, userId);
         log.debug(token);
 
-        String parseUuid = TokenUtils.getUuidFromToken(secretKey, token);
-        assertEquals(uuid, parseUuid);
+        String parseUserId = TokenUtils.getUserIdFromToken(secretKey, token);
+        assertEquals(userId, parseUserId);
     }
 
 }

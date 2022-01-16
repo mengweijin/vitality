@@ -39,7 +39,7 @@ public class TokenController {
         final LoginUser loginUser = tokenService.getLoginUser(token);
         if(loginUser != null) {
             // 自动续约 token
-            tokenService.expireRefresh(loginUser.getUsername(), loginUser.getUuid());
+            tokenService.expireRefresh(loginUser.getUsername());
             return true;
         }
         return false;

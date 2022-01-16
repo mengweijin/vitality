@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.framework.util;
 
-import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.KeyUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -20,21 +19,28 @@ import java.security.SecureRandom;
  * @date 2021/12/24
  */
 @Slf4j
-public class AesUtils {
+public class AESUtils {
 
-    public static String encrypt(String key, String value) {
-        byte[] secretKey = generateSecretKey(key, 128);
-        AES aes = SecureUtil.aes(secretKey);
-        byte[] encrypt = aes.encrypt(value.getBytes(StandardCharsets.UTF_8));
-        return HexUtil.encodeHexStr(encrypt);
+    private static final AES aes = new AES();
+
+    public static String encrypt(String value) {
+        return aes.encryptBase64(value);
     }
 
-    public static String decrypt(String key, String value) {
+    public static String decrypt(String value) {
+        return aes.decryptStr(value);
+    }
+
+    public static String encryptByKey(String key, String value) {
         byte[] secretKey = generateSecretKey(key, 128);
         AES aes = SecureUtil.aes(secretKey);
-        byte[] decodeHex = HexUtil.decodeHex(value);
-        byte[] decrypt = aes.decrypt(decodeHex);
-        return new String(decrypt, StandardCharsets.UTF_8);
+        return aes.encryptBase64(value);
+    }
+
+    public static String decryptByKey(String key, String value) {
+        byte[] secretKey = generateSecretKey(key, 128);
+        AES aes = SecureUtil.aes(secretKey);
+        return aes.decryptStr(value);
     }
 
     public static String generateRandomKey() {

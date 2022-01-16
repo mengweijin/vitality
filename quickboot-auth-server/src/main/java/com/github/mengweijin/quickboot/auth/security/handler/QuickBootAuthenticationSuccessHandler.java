@@ -1,13 +1,15 @@
 package com.github.mengweijin.quickboot.auth.security.handler;
 
-import cn.hutool.core.util.IdUtil;
 import com.github.mengweijin.quickboot.auth.async.LoginLogTask;
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
 import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
+import com.github.mengweijin.quickboot.auth.security.SecurityConst;
+import com.github.mengweijin.quickboot.auth.system.service.TokenService;
 import com.github.mengweijin.quickboot.auth.utils.TokenUtils;
 import com.github.mengweijin.quickboot.framework.domain.R;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +45,7 @@ import java.util.stream.Collectors;
  * @author mengweijin
  * @date 2022/1/8
  */
+@Slf4j
 @Component
 public class QuickBootAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -54,22 +58,30 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        String uuid = IdUtil.fastUUID();
-        String token = TokenUtils.createToken(authProperties.getToken().getSecret(), uuid);
-
-        // session 存入到 Redis
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        // UserDetails 中的 username 属性实际上在 UserDetailsServiceImpl 中存放的是 user 的 id
         String username = userDetails.getUsername();
-        List<String> roleList = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        LoginUser loginUser = new LoginUser().setUsername(username).setUuid(uuid).setRoleList(roleList);
 
-        redisCache.setCacheObject(TokenUtils.LOGIN_TOKEN_KEY + uuid, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
-        // 标记用户已登录，在后面会处理避免用户大量重复登录时，根据 username 取出 uuid, 再根据 uuid 移除之前的key：TokenUtils.LOGIN_TOKEN_KEY + uuid
-        redisCache.setCacheObject(TokenUtils.LOGIN_USER_KEY + username, uuid, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
+        // 如果用户已经登录过了，那么删除之前的 token，重新生成一个新的存入 redis。避免在 Redis 中存在同一个用户有多个 token 的登录记录
+        LoginUser loginUser = redisCache.getCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username);
+        if(loginUser != null) {
+            log.warn("User {} repeat login.", username);
+            // 移除之前的 token
+            redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username);
+        }
+
+        String token = TokenUtils.createToken(authProperties.getToken().getSecret(), username);
+
+        // 收集权限信息
+        List<String> roleList = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        loginUser = new LoginUser().setUsername(username).setRoleList(roleList);
+
+        redisCache.setCacheObject(SecurityConst.REDIS_KEY_LOGIN_USER_ID_TOKEN + username, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
 
         final R<?> r = R.ok(Collections.singletonMap("token", token));
         ServletUtils.render(response, r);

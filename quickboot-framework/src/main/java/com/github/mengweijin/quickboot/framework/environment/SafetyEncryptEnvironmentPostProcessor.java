@@ -2,7 +2,7 @@ package com.github.mengweijin.quickboot.framework.environment;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.mengweijin.quickboot.framework.util.AesUtils;
+import com.github.mengweijin.quickboot.framework.util.AESUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
@@ -22,10 +22,10 @@ import java.util.HashMap;
  * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key={randomKey} 传递到应用程序中
  * Jar 启动参数（ idea 设置 Program arguments , 服务器可以设置为启动环境变量 ）
  * 示例：--cipher.key==d1104d7c3b616f0b
- * String randomKey = AesUtils.generateRandomKey();
+ * String randomKey = AESUtils.generateRandomKey();
  * <p>
  * 2. 密钥加密：配置在 application.yaml 中的加密值
- * String encrypt = AesUtils.encrypt(randomKey, password);
+ * String encrypt = AESUtils.encryptByKey(randomKey, password);
  * <p>
  * 3. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
  * spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
@@ -59,7 +59,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                         if (value instanceof String) {
                             String str = (String) value;
                             if (str.startsWith("{cipher}")) {
-                                map.put(name, AesUtils.decrypt(cipherKey, str.substring(8)));
+                                map.put(name, AESUtils.decryptByKey(cipherKey, str.substring(8)));
                             }
                         }
                     }

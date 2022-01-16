@@ -1,9 +1,12 @@
 package com.github.mengweijin.quickboot.auth.utils;
 
+import com.github.mengweijin.quickboot.auth.properties.AuthProperties;
+import com.github.mengweijin.quickboot.auth.security.SecurityConst;
+import com.github.mengweijin.quickboot.framework.util.AESUtils;
+import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,28 +16,18 @@ import java.util.Map;
  */
 public class TokenUtils {
 
-    public static final String LOGIN_USER_JWT_KEY = "login_user_jwt_key";
-
     /**
-     * 登录用户 token redis key 前缀
-     */
-    public static final String LOGIN_TOKEN_KEY = "login_tokens:";
-
-    /**
-     * 登录用户 username redis key 前缀
-     */
-    public static final String LOGIN_USER_KEY = "login_users:";
-
-    /**
-     * 根据 uuid 生成一个 token，然后根据这个 uuid 封装一个 LoginUser 对象，放到 redis 中。
-     * 解析的时候再把这个 uuid 解析出来，根据 uuid 从 redis 中获取 LoginUser 对象，如果没有获取到，说明 token 已经过期了。
+     * 生成一个 token，然后根据这个 username 封装一个 LoginUser 对象，放到 redis 中。
+     * 解析的时候再把这个 username 解析出来，根据 username 从 redis 中获取 LoginUser 对象，如果没有获取到，说明 token 已经过期了。
      * @param secretKey secretKey
-     * @param uuid uuid
+     * @param username username
      * @return
      */
-    public static String createToken(String secretKey, String uuid) {
+    public static String createToken(String secretKey, String username) {
+        final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
+        final String secret = authProperties.getToken().getSecret();
         Map<String, Object> claims = new HashMap<>(1);
-        claims.put(LOGIN_USER_JWT_KEY, uuid);
+        claims.put(SecurityConst.JWT_KEY_LOGIN_USER_ID, AESUtils.encryptByKey(secret, username));
         return createToken(secretKey, claims);
     }
 
@@ -49,8 +42,11 @@ public class TokenUtils {
         return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secretKey).compact();
     }
 
-    public static String getUuidFromToken(String secretKey, String token) {
-        return parseToken(secretKey, token).get(LOGIN_USER_JWT_KEY, String.class);
+    public static String getUserIdFromToken(String secretKey, String token) {
+        String usernameEncrypt = parseToken(secretKey, token).get(SecurityConst.JWT_KEY_LOGIN_USER_ID, String.class);
+        final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
+        final String secret = authProperties.getToken().getSecret();
+        return AESUtils.decryptByKey(secret, usernameEncrypt);
     }
 
     /**

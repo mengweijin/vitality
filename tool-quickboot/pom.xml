@@ -4,11 +4,11 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.36-SNAPSHOT</version>  
+        <version>1.0.36</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
-    <artifactId>tool-quickboot</artifactId>
+    <artifactId>tool-quickboot</artifactId>  
     <properties> 
         <!-- 不上传此jar包到中央仓库或私服 -->  
         <maven.deploy.skip>true</maven.deploy.skip>  
@@ -18,7 +18,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework</artifactId>
+            <artifactId>quickboot-framework</artifactId> 
         </dependency>  
         <!-- https://dom4j.github.io/ -->  
         <dependency> 

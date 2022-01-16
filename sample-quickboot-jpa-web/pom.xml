@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.36-SNAPSHOT</version>  
+        <version>1.0.36</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-jpa-web</artifactId>  
@@ -21,20 +21,20 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-jpa</artifactId>
+            <artifactId>quickboot-jpa</artifactId> 
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-web</artifactId> 
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-        </dependency>
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-quartz</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springdoc</groupId>  
+            <artifactId>springdoc-openapi-ui</artifactId> 
+        </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  
             <artifactId>h2</artifactId>  

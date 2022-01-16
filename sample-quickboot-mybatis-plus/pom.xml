@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.36-SNAPSHOT</version>  
+        <version>1.0.36</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-mybatis-plus</artifactId>  
@@ -21,16 +21,16 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+            <artifactId>quickboot-mybatis-plus</artifactId> 
+        </dependency>  
         <dependency> 
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-cache-expired</artifactId>
-        </dependency>
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-data-redis</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-cache-expired</artifactId> 
+        </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  
             <artifactId>h2</artifactId>  
@@ -56,12 +56,12 @@
             <plugin> 
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>code-generator-maven-plugin</artifactId>  
-                <version>1.0.11</version>
+                <version>1.0.11</version>  
                 <configuration> 
                     <parameters> 
                         <tables>SYS_USER</tables>  
                         <tablePrefix>sys_</tablePrefix>  
-                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
+                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>  
                         <lombokModel>true</lombokModel>  
                         <dbInfo> 
                             <username>sa</username>  

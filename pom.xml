@@ -9,35 +9,35 @@
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.36-SNAPSHOT</version>  
+    <version>1.0.36</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
-    <modules>
-        <module>./quickboot-auth-client</module>
-        <module>./quickboot-auth-server</module>
-        <module>./quickboot-cache-expired</module>
-        <module>./quickboot-framework</module>
-        <module>./quickboot-jpa</module>
-        <module>./quickboot-mybatis-plus</module>
-        <module>./quickboot-web</module>
-        <module>./sample-quickboot-auth-client</module>
-        <module>./sample-quickboot-jpa-web</module>
-        <module>./sample-quickboot-mybatis-plus</module>
-        <module>./tool-quickboot</module>
-    </modules>
+    <modules> 
+        <module>./quickboot-auth-client</module>  
+        <module>./quickboot-auth-server</module>  
+        <module>./quickboot-cache-expired</module>  
+        <module>./quickboot-framework</module>  
+        <module>./quickboot-jpa</module>  
+        <module>./quickboot-mybatis-plus</module>  
+        <module>./quickboot-web</module>  
+        <module>./sample-quickboot-auth-client</module>  
+        <module>./sample-quickboot-jpa-web</module>  
+        <module>./sample-quickboot-mybatis-plus</module>  
+        <module>./tool-quickboot</module> 
+    </modules>  
     <properties> 
-        <quickboot.version>1.0.36-SNAPSHOT</quickboot.version>  
+        <quickboot.version>1.0.36</quickboot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <hutool.version>5.7.18</hutool.version>
-        <jjwt.version>0.9.1</jjwt.version>
+        <hutool.version>5.7.18</hutool.version>  
+        <jjwt.version>0.9.1</jjwt.version>  
         <mybatis-plus.version>3.5.0</mybatis-plus.version>  
-        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>
+        <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
         <springdoc.version>1.6.3</springdoc.version>  
         <testable.version>0.7.2</testable.version> 
     </properties>  
@@ -66,48 +66,48 @@
         <url>https://gitee.com/mengweijin/quickboot/issues</url> 
     </issueManagement>  
     <dependencyManagement> 
-        <dependencies>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-auth-client</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-cache-expired</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+        <dependencies> 
             <dependency> 
                 <groupId>com.github.mengweijin</groupId>  
-                <artifactId>quickboot-framework</artifactId>
+                <artifactId>quickboot-auth-client</artifactId>  
                 <version>${quickboot.version}</version> 
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-jpa</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-mybatis-plus</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-web</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-cache-expired</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-framework</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-jpa</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-mybatis-plus</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-web</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
             <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
-            </dependency>
-            <!-- Token生成与解析-->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
+            </dependency>  
+            <!-- Token生成与解析-->  
+            <dependency> 
+                <groupId>io.jsonwebtoken</groupId>  
+                <artifactId>jjwt</artifactId>  
+                <version>${jjwt.version}</version> 
+            </dependency>  
             <dependency> 
                 <groupId>com.github.gavlyukovskiy</groupId>  
                 <artifactId>p6spy-spring-boot-starter</artifactId>  

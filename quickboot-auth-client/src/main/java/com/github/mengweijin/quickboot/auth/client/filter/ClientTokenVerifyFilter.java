@@ -3,7 +3,9 @@ package com.github.mengweijin.quickboot.auth.client.filter;
 import com.github.mengweijin.quickboot.auth.client.utils.R;
 import com.github.mengweijin.quickboot.auth.client.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,6 +21,7 @@ import java.nio.charset.StandardCharsets;
  * @author mengweijin
  * @date 2022/1/8
  */
+@Component
 public class ClientTokenVerifyFilter extends OncePerRequestFilter {
 
     public static final String LOGIN_URL = "/login";
@@ -26,6 +29,12 @@ public class ClientTokenVerifyFilter extends OncePerRequestFilter {
     @Autowired
     private AuthClientProperties authClientProperties;
 
+    /**
+     * QuickBootAuthClientAutoConfiguration 中 @Bean 实例化了 RestTemplate，同时又注入了 ClientTokenVerifyFilter 类
+     * 而在 ClientTokenVerifyFilter 中又注入了 RestTemplate，形成了循环依赖
+     * 在 Spring 2.6 版本以后，默认禁止了循环依赖，启动就会报错。@Lazy 可以解决这个问题。
+     */
+    @Lazy
     @Autowired
     private RestTemplate restTemplate;
 

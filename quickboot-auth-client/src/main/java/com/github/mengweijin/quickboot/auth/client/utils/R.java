@@ -30,7 +30,7 @@ public class R<T> implements Serializable {
      */
     private List<String> msgList;
 
-    private LocalDateTime time;
+    private String time;
 
     private R() {
     }
@@ -68,7 +68,7 @@ public class R<T> implements Serializable {
         r.setCode(code);
         r.setData(data);
         r.setMsgList(msg == null ? null : Arrays.asList(msg));
-        r.setTime(LocalDateTime.now());
+        r.setTime(LocalDateTime.now().toString());
         return r;
     }
 

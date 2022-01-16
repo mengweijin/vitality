@@ -3,6 +3,7 @@ package com.github.mengweijin.quickboot.auth.client;
 import com.github.mengweijin.quickboot.auth.client.filter.AuthClientProperties;
 import com.github.mengweijin.quickboot.auth.client.filter.ClientTokenVerifyFilter;
 import com.github.mengweijin.quickboot.auth.client.processor.QuickBootAuthClientBeanDefinitionRegistryPostProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,8 +17,11 @@ import org.springframework.web.client.RestTemplate;
  * @date 2022/1/9
  */
 @EnableConfigurationProperties(AuthClientProperties.class)
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class QuickBootAuthClientAutoConfiguration {
+
+    @Autowired
+    private ClientTokenVerifyFilter clientTokenVerifyFilter;
 
     /**
      * 添加 @Configuration(proxyBeanMethods = false) 或者把方法改为 static 以解决下面的问题。
@@ -25,7 +29,7 @@ public class QuickBootAuthClientAutoConfiguration {
      * The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
      */
     @Bean
-    public QuickBootAuthClientBeanDefinitionRegistryPostProcessor quickBootAuthDataBeanDefinitionRegistryPostProcessor(){
+    public static QuickBootAuthClientBeanDefinitionRegistryPostProcessor quickBootAuthDataBeanDefinitionRegistryPostProcessor(){
         return new QuickBootAuthClientBeanDefinitionRegistryPostProcessor();
     }
 
@@ -37,11 +41,11 @@ public class QuickBootAuthClientAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilter() {
+    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilterRegistrationBean() {
         FilterRegistrationBean<ClientTokenVerifyFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new ClientTokenVerifyFilter());
+        registration.setFilter(clientTokenVerifyFilter);
         registration.addUrlPatterns("/*");
-        registration.setName("clientTokenVerifyFilter");
+        registration.setName("clientTokenVerifyFilterRegistrationBean");
         registration.setOrder(1);
         return registration;
     }

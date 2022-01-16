@@ -21,6 +21,7 @@
         <module>./quickboot-jpa</module>
         <module>./quickboot-mybatis-plus</module>
         <module>./quickboot-web</module>
+        <module>./sample-quickboot-auth-client</module>
         <module>./sample-quickboot-jpa-web</module>
         <module>./sample-quickboot-mybatis-plus</module>
         <module>./tool-quickboot</module>
@@ -69,11 +70,6 @@
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>quickboot-auth-client</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-auth-data</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency>

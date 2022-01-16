@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>quickboot-parent</artifactId>
+        <groupId>com.github.mengweijin</groupId>
+        <version>1.0.36-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sample-quickboot-auth-client</artifactId>
+    <properties>
+        <!-- 不上传此jar包到中央仓库或私服 -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+        <skipTests>true</skipTests>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-auth-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-mybatis-plus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>code-generator-maven-plugin</artifactId>
+                <version>1.0.11</version>
+                <configuration>
+                    <parameters>
+                        <tables>SYS_USER</tables>
+                        <tablePrefix>sys_</tablePrefix>
+                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
+                        <lombokModel>true</lombokModel>
+                        <dbInfo>
+                            <username>sa</username>
+                            <password/>
+                            <url>jdbc:h2:file:./../h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
+                            <!--<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
+                        </dbInfo>
+                    </parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <!-- 最终打出来的Jar的名称 -->
+        <!--<finalName>${project.artifactId}</finalName>-->
+    </build>
+
+</project>

@@ -1,7 +1,10 @@
 package com.github.mengweijin.quickboot.auth.client.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -40,4 +43,19 @@ public class Tools {
         }
         response.getWriter().print(objectMapper.writeValueAsString(object));
     }
+
+    public static String getCookie(HttpServletRequest request, String key){
+        if(StringUtils.hasText(key)){
+            Cookie[] cookies = request.getCookies();
+            if(cookies != null) {
+                for (Cookie cookie: cookies) {
+                    if(key.equals(cookie.getName())) {
+                        return cookie.getValue();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

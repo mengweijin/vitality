@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.auth.client.filter;
 
+import com.github.mengweijin.quickboot.auth.client.utils.AuthClientConst;
 import com.github.mengweijin.quickboot.auth.client.utils.R;
 import com.github.mengweijin.quickboot.auth.client.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class ClientTokenVerifyFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // 获取请求携带的令牌
         String token = request.getHeader(authClientProperties.getHeader());
+        // 如果 Header 中没有，则从 Cookie 中尝试获取
+        token = token == null ? Tools.getCookie(request, AuthClientConst.COOKIE_NAME) : token;
         if(token == null) {
             // 请求未携带 token
             R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), "No token was found!");

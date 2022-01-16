@@ -56,10 +56,6 @@ public class TokenUtils {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
-    /**
-     * AES 要求 secret 的长度必须是 16 的倍数
-     * @return 16 位 secret
-     */
     private static String getSecret() {
         final AuthProperties authProperties = SpringUtils.getBean(AuthProperties.class);
         return authProperties.getToken().getSecret();

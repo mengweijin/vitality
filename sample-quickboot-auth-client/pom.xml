@@ -6,6 +6,7 @@
         <artifactId>quickboot-parent</artifactId>
         <groupId>com.github.mengweijin</groupId>
         <version>1.0.36-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -53,8 +54,8 @@
                 <version>1.0.11</version>
                 <configuration>
                     <parameters>
-                        <tables>SYS_USER</tables>
-                        <tablePrefix>sys_</tablePrefix>
+                        <tables>QB_USER</tables>
+                        <tablePrefix>QB_</tablePrefix>
                         <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
                         <lombokModel>true</lombokModel>
                         <dbInfo>

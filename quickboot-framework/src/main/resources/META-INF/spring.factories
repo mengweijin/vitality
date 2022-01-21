@@ -2,6 +2,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.github.mengweijin.quickboot.framework.QuickBootFrameworkAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.SpringDocAutoConfiguration,\
+com.github.mengweijin.quickboot.framework.XssAutoConfiguration,\
 com.github.mengweijin.quickboot.framework.redis.QuickBootRedisAutoConfiguration
 
 # Environment Post Processors

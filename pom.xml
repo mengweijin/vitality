@@ -2,14 +2,9 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
     <modelVersion>4.0.0</modelVersion>  
-    <parent> 
-        <groupId>org.springframework.boot</groupId>  
-        <artifactId>spring-boot-starter-parent</artifactId>  
-        <version>2.6.2</version> 
-    </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.36</version>  
+    <version>1.0.37-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -27,8 +22,9 @@
         <module>./tool-quickboot</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.36</quickboot.version>  
-        <java.version>1.8</java.version>  
+        <quickboot.version>1.0.37-SNAPSHOT</quickboot.version>  
+        <spring.boot.version>2.6.2</spring.boot.version>
+        <java.version>1.8</java.version>
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
@@ -98,6 +94,13 @@
                 <version>${quickboot.version}</version> 
             </dependency>  
             <dependency> 
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-dependencies</artifactId>  
+                <version>${spring.boot.version}</version>
+                <type>pom</type>  
+                <scope>import</scope> 
+            </dependency>  
+            <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
@@ -129,7 +132,18 @@
             </dependency> 
         </dependencies> 
     </dependencyManagement>  
-    <build> 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 在 spring-boot-starter-parent 中 maven-resources-plugin 插件中 maven 的变量被重新定义了-->
+                <!-- <configuration><delimiters><delimiter>${resource.delimiter}</delimiter></delimiters><useDefaultDelimiters>false</useDefaultDelimiters></configuration> -->
+                <!-- 这就是为什么项目依赖 spring-boot-starter-parent 时，可以在 application.yaml 中使用 @project.parent.groupId@ 来引用 maven 中的变量-->
+                <!-- 而当使用 spring-boot-dependencies（没有重新定义maven-resources-plugin插件中delimiter） 时，重写不能使用 @project.parent.groupId@ 的原因-->
+                <!-- 开启过滤，用指定的参数替换directory下的文件中的参数-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins> 
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  
@@ -209,7 +223,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>  
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
-            </plugin> 
+            </plugin>
         </plugins> 
     </build>  
     <!--  提交到资料库的地址  -->  

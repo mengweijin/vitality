@@ -3,14 +3,9 @@ package com.github.mengweijin.quickboot.framework;
 import com.github.mengweijin.quickboot.framework.aspectj.LogAspect;
 import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatableFilter;
-import com.github.mengweijin.quickboot.framework.filter.xss.XssFilter;
-import com.github.mengweijin.quickboot.framework.filter.xss.XssProperties;
 import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
-import com.github.mengweijin.quickboot.framework.util.Const;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -18,14 +13,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.Ordered;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-
-import javax.servlet.DispatcherType;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 当任务新增进来时：
@@ -85,24 +75,6 @@ public class QuickBootFrameworkAutoConfiguration {
         registration.addUrlPatterns("/*");
         registration.setName("repeatableFilter");
         registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
-        return registration;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnClass(Jsoup.class)
-    public FilterRegistrationBean<XssFilter> xssFilter() {
-        XssProperties xssProperties = quickBootProperties.getXss();
-        FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();
-        registration.setDispatcherTypes(DispatcherType.REQUEST);
-        registration.setFilter(new XssFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("xssFilter");
-        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
-        Map<String, String> initParameters = new HashMap<>(2);
-        initParameters.put(XssFilter.EXCLUDES, String.join(Const.COMMA, xssProperties.getExcludes()));
-        initParameters.put(XssFilter.ENABLED, String.valueOf(xssProperties.getEnabled()));
-        registration.setInitParameters(initParameters);
         return registration;
     }
 

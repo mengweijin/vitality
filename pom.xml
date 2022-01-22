@@ -144,7 +144,27 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-        <plugins> 
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <!-- 支持字体库 -->
+                        <!--vue element-ui icon打包后放在springboot中icon没有显示的问题-->
+                        <!--参考博客（只需要看后半段，前半段不对）：https://blog.csdn.net/dylin83/article/details/115090256-->
+                        <!--上面的配置就造成了springboot 用maven打包时把resource进行了filter，字库文件被修改了！！-->
+                        <!--解决方案：让ttf和woff文件不要filter-->
+                        <!-- 不要过滤字体库，会造成字体库内容变化，显示不了 -->
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+                <version>3.0.2</version>
+            </plugin>
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  
                 <artifactId>maven-surefire-plugin</artifactId>  

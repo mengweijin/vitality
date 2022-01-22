@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-    <modelVersion>4.0.0</modelVersion>  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
     <version>1.0.37-SNAPSHOT</version>  
@@ -134,14 +134,28 @@
     </dependencyManagement>  
     <build>
         <resources>
+            <!-- 从 spring-boot-starter-parent 中参考 -->
+            <!-- 在 spring-boot-starter-parent 中 maven-resources-plugin 插件中 maven 的变量被重新定义了-->
+            <!-- <configuration><delimiters><delimiter>${resource.delimiter}</delimiter></delimiters><useDefaultDelimiters>false</useDefaultDelimiters></configuration> -->
+            <!-- 这就是为什么项目依赖 spring-boot-starter-parent 时，可以在 application.yaml 中使用 @project.parent.groupId@ 来引用 maven 中的变量-->
+            <!-- 而当使用 spring-boot-dependencies（没有重新定义maven-resources-plugin插件中delimiter） 时，重写不能使用 @project.parent.groupId@ 的原因-->
+            <!-- 开启过滤，用指定的参数替换directory下的文件中的参数-->
             <resource>
-                <directory>src/main/resources</directory>
-                <!-- 在 spring-boot-starter-parent 中 maven-resources-plugin 插件中 maven 的变量被重新定义了-->
-                <!-- <configuration><delimiters><delimiter>${resource.delimiter}</delimiter></delimiters><useDefaultDelimiters>false</useDefaultDelimiters></configuration> -->
-                <!-- 这就是为什么项目依赖 spring-boot-starter-parent 时，可以在 application.yaml 中使用 @project.parent.groupId@ 来引用 maven 中的变量-->
-                <!-- 而当使用 spring-boot-dependencies（没有重新定义maven-resources-plugin插件中delimiter） 时，重写不能使用 @project.parent.groupId@ 的原因-->
-                <!-- 开启过滤，用指定的参数替换directory下的文件中的参数-->
+                <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>
@@ -149,6 +163,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
+                    <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+                    <delimiters>
+                        <delimiter>${resource.delimiter}</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
                     <nonFilteredFileExtensions>
                         <!-- 支持字体库 -->
                         <!--vue element-ui icon打包后放在springboot中icon没有显示的问题-->
@@ -163,7 +182,7 @@
                         <nonFilteredFileExtension>svg</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
                 </configuration>
-                <version>3.0.2</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  

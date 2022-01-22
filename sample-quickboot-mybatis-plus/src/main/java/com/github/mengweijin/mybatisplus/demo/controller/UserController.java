@@ -12,10 +12,9 @@ import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.enums.Gender;
 import com.github.mengweijin.mybatisplus.demo.service.UserService;
 import com.github.mengweijin.quickboot.framework.aspectj.RateLimiter;
-import com.github.mengweijin.quickboot.framework.domain.Pager;
 import com.github.mengweijin.quickboot.framework.inteceptor.RepeatSubmit;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
-import com.github.mengweijin.quickboot.mybatis.PagerConverter;
+import com.github.mengweijin.quickboot.mybatis.Pager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -115,8 +113,8 @@ public class UserController {
 
     @GetMapping("/pager")
     public Pager<User> getPager(Pager<User> pager) {
-        IPage<User> page = userService.page(PagerConverter.toPage(pager));
-        return PagerConverter.toPager(page);
+        final IPage<User> page = userService.page(pager.toPage());
+        return pager.toPager(page);
     }
 
     @GetMapping("/get/{id}")

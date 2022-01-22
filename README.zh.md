@@ -370,8 +370,8 @@ protected Long id;
 
 ~~~java
 @GetMapping("/page")
-public Page findPage(Pager pager){
-    Pageable pageable=PageRequest.of(pager.getCurrent(),pager.getSize());
+public Page findPage(Pager abstractPager){
+    Pageable pageable=PageRequest.of(abstractPager.getCurrent(),abstractPager.getSize());
     return userService.findAll(pageable);
 }
 ~~~

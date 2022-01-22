@@ -1,8 +1,7 @@
 package com.github.mengweijin.quickboot.sample.system.controller;
 
-import com.github.mengweijin.quickboot.framework.domain.Pager;
 import com.github.mengweijin.quickboot.framework.mvc.BaseController;
-import com.github.mengweijin.quickboot.jpa.PagerConverter;
+import com.github.mengweijin.quickboot.jpa.Pager;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -77,8 +77,8 @@ public class UserController extends BaseController {
 
     @GetMapping("/page")
     public Pager<User> findPage(Pager<User> pager) {
-        final Page<User> page = userService.findAll(PagerConverter.toPageable(pager));
-        return PagerConverter.toPager(page);
+        final Page<User> page = userService.findAll(pager.toPageable(pager));
+        return pager.toPager(page);
     }
 
     @GetMapping("/dsl")

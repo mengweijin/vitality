@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.37-SNAPSHOT</version>  
+    <version>1.0.37</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -22,9 +22,9 @@
         <module>./tool-quickboot</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.37-SNAPSHOT</quickboot.version>  
-        <spring.boot.version>2.6.2</spring.boot.version>
-        <java.version>1.8</java.version>
+        <quickboot.version>1.0.37</quickboot.version>  
+        <spring.boot.version>2.6.2</spring.boot.version>  
+        <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
@@ -96,7 +96,7 @@
             <dependency> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-dependencies</artifactId>  
-                <version>${spring.boot.version}</version>
+                <version>${spring.boot.version}</version>  
                 <type>pom</type>  
                 <scope>import</scope> 
             </dependency>  
@@ -132,58 +132,58 @@
             </dependency> 
         </dependencies> 
     </dependencyManagement>  
-    <build>
-        <resources>
-            <!-- 从 spring-boot-starter-parent 中参考 -->
-            <!-- 在 spring-boot-starter-parent 中 maven-resources-plugin 插件中 maven 的变量被重新定义了-->
-            <!-- <configuration><delimiters><delimiter>${resource.delimiter}</delimiter></delimiters><useDefaultDelimiters>false</useDefaultDelimiters></configuration> -->
-            <!-- 这就是为什么项目依赖 spring-boot-starter-parent 时，可以在 application.yaml 中使用 @project.parent.groupId@ 来引用 maven 中的变量-->
-            <!-- 而当使用 spring-boot-dependencies（没有重新定义maven-resources-plugin插件中delimiter） 时，重写不能使用 @project.parent.groupId@ 的原因-->
-            <!-- 开启过滤，用指定的参数替换directory下的文件中的参数-->
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/application*.yml</include>
-                    <include>**/application*.yaml</include>
-                    <include>**/application*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <excludes>
-                    <exclude>**/application*.yml</exclude>
-                    <exclude>**/application*.yaml</exclude>
-                    <exclude>**/application*.properties</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
-                    <delimiters>
-                        <delimiter>${resource.delimiter}</delimiter>
-                    </delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                    <nonFilteredFileExtensions>
-                        <!-- 支持字体库 -->
-                        <!--vue element-ui icon打包后放在springboot中icon没有显示的问题-->
-                        <!--参考博客（只需要看后半段，前半段不对）：https://blog.csdn.net/dylin83/article/details/115090256-->
-                        <!--上面的配置就造成了springboot 用maven打包时把resource进行了filter，字库文件被修改了！！-->
-                        <!--解决方案：让ttf和woff文件不要filter-->
-                        <!-- 不要过滤字体库，会造成字体库内容变化，显示不了 -->
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-                <version>3.2.0</version>
-            </plugin>
+    <build> 
+        <resources> 
+            <!-- 从 spring-boot-starter-parent 中参考 -->  
+            <!-- 在 spring-boot-starter-parent 中 maven-resources-plugin 插件中 maven 的变量被重新定义了-->  
+            <!-- <configuration><delimiters><delimiter>${resource.delimiter}</delimiter></delimiters><useDefaultDelimiters>false</useDefaultDelimiters></configuration> -->  
+            <!-- 这就是为什么项目依赖 spring-boot-starter-parent 时，可以在 application.yaml 中使用 @project.parent.groupId@ 来引用 maven 中的变量-->  
+            <!-- 而当使用 spring-boot-dependencies（没有重新定义maven-resources-plugin插件中delimiter） 时，重写不能使用 @project.parent.groupId@ 的原因-->  
+            <!-- 开启过滤，用指定的参数替换directory下的文件中的参数-->  
+            <resource> 
+                <directory>${basedir}/src/main/resources</directory>  
+                <filtering>true</filtering>  
+                <includes> 
+                    <include>**/application*.yml</include>  
+                    <include>**/application*.yaml</include>  
+                    <include>**/application*.properties</include> 
+                </includes> 
+            </resource>  
+            <resource> 
+                <directory>${basedir}/src/main/resources</directory>  
+                <excludes> 
+                    <exclude>**/application*.yml</exclude>  
+                    <exclude>**/application*.yaml</exclude>  
+                    <exclude>**/application*.properties</exclude> 
+                </excludes> 
+            </resource> 
+        </resources>  
+        <plugins> 
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-resources-plugin</artifactId>  
+                <configuration> 
+                    <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>  
+                    <delimiters> 
+                        <delimiter>${resource.delimiter}</delimiter> 
+                    </delimiters>  
+                    <useDefaultDelimiters>false</useDefaultDelimiters>  
+                    <nonFilteredFileExtensions> 
+                        <!-- 支持字体库 -->  
+                        <!--vue element-ui icon打包后放在springboot中icon没有显示的问题-->  
+                        <!--参考博客（只需要看后半段，前半段不对）：https://blog.csdn.net/dylin83/article/details/115090256-->  
+                        <!--上面的配置就造成了springboot 用maven打包时把resource进行了filter，字库文件被修改了！！-->  
+                        <!--解决方案：让ttf和woff文件不要filter-->  
+                        <!-- 不要过滤字体库，会造成字体库内容变化，显示不了 -->  
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>  
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>  
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>  
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>  
+                        <nonFilteredFileExtension>svg</nonFilteredFileExtension> 
+                    </nonFilteredFileExtensions> 
+                </configuration>  
+                <version>3.2.0</version> 
+            </plugin>  
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  
                 <artifactId>maven-surefire-plugin</artifactId>  
@@ -262,7 +262,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>  
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
-            </plugin>
+            </plugin> 
         </plugins> 
     </build>  
     <!--  提交到资料库的地址  -->  

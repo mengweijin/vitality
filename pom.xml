@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.37</version>  
+    <version>1.0.38-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -22,7 +22,7 @@
         <module>./tool-quickboot</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.37</quickboot.version>  
+        <quickboot.version>1.0.38-SNAPSHOT</quickboot.version>  
         <spring.boot.version>2.6.2</spring.boot.version>  
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  

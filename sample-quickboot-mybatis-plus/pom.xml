@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.37</version>  
+        <version>1.0.38-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-mybatis-plus</artifactId>  
@@ -75,7 +75,15 @@
             <plugin> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-maven-plugin</artifactId>  
-                <version>${spring.boot.version}</version> 
+                <version>${spring.boot.version}</version>  
+                <executions> 
+                    <execution> 
+                        <goals> 
+                            <!-- 将所有依赖包全部打到一个Jar包里面 -->  
+                            <goal>repackage</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
             </plugin> 
         </plugins>  
         <!-- 最终打出来的Jar的名称 -->  

@@ -9,7 +9,11 @@
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
     <artifactId>quickboot-web</artifactId>  
-    <properties> 
+    <properties>
+        <!-- 不上传此jar包到中央仓库或私服 -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+        <skipTests>true</skipTests>
         <!-- webjars -->  
         <webjars-locator.version>0.38</webjars-locator.version>  
         <vue.version>2.6.11</vue.version>  

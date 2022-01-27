@@ -25,7 +25,6 @@
 | quickboot-mybatis-plus  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-mybatis-plus%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-mybatis-plus"/></a>   |
 | quickboot-jpa           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-jpa%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-jpa"/></a>                     |
 | quickboot-cache-expired | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-cache-expired%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-cache-expired"/></a> |
-| quickboot-auth-client   | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-auth-client%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-auth-client"/></a>     |
 | quickboot-web           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-web%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-web"/></a>                     |
 
 ## 介绍

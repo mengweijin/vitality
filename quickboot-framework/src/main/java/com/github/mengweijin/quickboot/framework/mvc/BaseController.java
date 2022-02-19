@@ -43,7 +43,7 @@ public class BaseController {
     public R<Object> validateErrorResult(BindingResult bindingResult) {
         List<ObjectError> errors = bindingResult.getAllErrors();
 
-        R<Object> r = R.msg(HttpStatus.BAD_REQUEST.value(), null);
+        R<Object> r = R.error(HttpStatus.BAD_REQUEST.value(), null);
         for (ObjectError err : errors) {
             r.addMessage(err.getDefaultMessage());
         }

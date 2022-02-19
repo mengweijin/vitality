@@ -29,7 +29,7 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     ResponseEntity<?> handleClientException(Exception e, HttpServletRequest request) {
         log.warn(e.getMessage());
         log.debug(e.getMessage(), e);
-        R<Object> r = R.msg(HttpStatus.BAD_REQUEST.value(), null, e.getMessage());
+        R<Object> r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }
 
@@ -38,7 +38,7 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     ResponseEntity<?> handleException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
-        return ResponseEntity.status(status).body(R.msg(status.value(), null, e.getMessage()));
+        return ResponseEntity.status(status).body(R.error(status.value(), e.getMessage()));
     }
 
     /**

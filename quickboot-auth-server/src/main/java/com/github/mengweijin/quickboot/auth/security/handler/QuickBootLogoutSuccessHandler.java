@@ -39,7 +39,7 @@ public class QuickBootLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
         String token = tokenService.getToken(request);
         if(StrUtil.isBlank(token)) {
             // 请求未携带 token
-            R<?> r = R.fail(HttpStatus.BAD_REQUEST.value(), "No token was found!");
+            R<?> r = R.error(HttpStatus.BAD_REQUEST.value(), "No token was found!");
             ServletUtils.render(response, r);
             return;
         }
@@ -47,14 +47,14 @@ public class QuickBootLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
         final LoginUser loginUser = tokenService.getLoginUser(token);
         if(loginUser == null) {
             // token 已过期
-            R<?> r = R.fail(HttpStatus.UNAUTHORIZED.value(), "Token expired!");
+            R<?> r = R.error(HttpStatus.UNAUTHORIZED.value(), "Token expired!");
             ServletUtils.render(response, r);
             return;
         }
 
         redisCache.deleteObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + loginUser.getUsername());
 
-        ServletUtils.render(response, R.ok());
+        ServletUtils.render(response, R.success());
 
         //开启异步任务，写入登出日志
         loginLogTask.addLogoutLog(request, loginUser.getUsername());

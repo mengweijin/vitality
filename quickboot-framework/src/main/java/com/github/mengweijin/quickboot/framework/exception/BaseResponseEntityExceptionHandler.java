@@ -42,7 +42,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
      */
     public ResponseEntity<Object> errorResponseEntity(Exception e, HttpStatus status) {
         log.error(e.getMessage(), e);
-        return ResponseEntity.status(status).body(R.msg(status.value(), null, e.getMessage()));
+        return ResponseEntity.status(status).body(R.info(status.value(), null, e.getMessage()));
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
         log.error(e.getMessage(), e);
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
-        R<Object> r = R.msg(status.value(), null);
+        R<Object> r = R.error(status.value(), null);
         for (FieldError error : fieldErrors) {
             r.addMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
         }

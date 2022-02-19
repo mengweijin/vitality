@@ -5,9 +5,6 @@ import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author mengweijin
@@ -25,48 +22,48 @@ public class R<T> implements Serializable {
      */
     private T data;
     /**
-     * Error message list
+     * Error message
      */
-    private List<String> msgList;
+    private String message;
 
     private LocalDateTime time;
 
     private R() {
     }
 
-    public static <T> R<T> ok() {
-        return msg(HttpStatus.OK.value(), null);
+    public static <T> R<T> success() {
+        return success("SUCCESS");
     }
 
-    public static <T> R<T> ok(T data) {
-        return msg(HttpStatus.OK.value(), data);
+    public static <T> R<T> success(String message) {
+        return info(HttpStatus.OK.value(), message, null);
     }
 
-    public static <T> R<T> ok(T data, String msg) {
-        return msg(HttpStatus.OK.value(), data, msg);
+    public static <T> R<T> success(int code, String message) {
+        return info(code, message, null);
     }
 
-    public static <T> R<T> fail() {
-        return msg(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+    public static <T> R<T> success(String message, T data) {
+        return info(HttpStatus.OK.value(), message, data);
     }
 
-    public static <T> R<T> fail(T data) {
-        return msg(HttpStatus.INTERNAL_SERVER_ERROR.value(), data);
+    public static <T> R<T> error() {
+        return error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
-    public static <T> R<T> fail(T data, String msg) {
-        return msg(HttpStatus.INTERNAL_SERVER_ERROR.value(), data, msg);
+    public static <T> R<T> error(String message) {
+        return info(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 
-    public static <T> R<T> fail(int code, String msg) {
-        return msg(code, null, msg);
+    public static <T> R<T> error(int code, String message) {
+        return info(code, message, null);
     }
 
-    public static <T> R<T> msg(int code, T data, String... msg) {
+    public static <T> R<T> info(int code, String msg, T data) {
         R<T> r = new R<>();
         r.setCode(code);
+        r.setMessage(msg);
         r.setData(data);
-        r.setMsgList(msg == null ? null : Arrays.asList(msg));
         r.setTime(LocalDateTime.now());
         return r;
     }
@@ -74,12 +71,15 @@ public class R<T> implements Serializable {
     /**
      * add a message
      *
-     * @param msg message
+     * @param message message
      * @return this
      */
-    public R<T> addMessage(String msg) {
-        this.msgList = this.msgList == null ? new ArrayList<>() : this.msgList;
-        this.msgList.add(msg);
+    public R<T> addMessage(String message) {
+        if(this.message == null) {
+            this.message = message;
+        } else {
+            this.message += " | " + message;
+        }
         return this;
     }
 }

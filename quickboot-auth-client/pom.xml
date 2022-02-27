@@ -4,17 +4,17 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.39-SNAPSHOT</version>  
+        <version>1.0.39</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
-    <artifactId>quickboot-auth-client</artifactId>
-    <properties>
-        <!-- 不上传此jar包到中央仓库或私服 -->
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
-        <skipTests>true</skipTests>
-    </properties>
+    <artifactId>quickboot-auth-client</artifactId>  
+    <properties> 
+        <!-- 不上传此jar包到中央仓库或私服 -->  
+        <maven.deploy.skip>true</maven.deploy.skip>  
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
+        <skipTests>true</skipTests> 
+    </properties>  
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

@@ -4,38 +4,38 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.39-SNAPSHOT</version>  
+    <version>1.0.39</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
     <modules> 
-<!--        <module>./quickboot-auth-client</module>  -->
-<!--        <module>./quickboot-auth-server</module>  -->
-<!--        <module>./quickboot-cache-expired</module>  -->
+        <!--        <module>./quickboot-auth-client</module>  -->  
+        <!--        <module>./quickboot-auth-server</module>  -->  
+        <!--        <module>./quickboot-cache-expired</module>  -->  
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
-        <module>./quickboot-web</module>  
-<!--        <module>./sample-quickboot-auth-client</module>  -->
-<!--        <module>./sample-quickboot-jpa-web</module>  -->
-<!--        <module>./sample-quickboot-mybatis-plus</module>  -->
-<!--        <module>./tool-quickboot</module> -->
+        <!--        <module>./quickboot-web</module>  -->  
+        <!--        <module>./sample-quickboot-auth-client</module>  -->  
+        <!--        <module>./sample-quickboot-jpa-web</module>  -->  
+        <!--        <module>./sample-quickboot-mybatis-plus</module>  -->  
+        <!--        <module>./tool-quickboot</module> --> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.39-SNAPSHOT</quickboot.version>  
-        <spring.boot.version>2.6.3</spring.boot.version>  
+        <quickboot.version>1.0.39</quickboot.version>  
+        <spring.boot.version>2.6.4</spring.boot.version>
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <hutool.version>5.7.20</hutool.version>  
+        <hutool.version>5.7.21</hutool.version>
         <jjwt.version>0.9.1</jjwt.version>  
         <mybatis-plus.version>3.5.1</mybatis-plus.version>  
         <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
-        <springdoc.version>1.6.5</springdoc.version>  
-        <testable.version>0.7.3</testable.version> 
+        <springdoc.version>1.6.6</springdoc.version>
+        <testable.version>0.7.4</testable.version>
     </properties>  
     <url>https://gitee.com/mengweijin/quickboot</url>  
     <!-- 开源许可证 -->  

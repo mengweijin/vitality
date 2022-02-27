@@ -5,10 +5,10 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.39-SNAPSHOT</version>  
+        <version>1.0.39</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>quickboot-cache-expired</artifactId>
+    <artifactId>quickboot-cache-expired</artifactId>  
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

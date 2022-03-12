@@ -36,6 +36,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
+ * UserController API
+ *
  * @author mengweijin
  */
 @Slf4j
@@ -56,9 +58,27 @@ public class UserController {
     private ObjectMapper objectMapper;
 
     /**
-     * 请求：http://localhost:8080/user/repeatable?id=12
-     * requestBody={ "name":"aaaaa" }
+     * Cache 测试接口
      *
+     * @apiNote 注解 {@link org.springframework.cache.annotation.Cacheable Cacheable} 中的参数 {@code cacheNames} 表示使用哪一个缓存名称。
+     * 注解 {@link CacheExpired CacheExpired} 中的参数：
+     * {@code expire} 表示过期时间。
+     * {@code chronoUnit} 表示过期时间单位。
+     * @return {@link String String}
+     */
+    @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
+    @Cacheable(cacheNames = "user")
+    @GetMapping("/cache")
+    public String hello(){
+        log.info("Entered hello method.");
+        return "Hello";
+    }
+
+    /**
+     * 测试 RepeatableFilter Api
+     *
+     * @apiNote 请求：http://localhost:8080/user/repeatable?id=12
+     * requestBody={ "name":"aaaaa" }
      * 1. 未添加 RepeatableFilter 时，在 LogAspect 类中报错，
      *      因为在 SpringMVC 中为了映射 @RequestBody 注释的参数，已经读取过一次 RequestBody 的流数据了，
      *      而流默认只能被读取一次，第二次就读不到数据了
@@ -72,16 +92,10 @@ public class UserController {
         log.info("name=" + name);
     }
 
-    @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
-    @Cacheable(cacheNames = "user")
-    @GetMapping("/cache")
-    public String hello(){
-        log.info("Entered hello method.");
-        return "Hello";
-    }
-
     /**
-     * http://localhost:8080/user/xss?html=&lt;script&gt;aaaaa&lt;/script&gt;bbbb
+     * 测试 XSS API
+     *
+     * @apiNote http://localhost:8080/user/xss?html=&lt;script&gt;aaaaa&lt;/script&gt;bbbb
      * @return bbbb
      */
     @GetMapping("/xss")

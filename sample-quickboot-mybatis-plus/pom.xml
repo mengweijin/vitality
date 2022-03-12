@@ -29,7 +29,8 @@
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-cache-expired</artifactId> 
+            <artifactId>quickboot-cache-expired</artifactId>
+            <version>1.0.38</version>
         </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  

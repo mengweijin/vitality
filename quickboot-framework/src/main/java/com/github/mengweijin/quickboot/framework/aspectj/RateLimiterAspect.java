@@ -46,7 +46,7 @@ public class RateLimiterAspect {
         try {
             Long number = redisTemplate.execute(limitScript, keys, count, time);
             if (number == null || number.intValue() > count) {
-                throw new QuickBootException("Too many requests. Please try again later.");
+                throw new QuickBootException("Too many requests. Please try later.");
             }
             log.info("Request Limits '{}', Current Request '{}', Cache Key '{}'", count, number.intValue(), key);
         } catch (QuickBootException e) {

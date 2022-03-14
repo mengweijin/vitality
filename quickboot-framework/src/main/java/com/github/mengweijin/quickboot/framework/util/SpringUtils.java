@@ -2,8 +2,13 @@ package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -37,5 +42,19 @@ public final class SpringUtils extends SpringUtil {
     public static <T> boolean containBeanType(Class<T> cls) {
         Map<String, T> map = getApplicationContext().getBeansOfType(cls);
         return MapUtil.isNotEmpty(map);
+    }
+
+    /**
+     * 方法上是否存在注解，如果存在就获取
+     */
+    public static <T extends Annotation> T getMethodAnnotation(JoinPoint joinPoint, Class<T> annotationClass) {
+        Signature signature = joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+
+        if (method != null) {
+            return method.getAnnotation(annotationClass);
+        }
+        return null;
     }
 }

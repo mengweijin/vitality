@@ -19,6 +19,9 @@ spring:
     # 对于Restful风格的应用应该设置为false; 对于传统的应用（如: 使用thymeleaf），应该设置为 true, 否则浏览器访问不到静态资源文件
     # 如果启用knife4j-spring-boot-starter，则需要设置为true, 否则无法正常显示接口文档
     add-mappings: true
+  main:
+    # 是否允许循环依赖（Spring Cloud Alibaba Sentinel 中就有循环依赖）
+    allow-circular-references: false
   messages:
     # 国际化资源文件路径
     basename: i18n/messages

@@ -54,10 +54,10 @@ public class LogAspect {
     private final ThreadLocal<AppLog> threadLocal = new ThreadLocal<>();
 
     @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")
-    public void logPointCut() {
+    public void pointCut() {
     }
 
-    @Before("logPointCut()")
+    @Before("pointCut()")
     public void before(JoinPoint joinPoint){
         try {
             AppLog appLog = new AppLog();
@@ -95,7 +95,7 @@ public class LogAspect {
      * @param joinPoint 切点
      * @param object    返回的对象，参数名必须和注解中配置的名称保持一致。
      */
-    @AfterReturning(pointcut = "logPointCut()", returning = "object")
+    @AfterReturning(pointcut = "pointCut()", returning = "object")
     public void afterReturning(JoinPoint joinPoint, Object object) {
         recordLog(joinPoint, object, null);
     }
@@ -106,7 +106,7 @@ public class LogAspect {
      * @param joinPoint
      * @param e
      */
-    @AfterThrowing(value = "logPointCut()", throwing = "e")
+    @AfterThrowing(value = "pointCut()", throwing = "e")
     public void afterThrowing(JoinPoint joinPoint, Exception e) {
         recordLog(joinPoint, null, e);
     }

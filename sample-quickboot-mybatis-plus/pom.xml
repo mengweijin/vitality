@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.39</version>  
+        <version>1.0.40-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-mybatis-plus</artifactId>  
@@ -18,7 +18,11 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests> 
     </properties>  
-    <dependencies> 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-mybatis-plus</artifactId> 
@@ -29,8 +33,8 @@
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-cache-expired</artifactId>
-            <version>1.0.38</version>
+            <artifactId>quickboot-cache-expired</artifactId>  
+            <version>1.0.38</version> 
         </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  

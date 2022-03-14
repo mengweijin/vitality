@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.39</version>  
+    <version>1.0.40-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -22,10 +22,13 @@
         <!--        <module>./tool-quickboot</module> --> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.39</quickboot.version>  
+        <quickboot.version>1.0.40-SNAPSHOT</quickboot.version>  
         <spring.boot.version>2.6.4</spring.boot.version>
-        <java.version>1.8</java.version>  
-        <resource.delimiter>@</resource.delimiter>  
+        <spring.cloud.version>2021.0.1</spring.cloud.version>
+        <!--从 2021.0.1.0 开始，SCA（spring cloud alibaba）版本将会对应 Spring Cloud 版本，前三位为 Spring Cloud 版本，最后一位为扩展版本-->
+        <spring.cloud.alibaba.version>2021.0.1.0</spring.cloud.alibaba.version>
+        <java.version>1.8</java.version>
+        <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
@@ -34,8 +37,8 @@
         <jjwt.version>0.9.1</jjwt.version>  
         <mybatis-plus.version>3.5.1</mybatis-plus.version>  
         <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
-        <springdoc.version>1.6.6</springdoc.version>
-        <testable.version>0.7.4</testable.version>
+        <springdoc.version>1.6.6</springdoc.version>  
+        <testable.version>0.7.4</testable.version> 
     </properties>  
     <url>https://gitee.com/mengweijin/quickboot</url>  
     <!-- 开源许可证 -->  
@@ -88,23 +91,37 @@
                 <artifactId>quickboot-mybatis-plus</artifactId>  
                 <version>${quickboot.version}</version> 
             </dependency>  
-<!--            <dependency> -->
-<!--                <groupId>com.github.mengweijin</groupId>  -->
-<!--                <artifactId>quickboot-web</artifactId>  -->
-<!--                <version>${quickboot.version}</version> -->
-<!--            </dependency>  -->
+            <!--            <dependency> -->
+            <!--                <groupId>com.github.mengweijin</groupId>  -->
+            <!--                <artifactId>quickboot-web</artifactId>  -->
+            <!--                <version>${quickboot.version}</version> -->
+            <!--            </dependency>  -->
             <dependency> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-dependencies</artifactId>  
                 <version>${spring.boot.version}</version>  
                 <type>pom</type>  
                 <scope>import</scope> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
-            </dependency>  
+            </dependency>
             <!-- Token生成与解析-->  
             <dependency> 
                 <groupId>io.jsonwebtoken</groupId>  
@@ -158,26 +175,26 @@
                 </excludes> 
             </resource> 
         </resources>  
-        <plugins>
-            <plugin>
-                <groupId>com.github.shalousun</groupId>
-                <artifactId>smart-doc-maven-plugin</artifactId>
-                <version>2.4.0</version>
-                <configuration>
-                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
-                    <configFile>./src/main/resources/smart-doc.json</configFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
-                        <!--<phase>compile</phase>-->
-                        <goals>
-                            <!--smart-doc提供了html、openapi、markdown等goal，可按需配置-->
-                            <goal>html</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+        <plugins> 
+            <plugin> 
+                <groupId>com.github.shalousun</groupId>  
+                <artifactId>smart-doc-maven-plugin</artifactId>  
+                <version>2.4.0</version>  
+                <configuration> 
+                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->  
+                    <configFile>./src/main/resources/smart-doc.json</configFile> 
+                </configuration>  
+                <executions> 
+                    <execution> 
+                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->  
+                        <!--<phase>compile</phase>-->  
+                        <goals> 
+                            <!--smart-doc提供了html、openapi、markdown等goal，可按需配置-->  
+                            <goal>html</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+            </plugin>  
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  
                 <artifactId>maven-resources-plugin</artifactId>  

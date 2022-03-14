@@ -28,7 +28,6 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
     @ResponseBody
     ResponseEntity<?> handleClientException(Exception e, HttpServletRequest request) {
         log.warn(e.getMessage());
-        log.debug(e.getMessage(), e);
         R<Object> r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }

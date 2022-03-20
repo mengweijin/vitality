@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.40-SNAPSHOT</version>  
+        <version>1.0.40</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
@@ -41,7 +41,7 @@
         <dependency> 
             <groupId>cn.hutool</groupId>  
             <artifactId>hutool-all</artifactId> 
-        </dependency>
+        </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-data-redis</artifactId>  

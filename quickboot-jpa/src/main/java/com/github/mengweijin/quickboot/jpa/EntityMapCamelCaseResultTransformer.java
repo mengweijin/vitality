@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.jpa;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import org.hibernate.transform.AliasedTupleSubsetResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 
@@ -32,7 +32,7 @@ public class EntityMapCamelCaseResultTransformer extends AliasedTupleSubsetResul
         for (int i = 0; i < tuple.length; i++) {
             String alias = aliases[i];
             if (alias != null) {
-                result.put(StrUtil.toCamelCase(alias.toLowerCase()), tuple[i]);
+                result.put(CharSequenceUtil.toCamelCase(alias.toLowerCase()), tuple[i]);
             }
         }
         return result;
@@ -48,7 +48,7 @@ public class EntityMapCamelCaseResultTransformer extends AliasedTupleSubsetResul
      *
      * @return The singleton instance : {@link #INSTANCE}
      */
-    private Object readResolve() {
+    protected Object readResolve() {
         return INSTANCE;
     }
 }

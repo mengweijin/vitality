@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.sample.system.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.github.mengweijin.quickboot.framework.util.lambda.LambdaWrapper;
 import com.github.mengweijin.quickboot.jpa.service.BaseServiceImpl;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
@@ -35,7 +36,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
         return userRepository.findAll((Specification<User>) (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
 
-            if (StrUtil.isNotEmpty(user.getName())) {
+            if (CharSequenceUtil.isNotEmpty(user.getName())) {
                 Path<String> name = root.get(LambdaWrapper.getFieldName(User::getName));
                 list.add(criteriaBuilder.equal(name, user.getName()));
             }

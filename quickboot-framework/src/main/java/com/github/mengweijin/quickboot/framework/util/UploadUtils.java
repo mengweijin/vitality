@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.framework.util;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.github.mengweijin.quickboot.framework.domain.FileInfo;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootClientException;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -102,7 +103,7 @@ public class UploadUtils {
 
     private static String write(MultipartFile file) throws IOException {
         String suffix = FileUtil.getSuffix(file.getOriginalFilename());
-        String fileType = StrUtil.isBlank(suffix) ? UNKNOWN_FILE_TYPE_DIR : suffix;
+        String fileType = CharSequenceUtil.isBlank(suffix) ? UNKNOWN_FILE_TYPE_DIR : suffix;
         String generatedFileName = TimestampIdUtils.timestampId() + Const.UNDERSCORE + File.separatorChar + file.getOriginalFilename();
         Path uploadFilePath = Paths.get(UPLOAD_ROOT_PATH + fileType + File.separatorChar + generatedFileName);
         Files.createDirectories(uploadFilePath.getParent());

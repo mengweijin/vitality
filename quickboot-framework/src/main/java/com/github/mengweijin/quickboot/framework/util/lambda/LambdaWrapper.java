@@ -1,7 +1,8 @@
 package com.github.mengweijin.quickboot.framework.util.lambda;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
@@ -100,7 +101,7 @@ public class LambdaWrapper {
      * @return 转换好的字符串
      */
     public static String firstToLowerCase(String param) {
-        if (StrUtil.isBlank(param)) {
+        if (CharSequenceUtil.isBlank(param)) {
             return param;
         }
         return param.substring(0, 1).toLowerCase() + param.substring(1);

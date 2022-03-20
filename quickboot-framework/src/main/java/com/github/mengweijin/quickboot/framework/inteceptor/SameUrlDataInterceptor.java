@@ -1,12 +1,13 @@
 package com.github.mengweijin.quickboot.framework.inteceptor;
 
+import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.quickboot.framework.redis.RedisCache;
-import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         String nowParams = "";
         if (request instanceof RepeatedlyRequestWrapper) {
             RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) request;
-            nowParams = ServletUtils.getBody(repeatedlyRequest);
+            nowParams = ServletUtil.getBody(repeatedlyRequest);
         }
 
         // body参数为空，获取Parameter的数据

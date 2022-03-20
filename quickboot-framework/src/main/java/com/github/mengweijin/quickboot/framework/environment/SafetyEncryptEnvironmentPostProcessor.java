@@ -49,26 +49,35 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                 break;
             }
         }
+
+        if(CharSequenceUtil.isBlank(cipherKey)) {
+            return;
+        }
+
+
         // 处理加密内容
-        if (CharSequenceUtil.isNotBlank(cipherKey)) {
-            HashMap<String, Object> map = new HashMap<>();
-            for (PropertySource<?> ps : environment.getPropertySources()) {
-                if (ps instanceof OriginTrackedMapPropertySource) {
-                    OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) ps;
-                    for (String name : source.getPropertyNames()) {
-                        Object value = source.getProperty(name);
-                        if (value instanceof String) {
-                            String str = (String) value;
-                            if (str.startsWith("{cipher}")) {
-                                map.put(name, AESUtils.decryptByKey(cipherKey, str.substring(8)));
-                            }
-                        }
-                    }
-                }
+        HashMap<String, Object> map = new HashMap<>();
+        for (PropertySource<?> ps : environment.getPropertySources()) {
+            if (ps instanceof OriginTrackedMapPropertySource) {
+                OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) ps;
+                this.setDecryptValue(cipherKey, source, map);
             }
-            // 将解密的数据放入环境变量，并处于第一优先级上
-            if (CollUtil.isNotEmpty(map)) {
-                environment.getPropertySources().addFirst(new MapPropertySource("custom-encrypt", map));
+        }
+
+        // 将解密的数据放入环境变量，并处于第一优先级上
+        if (CollUtil.isNotEmpty(map)) {
+            environment.getPropertySources().addFirst(new MapPropertySource("custom-encrypt", map));
+        }
+    }
+
+    private void setDecryptValue(String cipherKey, OriginTrackedMapPropertySource source, HashMap<String, Object> map) {
+        for (String name : source.getPropertyNames()) {
+            Object value = source.getProperty(name);
+            if (value instanceof String) {
+                String str = (String) value;
+                if (str.startsWith("{cipher}")) {
+                    map.put(name, AESUtils.decryptByKey(cipherKey, str.substring(8)));
+                }
             }
         }
     }

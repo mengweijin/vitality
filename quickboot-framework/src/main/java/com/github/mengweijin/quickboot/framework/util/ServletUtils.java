@@ -1,8 +1,9 @@
 package com.github.mengweijin.quickboot.framework.util;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,7 +55,7 @@ public class ServletUtils extends ServletUtil {
      * 获取String参数
      */
     public static String getParameter(String name, String defaultValue) {
-        return StrUtil.blankToDefault(getParameter(name), defaultValue);
+        return CharSequenceUtil.blankToDefault(getParameter(name), defaultValue);
     }
 
     /**
@@ -123,7 +124,7 @@ public class ServletUtils extends ServletUtil {
      * @param object   待渲染的字符串/对象
      */
     public static void render(HttpServletResponse response, Object object) throws IOException {
-        ObjectMapper objectMapper = SpringUtils.getBean(ObjectMapper.class);
+        ObjectMapper objectMapper = SpringUtil.getBean(ObjectMapper.class);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         if(object instanceof R) {

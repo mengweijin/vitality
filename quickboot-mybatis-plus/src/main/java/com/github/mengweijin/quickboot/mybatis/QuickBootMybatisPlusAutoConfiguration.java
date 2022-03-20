@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -24,9 +23,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class QuickBootMybatisPlusAutoConfiguration {
-
-    @Autowired
-    private DataSourceProperties dataSourceProperties;
 
     /**
      * map-underscore-to-camel-case: true。
@@ -54,10 +50,10 @@ public class QuickBootMybatisPlusAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+    public MybatisPlusInterceptor mybatisPlusInterceptor(PaginationInnerInterceptor paginationInnerInterceptor) {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 分页插件, 一缓和二缓遵循mybatis的规则
-        interceptor.addInnerInterceptor(paginationInnerInterceptor());
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
 
         // 乐观锁插件。注解实体字段 @Version
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
@@ -73,7 +69,7 @@ public class QuickBootMybatisPlusAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public PaginationInnerInterceptor paginationInnerInterceptor(){
+    public PaginationInnerInterceptor paginationInnerInterceptor(DataSourceProperties dataSourceProperties){
         DbType dbType = JdbcUtils.getDbType(dataSourceProperties.getUrl());
         return new PaginationInnerInterceptor(dbType);
     }

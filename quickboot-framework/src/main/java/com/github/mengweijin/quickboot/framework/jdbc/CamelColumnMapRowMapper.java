@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.framework.jdbc;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 
 /**
@@ -19,6 +19,6 @@ public class CamelColumnMapRowMapper extends ColumnMapRowMapper {
      */
     @Override
     protected String getColumnKey(String columnName) {
-        return StrUtil.toCamelCase(columnName);
+        return CharSequenceUtil.toCamelCase(columnName);
     }
 }

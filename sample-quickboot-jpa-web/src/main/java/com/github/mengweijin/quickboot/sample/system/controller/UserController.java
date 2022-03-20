@@ -2,6 +2,7 @@ package com.github.mengweijin.quickboot.sample.system.controller;
 
 import com.github.mengweijin.quickboot.framework.mvc.BaseController;
 import com.github.mengweijin.quickboot.jpa.Pager;
+import com.github.mengweijin.quickboot.sample.system.dto.UserAddressDTO;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
@@ -56,8 +57,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/insert")
-    public void insert(@Valid User user, @Valid Address address) {
-        Address address1 = addressService.save(address);
+    public void insert(@Valid UserAddressDTO dto) {
+        Address address1 = addressService.save(dto.getAddress());
+
+        User user = new User();
+        user.setName(dto.getName());
+        user.setAge(dto.getAge());
+        user.setRole(dto.getRole());
         user.setAddressId(address1.getId());
         User user1 = userService.saveAndFlush(user);
     }
@@ -82,7 +88,12 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/dsl")
-    public List<User> findAllByQueryDsl(User user) {
+    public List<User> findAllByQueryDsl(UserAddressDTO dto) {
+        User user = new User();
+        user.setName(dto.getName());
+        user.setAge(dto.getAge());
+        user.setRole(dto.getRole());
+        user.setAddressId(dto.getAddressId());
         return userService.findAllByQueryDsl(user);
     }
 

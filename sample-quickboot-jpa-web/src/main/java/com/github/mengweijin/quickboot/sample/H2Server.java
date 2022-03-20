@@ -8,11 +8,11 @@ import java.sql.SQLException;
 @Slf4j
 public class H2Server {
 
-    private static final String port = "9999";
+    private static final int port = 9999;
     private static Server server;
 
     public static void start() throws SQLException {
-        server = Server.createTcpServer(new String[]{"-tcp", "-tcpAllowOthers", "-ifNotExists", "-tcpPort", port})
+        server = Server.createTcpServer(new String[]{"-tcp", "-tcpAllowOthers", "-ifNotExists", "-tcpPort", String.valueOf(port)})
                 .start();
         log.info(server.getURL());
     }

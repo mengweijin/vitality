@@ -1,8 +1,9 @@
 package com.github.mengweijin.quickboot.framework.filter.xss;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.quickboot.framework.util.Const;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -38,12 +39,12 @@ public class XssFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         String tempEnabled = filterConfig.getInitParameter(ENABLED_NAME);
-        if (StrUtil.isNotEmpty(tempEnabled)) {
+        if (CharSequenceUtil.isNotEmpty(tempEnabled)) {
             enabled = Boolean.parseBoolean(tempEnabled);
         }
 
         String tempExcludes = filterConfig.getInitParameter(EXCLUDES_NAME);
-        if (StrUtil.isNotBlank(tempExcludes)) {
+        if (CharSequenceUtil.isNotBlank(tempExcludes)) {
             excludes.addAll(Arrays.asList(tempExcludes.split(Const.COMMA)));
         }
     }
@@ -63,6 +64,6 @@ public class XssFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        // do nothing
     }
 }

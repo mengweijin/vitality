@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.framework.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public abstract class AbstractPager<T> implements Serializable {
+public abstract class AbstractPager<T> {
 
     /**
      * 查询数据列表

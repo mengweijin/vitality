@@ -45,7 +45,7 @@ public class MavenUtils {
      * resourcePath: "/META-INF/maven/com.github.mengweijin/quickboot-devtool/pom.xml"
      */
     public static Model loadPomFromJar(String groupId, String artifactId, MavenXpp3Reader mavenXpp3Reader) {
-        String resourcePath = "/META-INF/maven/" + groupId + "/" + artifactId + "pom.xml";
+        String resourcePath = "/META-INF/maven/" + groupId + "/" + artifactId + POM_XML;
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try(InputStream inputStream = classLoader.getResourceAsStream(resourcePath)){
             return mavenXpp3Reader.read(inputStream);

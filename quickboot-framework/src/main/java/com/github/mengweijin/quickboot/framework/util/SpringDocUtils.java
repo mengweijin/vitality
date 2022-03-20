@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.framework.util;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 
 /**
  * @author mengweijin
@@ -16,7 +16,7 @@ public class SpringDocUtils {
     }
 
     public static <E> String getParentPackagePath(Class<E> cls) {
-        return StrUtil.subBefore(getPackagePath(cls), '.', true);
+        return CharSequenceUtil.subBefore(getPackagePath(cls), '.', true);
     }
 
     /**
@@ -26,12 +26,12 @@ public class SpringDocUtils {
      */
     public static String createGroupName(String packagePath) {
         String packageName;
-        if(StrUtil.contains(packagePath, Const.DOT)) {
-            packageName = StrUtil.subAfter(packagePath, Const.DOT, true);
+        if(CharSequenceUtil.contains(packagePath, Const.DOT)) {
+            packageName = CharSequenceUtil.subAfter(packagePath, Const.DOT, true);
         } else {
             packageName = packagePath;
         }
 
-        return StrUtil.upperFirst(packageName) + " APIs";
+        return CharSequenceUtil.upperFirst(packageName) + " APIs";
     }
 }

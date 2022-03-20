@@ -6,5 +6,7 @@ package com.github.mengweijin.quickboot.auth.client.utils;
  */
 public final class AuthClientConst {
 
+    private AuthClientConst(){}
+
     public static final String COOKIE_NAME = "QUICK_BOOT_ACCESS_TOKEN";
 }

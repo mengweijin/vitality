@@ -60,7 +60,7 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
         int count = authProperties.getLogin().getMaxFailureTimes();
         List<Object> keys = Collections.singletonList(key);
         // 加入登录失败缓存。调用脚本，没有缓存的话就创建并设置过期时间，有的话就自增 1
-        Long number = redisTemplate.execute(limitScript, keys, count, expireTime);
+        redisTemplate.execute(limitScript, keys, count, expireTime);
 
         // 异步记录登录失败日志
         loginLogTask.addFailureLoginLog(request, username, exception.getMessage());

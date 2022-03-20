@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 /**
  * 登录失败监听。
  * 和 AuthenticationSuccessEventListener 类的情况类时，为何废弃，请参考 AuthenticationSuccessEventListener 类上面的注释。
+ * @deprecated deprecated
  * @author Meng Wei Jin
  **/
 @Slf4j

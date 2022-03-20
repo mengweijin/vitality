@@ -14,6 +14,8 @@ import java.io.IOException;
  */
 public class Tools {
 
+    private Tools(){}
+
     public static String getPackage(Class<?> clazz) {
         String empty = "";
         String dot = ".";

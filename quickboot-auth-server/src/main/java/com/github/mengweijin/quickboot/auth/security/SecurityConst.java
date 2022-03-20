@@ -6,6 +6,8 @@ package com.github.mengweijin.quickboot.auth.security;
  */
 public final class SecurityConst {
 
+    private SecurityConst(){}
+
     public static final String JWT_KEY_LOGIN_USER_ID = "login_user_jwt_key";
 
     /**

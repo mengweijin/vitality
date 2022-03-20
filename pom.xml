@@ -8,18 +8,19 @@
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
-    <modules> 
-        <module>./quickboot-auth-client</module>  
-        <module>./quickboot-auth-server</module>  
+    <modules>
         <module>./quickboot-cache-expired</module>  
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
-        <module>./quickboot-web</module>  
-        <module>./sample-quickboot-auth-client</module>  
-        <module>./sample-quickboot-jpa-web</module>  
-        <module>./sample-quickboot-mybatis-plus</module>  
-        <module>./tool-quickboot</module> 
+        <module>./quickboot-web</module>
+
+        <module>./quickboot-auth-client</module>
+        <module>./quickboot-auth-server</module>
+        <module>./sample-quickboot-auth-client</module>
+        <module>./sample-quickboot-jpa-web</module>
+        <module>./sample-quickboot-mybatis-plus</module>
+        <module>./tool-quickboot</module>
     </modules>  
     <properties> 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  

@@ -17,3 +17,16 @@
 
 ### spring cloud alibaba 版本兼容性
 [Spring Cloud Alibaba 2021.0.1.0 升级指南](https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-docs/src/main/asciidoc-zh/sca-upgrade-guide.adoc)
+
+
+### webjars 依赖包最新版本
+|              依赖 | 文档 / 代码                                              | 最新版本                                                                                                                                                                                                |
+|----------------:|:-----------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| webjars-locator | [Github](https://github.com/webjars/webjars-locator) | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars%22%20AND%20a:%22webjars-locator%22"><img src="https://img.shields.io/maven-central/v/org.webjars/webjars-locator"/></a> |
+|         respond | [Github](https://github.com/scottjehl/Respond)       | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars%22%20AND%20a:%22respond%22"><img src="https://img.shields.io/maven-central/v/org.webjars/respond"/></a>                 |
+|       html5shiv | [Github](https://github.com/aFarkas/html5shiv)       | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars%22%20AND%20a:%22html5shiv%22"><img src="https://img.shields.io/maven-central/v/org.webjars/html5shiv"/></a>             |
+|           dayjs | [Github](https://github.com/iamkun/dayjs)            | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars.npm%22%20AND%20a:%22dayjs%22"><img src="https://img.shields.io/maven-central/v/org.webjars.npm/dayjs"/></a>             |
+|          jquery | [Github](https://github.com/jquery/jquery)           | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars.npm%22%20AND%20a:%22jquery%22"><img src="https://img.shields.io/maven-central/v/org.webjars.npm/jquery"/></a>           |
+|       bootstrap | [Github](https://github.com/twbs/bootstrap)          | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars.npm%22%20AND%20a:%22bootstrap%22"><img src="https://img.shields.io/maven-central/v/org.webjars.npm/bootstrap"/></a>     |
+|           layui | [Github](https://github.com/sentsin/layui)           | <a target="_blank" href="https://search.maven.org/search?q=g:%22org.webjars.npm%22%20AND%20a:%22layui%22"><img src="https://img.shields.io/maven-central/v/org.webjars.npm/layui"/></a>             |
+

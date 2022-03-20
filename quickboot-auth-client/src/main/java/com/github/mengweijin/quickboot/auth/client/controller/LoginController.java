@@ -37,7 +37,7 @@ public class LoginController {
     private AuthClientProperties authClientProperties;
 
     @PostMapping(ClientTokenVerifyFilter.LOGIN_URL)
-    public R<?> login(@RequestParam @NotBlank String username,
+    public R<Object> login(@RequestParam @NotBlank String username,
                       @RequestParam @NotBlank String password,
                       HttpServletResponse response) {
         String url = UriComponentsBuilder.fromHttpUrl(authClientProperties.getLoginUrl())

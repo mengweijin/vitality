@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class R<T> implements Serializable {
+public class R<T> {
 
     /**
      * 状态码

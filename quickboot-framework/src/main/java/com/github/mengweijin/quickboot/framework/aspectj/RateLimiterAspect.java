@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework.aspectj;
 
+import cn.hutool.extra.servlet.ServletUtil;
 import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
+
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +61,7 @@ public class RateLimiterAspect {
     public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         StringBuilder stringBuffer = new StringBuilder(rateLimiter.key());
         if (rateLimiter.limitType() == RateLimiter.LimitType.IP) {
-            stringBuffer.append(ServletUtils.getClientIP(ServletUtils.getRequest())).append("-");
+            stringBuffer.append(ServletUtil.getClientIP(ServletUtils.getRequest())).append("-");
         }
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();

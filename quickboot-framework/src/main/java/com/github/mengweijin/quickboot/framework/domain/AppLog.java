@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.framework.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -14,9 +13,7 @@ import java.util.Map;
  */
 @Data
 @Accessors(chain = true)
-public class AppLog implements Serializable {
-
-    private static final long serialVersionUID = 8755408793880948573L;
+public class AppLog {
 
     /**
      * request url

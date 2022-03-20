@@ -3,7 +3,7 @@ package com.github.mengweijin.cache.expired;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.cache.CacheManager;
-import java.io.Serializable;
+
 import java.util.Set;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Data
 @Accessors(chain = true)
-public class CacheExpiredTask implements Serializable {
+public class CacheExpiredTask {
 
     private CacheManager cacheManager;
 

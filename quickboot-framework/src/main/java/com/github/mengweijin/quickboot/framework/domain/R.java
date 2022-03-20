@@ -3,7 +3,7 @@ package com.github.mengweijin.quickboot.framework.domain;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
-import java.io.Serializable;
+
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class R<T> implements Serializable {
+public class R<T> {
 
     /**
      * 状态码

@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public abstract class AbstractPager<T> implements Serializable {
     /**
      * 查询数据列表
      */
-    private List<T> records = Collections.emptyList();
+    private List<T> records = new ArrayList<>();
 
     /**
      * 总数

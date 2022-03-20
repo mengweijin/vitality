@@ -83,7 +83,7 @@ public class DownLoadUtils {
 
         //有range的话
         if (range != null && range.contains("bytes=") && range.contains(Const.DASH)) {
-            range = range.substring(range.lastIndexOf(Const.EQUALS) + 1).trim();
+            range = range.substring(range.lastIndexOf(Const.EQUAL) + 1).trim();
             String[] ranges = range.split(Const.DASH);
             try {
                 //判断range的类型, 如文件长度为10字节

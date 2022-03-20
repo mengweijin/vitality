@@ -1,7 +1,7 @@
 package com.github.mengweijin.quickboot.framework.environment;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.github.mengweijin.quickboot.framework.util.AESUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
@@ -10,6 +10,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
+
 import java.util.HashMap;
 
 /**
@@ -49,7 +50,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
             }
         }
         // 处理加密内容
-        if (StrUtil.isNotBlank(cipherKey)) {
+        if (CharSequenceUtil.isNotBlank(cipherKey)) {
             HashMap<String, Object> map = new HashMap<>();
             for (PropertySource<?> ps : environment.getPropertySources()) {
                 if (ps instanceof OriginTrackedMapPropertySource) {
@@ -66,7 +67,7 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
                 }
             }
             // 将解密的数据放入环境变量，并处于第一优先级上
-            if (CollectionUtil.isNotEmpty(map)) {
+            if (CollUtil.isNotEmpty(map)) {
                 environment.getPropertySources().addFirst(new MapPropertySource("custom-encrypt", map));
             }
         }

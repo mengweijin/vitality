@@ -1,6 +1,6 @@
 package com.github.mengweijin.quickboot.auth.security.filter;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.github.mengweijin.quickboot.auth.domain.LoginUser;
 import com.github.mengweijin.quickboot.auth.system.service.TokenService;
 import com.github.mengweijin.quickboot.framework.domain.R;
@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +46,7 @@ public class TokenVerifyFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // 获取请求携带的令牌
         String token = tokenService.getToken(request);
-        if(StrUtil.isBlank(token)) {
+        if(CharSequenceUtil.isBlank(token)) {
             // 请求未携带 token
             R<?> r = R.error(HttpStatus.BAD_REQUEST.value(), "No token was found!");
             ServletUtils.render(response, r);

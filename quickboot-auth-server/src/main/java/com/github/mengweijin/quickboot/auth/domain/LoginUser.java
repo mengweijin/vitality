@@ -1,11 +1,12 @@
 package com.github.mengweijin.quickboot.auth.domain;
 
-import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.CollUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,7 +42,7 @@ public class LoginUser implements Serializable {
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-            if(CollectionUtil.isNotEmpty(this.roleList)) {
+            if(CollUtil.isNotEmpty(this.roleList)) {
                 roleList.forEach(role -> authorityList.add(new SimpleGrantedAuthority(role)));
             }
             return authorityList;

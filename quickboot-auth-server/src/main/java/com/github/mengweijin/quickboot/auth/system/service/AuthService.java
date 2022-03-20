@@ -1,13 +1,13 @@
 package com.github.mengweijin.quickboot.auth.system.service;
 
-import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.mengweijin.quickboot.auth.system.entity.UserRole;
-import com.github.mengweijin.quickboot.auth.system.entity.Auth;
-import com.github.mengweijin.quickboot.auth.system.mapper.AuthMapper;
-import lombok.extern.slf4j.Slf4j;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.quickboot.auth.system.entity.Auth;
+import com.github.mengweijin.quickboot.auth.system.entity.UserRole;
+import com.github.mengweijin.quickboot.auth.system.mapper.AuthMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class AuthService extends ServiceImpl<AuthMapper, Auth> implements IServi
         List<UserRole> roleUserList = userRoleService.list(roleUserWrapper);
 
         // 当前用户没有分配角色
-        if(CollectionUtil.isEmpty(roleUserList)) {
+        if(CollUtil.isEmpty(roleUserList)) {
             // ignore. No need to add Authority.
         } else {
             // 筛选 roleId=1 的记录（roleId=1 表示角色为管理员，管理员拥有所有权限。）。

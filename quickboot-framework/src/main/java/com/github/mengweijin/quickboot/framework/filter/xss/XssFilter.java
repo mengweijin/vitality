@@ -21,9 +21,9 @@ import java.util.List;
  **/
 public class XssFilter implements Filter {
 
-    public static final String ENABLED = "enabled";
+    public static final String ENABLED_NAME = "enabled";
 
-    public static final String EXCLUDES = "excludes";
+    public static final String EXCLUDES_NAME = "excludes";
 
     /**
      * 排除链接
@@ -37,12 +37,12 @@ public class XssFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        String tempEnabled = filterConfig.getInitParameter(ENABLED);
+        String tempEnabled = filterConfig.getInitParameter(ENABLED_NAME);
         if (StrUtil.isNotEmpty(tempEnabled)) {
             enabled = Boolean.parseBoolean(tempEnabled);
         }
 
-        String tempExcludes = filterConfig.getInitParameter(EXCLUDES);
+        String tempExcludes = filterConfig.getInitParameter(EXCLUDES_NAME);
         if (StrUtil.isNotBlank(tempExcludes)) {
             excludes.addAll(Arrays.asList(tempExcludes.split(Const.COMMA)));
         }

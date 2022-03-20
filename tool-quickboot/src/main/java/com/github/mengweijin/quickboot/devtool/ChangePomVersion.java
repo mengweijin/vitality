@@ -32,10 +32,12 @@ public class ChangePomVersion {
         execute(OLD_VERSION, NEW_VERSION);
     }
 
+    @SneakyThrows
     public static void execute(String oldVersion, String newVersion) throws DocumentException {
         List<File> fileList = FileUtil.loopFiles(Const.PROJECT_PATH, file -> POM_XML.equals(file.getName()));
 
         SAXReader reader = new SAXReader();
+        reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         for (File file : fileList) {
             Document document = reader.read(file);
             Element rootElement = document.getRootElement();

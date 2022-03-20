@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
@@ -74,7 +75,7 @@ public class QuickBootFrameworkAutoConfiguration {
         registration.setFilter(new RepeatableFilter());
         registration.addUrlPatterns("/*");
         registration.setName("repeatableFilter");
-        registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
+        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
         return registration;
     }
 

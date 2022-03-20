@@ -55,6 +55,7 @@ public class LogAspect {
 
     @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")
     public void pointCut() {
+        // just a point cut, no need do anything.
     }
 
     @Before("pointCut()")
@@ -73,7 +74,7 @@ public class LogAspect {
                 // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
                 // 此时就造成日志这里因为读取不到流数据而报错。
                 // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
-                HashMap<?, ?> requestBodyMap = objectMapper.readValue(ServletUtils.getBody(request), HashMap.class);
+                HashMap<?, ?> requestBodyMap = objectMapper.readValue(ServletUtil.getBody(request), HashMap.class);
                 appLog.setRequestBody(requestBodyMap);
             }
 

@@ -9,19 +9,32 @@
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
     <modules> 
-        <!--        <module>./quickboot-auth-client</module>  -->  
-        <!--        <module>./quickboot-auth-server</module>  -->  
-        <!--        <module>./quickboot-cache-expired</module>  -->  
+         <module>./quickboot-auth-client</module>
+         <module>./quickboot-auth-server</module>
+         <module>./quickboot-cache-expired</module>
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
-        <!--        <module>./quickboot-web</module>  -->  
-        <!--        <module>./sample-quickboot-auth-client</module>  -->  
-        <!--        <module>./sample-quickboot-jpa-web</module>  -->  
-        <!--        <module>./sample-quickboot-mybatis-plus</module>  -->  
-        <!--        <module>./tool-quickboot</module> --> 
+         <module>./quickboot-web</module>
+         <module>./sample-quickboot-auth-client</module>
+         <module>./sample-quickboot-jpa-web</module>
+         <module>./sample-quickboot-mybatis-plus</module>
+         <module>./tool-quickboot</module>
     </modules>  
-    <properties> 
+    <properties>
+        <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>
+        <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>
+        <sonar.exclusions>
+            **/generated/**/*,
+            **/model/**/*
+        </sonar.exclusions>
+        <sonar.test.exclusions>
+            src/test/**/*
+        </sonar.test.exclusions>
+        <sonar.coverage.exclusions>
+            src/main/**/*
+        </sonar.coverage.exclusions>
+
         <quickboot.version>1.0.40-SNAPSHOT</quickboot.version>  
         <spring.boot.version>2.6.4</spring.boot.version>
         <spring.cloud.version>2021.0.1</spring.cloud.version>
@@ -91,11 +104,11 @@
                 <artifactId>quickboot-mybatis-plus</artifactId>  
                 <version>${quickboot.version}</version> 
             </dependency>  
-            <!--            <dependency> -->
-            <!--                <groupId>com.github.mengweijin</groupId>  -->
-            <!--                <artifactId>quickboot-web</artifactId>  -->
-            <!--                <version>${quickboot.version}</version> -->
-            <!--            </dependency>  -->
+                <dependency>
+                    <groupId>com.github.mengweijin</groupId>
+                    <artifactId>quickboot-web</artifactId>
+                    <version>${quickboot.version}</version>
+                </dependency>
             <dependency> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-dependencies</artifactId>  
@@ -175,7 +188,12 @@
                 </excludes> 
             </resource> 
         </resources>  
-        <plugins> 
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
             <plugin> 
                 <groupId>com.github.shalousun</groupId>  
                 <artifactId>smart-doc-maven-plugin</artifactId>  

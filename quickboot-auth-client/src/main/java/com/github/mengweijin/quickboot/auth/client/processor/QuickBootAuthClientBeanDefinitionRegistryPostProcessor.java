@@ -30,7 +30,7 @@ public class QuickBootAuthClientBeanDefinitionRegistryPostProcessor implements B
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-
+        // do nothing
     }
 
 }

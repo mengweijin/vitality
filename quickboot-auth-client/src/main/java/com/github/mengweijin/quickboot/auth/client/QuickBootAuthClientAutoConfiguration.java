@@ -3,7 +3,6 @@ package com.github.mengweijin.quickboot.auth.client;
 import com.github.mengweijin.quickboot.auth.client.filter.AuthClientProperties;
 import com.github.mengweijin.quickboot.auth.client.filter.ClientTokenVerifyFilter;
 import com.github.mengweijin.quickboot.auth.client.processor.QuickBootAuthClientBeanDefinitionRegistryPostProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,9 +18,6 @@ import org.springframework.web.client.RestTemplate;
 @EnableConfigurationProperties(AuthClientProperties.class)
 @Configuration
 public class QuickBootAuthClientAutoConfiguration {
-
-    @Autowired
-    private ClientTokenVerifyFilter clientTokenVerifyFilter;
 
     /**
      * 添加 @Configuration(proxyBeanMethods = false) 或者把方法改为 static 以解决下面的问题。
@@ -41,7 +37,7 @@ public class QuickBootAuthClientAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilterRegistrationBean() {
+    public FilterRegistrationBean<ClientTokenVerifyFilter> clientTokenVerifyFilterRegistrationBean(ClientTokenVerifyFilter clientTokenVerifyFilter) {
         FilterRegistrationBean<ClientTokenVerifyFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(clientTokenVerifyFilter);
         registration.addUrlPatterns("/*");

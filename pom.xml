@@ -181,7 +181,12 @@
                 </excludes> 
             </resource> 
         </resources>  
-        <plugins> 
+        <plugins>
+            <plugin>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.0.0</version>
+            </plugin>
             <plugin> 
                 <groupId>org.sonarsource.scanner.maven</groupId>  
                 <artifactId>sonar-maven-plugin</artifactId>  

@@ -18,7 +18,8 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-auth-client</artifactId> 
+            <artifactId>quickboot-auth-client</artifactId>
+            <version>1.0.37</version>
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  

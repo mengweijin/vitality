@@ -98,6 +98,7 @@ public class ProxyCachingExpiredConfiguration {
         // ThreadPoolTaskScheduler 在处理任务时，如果抛出异常，就可以通过这个类得到异常信息。
         scheduler.setErrorHandler(throwable -> log.error(throwable.getMessage(), throwable));
 
+        scheduler.initialize();
         return scheduler;
     }
 

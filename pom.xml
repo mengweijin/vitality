@@ -4,23 +4,22 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.40</version>  
+    <version>1.0.41-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
-    <modules>
+    <modules> 
         <module>./quickboot-cache-expired</module>  
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
-        <module>./quickboot-web</module>
-
-        <module>./quickboot-auth-client</module>
-        <module>./quickboot-auth-server</module>
-        <module>./sample-quickboot-auth-client</module>
-        <module>./sample-quickboot-jpa-web</module>
-        <module>./sample-quickboot-mybatis-plus</module>
-        <module>./tool-quickboot</module>
+        <module>./quickboot-web</module>  
+        <module>./quickboot-auth-client</module>  
+        <module>./quickboot-auth-server</module>  
+        <module>./sample-quickboot-auth-client</module>  
+        <module>./sample-quickboot-jpa-web</module>  
+        <module>./sample-quickboot-mybatis-plus</module>  
+        <module>./tool-quickboot</module> 
     </modules>  
     <properties> 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
@@ -28,7 +27,7 @@
         <sonar.exclusions>**/generated/**/*, **/model/**/*</sonar.exclusions>  
         <sonar.test.exclusions>src/test/**/*</sonar.test.exclusions>  
         <sonar.coverage.exclusions>src/main/**/*</sonar.coverage.exclusions>  
-        <quickboot.version>1.0.40</quickboot.version>  
+        <quickboot.version>1.0.41-SNAPSHOT</quickboot.version>  
         <spring.boot.version>2.6.4</spring.boot.version>  
         <spring.cloud.version>2021.0.1</spring.cloud.version>  
         <!--从 2021.0.1.0 开始，SCA（spring cloud alibaba）版本将会对应 Spring Cloud 版本，前三位为 Spring Cloud 版本，最后一位为扩展版本-->  
@@ -71,7 +70,7 @@
         <url>https://gitee.com/mengweijin/quickboot/issues</url> 
     </issueManagement>  
     <dependencyManagement> 
-        <dependencies>
+        <dependencies> 
             <dependency> 
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>quickboot-cache-expired</artifactId>  
@@ -176,12 +175,12 @@
                 </excludes> 
             </resource> 
         </resources>  
-        <plugins>
-            <plugin>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>1.0.1</version>
-            </plugin>
+        <plugins> 
+            <plugin> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>license-maven-plugin</artifactId>  
+                <version>1.0.1</version> 
+            </plugin>  
             <plugin> 
                 <groupId>org.sonarsource.scanner.maven</groupId>  
                 <artifactId>sonar-maven-plugin</artifactId>  

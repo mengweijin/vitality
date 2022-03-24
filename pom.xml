@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.41-SNAPSHOT</version>  
+    <version>1.0.41</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -27,7 +27,7 @@
         <sonar.exclusions>**/generated/**/*, **/model/**/*</sonar.exclusions>  
         <sonar.test.exclusions>src/test/**/*</sonar.test.exclusions>  
         <sonar.coverage.exclusions>src/main/**/*</sonar.coverage.exclusions>  
-        <quickboot.version>1.0.41-SNAPSHOT</quickboot.version>  
+        <quickboot.version>1.0.41</quickboot.version>  
         <spring.boot.version>2.6.4</spring.boot.version>  
         <spring.cloud.version>2021.0.1</spring.cloud.version>  
         <!--从 2021.0.1.0 开始，SCA（spring cloud alibaba）版本将会对应 Spring Cloud 版本，前三位为 Spring Cloud 版本，最后一位为扩展版本-->  

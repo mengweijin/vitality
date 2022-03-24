@@ -46,7 +46,7 @@
             <version>${webjars-locator.version}</version> 
         </dependency>  
         <dependency> 
-            <groupId>org.webjars</groupId>  
+            <groupId>org.webjars</groupId>
             <artifactId>vue</artifactId>  
             <version>${vue.version}</version> 
         </dependency>  

@@ -15,11 +15,11 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests>  
         <!-- webjars -->  
-        <webjars-locator.version>0.38</webjars-locator.version>  
-        <vue.version>2.6.11</vue.version>  
-        <element-ui.version>2.14.0</element-ui.version>  
-        <axios.version>0.25.0</axios.version>  
-        <dayjs.version>1.9.6</dayjs.version>  
+        <webjars-locator.version>0.45</webjars-locator.version>
+        <vue.version>2.6.14</vue.version>
+        <element-ui.version>2.15.7</element-ui.version>
+        <axios.version>0.26.0</axios.version>
+        <dayjs.version>1.10.7</dayjs.version>
         <respond.version>1.4.2</respond.version>  
         <html5shiv.version>3.7.3</html5shiv.version> 
     </properties>  

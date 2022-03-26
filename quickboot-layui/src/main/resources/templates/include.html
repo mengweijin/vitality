@@ -55,4 +55,9 @@
 		&lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
 	</div>
 
+	<!--/** 与 layout/admin/index.html 引用的 footer 的区别是添加了 style="left: 0px;" 样式 **/-->
+	<div th:fragment="footer-no-side" class="layui-footer" style="text-align: center; left: 0px;">
+		<div th:include="include::footer"></div>
+	</div>
+
 </html>

@@ -51,8 +51,9 @@
 			<i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
 		</a>
 
-		The Apache License 2.0 Copyright © 2018~2022 Meng Wei Jin
+		The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
 		&lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
+		<script> $(function () { $("#footerLicenseCurrentFullYear").text(new Date().getFullYear()); }); </script>
 	</div>
 
 	<!--/** 与 layout/admin/index.html 引用的 footer 的区别是添加了 style="left: 0px;" 样式 **/-->

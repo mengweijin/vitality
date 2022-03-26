@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.41</version>  
+        <version>1.0.42-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
@@ -20,6 +20,7 @@
         <element-ui.version>2.15.7</element-ui.version>  
         <axios.version>0.26.0</axios.version>  
         <dayjs.version>1.10.7</dayjs.version>  
+        <font-awesome.version>6.1.0</font-awesome.version>
         <respond.version>1.4.2</respond.version>  
         <html5shiv.version>3.7.3</html5shiv.version> 
     </properties>  
@@ -44,12 +45,12 @@
             <groupId>org.webjars</groupId>  
             <artifactId>webjars-locator</artifactId>  
             <version>${webjars-locator.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.webjars</groupId>  
-            <artifactId>vue</artifactId>  
-            <version>${vue.version}</version> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>vue</artifactId>
+            <version>${vue.version}</version>
+        </dependency>
         <dependency> 
             <groupId>org.webjars.npm</groupId>  
             <artifactId>element-ui</artifactId>  
@@ -64,7 +65,12 @@
             <groupId>org.webjars.npm</groupId>  
             <artifactId>dayjs</artifactId>  
             <version>${dayjs.version}</version> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${font-awesome.version}</version>
+        </dependency>
         <!-- respond和html5shiv：让IE8/9支持媒体查询 -->  
         <dependency> 
             <groupId>org.webjars</groupId>  

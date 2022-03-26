@@ -5,6 +5,8 @@ info:
     artifactId: @project.artifactId@
     version: @project.version@
 spring:
+  thymeleaf:
+    cache: false
   datasource:
     # 这里以 内存数据库为例，自动化 quartz 集成时 quartz 的表，就不用额外执行数据库脚本了
     url: jdbc:h2:mem:test;MODE=MYSQL

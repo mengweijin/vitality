@@ -37,7 +37,7 @@
 			后面引入的 js 组件如果依赖 jquery, 则必须在 var $ = layui.$; 这一行的后面引入才行。
 			console.log("jquery version：" + layui.$.fn.jquery);
 		 **/-->
-		<script> var $ = layui.$; </script>
+		<script> const $ = layui.$; </script>
 		<script th:src="@{/webjars/dayjs/dayjs.min.js}"></script>
 		<script th:src="@{/quickboot/js/index.js}"></script>
 	</head>

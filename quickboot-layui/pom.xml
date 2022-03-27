@@ -46,11 +46,6 @@
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${jquery.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
             <artifactId>layui</artifactId>
             <version>${layui.version}</version>
         </dependency>

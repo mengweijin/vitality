@@ -14,7 +14,8 @@
     <properties>
         <!-- webjars -->
         <webjars-locator.version>0.45</webjars-locator.version>
-        <jquery.version>3.6.0</jquery.version>
+        <!--跟 Layui 引入的版本保持一致。（该版本支持 IE 6-8）-->
+        <jquery.version>1.12.4</jquery.version>
         <layui.version>2.6.8</layui.version>
         <dayjs.version>1.10.7</dayjs.version>
         <font-awesome.version>6.1.0</font-awesome.version>
@@ -43,6 +44,11 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>${webjars-locator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>

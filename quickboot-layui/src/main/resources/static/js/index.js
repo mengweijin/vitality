@@ -6,7 +6,7 @@
  * })
  */
 layui.config({
-    base: 'js/layui-extend/'
+    base: '/js/layui-extend/'
 }).extend({
     quickboot: 'quickboot'
 }).use(['quickboot'], function(){

@@ -38,10 +38,6 @@
             还需要大面积的在页面中调整因为版本号变更引起问题的路径，而使用定位器之后无需输入版本号自动定位。
         -->
         <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-webjars-layui-extend</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>${webjars-locator.version}</version>

@@ -15,7 +15,6 @@
         <!-- webjars -->
         <webjars-locator.version>0.45</webjars-locator.version>
         <layui.version>2.6.8</layui.version>
-        <dayjs.version>1.10.7</dayjs.version>
         <font-awesome.version>6.1.0</font-awesome.version>
         <respond.version>1.4.2</respond.version>
         <html5shiv.version>3.7.3</html5shiv.version>
@@ -39,6 +38,10 @@
             还需要大面积的在页面中调整因为版本号变更引起问题的路径，而使用定位器之后无需输入版本号自动定位。
         -->
         <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-webjars-layui-extend</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>${webjars-locator.version}</version>
@@ -47,11 +50,6 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>layui</artifactId>
             <version>${layui.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>dayjs</artifactId>
-            <version>${dayjs.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>

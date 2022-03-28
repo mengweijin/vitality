@@ -55,11 +55,10 @@
 </div>
 
 <script>
-layui.use(['element', 'layer', 'util'], function(){
-  let element = layui.element
-  let layer = layui.layer
-  let util = layui.util
-  let $ = layui.$
+layui.use(['element', 'layer', 'util', 'quickboot'], function(){
+  let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, quickboot = layui.quickboot
+
+  console.log(quickboot)
 
   //头部事件
   util.event('lay-header-event', {

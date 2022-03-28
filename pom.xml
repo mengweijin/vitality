@@ -22,6 +22,7 @@
         <module>./sample-quickboot-mybatis-plus</module>
         <module>./sample-quickboot-layui</module>
         <module>./tool-quickboot</module>
+        <module>quickboot-webjars-layui-extend</module>
     </modules>
     <properties> 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
@@ -96,6 +97,11 @@
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>quickboot-layui</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-webjars-layui-extend</artifactId>
                 <version>${quickboot.version}</version>
             </dependency>
             <dependency> 

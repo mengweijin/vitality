@@ -1,5 +1,5 @@
 /**
-  扩展一个 quickBoot 模块
+  扩展一个 quickboot 模块
   //提示：模块也可以依赖其它模块，如：layui.define('mod1', callback);
 **/
 layui.define(['jquery', 'layer'], function(exports){

@@ -6,9 +6,24 @@ layui.define(['jquery', 'layer'], function(exports){
   "use strict";
   var $ = layui.$, layer = layui.layer
 
-  var MOD_NAME = 'quickBoot'
+  var MOD_NAME = 'quickboot'
 
-  var quickBoot = {
+  var quickboot = {
+    /**
+     * 获取 Layui checkbox 的提交值。
+     * selector: 如：
+     * 根据 lay-filter 和 checkbox 的 name 属性选择：'[lay-filter=operate-filter] input[type=checkbox][name=hobby]:checked'
+     * 根据 formId 和 checkbox 的 name 属性选择：'#formId input[type=checkbox][name=hobby]:checked'
+     * @return 示例：1,2,3,4
+     */
+    getCheckBoxValues: function(selector) {
+        var value = [];
+        $(selector).each(function(){
+            value.push($(this).val());
+        });
+        return value.join(",");
+    },
+
     /**
      * 禁用所有表单元素
      * @param selector jquery选择器，示例：#content
@@ -62,6 +77,6 @@ layui.define(['jquery', 'layer'], function(exports){
     }
   };
 
-  // 输出 quickBoot 接口
-  exports(MOD_NAME, quickBoot);
+  // 输出 quickboot 接口
+  exports(MOD_NAME, quickboot);
 });  

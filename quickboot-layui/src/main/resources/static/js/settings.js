@@ -6,15 +6,18 @@
  * })
  */
 layui.config({
-    base: './layui-extend/'
+    base: 'js/layui-extend/'
 }).extend({
-    quickBoot: 'quickBoot'
+    quickboot: 'quickboot'
+}).use(['quickboot'], function(){
+    //var quickboot = layui.quickboot;
+    //console.log(quickboot)
 });
 
 
+
 layui.use(['jquery', 'layer'], function(){
-  var $ = layui.$
-  var layer = layui.layer
+  var $ = layui.$, layer = layui.layer
   /**
    * jquery ajax 全局配置
    */

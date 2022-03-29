@@ -15,13 +15,12 @@ layui.config({
 });
 
 
-
 layui.use(['jquery', 'layer'], function(){
-  var $ = layui.$, layer = layui.layer
-  /**
-   * jquery ajax 全局配置
-   */
-  $.ajaxSetup({
+    var $ = layui.$, layer = layui.layer
+    /**
+    * jquery ajax 全局配置
+    */
+    $.ajaxSetup({
       layerIndex: -1,
       cache: false,
       beforeSend: function(xhr) {
@@ -56,5 +55,47 @@ layui.use(['jquery', 'layer'], function(){
                   break;
           }
       }
-  });
+    });
+
+    /**
+     * put 请求方法。jquery 默认只有 get/post 两种快捷的方法，这里扩展一下。
+     * 注意：jquery 中的 get/post 方法参数都一样（url, data, success），所以用法也一样。
+     * 但是 axios 中的 get 方法的使用就有区别于其他方法，这点需要注意。
+     * @param {String} url
+     * @param {Object} data
+     * @param {Function} success http 请求成功时的回调函数。
+     */
+    $.put = function(url, data, success){
+        $.ajax({
+            url: url,
+            method: "PUT", // version added: 1.9.0
+            type: "PUT", // prior to 1.9.0.
+            contentType: "application/json",
+            dataType: "json",
+            data: data,
+            success:function(result){
+                success(result);
+            }
+        });
+    }
+
+    /**
+     * del 请求方法（delete 是关键词，故使用 del 名称。）。
+     * @param {String} url
+     * @param {Object} data
+     * @param {Function} success http 请求成功时的回调函数。
+     */
+    $.del = function(url, data, success){
+        $.ajax({
+            url: url,
+            method: "DELETE", // version added: 1.9.0
+            type: "DELETE", // prior to 1.9.0.
+            contentType: "application/json",
+            dataType: "json",
+            data: data,
+            success:function(result){
+                success(result);
+            }
+        });
+    }
 });

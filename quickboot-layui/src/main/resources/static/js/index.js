@@ -16,7 +16,7 @@ layui.config({
 
 
 layui.use(['jquery', 'layer'], function(){
-    var $ = layui.$, layer = layui.layer
+    var $ = layui.$, jQuery = layui.jquery, layer = layui.layer
     /**
     * jquery ajax 全局配置
     */
@@ -34,7 +34,7 @@ layui.use(['jquery', 'layer'], function(){
       complete: function (xhr) {
           layer.close(this.layerIndex);
       },
-      error : function(xhr, textStatus, errorThrown) {
+      error: function(xhr, textStatus, errorThrown) {
           switch (xhr.status) {
               case (500):
                   layer.msg("Server Exception!", {icon: 2});
@@ -58,44 +58,36 @@ layui.use(['jquery', 'layer'], function(){
     });
 
     /**
-     * put 请求方法。jquery 默认只有 get/post 两种快捷的方法，这里扩展一下。
-     * 注意：jquery 中的 get/post 方法参数都一样（url, data, success），所以用法也一样。
-     * 但是 axios 中的 get 方法的使用就有区别于其他方法，这点需要注意。
-     * @param {String} url
-     * @param {Object} data
-     * @param {Function} success http 请求成功时的回调函数。
+     * 参考自 jquery 源码第 9879 行左右，基本只修改了 get/post 为 put/del
+     * jQuery.each( [ "get", "post" ], function( i, method )
+     * jquery 默认只有 get/post 两种快捷的方法，这里扩展一下。
+     * 注意：axios 中的 get 方法的使用就有区别于其他方法，这点需要注意。
+     * put 请求方法。del 请求方法（delete 是关键词，故使用 del 名称。）。
      */
-    $.put = function(url, data, success){
-        $.ajax({
-            url: url,
-            method: "PUT", // version added: 1.9.0
-            type: "PUT", // prior to 1.9.0.
-            contentType: "application/json",
-            dataType: "json",
-            data: data,
-            success:function(result){
-                success(result);
-            }
-        });
-    }
-
-    /**
-     * del 请求方法（delete 是关键词，故使用 del 名称。）。
-     * @param {String} url
-     * @param {Object} data
-     * @param {Function} success http 请求成功时的回调函数。
-     */
-    $.del = function(url, data, success){
-        $.ajax({
-            url: url,
-            method: "DELETE", // version added: 1.9.0
-            type: "DELETE", // prior to 1.9.0.
-            contentType: "application/json",
-            dataType: "json",
-            data: data,
-            success:function(result){
-                success(result);
-            }
-        });
-    }
+    jQuery.each(["put", "delete"], function(i, method) {
+        /**
+         * 参数说明。和 jquery 中的 get/post 方法参数都一样（url, data, callback, type），所以用法也一样。
+         * @param {String} url
+         * @param {Object} data
+         * @param {Function} callback http 请求成功时的回调函数。
+         * @param {String} type 可选。规定预期的服务器响应的数据类型。默认执行智能判断（xml、json、script 或 html）。
+         */
+    	jQuery[method] = function(url, data, callback, type) {
+    		// shift arguments if data argument was omitted
+    		if (jQuery.isFunction(data)) {
+    			type = type || callback;
+    			callback = data;
+    			data = undefined;
+    		}
+    		// The url can be an options object (which then must have .url)
+    		return jQuery.ajax(jQuery.extend({
+    			url: url,
+    			method: method, // version added: 1.9.0
+    			type: method,  // prior to 1.9.0.
+    			dataType: type,
+    			data: data,
+    			success: callback
+    		}, jQuery.isPlainObject(url) && url));
+    	};
+    } );
 });

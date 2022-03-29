@@ -1,5 +1,6 @@
 package com.github.mengweijin.quickboot.framework.aspectj;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.framework.domain.AppLog;
@@ -15,6 +16,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -74,8 +76,12 @@ public class LogAspect {
                 // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
                 // 此时就造成日志这里因为读取不到流数据而报错。
                 // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
-                HashMap<?, ?> requestBodyMap = objectMapper.readValue(ServletUtil.getBody(request), HashMap.class);
-                appLog.setRequestBody(requestBodyMap);
+                String body = ServletUtil.getBody(request);
+                if(StrUtil.isNotBlank(body)) {
+                    HashMap<?, ?> requestBodyMap = objectMapper.readValue(body, HashMap.class);
+                    appLog.setRequestBody(requestBodyMap);
+                }
+
             }
 
             String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();

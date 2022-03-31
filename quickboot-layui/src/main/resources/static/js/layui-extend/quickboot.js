@@ -12,8 +12,8 @@ layui.define(['jquery', 'layer'], function(exports){
     /**
      * 获取 Layui checkbox 的提交值。
      * selector: 如：
-     * 根据 lay-filter 和 checkbox 的 name 属性选择：'[lay-filter=operate-filter] input[type=checkbox][name=hobby]:checked'
-     * 根据 formId 和 checkbox 的 name 属性选择：'#formId input[type=checkbox][name=hobby]:checked'
+     * 根据 lay-filter 和 checkbox 的 name 属性选择：'[lay-filter=operate-filter] input:checkbox[name=hobby]:checked'
+     * 根据 formId 和 checkbox 的 name 属性选择：'form input:checkbox[name=hobby]:checked'
      * @return 示例：1,2,3,4
      */
     getCheckBoxValues: function(selector) {
@@ -48,7 +48,7 @@ layui.define(['jquery', 'layer'], function(exports){
     },
 
     /**
-    * 从父页面关闭layer弹窗
+    * 从父页面关闭layer弹窗。（从父页面获取值 parent.$('#父页面元素id').val();）
     * 注意：window.parent和parent是有区别的
     */
     closeLayer : function(){
@@ -61,6 +61,26 @@ layui.define(['jquery', 'layer'], function(exports){
     },
 
     /**
+     * 使用：quickboot.refreshLayerParentTable('logPathDataTable');
+     */
+    refreshLayerParentTable(tableId){
+        parent.layui.table.reload(tableId);
+    },
+
+    /**
+     * layui表单必填项label添加红色星号
+     */
+    addLayuiFormRequiredStyle : function () {
+        let $labels = $("[lay-verify*='required']").parent("div").siblings("label.layui-form-label");
+        $labels.each(function(index, item){
+            if(!$(item).hasClass("quickboot-layui-form-required")){
+                $(item).addClass("quickboot-layui-form-required")
+                       .append($("<strong style='color: red; font-size: 20px;'>*</strong>"));
+            }
+        });
+    },
+
+    /**
      * @params dataList List<Object>或者List<Map<String, Object>>数据
      * @params rootId 根值，树图或者级联数据最顶层的数据的id
      */
@@ -69,7 +89,7 @@ layui.define(['jquery', 'layer'], function(exports){
       for(let i = 0; i < dataList.length; i++){
           let node = dataList[i];
           if(node.parentId === rootId){
-              let newNode = {id : node.id, name : node.name, children : mwj.buildTreeData(dataList, node.id)};
+              let newNode = {id : node.id, name : node.name, children : quickboot.buildTreeData(dataList, node.id)};
               itemArr.push(newNode);
           }
       }

@@ -23,6 +23,8 @@ layui.use(['jquery', 'layer'], function(){
     $.ajaxSetup({
       layerIndex: -1,
       cache: false,
+      //contentType: 'application/json;charset=UTF-8', // default is: application/x-www-form-urlencoded
+      //data: JSON.stringify(data) // contentType 为 json, 就要这样处理，太麻烦了，所以还是不要用了。使用 application/x-www-form-urlencoded 只需要 Controller 请求方法参数不要添加 @RequestBody 注解就行。
       beforeSend: function(xhr) {
           this.layerIndex = layer.load(2, { shade: [0.5, '#393D49'] });
           var csrfHeader = $("meta[name='_csrf_header']").attr("content");

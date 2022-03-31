@@ -38,8 +38,12 @@ layui.use(['jquery', 'layer'], function(){
       },
       error: function(xhr, textStatus, errorThrown) {
           switch (xhr.status) {
-              case (500):
-                  layer.msg("Server Exception!", {icon: 2});
+              case (400):
+                  var message = "Client Error! Please check your input!"
+                  if(xhr.responseJSON.message) {
+                      message = xhr.responseJSON.message;
+                  }
+                  layer.msg(message, {icon: 5, time: 0, closeBtn: 1});
                   break;
               case (401):
                   layer.msg("No login or Session is invalid!", {icon: 2});
@@ -51,6 +55,9 @@ layui.use(['jquery', 'layer'], function(){
                   break;
               case (408):
                   layer.msg("Request timeout!", {icon: 2});
+                  break;
+              case (500):
+                  layer.msg("Server Exception!", {icon: 2});
                   break;
               default:
                   layer.msg('Unknown error, please contact your administrator!', {icon: 2});

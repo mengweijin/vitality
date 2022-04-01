@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.42-SNAPSHOT</version>  
+    <version>1.0.42</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -12,24 +12,24 @@
         <module>./quickboot-cache-expired</module>  
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
-        <module>./quickboot-mybatis-plus</module>
-        <module>./quickboot-layui</module>
+        <module>./quickboot-mybatis-plus</module>  
+        <module>./quickboot-layui</module>  
         <module>./quickboot-web</module>  
         <module>./quickboot-auth-client</module>  
         <module>./quickboot-auth-server</module>  
         <module>./sample-quickboot-auth-client</module>  
         <module>./sample-quickboot-jpa-web</module>  
-        <module>./sample-quickboot-mybatis-plus</module>
-        <module>./sample-quickboot-layui</module>
-        <module>./tool-quickboot</module>
-    </modules>
+        <module>./sample-quickboot-mybatis-plus</module>  
+        <module>./sample-quickboot-layui</module>  
+        <module>./tool-quickboot</module> 
+    </modules>  
     <properties> 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
         <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>  
         <sonar.exclusions>**/generated/**/*, **/model/**/*</sonar.exclusions>  
         <sonar.test.exclusions>src/test/**/*</sonar.test.exclusions>  
         <sonar.coverage.exclusions>src/main/**/*</sonar.coverage.exclusions>  
-        <quickboot.version>1.0.42-SNAPSHOT</quickboot.version>  
+        <quickboot.version>1.0.42</quickboot.version>  
         <spring.boot.version>2.6.4</spring.boot.version>  
         <spring.cloud.version>2021.0.1</spring.cloud.version>  
         <!--从 2021.0.1.0 开始，SCA（spring cloud alibaba）版本将会对应 Spring Cloud 版本，前三位为 Spring Cloud 版本，最后一位为扩展版本-->  
@@ -92,12 +92,12 @@
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>quickboot-mybatis-plus</artifactId>  
                 <version>${quickboot.version}</version> 
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>quickboot-layui</artifactId>
-                <version>${quickboot.version}</version>
-            </dependency>
+            </dependency>  
+            <dependency> 
+                <groupId>com.github.mengweijin</groupId>  
+                <artifactId>quickboot-layui</artifactId>  
+                <version>${quickboot.version}</version> 
+            </dependency>  
             <dependency> 
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>quickboot-web</artifactId>  

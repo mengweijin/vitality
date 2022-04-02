@@ -21,7 +21,6 @@
         <module>./sample-quickboot-jpa-web</module>
         <module>./sample-quickboot-mybatis-plus</module>
         <module>./sample-quickboot-layui</module>
-<!--        <module>./tool-quickboot</module>-->
     </modules>  
     <properties>
         <revision>1.0.43-SNAPSHOT</revision>

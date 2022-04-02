@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.42</version> 
+        <version>${revision}</version>
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
     <artifactId>sample-quickboot-layui</artifactId>  
@@ -12,11 +12,13 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId> 
+            <artifactId>quickboot-mybatis-plus</artifactId>
+            <version>${project.version}</version>
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-layui</artifactId> 
+            <artifactId>quickboot-layui</artifactId>
+            <version>${project.version}</version>
         </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  

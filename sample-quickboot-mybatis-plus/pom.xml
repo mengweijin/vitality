@@ -5,11 +5,10 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.42</version>  
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>sample-quickboot-mybatis-plus</artifactId>  
-    <version>0.0.1.4-SNAPSHOT</version>  
+    <artifactId>sample-quickboot-mybatis-plus</artifactId>
     <name>sample-quickboot-mybatis-plus</name>  
     <description>Demo project for Spring Boot</description>  
     <properties> 
@@ -25,17 +24,18 @@
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId> 
-        </dependency>  
+            <artifactId>quickboot-mybatis-plus</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-cache-expired</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-data-redis</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-cache-expired</artifactId>  
-            <version>1.0.38</version> 
-        </dependency>  
+        </dependency>
         <dependency> 
             <groupId>com.h2database</groupId>  
             <artifactId>h2</artifactId>  

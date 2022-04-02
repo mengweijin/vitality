@@ -13,14 +13,12 @@
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
-        <module>./quickboot-layui</module>  
-        <module>./quickboot-web</module>  
+        <module>./quickboot-layui</module>
         <module>./quickboot-auth-client</module>
         <module>./quickboot-auth-server</module>
         <module>./sample-quickboot-auth-client</module>
-        <module>./sample-quickboot-jpa-web</module>
+        <module>./sample-quickboot-jpa-layui</module>
         <module>./sample-quickboot-mybatis-plus</module>
-        <module>./sample-quickboot-layui</module>
     </modules>  
     <properties>
         <revision>1.0.43-SNAPSHOT</revision>

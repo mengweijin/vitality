@@ -25,7 +25,7 @@
 | quickboot-mybatis-plus  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-mybatis-plus%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-mybatis-plus"/></a>   |
 | quickboot-jpa           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-jpa%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-jpa"/></a>                     |
 | quickboot-cache-expired | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-cache-expired%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-cache-expired"/></a> |
-| quickboot-web           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-web%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-web"/></a>                     |
+| quickboot-layui         | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>                 |
 
 ## 介绍
 快速搭建 SpringBoot 项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
@@ -258,3 +258,8 @@ public class UserController {
 private CacheManager cacheManager;
 Cache cache=cacheManager.getCache("cacheName");
 ```
+
+### quickboot-layui
+- 集成 Thymeleaf，Layui，扩展了一个 Layui 的 quickboot 模块。
+- 全局 jquery 配置。
+- 添加 Ajax 的 put，delete 方法到 jquery。

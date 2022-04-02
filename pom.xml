@@ -42,7 +42,7 @@
         <mybatis-plus.version>3.5.1</mybatis-plus.version>  
         <p6spy-spring-boot-starter.version>1.8.0</p6spy-spring-boot-starter.version>  
         <springdoc.version>1.6.6</springdoc.version>  
-        <testable.version>0.7.4</testable.version> 
+        <testable.version>0.7.5</testable.version>
     </properties>  
     <url>https://gitee.com/mengweijin/quickboot</url>  
     <!-- 开源许可证 -->  

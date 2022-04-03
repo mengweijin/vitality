@@ -12,7 +12,9 @@ import java.util.List;
  **/
 public interface UserService extends BaseService<User, Long, UserRepository> {
 
-    List<User> findAllByQueryDsl(User user);
+    List<User> findAllBySpecification(User user);
 
     List<Object> findStudentAddress(String userName, String city);
+
+    List<User> findAllBySpecificationFunction(User user);
 }

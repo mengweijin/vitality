@@ -88,13 +88,23 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/dsl")
-    public List<User> findAllByQueryDsl(UserAddressDTO dto) {
+    public List<User> findAllBySpecification(UserAddressDTO dto) {
         User user = new User();
         user.setName(dto.getName());
         user.setAge(dto.getAge());
         user.setRole(dto.getRole());
         user.setAddressId(dto.getAddressId());
-        return userService.findAllByQueryDsl(user);
+        return userService.findAllBySpecification(user);
+    }
+
+    @GetMapping("/dsl/function")
+    public List<User> findAllBySpecificationFunction(UserAddressDTO dto) {
+        User user = new User();
+        user.setName(dto.getName());
+        user.setAge(dto.getAge());
+        user.setRole(dto.getRole());
+        user.setAddressId(dto.getAddressId());
+        return userService.findAllBySpecificationFunction(user);
     }
 
     @GetMapping("/nativeSql")

@@ -7,6 +7,7 @@ import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
 import com.github.mengweijin.quickboot.sample.system.repository.UserRepository;
 import com.github.mengweijin.quickboot.sample.system.service.UserService;
+import com.github.mengweijin.quickboot.sample.system.specification.UserSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
     private UserRepository userRepository;
 
     @Override
-    public List<User> findAllByQueryDsl(User user) {
+    public List<User> findAllBySpecification(User user) {
         return userRepository.findAll((Specification<User>) (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
 
@@ -51,6 +52,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
 
             return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
         });
+    }
+
+
+    @Override
+    public List<User> findAllBySpecificationFunction(User user) {
+        return userRepository.findAll(UserSpecifications.concatWith(user.getName(),"AAA"));
     }
 
     @Override

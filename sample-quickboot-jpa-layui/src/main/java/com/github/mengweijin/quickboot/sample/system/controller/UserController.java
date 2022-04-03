@@ -40,7 +40,7 @@ public class UserController extends BaseController {
     private UserRepository userRepository;
 
     @PostMapping("/insertDemoData")
-    public void insertDemoData(String name) {
+    public void insertDemoData() {
         Address address = new Address();
         address.setCountry("CN");
         address.setProvince("SHAANXI");

@@ -17,7 +17,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests> 
     </properties>  
-    <dependencies> 
+    <dependencies>
         <dependency> 
             <groupId>com.alibaba.cloud</groupId>  
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId> 
@@ -45,7 +45,12 @@
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency> 
             <groupId>org.springdoc</groupId>  
             <artifactId>springdoc-openapi-ui</artifactId> 

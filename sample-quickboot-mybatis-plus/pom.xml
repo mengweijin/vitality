@@ -46,11 +46,6 @@
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
         </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency> 
             <groupId>org.springdoc</groupId>  
             <artifactId>springdoc-openapi-ui</artifactId> 

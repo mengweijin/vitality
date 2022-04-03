@@ -1,7 +1,5 @@
 package com.github.mengweijin.quickboot.sample.system.dto;
 
-import com.github.mengweijin.quickboot.jpa.BaseEntity;
-import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,8 +8,8 @@ import lombok.EqualsAndHashCode;
  * @author mengweijin
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class UserAddressDTO extends BaseEntity {
+@EqualsAndHashCode
+public class UserAddressDto {
 
     private String name;
 
@@ -19,8 +17,6 @@ public class UserAddressDTO extends BaseEntity {
 
     private Role role;
 
-    private Long addressId;
-
-    private Address address;
+    private AddressDto address;
 
 }

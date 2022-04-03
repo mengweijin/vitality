@@ -8,7 +8,7 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>sample-quickboot-jpa-web</artifactId>
+    <artifactId>sample-quickboot-jpa-layui</artifactId>
     <name>sample-quickboot-jpa-layui</name>
     <description>Demo project for Spring Boot</description>  
     <properties> 
@@ -45,7 +45,7 @@
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
-        </dependency>  
+        </dependency>
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  

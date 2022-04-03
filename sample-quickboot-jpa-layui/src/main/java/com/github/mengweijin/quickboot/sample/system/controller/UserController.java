@@ -2,7 +2,7 @@ package com.github.mengweijin.quickboot.sample.system.controller;
 
 import com.github.mengweijin.quickboot.framework.mvc.BaseController;
 import com.github.mengweijin.quickboot.jpa.Pager;
-import com.github.mengweijin.quickboot.sample.system.dto.UserAddressDTO;
+import com.github.mengweijin.quickboot.sample.system.dto.UserAddressDto;
 import com.github.mengweijin.quickboot.sample.system.entity.Address;
 import com.github.mengweijin.quickboot.sample.system.entity.User;
 import com.github.mengweijin.quickboot.sample.system.enums.Role;
@@ -57,15 +57,14 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/insert")
-    public void insert(@Valid UserAddressDTO dto) {
-        Address address1 = addressService.save(dto.getAddress());
+    public void insert(@Valid UserAddressDto dto) {
+/*        Address address = userAddressDtoMapper.ToAddress(dto);
+        address = addressService.save(address);
 
-        User user = new User();
-        user.setName(dto.getName());
-        user.setAge(dto.getAge());
-        user.setRole(dto.getRole());
-        user.setAddressId(address1.getId());
-        User user1 = userService.saveAndFlush(user);
+        User user = userAddressDtoMapper.ToUser(dto);
+        user.setAddressId(address.getId());
+
+        userService.saveAndFlush(user);*/
     }
 
     @PostMapping("/update/{id}")
@@ -88,22 +87,20 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/dsl")
-    public List<User> findAllBySpecification(UserAddressDTO dto) {
+    public List<User> findAllBySpecification(UserAddressDto dto) {
         User user = new User();
         user.setName(dto.getName());
         user.setAge(dto.getAge());
         user.setRole(dto.getRole());
-        user.setAddressId(dto.getAddressId());
         return userService.findAllBySpecification(user);
     }
 
     @GetMapping("/dsl/function")
-    public List<User> findAllBySpecificationFunction(UserAddressDTO dto) {
+    public List<User> findAllBySpecificationFunction(UserAddressDto dto) {
         User user = new User();
         user.setName(dto.getName());
         user.setAge(dto.getAge());
         user.setRole(dto.getRole());
-        user.setAddressId(dto.getAddressId());
         return userService.findAllBySpecificationFunction(user);
     }
 

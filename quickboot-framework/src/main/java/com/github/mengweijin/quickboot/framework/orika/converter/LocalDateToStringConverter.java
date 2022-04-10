@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.configurer;
+package com.github.mengweijin.quickboot.framework.orika.converter;
 
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;
@@ -13,6 +13,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateToStringConverter extends BidirectionalConverter<LocalDate, String> {
 
+    private final DateTimeFormatter dateTimeFormatter;
+
+    public LocalDateToStringConverter(final DateTimeFormatter dateTimeFormatter){
+        this.dateTimeFormatter = dateTimeFormatter;
+    }
     @Override
     public String convertTo(LocalDate source, Type<String> destinationType, MappingContext mappingContext) {
         return source.format(DateTimeFormatter.ISO_LOCAL_DATE);

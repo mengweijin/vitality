@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.configurer;
+package com.github.mengweijin.quickboot.framework.orika.converter;
 
 import cn.hutool.core.util.TypeUtil;
 import ma.glasnost.orika.MapperFactory;
@@ -33,6 +33,6 @@ public abstract class BeanConverter<A, B> implements InitializingBean {
      *
      * @param classMapBuilder classMapBuilder
      */
-    abstract void fieldMapping(ClassMapBuilder<A, B> classMapBuilder);
+    public abstract void fieldMapping(ClassMapBuilder<A, B> classMapBuilder);
 
 }

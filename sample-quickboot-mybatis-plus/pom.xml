@@ -54,7 +54,12 @@
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  
             <scope>test</scope> 
-        </dependency> 
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.testable</groupId>
+            <artifactId>testable-all</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>  
     <build> 
         <plugins> 
@@ -88,7 +93,10 @@
                             <goal>repackage</goal> 
                         </goals> 
                     </execution> 
-                </executions> 
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin> 
         </plugins>  
         <!-- 最终打出来的Jar的名称 -->  

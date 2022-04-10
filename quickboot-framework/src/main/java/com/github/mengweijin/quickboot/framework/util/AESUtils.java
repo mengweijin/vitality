@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -43,6 +46,30 @@ public class AESUtils {
         return aes.decryptStr(value);
     }
 
+    public static byte[] encryptByKey(String key, InputStream inputStream) {
+        byte[] secretKey = generateSecretKey(key, 128);
+        AES aes = SecureUtil.aes(secretKey);
+        return aes.encrypt(inputStream);
+    }
+
+    public static byte[] decryptByKey(String key, InputStream inputStream) {
+        byte[] secretKey = generateSecretKey(key, 128);
+        AES aes = SecureUtil.aes(secretKey);
+        return aes.decrypt(inputStream);
+    }
+
+    public static void encryptByKey(String key, FileInputStream in, FileOutputStream out) {
+        byte[] secretKey = generateSecretKey(key, 128);
+        AES aes = SecureUtil.aes(secretKey);
+        aes.encrypt(in, out, true);
+    }
+
+    public static void decryptByKey(String key, FileInputStream in, FileOutputStream out) {
+        byte[] secretKey = generateSecretKey(key, 128);
+        AES aes = SecureUtil.aes(secretKey);
+        aes.decrypt(in, out, true);
+    }
+
     public static String generateRandomKey() {
         return IdUtil.fastSimpleUUID().substring(0, 16);
     }
@@ -64,10 +91,7 @@ public class AESUtils {
             SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
             secureRandom.setSeed(key.getBytes(StandardCharsets.UTF_8));
 
-            SecretKey secretKey = KeyUtil.generateKey(
-                    SymmetricAlgorithm.AES.getValue(),
-                    keySize,
-                    secureRandom);
+            SecretKey secretKey = KeyUtil.generateKey(SymmetricAlgorithm.AES.getValue(), keySize, secureRandom);
             return secretKey.getEncoded();
         } catch (NoSuchAlgorithmException e) {
             throw new QuickBootException(e);

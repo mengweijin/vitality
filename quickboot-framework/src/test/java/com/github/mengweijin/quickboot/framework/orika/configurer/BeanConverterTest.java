@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.Date;
-
 /**
  * @author mengweijin
  * @date 2022/4/3
@@ -19,13 +17,16 @@ class BeanConverterTest {
 
         MapperFacade mapperFacade = context.getBean(MapperFacade.class);
 
-        BeanA beanA = new BeanA().setNameA("Lisa").setMail("aa@aa.com").setCreateTime(new Date());
+        BeanA beanA = new BeanA();
 
         BeanB beanB = mapperFacade.map(beanA, BeanB.class);
 
         Assertions.assertEquals(beanA.getNameA(), beanB.getNameB());
-        Assertions.assertNotNull(beanB.getCreateTime());
         Assertions.assertEquals(beanA.getMail(), beanB.getMail());
+        Assertions.assertNotNull(beanB.getStringToDate());
+        Assertions.assertNotNull(beanB.getStringToLocalDateTime());
+        Assertions.assertNotNull(beanB.getLocalDate());
+        Assertions.assertNotNull(beanB.getLocalDateTime());
 
         context.close();
     }

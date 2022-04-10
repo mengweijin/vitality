@@ -13,9 +13,13 @@ import java.util.Date;
 @Accessors(chain = true)
 public class BeanA {
 
-    private String nameA;
+    private String nameA = "Tom";
 
-    private String mail;
+    private String mail = "a@a.com";
 
-    private Date createTime;
+    private String stringToDate = "2022-01-01 00:00:00";
+
+    private String stringToLocalDateTime = "2022-01-01 00:00:00";
+
+    private Date date = new Date();
 }

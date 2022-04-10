@@ -3,7 +3,9 @@ package com.github.mengweijin.quickboot.framework.orika.configurer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author mengweijin
@@ -17,5 +19,11 @@ public class BeanB {
 
     private String mail;
 
-    private LocalDateTime createTime;
+    private Date stringToDate;
+
+    private LocalDateTime stringToLocalDateTime;
+
+    private LocalDate localDate;
+    private LocalDateTime localDateTime;
+
 }

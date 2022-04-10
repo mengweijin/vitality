@@ -1,8 +1,14 @@
 package com.github.mengweijin.quickboot.framework.util;
 
+import cn.hutool.core.io.FileUtil;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * @author mengweijin
@@ -45,5 +51,24 @@ class AESUtilsTest {
         log.info("decrypt = " + decrypt);
 
         Assertions.assertEquals(password, decrypt);
+    }
+
+    //@Test
+    @SneakyThrows
+    void encryptFileByKey() {
+
+        File file = FileUtil.file("D:\\code\\quickboot\\quickboot-framework\\src\\test\\java\\Junit5Test.java");
+
+        File encryptFile = FileUtil.file(file.getParentFile().getAbsolutePath() + file.getName() + ".enc");
+        File decryptFile = FileUtil.file(file.getParentFile().getAbsolutePath() + file.getName() + ".dec.java");
+
+        String randomKey = AESUtils.generateRandomKey();
+        log.info("randomKey = " + randomKey);
+
+        AESUtils.encryptByKey(randomKey, new FileInputStream(file), new FileOutputStream(encryptFile));
+
+        AESUtils.decryptByKey(randomKey, new FileInputStream(encryptFile), new FileOutputStream(decryptFile));
+
+
     }
 }

@@ -1,14 +1,14 @@
 package com.github.mengweijin.quickboot.mybatis;
 
 import cn.hutool.core.lang.func.LambdaUtil;
-import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
+
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -26,66 +26,62 @@ import java.util.function.Supplier;
 public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     /**
-     * For Example:  "SESSION_USER"
-     * ServletUtils.SESSION_USER
+     * session/shiro/spring security 等认证框架上下文中存储的当前登录用户变量名
      */
-    private String sessionUserName;
+    public static final String LOGIN_USER_NAME = "LOGIN_USER_NAME";
 
-    public BaseEntityMetaObjectHandler(String sessionUserName) {
-        this.sessionUserName = sessionUserName;
-    }
+    @Value("${quickboot.mybatis-plus.login-username-key:LOGIN_USER_NAME}")
+    private String loginUsernameKey;
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, localDateTime);
-        this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
+        Object originalObject = metaObject.getOriginalObject();
+        if(originalObject instanceof BaseEntity) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateTime), LocalDateTime.class, localDateTime);
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
 
-        // 不让 mybatis-plus 触发用户名的自动填充。此时，需要开发者手动给 entity 设置 createBy 和 updateBy 属性的值。
-        if(RequestContextHolder.getRequestAttributes() != null) {
-            String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
-            if(this.hasCreateByFiled(metaObject.getOriginalObject())) {
-                this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
-            }
-            if(this.hasUpdateByFiled(metaObject.getOriginalObject())) {
-                this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
-            }
+            // session LOGIN_USER
+            String username = this.getUsernameFromSession();
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
+            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
         }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
+        Object originalObject = metaObject.getOriginalObject();
+        if(originalObject instanceof BaseEntity) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
 
-        if(RequestContextHolder.getRequestAttributes() != null) {
-            String username = String.valueOf(ServletUtils.getSession().getAttribute(sessionUserName));
-            if(this.hasUpdateByFiled(metaObject.getOriginalObject())) {
-                this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
-            }
+            String username = this.getUsernameFromSession();
+            this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
         }
     }
 
     /**
      * 填充策略
      * MetaObjectHandler提供的默认方法的策略均为：如果属性有值则不覆盖，如果填充值为null则不填充
-     * 这里修改为：如果属性有值则覆盖，如果填充值为 null 则不填充
+     * 这里修改为：一律填充
      */
     @Override
     public MetaObjectHandler strictFillStrategy(MetaObject metaObject, String fieldName, Supplier<?> fieldVal) {
         Object obj = fieldVal.get();
-        if (Objects.nonNull(obj)) {
-            metaObject.setValue(fieldName, obj);
-        }
+        metaObject.setValue(fieldName, obj);
         return this;
     }
 
-    private boolean hasCreateByFiled(Object originalObject) {
-        return ReflectUtil.hasField(originalObject.getClass(), LambdaUtil.getFieldName(BaseEntity::getCreateBy));
-    }
-
-    private boolean hasUpdateByFiled(Object originalObject) {
-        return ReflectUtil.hasField(originalObject.getClass(), LambdaUtil.getFieldName(BaseEntity::getUpdateBy));
+    /**
+     * session LOGIN_USER_NAME
+     * @return username from session key LOGIN_USER_NAME
+     */
+    private String getUsernameFromSession(){
+        Object username = null;
+        if(RequestContextHolder.getRequestAttributes() != null) {
+            username = ServletUtils.getSession().getAttribute(loginUsernameKey);
+        }
+        return username == null ? null : String.valueOf(username);
     }
 
 }

@@ -26,11 +26,6 @@ import java.util.Enumeration;
 public class ServletUtils extends ServletUtil {
 
     /**
-     * session中存储的当前登录用户变量名
-     */
-    public static final String SESSION_USER = "SESSION_USER";
-
-    /**
      * 获取UserAgent
      */
     public static UserAgent getUserAgent(HttpServletRequest request){

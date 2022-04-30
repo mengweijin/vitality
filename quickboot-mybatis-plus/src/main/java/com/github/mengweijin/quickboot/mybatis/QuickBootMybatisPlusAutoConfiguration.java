@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
-import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -80,7 +79,7 @@ public class QuickBootMybatisPlusAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
-        return new BaseEntityMetaObjectHandler(ServletUtils.SESSION_USER);
+        return new BaseEntityMetaObjectHandler();
     }
 
 }

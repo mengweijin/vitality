@@ -5,10 +5,10 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.43</version>
+        <version>1.0.44</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>sample-quickboot-mybatis-plus</artifactId>
+    <artifactId>sample-quickboot-mybatis-plus</artifactId>  
     <name>sample-quickboot-mybatis-plus</name>  
     <description>Demo project for Spring Boot</description>  
     <properties> 
@@ -17,24 +17,24 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests> 
     </properties>  
-    <dependencies>
-<!--        <dependency> -->
-<!--            <groupId>com.alibaba.cloud</groupId>  -->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId> -->
-<!--        </dependency>  -->
+    <dependencies> 
+        <!--        <dependency> -->  
+        <!--            <groupId>com.alibaba.cloud</groupId>  -->  
+        <!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId> -->  
+        <!--        </dependency>  -->  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-cache-expired</artifactId>
-            <version>${quickboot.version}</version>
-        </dependency>
+            <artifactId>quickboot-mybatis-plus</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-cache-expired</artifactId>  
+            <version>${quickboot.version}</version> 
+        </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-data-redis</artifactId> 
-        </dependency>
+        </dependency>  
         <dependency> 
             <groupId>com.h2database</groupId>  
             <artifactId>h2</artifactId>  
@@ -44,7 +44,7 @@
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
-        </dependency>
+        </dependency>  
         <dependency> 
             <groupId>org.springdoc</groupId>  
             <artifactId>springdoc-openapi-ui</artifactId> 
@@ -53,12 +53,12 @@
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  
             <scope>test</scope> 
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.testable</groupId>
-            <artifactId>testable-all</artifactId>
-            <scope>test</scope>
-        </dependency>
+        </dependency>  
+        <dependency> 
+            <groupId>com.alibaba.testable</groupId>  
+            <artifactId>testable-all</artifactId>  
+            <scope>test</scope> 
+        </dependency> 
     </dependencies>  
     <build> 
         <plugins> 
@@ -92,10 +92,10 @@
                             <goal>repackage</goal> 
                         </goals> 
                     </execution> 
-                </executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
+                </executions>  
+                <configuration> 
+                    <includeSystemScope>true</includeSystemScope> 
+                </configuration> 
             </plugin> 
         </plugins>  
         <!-- 最终打出来的Jar的名称 -->  

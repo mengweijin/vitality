@@ -5,11 +5,11 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>1.0.43</version>
+        <version>1.0.44</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>sample-quickboot-jpa-layui</artifactId>
-    <name>sample-quickboot-jpa-layui</name>
+    <artifactId>sample-quickboot-jpa-layui</artifactId>  
+    <name>sample-quickboot-jpa-layui</name>  
     <description>Demo project for Spring Boot</description>  
     <properties> 
         <!-- 不上传此jar包到中央仓库或私服 -->  
@@ -20,11 +20,11 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-jpa</artifactId>
+            <artifactId>quickboot-jpa</artifactId> 
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-layui</artifactId>
+            <artifactId>quickboot-layui</artifactId> 
         </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
@@ -43,7 +43,7 @@
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  
             <scope>provided</scope> 
-        </dependency>
+        </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  

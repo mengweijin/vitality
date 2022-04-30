@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>quickboot-parent</artifactId>
-        <groupId>com.github.mengweijin</groupId>
-        <version>1.0.43</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>quickboot-orika</artifactId>
 
-    <properties>
-
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ma.glasnost.orika</groupId>
-            <artifactId>orika-core</artifactId>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.rakugakibox.spring.boot</groupId>-->
-<!--            <artifactId>orika-spring-boot-starter</artifactId>-->
-<!--            <version>1.9.0</version>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.testable</groupId>
-            <artifactId>testable-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <parent> 
+        <artifactId>quickboot-parent</artifactId>  
+        <groupId>com.github.mengweijin</groupId>  
+        <version>1.0.44</version>  
+        <relativePath>../pom.xml</relativePath> 
+    </parent>  
+    <modelVersion>4.0.0</modelVersion>  
+    <artifactId>quickboot-orika</artifactId>  
+    <properties></properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-configuration-processor</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>cn.hutool</groupId>  
+            <artifactId>hutool-all</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>ma.glasnost.orika</groupId>  
+            <artifactId>orika-core</artifactId> 
+        </dependency>  
+        <!--        <dependency>-->  
+        <!--            <groupId>net.rakugakibox.spring.boot</groupId>-->  
+        <!--            <artifactId>orika-spring-boot-starter</artifactId>-->  
+        <!--            <version>1.9.0</version>-->  
+        <!--        </dependency>-->  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.alibaba.testable</groupId>  
+            <artifactId>testable-all</artifactId>  
+            <scope>test</scope> 
+        </dependency> 
+    </dependencies> 
 </project>

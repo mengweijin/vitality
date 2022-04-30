@@ -1,78 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>quickboot-parent</artifactId>
-        <groupId>com.github.mengweijin</groupId>
-        <version>1.0.43</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quickboot-flowable</artifactId>
-
-    <properties>
-<!--        <flowable.version>6.7.2</flowable.version>-->
-        <flowable.version>6.4.2</flowable.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.flowable</groupId>
-<!--            <artifactId>flowable-spring-boot-starter-process</artifactId>-->
-            <artifactId>flowable-spring-boot-starter-process</artifactId>
-            <version>${flowable.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>quickboot-mybatis-plus</artifactId>
-        </dependency>
-<!--        <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <parent> 
+        <artifactId>quickboot-parent</artifactId>  
+        <groupId>com.github.mengweijin</groupId>  
+        <version>1.0.44</version>  
+        <relativePath>../pom.xml</relativePath> 
+    </parent>  
+    <modelVersion>4.0.0</modelVersion>  
+    <artifactId>quickboot-flowable</artifactId>  
+    <properties> 
+        <!--        <flowable.version>6.7.2</flowable.version>-->  
+        <flowable.version>6.4.2</flowable.version> 
+    </properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.flowable</groupId>  
+            <!--            <artifactId>flowable-spring-boot-starter-process</artifactId>-->  
+            <artifactId>flowable-spring-boot-starter-process</artifactId>  
+            <version>${flowable.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-mybatis-plus</artifactId> 
+        </dependency>  
+        <!--        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>-->
-        <dependency>
-            <groupId>com.dameng</groupId>
-            <artifactId>Dm8JdbcDriver18</artifactId>
-            <version>8.1.1.49</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.testable</groupId>
-            <artifactId>testable-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 将所有依赖包全部打到一个Jar包里面 -->
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
-            </plugin>
-        </plugins>
-        <!-- 最终打出来的Jar的名称 -->
-        <!--<finalName>${project.artifactId}</finalName>-->
-    </build>
+        </dependency>-->  
+        <dependency> 
+            <groupId>com.dameng</groupId>  
+            <artifactId>Dm8JdbcDriver18</artifactId>  
+            <version>8.1.1.49</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.alibaba.testable</groupId>  
+            <artifactId>testable-all</artifactId>  
+            <scope>test</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>  
+                <version>${spring.boot.version}</version>  
+                <executions> 
+                    <execution> 
+                        <goals> 
+                            <!-- 将所有依赖包全部打到一个Jar包里面 -->  
+                            <goal>repackage</goal> 
+                        </goals> 
+                    </execution> 
+                </executions>  
+                <configuration> 
+                    <includeSystemScope>true</includeSystemScope> 
+                </configuration> 
+            </plugin> 
+        </plugins>  
+        <!-- 最终打出来的Jar的名称 -->  
+        <!--<finalName>${project.artifactId}</finalName>--> 
+    </build> 
 </project>

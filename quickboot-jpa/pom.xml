@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.43</version>
+        <version>1.0.44</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
@@ -12,9 +12,9 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework</artifactId>
-        </dependency>
-        <dependency>
+            <artifactId>quickboot-framework</artifactId> 
+        </dependency>  
+        <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-data-jpa</artifactId> 
         </dependency>  

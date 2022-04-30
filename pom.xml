@@ -14,16 +14,17 @@
         <module>./quickboot-mybatis-plus</module>
         <module>./quickboot-orika</module>
         <module>./quickboot-layui</module>
-        <module>./quickboot-auth-client</module>
-        <module>./quickboot-auth-server</module>
+
         <module>sample-quickboot-auth-client</module>
         <module>sample-quickboot-jpa-layui</module>
         <module>sample-quickboot-mybatis-plus</module>
+        <module>quickboot-auth-client</module>
+        <module>quickboot-auth-server</module>
         <module>quickboot-cache-expired</module>
         <module>quickboot-flowable</module>
     </modules>  
     <properties>
-        <revision>1.0.43-SNAPSHOT</revision>
+        <revision>1.0.43</revision>
 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
         <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>  

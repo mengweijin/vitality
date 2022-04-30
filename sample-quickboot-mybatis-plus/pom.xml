@@ -18,10 +18,10 @@
         <skipTests>true</skipTests> 
     </properties>  
     <dependencies>
-        <dependency> 
-            <groupId>com.alibaba.cloud</groupId>  
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId> 
-        </dependency>  
+<!--        <dependency> -->
+<!--            <groupId>com.alibaba.cloud</groupId>  -->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId> -->
+<!--        </dependency>  -->
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-mybatis-plus</artifactId>

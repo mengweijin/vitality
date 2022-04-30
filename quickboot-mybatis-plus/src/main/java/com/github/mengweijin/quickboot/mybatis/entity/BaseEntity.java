@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
  * @date Create in 2019-07-28 15:18
  **/
 @Data
-@Accessors(chain = true)
 public abstract class BaseEntity implements Serializable {
 
     /**

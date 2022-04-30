@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.orika;
 
-import com.github.mengweijin.quickboot.orika.configurer.QuickBootOrikaMapperFactoryConfigurer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -105,16 +104,6 @@ public class OrikaAutoConfiguration {
         MapperFacade orikaMapperFacade = orikaMapperFactory.getMapperFacade();
         log.debug("Created a MapperFacade: [{}]", orikaMapperFacade);
         return orikaMapperFacade;
-    }
-
-    /**
-     * Create a {@link QuickBootOrikaMapperFactoryConfigurer}
-     * @return a {@link QuickBootOrikaMapperFactoryConfigurer}
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public QuickBootOrikaMapperFactoryConfigurer quickBootOrikaMapperFactoryConfigurer() {
-        return new QuickBootOrikaMapperFactoryConfigurer();
     }
 
 }

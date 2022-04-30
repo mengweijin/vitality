@@ -19,6 +19,7 @@
         <module>./sample-quickboot-auth-client</module>
         <module>./sample-quickboot-jpa-layui</module>
         <module>./sample-quickboot-mybatis-plus</module>
+        <module>quickboot-flowable</module>
     </modules>  
     <properties>
         <revision>1.0.43-SNAPSHOT</revision>

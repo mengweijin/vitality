@@ -1,9 +1,11 @@
 package com.github.mengweijin.quickboot.mybatis.entity;
 
+import cn.hutool.core.date.DatePattern;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -26,9 +28,11 @@ public abstract class BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     protected Long id;
 
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected LocalDateTime createTime;
 
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     protected LocalDateTime updateTime;
 

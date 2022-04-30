@@ -18,17 +18,48 @@
 </p>
 
 ## QuickBoot 版本
-| 模块                      | 最新版本                                                                                                                                                                                                                                    |
-|:------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| quickboot-parent        | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-parent%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-parent"/></a>               |
-| quickboot-framework     | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-framework%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-framework"/></a>         |
-| quickboot-mybatis-plus  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-mybatis-plus%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-mybatis-plus"/></a>   |
-| quickboot-jpa           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-jpa%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-jpa"/></a>                     |
-| quickboot-cache-expired | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-cache-expired%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-cache-expired"/></a> |
-| quickboot-layui         | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>                 |
+| 模块                     | 最新版本                                                                                                                                                                                                                                  |
+|:-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| quickboot-parent       | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-parent%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-parent"/></a>             |
+| quickboot-framework    | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-framework%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-framework"/></a>       |
+| quickboot-mybatis-plus | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-mybatis-plus%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-mybatis-plus"/></a> |
+| quickboot-jpa          | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-jpa%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-jpa"/></a>                   |
+| quickboot-orika        | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-orika%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-orika"/></a>               |
+| quickboot-layui        | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>               |
 
 ## 介绍
 快速搭建 SpringBoot 项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
+
+### quickboot-orika
+Bean 类型转换。扩展了 LocalDate, LocalDateTime 的默认转换。
+
+使用示例：
+```java
+// 注册到 Spring 容器
+@Component
+public class BeanAToBConverter extends BeanConverter<BeanA, BeanB> {
+
+    @Override
+    public void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {
+        // 字段映射。使用默认转换器
+        classMapBuilder.field("nameA", "nameB")
+                // 显示指定转换器
+                .fieldMap("stringToDate", "stringToDate").converter(OrikaConverter.DATE_NORM_DATE.name()).add()
+                .field("date", LambdaUtil.getFieldName(BeanB::getLocalDate))
+                .field(LambdaUtil.getFieldName(BeanA::getDate), LambdaUtil.getFieldName(BeanB::getLocalDateTime));
+    }
+}
+
+class BeanConverterTest {
+  @Autowired
+  private MapperFacade mapperFacade;
+  public void test() {
+    BeanA beanA = new BeanA();
+    BeanB beanB = mapperFacade.map(beanA, BeanB.class);
+  }
+}
+```
+
 
 ### 使用 quickboot-mybatis-plus
 ```xml

@@ -8,7 +8,13 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>quickboot-cache-expired</artifactId>  
+    <artifactId>quickboot-cache-expired</artifactId>
+    <properties>
+        <!-- 不上传此jar包到中央仓库或私服 -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->
+        <skipTests>true</skipTests>
+    </properties>
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

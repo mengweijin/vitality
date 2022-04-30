@@ -8,37 +8,41 @@
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
-    <modules> 
-        <module>./quickboot-cache-expired</module>  
+    <modules>
         <module>./quickboot-framework</module>  
         <module>./quickboot-jpa</module>  
-        <module>./quickboot-mybatis-plus</module>  
+        <module>./quickboot-mybatis-plus</module>
+        <module>./quickboot-orika</module>
         <module>./quickboot-layui</module>
         <module>./quickboot-auth-client</module>
         <module>./quickboot-auth-server</module>
-        <module>./sample-quickboot-auth-client</module>
-        <module>./sample-quickboot-jpa-layui</module>
-        <module>./sample-quickboot-mybatis-plus</module>
+        <module>sample-quickboot-auth-client</module>
+        <module>sample-quickboot-jpa-layui</module>
+        <module>sample-quickboot-mybatis-plus</module>
+        <module>quickboot-cache-expired</module>
         <module>quickboot-flowable</module>
-        <module>quickboot-orika</module>
     </modules>  
     <properties>
         <revision>1.0.43-SNAPSHOT</revision>
+
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
         <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>  
         <sonar.exclusions>**/generated/**/*, **/model/**/*</sonar.exclusions>  
         <sonar.test.exclusions>src/test/**/*</sonar.test.exclusions>  
         <sonar.coverage.exclusions>src/main/**/*</sonar.coverage.exclusions>
-        <spring.boot.version>2.6.4</spring.boot.version>  
-        <spring.cloud.version>2021.0.1</spring.cloud.version>  
+
+        <spring.boot.version>2.6.7</spring.boot.version>
+        <spring.cloud.version>2021.0.2</spring.cloud.version>
         <!--从 2021.0.1.0 开始，SCA（spring cloud alibaba）版本将会对应 Spring Cloud 版本，前三位为 Spring Cloud 版本，最后一位为扩展版本-->  
-        <spring.cloud.alibaba.version>2021.0.1.0</spring.cloud.alibaba.version>  
+        <spring.cloud.alibaba.version>2021.0.1.0</spring.cloud.alibaba.version>
+
         <java.version>1.8</java.version>  
         <resource.delimiter>@</resource.delimiter>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <hutool.version>5.7.21</hutool.version>  
         <orika.version>1.5.4</orika.version>
         <jjwt.version>0.9.1</jjwt.version>

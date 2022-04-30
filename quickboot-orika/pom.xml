@@ -4,12 +4,12 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>1.0.44</version>  
+        <version>1.0.45-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
     <artifactId>quickboot-orika</artifactId>  
-    <properties></properties>  
+    <properties/>  
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

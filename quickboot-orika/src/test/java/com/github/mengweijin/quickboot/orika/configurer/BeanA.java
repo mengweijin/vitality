@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.configurer;
+package com.github.mengweijin.quickboot.orika.configurer;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

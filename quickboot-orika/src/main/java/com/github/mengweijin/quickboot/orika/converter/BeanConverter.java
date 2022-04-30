@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.converter;
+package com.github.mengweijin.quickboot.orika.converter;
 
 import cn.hutool.core.util.TypeUtil;
 import ma.glasnost.orika.MapperFactory;
@@ -29,8 +29,12 @@ public abstract class BeanConverter<A, B> implements InitializingBean {
 
     /**
      * Field mapping configuration.
-     * For Examples: classMapBuilder.field("name", "username");
-     *
+     * For Examples:
+     * classMapBuilder
+     *      .field("name", "username")
+     *      .field("nameA", "nameB")
+     *      // Manually specify converter by converterId
+     *      .fieldMap("stringToDate", "stringToDate").converter(OrikaConverter.DateToStringConverter_NORM_DATE_PATTERN.getId()).add();
      * @param classMapBuilder classMapBuilder
      */
     public abstract void fieldMapping(ClassMapBuilder<A, B> classMapBuilder);

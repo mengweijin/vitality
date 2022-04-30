@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika;
+package com.github.mengweijin.quickboot.orika;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

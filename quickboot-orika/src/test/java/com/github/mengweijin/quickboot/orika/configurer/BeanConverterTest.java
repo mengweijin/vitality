@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.configurer;
+package com.github.mengweijin.quickboot.orika.configurer;
 
 import ma.glasnost.orika.MapperFacade;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 class BeanConverterTest {
     @Test
     public void test() {
-        String basePackages = "com.github.mengweijin.quickboot.framework.orika";
+        String basePackages = "com.github.mengweijin.quickboot.orika";
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(basePackages);
 
         MapperFacade mapperFacade = context.getBean(MapperFacade.class);

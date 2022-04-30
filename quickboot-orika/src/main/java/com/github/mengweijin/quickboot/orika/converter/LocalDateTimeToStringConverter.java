@@ -1,4 +1,4 @@
-package com.github.mengweijin.quickboot.framework.orika.converter;
+package com.github.mengweijin.quickboot.orika.converter;
 
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;

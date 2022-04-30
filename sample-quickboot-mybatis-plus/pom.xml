@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>quickboot-parent</artifactId>  
-        <version>${revision}</version>
+        <version>1.0.43</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>sample-quickboot-mybatis-plus</artifactId>
@@ -25,12 +25,11 @@
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-mybatis-plus</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>quickboot-cache-expired</artifactId>
-            <version>${project.version}</version>
+            <version>${quickboot.version}</version>
         </dependency>
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

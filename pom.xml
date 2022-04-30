@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>
-    <version>${revision}</version>
+    <version>1.0.43</version>
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -22,9 +22,10 @@
         <module>quickboot-auth-server</module>
         <module>quickboot-cache-expired</module>
         <module>quickboot-flowable</module>
-    </modules>  
+        <module>tool-quickboot</module>
+    </modules>
     <properties>
-        <revision>1.0.43</revision>
+        <quickboot.version>1.0.43</quickboot.version>
 
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
         <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>  
@@ -98,7 +99,32 @@
                 <version>${spring.cloud.alibaba.version}</version>  
                 <type>pom</type>  
                 <scope>import</scope> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-orika</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-framework</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-mybatis-plus</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-jpa</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>quickboot-layui</artifactId>
+                <version>${quickboot.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>cn.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  

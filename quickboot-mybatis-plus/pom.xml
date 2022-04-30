@@ -4,7 +4,7 @@
     <parent> 
         <artifactId>quickboot-parent</artifactId>  
         <groupId>com.github.mengweijin</groupId>  
-        <version>${revision}</version>
+        <version>1.0.43</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
@@ -13,7 +13,6 @@
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-framework</artifactId>
-            <version>${project.version}</version>
         </dependency>  
         <!-- mybatis-plus 无需再单独引入mybatis -->  
         <dependency> 

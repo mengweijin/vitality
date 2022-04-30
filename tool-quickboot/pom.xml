@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <parent> 
+        <groupId>com.github.mengweijin</groupId>  
+        <artifactId>quickboot-parent</artifactId>  
+        <version>1.0.43</version>
+        <relativePath>../pom.xml</relativePath> 
+    </parent>  
+    <modelVersion>4.0.0</modelVersion>  
+    <artifactId>tool-quickboot</artifactId>  
+    <properties> 
+        <!-- 不上传此jar包到中央仓库或私服 -->  
+        <maven.deploy.skip>true</maven.deploy.skip>  
+        <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
+        <skipTests>true</skipTests> 
+    </properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>quickboot-framework</artifactId>
+        </dependency>  
+        <!-- https://dom4j.github.io/ -->  
+        <dependency> 
+            <groupId>org.dom4j</groupId>  
+            <artifactId>dom4j</artifactId>  
+            <version>2.1.3</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-jar-plugin</artifactId>  
+                <version>3.0.2</version>  
+                <configuration> 
+                    <archive> 
+                        <manifest> 
+                            <addClasspath>true</addClasspath>  
+                            <!-- 此处为主入口类-->  
+                            <mainClass>com.github.mengweijin.quickboot.devtool.TestResource</mainClass> 
+                        </manifest> 
+                    </archive> 
+                </configuration> 
+            </plugin> 
+        </plugins> 
+    </build> 
+</project>

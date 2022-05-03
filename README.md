@@ -34,6 +34,13 @@
 Bean 类型转换。扩展了 LocalDate, LocalDateTime 的默认转换。
 
 使用示例：
+```xml
+<dependency>
+  <groupId>com.github.mengweijin</groupId>
+  <artifactId>quickboot-orika</artifactId>
+  <version>Latest Version</version>
+</dependency>
+```
 ```java
 // 注册到 Spring 容器
 @Component
@@ -148,9 +155,9 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations:
-      - classpath:db/h2
-      # - classpath:db/mysql
-      # - classpath:db/oracle
+      - classpath:db/migration/h2
+      # - classpath:db/migration/mysql
+      # - classpath:db/migration/oracle
 ~~~
 
 #### 分页 IPage & Pager

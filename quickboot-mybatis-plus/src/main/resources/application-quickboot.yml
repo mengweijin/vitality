@@ -27,6 +27,8 @@ spring:
     # 默认不启用，true 为启用
     enabled: true
     baseline-on-migrate: true
+    # 禁用 placeholder replacement，否则 sql 脚本中不能写 ${} 这样的字符。
+    placeholder-replacement: false
     locations:
       - classpath:db/migration/h2
       # - classpath:db/migration/mysql

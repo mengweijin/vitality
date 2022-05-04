@@ -98,17 +98,17 @@ public final class Const {
 
     public static final String FALSE = "false";
 
-    public static final String YES = "yes";
+    public static final String YES = "YES";
 
-    public static final String NO = "no";
+    public static final String NO = "NO";
 
-    public static final String Y = "y";
+    public static final String Y = "Y";
 
-    public static final String N = "n";
+    public static final String N = "N";
 
-    public static final String ON = "on";
+    public static final String ON = "ON";
 
-    public static final String OFF = "off";
+    public static final String OFF = "OFF";
 
     public static final String ZERO = "0";
 

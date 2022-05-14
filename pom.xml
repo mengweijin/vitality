@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>quickboot-parent</artifactId>  
-    <version>1.0.45-SNAPSHOT</version>  
+    <version>1.0.45</version>  
     <packaging>pom</packaging>  
     <name>quickboot-parent</name>  
     <description>quickboot-parent</description>  
@@ -24,7 +24,7 @@
         <module>tool-quickboot</module> 
     </modules>  
     <properties> 
-        <quickboot.version>1.0.45-SNAPSHOT</quickboot.version>  
+        <quickboot.version>1.0.45</quickboot.version>  
         <sonar.host.url>http://192.168.188.128:9000</sonar.host.url>  
         <sonar.login>7739e29b37d43a10c220f5b0ef09fb1dfea2b5ee</sonar.login>  
         <sonar.exclusions>**/generated/**/*, **/model/**/*</sonar.exclusions>  

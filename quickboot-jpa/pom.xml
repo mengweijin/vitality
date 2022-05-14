@@ -12,7 +12,8 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework</artifactId> 
+            <artifactId>quickboot-framework</artifactId>
+            <version>${quickboot-framework.version}</version>
         </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

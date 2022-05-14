@@ -16,7 +16,8 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-orika</artifactId> 
+            <artifactId>quickboot-orika</artifactId>
+            <version>${quickboot-orika.version}</version>
         </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.cache.expired.CacheExpired;
 import com.github.mengweijin.mybatisplus.demo.async.AsyncFactory;
 import com.github.mengweijin.mybatisplus.demo.entity.User;
 import com.github.mengweijin.mybatisplus.demo.enums.Gender;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -61,12 +59,12 @@ public class UserController {
      * Cache 测试接口
      *
      * @apiNote 注解 {@link org.springframework.cache.annotation.Cacheable Cacheable} 中的参数 {@code cacheNames} 表示使用哪一个缓存名称。
-     * 注解 {@link CacheExpired CacheExpired} 中的参数：
+     * 注解 CacheExpired 中的参数：
      * {@code expire} 表示过期时间。
      * {@code chronoUnit} 表示过期时间单位。
      * @return {@link String String}
      */
-    @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
+    //@CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = "user")
     @GetMapping("/cache")
     public String hello(){

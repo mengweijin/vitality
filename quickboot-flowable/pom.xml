@@ -22,7 +22,8 @@
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId> 
+            <artifactId>quickboot-mybatis-plus</artifactId>
+            <version>${quickboot-mybatis-plus.version}</version>
         </dependency>  
         <!--        <dependency>
             <groupId>com.h2database</groupId>

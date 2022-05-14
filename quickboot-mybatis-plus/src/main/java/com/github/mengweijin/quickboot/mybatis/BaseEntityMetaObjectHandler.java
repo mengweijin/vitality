@@ -1,6 +1,7 @@
 package com.github.mengweijin.quickboot.mybatis;
 
 import cn.hutool.core.lang.func.LambdaUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.quickboot.framework.util.ServletUtils;
 import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
@@ -43,8 +44,10 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
             // session LOGIN_USER
             String username = this.getUsernameFromSession();
-            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
-            this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+            if(StrUtil.isNotBlank(username)) {
+                this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getCreateBy), String.class, username);
+                this.strictInsertFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+            }
         }
     }
 
@@ -56,7 +59,9 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateTime), LocalDateTime.class, localDateTime);
 
             String username = this.getUsernameFromSession();
-            this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+            if(StrUtil.isNotBlank(username)) {
+                this.strictUpdateFill(metaObject, LambdaUtil.getFieldName(BaseEntity::getUpdateBy), String.class, username);
+            }
         }
     }
 

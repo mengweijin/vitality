@@ -3,6 +3,8 @@ package com.github.mengweijin.quickboot.framework.response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.framework.domain.R;
+import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author mengweijin
  * @date 2022/5/17
  */
+@Slf4j
 @RestControllerAdvice
 public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
@@ -42,7 +45,8 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             try {
                 return objectMapper.writeValueAsString(R.success(body));
             } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
+                log.error("An exception has occurred that should not have occurred!", e);
+                throw new QuickBootException(e.getMessage());
             }
         }
         return R.success(body);

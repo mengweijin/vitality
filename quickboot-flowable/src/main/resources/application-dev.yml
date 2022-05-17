@@ -5,11 +5,6 @@ info:
     artifactId: @project.artifactId@
     version: @project.version@
 spring:
-  datasource:
-    driver-class-name: dm.jdbc.driver.DmDriver
-    url: jdbc:dm://192.168.188.133:5236?schema=TEST&compatibleMode=oracle
-    username: TEST
-    password: 123456789
   flyway:
     # 默认不启用，true 为启用
     enabled: false

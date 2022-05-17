@@ -104,7 +104,7 @@ public class UploadUtils {
     private static String write(MultipartFile file) throws IOException {
         String suffix = FileUtil.getSuffix(file.getOriginalFilename());
         String fileType = CharSequenceUtil.isBlank(suffix) ? UNKNOWN_FILE_TYPE_DIR : suffix;
-        String generatedFileName = TimestampIdUtils.timestampId() + Const.UNDERSCORE + File.separatorChar + file.getOriginalFilename();
+        String generatedFileName = TimestampIdUtils.timestampId() + File.separatorChar + file.getOriginalFilename();
         Path uploadFilePath = Paths.get(UPLOAD_ROOT_PATH + fileType + File.separatorChar + generatedFileName);
         Files.createDirectories(uploadFilePath.getParent());
         Files.copy(file.getInputStream(), Files.createFile(uploadFilePath), StandardCopyOption.REPLACE_EXISTING);

@@ -18,8 +18,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId>  
-            <version>${quickboot-mybatis-plus.version}</version> 
+            <artifactId>quickboot-mybatis-plus</artifactId>
         </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

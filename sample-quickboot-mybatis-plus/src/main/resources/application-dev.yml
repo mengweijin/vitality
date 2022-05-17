@@ -21,6 +21,10 @@ server:
     trust-store-type: JKS
     trust-store-provider: SUN
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
   cloud:
     sentinel:
       transport:

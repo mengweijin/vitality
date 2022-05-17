@@ -18,8 +18,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework</artifactId>  
-            <version>${quickboot-framework.version}</version> 
+            <artifactId>quickboot-framework</artifactId>
         </dependency>  
         <!-- https://dom4j.github.io/ -->  
         <dependency> 

@@ -12,8 +12,7 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-framework</artifactId>  
-            <version>${quickboot-framework.version}</version> 
+            <artifactId>quickboot-framework</artifactId>
         </dependency>  
         <!-- mybatis-plus 无需再单独引入mybatis -->  
         <dependency> 

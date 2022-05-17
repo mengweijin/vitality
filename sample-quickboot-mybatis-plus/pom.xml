@@ -24,9 +24,13 @@
         <!--        </dependency>  -->  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-mybatis-plus</artifactId>  
-            <version>${quickboot-mybatis-plus.version}</version> 
-        </dependency>  
+            <artifactId>quickboot-mybatis-plus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
         <!--        <dependency> -->  
         <!--            <groupId>org.springframework.boot</groupId>  -->  
         <!--            <artifactId>spring-boot-starter-data-redis</artifactId> -->  

@@ -20,13 +20,11 @@
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-jpa</artifactId>  
-            <version>${quickboot-jpa.version}</version> 
+            <artifactId>quickboot-jpa</artifactId>
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
-            <artifactId>quickboot-layui</artifactId>  
-            <version>${quickboot-layui.version}</version> 
+            <artifactId>quickboot-layui</artifactId>
         </dependency>  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

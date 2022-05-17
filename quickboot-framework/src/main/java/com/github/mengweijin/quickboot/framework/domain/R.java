@@ -1,9 +1,11 @@
 package com.github.mengweijin.quickboot.framework.domain;
 
+import com.github.mengweijin.quickboot.framework.util.Const;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class R<T> {
+public class R implements Serializable {
 
     /**
      * 状态码
@@ -20,7 +22,7 @@ public class R<T> {
     /**
      * data
      */
-    private T data;
+    private Object data;
     /**
      * Error message
      */
@@ -31,36 +33,32 @@ public class R<T> {
     private R() {
     }
 
-    public static <T> R<T> success() {
-        return success("SUCCESS");
+    public static R success() {
+        return success(null);
     }
 
-    public static <T> R<T> success(String message) {
-        return info(HttpStatus.OK.value(), message, null);
+    public static R success(Object data) {
+        return success(HttpStatus.OK.value(), data);
     }
 
-    public static <T> R<T> success(int code, String message) {
-        return info(code, message, null);
+    public static R success(int code, Object data) {
+        return info(code, Const.SUCCESS, data);
     }
 
-    public static <T> R<T> success(String message, T data) {
-        return info(HttpStatus.OK.value(), message, data);
-    }
-
-    public static <T> R<T> error() {
+    public static R error() {
         return error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
-    public static <T> R<T> error(String message) {
+    public static R error(String message) {
         return info(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 
-    public static <T> R<T> error(int code, String message) {
+    public static R error(int code, String message) {
         return info(code, message, null);
     }
 
-    public static <T> R<T> info(int code, String msg, T data) {
-        R<T> r = new R<>();
+    public static R info(int code, String msg, Object data) {
+        R r = new R();
         r.setCode(code);
         r.setMessage(msg);
         r.setData(data);
@@ -74,7 +72,7 @@ public class R<T> {
      * @param message message
      * @return this
      */
-    public R<T> addMessage(String message) {
+    public R addMessage(String message) {
         if(this.message == null) {
             this.message = message;
         } else {

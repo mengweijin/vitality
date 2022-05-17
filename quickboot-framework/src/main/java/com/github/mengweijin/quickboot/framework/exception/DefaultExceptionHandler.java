@@ -26,15 +26,15 @@ public class DefaultExceptionHandler extends BaseResponseEntityExceptionHandler 
             QuickBootClientException.class
     })
     @ResponseBody
-    ResponseEntity<R<Object>> handleClientException(Exception e, HttpServletRequest request) {
+    ResponseEntity<R> handleClientException(Exception e, HttpServletRequest request) {
         log.warn(e.getMessage());
-        R<Object> r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        R r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }
 
     @ExceptionHandler({QuickBootException.class, RuntimeException.class, Exception.class})
     @ResponseBody
-    ResponseEntity<R<Object>> handleException(Exception e, HttpServletRequest request) {
+    ResponseEntity<R> handleException(Exception e, HttpServletRequest request) {
         log.error(e.getMessage(), e);
         HttpStatus status = getStatus(request);
         return ResponseEntity.status(status).body(R.error(status.value(), e.getMessage()));

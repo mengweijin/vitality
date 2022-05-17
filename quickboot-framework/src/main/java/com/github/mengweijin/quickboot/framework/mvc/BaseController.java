@@ -40,10 +40,10 @@ public class BaseController {
      * @param bindingResult bindingResult
      */
     @Deprecated
-    public R<Object> validateErrorResult(BindingResult bindingResult) {
+    public R validateErrorResult(BindingResult bindingResult) {
         List<ObjectError> errors = bindingResult.getAllErrors();
 
-        R<Object> r = R.error(HttpStatus.BAD_REQUEST.value(), null);
+        R r = R.error(HttpStatus.BAD_REQUEST.value(), null);
         for (ObjectError err : errors) {
             r.addMessage(err.getDefaultMessage());
         }

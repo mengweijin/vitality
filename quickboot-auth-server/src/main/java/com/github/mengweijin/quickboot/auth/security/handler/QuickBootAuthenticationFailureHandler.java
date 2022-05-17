@@ -50,7 +50,7 @@ public class QuickBootAuthenticationFailureHandler implements AuthenticationFail
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        R<?> r = R.error(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+        R r = R.error(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
         ServletUtils.render(response, r);
 
         // 登录失败次数加入到 Redis

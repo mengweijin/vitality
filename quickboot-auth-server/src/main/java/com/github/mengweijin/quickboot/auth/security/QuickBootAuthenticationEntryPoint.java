@@ -24,7 +24,7 @@ public class QuickBootAuthenticationEntryPoint implements AuthenticationEntryPoi
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        R<Object> r = R.error(HttpStatus.UNAUTHORIZED.value(), authException.getMessage());
+        R r = R.error(HttpStatus.UNAUTHORIZED.value(), authException.getMessage());
         ServletUtils.render(response, r);
     }
 }

@@ -98,6 +98,7 @@ public class UserController {
      */
     @GetMapping("/xss")
     public String xss(String html){
+        if(true) {throw new RuntimeException("aaa");}
         log.info("Entered xss method.");
         return html;
     }

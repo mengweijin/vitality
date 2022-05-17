@@ -83,7 +83,7 @@ public class QuickBootAuthenticationSuccessHandler implements AuthenticationSucc
 
         redisCache.setCacheObject(SecurityConst.REDIS_KEY_LOGIN_USERNAME_TOKEN + username, loginUser, authProperties.getToken().getExpire(), TimeUnit.SECONDS);
 
-        final R<?> r = R.success(null, Collections.singletonMap("token", token));
+        final R r = R.success(Collections.singletonMap("token", token));
         ServletUtils.render(response, r);
 
         // 异步记录登录成功的日志

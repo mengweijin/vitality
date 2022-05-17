@@ -4,6 +4,7 @@ import com.github.mengweijin.quickboot.framework.aspectj.LogAspect;
 import com.github.mengweijin.quickboot.framework.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.framework.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.quickboot.framework.mvc.CorsWebMvcConfigurer;
+import com.github.mengweijin.quickboot.framework.response.DefaultResponseBodyAdvice;
 import com.github.mengweijin.quickboot.framework.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -63,6 +64,12 @@ public class QuickBootFrameworkAutoConfiguration {
     @ConditionalOnMissingBean
     public DefaultExceptionHandler defaultExceptionHandler() {
         return new DefaultExceptionHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultResponseBodyAdvice defaultResponseBodyAdvice() {
+        return new DefaultResponseBodyAdvice();
     }
 
     @Bean

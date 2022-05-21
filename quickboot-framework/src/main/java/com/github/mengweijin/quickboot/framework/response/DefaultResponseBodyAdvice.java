@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * enable response body advice.
+ * @Bean
+ * @ConditionalOnMissingBean
+ * public DefaultResponseBodyAdvice defaultResponseBodyAdvice() {
+ *     return new DefaultResponseBodyAdvice();
+ * }
  * @author mengweijin
  * @date 2022/5/17
  */

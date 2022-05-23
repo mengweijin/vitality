@@ -62,8 +62,8 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                     throw new QuickBootException(e.getMessage());
                 }
             }
+            return R.success(body);
         }
-
-        return R.success(body);
+        return body;
     }
 }

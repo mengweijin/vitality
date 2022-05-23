@@ -7,6 +7,7 @@ import com.github.mengweijin.quickboot.framework.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -43,18 +44,26 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if(body instanceof R) {
-            return body;
-        } else if(body instanceof String) {
-            // 这段代码一定要加，如果Controller直接返回String的话，SpringBoot是直接返回，故我们需要手动转换成json。
-            // springmvc数据转换器对String是有特殊处理 StringHttpMessageConverter
-            try {
-                return objectMapper.writeValueAsString(R.success(body));
-            } catch (JsonProcessingException e) {
-                log.error("An exception has occurred that should not have occurred!", e);
-                throw new QuickBootException(e.getMessage());
+        HttpMethod httpMethod = request.getMethod();
+        // 不是 Get 请求方式，还需要从 request body 中获取请求参数
+        if(HttpMethod.POST == httpMethod
+            || HttpMethod.PUT == httpMethod
+            || HttpMethod.DELETE == httpMethod
+            || HttpMethod.PATCH == httpMethod) {
+            if(body instanceof R) {
+                return body;
+            } else if(body instanceof String) {
+                // 这段代码一定要加，如果Controller直接返回String的话，SpringBoot是直接返回，故我们需要手动转换成json。
+                // springmvc数据转换器对String是有特殊处理 StringHttpMessageConverter
+                try {
+                    return objectMapper.writeValueAsString(R.success(body));
+                } catch (JsonProcessingException e) {
+                    log.error("An exception has occurred that should not have occurred!", e);
+                    throw new QuickBootException(e.getMessage());
+                }
             }
         }
+
         return R.success(body);
     }
 }

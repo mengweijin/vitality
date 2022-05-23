@@ -61,8 +61,9 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                     log.error("An exception has occurred that should not have occurred!", e);
                     throw new QuickBootException(e.getMessage());
                 }
+            } else {
+                return R.success(body);
             }
-            return R.success(body);
         }
         return body;
     }

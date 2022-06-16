@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
@@ -71,7 +72,7 @@ public class LogAspect {
             Map<String, String[]> argsMap = request.getParameterMap();
             appLog.setArgs(argsMap);
 
-            if("application/json".equals(request.getContentType())) {
+            if(MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
                 // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
                 // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
                 // 此时就造成日志这里因为读取不到流数据而报错。
@@ -81,7 +82,6 @@ public class LogAspect {
                     HashMap<?, ?> requestBodyMap = objectMapper.readValue(body, HashMap.class);
                     appLog.setRequestBody(requestBodyMap);
                 }
-
             }
 
             String methodName = joinPoint.getTarget().getClass().getName() + Const.DOT + joinPoint.getSignature().getName();

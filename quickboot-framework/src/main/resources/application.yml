@@ -44,9 +44,9 @@ spring:
         # default 1  TaskSchedulingProperties
         size: 8
   redis:
-    host: 192.168.8.133
+    host: localhost
     port: 6379
-    password: 123456
+    # password:
 #日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
 logging:
   file:
@@ -74,3 +74,5 @@ management:
 quickboot:
   # 是否允许跨域
   cors: true
+  # 默认配置加密 key。如：spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
+  cipher: quickboot-abcd-1234

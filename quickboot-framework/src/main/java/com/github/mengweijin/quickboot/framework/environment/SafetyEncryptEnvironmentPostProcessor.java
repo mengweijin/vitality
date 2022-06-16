@@ -9,7 +9,6 @@ import org.springframework.boot.env.OriginTrackedMapPropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import java.util.HashMap;
 
@@ -20,19 +19,19 @@ import java.util.HashMap;
  * 不能配置在 org.springframework.boot.autoconfigure.EnableAutoConfiguration 下面，否则不会在启动时执行类里面的方法。
  *
  * <p>
- * 1. 生成 16 位随机 AES 密钥，在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key={randomKey} 传递到应用程序中
- * Jar 启动参数（ idea 设置 Program arguments , 服务器可以设置为启动环境变量 ）
- * 示例：--cipher.key==d1104d7c3b616f0b
- * String randomKey = AESUtils.generateRandomKey();
+ * 1. 生成 16 位随机 AES 密钥：String randomKey = AESUtils.generateRandomKey();
  * <p>
- * 2. 密钥加密：配置在 application.yaml 中的加密值
- * String encrypt = AESUtils.encryptByKey(randomKey, password);
+ * 2. 在启动 jar 时把下面生成的 key 通过命令行参数 -Dquickboot.cipher=${randomKey} 或者配置到 application.yml 中传递到应用程序中。Jar 启动参数（idea 设置 JVM arguments）
+ * 命令行参数配置示例：-Dquickboot.cipher=abcd1234
+ * application.properties 示例：quickboot.cipher=abcd1234
  * <p>
- * 3. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
+ * 3. 密钥加密：配置在 application.yaml 中的加密值：String encrypt = AESUtils.encryptByKey(randomKey, password);
+ * <p>
+ * 4. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用， YML 中其它配置也是可以使用的 ）
  * spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
  * spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
  * <p>
- * 4. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
+ * 5. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
  *
  * @author mengweijin
  */
@@ -40,20 +39,12 @@ public class SafetyEncryptEnvironmentPostProcessor implements EnvironmentPostPro
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        // 命令行中获取密钥
-        String cipherKey = null;
-        for (PropertySource<?> ps : environment.getPropertySources()) {
-            if (ps instanceof SimpleCommandLinePropertySource) {
-                SimpleCommandLinePropertySource source = (SimpleCommandLinePropertySource) ps;
-                cipherKey = source.getProperty("cipher.key");
-                break;
-            }
-        }
-
+        // 第一优先级，从命令行中获取密钥。添加 JVM 参数：-Dquickboot.cipher=abcd1234
+        // 第二优先级，从 application.yml 中获取 quickboot.cipher 配置的值
+        String cipherKey = environment.getProperty("quickboot.cipher");
         if(CharSequenceUtil.isBlank(cipherKey)) {
             return;
         }
-
 
         // 处理加密内容
         HashMap<String, Object> map = new HashMap<>();

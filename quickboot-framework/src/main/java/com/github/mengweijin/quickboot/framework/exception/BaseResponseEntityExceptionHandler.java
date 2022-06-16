@@ -59,7 +59,7 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
 
         R r = R.error(status.value(), null);
         for (FieldError error : fieldErrors) {
-            r.addMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
+            r.appendMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
         }
         log.error("ErrorInfo: {}", r);
         return ResponseEntity.status(status).body(r);

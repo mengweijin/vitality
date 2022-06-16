@@ -88,19 +88,16 @@ class BeanConverterTest {
 #### 配置加密
 SafetyEncryptEnvironmentPostProcessor 可以实现配置文件敏感信息的加密配置。比如：数据库密码等信息。 使用方式：
 
-- 生成 16 位随机 AES 密钥。
-  - 在启动 jar 时把下面生成的 key 通过命令行参数 --cipher.key={randomKey} 传递到应用程序中的 Jar 启动参数。
-  - idea 设置 Program arguments , 服务器可以设置为启动环境变量
-  - 示例：--cipher.key==d1104d7c3b616f0b
-  - String randomKey = AESUtils.generateRandomKey();
-- 密钥加密。
-  - 配置在 application.yaml 中的加密值
-  - String encrypt = AESUtils.encryptByKey(randomKey, password);
-- YML 配置。
-  - 加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用 YML 中其它配置也是可以使用的 ）
-  - spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
-  - spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
-  
+1. 生成 16 位随机 AES 密钥：String randomKey = AESUtils.generateRandomKey();
+2. 在启动 jar 时把下面生成的 key 通过命令行参数 -Dquickboot.cipher=${randomKey} 或者配置到 application.yml 中传递到应用程序中。Jar 启动参数（idea 设置 JVM arguments）
+   - 命令行参数配置示例：-Dquickboot.cipher=abcd1234
+   - application.properties 示例：quickboot.cipher=abcd1234
+3. 密钥加密：配置在 application.yaml 中的加密值：String encrypt = AESUtils.encryptByKey(randomKey, password);
+4. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用， YML 中其它配置也是可以使用的 ）
+   - spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
+   - spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
+5. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
+
 #### cors 跨域
 跨域配置。根据规则在application.yml中配置：
 ~~~~yaml

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ public class BaseController {
      * 建议使用Restful风格，前后端分离
      */
     public String redirect(String url) {
-        return String.format("redirect:%s", url);
+        return UrlBasedViewResolver.REDIRECT_URL_PREFIX + url;
     }
 
     /**
@@ -45,7 +47,7 @@ public class BaseController {
 
         R r = R.error(HttpStatus.BAD_REQUEST.value(), null);
         for (ObjectError err : errors) {
-            r.addMessage(err.getDefaultMessage());
+            r.appendMessage(err.getDefaultMessage());
         }
 
         return r;

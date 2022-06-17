@@ -15,9 +15,10 @@
         <module>./quickboot-mybatis-plus</module>
         <!-- Comment out the following modules when publishing -->
         <module>quickboot-layui</module>
+        <!-- The following modules are not publish -->
         <module>sample-quickboot-auth-client</module>
         <module>sample-quickboot-jpa-layui</module>
-        <module>sample-quickboot-mybatis-plus</module>  
+        <module>sample-quickboot-mybatis-plus</module>
         <module>quickboot-auth-client</module>
         <module>quickboot-auth-server</module>
         <module>quickboot-cache-expired</module>

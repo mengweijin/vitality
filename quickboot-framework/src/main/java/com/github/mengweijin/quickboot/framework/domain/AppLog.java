@@ -5,7 +5,6 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,7 +32,7 @@ public class AppLog {
     /**
      * Args from Http Request Body
      */
-    private HashMap<?, ?> requestBody;
+    private Object requestBody;
 
     /**
      * request methodName

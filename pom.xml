@@ -13,7 +13,7 @@
         <module>./quickboot-jpa</module>  
         <module>./quickboot-mybatis-plus</module>  
         <module>./quickboot-orika</module>
-        <module>./quickboot-layui</module>
+<!--        <module>./quickboot-layui</module>-->
 <!--        <module>sample-quickboot-auth-client</module>  -->
 <!--        <module>sample-quickboot-jpa-layui</module>  -->
         <module>sample-quickboot-mybatis-plus</module>  

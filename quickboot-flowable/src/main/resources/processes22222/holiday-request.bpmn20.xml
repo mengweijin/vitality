@@ -36,7 +36,7 @@
         </sequenceFlow>
 
         <serviceTask id="externalSystemCall" name="Enter holidays in external system"
-                     flowable:class="com.github.mengweijin.flowable.delegate.CallExternalSystemJavaDelegate"/>
+                     flowable:class="com.github.mengweijin.flowable.test.delegate.CallExternalSystemJavaDelegate"/>
         <sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
 
 <!--        <userTask id="holidayApprovedTask" name="Holiday approved"/>-->
@@ -44,7 +44,7 @@
         <sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
 
         <serviceTask id="sendRejectionMail" name="Send out rejection email"
-                     flowable:class="com.github.mengweijin.flowable.delegate.SendRejectionMailJavaDelegate"/>
+                     flowable:class="com.github.mengweijin.flowable.test.delegate.SendRejectionMailJavaDelegate"/>
         <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
 
         <endEvent id="approveEnd"/>

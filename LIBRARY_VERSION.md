@@ -16,7 +16,9 @@
 ### Spring cloud 版本兼容性
 [Release train Spring Boot compatibility](https://spring.io/projects/spring-cloud#overview)
 
-### spring cloud alibaba 版本兼容性
+### spring cloud alibaba 版本说明
+[Spring Cloud Alibaba 版本说明](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)
+
 [Spring Cloud Alibaba 2021.0.1.0 升级指南](https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-docs/src/main/asciidoc-zh/sca-upgrade-guide.adoc)
 
 

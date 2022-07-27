@@ -13,6 +13,8 @@ spring:
 #    name: @project.artifactId@
   profiles:
     active: quickboot,dev
+  banner:
+    location: classpath:banner.txt
   mvc:
     throw-exception-if-no-handler-found: false
   resources:

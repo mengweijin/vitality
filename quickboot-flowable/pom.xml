@@ -9,14 +9,41 @@
     </parent>  
     <modelVersion>4.0.0</modelVersion>  
     <artifactId>quickboot-flowable</artifactId>  
-    <properties> 
+    <properties>
         <flowable.version>6.7.2</flowable.version>
     </properties>  
-    <dependencies> 
+    <dependencies>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-modeler</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-admin</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-idm</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-ui-task</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-process-rest</artifactId>
+<!--            <artifactId>flowable-spring-boot-starter-rest</artifactId>-->
+            <version>${flowable.version}</version>
+        </dependency>
         <dependency> 
             <groupId>org.flowable</groupId>  
             <artifactId>flowable-spring-boot-starter-process</artifactId>
-            <version>${flowable.version}</version> 
+<!--            <artifactId>flowable-spring-boot-starter</artifactId>-->
+            <version>${flowable.version}</version>
         </dependency>  
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  

@@ -14,4 +14,9 @@ public class DemoTest {
     void generateUuid() {
         System.out.println(StrUtil.sub(IdUtil.fastSimpleUUID(), 0, 15));
     }
+
+    @Test
+    void test() {
+        System.out.println("哈哈".length());
+    }
 }

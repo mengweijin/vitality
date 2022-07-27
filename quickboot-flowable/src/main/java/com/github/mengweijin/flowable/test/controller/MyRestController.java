@@ -1,6 +1,6 @@
-package com.github.mengweijin.flowable.controller;
+package com.github.mengweijin.flowable.test.controller;
 
-import com.github.mengweijin.flowable.service.MyService;
+import com.github.mengweijin.flowable.test.service.MyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.flowable.task.api.Task;

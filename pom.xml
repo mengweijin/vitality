@@ -16,14 +16,14 @@
         <!-- Comment out the following modules when publishing -->
         <module>quickboot-layui</module>
         <!-- The following modules are not publish -->
-        <module>sample-quickboot-auth-client</module>
-        <module>sample-quickboot-jpa-layui</module>
-        <module>sample-quickboot-mybatis-plus</module>
-        <module>quickboot-auth-client</module>
-        <module>quickboot-auth-server</module>
-        <module>quickboot-cache-expired</module>
-        <module>quickboot-flowable</module>
-        <module>tool-quickboot</module>
+<!--        <module>sample-quickboot-auth-client</module>-->
+<!--        <module>sample-quickboot-jpa-layui</module>-->
+<!--        <module>sample-quickboot-mybatis-plus</module>-->
+<!--        <module>quickboot-auth-client</module>-->
+<!--        <module>quickboot-auth-server</module>-->
+<!--        <module>quickboot-cache-expired</module>-->
+<!--        <module>quickboot-flowable</module>-->
+<!--        <module>tool-quickboot</module>-->
     </modules>  
     <properties> 
         <quickboot.version>1.0.46-SNAPSHOT</quickboot.version>

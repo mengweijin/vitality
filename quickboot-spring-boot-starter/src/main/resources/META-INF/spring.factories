@@ -1,0 +1,12 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.mengweijin.quickboot.QuickBootBeanDefinitionRegistryPostProcessor
+
+# Environment Post Processors
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.github.mengweijin.quickboot.SafetyEncryptEnvironmentPostProcessor
+
+
+
+
+

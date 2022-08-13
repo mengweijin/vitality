@@ -1,9 +1,3 @@
-info:
-  app:
-    parentGroupId: @project.parent.groupId@
-    groupId: @project.groupId@
-    artifactId: @project.artifactId@
-    version: @project.version@
 server:
   port: 8080
   servlet:
@@ -12,14 +6,13 @@ spring:
 #  application:
 #    name: @project.artifactId@
   profiles:
-    active: quickboot,dev
+    active: db,dev
   banner:
     location: classpath:banner.txt
   mvc:
     throw-exception-if-no-handler-found: false
   resources:
     # 对于Restful风格的应用应该设置为false; 对于传统的应用（如: 使用thymeleaf），应该设置为 true, 否则浏览器访问不到静态资源文件
-    # 如果启用knife4j-spring-boot-starter，则需要设置为true, 否则无法正常显示接口文档
     add-mappings: true
   main:
     # 是否允许循环依赖（Spring Cloud Alibaba Sentinel 中就有循环依赖）
@@ -74,6 +67,7 @@ management:
         include: [ "health" ]
         # exclude: ["trace"]
 quickboot:
+  debug: true
   # 是否允许跨域
   cors: true
   # 默认配置加密 key。如：spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='

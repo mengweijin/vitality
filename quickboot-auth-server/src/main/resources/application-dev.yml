@@ -1,6 +1,0 @@
-info:
-  app:
-    parentGroupId: @project.parent.groupId@
-    groupId: @project.groupId@
-    artifactId: @project.artifactId@
-    version: @project.version@

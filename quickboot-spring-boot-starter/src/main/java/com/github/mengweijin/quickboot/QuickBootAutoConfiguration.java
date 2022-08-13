@@ -1,7 +1,6 @@
 package com.github.mengweijin.quickboot;
 
 import com.github.mengweijin.quickboot.exception.DefaultExceptionHandler;
-import com.github.mengweijin.quickboot.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.quickboot.log.LogAspect;
 import com.github.mengweijin.quickboot.mvc.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.response.DefaultResponseBodyAdvice;
@@ -14,12 +13,10 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -81,16 +78,6 @@ public class QuickBootAutoConfiguration {
     @ConditionalOnMissingBean
     public CorsWebMvcConfigurer corsWebMvcConfigurer() {
         return new CorsWebMvcConfigurer();
-    }
-
-    @Bean
-    public FilterRegistrationBean<RepeatableFilter> repeatableFilter() {
-        FilterRegistrationBean<RepeatableFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new RepeatableFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("repeatableFilter");
-        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
-        return registration;
     }
 
     @Bean

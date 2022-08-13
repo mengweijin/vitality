@@ -45,7 +45,6 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         HttpMethod httpMethod = request.getMethod();
-        // 不是 Get 请求方式，还需要从 request body 中获取请求参数
         if(HttpMethod.POST == httpMethod
             || HttpMethod.PUT == httpMethod
             || HttpMethod.DELETE == httpMethod

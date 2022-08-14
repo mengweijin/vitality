@@ -14,9 +14,10 @@
 		<title>QuickBoot</title>
 		<meta name="keywords" content="">
 		<meta name="description" content="">
-		<!--/** http-equiv="refresh" 页面定时刷新，单位：秒。如果浏览器为IE9以下版本，直接跳转到ie9.html的错误页面 **/-->
+		<!--/** [if lt IE 9] 中间可以使用<script> [endif] <script>window.location.href='/error/ie.html';</script> **/-->
+		<!--/** <meta http-equiv="refresh" content="0;error/ie.html"/>   http-equiv="refresh" 页面定时刷新，单位：秒。如果浏览器为IE9以下版本，直接跳转到ie9.html的错误页面 **/-->
 		<!--[if lt IE 9]>
-		<meta http-equiv="refresh" content="0;error/ie9.html"/>
+		<meta content="0;error/ie.html"/>
 		<![endif]-->
 		<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}"/>
 		<link rel="stylesheet" th:href="@{/webjars/layui/dist/css/layui.css}"/>
@@ -33,7 +34,7 @@
 		<![endif]-->
 		<script th:src="@{/webjars/layui/dist/layui.js}"></script>
 		<!--/**
-			使用 layui（2.6.8） 依赖的 jquery 版本（1.12.4，该版本支持 IE 6-8）。
+			使用 layui（2.7.8） 依赖的 jquery 版本（1.12.4，该版本支持 IE 6-8）。
 			后面引入的 js 组件如果依赖 jquery 则必须写在 layui.use(['模块名'], function(){var $ = layui.$}); 代码块中
 			console.log("jquery version：" + layui.$.fn.jquery);
 		 **/-->

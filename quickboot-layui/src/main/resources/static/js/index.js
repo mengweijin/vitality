@@ -11,7 +11,6 @@ layui.config({
     quickboot: 'quickboot'
 }).use(['quickboot'], function(){
     //var quickboot = layui.quickboot;
-    //console.log(quickboot)
 });
 
 

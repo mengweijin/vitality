@@ -16,9 +16,9 @@
 
     <properties> 
         <!-- webjars -->  
-        <locator-core.version>0.50</locator-core.version>  
+        <locator-core.version>0.52</locator-core.version>
         <layui.version>2.7.6</layui.version>
-        <font-awesome.version>6.1.0</font-awesome.version>  
+        <font-awesome.version>6.1.2</font-awesome.version>
         <respond.version>1.4.2</respond.version>  
         <html5shiv.version>3.7.3</html5shiv.version> 
     </properties>  

@@ -11,6 +11,7 @@
     <modules>
         <module>./quickboot-spring-boot-starter</module>
         <module>./quickboot-layui</module>
-        <module>./sample-quickboot-spring-boot-starter</module>
+        <module>./quickboot-generator</module>
+        <module>./sample-quickboot</module>
     </modules>
 </project>

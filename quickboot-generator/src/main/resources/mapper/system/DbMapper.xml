@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.generator.system.mapper.DbMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.generator.system.entity.Db">
+    <result column="ID" property="id" />
+    <result column="CREATE_BY" property="createBy" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="UPDATE_BY" property="updateBy" />
+    <result column="UPDATE_TIME" property="updateTime" />
+    <result column="db_type" property="dbType" />
+    <result column="URL" property="url" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME,
+        db_type,
+        URL,
+        username,
+        password
+    </sql>
+
+</mapper>

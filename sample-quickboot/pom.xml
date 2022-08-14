@@ -8,15 +8,15 @@
         <version>2.7.2</version>
         <relativePath/>
     </parent>
-    <artifactId>sample-quickboot-spring-boot-starter</artifactId>
-    <name>sample-quickboot-spring-boot-starter</name>
+    <artifactId>sample-quickboot</artifactId>
+    <name>sample-quickboot</name>
     <description>Demo project for Spring Boot</description>  
     <properties> 
         <!-- 不上传此jar包到中央仓库或私服 -->  
         <maven.deploy.skip>true</maven.deploy.skip>  
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests>
-        <quickboot.version>1.1.0</quickboot.version>
+        <quickboot-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-spring-boot-starter.version>
         <quickboot-layui.version>1.1.0</quickboot-layui.version>
         <springdoc.version>1.6.9</springdoc.version>
     </properties>
@@ -24,7 +24,7 @@
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-spring-boot-starter</artifactId>
-            <version>${quickboot.version}</version>
+            <version>${quickboot-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
@@ -49,6 +49,24 @@
     </dependencies>  
     <build> 
         <plugins>
+            <plugin>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>code-generator-maven-plugin</artifactId>
+                <version>1.0.15</version>
+                <configuration>
+                    <parameters>
+                        <outputPackage>com.github.mengweijin.quietly.system</outputPackage>
+                        <tables>QTL_PROJECT</tables>
+                        <tablePrefix>QTL_</tablePrefix>
+                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
+                        <dbInfo>
+                            <username>sa</username>
+                            <password/>
+                            <url>jdbc:h2:file:./h2/quickboot;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
+                        </dbInfo>
+                    </parameters>
+                </configuration>
+            </plugin>
             <plugin> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-maven-plugin</artifactId>  

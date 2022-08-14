@@ -10,6 +10,7 @@
     <description>quickboot-parent</description>  
     <modules>
         <module>./quickboot-spring-boot-starter</module>
+        <module>./quickboot-layui</module>
         <module>./sample-quickboot-spring-boot-starter</module>
     </modules>
 </project>

@@ -1,0 +1,26 @@
+spring boot 用户自定义错误页面：
+1. 如果是静态页面，放在如下目录即可：
+    src/
+     +- main/
+         +- java/
+         |   + <source code>
+         +- resources/
+             +- public/
+                 +- error/
+                 |   +- 404.html
+                 +- <other public assets>
+
+2. 如果使用模板引擎，放在如下目录，即可使用模板引擎(thymeleaf)语法：
+    src/
+     +- main/
+         +- java/
+         |   + <source code>
+         +- resources/
+             +- templates/
+                 +- error/
+                 |   +- 5xx.html
+                 +- <other templates>
+
+
+注意：5xx.html可匹配500~509的所有类型错误状态，4xx.html同理可匹配400~409所有错误状态。
+    如果同时存在4xx.html和404.html，当发生404错误时，会优先匹配404.html。其他同理。

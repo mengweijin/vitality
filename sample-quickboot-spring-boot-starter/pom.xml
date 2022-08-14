@@ -17,6 +17,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests>
         <quickboot.version>1.1.0</quickboot.version>
+        <quickboot-layui.version>1.1.0</quickboot-layui.version>
         <springdoc.version>1.6.9</springdoc.version>
     </properties>
     <dependencies>
@@ -24,6 +25,11 @@
             <groupId>com.github.mengweijin</groupId>  
             <artifactId>quickboot-spring-boot-starter</artifactId>
             <version>${quickboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>quickboot-layui</artifactId>
+            <version>${quickboot-layui.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>  

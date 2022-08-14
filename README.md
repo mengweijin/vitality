@@ -1,7 +1,7 @@
 # QuickBoot
 <p align="center">	
-	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-parent%22">
-		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-parent" />
+	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-spring-boot-starter%22">
+		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-spring-boot-starter" />
 	</a>
 	<a target="_blank" href="https://github.com/mengweijin/quickboot/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" />
@@ -18,29 +18,39 @@
 </p>
 
 ## QuickBoot 版本
-| 模块                     | 最新版本                                                                                                                                                                                                                                  |
-|:-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| quickboot-parent       | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-parent%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-parent"/></a>             |
-| quickboot-framework    | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-framework%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-framework"/></a>       |
-| quickboot-mybatis-plus | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-mybatis-plus%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-mybatis-plus"/></a> |
-| quickboot-jpa          | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-jpa%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-jpa"/></a>                   |
-| quickboot-orika        | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-orika%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-orika"/></a>               |
-| quickboot-layui        | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>               |
+| 模块                            | 最新版本                                                                                                                                                                                                                                                |
+|:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| quickboot-spring-boot-starter | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-spring-boot-starter"/></a> |
+| quickboot-layui               | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>                             |
 
 ## 介绍
 快速搭建 SpringBoot 项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
 
-### quickboot-orika
+- 接口统一返回格式：R.java
+- 全局异常处理
+- 可重复从 request 获取 body 的过滤器
+- JdbcTemplate ColumnMapRowMapper
+- 接口请求和返回值详情的 debug 日志记录。
+- cors 跨域请求和 XSS 过滤
+- mybatis plus
+- orika 对象映射
+- redis 重复提交拦截器、限流拦截器
+- 各种 util 工具类
+- spring doc
+
+### quickboot-spring-boot-starter
+```xml
+<dependency>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>quickboot-spring-boot-starter</artifactId>
+    <version>${quickboot.version}</version>
+</dependency>
+```
+
+#### orika
 Bean 类型转换。扩展了 LocalDate, LocalDateTime 的默认转换。
 
 使用示例：
-```xml
-<dependency>
-  <groupId>com.github.mengweijin</groupId>
-  <artifactId>quickboot-orika</artifactId>
-  <version>Latest Version</version>
-</dependency>
-```
 ```java
 // 注册到 Spring 容器
 @Component
@@ -65,24 +75,6 @@ class BeanConverterTest {
     BeanB beanB = mapperFacade.map(beanA, BeanB.class);
   }
 }
-```
-
-
-### 使用 quickboot-mybatis-plus
-```xml
-<project>
-  <parent>
-    <groupId>com.github.mengweijin</groupId>
-    <artifactId>quickboot-parent</artifactId>
-    <version>Latest Version</version>
-  </parent>
-  <dependencies>
-    <dependency>
-      <groupId>com.github.mengweijin</groupId>
-      <artifactId>quickboot-mybatis-plus</artifactId>
-    </dependency>
-  </dependencies>
-</project>
 ```
 
 #### 配置加密
@@ -137,6 +129,13 @@ public class UserController {
 自动记录每一条真实查询的 SQL 记录到 debug 日志中。
 
 #### SpringDoc OpenAPI（Swagger）
+```xml
+<dependency> 
+    <groupId>org.springdoc</groupId>  
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>${springdoc.version}</version>
+</dependency> 
+```
 启动服务后访问 url: http://localhost:8080/swagger-ui/index.html
 
 #### AOP debug 级别，请求、响应参数详情等日志记录
@@ -172,119 +171,6 @@ final IPage<User> page = userService.page(pager.toPage());
 ~~~
 
 
-### quickboot-jpa
-集成 Sping Data JPA. 提供如下功能类：
-- BaseJpaRepository.java
-- BaseServiceImpl.java
-
-配置 basePackages（不配置默认为 basePackages = com）。并且配置的包名要和你项目中的包名保持一直，否则无法使用 BaseJpaRepository, BaseServiceImpl.
-```yaml
-quickboot:
-  # 如果不配置下面这个，默认 basePackages = com
-  jpa:
-    basePackages:
-      - com
-```
-
-~~~~xml
-<project>
-	<parent>
-		<artifactId>quickboot-parent</artifactId>
-		<groupId>com.github.mengweijin</groupId>
-		<version>Latest version</version>
-	</parent>
-    
-    <dependencies>
-      <dependency>
-        <groupId>com.github.mengweijin</groupId>
-        <artifactId>quickboot-jpa</artifactId>
-      </dependency>
-    </dependencies>
-</project>
-~~~~
-
-#### BaseJpaRepository 和 BaseService
-- 兼容所有原生实现 JpaRepository 的功能；
-- 支持数据库表字段的部分值更新的 update 方法；
-- 支持自定义 SQL 的 findByNativeSQL 和 updateByNativeSQL 方法，返回集合并且字段名自动下划线转为驼峰（EntityMapCamelCaseResultTransformer）；
-- 支持 QueryDSL 查询；
-- Service 层继承 BaseServiceImpl 即可不用注入（@Autowired） Repository 而直接使用其方法。
-
-使用方式如下：
-
-- 只需要把原来实现 JpaRepository 接口改为 BaseJpaRepository。
-- Service 层继承 BaseServiceImpl 即可不用注入（@Autowired） Repository 而直接使用其方法。
-
-~~~java
-@Repository
-public interface UserRepository extends BaseJpaRepository<User, Long> {
-}
-
-@Transactional(rollbackFor = Exception.class)
-@Service
-public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository> implements UserService {
-}
-~~~
-#### ID Generator
-在单机应用下，提供了两个 ID 生成器
-
-- SnowflakeIdGenerator
-- TimestampIdGenerator
-
-使用方式：在 BaseEntity 中有参考示例，部分如下：
-~~~java
-@Id
-@GenericGenerator(name = ID_GENERATOR_NAME, strategy = STRATEGY_TIMESTAMP)
-@GeneratedValue(generator = ID_GENERATOR_NAME)
-@JsonSerialize(using = ToStringSerializer.class)
-@Column(name = "ID")
-protected Long id;
-~~~
-
-
-### quickboot-cache-expired
-启用缓存注解 @EnableCaching. SpringBoot 默认会根据引入的依赖实例化了一个 CacheManager：
-
-SpringBoot 原生的 @Cacheable/@CachePut 没有缓存过期的处理。
-
-这里额外提供一个 @CacheExpired 注解，配合 @Cacheable/@CachePut 使用，提供缓存过期注解。
-```xml
-<project>
-    <dependencies>
-      <dependency>
-        <groupId>com.github.mengweijin</groupId>
-        <artifactId>quickboot-cache-expired</artifactId>
-        <version>Latest Version</version>
-      </dependency>
-    </dependencies>
-</project>
-```
-```java
-@RestController
-@RequestMapping("/user")
-public class UserController {
-    /**
-     * 10 秒后，缓存自动过期。
-     */
-    @CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
-    @Cacheable(cacheNames = "user")
-    @GetMapping("/cache")
-    public String hello(){
-        log.info("Entered hello method.");
-        return "Hello";
-    }
-}
-```
-#### 问题说明
-- 当使用存储在应用内存中的缓存管理器时，@CacheExpire 注解配合 @Cacheable 或 @CachePut 非常完美。
-- 当使用存储到磁盘的缓存管理器时，应用重启后，存在已经缓存的数据无法使其缓存过期的问题。如何解决？
-  - 此时建议当使用存储到磁盘的缓存管理器（如：Redis）时，在 Redis 中设置好缓存过期时间，达到双重清理缓存的目的。这样就能同时兼容使用保存在内存或者磁盘的缓存管理器。
-
-@CacheExpire 参数说明：
-- expire：缓存过期时间，默认值为 0，即缓存永不过期。如果同时配置了 cron 和 expire > 0, 优先使用 expire 规则。
-- chronoUnit：ChronoUnit 类，默认值为 ChronoUnit.MINUTES。即默认单位为分钟。和 expire 搭配使用。
-- cron：cron 表达式来控制缓存过期时间。
-
 #### CacheManager 的使用
 * 放入缓存：cache.put(Object key, @Nullable Object value);
 * 取出缓存：cache.get(Object key);
@@ -298,3 +184,11 @@ Cache cache=cacheManager.getCache("cacheName");
 - 集成 Thymeleaf，Layui，扩展了一个 Layui 的 quickboot 模块。
 - 全局 jquery 配置。
 - 添加 Ajax 的 put，delete 方法到 jquery。
+
+```xml
+<dependency>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>quickboot-layui</artifactId>
+    <version>${quickboot-layui.version}</version>
+</dependency>
+```

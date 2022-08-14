@@ -6,7 +6,7 @@ spring:
 #  application:
 #    name: @project.artifactId@
   profiles:
-    active: db,dev
+    active: db,layui,dev
   banner:
     location: classpath:banner.txt
   mvc:

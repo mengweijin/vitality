@@ -11,23 +11,41 @@
 	</parent>
 
 	<groupId>com.github.mengweijin</groupId>
-	<artifactId>quickboot-generator</artifactId>
+	<artifactId>generator-spring-boot-starter</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>quickboot-generator</name>
-	<description>quickboot-generator</description>
+	<name>generator-spring-boot-starter</name>
+	<description>generator-spring-boot-starter</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<quickboot-spring-boot-starter.version>1.1.0</quickboot-spring-boot-starter.version>
 		<quickboot-layui.version>1.1.0</quickboot-layui.version>
+		<mybatis-plus.version>3.5.2</mybatis-plus.version>
 		<mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+		<hutool.version>5.8.5</hutool.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.mengweijin</groupId>
-			<artifactId>quickboot-spring-boot-starter</artifactId>
-			<version>${quickboot-spring-boot-starter.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.baomidou</groupId>-->
+<!--			<artifactId>mybatis-plus</artifactId>-->
+<!--			<version>${mybatis-plus.version}</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>${mybatis-plus-generator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.mengweijin</groupId>
@@ -35,19 +53,14 @@
 			<version>${quickboot-layui.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<!--<version>2.3.31</version> 版本从 spring boot 自动获取-->
 		</dependency>
 		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>mybatis-plus-generator</artifactId>
-			<version>${mybatis-plus-generator.version}</version>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>${hutool.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

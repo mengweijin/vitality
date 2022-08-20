@@ -1,24 +1,23 @@
-package com.github.mengweijin.quickboot;
+package com.github.mengweijin.generator.config;
 
 import cn.hutool.core.util.ClassUtil;
+import com.github.mengweijin.generator.DefaultGenerator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.stereotype.Component;
 
 /**
  * @author mengweijin
  * @date 2022/7/27
  */
-@Component
-public class QuickBootBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+public class GeneratorBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        String quickBootPackage = ClassUtil.getPackage(QuickBootAutoConfiguration.class);
+        String quickBootPackage = ClassUtil.getPackage(DefaultGenerator.class);
         scanner.scan(quickBootPackage);
     }
 

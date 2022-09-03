@@ -67,7 +67,12 @@
             <groupId>org.webjars</groupId>  
             <artifactId>html5shiv</artifactId>  
             <version>${html5shiv.version}</version> 
-        </dependency> 
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <url>https://gitee.com/mengweijin/quickboot</url>

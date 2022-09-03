@@ -4,10 +4,9 @@
 <head th:replace="include::head"></head>
 
 <body class="layui-layout layui-layout-admin">
-    <div th:replace="header::header"></div>
-    <div th:replace="layout/admin/side::side"></div>
-    <div th:replace="layout/admin/body::body"></div>
-    <div th:replace="include::footer"></div>
+    <div th:replace="generator/header::header"></div>
+    <div th:replace="generator/body::body"></div>
+    <div th:replace="generator/include::footer-no-side"></div>
 
     <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${logPath}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
     <script th:inline="javascript">

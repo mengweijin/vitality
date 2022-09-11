@@ -17,7 +17,7 @@
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests>
         <quickboot-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-spring-boot-starter.version>
-        <quickboot-layui.version>1.1.0</quickboot-layui.version>
+        <quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
         <springdoc.version>1.6.9</springdoc.version>
         <generator-spring-boot-starter.version>1.0.0-SNAPSHOT</generator-spring-boot-starter.version>
     </properties>

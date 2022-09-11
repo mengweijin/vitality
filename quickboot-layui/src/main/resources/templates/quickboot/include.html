@@ -47,6 +47,15 @@
 	</div>
 
 	<div th:fragment="footer" class="layui-footer" style="text-align: center;">
+		<div th:replace="::footer-content"></div>
+	</div>
+
+	<!--/** 与 layout/admin/index.html 引用的 footer 的区别是添加了 style="left: 0px;" 样式 **/-->
+	<div th:fragment="footer-no-side" class="layui-footer" style="text-align: center; left: 0px;">
+		<div th:replace="::footer-content"></div>
+	</div>
+
+	<div th:fragment="footer-content">
 		联系我
 		<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes">
 			<i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
@@ -55,11 +64,6 @@
 		The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
 		&lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
 		<script> document.getElementById("footerLicenseCurrentFullYear").innerText=new Date().getFullYear() </script>
-	</div>
-
-	<!--/** 与 layout/admin/index.html 引用的 footer 的区别是添加了 style="left: 0px;" 样式 **/-->
-	<div th:fragment="footer-no-side" class="layui-footer" style="text-align: center; left: 0px;">
-		<div th:include="include::footer"></div>
 	</div>
 
 </html>

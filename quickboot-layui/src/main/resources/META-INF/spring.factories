@@ -1,0 +1,9 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.mengweijin.layui.QuickBootLayuiAutoConfiguration
+
+
+
+
+
+

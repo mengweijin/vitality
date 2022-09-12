@@ -21,7 +21,7 @@
 		<![endif]-->
 		<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}"/>
 		<link rel="stylesheet" th:href="@{/webjars/layui/dist/css/layui.css}"/>
-		<link rel="stylesheet" th:href="@{/css/quickboot.css}">
+		<link rel="stylesheet" th:href="@{/quickboot/quickboot.css}">
 
 		<!--/**
 			让IE8/9支持媒体查询，从而兼容栅格，代码放入你页面 <body> 标签内的任意位置
@@ -38,7 +38,7 @@
 			后面引入的 js 组件如果依赖 jquery 则必须写在 layui.use(['模块名'], function(){var $ = layui.$}); 代码块中
 			console.log("jquery version：" + layui.$.fn.jquery);
 		 **/-->
-		<script th:src="@{/js/index.js}"></script>
+		<script th:src="@{/quickboot/quickboot.js}"></script>
 	</head>
 
 	<!--/** logo  如果要跟侧边栏背景颜色保持一直，添加样式  layui-bg-black 即可。**/-->

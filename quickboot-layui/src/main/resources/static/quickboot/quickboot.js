@@ -5,14 +5,15 @@
  *   var 模块名 = layui.模块名
  * })
  */
+ /**
 layui.config({
-    base: '/js/layui-extend/'
+    base: '/quickboot/layui-extend/'
 }).extend({
     quickboot: 'quickboot'
 }).use(['quickboot'], function(){
     //var quickboot = layui.quickboot;
 });
-
+*/
 
 layui.use(['jquery', 'layer'], function(){
     var $ = layui.$, jQuery = layui.jquery, layer = layui.layer
@@ -98,4 +99,9 @@ layui.use(['jquery', 'layer'], function(){
     		}, jQuery.isPlainObject(url) && url));
     	};
     } );
+
+    jQuery.qb = {
+
+
+    }
 });

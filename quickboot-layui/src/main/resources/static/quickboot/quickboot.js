@@ -14,19 +14,7 @@ layui.config({
     //mod1: 'admin/mod1'
 }).use(['quickboot'], function () {
     var qb = layui.quickboot;
-    console.log(qb)
-
-    let dataList = [
-        { "id": "1", "parentId": "0", "name": "xxx", "age": "22" },
-        { "id": "2", "parentId": "1", "name": "yyy", "age": "15" },
-        { "id": "3", "parentId": "1", "name": "zzz", "age": "12" },
-        { "id": "4", "parentId": "0", "name": "zzz", "age": "23" },
-        { "id": "5", "parentId": "4", "name": "zzz", "age": "34" }
-    ];
-
-    let result = qb.tree(dataList, '0');
-    console.log(result)
-    debugger
+    //console.log(qb)
 });
 
 layui.use(['jquery', 'layer'], function () {
@@ -105,7 +93,7 @@ layui.use(['jquery', 'layer'], function () {
             // The url can be an options object (which then must have .url)
             return jQuery.ajax(jQuery.extend({
                 url: url,
-                method: method, // version added: 1.9.0
+                method: method, // alias for type. version added: 1.9.0
                 type: method,  // prior to 1.9.0.
                 dataType: type,
                 data: data,

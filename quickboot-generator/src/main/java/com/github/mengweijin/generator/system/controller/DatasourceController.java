@@ -26,9 +26,9 @@ public class DatasourceController {
         return "system/datasource/list";
     }
 
-    @GetMapping("/table")
+    @GetMapping("/list")
     @ResponseBody
-    public Page<GenDatasource> table(Page<GenDatasource> page, GenDatasource genDatasource) {
+    public Page<GenDatasource> list(Page<GenDatasource> page, GenDatasource genDatasource) {
         return datasourceService.page(page, new QueryWrapper<>(genDatasource));
     }
 }

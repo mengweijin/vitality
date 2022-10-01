@@ -8,7 +8,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">输入框</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                    class="layui-input">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -25,17 +26,154 @@
         </div>
     </form>
 
-    <script th:inline="javascript">
-		layui.use(['jquery', 'form', 'quickboot'], function(){
-			var $ = layui.$, form = layui.form, quickboot = layui.quickboot;
-			// var args = [[${args}]];
 
-			//提交
-            form.on('submit(formDemo)', function(data){
+    <script type="text/html" id="toolbar">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+        </div>
+    </script>
+    <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
+    <script type="text/html" id="operationTpl">
+        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+        <!-- 支持任意的 laytpl 语法，如： -->
+        {{#  if(d.auth > 2){ }}
+          <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+        {{#  } }}
+    </script>
+
+    <script th:inline="javascript">
+        layui.use(['jquery', 'layer', 'form', 'table', 'quickboot'], function () {
+            var $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table, qb = layui.quickboot;
+
+            table.render({
+                id: 'datasourceTable' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
+                , elem: '#datasourceTable'
+                , skin: 'line'
+                , url: '/datasource/list'
+                , where: {}
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,          //解析接口状态 0 表示成功
+                        "msg": '',          //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.records //解析数据列表
+                    };
+                }
+                , toolbar: '#toolbar'
+                , defaultToolbar: ['filter', 'print', 'exports'
+                    //, { title: '新增', layEvent: 'laytable_add', icon: 'layui-icon-addition' }
+                ]
+                , page: true
+                , request: {
+                    pageName: 'current' //页码的参数名称，默认：page
+                    , limitName: 'size' //每页数据量的参数名，默认：limit
+                }
+                , cols: [
+                    [
+                        { field: 'id', title: 'ID', hide: true }
+                        , { field: 'dbType', title: '数据库类型' }
+                        , { field: 'url', title: 'URL' }
+                        , { field: 'username', title: '用户名' }
+                        , { field: 'password', title: '密码' }
+                        , { field: 'createTime', title: '创建时间', hide: true }
+                        , { field: 'updateTime', title: '更新时间', hide: true }
+                        , { field: 'operation', title: '操作', fixed: 'right', templet: '#operationTpl' }
+                    ]
+                ]
+                , done: function (res, curr, count) {
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    console.log(res);
+
+                    //得到当前页码
+                    console.log(curr);
+
+                    //得到数据总量
+                    console.log(count);
+                }
+            });
+
+            //触发事件
+            table.on('toolbar(datasource-table-filter)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add':
+                        layer.msg('添加');
+                        break;
+                    case 'delete':
+                        layer.msg('删除');
+                        break;
+                    case 'update':
+                        layer.msg('编辑');
+                        break;
+                };
+            });
+
+            //单元格工具事件
+            table.on('tool(datasource-table-filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+                switch (obj.event) {
+                    case 'detail':
+                        layer.msg('查看');
+                        break;
+                    case 'delete':
+                        layer.confirm('确定删除吗？', function (index) {
+                            obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
+                            layer.close(index);
+
+                            // 向服务端发送删除请求，执行完毕后，可通过 reloadData 方法完成数据重载
+                            /*
+                            table.reloadData(id, {
+                              scrollPos: 'fixed'  // 保持滚动条位置不变 - v2.7.3 新增
+                            });
+                            */
+                            layer.msg('删除');
+                        });
+
+
+                        break;
+                    case 'edit':
+                        //do something
+
+                        // 当发送后端请求成功后，可再通过 reloadData 方法完成数据重载
+                        /*
+                        table.reloadData(id, {
+                          scrollPos: 'fixed'  // 保持滚动条位置不变 - v2.7.3 新增
+                        });
+                        */
+                        layer.msg('编辑');
+                        break;
+                };
+            });
+
+
+            function reloadTable(args) {
+                table.reload('datasourceTable', {
+                    where: {
+                        aaaaaa: 'xxx'
+                        , bbb: 'yyy'
+                        //…
+                    }
+                    , page: {
+                        curr: 1
+                    }
+                })
+            }
+
+            //提交
+            form.on('submit(formDemo)', function (data) {
                 layer.msg(JSON.stringify(data.field));
                 return false;
             });
-		});
-	</script>
+        });
+    </script>
 </body>
+
 </html>

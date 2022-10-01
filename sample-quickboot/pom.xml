@@ -18,8 +18,7 @@
         <skipTests>true</skipTests>
         <quickboot-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-spring-boot-starter.version>
         <quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
-        <springdoc.version>1.6.9</springdoc.version>
-        <generator-spring-boot-starter.version>1.0.0-SNAPSHOT</generator-spring-boot-starter.version>
+        <springdoc.version>1.6.11</springdoc.version>
     </properties>
     <dependencies>
         <dependency> 
@@ -37,21 +36,17 @@
             <artifactId>h2</artifactId>  
             <scope>runtime</scope> 
         </dependency>
-        <dependency> 
-            <groupId>org.springdoc</groupId>  
+        <dependency>
+            <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${springdoc.version}</version>
-        </dependency>  
+        </dependency>
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  
             <scope>test</scope> 
         </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>generator-spring-boot-starter</artifactId>
-            <version>${generator-spring-boot-starter.version}</version>
-        </dependency>
+
     </dependencies>  
     <build> 
         <plugins>

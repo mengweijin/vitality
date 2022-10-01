@@ -3,7 +3,7 @@ package com.github.mengweijin.generator.controller;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.github.mengweijin.generator.service.GeneratorService;
 import com.github.mengweijin.generator.vo.GeneratorArgs;
-import com.github.mengweijin.layui.LayuiTableData;
+import com.github.mengweijin.layui.model.LayuiTableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;

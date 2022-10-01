@@ -1,4 +1,4 @@
-package com.github.mengweijin.layui;
+package com.github.mengweijin.layui.model;
 
 import lombok.Data;
 

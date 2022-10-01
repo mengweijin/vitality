@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2022/8/14
  */
 @Controller
-@RequestMapping("/generator/datasource")
+@RequestMapping("/datasource")
 public class DatasourceController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class DatasourceController {
 
     @GetMapping
     public String index() {
-        return "generator/datasource/index";
+        return "system/datasource/list";
     }
 
     @GetMapping("/table")

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+<head th:replace="quickboot/include::head('QuickBoot Generator')"></head>
 
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -19,7 +19,7 @@
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
             <li class="layui-nav-item" lay-unselect lay-header-event="shrinkSpreadBtn">
-                <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"></i></a>
+                <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right" style="font-size: 20px;"></i></a>
             </li>
         </ul>
 
@@ -51,7 +51,7 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/tab');"><i class="fa-solid fa-house" style="font-size: 20px; margin-right: 10px;"></i>首页</a></li>
-                <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/img');"><i class="fas fa-database" style="font-size: 20px; margin-right: 10px;"></i>数据库配置</a></li>
+                <li class="layui-nav-item"><a href="javascript:loadPage('/datasource');"><i class="fas fa-database" style="font-size: 20px; margin-right: 10px;"></i>数据库配置</a></li>
                 <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/img');"><i class="fa-solid fa-file-lines" style="font-size: 20px; margin-right: 10px;"></i>模板配置</a></li>
                 <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="font-size: 20px; margin-right: 10px;"></i>Gitee</a></li>
                 <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="font-size: 20px; margin-right: 10px;"></i>Github</a></li>
@@ -106,7 +106,7 @@
                         title: '查看通知',
                         type: 1,
                         content: '<div style="padding: 15px;">查看通知操作</div>',
-                        area: ['300px', '80%'],
+                        area: ['300px', '60%'],
                         offset: 'rb', //右下角
                         anim: 5,
                         shadeClose: true

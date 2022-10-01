@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error 404</title>
     <!--/** content="5，即5秒后返回首页(url=/表示首页)，可根据需要修改或者删除这段代码 **/-->
-    <meta http-equiv="refresh" content="5;url=/">
+<!--    <meta http-equiv="refresh" content="5;url=/">-->
 </head>
 <body>
 <h1>404</h1>
@@ -13,7 +13,7 @@
 <div>
     对不起，网页走丢了。
     <div th:fragment="backIndexInterval" style="display:inline-block;">
-        <span id="seconds" style="display:inline-block;color: red;text-decoration: underline;">5</span>
+        <span id="seconds" style="display:inline-block;color: red;text-decoration: underline;">10</span>
         秒后返回主页。<a href="javascript:top.document.location.href='/'">主页</a>
 
         <script type="text/javascript">
@@ -25,6 +25,8 @@
                 } else {
                     //去掉定时器的方法
                     window.clearInterval(interval);
+
+                    top.document.location.href = '/';
                 }
             }, 1000);
 

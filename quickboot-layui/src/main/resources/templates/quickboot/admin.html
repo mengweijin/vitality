@@ -50,8 +50,11 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree">
-                    <li class="layui-nav-item"><a href="javascript:;" onclick="javascript:document.getElementById('mainFrame').setAttribute('src','/quickboot/demo/tab')">Tab</a></li>
-                    <li class="layui-nav-item"><a href="javascript:;" onclick="javascript:document.getElementById('mainFrame').setAttribute('src','/quickboot/demo/img')">Img</a></li>
+                    <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/img');"><i class="fa-solid fa-house" style="font-size: 20px; margin-right: 10px;"></i>首页</a></li>
+                    <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/tab');"><i class="fa-solid fa-table-columns" style="font-size: 20px; margin-right: 10px;"></i>Tab 页</a></li>
+                    <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="font-size: 20px; margin-right: 10px;"></i>Gitee</a></li>
+                    <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="font-size: 20px; margin-right: 10px;"></i>Github</a></li>
+
                     <li class="layui-nav-item">
                         <a class="" href="javascript:;">menu group 1</a>
                         <dl class="layui-nav-child">
@@ -61,15 +64,6 @@
                             <dd><a href="javascript:;">the links</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">menu group 2</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">list 1</a></dd>
-                            <dd><a href="javascript:;">list 2</a></dd>
-                            <dd><a href="javascript:;">超链接</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
                     <li class="layui-nav-item"><a href="javascript:;">the links</a></li>
                 </ul>
             </div>
@@ -144,6 +138,10 @@
                 }
             });
         });
+
+        function loadPage(url) {
+            document.getElementById('mainFrame').setAttribute('src', url);
+        }
     </script>
 </body>
 

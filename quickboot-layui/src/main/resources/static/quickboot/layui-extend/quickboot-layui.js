@@ -4,11 +4,11 @@
 **/
 layui.define(['jquery', 'layer'], function(exports){
   "use strict";
-  var $ = layui.$, layer = layui.layer
+  let $ = layui.$, layer = layui.layer
 
-  var MOD_NAME = 'quickboot'
+  let MOD_NAME = 'quickboot'
 
-  var quickboot = {
+  let quickboot = {
     /**
      * 获取 Layui checkbox 的提交值。
      * selector: 如：
@@ -17,8 +17,8 @@ layui.define(['jquery', 'layer'], function(exports){
      * @return 示例：1,2,3,4
      */
     getCheckBoxValues: function(selector) {
-        var value = [];
-        $(selector).each(function(){
+        let value = [];
+        $(selector).each(function() {
             value.push($(this).val());
         });
         return value.join(",");
@@ -61,23 +61,10 @@ layui.define(['jquery', 'layer'], function(exports){
     },
 
     /**
-     * 使用：quickboot.refreshLayerParentTable('logPathDataTable');
+     * 使用：quickboot.reload('logPathDataTable');
      */
-    refreshLayerParentTable(tableId){
+    reloadParentTable(tableId){
         parent.layui.table.reload(tableId);
-    },
-
-    /**
-     * layui表单必填项label添加红色星号
-     */
-    addLayuiFormRequiredStyle : function () {
-        let $labels = $("[lay-verify*='required']").parent("div").siblings("label.layui-form-label");
-        $labels.each(function(index, item){
-            if(!$(item).hasClass("quickboot-layui-form-required")){
-                $(item).addClass("quickboot-layui-form-required")
-                       .append($("<strong style='color: red; font-size: 20px;'>*</strong>"));
-            }
-        });
     },
 
     /**

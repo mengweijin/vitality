@@ -5,18 +5,17 @@
  *   var 模块名 = layui.模块名
  * })
  */
- /**
 layui.config({
     base: '/quickboot/layui-extend/'
 }).extend({
     quickboot: 'quickboot'
 }).use(['quickboot'], function(){
-    //var quickboot = layui.quickboot;
+    //var qb = layui.quickboot;
+    //console.log(layui.layui.quickboot)
 });
-*/
 
 layui.use(['jquery', 'layer'], function(){
-    var $ = layui.$, jQuery = layui.jquery, layer = layui.layer
+    let $ = layui.$, jQuery = layui.jquery, layer = layui.layer
     /**
     * jquery ajax 全局配置
     */
@@ -71,7 +70,7 @@ layui.use(['jquery', 'layer'], function(){
      * jQuery.each( [ "get", "post" ], function( i, method )
      * jquery 默认只有 get/post 两种快捷的方法，这里扩展一下。
      * 注意：axios 中的 get 方法的使用就有区别于其他方法，这点需要注意。
-     * put 请求方法。del 请求方法（delete 是关键词，故使用 del 名称。）。
+     * put 请求方法。delete 请求方法。
      */
     jQuery.each(["put", "delete"], function(i, method) {
         /**
@@ -99,9 +98,4 @@ layui.use(['jquery', 'layer'], function(){
     		}, jQuery.isPlainObject(url) && url));
     	};
     } );
-
-    jQuery.qb = {
-
-
-    }
 });

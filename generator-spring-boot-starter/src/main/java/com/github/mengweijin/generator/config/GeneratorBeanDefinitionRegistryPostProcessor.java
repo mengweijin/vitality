@@ -1,7 +1,7 @@
 package com.github.mengweijin.generator.config;
 
 import cn.hutool.core.util.ClassUtil;
-import com.github.mengweijin.generator.DefaultGenerator;
+import com.github.mengweijin.generator.core.DefaultGenerator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
  * @author mengweijin
  * @date 2022/7/27
  */
+//@Component
 public class GeneratorBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     @Override

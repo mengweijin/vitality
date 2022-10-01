@@ -3,8 +3,10 @@
 
 <!--/**
 	<div th:replace="header"></div>
-	这种只指定模板名称的引用方式会把当前文件所以内容引用到父页面，
+	这种只指定模板名称的引用方式会把当前文件所有内容引用到父页面，
 	因此使用 th:replace 时，不能写 <!DOCTYPE html> 和 <html> 等其他任何额外的标签。
+	或者引用指定片段：
+	<div th:replace="header::header"></div>
 **/-->
 <div th:fragment="header" class="layui-header">
 	<div th:replace="quickboot/include::logo"></div>
@@ -58,7 +60,7 @@
 
 	<script>
 		layui.use(['element', 'layer', 'util', 'quickboot'], function(){
-		  let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, quickboot = layui.quickboot
+		  let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot
 
 		  //头部事件
 		  util.event('lay-header-event', {

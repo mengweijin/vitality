@@ -1,8 +1,10 @@
-package com.github.mengweijin.generator;
+package com.github.mengweijin.generator.core;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+
+import javax.sql.DataSource;
 
 /**
  * @author mengweijin
@@ -10,6 +12,13 @@ import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
  */
 public class DefaultGenerator extends AutoGenerator {
 
+    public DefaultGenerator(String url, String username, String password) {
+        super(new DataSourceConfig.Builder(url, username, password).build());
+    }
+
+    public DefaultGenerator(DataSource dataSource) {
+        super(new DataSourceConfig.Builder(dataSource).build());
+    }
     /**
      * 构造方法
      *

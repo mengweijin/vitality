@@ -1,13 +1,12 @@
-package com.github.mengweijin.generator.service;
+package com.github.mengweijin.generator.system.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.generator.DefaultGenerator;
+import com.github.mengweijin.generator.core.DefaultGenerator;
 import com.github.mengweijin.generator.constant.TableInfoCacheKey;
-import com.github.mengweijin.generator.vo.GeneratorArgs;
+import com.github.mengweijin.generator.core.vo.GeneratorArgs;
 import org.springframework.aop.framework.AopContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class GeneratorService {
 
-    @Autowired
+    //@Autowired
     private DefaultGenerator defaultGenerator;
 
     @Cacheable(TableInfoCacheKey.TABLE_INFO_LIST)

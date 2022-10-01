@@ -1,4 +1,4 @@
-package com.github.mengweijin.generator.config;
+package com.github.mengweijin.generator.core.factory;
 
 import cn.hutool.core.io.FileUtil;
 import org.thymeleaf.context.Context;

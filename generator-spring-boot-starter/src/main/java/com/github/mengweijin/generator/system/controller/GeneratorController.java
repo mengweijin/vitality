@@ -1,9 +1,9 @@
-package com.github.mengweijin.generator.controller;
+package com.github.mengweijin.generator.system.controller;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.generator.service.GeneratorService;
-import com.github.mengweijin.generator.vo.GeneratorArgs;
-import com.github.mengweijin.layui.model.LayuiTableData;
+import com.github.mengweijin.generator.system.service.GeneratorService;
+import com.github.mengweijin.generator.core.vo.GeneratorArgs;
+import com.github.mengweijin.layui.model.LayuiTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -43,9 +43,9 @@ public class GeneratorController {
 
     @GetMapping("/tableInfoList")
     @ResponseBody
-    public LayuiTableData getTableInfoList(@Nullable String tableName) {
+    public LayuiTable getTableInfoList(@Nullable String tableName) {
         List<TableInfo> list = generatorService.selectTableInfoListByTableName(tableName);
-        return LayuiTableData.data(list);
+        return LayuiTable.data(list, list.size());
     }
     @GetMapping("/tableInfoListCacheEvict")
     @ResponseBody

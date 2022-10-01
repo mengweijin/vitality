@@ -1,4 +1,4 @@
-package com.github.mengweijin.generator.vo;
+package com.github.mengweijin.generator.core.vo;
 
 import cn.hutool.system.SystemUtil;
 import com.github.mengweijin.generator.util.Utils;

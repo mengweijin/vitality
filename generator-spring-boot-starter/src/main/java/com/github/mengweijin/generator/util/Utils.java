@@ -18,7 +18,7 @@ public final class Utils {
         } catch (RuntimeException e) {
             StackTraceElement[] stackTraceArray = e.getStackTrace();
             StackTraceElement mainElement = Arrays.stream(stackTraceArray).filter(element -> "main".equals(element.getMethodName())).findFirst().get();
-            // com.github.mengweijin.generator.DefaultGenerator
+            // com.github.mengweijin.generator.core.DefaultGenerator
             String className = mainElement.getClassName();
             return ClassUtil.loadClass(className, false);
         }

@@ -9,7 +9,7 @@
         <div class="layui-header">
             <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
             <div class="layui-logo layui-hide-xs">
-                <img th:src="@{/image/logo.png}"/>
+                <img th:src="@{/image/logo.png}" style="cursor: pointer;" onclick="javascript:window.location.href='/'"/>
             </div>
             
             <!-- 头部区域（可配合layui 已有的水平导航） -->
@@ -59,11 +59,11 @@
             </ul>
         </div>
 
-        <div class="layui-body" style="left: 0px;">
+        <div class="layui-body" style="padding: 15px; text-align: center; left: 0px;">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px; text-align: center;">
-                <img src="/image/logo-16x9-1794x1009.png" style="max-width: 50%; max-height: 50%;">
-            </div>
+            <iframe id="mainFrame" name="mainFrame" src="/quickboot/demo/img"
+                    style="overflow:visible;" scrolling="auto" frameborder="no" width="100%" height="100%;">
+            </iframe>
         </div>
 
         <div class="layui-footer" style="text-align: center; left: 0px;">

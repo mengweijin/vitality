@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.github.mengweijin</groupId>
-	<artifactId>generator-spring-boot-starter</artifactId>
+	<artifactId>quickboot-generator</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>generator-spring-boot-starter</name>
-	<description>generator-spring-boot-starter</description>
+	<name>quickboot-generator</name>
+	<description>quickboot-generator</description>
 
 	<properties>
 		<java.version>1.8</java.version>

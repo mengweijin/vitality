@@ -6,5 +6,5 @@ package com.github.mengweijin.generator.constant;
  */
 public interface GeneratorConst {
 
-    String BASE_PATH = "templates/generator/";
+    String BASE_PATH = "templates/system/";
 }

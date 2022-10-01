@@ -34,20 +34,6 @@ layui.define(['jquery', 'layer'], function (exports) {
     },
 
     /**
-     * 注意：要使用empty()方法清理对象，否则可能导致内存泄漏
-     * 并且所加载的页面中的js一定要写在$(function(){......});中，否则可能导致变量重复定义，控制台发生异常。
-     * @param selector jquery选择器，示例：#content
-     * @param url
-     * @param params
-     */
-    loadPage: function (selector, url, params) {
-      let $selector = $(selector).empty();
-      $.get(url, params, function (data) {
-        $selector.html(data);
-      });
-    },
-
-    /**
     * 从父页面关闭layer弹窗。（从父页面获取值 parent.$('#父页面元素id').val();）
     * 注意：window.parent和parent是有区别的
     */

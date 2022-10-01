@@ -8,7 +8,7 @@
         
         <div class="layui-header">
             <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
-            <div class="layui-logo layui-hide-xs layui-bg-black">
+            <div class="layui-logo layui-hide-xs">
                 <img th:src="@{/image/logo.png}" style="cursor: pointer;" onclick="javascript:window.location.href='/'"/>
             </div>
             
@@ -18,8 +18,8 @@
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="#javascript:;"><i class="layui-icon layui-icon-shrink-right"></i><span></span></a>
+                <li class="layui-nav-item" lay-unselect lay-header-event="shrinkSpreadBtn">
+                    <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"></i></a>
                 </li>
             </ul>
 
@@ -34,10 +34,14 @@
                         <dd><a href="">Sign out</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+                <li class="layui-nav-item" lay-unselect lay-header-event="notice">
                     <a href="javascript:;">
-                        <i class="layui-icon layui-icon-more-vertical"></i>
+                        <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
+                        通知<span class="layui-badge">9</span>
                     </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="menuRight">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
         </div>
@@ -93,11 +97,25 @@
 
     <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
     <script th:inline="javascript">
-        layui.use(['element', 'layer', 'util'], function () {
+        layui.use(['element', 'layer', 'util', 'jquery'], function () {
             let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot;
             // let args = [[${args}]];
             //头部事件
             util.event('lay-header-event', {
+                shrinkSpreadBtn: function(othis) {
+                    let $btn = $("#shrinkSpreadIcon");
+                    if ($btn.hasClass('layui-icon-shrink-right')) {
+                        $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
+                        $(".layui-side").animate({width: 'toggle'}); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏
+                        $(".layui-body").animate({left: '0px'});
+                        $(".layui-footer").animate({left: '0px'});
+                    } else if ($btn.hasClass('layui-icon-spread-left')) {
+                        $btn.removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right');
+                        $(".layui-side").animate({width: 'toggle'});
+                        $(".layui-body").animate({left: '200px'});
+                        $(".layui-footer").animate({left: '200px'});
+                    }
+                },
                 //左侧菜单事件
                 menuLeft: function (othis) {
                     layer.msg('展开左侧菜单的操作', { icon: 0 });

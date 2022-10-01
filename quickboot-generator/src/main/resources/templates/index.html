@@ -1,135 +1,130 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="quickboot/include::head('QuickBoot Generator')"></head>
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
 
 <body>
-    <div class="layui-layout layui-layout-admin">
-        
-        <div class="layui-header">
-            <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
-            <div class="layui-logo layui-hide-xs layui-bg-black">
-                <img th:src="@{/image/logo.png}"/>
-            </div>
-            
-            <!-- 头部区域（可配合layui 已有的水平导航） -->
-            <ul class="layui-nav layui-layout-left">
-                <!-- 移动端显示 -->
-                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-                    <i class="layui-icon layui-icon-spread-left"></i>
-                </li>
+<div class="layui-layout layui-layout-admin">
 
-                <li class="layui-nav-item layui-hide-xs">
-                    <a href="/"><i class="layui-icon layui-icon-home" style="font-weight:bold;font-size: 30px; color: #1E9FFF;"></i><span>Home</span></a>
-                </li>
-                <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="">nav 3</a></li>
+    <div class="layui-header">
+        <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
+        <div class="layui-logo layui-hide-xs">
+            <img th:src="@{/image/logo.png}" style="cursor: pointer;" onclick="javascript:window.location.href='/'"/>
+        </div>
+
+        <!-- 头部区域（可配合layui 已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
+            <li class="layui-nav-item" lay-unselect lay-header-event="shrinkSpreadBtn">
+                <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"></i></a>
+            </li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <img src="/favicon.ico" class="layui-nav-img">Admin
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Your Profile</a></dd>
+                    <dd><a href="">Settings</a></dd>
+                    <dd><a href="">Sign out</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" lay-unselect lay-header-event="menuRight">
+                <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item"><a href="javascript:;" onclick="javascript:document.getElementById('mainFrame').setAttribute('src','/quickboot/demo/tab')">Tab</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" onclick="javascript:document.getElementById('mainFrame').setAttribute('src','/quickboot/demo/img')">Img</a></li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">nav groups</a>
+                    <a class="" href="javascript:;">menu group 1</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">menu 11</a></dd>
-                        <dd><a href="">menu 22</a></dd>
-                        <dd><a href="">menu 33</a></dd>
+                        <dd><a href="javascript:;">menu 1</a></dd>
+                        <dd><a href="javascript:;">menu 2</a></dd>
+                        <dd><a href="javascript:;">menu 3</a></dd>
+                        <dd><a href="javascript:;">the links</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-header-event="menuLeft">
-                    <a href="javascript:;">
-                        <i class="layui-icon layui-icon-more"></i>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                    <a href="javascript:;">
-                        <img src="/favicon.ico" class="layui-nav-img">Admin
-                    </a>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">menu group 2</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">Your Profile</a></dd>
-                        <dd><a href="">Settings</a></dd>
-                        <dd><a href="">Sign out</a></dd>
+                        <dd><a href="javascript:;">list 1</a></dd>
+                        <dd><a href="javascript:;">list 2</a></dd>
+                        <dd><a href="javascript:;">超链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-                    <a href="javascript:;">
-                        <i class="layui-icon layui-icon-more-vertical"></i>
-                    </a>
-                </li>
+                <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">the links</a></li>
             </ul>
-        </div>
-
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">menu group 1</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">menu 1</a></dd>
-                            <dd><a href="javascript:;">menu 2</a></dd>
-                            <dd><a href="javascript:;">menu 3</a></dd>
-                            <dd><a href="">the links</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">menu group 2</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">list 1</a></dd>
-                            <dd><a href="javascript:;">list 2</a></dd>
-                            <dd><a href="">超链接</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
-                    <li class="layui-nav-item"><a href="">the links</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="layui-body">
-            <!-- 内容主体区域 -->
-            <div style="padding: 15px; text-align: center;">
-                <img src="/image/logo-16x9-1794x1009.png" style="max-width: 50%; max-height: 50%;">
-            </div>
-        </div>
-
-        <div class="layui-footer" style="text-align: center;">
-            <!-- 底部固定区域 -->
-            联系我
-            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes">
-                <i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
-            </a>
-
-            The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
-            &lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
-            <script> document.getElementById("footerLicenseCurrentFullYear").innerText=new Date().getFullYear() </script>
         </div>
     </div>
 
-    <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
-    <script th:inline="javascript">
+    <div class="layui-body" style="padding-left: 15px; text-align: center;">
+        <!-- 内容主体区域 -->
+        <iframe id="mainFrame" name="mainFrame" src="/quickboot/demo/tab"
+                style="overflow:visible;" scrolling="auto" frameborder="no" width="100%" height="100%;">
+        </iframe>
+    </div>
 
-        layui.use(['element', 'layer', 'util'], function () {
+    <div class="layui-footer" style="text-align: center;">
+        <!-- 底部固定区域 -->
+        联系我
+        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes">
+            <i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
+        </a>
+
+        The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
+        &lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
+        <script> document.getElementById("footerLicenseCurrentFullYear").innerText=new Date().getFullYear() </script>
+    </div>
+</div>
+
+<!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
+<script th:inline="javascript">
+        layui.use(['element', 'layer', 'util', 'jquery'], function () {
             let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot;
             // let args = [[${args}]];
             //头部事件
             util.event('lay-header-event', {
+                shrinkSpreadBtn: function(othis) {
+                    let $btn = $("#shrinkSpreadIcon");
+                    if ($btn.hasClass('layui-icon-shrink-right')) {
+                        $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
+                        $(".layui-side").animate({width: 'toggle'}); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏
+                        $(".layui-body").animate({left: '0px'});
+                        $(".layui-footer").animate({left: '0px'});
+                    } else if ($btn.hasClass('layui-icon-spread-left')) {
+                        $btn.removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right');
+                        $(".layui-side").animate({width: 'toggle'});
+                        $(".layui-body").animate({left: '200px'});
+                        $(".layui-footer").animate({left: '200px'});
+                    }
+                },
                 //左侧菜单事件
                 menuLeft: function (othis) {
                     layer.msg('展开左侧菜单的操作', { icon: 0 });
-                }, 
+                },
                 menuRight: function () {
                     layer.open({
-                        type: 1, 
-                        content: '<div style="padding: 15px;">处理右侧面板的操作</div>', 
-                        area: ['260px', '100%'], 
+                        type: 1,
+                        content: '<div style="padding: 15px;">处理右侧面板的操作</div>',
+                        area: ['260px', '100%'],
                         offset: 'rt', //右上角
-                        anim: 5, 
+                        anim: 5,
                         shadeClose: true
                     });
                 }
             });
-
         });
     </script>
 </body>

@@ -65,12 +65,8 @@
                     };
                 }
                 , toolbar: '#toolbar'
-                , defaultToolbar: ['filter', 'print', 'exports'
-                    //, { title: '新增', layEvent: 'laytable_add', icon: 'layui-icon-addition' }
-                ]
-                , page: {
-                    theme: '#1E9FFF'
-                }
+                , defaultToolbar: ['filter', 'print', 'exports']
+                , page: { theme: '#1E9FFF' }
                 , request: {
                     pageName: 'current' //页码的参数名称，默认：page
                     , limitName: 'size' //每页数据量的参数名，默认：limit
@@ -108,10 +104,13 @@
 
                 switch (obj.event) {
                     case 'clone':
-                        $.post("datasource/clone/" + row.id, function (res) {
-                            if(res.code === 200) {
-                                reloadTable();
-                            }
+                        layer.confirm('确定复制吗？', function (index) {
+                            $.post("datasource/clone/" + row.id, function (res) {
+                                if(res.code === 200) {
+                                    reloadTable();
+                                }
+                                layer.close(index);
+                            });
                         });
                         break;
                     case 'detail':
@@ -122,8 +121,8 @@
                             $.delete("datasource/delete/" + row.id, function (res) {
                                 if(res.code === 200) {
                                     obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
-                                    layer.close(index);
                                 }
+                                layer.close(index);
                             });
                         });
                         break;
@@ -151,8 +150,8 @@
             });
 
             function reloadTable(params) {
-                table.reload('datasourceTable', {
-                    where: params || {}, page: { curr: 1 }
+                table.reloadData('datasourceTable', {
+                    where: params || {}, page: { theme: '#1E9FFF', curr: 1 }
                 })
             }
         });

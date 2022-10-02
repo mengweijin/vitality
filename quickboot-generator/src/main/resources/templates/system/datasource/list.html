@@ -40,8 +40,9 @@
     </script>
     <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
     <script type="text/html" id="operationTpl">
-        <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list" style="color: #1E9FFF; font-weight: bold;"></i></a>
-        <a href="#" lay-event="edit" title="Edit" style="margin-right: 10px;">    <i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
         <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
     </script>
 
@@ -76,14 +77,14 @@
                 }
                 , cols: [
                     [
-                        { field: 'id', title: 'ID', hide: true }
+                        { field: 'id', title: 'ID', width: 200, hide: true }
                         , { field: 'dbType', title: '数据库类型', width: 100 }
-                        , { field: 'url', title: 'URL' }
+                        , { field: 'url', title: 'URL', minWidth: 300 }
                         , { field: 'username', title: '用户名', width: 100 }
                         , { field: 'password', title: '密码', width: 150 }
                         , { field: 'createTime', title: '创建时间', width: 170, hide: true }
                         , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
-                        , { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
+                        , { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                     ]
                 ]
             });
@@ -103,24 +104,27 @@
 
             //单元格工具事件
             table.on('tool(datasource-table-filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
-                var data = obj.data; //获得当前行数据
+                var row = obj.data; //获得当前行数据
 
                 switch (obj.event) {
+                    case 'clone':
+                        $.post("datasource/clone/" + row.id, function (res) {
+                            if(res.code === 200) {
+                                reloadTable();
+                            }
+                        });
+                        break;
                     case 'detail':
                         layer.msg('查看');
                         break;
                     case 'delete':
                         layer.confirm('确定删除吗？', function (index) {
-                            obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
-                            layer.close(index);
-
-                            // 向服务端发送删除请求，执行完毕后，可通过 reloadData 方法完成数据重载
-                            /*
-                            table.reloadData(id, {
-                              scrollPos: 'fixed'  // 保持滚动条位置不变 - v2.7.3 新增
+                            $.delete("datasource/delete/" + row.id, function (res) {
+                                if(res.code === 200) {
+                                    obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
+                                    layer.close(index);
+                                }
                             });
-                            */
-                            layer.msg('删除');
                         });
                         break;
                     case 'edit':
@@ -137,18 +141,20 @@
                 };
             });
 
-
             /* 监听表单提交——查询按钮——重载表格 */
             form.on('submit(search-filter)', function(data){
                 layer.msg(JSON.stringify(data.field));
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
 
-                //执行重载
-                table.reload('datasourceTable', {
-                    where: data.field, page: { curr: 1 }
-                })
+                reloadTable(data.field);
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
+
+            function reloadTable(params) {
+                table.reload('datasourceTable', {
+                    where: params || {}, page: { curr: 1 }
+                })
+            }
         });
     </script>
 </body>

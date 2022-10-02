@@ -37,32 +37,35 @@ layui.use(['jquery', 'layer'], function () {
         },
         complete: function (xhr) {
             layer.close(this.layerIndex);
+            if(this.type != 'GET') {
+                layer.msg('操作成功！ <br>Operate successfully! ', {icon: 1});
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             switch (xhr.status) {
                 case (400):
-                    var message = "Client Error! Please check your input!"
+                    var message = "客户端异常，请检查你的输入！<br>Client Error! Please check your input!"
                     if (xhr.responseJSON.message) {
                         message = xhr.responseJSON.message;
                     }
                     layer.msg(message, { icon: 5, time: 0, closeBtn: 1 });
                     break;
                 case (401):
-                    layer.msg("No login or Session is invalid!", { icon: 2 });
+                    layer.msg("未登录或者会话已过期！<br>No login or Session is invalid!", { icon: 2 });
                     // 刷新当前页面
-                    window.location.reload();
+                    top.location.reload(true);
                     break;
                 case (403):
-                    layer.msg("No permission!", { icon: 2 });
+                    layer.msg("无权限！<br>No permission!", { icon: 2 });
                     break;
                 case (408):
-                    layer.msg("Request timeout!", { icon: 2 });
+                    layer.msg("请求超时！<br>Request timeout!", { icon: 2 });
                     break;
                 case (500):
-                    layer.msg("Server Exception!", { icon: 2 });
+                    layer.msg("服务器异常！<br>Server Exception!", { icon: 2 });
                     break;
                 default:
-                    layer.msg('Unknown error, please contact your administrator!', { icon: 2 });
+                    layer.msg('未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator!', { icon: 2 });
                     break;
             }
         }

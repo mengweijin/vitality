@@ -3,7 +3,7 @@
 
 <head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
 
-<body>
+<body style="padding: 15px 15px;">
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">输入框</label>
@@ -29,20 +29,15 @@
 
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
-            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+            <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition layui-font-12"></i> 添加</button>
+            <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete layui-font-12"></i> 批量删除</button>
         </div>
     </script>
     <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
     <script type="text/html" id="operationTpl">
-        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
-        <!-- 支持任意的 laytpl 语法，如： -->
-        {{#  if(d.auth > 2){ }}
-          <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
-        {{#  } }}
+        <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list" style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="edit" title="Edit" style="margin-right: 10px;">    <i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
     </script>
 
     <script th:inline="javascript">
@@ -67,7 +62,9 @@
                 , defaultToolbar: ['filter', 'print', 'exports'
                     //, { title: '新增', layEvent: 'laytable_add', icon: 'layui-icon-addition' }
                 ]
-                , page: true
+                , page: {
+                    theme: '#1E9FFF'
+                }
                 , request: {
                     pageName: 'current' //页码的参数名称，默认：page
                     , limitName: 'size' //每页数据量的参数名，默认：limit
@@ -75,13 +72,13 @@
                 , cols: [
                     [
                         { field: 'id', title: 'ID', hide: true }
-                        , { field: 'dbType', title: '数据库类型' }
+                        , { field: 'dbType', title: '数据库类型', width: 100 }
                         , { field: 'url', title: 'URL' }
-                        , { field: 'username', title: '用户名' }
-                        , { field: 'password', title: '密码' }
-                        , { field: 'createTime', title: '创建时间', hide: true }
-                        , { field: 'updateTime', title: '更新时间', hide: true }
-                        , { field: 'operation', title: '操作', fixed: 'right', templet: '#operationTpl' }
+                        , { field: 'username', title: '用户名', width: 100 }
+                        , { field: 'password', title: '密码', width: 150 }
+                        , { field: 'createTime', title: '创建时间', width: 170, hide: true }
+                        , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
+                        , { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
                     ]
                 ]
                 , done: function (res, curr, count) {
@@ -99,16 +96,13 @@
 
             //触发事件
             table.on('toolbar(datasource-table-filter)', function (obj) {
-                var checkStatus = table.checkStatus(obj.config.id);
+                //var checkStatus = table.checkStatus(obj.config.id);
                 switch (obj.event) {
                     case 'add':
                         layer.msg('添加');
                         break;
-                    case 'delete':
-                        layer.msg('删除');
-                        break;
-                    case 'update':
-                        layer.msg('编辑');
+                    case 'batchDelete':
+                        layer.msg('批量删除');
                         break;
                 };
             });
@@ -116,8 +110,6 @@
             //单元格工具事件
             table.on('tool(datasource-table-filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
                 var data = obj.data; //获得当前行数据
-                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-                var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
                 switch (obj.event) {
                     case 'detail':
@@ -136,8 +128,6 @@
                             */
                             layer.msg('删除');
                         });
-
-
                         break;
                     case 'edit':
                         //do something

@@ -24,6 +24,12 @@
         </ul>
 
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item" lay-unselect lay-header-event="notice" style="width: 130px;">
+                <a href="javascript:;">
+                    <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
+                    通知<span class="layui-badge">99+</span>
+                </a>
+            </li>
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
                     <img src="/favicon.ico" class="layui-nav-img">Admin
@@ -33,12 +39,6 @@
                     <dd><a href="">Settings</a></dd>
                     <dd><a href="">Sign out</a></dd>
                 </dl>
-            </li>
-            <li class="layui-nav-item" lay-unselect lay-header-event="notice">
-                <a href="javascript:;">
-                    <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
-                    通知<span class="layui-badge">9</span>
-                </a>
             </li>
             <li class="layui-nav-item" lay-unselect lay-header-event="menuRight">
                 <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="layui-body" style="padding: 0 15px; text-align: center;">
+    <div class="layui-body" style="text-align: center;">
         <!-- 内容主体区域 -->
         <iframe id="mainFrame" name="mainFrame" src="/quickboot/demo/img"
                 style="overflow:visible;" scrolling="auto" frameborder="no" width="100%" height="100%;">

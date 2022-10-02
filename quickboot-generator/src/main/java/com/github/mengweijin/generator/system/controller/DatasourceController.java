@@ -1,6 +1,7 @@
 package com.github.mengweijin.generator.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.generator.system.entity.GenDatasource;
 import com.github.mengweijin.generator.system.service.DatasourceService;
@@ -26,9 +27,13 @@ public class DatasourceController {
         return "system/datasource/list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/page")
     @ResponseBody
-    public Page<GenDatasource> list(Page<GenDatasource> page, GenDatasource genDatasource) {
-        return datasourceService.page(page, new QueryWrapper<>(genDatasource));
+    public Page<GenDatasource> page(Page<GenDatasource> page, GenDatasource genDatasource) {
+        LambdaQueryWrapper<GenDatasource> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StrUtil.isNotBlank(genDatasource.getUsername()), GenDatasource::getUsername, genDatasource.getUsername());
+        wrapper.eq(genDatasource.getDbType() != null, GenDatasource::getDbType, genDatasource.getDbType());
+
+        return datasourceService.page(page, wrapper);
     }
 }

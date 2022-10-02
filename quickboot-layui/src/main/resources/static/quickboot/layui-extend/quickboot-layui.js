@@ -9,6 +9,7 @@ layui.define(['jquery', 'layer'], function (exports) {
   let MOD_NAME = 'quickboot'
 
   let quickboot = {
+
     /**
      * 获取 Layui checkbox 的提交值。
      * selector: 如：

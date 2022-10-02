@@ -6,22 +6,27 @@
 <body style="padding: 15px 15px;">
     <form class="layui-form" action="">
         <div class="layui-form-item">
-            <label class="layui-form-label">输入框</label>
-            <div class="layui-input-block">
-                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
-                    class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">数据库类型</label>
+                <div class="layui-input-inline">
+                    <select name="dbType" lay-search th:with="dbTypes=${@datasourceService.getDbTypes()}">
+                        <option value="">请选择</option>
+                        <option th:each="item : ${dbTypes}" th:value="${item}" th:text="${item}"></option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">文本域</label>
-            <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input name="username" autocomplete="off" class="layui-input">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+            <div class="layui-inline">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search-filter"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh-3"></i> 重置</button>
+                </div>
             </div>
         </div>
     </form>
@@ -29,8 +34,8 @@
 
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition layui-font-12"></i> 添加</button>
-            <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete layui-font-12"></i> 批量删除</button>
+            <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+            <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
         </div>
     </script>
     <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
@@ -48,7 +53,7 @@
                 id: 'datasourceTable' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
                 , elem: '#datasourceTable'
                 , skin: 'line'
-                , url: '/datasource/list'
+                , url: '/datasource/page'
                 , where: {}
                 , parseData: function (res) { //res 即为原始返回的数据
                     return {
@@ -81,17 +86,6 @@
                         , { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
                     ]
                 ]
-                , done: function (res, curr, count) {
-                    //如果是异步请求数据方式，res即为你接口返回的信息。
-                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                    console.log(res);
-
-                    //得到当前页码
-                    console.log(curr);
-
-                    //得到数据总量
-                    console.log(count);
-                }
             });
 
             //触发事件
@@ -144,23 +138,16 @@
             });
 
 
-            function reloadTable(args) {
-                table.reload('datasourceTable', {
-                    where: {
-                        aaaaaa: 'xxx'
-                        , bbb: 'yyy'
-                        //…
-                    }
-                    , page: {
-                        curr: 1
-                    }
-                })
-            }
-
-            //提交
-            form.on('submit(formDemo)', function (data) {
+            /* 监听表单提交——查询按钮——重载表格 */
+            form.on('submit(search-filter)', function(data){
                 layer.msg(JSON.stringify(data.field));
-                return false;
+                //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+
+                //执行重载
+                table.reload('datasourceTable', {
+                    where: data.field, page: { curr: 1 }
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
         });
     </script>

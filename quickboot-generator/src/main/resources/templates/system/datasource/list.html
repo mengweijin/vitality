@@ -5,7 +5,7 @@
 
 <body style="padding: 15px 15px;">
     <form class="layui-form" action="">
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-bottom: 0px;">
             <div class="layui-inline">
                 <label class="layui-form-label">数据库类型</label>
                 <div class="layui-input-inline">
@@ -40,8 +40,8 @@
     </script>
     <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
     <script type="text/html" id="operationTpl">
-        <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
         <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+        <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
         <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
         <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
     </script>
@@ -90,7 +90,7 @@
                 //var checkStatus = table.checkStatus(obj.config.id);
                 switch (obj.event) {
                     case 'add':
-                        layer.msg('添加');
+                        qb.openPage('/datasource/add')
                         break;
                     case 'batchDelete':
                         layer.msg('批量删除');
@@ -107,7 +107,7 @@
                         layer.confirm('确定复制吗？', function (index) {
                             $.post("datasource/clone/" + row.id, function (res) {
                                 if(res.code === 200) {
-                                    reloadTable();
+                                    qb.reloadTableData('datasourceTable');
                                 }
                                 layer.close(index);
                             });
@@ -115,6 +115,9 @@
                         break;
                     case 'detail':
                         layer.msg('查看');
+                        break;
+                    case 'edit':
+                        qb.openPage('/datasource/edit/' + row.id)
                         break;
                     case 'delete':
                         layer.confirm('确定删除吗？', function (index) {
@@ -126,34 +129,16 @@
                             });
                         });
                         break;
-                    case 'edit':
-                        //do something
-
-                        // 当发送后端请求成功后，可再通过 reloadData 方法完成数据重载
-                        /*
-                        table.reloadData(id, {
-                          scrollPos: 'fixed'  // 保持滚动条位置不变 - v2.7.3 新增
-                        });
-                        */
-                        layer.msg('编辑');
-                        break;
-                };
-            });
+                }
+            })
 
             /* 监听表单提交——查询按钮——重载表格 */
             form.on('submit(search-filter)', function(data){
-                layer.msg(JSON.stringify(data.field));
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
-
-                reloadTable(data.field);
+                qb.reloadTableData('datasourceTable', data.field);
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
 
-            function reloadTable(params) {
-                table.reloadData('datasourceTable', {
-                    where: params || {}, page: { theme: '#1E9FFF', curr: 1 }
-                })
-            }
         });
     </script>
 </body>

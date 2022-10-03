@@ -2,9 +2,9 @@
   扩展一个 quickboot 模块
   //提示：模块也可以依赖其它模块，如：layui.define('mod1', callback);
 **/
-layui.define(['jquery', 'layer'], function (exports) {
+layui.define(['jquery', 'layer', 'table'], function (exports) {
   "use strict";
-  let $ = layui.$, layer = layui.layer
+  let $ = layui.$, layer = layui.layer, table = layui.table
 
   let MOD_NAME = 'quickboot'
 
@@ -35,6 +35,35 @@ layui.define(['jquery', 'layer'], function (exports) {
     },
 
     /**
+     * 
+     * @param {String} url Mandatory. For Example: /sys/user/1?id=1
+     * @param {Array} area Optional. For Example: ['800px', '450px']
+     * @param {Function} callback Optional. 弹层销毁时的回调函数
+     */
+    openPage: function (url, area, callback) {
+      let defaultArea = ['800px', '450px'];
+      // shift arguments if area argument was omitted
+      if ($.isFunction(area)) {
+        callback = area;
+        area = defaultArea;
+      } else {
+        area = area || defaultArea;
+      }
+      layer.open({
+        type: 2
+        , title: "编辑（Edit）"
+        , shadeClose: false
+        , shade: [0.5, "#393D49"]
+        , shadeClose: true
+        , maxmin: true
+        , area: area
+        , resize: false
+        , content: url
+        , end: callback
+      });
+    },
+
+    /**
     * 从父页面关闭layer弹窗。（从父页面获取值 parent.$('#父页面元素id').val();）
     * 注意：window.parent和parent是有区别的
     */
@@ -45,6 +74,16 @@ layui.define(['jquery', 'layer'], function (exports) {
       parent.layer.close(index);
       // 重载整个父页面
       // parent.location.reload();
+    },
+
+    /**
+     * 
+     * @param {String} id tableId Mandatory. 
+     * @param {Object} options Optional
+     * @param {Boolean} deep Optional. 是否采用深度重载（即参数深度克隆，也就是重载时始终携带初始时及上一次重载时的参数），默认 false
+     */
+    reloadTableData: function (id, options, deep) {
+      table.reloadData(id, { where: options || {}, page: { theme: '#1E9FFF', curr: 1 } }, deep || false)
     },
 
     /**
@@ -87,11 +126,11 @@ layui.define(['jquery', 'layer'], function (exports) {
      * 
      *  let result = qb.tree(dataList, '0');
      * 
-     * @param {Array} dataList 
-     * @param {String} rootId For Example: '0'
-     * @param {String} idFieldName optional, default 'id'
-     * @param {String} parentFieldName optional, default 'parentId'
-     * @param {String} childrenNodeName optional, default 'children'
+     * @param {Array} dataList Mandatory. 
+     * @param {String} rootId Mandatory. For Example: '0'
+     * @param {String} idFieldName Optional, default 'id'
+     * @param {String} parentFieldName Optional, default 'parentId'
+     * @param {String} childrenNodeName Optional, default 'children'
      * @returns 
      */
     tree: function (dataList, rootId, idFieldName, parentFieldName, childrenNodeName) {

@@ -3,49 +3,51 @@
 
 <head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
 
-<body style="padding: 15px 15px;">
-    <form class="layui-form" action="">
-        <div class="layui-form-item" style="margin-bottom: 0px;">
-            <div class="layui-inline">
-                <label class="layui-form-label">数据库类型</label>
-                <div class="layui-input-inline">
-                    <select name="dbType" lay-search th:with="dbTypes=${@datasourceService.getDbTypes()}">
-                        <option value="">请选择</option>
-                        <option th:each="item : ${dbTypes}" th:value="${item}" th:text="${item}"></option>
-                    </select>
+<body>
+    <div style="padding: 15px 15px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" style="margin-bottom: 0px;">
+                <div class="layui-inline">
+                    <label class="layui-form-label">数据库类型</label>
+                    <div class="layui-input-inline">
+                        <select name="dbType" lay-search th:with="dbTypes=${@datasourceService.getDbTypes()}">
+                            <option value="">请选择</option>
+                            <option th:each="item : ${dbTypes}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input name="username" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search-filter"><i
+                        class="layui-icon layui-icon-search"></i> 搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-normal"><i
+                        class="layui-icon layui-icon-refresh-3"></i> 重置</button>
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-inline">
-                    <input name="username" autocomplete="off" class="layui-input">
-                </div>
+        </form>
+
+
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+                <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
             </div>
-
-            <div class="layui-inline">
-                <div class="layui-btn-container">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search-filter"><i class="layui-icon layui-icon-search"></i> 搜索</button>
-                    <button type="reset" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh-3"></i> 重置</button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-
-    <script type="text/html" id="toolbar">
-        <div class="layui-btn-container">
-            <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
-            <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
-        </div>
-    </script>
-    <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
-    <script type="text/html" id="operationTpl">
-        <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
-        <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
-        <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
-        <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
-    </script>
-
+        </script>
+        <table id="datasourceTable" lay-filter="datasource-table-filter"></table>
+        <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
+        </script>
+    </div>
+    
     <script th:inline="javascript">
         layui.use(['jquery', 'layer', 'form', 'table', 'quickboot'], function () {
             var $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table, qb = layui.quickboot;
@@ -106,7 +108,7 @@
                     case 'clone':
                         layer.confirm('确定复制吗？', function (index) {
                             $.post("datasource/clone/" + row.id, function (res) {
-                                if(res.code === 200) {
+                                if (res.code === 200) {
                                     qb.reloadTableData('datasourceTable');
                                 }
                                 layer.close(index);
@@ -122,7 +124,7 @@
                     case 'delete':
                         layer.confirm('确定删除吗？', function (index) {
                             $.delete("datasource/delete/" + row.id, function (res) {
-                                if(res.code === 200) {
+                                if (res.code === 200) {
                                     obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
                                 }
                                 layer.close(index);
@@ -133,7 +135,7 @@
             })
 
             /* 监听表单提交——查询按钮——重载表格 */
-            form.on('submit(search-filter)', function(data){
+            form.on('submit(search-filter)', function (data) {
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
                 qb.reloadTableData('datasourceTable', data.field);
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

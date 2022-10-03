@@ -73,7 +73,7 @@ public class DatasourceController extends BaseController {
         LambdaQueryWrapper<GenDatasource> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StrUtil.isNotBlank(genDatasource.getUsername()), GenDatasource::getUsername, genDatasource.getUsername());
         wrapper.eq(genDatasource.getDbType() != null, GenDatasource::getDbType, genDatasource.getDbType());
-
+        wrapper.orderByDesc(GenDatasource::getCreateTime);
         return datasourceService.page(page, wrapper);
     }
 

@@ -11,3 +11,16 @@ img{
     max-width: 100%;
     max-height: 100%;
 }
+
+.layui-form-label {
+    width: 150px;
+}
+
+.layui-input-block {
+    margin-left: 180px;
+}
+
+.layui-form-label.required:before {
+    content: '* ';
+    color: red;
+}

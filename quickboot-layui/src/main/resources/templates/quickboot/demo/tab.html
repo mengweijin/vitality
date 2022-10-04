@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+<style>
+	.layui-tab-title li:first-child .layui-tab-close {
+		visibility: hidden;
+		width: 0px;
+		margin-left: 0px;
+	}
+</style>
+
 <body>
 	<div style="padding: 0px 15px;">
 		<div class="layui-tab layui-tab-brief" lay-allowClose="true">
 			<ul class="layui-tab-title">
-				<li class="layui-this">网站设置</li>
+				<li class="layui-this">首页</li>
 				<li>用户管理</li>
 				<li>权限分配</li>
 				<li>商品管理</li>

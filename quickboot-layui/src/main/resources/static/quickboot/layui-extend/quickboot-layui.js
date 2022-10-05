@@ -15,14 +15,15 @@ layui.define(['jquery', 'layer', 'table'], function (exports) {
      * selector: 如：
      * 根据 lay-filter 和 checkbox 的 name 属性选择：'[lay-filter=operate-filter] input:checkbox[name=hobby]:checked'
      * 根据 formId 和 checkbox 的 name 属性选择：'form input:checkbox[name=hobby]:checked'
-     * @return 示例：1,2,3,4
+     * @return 示例：[1,2,3,4]
      */
     checkBoxValues: function (selector) {
       let value = [];
       $(selector).each(function () {
         value.push($(this).val());
       });
-      return value.join(",");
+      // return value.join(",");
+      return value;
     },
 
     /**

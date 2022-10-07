@@ -18,7 +18,7 @@
             <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
             <div class="layui-logo layui-hide-xs">
                 <img th:src="@{/image/logo.png}" style="cursor: pointer;"
-                    onclick="javascript:window.location.href='/'" />
+                    onclick="javascript:top.window.location.href='/'" />
             </div>
 
             <!-- 头部区域（可配合layui 已有的水平导航） -->
@@ -27,9 +27,12 @@
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </li>
-                <li class="layui-nav-item" lay-unselect lay-header-event="shrinkSpreadBtn">
+                <li class="layui-nav-item" lay-unselect lay-header-event="shrink">
                     <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"
                             style="font-size: 20px;"></i></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="refresh">
+                    <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
                 </li>
             </ul>
 
@@ -124,7 +127,7 @@
             // let args = [[${args}]];
             //头部事件
             util.event('lay-header-event', {
-                shrinkSpreadBtn: function (othis) {
+                shrink: function (othis) {
                     let $btn = $("#shrinkSpreadIcon");
                     if ($btn.hasClass('layui-icon-shrink-right')) {
                         $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
@@ -137,6 +140,9 @@
                         $(".layui-body").animate({ left: '200px' });
                         $(".layui-footer").animate({ left: '200px' });
                     }
+                },
+                refresh: function (othis) {
+                    top.window.location.reload();
                 },
                 notice: function () {
                     layer.open({

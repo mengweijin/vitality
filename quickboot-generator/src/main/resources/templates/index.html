@@ -4,101 +4,140 @@
 <head th:replace="quickboot/include::head('QuickBoot Generator')"></head>
 
 <body>
-<div class="layui-layout layui-layout-admin">
+    <div class="layui-layout layui-layout-admin">
 
-    <div class="layui-header">
-        <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
-        <div class="layui-logo layui-hide-xs">
-            <img th:src="@{/image/logo.png}" style="cursor: pointer;" onclick="javascript:window.location.href='/'"/>
-        </div>
+        <div class="layui-header">
+            <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
+            <div class="layui-logo layui-hide-xs">
+                <img th:src="@{/image/logo.png}" style="cursor: pointer;"
+                    onclick="javascript:top.window.location.href='/'" />
+            </div>
 
-        <!-- 头部区域（可配合layui 已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left" lay-bar="disabled">
-            <!-- 移动端显示 -->
-            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-                <i class="layui-icon layui-icon-spread-left"></i>
-            </li>
-            <li class="layui-nav-item" lay-unselect lay-header-event="shrinkSpreadBtn">
-                <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right" style="font-size: 20px;"></i></a>
-            </li>
-        </ul>
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" lay-bar="disabled">
+                <!-- 移动端显示 -->
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="shrink">
+                    <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"
+                            style="font-size: 20px;"></i></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="refresh">
+                    <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3"
+                            style="font-size: 20px;"></i></a>
+                </li>
+            </ul>
 
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item" lay-unselect lay-header-event="notice" style="width: 100px;">
-                <a href="javascript:;">
-                    <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
-                    <span class="layui-badge">99+</span>
-                </a>
-            </li>
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <a href="javascript:;">
-                    <img src="/favicon.ico" class="layui-nav-img">Admin
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">Your Profile</a></dd>
-                    <dd><a href="">Settings</a></dd>
-                    <dd><a href="">Sign out</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item" lay-unselect lay-header-event="menuRight">
-                <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree">
-                <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/tab');"><i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a></li>
-                <li class="layui-nav-item"><a href="javascript:loadPage('/datasource');"><i class="fas fa-database" style="margin-right: 10px;"></i>数据库配置</a></li>
-                <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/img');"><i class="fa-solid fa-file-lines" style="margin-right: 10px;"></i>模板配置</a></li>
-                <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="margin-right: 10px;"></i>Gitee</a></li>
-                <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i class="fa-solid fa-link" style="margin-right: 10px;"></i>Github</a></li>
-
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item" lay-unselect lay-header-event="notice" style="width: 100px;">
+                    <a href="javascript:;">
+                        <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
+                        <span class="layui-badge">99+</span>
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;">
+                        <img src="/favicon.ico" class="layui-nav-img">Admin
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">Your Profile</a></dd>
+                        <dd><a href="">Settings</a></dd>
+                        <dd><a href="">Sign out</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="menuRight">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
             </ul>
         </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item">
+                        <a href="#tab=home"><i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="datasourceTab">
+                        <a href="javascript:;"><i class="fas fa-database" style="margin-right: 10px;"></i>数据库配置</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="templateTab">
+                        <a href="javascript:;"><i class="fa-solid fa-file-lines" style="margin-right: 10px;"></i>模板配置</a>
+                    </li>
+                    <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i
+                                class="fa-solid fa-link" style="margin-right: 10px;"></i>Gitee</a></li>
+                    <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i
+                                class="fa-solid fa-link" style="margin-right: 10px;"></i>Github</a></li>
+
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">menu group 1</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">menu 1</a></dd>
+                            <dd><a href="javascript:;">menu 2</a></dd>
+                            <dd><a href="javascript:;">menu 3</a></dd>
+                            <dd><a href="javascript:;">the links</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="javascript:;">the links</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <div class="layui-tab layui-tab-brief" lay-allowClose="true" style="margin: 0 0; height: 100%;"
+                lay-filter="main-tab-filter">
+                <ul class="layui-tab-title">
+                    <li lay-id="home" class="layui-this">首页</li>
+                </ul>
+                <div class="layui-tab-content" style="padding:0 0; padding-left: 15px; height: calc(100% - 44px);">
+                    <div class="layui-tab-item layui-show" style="height: 100%;">
+                        <iframe src="/quickboot/demo/img" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer" style="text-align: center;">
+            <!-- 底部固定区域 -->
+            联系我
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes">
+                <i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
+            </a>
+
+            The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
+            &lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
+            <script> document.getElementById("footerLicenseCurrentFullYear").innerText = new Date().getFullYear() </script>
+        </div>
     </div>
 
-    <div class="layui-body" style="text-align: center;">
-        <!-- 内容主体区域 -->
-        <iframe id="mainFrame" name="mainFrame" src="/quickboot/demo/img"
-                style="overflow:visible;" scrolling="auto" frameborder="no" width="100%" height="100%;">
-        </iframe>
-    </div>
-
-    <div class="layui-footer" style="text-align: center;">
-        <!-- 底部固定区域 -->
-        联系我
-        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes">
-            <i class="layui-icon layui-icon-login-qq" style="color: #1E9FFF;"></i>
-        </a>
-
-        The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
-        &lt;<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
-        <script> document.getElementById("footerLicenseCurrentFullYear").innerText=new Date().getFullYear() </script>
-    </div>
-</div>
-
-<!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
-<script th:inline="javascript">
-        layui.use(['element', 'layer', 'util', 'jquery'], function () {
+    <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
+    <script th:inline="javascript">
+        layui.use(['element', 'layer', 'util', 'jquery', 'quickboot'], function () {
             let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot;
             // let args = [[${args}]];
             //头部事件
             util.event('lay-header-event', {
-                shrinkSpreadBtn: function(othis) {
+                shrink: function (othis) {
                     let $btn = $("#shrinkSpreadIcon");
                     if ($btn.hasClass('layui-icon-shrink-right')) {
                         $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
-                        $(".layui-side").animate({width: 'toggle'}); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏
-                        $(".layui-body").animate({left: '0px'});
-                        $(".layui-footer").animate({left: '0px'});
+                        $(".layui-side").animate({ width: 'toggle' }); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏
+                        $(".layui-body").animate({ left: '0px' });
+                        $(".layui-footer").animate({ left: '0px' });
                     } else if ($btn.hasClass('layui-icon-spread-left')) {
                         $btn.removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right');
-                        $(".layui-side").animate({width: 'toggle'});
-                        $(".layui-body").animate({left: '200px'});
-                        $(".layui-footer").animate({left: '200px'});
+                        $(".layui-side").animate({ width: 'toggle' });
+                        $(".layui-body").animate({ left: '200px' });
+                        $(".layui-footer").animate({ left: '200px' });
+                    }
+                },
+                refresh: function (othis) {
+                    //top.window.location.reload();
+                    let layid = location.hash.replace(/^#tab=/, '');
+                    let $showIframe = $("[lay-filter='main-tab-filter'] div.layui-tab-content div.layui-show iframe");
+                    if($showIframe.length == 1) {
+                        $showIframe.attr("src", $showIframe.attr("src"))
                     }
                 },
                 notice: function () {
@@ -128,11 +167,30 @@
                     });
                 }
             });
+
+            util.event('lay-menu-event', {
+                datasourceTab: function (othis) {
+                    qb.openTab('main-tab-filter', '数据库配置', '/datasource', 'datasource')
+                },
+                templateTab: function (othis) {
+                    qb.openTab('main-tab-filter', '模板配置', '/quickboot/demo/img', 'template')
+                },
+            });
+
+            // Tab 切换，以改变地址 hash 值
+            element.on('tab(main-tab-filter)', function () {
+                location.hash = 'tab=' + this.getAttribute('lay-id');
+            });
+
+            window.addEventListener('hashchange', () => {
+                // 通过 location.hash 获取到最新的 hash 值
+                // 获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+                let layid = location.hash.replace(/^#tab=/, '');
+                //假设当前地址为：http://a.com#tab=2，那么选项卡会自动切换到 lay-id="2" 这一项
+                element.tabChange('main-tab-filter', layid);
+            });
         });
 
-        function loadPage(url) {
-            document.getElementById('mainFrame').setAttribute('src', url);
-        }
     </script>
 </body>
 

@@ -24,3 +24,9 @@ img{
     content: '* ';
     color: red;
 }
+
+.layui-tab-title li:first-child .layui-tab-close {
+    visibility: hidden;
+    width: 0px;
+    margin-left: 0px;
+}

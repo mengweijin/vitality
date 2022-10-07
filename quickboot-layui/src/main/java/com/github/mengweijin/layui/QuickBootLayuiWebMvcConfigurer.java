@@ -16,7 +16,6 @@ public class QuickBootLayuiWebMvcConfigurer implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/quickboot/admin").setViewName("quickboot/admin");
         registry.addViewController("/quickboot/home").setViewName("quickboot/home");
-        registry.addViewController("/quickboot/demo/tab").setViewName("quickboot/demo/tab");
         registry.addViewController("/quickboot/demo/img").setViewName("quickboot/demo/img");
     }
 }

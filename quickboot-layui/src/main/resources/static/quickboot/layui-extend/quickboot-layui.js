@@ -2,9 +2,9 @@
   扩展一个 quickboot 模块
   //提示：模块也可以依赖其它模块，如：layui.define('mod1', callback);
 **/
-layui.define(['jquery', 'layer', 'table'], function (exports) {
+layui.define(['jquery', 'layer', 'table', 'element'], function (exports) {
   "use strict";
-  let $ = layui.$, layer = layui.layer, table = layui.table
+  let $ = layui.$, layer = layui.layer, table = layui.table, element = layui.element
 
   let MOD_NAME = 'quickboot'
 
@@ -33,6 +33,39 @@ layui.define(['jquery', 'layer', 'table'], function (exports) {
     disableForm: function (selector) {
       // *：选择元素下所有元素； unbind(): 解绑所有事件 这里其实并不需要unbind也可以同样的效果。
       $(selector + " *").attr("disabled", true).unbind();
+    },
+
+    /**
+     * 
+     * @param {String} filter Mandatory. Layui lay-filter
+     * @param {String} title Mandatory. 
+     * @param {String} url Mandatory. 
+     * @param {String} id Optional. lay-id
+     */
+    openTab: function (filter, title, url, id) {
+      id = id || Date.now();
+
+      // 防止重复打开
+      let $titleLiElements = $("[lay-filter=" + filter + "] ul li");
+      for (let i = 0; i < $titleLiElements.length; i++) {
+        if ($titleLiElements.eq(i).attr('lay-id') == id) {
+          element.tabChange(filter, id);
+          return;
+        }
+      };
+
+      element.tabAdd(filter, {
+        title: title
+        , content: '<iframe src="' + url + '" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>'
+        , id: id
+      });
+      element.tabChange(filter, id);
+      $("[lay-filter=" + filter + "] div.layui-tab-content div.layui-show").css("height", "100%");
+
+      if ($titleLiElements.length > 10) {
+        let nth2Layid = $("[lay-filter=" + filter + "] ul li:nth-child(2)").attr("lay-id");
+        element.tabDelete(filter, nth2Layid);
+      }
     },
 
     /**

@@ -3,14 +3,6 @@
 
 <head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
 
-<style>
-    .layui-tab-title li:first-child .layui-tab-close {
-        visibility: hidden;
-        width: 0px;
-        margin-left: 0px;
-    }
-</style>
-
 <body>
     <div class="layui-layout layui-layout-admin">
 
@@ -32,7 +24,8 @@
                             style="font-size: 20px;"></i></a>
                 </li>
                 <li class="layui-nav-item" lay-unselect lay-header-event="refresh">
-                    <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
+                    <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3"
+                            style="font-size: 20px;"></i></a>
                 </li>
             </ul>
 
@@ -63,10 +56,25 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree">
-                    <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/img');"><i
-                                class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a></li>
-                    <li class="layui-nav-item"><a href="javascript:loadPage('/quickboot/demo/tab');"><i
-                                class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>Tab 页</a></li>
+                    <li class="layui-nav-item">
+                        <a href="#tab=home"><i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="userTab">
+                        <a href="javascript:;"><i class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>用户管理</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="roleTab">
+                        <a href="javascript:;"><i class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>角色管理</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="goodsTab">
+                        <a href="javascript:;"><i class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>商品管理</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="orderTab">
+                        <a href="javascript:;"><i class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>订单管理</a>
+                    </li>
+                    <li class="layui-nav-item" lay-menu-event="openTab">
+                        <a href="javascript:;"><i class="fa-solid fa-table-columns" style="margin-right: 10px;"></i>Open
+                            New Tab</a>
+                    </li>
                     <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i
                                 class="fa-solid fa-link" style="margin-right: 10px;"></i>Gitee</a></li>
                     <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i
@@ -87,22 +95,15 @@
         </div>
 
         <div class="layui-body">
-            <div class="layui-tab" lay-allowClose="true" style="margin: 0 0; height: 100%;">
+            <div class="layui-tab layui-tab-brief" lay-allowClose="true" style="margin: 0 0; height: 100%;"
+                lay-filter="main-tab-filter">
                 <ul class="layui-tab-title">
-                    <li class="layui-this" lay-id="home">首页</li>
-                    <li>用户管理</li>
-                    <li>权限分配</li>
-                    <li>商品管理</li>
-                    <li>订单管理</li>
+                    <li lay-id="home" class="layui-this">首页</li>
                 </ul>
                 <div class="layui-tab-content" style="padding:0 0; padding-left: 15px; height: calc(100% - 44px);">
-                    <iframe class="layui-tab-item layui-show" src="/quickboot/demo/img" scrolling="auto"
-                        frameborder="no" width="100%" height="100%">
-                    </iframe>
-                    <div class="layui-tab-item">内容2</div>
-                    <div class="layui-tab-item">内容3</div>
-                    <div class="layui-tab-item">内容4</div>
-                    <div class="layui-tab-item">内容5</div>
+                    <div class="layui-tab-item layui-show" style="height: 100%;">
+                        <iframe src="/quickboot/demo/img" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,7 +123,7 @@
 
     <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
     <script th:inline="javascript">
-        layui.use(['element', 'layer', 'util', 'jquery'], function () {
+        layui.use(['element', 'layer', 'util', 'jquery', 'quickboot'], function () {
             let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot;
             // let args = [[${args}]];
             //头部事件
@@ -142,7 +143,12 @@
                     }
                 },
                 refresh: function (othis) {
-                    top.window.location.reload();
+                    //top.window.location.reload();
+                    let layid = location.hash.replace(/^#tab=/, '');
+                    let $showIframe = $("[lay-filter='main-tab-filter'] div.layui-tab-content div.layui-show iframe");
+                    if($showIframe.length == 1) {
+                        $showIframe.attr("src", $showIframe.attr("src"))
+                    }
                 },
                 notice: function () {
                     layer.open({
@@ -171,11 +177,39 @@
                     });
                 }
             });
+
+            util.event('lay-menu-event', {
+                userTab: function (othis) {
+                    qb.openTab('main-tab-filter', '用户管理', '/quickboot/demo/img', 'user')
+                },
+                roleTab: function (othis) {
+                    qb.openTab('main-tab-filter', '角色管理', '/quickboot/demo/img', 'role')
+                },
+                goodsTab: function (othis) {
+                    qb.openTab('main-tab-filter', '商品管理', '/quickboot/demo/img', 'goods')
+                },
+                orderTab: function (othis) {
+                    qb.openTab('main-tab-filter', '订单管理', '/quickboot/demo/img', 'order')
+                },
+                openTab: function (othis) {
+                    qb.openTab('main-tab-filter', 'Tab', '/quickboot/demo/img', Date.now())
+                },
+            });
+
+            // Tab 切换，以改变地址 hash 值
+            element.on('tab(main-tab-filter)', function () {
+                location.hash = 'tab=' + this.getAttribute('lay-id');
+            });
+
+            window.addEventListener('hashchange', () => {
+                // 通过 location.hash 获取到最新的 hash 值
+                // 获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+                let layid = location.hash.replace(/^#tab=/, '');
+                //假设当前地址为：http://a.com#tab=2，那么选项卡会自动切换到 lay-id="2" 这一项
+                element.tabChange('main-tab-filter', layid);
+            });
         });
 
-        function loadPage(url) {
-            document.getElementById('mainFrame').setAttribute('src', url);
-        }
     </script>
 </body>
 

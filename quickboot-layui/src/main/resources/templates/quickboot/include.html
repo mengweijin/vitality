@@ -19,25 +19,34 @@
 		<!--[if lt IE 9]>
 		<meta content="0;error/ie.html"/>
 		<![endif]-->
-		<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}"/>
-		<link rel="stylesheet" th:href="@{/webjars/layui/dist/css/layui.css}"/>
-		<link rel="stylesheet" th:href="@{/quickboot/quickboot.css}">
-
+		<link rel="stylesheet" th:href="@{/module/fontawesome-free-web/css/all.min.css}"/>
 		<!--/**
 			让IE8/9支持媒体查询，从而兼容栅格，代码放入你页面 <body> 标签内的任意位置
 			条件注释: if lt IE 9
 			其他浏览器会将其作为注释而忽略这些语句，因为他们是IE专门提供的一种语法，如此就能根据不同的IE版本加载对应的CSS或者JS文件了。
 		**/-->
 		<!--[if lt IE 9]>
-		<script th:src="@{/webjars/respond/dest/respond.min.js}"></script>
-		<script th:src="@{/webjars/html5shiv/html5shiv.min.js}"></script>
+		<script th:src="@{/module/respond/respond.min.js}"></script>
+		<script th:src="@{/module/html5shiv/html5shiv.min.js}"></script>
 		<![endif]-->
-		<script th:src="@{/webjars/layui/dist/layui.js}"></script>
+
+		<link rel="stylesheet" th:href="@{/module/layui/css/layui.css}"/>
+		<script th:src="@{/module/layui/layui.js}"></script>
+
+		<!-- required viewer styles -->
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/bpmn-js.css}" />
+		<script th:src="@{/module/bpmn-js/bpmn-viewer.production.min.js}"></script>
+		<!-- required modeler styles -->
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/diagram-js.css}" />
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/bpmn-font/css/bpmn.css}" />
+		<script th:src="@{/module/bpmn-js/bpmn-modeler.production.min.js}"></script>
+
 		<!--/**
 			使用 layui（2.7.8） 依赖的 jquery 版本（1.12.4，该版本支持 IE 6-8）。
 			后面引入的 js 组件如果依赖 jquery 则必须写在 layui.use(['模块名'], function(){var $ = layui.$}); 代码块中
 			console.log("jquery version：" + layui.$.fn.jquery);
 		 **/-->
+		<link rel="stylesheet" th:href="@{/quickboot/quickboot.css}">
 		<script th:src="@{/quickboot/quickboot.js}"></script>
 	</head>
 

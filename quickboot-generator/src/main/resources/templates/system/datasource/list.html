@@ -93,7 +93,7 @@
                 //var checkStatus = table.checkStatus(obj.config.id);
                 switch (obj.event) {
                     case 'add':
-                        qb.openPage('/datasource/add')
+                        qb.openPage('新增', '/datasource/add')
                         break;
                     case 'batchDelete':
                         layer.msg('批量删除');
@@ -120,7 +120,7 @@
                         layer.msg('查看');
                         break;
                     case 'edit':
-                        qb.openPage('/datasource/edit/' + row.id)
+                        qb.openPage('编辑', '/datasource/edit/' + row.id)
                         break;
                     case 'delete':
                         layer.confirm('确定删除吗？', function (index) {

@@ -52,7 +52,7 @@ layui.define(['jquery', 'layer', 'table', 'element'], function (exports) {
           element.tabChange(filter, id);
           return;
         }
-      };
+      }
 
       element.tabAdd(filter, {
         title: title
@@ -70,27 +70,25 @@ layui.define(['jquery', 'layer', 'table', 'element'], function (exports) {
 
     /**
      * 
+     * @param {String} title Mandatory. For Example: 编辑（Edit）
      * @param {String} url Mandatory. For Example: /sys/user/1?id=1
      * @param {Array} area Optional. For Example: ['800px', '450px']
      * @param {Function} callback Optional. 弹层销毁时的回调函数
      */
-    openPage: function (url, area, callback) {
-      let defaultArea = ['800px', '450px'];
+    openPage: function (title, url, area, callback) {
       // shift arguments if area argument was omitted
       if ($.isFunction(area)) {
         callback = area;
-        area = defaultArea;
-      } else {
-        area = area || defaultArea;
+        area = null;
       }
       layer.open({
         type: 2
-        , title: "编辑（Edit）"
+        , title: title || ''
         , shadeClose: false
         , shade: [0.5, "#393D49"]
         , shadeClose: true
         , maxmin: true
-        , area: area
+        , area: area || ['800px', '450px']
         , resize: false
         , content: url
         , end: callback

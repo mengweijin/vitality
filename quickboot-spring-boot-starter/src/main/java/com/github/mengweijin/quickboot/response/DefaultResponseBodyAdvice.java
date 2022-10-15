@@ -2,6 +2,7 @@ package com.github.mengweijin.quickboot.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.quickboot.QuickBootProperties;
 import com.github.mengweijin.quickboot.domain.R;
 import com.github.mengweijin.quickboot.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Autowired
+    private QuickBootProperties quickBootProperties;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     /**
@@ -45,6 +49,12 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         HttpMethod httpMethod = request.getMethod();
+        String path = request.getURI().getPath();
+        boolean match = quickBootProperties.getBodyAdviceExcludePathPrefix().stream().anyMatch(item -> path.toLowerCase().startsWith(item.toLowerCase()));
+        if(match) {
+            return body;
+        }
+
         if(HttpMethod.POST == httpMethod
             || HttpMethod.PUT == httpMethod
             || HttpMethod.DELETE == httpMethod

@@ -5,6 +5,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 加@Validated可对配置属性进行数据格式校验
  * havingValue: 可与name组合使用，比较获取到的属性值与havingValue给定的值是否相同，相同才加载配置
@@ -25,4 +28,6 @@ public class QuickBootProperties {
     private boolean cors = false;
 
     private boolean debug = false;
+
+    private List<String> bodyAdviceExcludePathPrefix = new ArrayList<>();
 }

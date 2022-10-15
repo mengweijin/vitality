@@ -33,6 +33,14 @@
 		<link rel="stylesheet" th:href="@{/module/layui/css/layui.css}"/>
 		<script th:src="@{/module/layui/layui.js}"></script>
 
+		<!-- required viewer styles -->
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/bpmn-js.css}" />
+		<script th:src="@{/module/bpmn-js/bpmn-viewer.production.min.js}"></script>
+		<!-- required modeler styles -->
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/diagram-js.css}" />
+		<link rel="stylesheet" th:href="@{/module/bpmn-js/assets/bpmn-font/css/bpmn.css}" />
+		<script th:src="@{/module/bpmn-js/bpmn-modeler.production.min.js}"></script>
+
 		<!--/**
 			使用 layui（2.7.8） 依赖的 jquery 版本（1.12.4，该版本支持 IE 6-8）。
 			后面引入的 js 组件如果依赖 jquery 则必须写在 layui.use(['模块名'], function(){var $ = layui.$}); 代码块中

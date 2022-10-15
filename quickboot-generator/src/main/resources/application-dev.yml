@@ -1,0 +1,3 @@
+quickboot:
+  bodyAdviceExcludePathPrefix:
+    - /datasource

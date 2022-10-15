@@ -19,6 +19,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<quickboot-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-spring-boot-starter.version>
+		<quickboot-flowable-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-flowable-spring-boot-starter.version>
 		<quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
 		<mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
 	</properties>
@@ -27,6 +28,11 @@
 			<groupId>com.github.mengweijin</groupId>
 			<artifactId>quickboot-spring-boot-starter</artifactId>
 			<version>${quickboot-spring-boot-starter.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mengweijin</groupId>
+			<artifactId>quickboot-flowable-spring-boot-starter</artifactId>
+			<version>${quickboot-flowable-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.mengweijin</groupId>

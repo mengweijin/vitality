@@ -13,6 +13,5 @@
         <module>./quickboot-layui</module>
         <module>./quickboot-generator</module>
         <module>./sample-quickboot</module>
-        <module>./quickboot-flowable-spring-boot-starter</module>
     </modules>
 </project>

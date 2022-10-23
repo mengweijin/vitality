@@ -30,3 +30,8 @@ img{
     width: 0px;
     margin-left: 0px;
 }
+
+.layui-layer-setwin .layui-layer-close2 {
+    right: -12px;
+    top: -12px;
+}

@@ -69,30 +69,22 @@ layui.define(['jquery', 'layer', 'table', 'element'], function (exports) {
     },
 
     /**
-     * 
-     * @param {String} title Mandatory. For Example: 编辑（Edit）
+     * 0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
      * @param {String} url Mandatory. For Example: /sys/user/1?id=1
-     * @param {Array} area Optional. For Example: ['800px', '450px']
-     * @param {Function} callback Optional. 弹层销毁时的回调函数
+     * @param {Object} config Optional. For Example: { title: 'Edit', area: ['100%', '100%'] }
      */
-    openPage: function (title, url, area, callback) {
-      // shift arguments if area argument was omitted
-      if ($.isFunction(area)) {
-        callback = area;
-        area = null;
-      }
-      layer.open({
-        type: 2
-        , title: title || ''
-        , shadeClose: false
-        , shade: [0.5, "#393D49"]
-        , shadeClose: true
-        , maxmin: true
-        , area: area || ['800px', '450px']
-        , resize: false
-        , content: url
-        , end: callback
-      });
+    openPage: function (title, url, config = {}) {
+      config.title = title;
+      config.content = url;
+      config.type = config.type || 2;
+      config.shadeClose = config.shadeClose === false ? false : true;
+      config.shade = config.shade || [0.5, "#393D49"];
+      config.maxmin = config.maxmin === false ? false : true;
+      config.area = config.area || ['800px', '450px'];
+      config.resize = config.resize === true ? true : false;
+
+      let index = layer.open(config);
+      return index;
     },
 
     /**

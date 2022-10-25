@@ -4,7 +4,6 @@ import com.github.mengweijin.quickboot.exception.DefaultExceptionHandler;
 import com.github.mengweijin.quickboot.log.LogAspect;
 import com.github.mengweijin.quickboot.mvc.CorsWebMvcConfigurer;
 import com.github.mengweijin.quickboot.response.DefaultResponseBodyAdvice;
-import com.github.mengweijin.quickboot.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -40,21 +39,6 @@ public class QuickBootAutoConfiguration {
 
     @Autowired
     private QuickBootProperties quickBootProperties;
-
-    /**
-     * 为什么这里要加 static? 必须要标记为 static 方法，以示优先加载。否则会给出警告。
-     * ConfigurationClassEnhancer
-     * : @Bean method QuickBootFrameworkAutoConfiguration.springUtils is non-static and returns an object assignable to
-     * Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations
-     * such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class.
-     * Add the 'static' modifier to this method to avoid these container lifecycle issues;
-     * see @Bean javadoc for complete details.
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public static SpringUtils springUtils() {
-        return new SpringUtils();
-    }
 
     @Bean
     @ConditionalOnMissingBean

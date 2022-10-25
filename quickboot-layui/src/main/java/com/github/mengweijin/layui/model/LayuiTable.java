@@ -9,28 +9,31 @@ import java.util.List;
  * @date 2022/9/3
  */
 @Data
-public final class LayuiTable {
+public class LayuiTable<T> {
 
-    private LayuiTable() {}
+    private List<T> data;
+
+    private Long count;
 
     private Integer code;
 
     private String msg;
 
-    private List<?> data;
-
-    private Long count;
-
-    public static <T> LayuiTable data(List<T> data, long count) {
-        return data(data, count, "SUCCESS");
+    public LayuiTable() {
     }
 
-    public static <T> LayuiTable data(List<T> data, long count, String message) {
-        LayuiTable layuiTable = new LayuiTable();
-        layuiTable.setCode(0);
-        layuiTable.setMsg(message);
-        layuiTable.setData(data);
-        layuiTable.setCount(count);
-        return layuiTable;
+    public LayuiTable(List<T> data) {
+        this(data, data == null ? 0 : data.size());
+    }
+
+    public LayuiTable(List<T> data, long count) {
+        this(data, count, 0, "SUCCESS");
+    }
+
+    public LayuiTable(List<T> data, long count, int code, String msg) {
+        this.data = data;
+        this.count = count;
+        this.code = code;
+        this.msg = msg;
     }
 }

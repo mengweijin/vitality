@@ -87,7 +87,7 @@ layui.use(['jquery'], function () {
                     resize: false,
                     area: ['800px', '450px']
                 };
-                let options = $.extend(defaults, options);
+                options = $.extend(defaults, options);
                 options.content = content;
                 let index = layui.layer.open(options);
                 return index;
@@ -97,7 +97,7 @@ layui.use(['jquery'], function () {
         "tab": {
             open: function(filter, title, url, id = Date.now()) {
                 // 防止重复打开
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul li");
+                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 for (let i = 0; i < $titleLiElements.length; i++) {
                     if ($titleLiElements.eq(i).attr('lay-id') == id) {
                         layui.element.tabChange(filter, id);
@@ -114,8 +114,58 @@ layui.use(['jquery'], function () {
                 $("[lay-filter=" + filter + "] div.layui-tab-content div.layui-show").css("height", "100%");
 
                 if ($titleLiElements.length > 10) {
-                    let nth2Layid = $("[lay-filter=" + filter + "] ul li:nth-child(2)").attr("lay-id");
+                    let nth2Layid = $("[lay-filter=" + filter + "] ul.layui-tab-title li:nth-child(2)").attr("lay-id");
                     layui.element.tabDelete(filter, nth2Layid);
+                }
+
+                //let $currentTabTitle = $("[lay-filter=" + filter + "] ul.layui-tab-title li[lay-id=" + id + "]");
+                //$currentTabTitle.mouseenter(function(e) {
+                    //let currentLayid = $(this).attr('lay-id');
+                    //判断菜单的位置 
+                    //let $popupMenu = $("#main_tab_right_menu").hide();
+                    //left = ($(document).width() - e.pageX) < $popupMenu.width() ? (e.pageX - $popupMenu.width()) : e.pageX;
+                    //top = ($(document).height() - e.pageY) < $popupMenu.height() ? (e.pageY - $popupMenu.height()) : e.pageY;
+                    //$popupMenu.css({left: left - 240, top: top}).show();
+                //}).mouseout(function() {
+                    //$("#main_tab_right_menu").hide();
+                //});
+            },
+            closeThis: function(filter, id) {
+                layui.element.tabDelete(filter, id);
+            },
+            closeLeft: function(filter, id) {
+                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                for (let i = 1; i < $titleLiElements.length; i++) {
+                    if ($titleLiElements.eq(i).attr('lay-id') == id) {
+                        return;
+                    } else {
+                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                    }
+                }
+            },
+            closeRight: function(filter, id) {
+                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let currentIndex = null;
+                for (let i = 1; i < $titleLiElements.length; i++) {
+                    if(currentIndex && i > currentIndex) {
+                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                    } else if ($titleLiElements.eq(i).attr('lay-id') == id) {
+                        currentIndex = i;
+                    }
+                }
+            },
+            closeOther: function(filter, id) {
+                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                for (let i = 1; i < $titleLiElements.length; i++) {
+                    if ($titleLiElements.eq(i).attr('lay-id') != id) {
+                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                    }
+                }
+            },
+            closeAll: function(filter) {
+                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                for (let i = 1; i < $titleLiElements.length; i++) {
+                    layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
                 }
             }
         },

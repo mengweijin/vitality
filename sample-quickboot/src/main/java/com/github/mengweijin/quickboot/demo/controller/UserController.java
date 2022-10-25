@@ -13,7 +13,6 @@ import com.github.mengweijin.quickboot.demo.service.UserService;
 import com.github.mengweijin.quickboot.mybatis.Pager;
 import com.github.mengweijin.quickboot.redis.inteceptor.RepeatSubmit;
 import com.github.mengweijin.quickboot.redis.limiter.RateLimiter;
-import com.github.mengweijin.quickboot.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -152,11 +151,6 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public void updateUser(@PathVariable("id") Long id){
         userService.removeById(id);
-    }
-
-    @GetMapping("/i18n")
-    public String i18n(){
-        return SpringUtils.getMessage("operation.successful");
     }
 
     @GetMapping("/async")

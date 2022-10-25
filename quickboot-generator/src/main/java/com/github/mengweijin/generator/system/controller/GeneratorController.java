@@ -43,9 +43,9 @@ public class GeneratorController {
 
     @GetMapping("/tableInfoList")
     @ResponseBody
-    public LayuiTable getTableInfoList(@Nullable String tableName) {
+    public LayuiTable<TableInfo> getTableInfoList(@Nullable String tableName) {
         List<TableInfo> list = generatorService.selectTableInfoListByTableName(tableName);
-        return LayuiTable.data(list, list.size());
+        return new LayuiTable<>(list);
     }
     @GetMapping("/tableInfoListCacheEvict")
     @ResponseBody

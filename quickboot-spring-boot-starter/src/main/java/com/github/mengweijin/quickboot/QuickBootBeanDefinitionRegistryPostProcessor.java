@@ -18,8 +18,8 @@ public class QuickBootBeanDefinitionRegistryPostProcessor implements BeanDefinit
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        String quickBootPackage = ClassUtil.getPackage(QuickBootAutoConfiguration.class);
-        scanner.scan(quickBootPackage);
+        String pkg = ClassUtil.getPackage(QuickBootAutoConfiguration.class);
+        scanner.scan(pkg);
     }
 
     @Override

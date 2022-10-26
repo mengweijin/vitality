@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+
+<body>
+    <div style="padding: 15px 15px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" style="margin-bottom: 0px;">
+                <div class="layui-inline">
+                    <label class="layui-form-label">数据库类型</label>
+                    <div class="layui-input-inline">
+                        <select name="dbType" lay-search th:with="dbTypes=${@datasourceService.getDbTypes()}">
+                            <option value="">请选择</option>
+                            <option th:each="item : ${dbTypes}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input name="username" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search_form_filter">
+                        <i class="layui-icon layui-icon-search"></i> 搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon layui-icon-refresh-3"></i> 重置</button>
+                </div>
+            </div>
+        </form>
+
+
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+                <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
+            </div>
+        </script>
+        <table id="main_table" lay-filter="main_table_filter"></table>
+        <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="table_list" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-right: 10px; height: 20px; line-height: 18px;">查看数据库表</a>
+            <a class="layui-hide" href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
+        </script>
+    </div>
+    
+    <script th:inline="javascript">
+        layui.use(['jquery', 'layer', 'form', 'table'], function () {
+            var $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table;
+
+            table.render({
+                id: 'main_table' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
+                , elem: '#main_table'
+                , skin: 'line'
+                , url: '/generator/datasource/page'
+                , where: {}
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,          //解析接口状态 0 表示成功
+                        "msg": '',          //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.records //解析数据列表
+                    };
+                }
+                , toolbar: '#toolbar'
+                , defaultToolbar: ['filter', 'print', 'exports']
+                , page: { theme: '#1E9FFF' }
+                , request: {
+                    pageName: 'current' //页码的参数名称，默认：page
+                    , limitName: 'size' //每页数据量的参数名，默认：limit
+                }
+                , cols: [
+                    [
+                        { type: 'checkbox', hide: true }
+                        , { field: 'id', title: 'ID', width: 200, hide: true }
+                        , { field: 'dbType', title: '数据库类型', width: 100 }
+                        , { field: 'url', title: 'URL', minWidth: 300 }
+                        , { field: 'username', title: '用户名', width: 100 }
+                        , { field: 'password', title: '密码', width: 150 }
+                        , { field: 'createTime', title: '创建时间', width: 170, hide: true }
+                        , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
+                        , { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
+                    ]
+                ]
+            });
+
+            //触发事件
+            table.on('toolbar(main_table_filter)', function (obj) {
+                //var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add':
+                        $.layer.open('/generator/datasource/add', { title: '新增' })
+                        break;
+                    case 'batchDelete':
+                        layer.msg('批量删除');
+                        break;
+                };
+            });
+
+            //单元格工具事件
+            table.on('tool(main_table_filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+                var row = obj.data; //获得当前行数据
+                switch (obj.event) {
+                    case 'clone':
+                        layer.confirm('确定复制吗？', function (index) {
+                            $.post("/generator/datasource/clone/" + row.id, function (res) {
+                                if (res.code === 200) {
+                                    $.table.reloadData('main_table');
+                                }
+                                layer.close(index);
+                            });
+                        });
+                        break;
+                    case 'detail':
+                        layer.msg('查看');
+                        break;
+                    case 'edit':
+                        $.layer.open('/generator/datasource/edit/' + row.id, { title: '编辑' })
+                        break;
+                    case 'delete':
+                        layer.confirm('确定删除吗？', function (index) {
+                            $.delete("datasource/" + row.id, function (res) {
+                                if (res.code === 200) {
+                                    obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
+                                }
+                                layer.close(index);
+                            });
+                        });
+                        break;
+                    case 'table_list':
+                        $.tab.open('main_tab_filter', '数据库表', '/quickboot/demo/img', 'generator_datasource_' + row.id)
+                        break;
+                }
+            })
+
+            /* 监听表单提交——查询按钮——重载表格 */
+            form.on('submit(search_form_filter)', function (data) {
+                //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+                $.table.reloadData('main_table', data.field);
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
+    </script>
+</body>
+
+</html>

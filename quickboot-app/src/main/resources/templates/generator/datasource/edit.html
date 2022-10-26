@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+
+<body>
+    <form class="layui-form" action="" style="padding: 15px 15px;">
+        <div class="layui-form-item" th:if="${domain?.id}">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-inline">
+                <input name="id" th:value="${domain?.id}" class="layui-input" disabled>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">数据库类型</label>
+            <div class="layui-input-inline">
+                <select name="dbType" required lay-verify="required" lay-search th:with="list=${@datasourceService.getDbTypes()}">
+                    <option value="">请选择</option>
+                    <option th:each="item : ${list}" th:value="${item}" th:text="${item}" th:selected="${item == domain?.dbType}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">用户名</label>
+            <div class="layui-input-inline">
+                <input name="username" th:value="${domain?.username}" required lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input name="password" th:value="${domain?.password}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">URL</label>
+            <div class="layui-input-block">
+                <input name="url" th:value="${domain?.url}" required lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="edit_form_filter">
+                    <i class="fa-solid fa-check"></i> 提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-normal">
+                    <i class="layui-icon layui-icon-refresh-3"></i> 重置
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script th:inline="javascript">
+        layui.use(['jquery', 'form'], function () {
+            var $ = layui.$, form = layui.form;
+
+            /* 监听表单提交 */
+            form.on('submit(edit_form_filter)', function (data) {
+                //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+                if(data.field.id) {
+                    $.put("/generator/datasource", data.field, function (res) {
+                        if (res.code === 200) {
+                            $.table.reloadParentData('main_table');
+                            $.layer.close();
+                        }
+                    });
+                } else {
+                    $.post("/generator/datasource", data.field, function (res) {
+                        if (res.code === 200) {
+                            $.table.reloadParentData('main_table');
+                            $.layer.close();
+                        }
+                    });
+                }
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        });
+    </script>
+</body>
+
+</html>

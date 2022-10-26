@@ -19,6 +19,8 @@ public class QuickBootLayuiAutoConfiguration implements WebMvcConfigurer {
         registry.addViewController("/quickboot/admin").setViewName("quickboot/admin");
         registry.addViewController("/quickboot/home").setViewName("quickboot/home");
         registry.addViewController("/quickboot/demo/img").setViewName("quickboot/demo/img");
+        registry.addViewController("/quickboot/generator-side").setViewName("quickboot/generator-side");
+        registry.addViewController("/quickboot/flowable-side").setViewName("quickboot/flowable-side");
     }
 
 }

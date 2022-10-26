@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import java.util.List;
@@ -16,7 +17,14 @@ import java.util.List;
  **/
 @Slf4j
 @Validated
-public class BaseController {
+public abstract class BaseController {
+
+    public abstract String prefix();
+
+    @GetMapping("/index")
+    public String index() {
+        return prefix() + "/index";
+    }
 
     /**
      * 页面重定向: UrlBasedViewResolver.REDIRECT_URL_PREFIX

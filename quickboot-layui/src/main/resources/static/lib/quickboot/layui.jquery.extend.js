@@ -53,6 +53,9 @@ layui.use(['jquery'], function () {
                         page: { theme: '#1E9FFF', curr: 1 } 
                     }, 
                     deep)
+            },
+            reloadParentData: function (tableId) {
+                parent.layui.table.reloadData(tableId, { page: { theme: '#1E9FFF', curr: 1 } }, true)
             }
         },
 
@@ -97,25 +100,25 @@ layui.use(['jquery'], function () {
         "tab": {
             open: function(filter, title, url, id = Date.now()) {
                 // 防止重复打开
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let $titleLiElements = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 for (let i = 0; i < $titleLiElements.length; i++) {
                     if ($titleLiElements.eq(i).attr('lay-id') == id) {
-                        layui.element.tabChange(filter, id);
+                        window.top.layui.element.tabChange(filter, id);
                         return;
                     }
                 }
 
-                layui.element.tabAdd(filter, {
+                window.top.layui.element.tabAdd(filter, {
                     title: title
                     , content: '<iframe src="' + url + '" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>'
                     , id: id
                 });
-                layui.element.tabChange(filter, id);
-                $("[lay-filter=" + filter + "] div.layui-tab-content div.layui-show").css("height", "100%");
+                window.top.layui.element.tabChange(filter, id);
+                window.top.layui.$("[lay-filter=" + filter + "] div.layui-tab-content div.layui-show").css("height", "100%");
 
                 if ($titleLiElements.length > 10) {
-                    let nth2Layid = $("[lay-filter=" + filter + "] ul.layui-tab-title li:nth-child(2)").attr("lay-id");
-                    layui.element.tabDelete(filter, nth2Layid);
+                    let nth2Layid = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li:nth-child(2)").attr("lay-id");
+                    window.top.layui.element.tabDelete(filter, nth2Layid);
                 }
 
                 //let $currentTabTitle = $("[lay-filter=" + filter + "] ul.layui-tab-title li[lay-id=" + id + "]");
@@ -131,41 +134,41 @@ layui.use(['jquery'], function () {
                 //});
             },
             closeThis: function(filter, id) {
-                layui.element.tabDelete(filter, id);
+                window.top.layui.element.tabDelete(filter, id);
             },
             closeLeft: function(filter, id) {
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let $titleLiElements = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 for (let i = 1; i < $titleLiElements.length; i++) {
                     if ($titleLiElements.eq(i).attr('lay-id') == id) {
                         return;
                     } else {
-                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                        window.top.layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
                     }
                 }
             },
             closeRight: function(filter, id) {
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let $titleLiElements = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 let currentIndex = null;
                 for (let i = 1; i < $titleLiElements.length; i++) {
                     if(currentIndex && i > currentIndex) {
-                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                        window.top.layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
                     } else if ($titleLiElements.eq(i).attr('lay-id') == id) {
                         currentIndex = i;
                     }
                 }
             },
             closeOther: function(filter, id) {
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let $titleLiElements = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 for (let i = 1; i < $titleLiElements.length; i++) {
                     if ($titleLiElements.eq(i).attr('lay-id') != id) {
-                        layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                        window.top.layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
                     }
                 }
             },
             closeAll: function(filter) {
-                let $titleLiElements = $("[lay-filter=" + filter + "] ul.layui-tab-title li");
+                let $titleLiElements = window.top.layui.$("[lay-filter=" + filter + "] ul.layui-tab-title li");
                 for (let i = 1; i < $titleLiElements.length; i++) {
-                    layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
+                    window.top.layui.element.tabDelete(filter, $titleLiElements.eq(i).attr('lay-id'));
                 }
             }
         },

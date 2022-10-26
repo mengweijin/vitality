@@ -10,17 +10,25 @@
 
     <!-- 头部区域（可配合layui 已有的水平导航） -->
     <ul class="layui-nav layui-layout-left" lay-bar="disabled">
-        <!-- 移动端显示 -->
-        <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-            <i class="layui-icon layui-icon-spread-left"></i>
-        </li>
         <li class="layui-nav-item" lay-unselect lay-header-event="shrink">
             <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"
                                       style="font-size: 20px;"></i></a>
         </li>
+        <li class="layui-nav-item" lay-unselect>
+            <a href="#tab=home" title="主页"><i class="fa-solid fa-house" style="font-size: 20px;"></i></a>
+        </li>
         <li class="layui-nav-item" lay-unselect lay-header-event="refresh">
             <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3"
                                                    style="font-size: 20px;"></i></a>
+        </li>
+    </ul>
+
+    <ul class="layui-nav layui-layout-left" style="left: 380px;">
+        <li class="layui-nav-item layui-this" lay-header-event="generator">
+            <a href="javascript:;">代码生成器</a>
+        </li>
+        <li class="layui-nav-item" lay-header-event="flowable">
+            <a href="javascript:;" title="刷新">Flowable 工作流</a>
         </li>
     </ul>
 
@@ -73,6 +81,12 @@
                         $showIframe.attr("src", $showIframe.attr("src"))
                     }
                 },
+                generator: function(othis) {
+                    $(".layui-layout-admin div.layui-side").load("/quickboot/generator-side");
+                },
+                flowable: function(othis) {
+                    $(".layui-layout-admin div.layui-side").load("/quickboot/flowable-side");
+                },
                 notice: function () {
                     layer.open({
                         title: '查看通知',
@@ -85,10 +99,6 @@
                     });
                 },
 
-                //左侧菜单事件
-                menuLeft: function (othis) {
-                    layer.msg('展开左侧菜单的操作', { icon: 0 });
-                },
                 menuRight: function () {
                     layer.open({
                         type: 1,

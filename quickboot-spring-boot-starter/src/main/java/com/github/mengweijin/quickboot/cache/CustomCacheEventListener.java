@@ -1,4 +1,4 @@
-package com.github.mengweijin.ecache3;
+package com.github.mengweijin.quickboot.cache;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ehcache.event.CacheEvent;

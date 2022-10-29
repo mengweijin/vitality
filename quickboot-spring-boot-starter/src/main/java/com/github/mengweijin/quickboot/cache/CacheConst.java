@@ -1,4 +1,4 @@
-package com.github.mengweijin.ecache3;
+package com.github.mengweijin.quickboot.cache;
 
 /**
  * KEY_EXPRESSION 为 @Cacheable 中的 key 值，默认使用 SPEL 表达式，若要拼接普通文本，需要用单引号包裹起来。

@@ -1,11 +1,16 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.mengweijin.quickboot.QuickBootAutoConfiguration,\
+com.github.mengweijin.quickboot.cache.CacheAutoConfiguration,\
+com.github.mengweijin.quickboot.exception.ExceptionAutoConfiguration,\
 com.github.mengweijin.quickboot.filter.repeatable.RepeatableServletAutoConfiguration,\
 com.github.mengweijin.quickboot.filter.xss.XssAutoConfiguration,\
+com.github.mengweijin.quickboot.log.LogAutoConfiguration,\
+com.github.mengweijin.quickboot.mvc.WebMvcAutoConfiguration,\
 com.github.mengweijin.quickboot.mybatis.QuickBootMybatisPlusAutoConfiguration,\
-com.github.mengweijin.quickboot.orika.OrikaAutoConfiguration,\
 com.github.mengweijin.quickboot.redis.QuickBootRedisAutoConfiguration,\
+com.github.mengweijin.quickboot.response.ResponseBodyAdviceAutoConfiguration,\
+com.github.mengweijin.quickboot.QuickBootAutoConfiguration,\
+com.github.mengweijin.quickboot.mvc.WebMvcAutoConfiguration,\
 com.github.mengweijin.quickboot.SpringDocAutoConfiguration
 
 # Environment Post Processors

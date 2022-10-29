@@ -1,21 +1,10 @@
 package com.github.mengweijin.quickboot;
 
-import com.github.mengweijin.quickboot.exception.DefaultExceptionHandler;
-import com.github.mengweijin.quickboot.log.LogAspect;
-import com.github.mengweijin.quickboot.mvc.CorsWebMvcConfigurer;
-import com.github.mengweijin.quickboot.response.DefaultResponseBodyAdvice;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.boot.web.server.ConfigurableWebServerFactory;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
@@ -35,46 +24,10 @@ import org.springframework.web.client.RestTemplate;
 @EnableConfigurationProperties({QuickBootProperties.class})
 public class QuickBootAutoConfiguration {
 
-    @Autowired
-    private QuickBootProperties quickBootProperties;
-
     @Bean
     @ConditionalOnMissingBean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public DefaultExceptionHandler defaultExceptionHandler() {
-        return new DefaultExceptionHandler();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public DefaultResponseBodyAdvice defaultResponseBodyAdvice() {
-        return new DefaultResponseBodyAdvice();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public CorsWebMvcConfigurer corsWebMvcConfigurer() {
-        return new CorsWebMvcConfigurer();
-    }
-
-    @Bean
-    @Profile({"!prod"})
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(name = "quickboot.debug", havingValue = "true")
-    public LogAspect logAspect() {
-        return new LogAspect(appLog -> {});
-    }
-
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
-        return (factory -> {
-            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
-            factory.addErrorPages(errorPage404);
-        });
-    }
 }

@@ -1,4 +1,4 @@
-package com.github.mengweijin.ecache3;
+package com.github.mengweijin.quickboot.cache;
 
 import org.ehcache.PersistentCacheManager;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -21,7 +21,7 @@ import java.time.Duration;
  */
 @EnableCaching
 @Configuration
-public class CacheConfiguration {
+public class CacheAutoConfiguration {
 
     /**
      * EhCache缓存管理器

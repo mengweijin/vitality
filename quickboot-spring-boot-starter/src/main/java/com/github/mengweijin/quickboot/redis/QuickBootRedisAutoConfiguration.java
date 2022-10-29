@@ -9,7 +9,6 @@ import com.github.mengweijin.quickboot.redis.inteceptor.SameUrlDataInterceptor;
 import com.github.mengweijin.quickboot.redis.limiter.RateLimiterAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -30,12 +29,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SuppressWarnings(value = {"rawtypes"})
 @EnableCaching
 @Configuration
-@ConditionalOnClass({RedisConnectionFactory.class, RedisAutoConfiguration.class})
+@ConditionalOnClass({RedisConnectionFactory.class, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class})
 public class QuickBootRedisAutoConfiguration extends CachingConfigurerSupport implements WebMvcConfigurer {
 
     @Bean
-    public RedisCache redisCache(RedisTemplate redisTemplate) {
-        return new RedisCache(redisTemplate);
+    public RedisService redisService(RedisTemplate redisTemplate) {
+        return new RedisService(redisTemplate);
     }
 
     @Bean

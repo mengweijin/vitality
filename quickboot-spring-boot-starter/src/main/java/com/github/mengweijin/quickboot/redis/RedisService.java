@@ -16,11 +16,11 @@ import java.util.concurrent.TimeUnit;
  * spring redis 工具类
  **/
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
-public class RedisCache {
+public class RedisService {
 
     public RedisTemplate redisTemplate;
 
-    public RedisCache(RedisTemplate redisTemplate) {
+    public RedisService(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

@@ -1,8 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.mengweijin.ecache3.CacheConfiguration
-
-
-
-
-

@@ -4,7 +4,7 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.filter.repeatable.RepeatedlyRequestWrapper;
-import com.github.mengweijin.quickboot.redis.RedisCache;
+import com.github.mengweijin.quickboot.redis.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +27,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private RedisCache redisCache;
+    private RedisService redisService;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -52,7 +52,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         // 唯一标识（指定key + url）
         String cacheRepeatKey = REPEAT_SUBMIT_KEY + url;
 
-        Object sessionObj = redisCache.getCacheObject(cacheRepeatKey);
+        Object sessionObj = redisService.getCacheObject(cacheRepeatKey);
         if (sessionObj != null) {
             Map<String, Object> sessionMap = (Map<String, Object>) sessionObj;
             if (sessionMap.containsKey(url)) {
@@ -64,7 +64,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         }
         Map<String, Object> cacheMap = new HashMap<>(1);
         cacheMap.put(url, nowDataMap);
-        redisCache.setCacheObject(cacheRepeatKey, cacheMap, repeatSubmit.interval(), TimeUnit.MILLISECONDS);
+        redisService.setCacheObject(cacheRepeatKey, cacheMap, repeatSubmit.interval(), TimeUnit.MILLISECONDS);
         return false;
     }
 

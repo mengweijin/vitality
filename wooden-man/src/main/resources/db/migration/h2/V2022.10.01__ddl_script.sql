@@ -13,6 +13,22 @@ create TABLE QBT_GEN_TEMPLATE (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_TEMPLATE';
 
 
+DROP TABLE IF EXISTS QBT_GEN_DRIVER;
+create TABLE QBT_GEN_DRIVER (
+  id bigint NOT NULL COMMENT 'id',
+  group_id varchar(100) NOT NULL COMMENT 'JDBC Driver groupId',
+  artifact_id varchar(100) NOT NULL COMMENT 'JDBC Driver artifactId',
+  driver_version varchar(50) NOT NULL COMMENT 'JDBC Driver version',
+  driver_name varchar(100) NULL COMMENT 'JDBC Driver jar file name',
+  driver_path varchar(200) NULL COMMENT 'JDBC Driver jar file path in disk.',
+  create_by varchar(64) NULL COMMENT 'Creator',
+  create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
+  update_by varchar(64) NULL COMMENT 'Revisor',
+  update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT 'Revisor time',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_DRIVER';
+
+
 DROP TABLE IF EXISTS QBT_GEN_DATASOURCE;
 create TABLE QBT_GEN_DATASOURCE (
   id bigint NOT NULL COMMENT 'id',
@@ -20,6 +36,7 @@ create TABLE QBT_GEN_DATASOURCE (
   url varchar(100) NOT NULL COMMENT 'jdbc url or others(For example: redis=http://host:port). ',
   username varchar(50) NULL COMMENT 'username',
   password varchar(50) NULL COMMENT 'password',
+  driver_id bigint NULL COMMENT 'QBT_GEN_DRIVER id',
   create_by varchar(64) NULL COMMENT 'Creator',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
   update_by varchar(64) NULL COMMENT 'Revisor',
@@ -27,5 +44,5 @@ create TABLE QBT_GEN_DATASOURCE (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_DATASOURCE';
 
-insert into QBT_GEN_DATASOURCE values (1576744861023870978, 'H2', 'jdbc:h2:file:./h2/quickboot;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL', 'sa', null, 'admin', CURRENT_TIMESTAMP(), 'admin', CURRENT_TIMESTAMP());
+insert into QBT_GEN_DATASOURCE values (1576744861023870978, 'H2', 'jdbc:h2:file:D:\code\quickboot\h2\quickboot;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL', 'sa', null, 'h2-2.1.214.jar', 'admin', CURRENT_TIMESTAMP(), 'admin', CURRENT_TIMESTAMP());
 

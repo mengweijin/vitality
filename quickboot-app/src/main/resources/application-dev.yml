@@ -1,7 +1,0 @@
-spring:
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
-quickboot:
-  bodyAdviceExcludePathPrefix:
-    - /datasource

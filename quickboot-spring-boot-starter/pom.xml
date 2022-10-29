@@ -27,7 +27,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hutool.version>5.8.8</hutool.version>
+        <hutool.version>5.8.9</hutool.version>
         <orika.version>1.5.4</orika.version>
         <jsoup.version>1.15.3</jsoup.version>
         <springdoc.version>1.6.11</springdoc.version>
@@ -39,11 +39,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- 引入缓存框架接口依赖，如果不引人其他缓存框架，spring boot 默认使用 SimpleCacheConfiguration -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <!-- springboot 2.3.0 以后，spring-boot-starter-web中不再包含validation starter -->
         <dependency>

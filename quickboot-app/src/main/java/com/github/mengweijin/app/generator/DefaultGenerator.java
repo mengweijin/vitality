@@ -3,6 +3,7 @@ package com.github.mengweijin.app.generator;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.github.mengweijin.app.generator.entity.DatasourceInfo;
 
 import javax.sql.DataSource;
 
@@ -12,6 +13,10 @@ import javax.sql.DataSource;
  */
 public class DefaultGenerator extends AutoGenerator {
 
+    public DefaultGenerator(DatasourceInfo datasourceInfo) {
+        this(datasourceInfo.getUrl(), datasourceInfo.getUsername(), datasourceInfo.getPassword());
+    }
+
     public DefaultGenerator(String url, String username, String password) {
         super(new DataSourceConfig.Builder(url, username, password).build());
     }
@@ -19,6 +24,7 @@ public class DefaultGenerator extends AutoGenerator {
     public DefaultGenerator(DataSource dataSource) {
         super(new DataSourceConfig.Builder(dataSource).build());
     }
+
     /**
      * 构造方法
      *

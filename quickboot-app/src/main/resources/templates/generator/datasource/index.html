@@ -51,7 +51,7 @@
     
     <script th:inline="javascript">
         layui.use(['jquery', 'layer', 'form', 'table'], function () {
-            var $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table;
+            let $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table;
 
             table.render({
                 id: 'main_table' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
@@ -104,7 +104,7 @@
 
             //单元格工具事件
             table.on('tool(main_table_filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
-                var row = obj.data; //获得当前行数据
+                let row = obj.data; //获得当前行数据
                 switch (obj.event) {
                     case 'clone':
                         layer.confirm('确定复制吗？', function (index) {
@@ -133,7 +133,7 @@
                         });
                         break;
                     case 'table_list':
-                        $.tab.open('main_tab_filter', '数据库表', '/quickboot/demo/img', 'generator_datasource_' + row.id)
+                        $.tab.open('main_tab_filter', '数据库表', '/generator/datasource/table/' + row.id + '/index', 'generator_datasource_' + row.id)
                         break;
                 }
             })

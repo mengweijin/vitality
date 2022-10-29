@@ -53,7 +53,7 @@
 
     <script th:inline="javascript">
         layui.use(['jquery', 'form'], function () {
-            var $ = layui.$, form = layui.form;
+            let $ = layui.$, form = layui.form;
 
             /* 监听表单提交 */
             form.on('submit(edit_form_filter)', function (data) {

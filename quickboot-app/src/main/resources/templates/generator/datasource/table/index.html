@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+
+<body>
+    <div style="padding: 15px 15px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" style="margin-bottom: 0px;">
+                <div class="layui-inline">
+                    <label class="layui-form-label">数据库表名称</label>
+                    <div class="layui-input-inline">
+                        <input name="tableName" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search_form_filter">
+                        <i class="layui-icon layui-icon-search"></i> 搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon layui-icon-refresh-3"></i> 重置</button>
+                </div>
+            </div>
+        </form>
+
+
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button lay-event="refresh"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-refresh-3"></i> 刷新表数据</button>
+            </div>
+        </script>
+        <table id="main_table" lay-filter="main_table_filter"></table>
+        <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="generate" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-right: 10px; height: 20px; line-height: 18px;">生成代码</a>
+        </script>
+    </div>
+    
+    <script th:inline="javascript">
+        layui.use(['jquery', 'layer', 'form', 'table'], function () {
+            let $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table;
+            let datasourceId = [[${datasourceId}]];
+
+            table.render({
+                id: 'main_table' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
+                , elem: '#main_table'
+                , skin: 'line'
+                , url: '/generator/datasource/table/' + datasourceId + '/list'
+                , where: {}
+                , toolbar: '#toolbar'
+                , defaultToolbar: ['filter', 'print', 'exports']
+                , cols: [
+                    [
+                        { type: 'checkbox', hide: true }
+                        , { field: 'name', title: '表名称', width: 200 }
+                        , { field: 'havePrimaryKey', title: '是否有主键', width: 100 }
+                        , { field: 'fields', title: '表字段', width: 100 }
+                        , { field: 'commonFields', title: '公共字段', width: 100 }
+                        , { field: 'fieldNames', title: '字段名称集', width: 100 }
+                        , { field: 'comment', title: '表注释', minWidth: 300 }
+                        , { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
+                    ]
+                ]
+            });
+
+            //触发事件
+            table.on('toolbar(main_table_filter)', function (obj) {
+                //var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'refresh':
+                        $.post("/generator/datasource/table/tableInfoListCacheEvictAll", function (res) {
+                            if (res.code === 200) {
+                                $.table.reloadData('main_table', true);
+                            }
+                        });
+                        break;
+                };
+            });
+
+            //单元格工具事件
+            table.on('tool(main_table_filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+                var row = obj.data; //获得当前行数据
+                switch (obj.event) {
+                    case 'table_list':
+                        $.tab.open('main_tab_filter', '生成代码', '/generator/datasource/table/' + row.id, 'generator_datasource_table_' + row.name)
+                        break;
+                }
+            })
+
+            /* 监听表单提交——查询按钮——重载表格 */
+            form.on('submit(search_form_filter)', function (data) {
+                //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+                $.table.reloadData('main_table', data.field);
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
+    </script>
+</body>
+
+</html>

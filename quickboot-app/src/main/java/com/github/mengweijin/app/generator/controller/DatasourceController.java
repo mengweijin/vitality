@@ -1,10 +1,10 @@
-package com.github.mengweijin.app.generator.system.controller;
+package com.github.mengweijin.app.generator.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.mengweijin.app.generator.system.entity.DatasourceInfo;
-import com.github.mengweijin.app.generator.system.service.DatasourceService;
+import com.github.mengweijin.app.generator.entity.DatasourceInfo;
+import com.github.mengweijin.app.generator.service.DatasourceService;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,32 +23,34 @@ import java.util.Arrays;
  * @date 2022/8/14
  */
 @Controller
-@RequestMapping("/generator/datasource")
+@RequestMapping(DatasourceController.PREFIX)
 public class DatasourceController extends BaseController {
 
-    @Override
-    public String prefix() {
-        return "generator/datasource";
-    }
+    public static final String PREFIX = "generator/datasource";
 
     @Autowired
     private DatasourceService datasourceService;
 
+    @GetMapping("/index")
+    public String index() {
+        return PREFIX + "/index";
+    }
+
     @GetMapping("/add")
     public String add() {
-        return prefix() + "/edit";
+        return PREFIX + "/edit";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id) {
         this.setAttribute("domain", datasourceService.getById(id));
-        return prefix() + "/edit";
+        return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id) {
         this.setAttribute("domain", datasourceService.getById(id));
-        return prefix() + "/detail";
+        return PREFIX + "/detail";
     }
 
 

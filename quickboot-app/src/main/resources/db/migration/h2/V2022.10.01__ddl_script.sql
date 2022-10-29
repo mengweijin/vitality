@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS QBT_GEN_TEMPLATE;
+create TABLE QBT_GEN_TEMPLATE (
+  id bigint NOT NULL COMMENT 'id',
+  tpl_category varchar(20) NOT NULL COMMENT '模板类别（mybatis/maybatis-plus/jpa/自定义的模板 等）',
+  tpl_content text DEFAULT NULL COMMENT '模板内容',
+  gen_name varchar(20) NOT NULL COMMENT '生成文件的名称（controller/service/mapper/mapper.xml/entity/vue/layui 等）',
+  gen_suffix varchar(20) NOT NULL COMMENT '生成文件的后缀。（.java/.xml/.vue/.html 等）',
+  create_by varchar(64) NULL COMMENT 'Creator',
+  create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
+  update_by varchar(64) NULL COMMENT 'Revisor',
+  update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT 'Revisor time',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_TEMPLATE';
+
+
 DROP TABLE IF EXISTS QBT_GEN_DATASOURCE;
 create TABLE QBT_GEN_DATASOURCE (
   id bigint NOT NULL COMMENT 'id',

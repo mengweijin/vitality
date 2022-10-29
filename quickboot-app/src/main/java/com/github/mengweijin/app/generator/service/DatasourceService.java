@@ -1,10 +1,10 @@
-package com.github.mengweijin.app.generator.system.service;
+package com.github.mengweijin.app.generator.service;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.app.CacheKey;
-import com.github.mengweijin.app.generator.system.entity.DatasourceInfo;
-import com.github.mengweijin.app.generator.system.mapper.DatasourceMapper;
+import com.github.mengweijin.app.cache.CacheConst;
+import com.github.mengweijin.app.generator.entity.DatasourceInfo;
+import com.github.mengweijin.app.generator.mapper.DatasourceMapper;
 import com.github.mengweijin.quickboot.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +20,7 @@ public class DatasourceService extends ServiceImpl<DatasourceMapper, DatasourceI
     @Autowired
     private DatasourceMapper datasourceMapper;
 
-    @Cacheable(CacheKey.DB_TYPE)
+    @Cacheable(value = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS_METHOD_PARAM)
     public DbType[] getDbTypes() {
         return DbType.values();
     }

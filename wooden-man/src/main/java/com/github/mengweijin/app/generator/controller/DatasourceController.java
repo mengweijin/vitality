@@ -26,7 +26,7 @@ import java.util.Arrays;
 @RequestMapping(DatasourceController.PREFIX)
 public class DatasourceController extends BaseController {
 
-    public static final String PREFIX = "generator/datasource";
+    public static final String PREFIX = "/generator/datasource";
 
     @Autowired
     private DatasourceService datasourceService;

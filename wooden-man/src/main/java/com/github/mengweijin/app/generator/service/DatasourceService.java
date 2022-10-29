@@ -2,9 +2,9 @@ package com.github.mengweijin.app.generator.service;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.app.cache.CacheConst;
 import com.github.mengweijin.app.generator.entity.DatasourceInfo;
 import com.github.mengweijin.app.generator.mapper.DatasourceMapper;
+import com.github.mengweijin.quickboot.cache.CacheConst;
 import com.github.mengweijin.quickboot.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

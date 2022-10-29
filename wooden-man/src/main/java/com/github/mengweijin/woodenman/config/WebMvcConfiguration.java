@@ -1,4 +1,4 @@
-package com.github.mengweijin.app.config;
+package com.github.mengweijin.woodenman.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

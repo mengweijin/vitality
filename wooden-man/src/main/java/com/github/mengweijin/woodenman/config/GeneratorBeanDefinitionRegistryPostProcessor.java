@@ -1,7 +1,7 @@
-package com.github.mengweijin.app.config;
+package com.github.mengweijin.woodenman.config;
 
 import cn.hutool.core.util.ClassUtil;
-import com.github.mengweijin.app.generator.DefaultGenerator;
+import com.github.mengweijin.woodenman.generator.DefaultGenerator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

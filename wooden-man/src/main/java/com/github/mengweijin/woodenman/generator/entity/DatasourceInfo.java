@@ -1,4 +1,4 @@
-package com.github.mengweijin.app.generator.entity;
+package com.github.mengweijin.woodenman.generator.entity;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.TableField;

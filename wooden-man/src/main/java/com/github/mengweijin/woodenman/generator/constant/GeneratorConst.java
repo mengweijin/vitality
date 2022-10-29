@@ -1,4 +1,4 @@
-package com.github.mengweijin.app.generator.constant;
+package com.github.mengweijin.woodenman.generator.constant;
 
 /**
  * @author mengweijin

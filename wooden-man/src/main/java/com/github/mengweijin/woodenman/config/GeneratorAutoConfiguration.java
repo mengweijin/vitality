@@ -1,4 +1,4 @@
-package com.github.mengweijin.app.config;
+package com.github.mengweijin.woodenman.config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

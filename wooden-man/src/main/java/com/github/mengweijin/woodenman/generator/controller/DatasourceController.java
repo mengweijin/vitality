@@ -1,10 +1,10 @@
-package com.github.mengweijin.app.generator.controller;
+package com.github.mengweijin.woodenman.generator.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.mengweijin.app.generator.entity.DatasourceInfo;
-import com.github.mengweijin.app.generator.service.DatasourceService;
+import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.service.DatasourceService;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

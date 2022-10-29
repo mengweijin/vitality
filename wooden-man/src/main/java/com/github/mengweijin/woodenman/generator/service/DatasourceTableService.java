@@ -1,9 +1,9 @@
-package com.github.mengweijin.app.generator.service;
+package com.github.mengweijin.woodenman.generator.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.app.generator.DefaultGenerator;
+import com.github.mengweijin.woodenman.generator.DefaultGenerator;
 import com.github.mengweijin.quickboot.cache.CacheConst;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.cache.annotation.Cacheable;

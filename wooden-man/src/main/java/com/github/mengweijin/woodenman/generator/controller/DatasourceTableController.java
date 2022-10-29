@@ -1,10 +1,10 @@
-package com.github.mengweijin.app.generator.controller;
+package com.github.mengweijin.woodenman.generator.controller;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.app.generator.DefaultGenerator;
-import com.github.mengweijin.app.generator.entity.DatasourceInfo;
-import com.github.mengweijin.app.generator.service.DatasourceService;
-import com.github.mengweijin.app.generator.service.DatasourceTableService;
+import com.github.mengweijin.woodenman.generator.DefaultGenerator;
+import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.service.DatasourceService;
+import com.github.mengweijin.woodenman.generator.service.DatasourceTableService;
 import com.github.mengweijin.layui.model.LayuiTable;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

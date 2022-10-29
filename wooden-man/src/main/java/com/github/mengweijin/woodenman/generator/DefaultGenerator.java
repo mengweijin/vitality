@@ -1,9 +1,9 @@
-package com.github.mengweijin.app.generator;
+package com.github.mengweijin.woodenman.generator;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
-import com.github.mengweijin.app.generator.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
 
 import javax.sql.DataSource;
 

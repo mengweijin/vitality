@@ -1,20 +1,17 @@
-package com.github.mengweijin.woodenman.generator.entity;
+package com.github.mengweijin.woodenman.generator.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
+import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * @author mengweijin
- * @date 2022/10/30
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("QBT_GEN_DRIVER")
-public class DriverInfo extends BaseEntity {
+public class DatasourceInfoDTO extends DatasourceInfo {
 
     private String groupId;
 
@@ -23,5 +20,4 @@ public class DriverInfo extends BaseEntity {
     private String driverVersion;
 
     private String driverPath;
-
 }

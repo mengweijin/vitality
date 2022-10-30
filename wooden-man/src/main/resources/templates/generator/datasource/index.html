@@ -79,9 +79,19 @@
                         { type: 'checkbox', hide: true }
                         , { field: 'id', title: 'ID', width: 200, hide: true }
                         , { field: 'dbType', title: '数据库类型', width: 100 }
-                        , { field: 'url', title: 'URL', minWidth: 300 }
+                        , { field: 'url', title: 'URL', minWidth: 200 }
                         , { field: 'username', title: '用户名', width: 100 }
-                        , { field: 'password', title: '密码', width: 200 }
+                        , { field: 'password', title: '密码', width: 180 }
+                        , { field: 'driverId', title: '驱动包 ID', width: 200 }
+                        , { field: 'driverName', title: 'JDBC 驱动包名称', width: 300
+                            , templet: function(d) {
+                                if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
+                                    return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
+                                }
+                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">自动下载驱动包失败！请点击编辑按钮添加。</span>'
+                                return d.driverPath ? d.driverPath : error;
+                            }
+                        }
                         , { field: 'createTime', title: '创建时间', width: 170, hide: true }
                         , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
                         , { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }

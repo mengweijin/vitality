@@ -41,6 +41,7 @@ public final class MavenJarUtils {
                 return latestVersion.asText();
             }
         } catch (Exception e) {
+            log.error("Search Jar URL is: " + url);
             String message = "No version was found by groupId=" + groupId + " and artifactId=" + artifactId;
             message += "; Please check your input.";
             throw new QuickBootClientException(message);
@@ -48,13 +49,22 @@ public final class MavenJarUtils {
         return null;
     }
 
+    public static String downloadJar(String groupId, String artifactId) {
+        return downloadJar(groupId, artifactId, null);
+    }
+
     public static String downloadJar(String groupId, String artifactId, String version) {
+        if(StrUtil.isBlank(version)) {
+            version = MavenJarUtils.searchLatestVersion(groupId, artifactId);
+        }
         String fileUrl = getDownloadUrl(groupId, artifactId, version);
         File file = FileUtil.file(UploadUtils.buildUploadPath(getFileName(artifactId, version), MODULE_NAME));
         try {
             long size = HttpUtil.downloadFile(fileUrl, file);
         } catch (HttpException e) {
+            log.error("Download Jar URL is: " + fileUrl);
             String message = "Download jar failed. Please double check your groupId and artifactId is correct and you network is available.";
+            message += "Or you can specify a version if you are not type in.";
             throw new QuickBootClientException(message, e);
         }
 

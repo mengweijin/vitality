@@ -81,19 +81,20 @@
                 , cols: [
                     [
                         { type: 'checkbox', hide: true }
-                        , { field: 'id', title: 'ID', width: 200, hide: true }
+                        , { field: 'id', title: 'ID', width: 200, hide: false }
                         , { field: 'groupId', title: 'Group ID', width: 200 }
                         , { field: 'artifactId', title: 'Artifact ID', width: 240 }
                         , { field: 'driverVersion', title: 'Version', width: 100 }
-                        , { field: 'driverName', title: '驱动包文件名称', width: 300,
-                            templet: function(d) {
+                        , { field: 'driverName', title: '驱动包文件名称', width: 300
+                            , templet: function(d) {
                                 if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
                                     return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
                                 }
-                                return d.driverPath ? d.driverPath : '';
+                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">驱动包丢失！</span>'
+                                return d.driverPath ? d.driverPath : error;
                             }
                         }
-                        , { field: 'driverPath', title: '驱动包存储位置', minWidth: 260, hide: false, templet: '#driverPathTpl' }
+                        , { field: 'driverPath', title: '驱动包存储位置', minWidth: 260, hide: true, templet: '#driverPathTpl' }
                         , { field: 'createTime', title: '创建时间', width: 170, hide: true }
                         , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
                         , { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }

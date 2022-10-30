@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.woodenman.generator.mapper.DatasourceMapper">
+
+    <select id="selectPageVO" resultType="com.github.mengweijin.woodenman.generator.dto.DatasourceInfoDTO">
+        select
+          t.db_type,
+          t.url,
+          t.username,
+          t.password,
+          t.driver_id,
+          t.id,
+          t.create_by,
+          t.create_time,
+          t.update_by,
+          t.update_time,
+          driver.group_id,
+          driver.artifact_id,
+          driver.driver_version,
+          driver.driver_path
+        from QBT_GEN_DATASOURCE t
+        left join QBT_GEN_DRIVER driver on t.driver_id = driver.id
+        <where>
+            <if test="param.dbType != null">
+                and t.db_type = #{param.dbType}
+            </if>
+            <if test="param.url != null and param.url != ''">
+                and t.url = #{param.url}
+            </if>
+            <if test="param.username != null and param.username != ''">
+                and t.username like concat('%',#{param.username},'%')
+            </if>
+            <if test="param.password != null and param.password != ''">
+                and t.password = #{param.password}
+            </if>
+            <if test="param.driverId != null">
+                and t.driver_id = #{param.driverId}
+            </if>
+            <if test="param.id != null">
+                and t.id = #{param.id}
+            </if>
+            <if test="param.createBy != null and param.createBy != ''">
+                and t.create_by = #{param.createBy}
+            </if>
+            <if test="param.createTime != null">
+                and t.create_time = #{param.createTime}
+            </if>
+            <if test="param.updateBy != null and param.updateBy != ''">
+                and t.update_by = #{param.updateBy}
+            </if>
+            <if test="param.updateTime != null">
+                and t.update_time = #{param.updateTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

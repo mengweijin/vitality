@@ -39,6 +39,17 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">JDBC 驱动包</label>
+            <div class="layui-input-block">
+                <select name="driverId" lay-search th:with="list=${@driverService.list()}">
+                    <option value="">请选择</option>
+                    <option th:each="item : ${list}" th:value="${item.id}" th:text="${item.driverPath}" th:selected="${item.id == domain?.driverId}"></option>
+                </select>
+                <div class="layui-form-mid layui-word-aux">不选择的话默认从中央仓库下载最新版本。若要新增驱动包，请到【驱动包管理】菜单添加。</div>
+            </div>
+        </div>
+
         <div class="layui-form-item" style="text-align: center;">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal" lay-submit lay-filter="edit_form_filter">

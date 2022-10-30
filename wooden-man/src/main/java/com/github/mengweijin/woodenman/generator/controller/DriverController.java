@@ -94,7 +94,8 @@ public class DriverController extends BaseController {
     @PostMapping("/fetch/{id}")
     @ResponseBody
     public R fetch(@PathVariable("id") Long id) {
-        boolean flag = driverService.downloadAndUpdate(id);
+        DriverInfo driverInfo = driverService.getById(id);
+        boolean flag = driverService.downloadAndUpdate(driverInfo);
         return R.info(flag);
     }
 

@@ -2,10 +2,13 @@ package com.github.mengweijin.woodenman.generator.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.mengweijin.quickboot.mvc.BaseController;
+import com.github.mengweijin.woodenman.generator.async.AsyncFactory;
+import com.github.mengweijin.woodenman.generator.dto.DatasourceInfoDTO;
 import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
 import com.github.mengweijin.woodenman.generator.service.DatasourceService;
-import com.github.mengweijin.quickboot.mvc.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +34,9 @@ public class DatasourceController extends BaseController {
     @Autowired
     private DatasourceService datasourceService;
 
+    @Autowired
+    private AsyncFactory asyncFactory;
+
     @GetMapping("/index")
     public String index() {
         return PREFIX + "/index";
@@ -53,10 +59,15 @@ public class DatasourceController extends BaseController {
         return PREFIX + "/detail";
     }
 
-
     @GetMapping("/page")
     @ResponseBody
-    public Page<DatasourceInfo> page(Page<DatasourceInfo> page, DatasourceInfo datasourceInfo) {
+    public IPage<DatasourceInfoDTO> page(Page<DatasourceInfoDTO> page, DatasourceInfoDTO dto) {
+        return datasourceService.selectPageVO(page, dto);
+    }
+
+    @GetMapping("/page-single-table")
+    @ResponseBody
+    public Page<DatasourceInfo> pageSingleTable(Page<DatasourceInfo> page, DatasourceInfo datasourceInfo) {
         LambdaQueryWrapper<DatasourceInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StrUtil.isNotBlank(datasourceInfo.getUsername()), DatasourceInfo::getUsername, datasourceInfo.getUsername());
         wrapper.eq(datasourceInfo.getDbType() != null, DatasourceInfo::getDbType, datasourceInfo.getDbType());
@@ -68,18 +79,21 @@ public class DatasourceController extends BaseController {
     @ResponseBody
     public void add(DatasourceInfo ds) {
         datasourceService.save(ds);
+        asyncFactory.autoSetDatasourceDriverInfo(ds.getId());
     }
 
     @PostMapping("/clone/{id}")
     @ResponseBody
     public void clone(@PathVariable("id") Long id) {
         datasourceService.cloneById(id);
+        asyncFactory.autoSetDatasourceDriverInfo(id);
     }
 
     @PutMapping
     @ResponseBody
     public void edit(DatasourceInfo ds) {
         datasourceService.updateById(ds);
+        asyncFactory.autoSetDatasourceDriverInfo(ds.getId());
     }
 
     @DeleteMapping("/{id}")

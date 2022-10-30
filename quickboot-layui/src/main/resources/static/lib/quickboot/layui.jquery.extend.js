@@ -297,8 +297,8 @@ layui.use(['jquery'], function () {
         },
         complete: function (xhr) {
             layui.layer.close(this.layerIndex);
-            if (this.type != 'GET') {
-                layui.layer.msg('操作成功！ <br>Operate successfully! ', { icon: 1 });
+            if (this.type != 'GET' && xhr.status == 200) {
+                layui.layer.msg('操作成功！Operate successfully!', { icon: 1 });
             }
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -308,24 +308,27 @@ layui.use(['jquery'], function () {
                     if (xhr.responseJSON.message) {
                         message = xhr.responseJSON.message;
                     }
-                    layui.layer.msg(message, { icon: 5, time: 0, closeBtn: 1 });
+                    layui.layer.msg(message, { icon: 5, time: 0, closeBtn: 1, title: xhr.status });
                     break;
                 case (401):
-                    layui.layer.msg("未登录或者会话已过期！<br>No login or Session is invalid!", { icon: 2 });
+                    layui.layer.msg("未登录或者会话已过期！<br>No login or Session is invalid!", { icon: 2, title: xhr.status });
                     // 刷新当前页面
                     top.location.reload(true);
                     break;
                 case (403):
-                    layui.layer.msg("无权限！<br>No permission!", { icon: 2 });
+                    layui.layer.msg("无权限！No permission!", { icon: 2, title: xhr.status });
+                    break;
+                case (404):
+                    layui.layer.msg("找不到资源！Not Found!", { icon: 2, title: xhr.status });
                     break;
                 case (408):
-                    layui.layer.msg("请求超时！<br>Request timeout!", { icon: 2 });
+                    layui.layer.msg("请求超时！Request timeout!", { icon: 2, title: xhr.status });
                     break;
                 case (500):
-                    layui.layer.msg("服务器异常！<br>Server Exception!", { icon: 2 });
+                    layui.layer.msg("服务器异常！Server Exception!", { icon: 2, title: xhr.status });
                     break;
                 default:
-                    layui.layer.msg('未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator!', { icon: 2 });
+                    layui.layer.msg('未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator!', { icon: 2, title: xhr.status });
                     break;
             }
         }

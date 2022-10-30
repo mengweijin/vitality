@@ -7,7 +7,7 @@ import cn.hutool.http.HttpUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.mengweijin.quickboot.domain.P;
 import com.github.mengweijin.quickboot.util.Const;
-import com.github.mengweijin.woodenman.generator.domain.JarInfo;
+import com.github.mengweijin.woodenman.generator.dto.DriverInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Iterator;
@@ -22,7 +22,7 @@ public final class MavenJarUtils {
     /**
      * For Example: https://search.maven.org/solrsearch/select?q=g:%22com.github.mengweijin%22+AND+a:%22flyway-extend%22&start=0&rows=20
      */
-    private static JarInfo searchLatestVersion(String groupId, String artifactId) {
+    private static DriverInfoDTO searchLatestVersion(String groupId, String artifactId) {
         String url = "https://search.maven.org/solrsearch/select?q=g:%22";
         url += groupId + "%22+AND+a:%22" + artifactId + "%22&start=0&rows=20";
         try {
@@ -33,7 +33,7 @@ public final class MavenJarUtils {
                 Iterator<JsonNode> elements = docsNode.elements();
                 JsonNode firstNode = elements.next();
                 JsonNode latestVersion = firstNode.get("latestVersion");
-                return new JarInfo(groupId, artifactId, latestVersion.asText());
+                return new DriverInfoDTO(groupId, artifactId, latestVersion.asText());
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -42,10 +42,10 @@ public final class MavenJarUtils {
     }
 
     public static void downloadJar(String groupId, String artifactId) {
-        JarInfo jarInfo = searchLatestVersion(groupId, artifactId);
-        if(jarInfo != null) {
-            String fileUrl = getDownloadUrl(groupId, artifactId, jarInfo.getVersion());
-            long size = HttpUtil.downloadFile(fileUrl, FileUtil.file(jarInfo.getSavePath()));
+        DriverInfoDTO driverInfoDTO = searchLatestVersion(groupId, artifactId);
+        if(driverInfoDTO != null) {
+            String fileUrl = getDownloadUrl(groupId, artifactId, driverInfoDTO.getDriverVersion());
+            long size = HttpUtil.downloadFile(fileUrl, FileUtil.file(driverInfoDTO.getDriverPath()));
         }
     }
 

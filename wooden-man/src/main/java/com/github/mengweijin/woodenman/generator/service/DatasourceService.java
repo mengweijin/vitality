@@ -38,18 +38,18 @@ public class DatasourceService extends ServiceImpl<DatasourceMapper, DatasourceI
         return datasourceMapper.selectPageVO(page, dto);
     }
 
-    public void cloneById(Long id) {
+    public void cloneById(String id) {
         DatasourceInfo datasourceInfo = this.getById(id);
         DatasourceInfo clonedDatasource = new DatasourceInfo();
         BeanUtils.copyPropertiesIgnoreBaseEntityProperties(datasourceInfo, clonedDatasource);
         this.save(clonedDatasource);
     }
 
-    public boolean updateDriverIdById(Long driverId, Long id) {
+    public boolean updateDriverIdById(String driverId, String id) {
         return this.lambdaUpdate().set(DatasourceInfo::getDriverId, driverId).eq(DatasourceInfo::getId, id).update();
     }
 
-    public boolean refreshDriver(Long id) {
+    public boolean refreshDriver(String id) {
         DatasourceInfo datasourceInfo = this.getById(id);
         if(datasourceInfo.getDriverId() != null) {
             return driverService.refreshDriver(datasourceInfo.getDriverId());

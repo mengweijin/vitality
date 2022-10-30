@@ -39,7 +39,7 @@ public class DriverService extends ServiceImpl<DriverMapper, DriverInfo> {
         return CollUtil.isEmpty(list) ? null : list.get(0);
     }
 
-    public boolean refreshDriver(Long id) {
+    public boolean refreshDriver(String id) {
         DriverInfo driverInfo = this.getById(id);
         String driverPath = driverInfo.getDriverPath();
         if(StrUtil.isNotBlank(driverPath) && FileUtil.file(driverPath).exists()){

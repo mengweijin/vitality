@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,9 +23,9 @@ public abstract class BaseEntity implements Serializable {
      * 自动生成主键，子类不可重写，但可以在项目中重新定义一个BaseEntity。
      * JsonSerialize：JavaScript 无法处理 Java 的长整型 Long 导致精度丢失，具体表现为主键最后两位永远为 0
      */
-    @JsonSerialize(using = ToStringSerializer.class)
+    //@JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    protected Long id;
+    protected String id;
 
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @TableField(value = "create_time", fill = FieldFill.INSERT)

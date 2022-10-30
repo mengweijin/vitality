@@ -43,13 +43,13 @@ public class DriverController extends BaseController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id) {
+    public String edit(@PathVariable("id") String id) {
         this.setAttribute("domain", driverService.getById(id));
         return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id) {
+    public String detail(@PathVariable("id") String id) {
         this.setAttribute("domain", driverService.getById(id));
         return PREFIX + "/detail";
     }
@@ -79,13 +79,13 @@ public class DriverController extends BaseController {
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") String id) {
         driverService.removeById(id);
     }
 
     @DeleteMapping
     @ResponseBody
-    public void delete(Long[] ids) {
+    public void delete(String[] ids) {
         driverService.removeBatchByIds(Arrays.asList(ids));
     }
 
@@ -93,7 +93,7 @@ public class DriverController extends BaseController {
 
     @PostMapping("/fetch/{id}")
     @ResponseBody
-    public R fetch(@PathVariable("id") Long id) {
+    public R fetch(@PathVariable("id") String id) {
         DriverInfo driverInfo = driverService.getById(id);
         boolean flag = driverService.downloadAndUpdate(driverInfo);
         return R.info(flag);

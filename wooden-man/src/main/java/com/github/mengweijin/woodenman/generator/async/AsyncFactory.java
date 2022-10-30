@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AsyncFactory {
 
-    public void autoSetDatasourceDriverInfo(Long datasourceId) {
+    public void autoSetDatasourceDriverInfo(String datasourceId) {
+        DatasourceService datasourceService = SpringUtil.getBean(DatasourceService.class);
         try{
-            DatasourceService datasourceService = SpringUtil.getBean(DatasourceService.class);
             datasourceService.refreshDriver(datasourceId);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             log.error(e.getMessage(), e);
         }
     }

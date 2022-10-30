@@ -48,13 +48,13 @@ public class DatasourceController extends BaseController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id) {
+    public String edit(@PathVariable("id") String id) {
         this.setAttribute("domain", datasourceService.getById(id));
         return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id) {
+    public String detail(@PathVariable("id") String id) {
         this.setAttribute("domain", datasourceService.getById(id));
         return PREFIX + "/detail";
     }
@@ -84,7 +84,7 @@ public class DatasourceController extends BaseController {
 
     @PostMapping("/clone/{id}")
     @ResponseBody
-    public void clone(@PathVariable("id") Long id) {
+    public void clone(@PathVariable("id") String id) {
         datasourceService.cloneById(id);
         asyncFactory.autoSetDatasourceDriverInfo(id);
     }
@@ -98,13 +98,13 @@ public class DatasourceController extends BaseController {
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") String id) {
         datasourceService.removeById(id);
     }
 
     @DeleteMapping
     @ResponseBody
-    public void delete(Long[] ids) {
+    public void delete(String[] ids) {
         datasourceService.removeBatchByIds(Arrays.asList(ids));
     }
 

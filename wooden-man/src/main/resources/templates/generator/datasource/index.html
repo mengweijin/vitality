@@ -88,7 +88,7 @@
                                 if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
                                     return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
                                 }
-                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">自动下载驱动包失败！请点击编辑按钮添加。</span>'
+                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">JDBC驱动包未就绪！请刷新页面或手动编辑。</span>'
                                 return d.driverPath ? d.driverPath : error;
                             }
                         }

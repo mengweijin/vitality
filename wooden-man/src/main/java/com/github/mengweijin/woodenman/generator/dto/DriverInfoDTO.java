@@ -15,21 +15,23 @@ import java.io.File;
 @EqualsAndHashCode(callSuper = true)
 public class DriverInfoDTO extends DriverInfo {
 
-    private final String driverName;
+    private String driverName;
 
-    private final String driverPath;
+    private String driverPath;
 
-    public DriverInfoDTO(DriverInfo driverInfo) {
-        this.driverName = this.jarFileName();
-        this.driverPath = this.driverSavedPath();
+    public DriverInfoDTO() {
     }
 
     public DriverInfoDTO(String groupId, String artifactId, String version) {
         this.setGroupId(groupId);
         this.setArtifactId(artifactId);
         this.setDriverVersion(version);
-        this.driverName = this.jarFileName();
-        this.driverPath = this.driverSavedPath();
+    }
+
+    public DriverInfoDTO init() {
+        this.driverName = jarFileName();
+        this.driverPath = driverSavedPath();
+        return this;
     }
 
     public String jarFileName() {

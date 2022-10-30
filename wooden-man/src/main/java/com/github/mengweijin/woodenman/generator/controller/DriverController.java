@@ -44,13 +44,13 @@ public class DriverController extends BaseController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id) {
-        this.setAttribute("domain", driverService.getById(id));
+        this.setAttribute("domain", driverService.getDriverInfoDTOById(id));
         return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id) {
-        this.setAttribute("domain", driverService.getById(id));
+        this.setAttribute("domain", driverService.getDriverInfoDTOById(id));
         return PREFIX + "/detail";
     }
 

@@ -40,10 +40,12 @@
             {{#  if(d.driverDownloaded){ }}
             已下载
             {{#  } else { }}
-            <span class="layui-btn layui-btn-danger layui-btn-sm">驱动包不存在！</span>
+            <span class="layui-btn layui-btn-danger layui-btn-xs">驱动包丢失！</span>
             {{#  } }}
         </script>
         <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="upload" title="手动上传驱动" style="margin-right: 10px;"><i class="layui-icon layui-icon-upload-drag"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="download" title="从 Maven 中央仓库下载并安装驱动" style="margin-right: 10px;"><i class="layui-icon layui-icon-download-circle"   style="color: #1E9FFF; font-weight: bold;"></i></a>
             <a class="layui-hide" href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
             <a class="layui-hide" href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
             <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
@@ -80,12 +82,12 @@
                     [
                         { type: 'checkbox', hide: true }
                         , { field: 'id', title: 'ID', width: 200, hide: true }
-                        , { field: 'groupId', title: 'Group ID', width: 100 }
+                        , { field: 'groupId', title: 'Group ID', width: 200 }
                         , { field: 'artifactId', title: 'Artifact ID', width: 200 }
                         , { field: 'driverVersion', title: 'Version', width: 100 }
-                        , { field: 'driverDownloaded', title: '驱动包状态', width: 100, templet: '#driverDownloadedTpl' }
-                        , { field: 'driverName', title: '驱动包文件名称', width: 200 }
-                        , { field: 'driverPath', title: '驱动包存储位置', minWidth: 300 }
+                        , { field: 'driverDownloaded', title: '驱动包状态', width: 120, templet: '#driverDownloadedTpl' }
+                        , { field: 'driverName', title: '驱动包文件名称', minWidth: 240 }
+                        , { field: 'driverPath', title: '驱动包存储位置', width: 260, hide: false }
                         , { field: 'createTime', title: '创建时间', width: 170, hide: true }
                         , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
                         , { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }

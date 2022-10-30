@@ -33,7 +33,7 @@ public final class MavenJarUtils {
                 Iterator<JsonNode> elements = docsNode.elements();
                 JsonNode firstNode = elements.next();
                 JsonNode latestVersion = firstNode.get("latestVersion");
-                return new DriverInfoDTO(groupId, artifactId, latestVersion.asText());
+                return new DriverInfoDTO(groupId, artifactId, latestVersion.asText()).init();
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);

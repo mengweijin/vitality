@@ -19,12 +19,13 @@ create TABLE QBT_GEN_DRIVER (
   group_id varchar(100) NOT NULL COMMENT 'JDBC Driver groupId',
   artifact_id varchar(100) NOT NULL COMMENT 'JDBC Driver artifactId',
   driver_version varchar(50) NOT NULL COMMENT 'JDBC Driver version',
-  driver_downloaded int NULL COMMENT 'Boolean. Is driver downloaded? ',
+  driver_downloaded int NOT NULL DEFAULT 0 COMMENT 'Boolean. Is driver downloaded? ',
   create_by varchar(64) NULL COMMENT 'Creator',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
   update_by varchar(64) NULL COMMENT 'Revisor',
   update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT 'Revisor time',
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY QBT_GEN_DRIVER_GROUPID_ARTIFACTID_VERSION_INDEX (group_id, artifact_id, driver_version) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_DRIVER';
 
 

@@ -12,30 +12,23 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label required">数据库类型</label>
-            <div class="layui-input-inline">
-                <select name="dbType" required lay-verify="required" lay-search th:with="list=${@datasourceService.getDbTypes()}">
-                    <option value="">请选择</option>
-                    <option th:each="item : ${list}" th:value="${item}" th:text="${item}" th:selected="${item == domain?.dbType}"></option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">用户名</label>
-            <div class="layui-input-inline">
-                <input name="username" th:value="${domain?.username}" required lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-inline">
-                <input name="password" th:value="${domain?.password}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">URL</label>
+            <label class="layui-form-label required">Group ID</label>
             <div class="layui-input-block">
-                <input name="url" th:value="${domain?.url}" required lay-verify="required" autocomplete="off" class="layui-input">
+                <input name="groupId" th:value="${domain?.groupId}" required lay-verify="required" autocomplete="true" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">Artifact ID</label>
+            <div class="layui-input-block">
+                <input name="artifactId" th:value="${domain?.artifactId}" required lay-verify="required" autocomplete="true" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">Version</label>
+            <div class="layui-input-block">
+                <input name="driverVersion" th:value="${domain?.driverVersion}" required lay-verify="required" autocomplete="true" class="layui-input">
             </div>
         </div>
 
@@ -59,14 +52,14 @@
             form.on('submit(edit_form_filter)', function (data) {
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
                 if(data.field.id) {
-                    $.put("/generator/datasource", data.field, function (res) {
+                    $.put("/generator/driver", data.field, function (res) {
                         if (res.code === 200) {
                             $.table.reloadParentData('main_table');
                             $.layer.close();
                         }
                     });
                 } else {
-                    $.post("/generator/datasource", data.field, function (res) {
+                    $.post("/generator/driver", data.field, function (res) {
                         if (res.code === 200) {
                             $.table.reloadParentData('main_table');
                             $.layer.close();

@@ -3,8 +3,8 @@ package com.github.mengweijin.woodenman.generator.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.mengweijin.quickboot.domain.R;
 import com.github.mengweijin.quickboot.mvc.BaseController;
-import com.github.mengweijin.woodenman.generator.dto.DriverInfoDTO;
 import com.github.mengweijin.woodenman.generator.entity.DriverInfo;
 import com.github.mengweijin.woodenman.generator.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,25 +44,25 @@ public class DriverController extends BaseController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id) {
-        this.setAttribute("domain", driverService.getDriverInfoDTOById(id));
+        this.setAttribute("domain", driverService.getById(id));
         return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id) {
-        this.setAttribute("domain", driverService.getDriverInfoDTOById(id));
+        this.setAttribute("domain", driverService.getById(id));
         return PREFIX + "/detail";
     }
 
 
     @GetMapping("/page")
     @ResponseBody
-    public Page<DriverInfoDTO> page(Page<DriverInfo> page, DriverInfo driverInfo) {
+    public Page<DriverInfo> page(Page<DriverInfo> page, DriverInfo driverInfo) {
         LambdaQueryWrapper<DriverInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StrUtil.isNotBlank(driverInfo.getGroupId()), DriverInfo::getGroupId, driverInfo.getGroupId());
         wrapper.like(StrUtil.isNotBlank(driverInfo.getArtifactId()), DriverInfo::getArtifactId, driverInfo.getArtifactId());
         wrapper.orderByDesc(DriverInfo::getCreateTime);
-        return driverService.pageDriverInfoDTO(page, wrapper);
+        return driverService.page(page, wrapper);
     }
 
     @PostMapping
@@ -87,6 +87,15 @@ public class DriverController extends BaseController {
     @ResponseBody
     public void delete(Long[] ids) {
         driverService.removeBatchByIds(Arrays.asList(ids));
+    }
+
+
+
+    @PostMapping("/fetch/{id}")
+    @ResponseBody
+    public R fetch(@PathVariable("id") Long id) {
+        boolean flag = driverService.downloadAndUpdate(id);
+        return R.info(flag);
     }
 
 }

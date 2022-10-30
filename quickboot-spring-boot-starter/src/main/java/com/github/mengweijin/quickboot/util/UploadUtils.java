@@ -1,9 +1,9 @@
 package com.github.mengweijin.quickboot.util;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.crypto.SecureUtil;
-import com.github.mengweijin.quickboot.domain.FileInfo;
+import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.quickboot.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * 文件上传。
@@ -44,18 +43,33 @@ public class UploadUtils {
      */
     public static final String UNKNOWN_FILE_TYPE_DIR = "others";
 
+    public static void upload(HttpServletRequest request, Consumer<List<String>> consumer) {
+        upload(null, request, consumer);
+    }
     /**
      * 文件上传。@PostMapping("/upload")
      * 可以传入一个 Function<String, FileInfo> Lambda 表达式来检查文件是否已经在服务器上有一份了。
      *
      * @param request request
-     * @param function 函数式接口。根据 MD5 在数据库中检查是否文件已经存在。注意：MD5 操作是一件比较耗费性能的计算，尤其是文件较大时。
      * @param consumer 函数式接口。上传文件后，可以在数据库生成一条文件记录来保存当前文件所在的位置等信息。
      *                 可以在这个方法里面再调用一个异步方法来保存文件到第三方文件服务器中。
      */
-    public static void upload(HttpServletRequest request, Function<String, FileInfo> function, Consumer<List<FileInfo>> consumer) {
-        List<FileInfo> fileList = UploadUtils.upload(request, function);
-        consumer.accept(fileList);
+    public static void upload(String moduleName, HttpServletRequest request, Consumer<List<String>> consumer) {
+        List<String> pathList = UploadUtils.upload(moduleName, request);
+        consumer.accept(pathList);
+    }
+
+    public static String uploadOne(HttpServletRequest request) {
+        return uploadOne(null, request);
+    }
+
+    public static String uploadOne(String moduleName, HttpServletRequest request) {
+        List<String> list = upload(moduleName, request);
+        return CollUtil.isEmpty(list) ? null : list.get(0);
+    }
+
+    public static List<String> upload(HttpServletRequest request) {
+        return upload(null, request);
     }
 
     /**
@@ -64,8 +78,8 @@ public class UploadUtils {
      * @param request MultipartHttpServletRequest
      * @return FileInfo list in server
      */
-    public static List<FileInfo> upload(HttpServletRequest request, Function<String, FileInfo> function) {
-        List<FileInfo> fileInfoList = new ArrayList<>();
+    public static List<String> upload(String moduleName, HttpServletRequest request) {
+        List<String> pathList = new ArrayList<>();
         try {
             ServletContext servletContext = request.getSession().getServletContext();
             CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(servletContext);
@@ -76,20 +90,8 @@ public class UploadUtils {
                 Iterator<String> iterator = multiRequest.getFileNames();
                 while (iterator.hasNext()) {
                     MultipartFile file = multiRequest.getFile(iterator.next());
-                    String md5 = SecureUtil.md5(file.getInputStream());
-                    FileInfo fileInfo = function.apply(md5);
-                    if(fileInfo == null) {
-                        // 说明文件在服务器上还不存在，继续上传文件
-                        String fileLocation = UploadUtils.write(file);
-                        fileInfo = new FileInfo(file.getOriginalFilename(), md5, fileLocation);
-                    } else {
-                        // 说明文件在服务器上已经存在，只需要维护关系表即可，不需要重复上传
-                        // 服务器上的源文件名称和正在上传的源文件名称虽然是同一个文件，但名字不一定相同，因此这里重新设置一下
-                        if(!file.getOriginalFilename().equals(fileInfo.getOriginalName())) {
-                            fileInfo.setOriginalName(file.getOriginalFilename());
-                        }
-                    }
-                    fileInfoList.add(fileInfo);
+                    Path path = UploadUtils.write(file, moduleName);
+                    pathList.add(path.toAbsolutePath().toString());
                 }
             } else {
                 String message = "Can't found upload file! The request is not a MultipartHttpServletRequest.";
@@ -98,17 +100,31 @@ public class UploadUtils {
         } catch (IOException e) {
             throw new QuickBootException(e);
         }
-        return fileInfoList;
+        return pathList;
     }
 
-    private static String write(MultipartFile file) throws IOException {
-        String suffix = FileUtil.getSuffix(file.getOriginalFilename());
-        String fileType = CharSequenceUtil.isBlank(suffix) ? UNKNOWN_FILE_TYPE_DIR : suffix;
-        String generatedFileName = TimestampIdUtils.timestampId() + File.separatorChar + file.getOriginalFilename();
-        Path uploadFilePath = Paths.get(UPLOAD_ROOT_PATH + fileType + File.separatorChar + generatedFileName);
-        Files.createDirectories(uploadFilePath.getParent());
-        Files.copy(file.getInputStream(), Files.createFile(uploadFilePath), StandardCopyOption.REPLACE_EXISTING);
-        return uploadFilePath.toAbsolutePath().toString();
+    public static Path write(MultipartFile file, String moduleDirName) throws IOException {
+        String uploadPath = buildUploadPath(file.getOriginalFilename(), moduleDirName);
+        Path path = Paths.get(uploadPath);
+        Files.createDirectories(path.getParent());
+        Files.copy(file.getInputStream(), Files.createFile(path), StandardCopyOption.REPLACE_EXISTING);
+        return path;
+    }
+
+    public static Path write(File file, String moduleDirName) throws IOException {
+        String uploadPath = buildUploadPath(file.getName(), moduleDirName);
+        Path path = Paths.get(uploadPath);
+        Files.createDirectories(path.getParent());
+        Files.copy(file.toPath(), Files.createFile(path), StandardCopyOption.REPLACE_EXISTING);
+        return path;
+    }
+
+    public static String buildUploadPath(String fileName, String moduleName) {
+        moduleName = StrUtil.blankToDefault(moduleName, Const.EMPTY);
+        String suffix = FileUtil.getSuffix(fileName);
+        suffix = CharSequenceUtil.isBlank(suffix) ? UNKNOWN_FILE_TYPE_DIR : suffix;
+        fileName = TimestampIdUtils.timestampId() + Const.UNDERSCORE + fileName;
+        return UPLOAD_ROOT_PATH + moduleName + File.separatorChar + suffix + File.separatorChar + fileName;
     }
 
 }

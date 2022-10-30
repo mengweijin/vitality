@@ -37,6 +37,11 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
+    public CommonController commonController() {
+        return new CommonController();
+    }
+
+    @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return (factory -> {
             ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");

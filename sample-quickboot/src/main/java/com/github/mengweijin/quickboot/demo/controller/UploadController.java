@@ -1,6 +1,5 @@
 package com.github.mengweijin.quickboot.demo.controller;
 
-import com.github.mengweijin.quickboot.domain.FileInfo;
 import com.github.mengweijin.quickboot.util.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +21,9 @@ import java.util.List;
 public class UploadController {
 
     @PostMapping
-    public List<FileInfo> upload(HttpServletRequest request) {
-        return UploadUtils.upload(request, s -> null);
+    public void upload(HttpServletRequest request) {
+        List<String> list = UploadUtils.upload(request);
+        // 或者
+        //UploadUtils.upload(request, pathList -> { });
     }
 }

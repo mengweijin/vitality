@@ -14,21 +14,23 @@
         <div class="layui-form-item">
             <label class="layui-form-label required">Group ID</label>
             <div class="layui-input-block">
-                <input name="groupId" th:value="${domain?.groupId}" required lay-verify="required" autocomplete="true" class="layui-input">
+                <input name="groupId" th:value="${domain?.groupId}" required lay-verify="required" autocomplete="on" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label required">Artifact ID</label>
             <div class="layui-input-block">
-                <input name="artifactId" th:value="${domain?.artifactId}" required lay-verify="required" autocomplete="true" class="layui-input">
+                <input name="artifactId" th:value="${domain?.artifactId}" required lay-verify="required" autocomplete="on" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label required">Version</label>
+            <label class="layui-form-label">Version</label>
             <div class="layui-input-block">
-                <input name="driverVersion" th:value="${domain?.driverVersion}" required lay-verify="required" autocomplete="true" class="layui-input">
+                <input name="driverVersion" th:value="${domain?.driverVersion}" autocomplete="on" class="layui-input">
+                <div class="layui-form-mid layui-word-aux">不填写版本的话默认从中央仓库下载最新版本。否则以提供的版本为准。</div>
+
             </div>
         </div>
 

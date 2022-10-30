@@ -19,7 +19,7 @@ create TABLE QBT_GEN_DRIVER (
   group_id varchar(100) NOT NULL COMMENT 'JDBC Driver groupId',
   artifact_id varchar(100) NOT NULL COMMENT 'JDBC Driver artifactId',
   driver_version varchar(50) NOT NULL COMMENT 'JDBC Driver version',
-  driver_downloaded int NOT NULL DEFAULT 0 COMMENT 'Boolean. Is driver downloaded? ',
+  driver_path varchar(200) NULL COMMENT 'JDBC Driver path on the disk.',
   create_by varchar(64) NULL COMMENT 'Creator',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
   update_by varchar(64) NULL COMMENT 'Revisor',

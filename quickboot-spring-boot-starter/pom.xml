@@ -28,6 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.8.9</hutool.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
         <orika.version>1.5.4</orika.version>
         <jsoup.version>1.15.3</jsoup.version>
         <springdoc.version>1.6.11</springdoc.version>
@@ -105,6 +106,11 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
         </dependency>
         <dependency>
             <groupId>ma.glasnost.orika</groupId>

@@ -22,5 +22,5 @@ public class DriverInfo extends BaseEntity {
 
     private String driverVersion;
 
-    private Boolean driverDownloaded;
+    private String driverPath;
 }

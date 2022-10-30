@@ -3,13 +3,16 @@ package com.github.mengweijin.woodenman.generator.util;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.mengweijin.quickboot.domain.P;
+import com.github.mengweijin.quickboot.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.util.Const;
-import com.github.mengweijin.woodenman.generator.dto.DriverInfoDTO;
+import com.github.mengweijin.quickboot.util.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.util.Iterator;
 
 /**
@@ -19,10 +22,12 @@ import java.util.Iterator;
 @Slf4j
 public final class MavenJarUtils {
 
+    public static final String MODULE_NAME = "drivers";
+
     /**
      * For Example: https://search.maven.org/solrsearch/select?q=g:%22com.github.mengweijin%22+AND+a:%22flyway-extend%22&start=0&rows=20
      */
-    private static DriverInfoDTO searchLatestVersion(String groupId, String artifactId) {
+    public static String searchLatestVersion(String groupId, String artifactId) {
         String url = "https://search.maven.org/solrsearch/select?q=g:%22";
         url += groupId + "%22+AND+a:%22" + artifactId + "%22&start=0&rows=20";
         try {
@@ -33,20 +38,27 @@ public final class MavenJarUtils {
                 Iterator<JsonNode> elements = docsNode.elements();
                 JsonNode firstNode = elements.next();
                 JsonNode latestVersion = firstNode.get("latestVersion");
-                return new DriverInfoDTO(groupId, artifactId, latestVersion.asText()).init();
+                return latestVersion.asText();
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            String message = "No version was found by groupId=" + groupId + " and artifactId=" + artifactId;
+            message += "; Please check your input.";
+            throw new QuickBootClientException(message);
         }
         return null;
     }
 
-    public static void downloadJar(String groupId, String artifactId) {
-        DriverInfoDTO driverInfoDTO = searchLatestVersion(groupId, artifactId);
-        if(driverInfoDTO != null) {
-            String fileUrl = getDownloadUrl(groupId, artifactId, driverInfoDTO.getDriverVersion());
-            long size = HttpUtil.downloadFile(fileUrl, FileUtil.file(driverInfoDTO.getDriverPath()));
+    public static String downloadJar(String groupId, String artifactId, String version) {
+        String fileUrl = getDownloadUrl(groupId, artifactId, version);
+        File file = FileUtil.file(UploadUtils.buildUploadPath(getFileName(artifactId, version), MODULE_NAME));
+        try {
+            long size = HttpUtil.downloadFile(fileUrl, file);
+        } catch (HttpException e) {
+            String message = "Download jar failed. Please double check your groupId and artifactId is correct and you network is available.";
+            throw new QuickBootClientException(message, e);
         }
+
+        return file.getAbsolutePath();
     }
 
     /**
@@ -55,6 +67,10 @@ public final class MavenJarUtils {
     private static String getDownloadUrl(String groupId, String artifactId, String version) {
         String url = "https://repo1.maven.org/maven2/";
         String groupPath = StrUtil.replace(groupId, Const.DOT, Const.SLASH);
-        return url + groupPath + Const.SLASH + artifactId + Const.SLASH + version + Const.SLASH + artifactId + Const.DASH + version + ".jar";
+        return url + groupPath + Const.SLASH + artifactId + Const.SLASH + version + Const.SLASH + getFileName(artifactId, version);
+    }
+
+    private static String getFileName(String artifactId, String version) {
+        return  artifactId + Const.DASH + version + ".jar";
     }
 }

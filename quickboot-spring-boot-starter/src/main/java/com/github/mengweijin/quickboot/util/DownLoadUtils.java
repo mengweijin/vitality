@@ -11,7 +11,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -36,7 +35,7 @@ public class DownLoadUtils {
      * @param response HttpServletResponse
      * @param function 函数式接口，需要开发者自定义逻辑。根据 fileId 返回一个 File 对象。
      */
-    public static void download(Serializable fileId, HttpServletRequest request, HttpServletResponse response, Function<Serializable, File> function) {
+    public static void download(String fileId, HttpServletRequest request, HttpServletResponse response, Function<String, File> function) {
         download(function.apply(fileId), request, response);
     }
 
@@ -47,7 +46,7 @@ public class DownLoadUtils {
      * @param response HttpServletResponse
      * @param function 函数式接口，需要开发者自定义逻辑。根据 fileId 返回一个 File 对象。
      */
-    public static void chunkDownload(Serializable fileId, HttpServletRequest request, HttpServletResponse response, Function<Serializable, File> function) {
+    public static void chunkDownload(String fileId, HttpServletRequest request, HttpServletResponse response, Function<String, File> function) {
         chunkDownload(function.apply(fileId), request, response);
     }
 

@@ -66,7 +66,7 @@ public class R implements Serializable {
         return r;
     }
 
-    public static R info(boolean flag) {
+    public static R bool(boolean flag) {
         return flag ? R.success() : R.error();
     }
 

@@ -3,9 +3,7 @@ package com.github.mengweijin.woodenman.generator;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
-import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
-
-import javax.sql.DataSource;
+import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriverDataSource;
 
 /**
  * @author mengweijin
@@ -13,26 +11,8 @@ import javax.sql.DataSource;
  */
 public class DefaultGenerator extends AutoGenerator {
 
-    public DefaultGenerator(DatasourceInfo datasourceInfo) {
-        this(datasourceInfo.getUrl(), datasourceInfo.getUsername(), datasourceInfo.getPassword());
-    }
-
-    public DefaultGenerator(String url, String username, String password) {
-        super(new DataSourceConfig.Builder(url, username, password).build());
-    }
-
-    public DefaultGenerator(DataSource dataSource) {
+    public DefaultGenerator(DynamicDriverDataSource dataSource) {
         super(new DataSourceConfig.Builder(dataSource).build());
-    }
-
-    /**
-     * 构造方法
-     *
-     * @param dataSourceConfig 数据库配置
-     * @since 3.5.0
-     */
-    public DefaultGenerator(DataSourceConfig dataSourceConfig) {
-        super(dataSourceConfig);
     }
 
     @Override

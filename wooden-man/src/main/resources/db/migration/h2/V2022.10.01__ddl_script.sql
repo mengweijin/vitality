@@ -37,6 +37,7 @@ create TABLE QBT_GEN_DATASOURCE (
   username varchar(50) NULL COMMENT 'username',
   password varchar(50) NULL COMMENT 'password',
   driver_id bigint NULL COMMENT 'QBT_GEN_DRIVER id',
+  auto_refresh_driver int NOT NULL DEFAULT 0 COMMENT '是否已自动刷新下载 JDBC 驱动包。0：未刷新；1：已刷新；默认：0',
   create_by varchar(64) NULL COMMENT 'Creator',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
   update_by varchar(64) NULL COMMENT 'Revisor',
@@ -46,5 +47,5 @@ create TABLE QBT_GEN_DATASOURCE (
 
 
 
-insert into QBT_GEN_DATASOURCE values (1576744861023870978, 'H2', 'jdbc:h2:file:D:\code\quickboot\h2\quickboot;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL', 'sa', null, null, 'admin', CURRENT_TIMESTAMP(), 'admin', CURRENT_TIMESTAMP());
+insert into QBT_GEN_DATASOURCE values (1576744861023870978, 'H2', 'jdbc:h2:file:D:\code\quickboot\h2\quickboot;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL', 'sa', null, null, 0, 'admin', CURRENT_TIMESTAMP(), 'admin', CURRENT_TIMESTAMP());
 

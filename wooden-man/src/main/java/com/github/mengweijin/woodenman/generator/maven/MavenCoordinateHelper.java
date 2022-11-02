@@ -1,4 +1,4 @@
-package com.github.mengweijin.woodenman.generator.factory;
+package com.github.mengweijin.woodenman.generator.maven;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 
@@ -9,7 +9,7 @@ import java.util.Map;
  * @author mengweijin
  * @date 2022/10/30
  */
-public class DefaultDriverFactory {
+public class MavenCoordinateHelper {
 
     private static final Map<DbType, MavenCoordinate> MAP = new HashMap<>();
 

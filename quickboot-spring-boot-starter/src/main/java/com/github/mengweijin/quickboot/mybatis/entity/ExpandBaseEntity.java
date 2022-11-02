@@ -2,6 +2,8 @@ package com.github.mengweijin.quickboot.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,5 +27,6 @@ public abstract class ExpandBaseEntity extends BaseEntity {
      * 乐观锁。不是每张表都需要
      */
     @Version
+    @JsonSerialize(using = ToStringSerializer.class)
     protected Long version;
 }

@@ -14,7 +14,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label required">数据库类型</label>
             <div class="layui-input-inline">
-                <select name="dbType" required lay-verify="required" lay-search th:with="list=${@datasourceService.getDbTypes()}">
+                <select name="dbType" required lay-verify="required" lay-search th:with="list=${@datasourceService.getDbTypes()}" th:disabled="${domain?.id}">
                     <option value="">请选择</option>
                     <option th:each="item : ${list}" th:value="${item}" th:text="${item}" th:selected="${item == domain?.dbType}"></option>
                 </select>
@@ -40,13 +40,13 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">JDBC 驱动包</label>
+            <label class="layui-form-label">JDBC 驱动包位置</label>
             <div class="layui-input-block">
                 <select name="driverId" lay-search th:with="list=${@driverService.list()}">
                     <option value="">请选择</option>
                     <option th:each="item : ${list}" th:value="${item.id}" th:text="${item.driverPath}" th:selected="${item.id == domain?.driverId}"></option>
                 </select>
-                <div class="layui-form-mid layui-word-aux">不选择的话默认从中央仓库下载最新版本。若要新增驱动包，请到【驱动包管理】菜单添加。</div>
+                <div class="layui-form-mid layui-word-aux">若要新增驱动包选项，请到【驱动包管理】菜单添加。不选择的话默认尝试从系统或中央仓库下载最新版本。</div>
             </div>
         </div>
 

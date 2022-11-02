@@ -1,13 +1,11 @@
-package com.github.mengweijin.woodenman.generator.util;
+package com.github.mengweijin.woodenman.generator.maven;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.mengweijin.quickboot.domain.P;
-import com.github.mengweijin.quickboot.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.util.Const;
 import com.github.mengweijin.quickboot.util.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -41,10 +39,11 @@ public final class MavenJarUtils {
                 return latestVersion.asText();
             }
         } catch (Exception e) {
-            log.error("Search Jar URL is: " + url);
             String message = "No version was found by groupId=" + groupId + " and artifactId=" + artifactId;
             message += "; Please check your input.";
-            throw new QuickBootClientException(message);
+            log.error(message);
+            log.error("Search Jar URL is: " + url);
+            log.error(e.getMessage(), e);
         }
         return null;
     }
@@ -58,17 +57,18 @@ public final class MavenJarUtils {
             version = MavenJarUtils.searchLatestVersion(groupId, artifactId);
         }
         String fileUrl = getDownloadUrl(groupId, artifactId, version);
-        File file = FileUtil.file(UploadUtils.buildUploadPath(getFileName(artifactId, version), MODULE_NAME));
         try {
+            File file = FileUtil.file(UploadUtils.buildUploadPath(getFileName(artifactId, version), MODULE_NAME));
             long size = HttpUtil.downloadFile(fileUrl, file);
-        } catch (HttpException e) {
-            log.error("Download Jar URL is: " + fileUrl);
-            String message = "Download jar failed. Please double check your groupId and artifactId is correct and you network is available.";
+            return file.getAbsolutePath();
+        } catch (Exception e) {
+            String message = "Download jar failed. Please double check your groupId and artifactId is correct and you network is available. ";
             message += "Or you can specify a version if you are not type in.";
-            throw new QuickBootClientException(message, e);
+            log.error(message);
+            log.error("Download Jar URL is: " + fileUrl);
+            log.error(e.getMessage(), e);
         }
-
-        return file.getAbsolutePath();
+        return null;
     }
 
     /**

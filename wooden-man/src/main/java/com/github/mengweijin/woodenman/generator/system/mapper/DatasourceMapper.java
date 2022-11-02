@@ -1,9 +1,9 @@
-package com.github.mengweijin.woodenman.generator.mapper;
+package com.github.mengweijin.woodenman.generator.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.woodenman.generator.dto.DatasourceInfoDTO;
-import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.system.dto.DatasourceInfoDTO;
+import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

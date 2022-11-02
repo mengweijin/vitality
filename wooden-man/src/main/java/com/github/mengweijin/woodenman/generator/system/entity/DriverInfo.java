@@ -1,4 +1,4 @@
-package com.github.mengweijin.woodenman.generator.entity;
+package com.github.mengweijin.woodenman.generator.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;

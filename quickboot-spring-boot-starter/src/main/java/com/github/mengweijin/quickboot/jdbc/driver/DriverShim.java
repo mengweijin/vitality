@@ -1,4 +1,4 @@
-package com.github.mengweijin.woodenman.generator.util;
+package com.github.mengweijin.quickboot.jdbc.driver;
 
 import lombok.Getter;
 

@@ -1,20 +1,23 @@
-package com.github.mengweijin.woodenman.generator.service;
+package com.github.mengweijin.woodenman.generator.system.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.quickboot.cache.CacheConst;
 import com.github.mengweijin.quickboot.util.BeanUtils;
-import com.github.mengweijin.woodenman.generator.dto.DatasourceInfoDTO;
-import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
-import com.github.mengweijin.woodenman.generator.entity.DriverInfo;
-import com.github.mengweijin.woodenman.generator.factory.DefaultDriverFactory;
-import com.github.mengweijin.woodenman.generator.factory.MavenCoordinate;
-import com.github.mengweijin.woodenman.generator.mapper.DatasourceMapper;
-import com.github.mengweijin.woodenman.generator.util.MavenJarUtils;
+import com.github.mengweijin.woodenman.generator.system.dto.DatasourceInfoDTO;
+import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.system.entity.DriverInfo;
+import com.github.mengweijin.woodenman.generator.maven.MavenCoordinateHelper;
+import com.github.mengweijin.woodenman.generator.maven.MavenCoordinate;
+import com.github.mengweijin.woodenman.generator.system.mapper.DatasourceMapper;
+import com.github.mengweijin.woodenman.generator.maven.MavenJarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author mengweijin
@@ -38,40 +41,38 @@ public class DatasourceService extends ServiceImpl<DatasourceMapper, DatasourceI
         return datasourceMapper.selectPageVO(page, dto);
     }
 
-    public void cloneById(String id) {
+    public void cloneById(Long id) {
         DatasourceInfo datasourceInfo = this.getById(id);
         DatasourceInfo clonedDatasource = new DatasourceInfo();
         BeanUtils.copyPropertiesIgnoreBaseEntityProperties(datasourceInfo, clonedDatasource);
         this.save(clonedDatasource);
     }
 
-    public boolean updateDriverIdById(String driverId, String id) {
+    public boolean updateDriverIdById(Long id, Long driverId) {
         return this.lambdaUpdate().set(DatasourceInfo::getDriverId, driverId).eq(DatasourceInfo::getId, id).update();
     }
 
-    public boolean refreshDriver(String id) {
-        DatasourceInfo datasourceInfo = this.getById(id);
-        if(datasourceInfo.getDriverId() != null) {
-            return driverService.refreshDriver(datasourceInfo.getDriverId());
-        }
-
-        MavenCoordinate mavenCoordinate = DefaultDriverFactory.getMavenCoordinate(datasourceInfo.getDbType());
+    public boolean refreshDriver(DatasourceInfo datasourceInfo) {
+        MavenCoordinate mavenCoordinate = MavenCoordinateHelper.getMavenCoordinate(datasourceInfo.getDbType());
         if(mavenCoordinate == null) {
             return false;
         }
 
-        DriverInfo driverInfo = driverService.getMaxVersionDriverInfoByGroupIdAndArtifactId(mavenCoordinate.getGroupId(), mavenCoordinate.getArtifactId());
-        if(driverInfo != null) {
-            this.updateDriverIdById(driverInfo.getId(), id);
-            return driverService.refreshDriver(driverInfo.getId());
-        } else {
-            String path = MavenJarUtils.downloadJar(mavenCoordinate.getGroupId(), mavenCoordinate.getArtifactId());
-            driverInfo = new DriverInfo();
+        Optional<DriverInfo> optional = driverService.getOneAvailableDriverFromSystem(mavenCoordinate.getGroupId(), mavenCoordinate.getArtifactId());
+        if(optional.isPresent()){
+            return this.updateDriverIdById(datasourceInfo.getId(), optional.get().getId());
+        }
+
+        String path = MavenJarUtils.downloadJar(mavenCoordinate.getGroupId(), mavenCoordinate.getArtifactId());
+        if(StrUtil.isNotBlank(path)) {
+            DriverInfo driverInfo = new DriverInfo();
             driverInfo.setGroupId(mavenCoordinate.getGroupId());
             driverInfo.setArtifactId(mavenCoordinate.getArtifactId());
             driverInfo.setDriverPath(path);
             driverService.save(driverInfo);
-            return this.updateDriverIdById(driverInfo.getId(), id);
+
+            return this.updateDriverIdById(datasourceInfo.getId(), driverInfo.getId());
         }
+        return false;
     }
 }

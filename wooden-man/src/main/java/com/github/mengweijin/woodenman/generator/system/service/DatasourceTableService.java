@@ -1,15 +1,22 @@
-package com.github.mengweijin.woodenman.generator.service;
+package com.github.mengweijin.woodenman.generator.system.service;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriver;
+import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriverDataSource;
 import com.github.mengweijin.woodenman.generator.DefaultGenerator;
 import com.github.mengweijin.quickboot.cache.CacheConst;
+import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.system.entity.DriverInfo;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +27,11 @@ import java.util.stream.Collectors;
  */
 @Service
 public class DatasourceTableService {
+
+    @Autowired
+    private DatasourceService datasourceService;
+    @Autowired
+    private DriverService driverService;
 
     @Cacheable(value = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS + "+':TableInfoList'", unless = "#result?.size() == 0")
     public List<TableInfo> getTableInfoList(DefaultGenerator generator) {
@@ -42,7 +54,12 @@ public class DatasourceTableService {
         return list;
     }
 
-
-
-
+    public DefaultGenerator createDefaultGenerator(Long datasourceId) {
+        DatasourceInfo ds = datasourceService.getById(datasourceId);
+        DriverInfo driverInfo = driverService.getById(ds.getDriverId());
+        File jarFile = FileUtil.file(driverInfo.getDriverPath());
+        DynamicDriver dynamicDriver = new DynamicDriver(jarFile);
+        DynamicDriverDataSource dataSource = new DynamicDriverDataSource(dynamicDriver, ds.getUrl(), ds.getUsername(), ds.getPassword());
+        return new DefaultGenerator(dataSource);
+    }
 }

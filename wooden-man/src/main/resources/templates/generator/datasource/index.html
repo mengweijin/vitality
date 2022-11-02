@@ -85,11 +85,15 @@
                         , { field: 'driverId', title: '驱动包 ID', width: 200 }
                         , { field: 'driverName', title: 'JDBC 驱动包名称', width: 300
                             , templet: function(d) {
-                                if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
-                                    return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
+                                if(d.autoRefreshDriver){
+                                    if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
+                                        return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
+                                    } else {
+                                        return '<span class="layui-btn layui-btn-danger layui-btn-xs">JDBC驱动包未就绪！</span>'
+                                    }
+                                } else {
+                                    return '<span class="layui-btn layui-btn-warm layui-btn-xs">JDBC驱动包下载中......</span>'
                                 }
-                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">JDBC驱动包未就绪！请刷新页面或手动编辑。</span>'
-                                return d.driverPath ? d.driverPath : error;
                             }
                         }
                         , { field: 'createTime', title: '创建时间', width: 170, hide: true }

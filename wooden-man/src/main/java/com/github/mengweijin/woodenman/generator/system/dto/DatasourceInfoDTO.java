@@ -1,6 +1,6 @@
-package com.github.mengweijin.woodenman.generator.dto;
+package com.github.mengweijin.woodenman.generator.system.dto;
 
-import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

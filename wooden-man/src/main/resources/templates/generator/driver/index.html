@@ -153,7 +153,7 @@
                         break;
                     case 'fetch':
                         $.post("/generator/driver/fetch/" + row.id, function (res) {
-                            if (res.code === 200) {
+                            if (res) {
                                 $.table.reloadData('main_table', true);
                             }
                         });

@@ -1,4 +1,4 @@
-package com.github.mengweijin.woodenman.generator.factory;
+package com.github.mengweijin.woodenman.generator.maven;
 
 import lombok.Data;
 

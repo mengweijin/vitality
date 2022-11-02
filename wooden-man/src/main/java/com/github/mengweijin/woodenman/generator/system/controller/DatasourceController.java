@@ -1,14 +1,14 @@
-package com.github.mengweijin.woodenman.generator.controller;
+package com.github.mengweijin.woodenman.generator.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.quickboot.mvc.BaseController;
-import com.github.mengweijin.woodenman.generator.async.AsyncFactory;
-import com.github.mengweijin.woodenman.generator.dto.DatasourceInfoDTO;
-import com.github.mengweijin.woodenman.generator.entity.DatasourceInfo;
-import com.github.mengweijin.woodenman.generator.service.DatasourceService;
+import com.github.mengweijin.woodenman.generator.async.GeneratorAsyncFactory;
+import com.github.mengweijin.woodenman.generator.system.dto.DatasourceInfoDTO;
+import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
+import com.github.mengweijin.woodenman.generator.system.service.DatasourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +35,7 @@ public class DatasourceController extends BaseController {
     private DatasourceService datasourceService;
 
     @Autowired
-    private AsyncFactory asyncFactory;
+    private GeneratorAsyncFactory generatorAsyncFactory;
 
     @GetMapping("/index")
     public String index() {
@@ -48,13 +48,13 @@ public class DatasourceController extends BaseController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") String id) {
+    public String edit(@PathVariable("id") Long id) {
         this.setAttribute("domain", datasourceService.getById(id));
         return PREFIX + "/edit";
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") String id) {
+    public String detail(@PathVariable("id") Long id) {
         this.setAttribute("domain", datasourceService.getById(id));
         return PREFIX + "/detail";
     }
@@ -79,32 +79,30 @@ public class DatasourceController extends BaseController {
     @ResponseBody
     public void add(DatasourceInfo ds) {
         datasourceService.save(ds);
-        asyncFactory.autoSetDatasourceDriverInfo(ds.getId());
+        generatorAsyncFactory.refreshDriver(ds);
     }
 
     @PostMapping("/clone/{id}")
     @ResponseBody
-    public void clone(@PathVariable("id") String id) {
+    public void clone(@PathVariable("id") Long id) {
         datasourceService.cloneById(id);
-        asyncFactory.autoSetDatasourceDriverInfo(id);
     }
 
     @PutMapping
     @ResponseBody
     public void edit(DatasourceInfo ds) {
         datasourceService.updateById(ds);
-        asyncFactory.autoSetDatasourceDriverInfo(ds.getId());
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public void delete(@PathVariable("id") String id) {
+    public void delete(@PathVariable("id") Long id) {
         datasourceService.removeById(id);
     }
 
     @DeleteMapping
     @ResponseBody
-    public void delete(String[] ids) {
+    public void delete(Long[] ids) {
         datasourceService.removeBatchByIds(Arrays.asList(ids));
     }
 

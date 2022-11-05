@@ -2,7 +2,6 @@ package com.github.mengweijin.woodenman.generator.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.layui.model.LayuiTree;
@@ -37,7 +36,7 @@ public class TemplateService extends ServiceImpl<TemplateMapper, Template> {
         map.forEach((k, v) -> {
             LayuiTree node = new LayuiTree();
             node.setTitle(k);
-            node.setId(IdUtil.simpleUUID());
+            node.setId(null);
             node.setChildren(this.toLayuiTreeList(v));
             node.setSpread(true);
             mainTree.getChildren().add(node);
@@ -68,7 +67,7 @@ public class TemplateService extends ServiceImpl<TemplateMapper, Template> {
         templateFileList.forEach(file -> {
             Template template = new Template();
             template.setCategory(file.getParentFile().getName());
-            template.setName(StrUtil.subBefore(file.getName(), Const.DOT, true));
+            template.setName(StrUtil.subBefore(file.getName(), Const.DOT, true) + "<span style='color: #b1abab;'>（系统内置）</span>");
             template.setContent(FileUtil.readString(file, StandardCharsets.UTF_8));
             template.setSuffix(StrUtil.subAfter(file.getName(), Const.DOT, true));
             template.setBuiltIn(true);

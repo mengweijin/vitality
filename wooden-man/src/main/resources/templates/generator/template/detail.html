@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+
+<body>
+    <div class="layui-btn-container" style="text-align: right;">
+        <button lay-event="cloneGroup"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="fa-solid fa-clone"></i> 复制当前分组下所有模板</button>
+        <button lay-event="clone"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="fa-solid fa-clone"></i> 复制</button>
+        <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+        <button lay-event="edit"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-edit"></i> 编辑</button>
+        <button lay-event="delete"      class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+        <button lay-event="deleteGroup"      class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon layui-icon-delete"></i> 删除当前分组下所有模板</button>
+    </div>
+
+    <script th:inline="javascript">
+        layui.use(['jquery', 'form'], function () {
+            let $ = layui.$, form = layui.form;
+
+
+
+        });
+    </script>
+</body>
+
+</html>

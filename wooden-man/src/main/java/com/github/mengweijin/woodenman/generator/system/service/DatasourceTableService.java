@@ -8,6 +8,7 @@ import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriver;
 import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriverDataSource;
 import com.github.mengweijin.woodenman.generator.DefaultGenerator;
 import com.github.mengweijin.quickboot.cache.CacheConst;
+import com.github.mengweijin.woodenman.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
 import com.github.mengweijin.woodenman.generator.system.entity.DriverInfo;
 import org.springframework.aop.framework.AopContext;
@@ -34,23 +35,31 @@ public class DatasourceTableService {
     private DriverService driverService;
 
     @Cacheable(value = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS + "+':TableInfoList'", unless = "#result?.size() == 0")
-    public List<TableInfo> getTableInfoList(DefaultGenerator generator) {
+    public List<TableInfoDTO> getTableInfoList(DefaultGenerator generator) {
         ConfigBuilder config = generator.getConfig();
-        return config.getTableInfoList();
+        List<TableInfo> tableInfoList = config.getTableInfoList();
+        return tableInfoList.stream().map(table -> {
+            TableInfoDTO dto = new TableInfoDTO();
+            dto.setName(table.getName());
+            dto.setHavePrimaryKey(table.isHavePrimaryKey());
+            dto.setFieldNames(table.getFieldNames());
+            dto.setComment(table.getComment());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     @Cacheable(value = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS + "+':TableInfoList'")
     public void tableInfoListCacheEvictAll() {}
 
-    public List<TableInfo> selectTableInfoList(DefaultGenerator generator, @Nullable String tableName) {
+    public List<TableInfoDTO> selectTableInfoList(DefaultGenerator generator, @Nullable String tableName) {
         DatasourceTableService datasourceTableService = (DatasourceTableService) AopContext.currentProxy();
-        List<TableInfo> list = datasourceTableService.getTableInfoList(generator);
+        List<TableInfoDTO> list = datasourceTableService.getTableInfoList(generator);
 
         if(StrUtil.isNotBlank(tableName)) {
             list = list.stream().filter(table -> StrUtil.containsIgnoreCase(table.getName(), tableName)).collect(Collectors.toList());
         }
 
-        list = list.stream().sorted(Comparator.comparing(TableInfo::getName)).collect(Collectors.toList());
+        list = list.stream().sorted(Comparator.comparing(TableInfoDTO::getName)).collect(Collectors.toList());
         return list;
     }
 

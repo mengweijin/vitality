@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.quickboot.cache.CacheConst;
 import com.github.mengweijin.quickboot.demo.async.AsyncFactory;
 import com.github.mengweijin.quickboot.demo.entity.User;
 import com.github.mengweijin.quickboot.demo.enums.Gender;
@@ -64,7 +65,7 @@ public class UserController {
      * @return {@link String String}
      */
     //@CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
-    @Cacheable(cacheNames = "user")
+    @Cacheable(cacheNames = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS + "+':TableInfoList'")
     @GetMapping("/cache")
     public String hello(){
         log.info("Entered hello method.");

@@ -1,9 +1,9 @@
 package com.github.mengweijin.woodenman.generator.system.controller;
 
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.github.mengweijin.layui.model.LayuiTable;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import com.github.mengweijin.woodenman.generator.DefaultGenerator;
+import com.github.mengweijin.woodenman.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.woodenman.generator.system.service.DatasourceTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +36,9 @@ public class DatasourceTableController extends BaseController {
 
     @GetMapping("/{datasourceId}/list")
     @ResponseBody
-    public LayuiTable<TableInfo> list(@PathVariable("datasourceId") Long datasourceId, String tableName) {
+    public LayuiTable<TableInfoDTO> list(@PathVariable("datasourceId") Long datasourceId, String tableName) {
         DefaultGenerator generator = datasourceTableService.createDefaultGenerator(datasourceId);
-        List<TableInfo> tableInfoList = datasourceTableService.selectTableInfoList(generator, tableName);
+        List<TableInfoDTO> tableInfoList = datasourceTableService.selectTableInfoList(generator, tableName);
         return new LayuiTable<>(tableInfoList);
     }
 

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -30,10 +31,12 @@ public abstract class BaseEntity implements Serializable {
     protected Long id;
 
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected LocalDateTime createTime;
 
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     protected LocalDateTime updateTime;
 

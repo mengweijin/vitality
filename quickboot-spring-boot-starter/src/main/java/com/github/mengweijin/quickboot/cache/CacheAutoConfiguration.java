@@ -50,11 +50,11 @@ public class CacheAutoConfiguration {
     /**
      * 默认缓存配置属性
      */
-    private javax.cache.configuration.Configuration<String, Object> defaultCacheConfiguration(Duration duration) {
+    private javax.cache.configuration.Configuration<Object, Object> defaultCacheConfiguration(Duration duration) {
         return Eh107Configuration.fromEhcacheCacheConfiguration(
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(
                         // 缓存数据K和V的数值类型，在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
-                        String.class,
+                        Object.class,
                         Object.class,
                         ResourcePoolsBuilder
                             // 设置缓存堆容纳元素个数(JVM内存空间)超出个数后会存到 offheap 中

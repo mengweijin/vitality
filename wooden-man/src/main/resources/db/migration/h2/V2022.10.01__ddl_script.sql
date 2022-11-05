@@ -5,13 +5,13 @@ create TABLE QBT_GEN_TEMPLATE (
   name varchar(20) NOT NULL COMMENT '生成文件的名称（controller/service/mapper/mapper.xml/entity/vue/layui 等）',
   content text DEFAULT NULL COMMENT '模板内容',
   suffix varchar(20) NOT NULL COMMENT '生成文件的后缀。（.java/.xml/.vue/.html 等）',
-  built_in int(4) NOT NULL COMMENT '是否系统内置模板。【0/1：否/是】系统内置模板不能删除。',
+  built_in int(4) NOT NULL DEFAULT 0 COMMENT '是否系统内置模板。【0/1：否/是】系统内置模板不能删除。',
   create_by varchar(64) NULL COMMENT 'Creator',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation time',
   update_by varchar(64) NULL COMMENT 'Revisor',
   update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP COMMENT 'Revisor time',
   PRIMARY KEY (id),
-  UNIQUE KEY QBT_GEN_TEMPLATE_CATEGORY_INDEX (category) USING BTREE
+  KEY QBT_GEN_TEMPLATE_CATEGORY_INDEX (category) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='QBT_GEN_TEMPLATE';
 
 

@@ -2,6 +2,7 @@ package com.github.mengweijin.layui.model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class LayuiTree {
     /** 节点字段名 */
     private String field;
     /** 子节点。支持设定选项同父节点 */
-    private List<LayuiTree> children;
+    private List<LayuiTree> children = new ArrayList<>();
     /** 点击节点弹出新窗口对应的 url。需开启 isJump 参数 */
     private String href;
     /** 节点是否初始展开，默认 false */

@@ -27,5 +27,7 @@ public class GeneratorApplicationRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         List<DatasourceInfo> list = datasourceService.lambdaQuery().eq(DatasourceInfo::getAutoRefreshDriver, false).list();
         list.forEach(ds -> generatorAsyncFactory.refreshDriver(ds));
+
+        generatorAsyncFactory.initTemplate();
     }
 }

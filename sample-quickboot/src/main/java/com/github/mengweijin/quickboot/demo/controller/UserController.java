@@ -65,7 +65,7 @@ public class UserController {
      * @return {@link String String}
      */
     //@CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
-    @Cacheable(cacheNames = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS + "+':TableInfoList'")
+    @Cacheable(cacheNames = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_CLASS + "+':TableInfoList'")
     @GetMapping("/cache")
     public String hello(){
         log.info("Entered hello method.");

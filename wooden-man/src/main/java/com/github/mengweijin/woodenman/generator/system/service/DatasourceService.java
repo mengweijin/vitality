@@ -32,7 +32,7 @@ public class DatasourceService extends ServiceImpl<DatasourceMapper, DatasourceI
     @Autowired
     private DriverService driverService;
 
-    @Cacheable(value = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_EXPRESSION_CLASS_METHOD_PARAM)
+    @Cacheable(value = CacheConst.NAME_7_DAY, key = CacheConst.KEY_CLASS_METHOD)
     public DbType[] getDbTypes() {
         return DbType.values();
     }

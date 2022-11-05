@@ -39,9 +39,10 @@ public class CacheAutoConfiguration {
     public CacheManager ehcacheManager() {
         // 从 jcache 中拿到 CacheManager
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
-        // 创建一个缓存名为 CacheConst.NAME_7_DAY 的缓存(核心是Eh107Configuration.fromEhcacheCacheConfiguration)
+        // 创建一个缓存名为 CacheConst.NAME_1_DAY 的缓存(核心是Eh107Configuration.fromEhcacheCacheConfiguration)
         cacheManager.createCache(CacheConst.NAME_7_DAY, defaultCacheConfiguration(Duration.ofDays(7L)));
         cacheManager.createCache(CacheConst.NAME_1_DAY, defaultCacheConfiguration(Duration.ofDays(1L)));
+        cacheManager.createCache(CacheConst.NAME_12_HOURS, defaultCacheConfiguration(Duration.ofHours(12L)));
         cacheManager.createCache(CacheConst.NAME_10_MINUTES, defaultCacheConfiguration(Duration.ofMinutes(10L)));
         cacheManager.createCache(CacheConst.NAME_1_MINUTES, defaultCacheConfiguration(Duration.ofMinutes(1L)));
         return cacheManager;

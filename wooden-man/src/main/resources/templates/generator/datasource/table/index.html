@@ -26,7 +26,9 @@
 
         <script type="text/html" id="toolbar">
             <div class="layui-btn-container">
-                <button lay-event="refresh"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-refresh-3"></i> 刷新表数据</button>
+                <button lay-event="refresh" class="layui-btn layui-btn-normal layui-btn-sm">
+                    <i class="layui-icon layui-icon-refresh-3"></i> 刷新表数据缓存
+                </button>
             </div>
         </script>
         <table id="main_table" lay-filter="main_table_filter"></table>
@@ -52,7 +54,11 @@
                     [
                         { type: 'checkbox', hide: true }
                         , { field: 'name', title: '表名称', width: 300 }
-                        , { field: 'havePrimaryKey', title: '是否有主键', width: 100 }
+                        , { field: 'havePrimaryKey', title: '是否有主键', width: 100,
+                             templet: function(d) {
+                                return d.havePrimaryKey ? '是' : '否';
+                            }
+                        }
                         , { field: 'fieldNames', title: '字段名称集', minWidth: 100 }
                         , { field: 'comment', title: '表注释', width: 300 }
                         , { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
@@ -65,7 +71,7 @@
                 //var checkStatus = table.checkStatus(obj.config.id);
                 switch (obj.event) {
                     case 'refresh':
-                        $.post("/generator/datasource/table/tableInfoListCacheEvictAll", function (res) {
+                        $.post("/generator/datasource/table/" + datasourceId + "/tableInfoListCacheEvict", function (res) {
                             if (res.code === 200) {
                                 $.table.reloadData('main_table', true);
                             }

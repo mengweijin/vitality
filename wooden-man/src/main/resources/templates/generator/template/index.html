@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('QuickBoot Admin')"></head>
+
+<body>
+    <div style="padding: 0px 0px; padding-right: 15px;">
+        <div class="layui-fluid" style="padding: 0px 0px;">
+            <div class="layui-row">
+                <div class="layui-col-xs12 layui-col-sm2 layui-col-md2 layui-col-lg2">
+                    <div id="template_tree"></div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm10 layui-col-md10 layui-col-lg10">
+                    <table id="main_table" lay-filter="main_table_filter"></table>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+                <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
+            </div>
+        </script>
+        <script type="text/html" id="driverPathTpl">
+            {{#  if(d.driverPath != null){ }}
+            {{ d.driverPath }}
+            {{#  } else { }}
+            <span class="layui-btn layui-btn-danger layui-btn-xs">驱动包丢失！</span>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="upload" title="手动上传驱动包" style="margin-right: 10px;" data-id="{{ d.id }}"><i class="layui-icon layui-icon-upload-drag"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="fetch" title="从 Maven 中央仓库下载并安装驱动包" style="margin-right: 10px;"><i class="layui-icon layui-icon-download-circle"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a class="layui-hide" href="#" lay-event="detail" title="Detail" style="margin-right: 10px;"><i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a class="layui-hide" href="#" lay-event="clone" title="Clone"   style="margin-right: 10px;"><i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;"><i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i></a>
+            <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;"><i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i></a>
+        </script>
+    </div>
+    
+    <script th:inline="javascript">
+        layui.use(['jquery', 'layer','table', 'tree'], function () {
+            let $ = layui.$, layer = layui.layer, table = layui.table, tree = layui.tree;
+            let treeData = [[${treeData}]];
+
+            var inst1 = tree.render({
+              elem: '#template_tree'
+              ,data: treeData
+            });
+
+            table.render({
+                id: 'main_table' // 自定义一个 id, table.relead()、table.reloadData() 时需要。
+                , elem: '#main_table'
+                , skin: 'line'
+                , url: '/generator/driver/page'
+                , where: {}
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0,          //解析接口状态 0 表示成功
+                        "msg": '',          //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.records //解析数据列表
+                    };
+                }
+                , toolbar: '#toolbar'
+                , defaultToolbar: ['filter', 'print', 'exports']
+                , page: { theme: '#1E9FFF' }
+                , request: {
+                    pageName: 'current' //页码的参数名称，默认：page
+                    , limitName: 'size' //每页数据量的参数名，默认：limit
+                }
+                , cols: [
+                    [
+                        { type: 'checkbox', hide: true }
+                        , { field: 'id', title: 'ID', width: 200, hide: false }
+                        , { field: 'groupId', title: 'Group ID', width: 200 }
+                        , { field: 'artifactId', title: 'Artifact ID', width: 240 }
+                        , { field: 'driverVersion', title: 'Version', width: 100 }
+                        , { field: 'driverName', title: '驱动包文件名称', width: 300
+                            , templet: function(d) {
+                                if(d.driverPath != null && d.driverPath.lastIndexOf('_') != -1) {
+                                    return d.driverPath.substring(d.driverPath.lastIndexOf('_') + 1);
+                                }
+                                let error = '<span class="layui-btn layui-btn-danger layui-btn-xs">驱动包丢失！</span>'
+                                return d.driverPath ? d.driverPath : error;
+                            }
+                        }
+                        , { field: 'driverPath', title: '驱动包存储位置', minWidth: 260, hide: true, templet: '#driverPathTpl' }
+                        , { field: 'createTime', title: '创建时间', width: 170, hide: true }
+                        , { field: 'updateTime', title: '更新时间', width: 170, hide: true }
+                        , { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
+                    ]
+                ],
+                done: function(res, curr, count){
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    //console.log(res);
+                }
+            });
+
+            //触发事件
+            table.on('toolbar(main_table_filter)', function (obj) {
+                //var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add':
+                        $.layer.open('/generator/driver/add', { title: '新增' })
+                        break;
+                    case 'batchDelete':
+                        layer.msg('批量删除');
+                        break;
+                };
+            });
+
+            //单元格工具事件
+            table.on('tool(main_table_filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+                let row = obj.data; //获得当前行数据
+                switch (obj.event) {
+                    case 'detail':
+                        layer.msg('查看');
+                        break;
+                    case 'upload':
+
+                        break;
+                    case 'fetch':
+                        $.post("/generator/driver/fetch/" + row.id, function (res) {
+                            if (res) {
+                                $.table.reloadData('main_table', true);
+                            }
+                        });
+                        break;
+                    case 'edit':
+                        $.layer.open('/generator/driver/edit/' + row.id, { title: '编辑' })
+                        break;
+                    case 'delete':
+                        layer.confirm('确定删除吗？', function (index) {
+                            $.delete("/generator/driver/" + row.id, function (res) {
+                                if (res.code === 200) {
+                                    obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
+                                }
+                                layer.close(index);
+                            });
+                        });
+                        break;
+                }
+            })
+
+        });
+    </script>
+</body>
+
+</html>

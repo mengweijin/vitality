@@ -11,25 +11,32 @@
                 <input name="id" th:value="${domain?.id}" class="layui-input" disabled>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">Group ID</label>
-            <div class="layui-input-block">
-                <input name="groupId" th:value="${domain?.groupId}" required lay-verify="required" autocomplete="on" class="layui-input">
+
+        <div class="layui-form-item" style="margin-bottom: 0px;">
+            <div class="layui-inline">
+                <label class="layui-form-label required">模板分组</label>
+                <div class="layui-input-block">
+                    <input name="category" th:value="${domain?.category}" required lay-verify="required" autocomplete="on" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label required">模板名称</label>
+                <div class="layui-input-block">
+                    <input name="name" th:value="${domain?.name}" required lay-verify="required" autocomplete="on" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">后缀</label>
+                <div class="layui-input-block">
+                    <input name="suffix" th:value="${domain?.suffix}" autocomplete="on" class="layui-input">
+                </div>
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label required">Artifact ID</label>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">模板内容</label>
             <div class="layui-input-block">
-                <input name="artifactId" th:value="${domain?.artifactId}" required lay-verify="required" autocomplete="on" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">Version</label>
-            <div class="layui-input-block">
-                <input name="driverVersion" th:value="${domain?.driverVersion}" autocomplete="on" class="layui-input">
-                <div class="layui-form-mid layui-word-aux">不填写版本的话默认从中央仓库下载最新版本。否则以提供的版本为准。</div>
+                <textarea name="content" th:text="${domain?.content}" rows="24" class="layui-textarea" style="background: #3f3f3f; color: #c2be9e;"></textarea>
             </div>
         </div>
 
@@ -41,33 +48,43 @@
                 <button type="reset" class="layui-btn layui-btn-normal">
                     <i class="layui-icon layui-icon-refresh-3"></i> 重置
                 </button>
+                <button class="layui-btn layui-btn-danger" lay-event="close">
+                    <i class="layui-icon layui-icon-close"></i> 取消
+                </button>
             </div>
         </div>
     </form>
 
     <script th:inline="javascript">
-        layui.use(['jquery', 'form'], function () {
-            let $ = layui.$, form = layui.form;
+        layui.use(['jquery', 'form', 'util'], function () {
+            let $ = layui.$, form = layui.form, util = layui.util;
 
             /* 监听表单提交 */
             form.on('submit(edit_form_filter)', function (data) {
                 //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
                 if(data.field.id) {
-                    $.put("/generator/driver", data.field, function (res) {
+                    $.put("/generator/template", data.field, function (res) {
                         if (res.code === 200) {
-                            $.table.reloadParentData('main_table');
+                            $("#generator_template_detail").load("/generator/template/detail/" + data.field.id);
                             $.layer.close();
                         }
                     });
                 } else {
-                    $.post("/generator/driver", data.field, function (res) {
+                    $.post("/generator/template", data.field, function (res) {
                         if (res.code === 200) {
-                            $.table.reloadParentData('main_table');
+                            window.top.layui.$("#refreshBtn").click();
                             $.layer.close();
                         }
                     });
                 }
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+
+            util.event('lay-event', {
+                close: function(othis){
+                    $.layer.close();
+                }
             });
 
         });

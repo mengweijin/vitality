@@ -1,6 +1,8 @@
 package com.github.mengweijin.woodenman.generator.system.controller;
 
+import cn.hutool.core.io.file.FileNameUtil;
 import com.github.mengweijin.layui.model.LayuiTree;
+import com.github.mengweijin.quickboot.exception.QuickBootClientException;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import com.github.mengweijin.woodenman.generator.system.entity.Template;
 import com.github.mengweijin.woodenman.generator.system.service.TemplateService;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
@@ -70,10 +74,36 @@ public class TemplateController extends BaseController {
         templateService.removeById(id);
     }
 
+    @DeleteMapping("/deleteGroup")
+    @ResponseBody
+    public void deleteGroup(String category) {
+        templateService.deleteGroup(category);
+    }
+
+
     @GetMapping("/tree")
     @ResponseBody
     public List<LayuiTree> tree() {
         return templateService.tree();
     }
 
+    @PostMapping("/cloneGroup")
+    @ResponseBody
+    public void cloneGroup(@NotBlank String category, String groupName) {
+        boolean containsInvalid = FileNameUtil.containsInvalid(groupName);
+        if(containsInvalid) {
+            throw new QuickBootClientException("Group name [" + groupName + "] contains invalid character.");
+        }
+        templateService.cloneGroup(category, groupName);
+    }
+
+    @PostMapping("/clone/{id}")
+    @ResponseBody
+    public void clone(@PathVariable("id") Long id, String name) {
+        boolean containsInvalid = FileNameUtil.containsInvalid(name);
+        if(containsInvalid) {
+            throw new QuickBootClientException("Template name [" + name + "] contains invalid character.");
+        }
+        templateService.clone(id, name);
+    }
 }

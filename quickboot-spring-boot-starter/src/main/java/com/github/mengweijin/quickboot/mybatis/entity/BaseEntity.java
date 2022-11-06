@@ -45,4 +45,12 @@ public abstract class BaseEntity implements Serializable {
 
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     protected String updateBy;
+
+    public void clearBaseEntityFieldValue() {
+        this.setId(null);
+        this.setCreateBy(null);
+        this.setCreateTime(null);
+        this.setUpdateBy(null);
+        this.setUpdateTime(null);
+    }
 }

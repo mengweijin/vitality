@@ -13,12 +13,103 @@
         <button lay-event="deleteGroup"      class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon layui-icon-delete"></i> 删除当前分组下所有模板</button>
     </div>
 
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="margin-bottom: 0px;">
+            <div class="layui-inline">
+                <label class="layui-form-label">模板分组</label>
+                <div class="layui-input-inline">
+                    <input name="category" th:value="${domain?.category}" autocomplete="on" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">系统内置</label>
+                <div class="layui-input-inline">
+                    <input name="builtIn" th:value="${domain?.builtIn ? '是' : '否'}" autocomplete="on" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">创建时间</label>
+                <div class="layui-input-inline">
+                    <input name="createTime" th:value="${domain?.createTime}" autocomplete="on" class="layui-input" disabled>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <pre class="layui-code" th:text="${domain?.content}"></pre>
+
     <script th:inline="javascript">
-        layui.use(['jquery', 'form'], function () {
-            let $ = layui.$, form = layui.form;
+        layui.use(['jquery', 'form', 'code', 'util', 'tree'], function () {
+            let $ = layui.$, form = layui.form, util = layui.util, tree = layui.tree;
+            let domain = [[${domain}]];
 
+            layui.code({ title: domain.name, skin:'dark'});
 
-
+            //处理属性 为 lay-event 的所有元素事件
+            util.event('lay-event', {
+                cloneGroup: function(othis){
+                    layer.prompt({
+                        formType: 0,
+                        value: '',
+                        title: '请输入新的分组名称',
+                        //area: ['800px', '350px'] //自定义文本域宽高
+                    }, function(value, index, elem){
+                        if(value){
+                            $.post("/generator/template/cloneGroup", { category: domain.category, groupName: value }, function (res) {
+                                if (res.code === 200) {
+                                    window.top.layui.$("#refreshBtn").click();
+                                    layer.close(index);
+                                }
+                            });
+                        }
+                        layer.msg("请输入有效的分组名称");
+                    });
+                }
+                ,clone: function(othis){
+                    layer.prompt({
+                        formType: 0,
+                        value: '',
+                        title: '请输入新的模板名称',
+                        //area: ['800px', '350px'] //自定义文本域宽高
+                    }, function(value, index, elem){
+                        if(value){
+                            $.post("/generator/template/clone/" + domain.id, { name: value }, function (res) {
+                                if (res.code === 200) {
+                                    window.top.layui.$("#refreshBtn").click();
+                                    layer.close(index);
+                                }
+                            });
+                        }
+                        layer.msg("请输入有效的模板名称");
+                    });
+                }
+                ,add: function(othis){
+                    $.layer.open('/generator/template/add/', { title: '新增', maxmin: false, area: ['100%', '100%'] })
+                }
+                ,edit: function(othis){
+                    $.layer.open('/generator/template/edit/' + domain.id, { title: '编辑', maxmin: false, area: ['100%', '100%'] })
+                }
+                ,delete: function(othis){
+                    layer.confirm('确定删除吗？', function (index) {
+                        $.delete("/generator/template/" + domain.id, function (res) {
+                            if (res.code === 200) {
+                                window.top.layui.$("#refreshBtn").click();
+                                layer.close(index);
+                            }
+                        });
+                    });
+                }
+                ,deleteGroup: function(othis){
+                    layer.confirm('确定删除吗？', function (index) {
+                        $.delete("/generator/template/deleteGroup", { category: domain.category }, function (res) {
+                            if (res.code === 200) {
+                                window.top.layui.$("#refreshBtn").click();
+                                layer.close(index);
+                            }
+                        });
+                    });
+                }
+            });
         });
     </script>
 </body>

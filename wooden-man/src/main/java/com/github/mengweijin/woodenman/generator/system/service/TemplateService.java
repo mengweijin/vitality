@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.layui.model.LayuiTree;
+import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import com.github.mengweijin.quickboot.util.Const;
 import com.github.mengweijin.woodenman.generator.system.entity.Template;
 import com.github.mengweijin.woodenman.generator.system.mapper.TemplateMapper;
@@ -67,13 +68,34 @@ public class TemplateService extends ServiceImpl<TemplateMapper, Template> {
         templateFileList.forEach(file -> {
             Template template = new Template();
             template.setCategory(file.getParentFile().getName());
-            template.setName(StrUtil.subBefore(file.getName(), Const.DOT, true) + "<span style='color: #b1abab;'>（系统内置）</span>");
+            template.setName(StrUtil.subBefore(file.getName(), Const.DOT, true));
             template.setContent(FileUtil.readString(file, StandardCharsets.UTF_8));
-            template.setSuffix(StrUtil.subAfter(file.getName(), Const.DOT, true));
+            template.setSuffix(StrUtil.subAfter(template.getName(), Const.DOT, true));
             template.setBuiltIn(true);
             templateList.add(template);
         });
         this.saveBatch(templateList);
     }
 
+    public void cloneGroup(String category, String groupName) {
+        List<Template> list = this.lambdaQuery().eq(Template::getCategory, category).list();
+        list = list.stream().peek(tpl -> {
+            tpl.setCategory(groupName);
+            tpl.clearBaseEntityFieldValue();
+        }).collect(Collectors.toList());
+        this.saveBatch(list);
+    }
+
+    public void clone(Long id, String name) {
+        Template template = this.getById(id);
+        template.clearBaseEntityFieldValue();
+        template.setName(name);
+        this.save(template);
+    }
+
+    public void deleteGroup(String category) {
+        List<Template> list = this.lambdaQuery().eq(Template::getCategory, category).list();
+        List<Long> collect = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
+        this.removeBatchByIds(collect);
+    }
 }

@@ -11,15 +11,17 @@
     <!-- 头部区域（可配合layui 已有的水平导航） -->
     <ul class="layui-nav layui-layout-left" lay-bar="disabled">
         <li class="layui-nav-item" lay-unselect lay-header-event="shrink">
-            <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"
-                                      style="font-size: 20px;"></i></a>
+            <a href="javascript:;" id="shrinkSpreadBtn">
+                <i class="layui-icon layui-icon-shrink-right" style="font-size: 20px;"></i>
+            </a>
         </li>
         <li class="layui-nav-item" lay-unselect>
-            <a href="#tab=home" title="主页"><i class="fa-solid fa-house" style="font-size: 20px;"></i></a>
+            <a href="#tab=home" id="homeBtn" title="主页"><i class="fa-solid fa-house" style="font-size: 20px;"></i></a>
         </li>
         <li class="layui-nav-item" lay-unselect lay-header-event="refresh">
-            <a href="javascript:;" title="刷新"><i class="layui-icon layui-icon-refresh-3"
-                                                   style="font-size: 20px;"></i></a>
+            <a href="javascript:;" id="refreshBtn" title="刷新">
+                <i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i>
+            </a>
         </li>
     </ul>
 
@@ -61,7 +63,7 @@
             //头部事件
             util.event('lay-header-event', {
                 shrink: function (othis) {
-                    let $btn = $("#shrinkSpreadIcon");
+                    let $btn = $("#shrinkSpreadBtn");
                     if ($btn.hasClass('layui-icon-shrink-right')) {
                         $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
                         $(".layui-side").animate({ width: 'toggle' }); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏

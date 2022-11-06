@@ -81,6 +81,7 @@ public class TemplateService extends ServiceImpl<TemplateMapper, Template> {
         List<Template> list = this.lambdaQuery().eq(Template::getCategory, category).list();
         list = list.stream().peek(tpl -> {
             tpl.setCategory(groupName);
+            tpl.setBuiltIn(false);
             tpl.clearBaseEntityFieldValue();
         }).collect(Collectors.toList());
         this.saveBatch(list);
@@ -89,6 +90,7 @@ public class TemplateService extends ServiceImpl<TemplateMapper, Template> {
     public void clone(Long id, String name) {
         Template template = this.getById(id);
         template.clearBaseEntityFieldValue();
+        template.setBuiltIn(false);
         template.setName(name);
         this.save(template);
     }

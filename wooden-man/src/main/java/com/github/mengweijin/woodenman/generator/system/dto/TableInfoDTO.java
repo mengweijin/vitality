@@ -3,6 +3,8 @@ package com.github.mengweijin.woodenman.generator.system.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mengweijin
@@ -20,4 +22,6 @@ public class TableInfoDTO implements Serializable {
     private String fieldNames;
 
     private String comment;
+
+    private List<TableFieldDTO> fields = new ArrayList<>();
 }

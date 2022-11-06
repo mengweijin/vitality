@@ -21,7 +21,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
         copyProperties(source, target, idFieldName, createByFieldName, createTimeFieldName, updateByFieldName, updateTimeFieldName);
     }
 
-    public static <E> List<E> copyList(List<Object> sourceList, Class<E> cls) {
+    public static <E> List<E> copyList(List<?> sourceList, Class<E> cls) {
         List<E> list = new ArrayList<>();
         if(sourceList != null) {
             try {

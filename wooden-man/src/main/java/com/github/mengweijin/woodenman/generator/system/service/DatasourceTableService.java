@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.github.mengweijin.quickboot.cache.CacheConst;
 import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriver;
 import com.github.mengweijin.quickboot.jdbc.driver.DynamicDriverDataSource;
+import com.github.mengweijin.quickboot.util.BeanUtils;
 import com.github.mengweijin.woodenman.generator.DefaultGenerator;
+import com.github.mengweijin.woodenman.generator.system.dto.TableFieldDTO;
 import com.github.mengweijin.woodenman.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.woodenman.generator.system.entity.DatasourceInfo;
 import com.github.mengweijin.woodenman.generator.system.entity.DriverInfo;
@@ -71,6 +73,7 @@ public class DatasourceTableService {
             dto.setHavePrimaryKey(table.isHavePrimaryKey());
             dto.setFieldNames(table.getFieldNames());
             dto.setComment(table.getComment());
+            dto.setFields(BeanUtils.copyList(table.getFields(), TableFieldDTO.class));
             return dto;
         }).collect(Collectors.toList());
     }
@@ -84,4 +87,5 @@ public class DatasourceTableService {
                 new DynamicDriverDataSource(dynamicDriver, ds.getUrl(), ds.getUsername(), ds.getPassword());
         return new DefaultGenerator(dataSource);
     }
+
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
@@ -55,6 +54,7 @@ public class TemplateController extends BaseController {
         this.setAttribute("domain", templateService.getById(id));
         return PREFIX + "/detail";
     }
+
 
     @PostMapping
     @ResponseBody

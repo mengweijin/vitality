@@ -84,8 +84,9 @@
             table.on('tool(main_table_filter)', function (obj) { // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
                 var row = obj.data; //获得当前行数据
                 switch (obj.event) {
-                    case 'table_list':
-                        $.tab.open('main_tab_filter', '生成代码', '/generator/datasource/table/' + row.id, 'generator_datasource_table_' + row.name)
+                    case 'generate':
+                        let url = '/generator/template/gen/' + datasourceId + '/' + row.name + '/index';
+                        $.tab.open('main_tab_filter', '生成代码', url, 'generator_datasource_table_template_gen' + datasourceId + '_' + row.name)
                         break;
                 }
             })

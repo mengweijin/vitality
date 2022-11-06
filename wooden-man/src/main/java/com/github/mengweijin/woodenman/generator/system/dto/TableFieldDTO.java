@@ -11,8 +11,11 @@ import java.io.Serializable;
  */
 @Data
 public class TableFieldDTO implements Serializable {
-
+    /**
+     * 是否为主键
+     */
     private boolean keyFlag;
+
     /**
      * 主键是否为自增类型
      */
@@ -21,10 +24,11 @@ public class TableFieldDTO implements Serializable {
     /**
      * 列名
      */
-    private String name;
+    private String columnName;
 
-    private String type;
-
+    /**
+     * 属性类型
+     */
     private DbColumnType columnType;
 
     /**
@@ -32,10 +36,12 @@ public class TableFieldDTO implements Serializable {
      */
     private String propertyName;
 
+    /**
+     * 列注释
+     */
     private String comment;
 
-    private String fill;
 
-    private String columnName;
+
 
 }

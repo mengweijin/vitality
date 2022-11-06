@@ -39,6 +39,7 @@ public class DatasourceTableController extends BaseController {
         return PREFIX + "/index";
     }
 
+
     @GetMapping("/{datasourceId}/list")
     @ResponseBody
     public LayuiTable<TableInfoDTO> list(@PathVariable("datasourceId") Long datasourceId, String tableName) {

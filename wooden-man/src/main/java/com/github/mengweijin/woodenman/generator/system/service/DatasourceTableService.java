@@ -38,6 +38,11 @@ public class DatasourceTableService {
     @Autowired
     private DriverService driverService;
 
+    public TableInfoDTO selectTableInfo(Long datasourceId, String tableName) {
+        List<TableInfoDTO> dtoList = this.selectTableInfoList(datasourceId, tableName);
+        return dtoList.get(0);
+    }
+
     public List<TableInfoDTO> selectTableInfoList(Long datasourceId, @Nullable String tableName) {
         DatasourceTableService datasourceTableService = (DatasourceTableService) AopContext.currentProxy();
         List<TableInfoDTO> list = datasourceTableService.getTableInfoList(datasourceId);
@@ -87,5 +92,7 @@ public class DatasourceTableService {
                 new DynamicDriverDataSource(dynamicDriver, ds.getUrl(), ds.getUsername(), ds.getPassword());
         return new DefaultGenerator(dataSource);
     }
+
+
 
 }

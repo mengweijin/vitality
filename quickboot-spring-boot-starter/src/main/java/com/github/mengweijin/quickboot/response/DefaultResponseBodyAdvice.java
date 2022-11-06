@@ -1,10 +1,8 @@
 package com.github.mengweijin.quickboot.response;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.quickboot.QuickBootProperties;
 import com.github.mengweijin.quickboot.domain.R;
-import com.github.mengweijin.quickboot.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -59,17 +57,17 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             || HttpMethod.PUT == httpMethod
             || HttpMethod.DELETE == httpMethod
             || HttpMethod.PATCH == httpMethod) {
-            if(body instanceof R) {
+            if(body instanceof R || body instanceof String) {
                 return body;
-            } else if(body instanceof String) {
+            // } else if(body instanceof String) {
                 // 这段代码一定要加，如果Controller直接返回String的话，SpringBoot是直接返回，故我们需要手动转换成json。
                 // springmvc数据转换器对String是有特殊处理 StringHttpMessageConverter
-                try {
-                    return objectMapper.writeValueAsString(R.success(body));
-                } catch (JsonProcessingException e) {
-                    log.error("An exception has occurred that should not have occurred!", e);
-                    throw new QuickBootException(e.getMessage());
-                }
+                // try {
+                //     return objectMapper.writeValueAsString(R.success(body));
+                // } catch (JsonProcessingException e) {
+                //     log.error("An exception has occurred that should not have occurred!", e);
+                //     throw new QuickBootException(e.getMessage());
+                // }
             } else {
                 return R.success(body);
             }

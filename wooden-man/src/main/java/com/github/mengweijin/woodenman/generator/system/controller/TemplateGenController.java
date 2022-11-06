@@ -2,6 +2,7 @@ package com.github.mengweijin.woodenman.generator.system.controller;
 
 import com.github.mengweijin.layui.model.LayuiTree;
 import com.github.mengweijin.quickboot.mvc.BaseController;
+import com.github.mengweijin.woodenman.generator.system.dto.GenerateConfig;
 import com.github.mengweijin.woodenman.generator.system.service.TemplateGenService;
 import com.github.mengweijin.woodenman.generator.system.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class TemplateGenController extends BaseController {
         this.setAttribute("datasourceId", datasourceId);
         this.setAttribute("tableName", tableName);
         this.setAttribute("templateList", tree);
+        this.setAttribute("generateConfig", new GenerateConfig());
         return PREFIX + "/index";
     }
 
@@ -43,7 +45,8 @@ public class TemplateGenController extends BaseController {
     @PostMapping("/execute/{datasourceId}/{tableName}/{templateId}")
     public String execute(@PathVariable("datasourceId") Long datasourceId,
                           @PathVariable("tableName") String tableName,
-                          @PathVariable("templateId") Long templateId) {
+                          @PathVariable("templateId") Long templateId,
+                          GenerateConfig generateConfig) {
         return templateGenService.execute(datasourceId, tableName, templateId);
     }
 

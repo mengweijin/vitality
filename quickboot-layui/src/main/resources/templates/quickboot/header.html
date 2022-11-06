@@ -63,7 +63,7 @@
             //头部事件
             util.event('lay-header-event', {
                 shrink: function (othis) {
-                    let $btn = $("#shrinkSpreadBtn");
+                    let $btn = $("#shrinkSpreadBtn i");
                     if ($btn.hasClass('layui-icon-shrink-right')) {
                         $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
                         $(".layui-side").animate({ width: 'toggle' }); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏

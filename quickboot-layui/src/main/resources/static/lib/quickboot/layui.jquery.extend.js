@@ -181,6 +181,20 @@ layui.use(['jquery'], function () {
 
         "util": {
             /**
+             * 复制文本到剪切板。text是复制文本
+             */
+            copyToClip: function(text) {
+                let el = document.createElement('input')
+                el.setAttribute('value', text)
+                document.body.appendChild(el)
+                // 选中input元素的文本
+                el.select()
+                // 复制内容到剪贴板
+                document.execCommand('copy')
+                document.body.removeChild(el)
+                layui.layer.msg("Copy SUCCESS!")
+            },
+            /**
              * http://localhost:8080/user?i=1&j=2
              * location.search的值就是 "?i=1&j=2" 
              * substr(1)   就是从索引1开始截取 

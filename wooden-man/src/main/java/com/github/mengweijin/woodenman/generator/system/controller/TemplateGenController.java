@@ -1,5 +1,6 @@
 package com.github.mengweijin.woodenman.generator.system.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.layui.model.LayuiTree;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import com.github.mengweijin.woodenman.generator.system.dto.GenerateConfig;
@@ -36,6 +37,7 @@ public class TemplateGenController extends BaseController {
         List<LayuiTree> tree = templateService.tree();
         this.setAttribute("datasourceId", datasourceId);
         this.setAttribute("tableName", tableName);
+        this.setAttribute("entityName", StrUtil.upperFirst(StrUtil.toCamelCase(tableName)));
         this.setAttribute("templateList", tree);
         this.setAttribute("generateConfig", new GenerateConfig());
         return PREFIX + "/index";

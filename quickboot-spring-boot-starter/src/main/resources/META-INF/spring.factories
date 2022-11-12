@@ -4,6 +4,7 @@ com.github.mengweijin.quickboot.cache.CacheAutoConfiguration,\
 com.github.mengweijin.quickboot.exception.ExceptionAutoConfiguration,\
 com.github.mengweijin.quickboot.filter.repeatable.RepeatableServletAutoConfiguration,\
 com.github.mengweijin.quickboot.filter.xss.XssAutoConfiguration,\
+com.github.mengweijin.quickboot.jackson.JacksonConfiguration,\
 com.github.mengweijin.quickboot.log.LogAutoConfiguration,\
 com.github.mengweijin.quickboot.mvc.WebMvcAutoConfiguration,\
 com.github.mengweijin.quickboot.mybatis.QuickBootMybatisPlusAutoConfiguration,\

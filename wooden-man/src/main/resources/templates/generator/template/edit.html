@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">后缀</label>
+                <label class="layui-form-label">文件后缀</label>
                 <div class="layui-input-block">
-                    <input name="suffix" th:value="${domain?.suffix}" autocomplete="on" class="layui-input">
+                    <input name="suffix" th:value="${domain?.id == null ? '.java' : domain?.suffix}" autocomplete="on" class="layui-input">
                 </div>
             </div>
         </div>

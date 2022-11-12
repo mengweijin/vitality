@@ -1,26 +1,26 @@
-package ${package.Mapper};
+package ${packagePath}.mapper;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-<#if mapperAnnotationClass??>
-import ${mapperAnnotationClass.name};
-</#if>
+import ${packagePath}.entity.${entityName};
+import ${packagePath}.dto.${entityName}DTO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
- * <p>
- * ${table.comment!} Mapper 接口
- * </p>
+ * ${comment!} Mapper 接口
  *
  * @author ${author}
  * @since ${date}
  */
-<#if mapperAnnotationClass??>
-@${mapperAnnotationClass.simpleName}
-</#if>
-<#if kotlin>
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-<#else>
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@Mapper
+public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
+
+    /**
+     * 自定义分页
+     * @param page page
+     * @param dto ${entityName}DTO
+     * @return IPage
+     */
+    IPage<${entityName}DTO> selectPageVO(IPage<${entityName}DTO> page, @Param("param") ${entityName}DTO dto);
 
 }
-</#if>

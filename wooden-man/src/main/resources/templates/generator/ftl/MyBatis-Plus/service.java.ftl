@@ -1,20 +1,24 @@
-package ${package.Service};
+package ${packagePath}.service;
 
-import ${package.Entity}.${entity};
-import ${superServiceClassPackage};
+import ${packagePath}.mapper.${entityName}Mapper;
+import ${packagePath}.entity.${entityName};
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * <p>
- * ${table.comment!} 服务类
- * </p>
+ * ${comment!} 服务类
  *
  * @author ${author}
  * @since ${date}
  */
-<#if kotlin>
-interface ${table.serviceName} : ${superServiceClass}<${entity}>
-<#else>
-public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+@Service
+public class ${entityName}Service extends ServiceImpl<${entityName}Mapper, ${entityName}> {
 
+    @Autowired
+    private ${entityName}Mapper ${entityName?uncap_first}Mapper;
+
+    public IPage<${entityName}DTO> selectPageVO(IPage<${entityName}DTO> page, ${entityName}DTO dto){
+        return ${entityName?uncap_first}Mapper.selectPageVO(page, dto);
+    }
 }
-</#if>

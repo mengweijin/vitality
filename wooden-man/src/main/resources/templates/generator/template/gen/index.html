@@ -81,7 +81,7 @@
     </div>
     
     <script th:inline="javascript">
-        layui.use(['jquery', 'element', 'util', 'code', 'form'], function () {
+        layui.use(['jquery', 'element', 'util', 'form'], function () {
             let $ = layui.$, element = layui.element, util = layui.util, form = layui.form;
 
             let datasourceId = '[[${datasourceId}]]';
@@ -104,22 +104,12 @@
                     let templateName = $(othis).find("a").text();
                     let url = "/generator/template/gen/execute/" + datasourceId + "/" + tableName + "/" + templateId;
                     let config = form.val("form_filter");
-                    $.post(url, config, function(res){
-                        if(res) {
-                            let html = $("<pre/>", { "class": "layui-code" }).append(res).get(0).outerHTML;
-                            debugger
-                            html = html.replace(/\r\n/g,"<br>");
-                            html = html.replace(/\n/g,"<br>");
-                            $("#generator_template_gen_execute").attr("data-content", res).html(html);
+                    url += '?ignoredColumns=' + config.ignoredColumns;
+                    url += '&entityName=' + config.entityName;
+                    url += '&packagePath=' + config.packagePath;
+                    url += '&author=' + config.author;
 
-                            let about = '<button class="layui-btn layui-btn-normal" lay-template-event="copy"><i class="fa-solid fa-clone"></i> 复制代码</button>';
-                            layui.code({ title: templateName, skin:'dark', about: about });
-                        }
-                    });
-                },
-                copy: function(othis) {
-                    let code = $("#generator_template_gen_execute").attr("data-content");
-                    $.util.copyToClip(code);
+                    $.layer.open(url, { title: templateName, maxmin: false, area: ['70%', '100%'] })
                 }
             });
         });

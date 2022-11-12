@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -50,13 +48,14 @@ public class TemplateGenController extends BaseController {
         return PREFIX + "/index";
     }
 
-    @ResponseBody
-    @PostMapping("/execute/{datasourceId}/{tableName}/{templateId}")
+    @GetMapping("/execute/{datasourceId}/{tableName}/{templateId}")
     public String execute(@PathVariable("datasourceId") Long datasourceId,
                           @PathVariable("tableName") String tableName,
                           @PathVariable("templateId") Long templateId,
                           GenerateConfig config) {
-        return templateGenService.execute(datasourceId, tableName, templateId, config);
+        String codeContent = templateGenService.execute(datasourceId, tableName, templateId, config);
+        this.setAttribute("code", codeContent);
+        return PREFIX + "/detail";
     }
 
 }

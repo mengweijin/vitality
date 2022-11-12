@@ -39,8 +39,8 @@
     <pre class="layui-code" th:text="${domain?.content}"></pre>
 
     <script th:inline="javascript">
-        layui.use(['jquery', 'form', 'code', 'util', 'tree'], function () {
-            let $ = layui.$, form = layui.form, util = layui.util, tree = layui.tree;
+        layui.use(['jquery', 'form', 'code', 'util', 'tree', 'layer'], function () {
+            let $ = layui.$, form = layui.form, util = layui.util, tree = layui.tree, layer = layui.layer;
             let domain = [[${domain}]];
 
             layui.code({ title: domain.name, skin:'dark'});
@@ -84,10 +84,10 @@
                     });
                 }
                 ,add: function(othis){
-                    $.layer.open('/generator/template/add/', { title: '新增', maxmin: false, area: ['100%', '100%'] })
+                    $.layer.open('/generator/template/add/', { title: '新增', maxmin: false, area: ['90%', '100%'] })
                 }
                 ,edit: function(othis){
-                    $.layer.open('/generator/template/edit/' + domain.id, { title: '编辑', maxmin: false, area: ['100%', '100%'] })
+                    $.layer.open('/generator/template/edit/' + domain.id, { title: '编辑', maxmin: false, area: ['90%', '100%'] })
                 }
                 ,delete: function(othis){
                     layer.confirm('确定删除吗？', function (index) {

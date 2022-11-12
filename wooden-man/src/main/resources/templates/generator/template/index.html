@@ -98,8 +98,9 @@
                     $("#template_tree div [data-id='" + activeNodeId + "'] div:first").css("background-color", "");
                     $("#template_tree").attr("data-active-node-id", currentNodeId);
 
-
-                    $("#generator_template_detail").load("/generator/template/detail/" + currentNodeId);
+                    //$("#generator_template_detail").load("/generator/template/detail/" + currentNodeId);
+                    //$.tab.open('main_tab_filter', obj.data.title + ' 模板详情', "/generator/template/detail/" + currentNodeId, 'generator_template_detail_' + currentNodeId)
+                    $.layer.open("/generator/template/detail/" + currentNodeId, { title: '模板详情', maxmin: false, area: ['100%', '100%'], closeBtn: 2 })
                 }
               }
             });

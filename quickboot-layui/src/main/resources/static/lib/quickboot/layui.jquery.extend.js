@@ -75,6 +75,7 @@ layui.use(['jquery'], function () {
 
             /**
              * type: 0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+             * closeBtn: layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0。默认为1
              * @param {String} content Mandatory. 普通文本、html 或者一个 url（For Example: /sys/user/1?id=1）
              * @param {Object} options Optional. 如：{ title: '详情', area: ['100%', '100%'] }
              * @returns 
@@ -85,6 +86,7 @@ layui.use(['jquery'], function () {
                     title: "",
                     type: 2,
                     shade: [0.5, "#393D49"],
+                    closeBtn: 1,
                     shadeClose: true,
                     maxmin: true,
                     resize: false,

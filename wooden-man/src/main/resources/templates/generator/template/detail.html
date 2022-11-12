@@ -22,12 +22,18 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label">模板名称</label>
+                <div class="layui-input-inline">
+                    <input name="name" th:value="${domain?.name}" autocomplete="on" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">系统内置</label>
                 <div class="layui-input-inline">
                     <input name="builtIn" th:value="${domain?.builtIn ? '是' : '否'}" autocomplete="on" class="layui-input" disabled>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-inline layui-hide">
                 <label class="layui-form-label">创建时间</label>
                 <div class="layui-input-inline">
                     <input name="createTime" th:value="${domain?.createTime}" autocomplete="on" class="layui-input" disabled>

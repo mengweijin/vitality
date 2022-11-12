@@ -184,8 +184,8 @@ layui.use(['jquery'], function () {
              * 复制文本到剪切板。text是复制文本
              */
             copyToClip: function(text) {
-                let el = document.createElement('input')
-                el.setAttribute('value', text)
+                let el = document.createElement('textarea')
+                el.value = text
                 document.body.appendChild(el)
                 // 选中input元素的文本
                 el.select()

@@ -107,8 +107,10 @@
                     $.post(url, config, function(res){
                         if(res) {
                             let html = $("<pre/>", { "class": "layui-code" }).append(res).get(0).outerHTML;
-                            $("#generator_template_gen_execute").html(html);
-                            $("#generator_template_gen_execute").attr("data-content", res);
+                            debugger
+                            html = html.replace(/\r\n/g,"<br>");
+                            html = html.replace(/\n/g,"<br>");
+                            $("#generator_template_gen_execute").attr("data-content", res).html(html);
 
                             let about = '<button class="layui-btn layui-btn-normal" lay-template-event="copy"><i class="fa-solid fa-clone"></i> 复制代码</button>';
                             layui.code({ title: templateName, skin:'dark', about: about });

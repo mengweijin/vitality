@@ -23,5 +23,7 @@ public class TableInfoDTO implements Serializable {
 
     private String comment;
 
+    @SuppressWarnings("AlibabaPojoNoDefaultValue")
     private List<TableFieldDTO> fields = new ArrayList<>();
+
 }

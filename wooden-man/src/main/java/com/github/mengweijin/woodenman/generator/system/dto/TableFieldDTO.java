@@ -51,7 +51,9 @@ public class TableFieldDTO implements Serializable {
      */
     private String comment;
 
-
-
+    /**
+     * 是否在 Entity.java 中忽略该字段
+     */
+    private boolean entityIgnored;
 
 }

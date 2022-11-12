@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.layui.model.LayuiTree;
 import com.github.mengweijin.quickboot.mvc.BaseController;
 import com.github.mengweijin.woodenman.generator.system.dto.GenerateConfig;
+import com.github.mengweijin.woodenman.generator.system.dto.TableInfoDTO;
+import com.github.mengweijin.woodenman.generator.system.service.DatasourceTableService;
 import com.github.mengweijin.woodenman.generator.system.service.TemplateGenService;
 import com.github.mengweijin.woodenman.generator.system.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +33,20 @@ public class TemplateGenController extends BaseController {
 
     @Autowired
     private TemplateGenService templateGenService;
+    @Autowired
+    private DatasourceTableService datasourceTableService;
+
 
     @GetMapping("/{datasourceId}/{tableName}/index")
     public String index(@PathVariable("datasourceId") Long datasourceId, @PathVariable("tableName") String tableName) {
         List<LayuiTree> tree = templateService.tree();
+        this.setAttribute("templateList", tree);
+
+        TableInfoDTO tableInfoDTO = datasourceTableService.selectTableInfo(datasourceId, tableName);
         this.setAttribute("datasourceId", datasourceId);
         this.setAttribute("tableName", tableName);
         this.setAttribute("entityName", StrUtil.upperFirst(StrUtil.toCamelCase(tableName)));
-        this.setAttribute("templateList", tree);
-        this.setAttribute("generateConfig", new GenerateConfig());
+        this.setAttribute("tableColumns", tableInfoDTO.getFieldNames());
         return PREFIX + "/index";
     }
 
@@ -48,8 +55,8 @@ public class TemplateGenController extends BaseController {
     public String execute(@PathVariable("datasourceId") Long datasourceId,
                           @PathVariable("tableName") String tableName,
                           @PathVariable("templateId") Long templateId,
-                          GenerateConfig generateConfig) {
-        return templateGenService.execute(datasourceId, tableName, templateId);
+                          GenerateConfig config) {
+        return templateGenService.execute(datasourceId, tableName, templateId, config);
     }
 
 }

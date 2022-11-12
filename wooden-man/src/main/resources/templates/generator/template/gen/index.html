@@ -22,30 +22,44 @@
                             </div>
                             <div class="layui-col-xs12 layui-col-sm8 layui-col-md9 layui-col-lg10">
                                 <div style="text-align: center; padding: 10px 0;"><h3>生成代码参数配置</h3></div>
-                                <form class="layui-form" action="" style="padding-top: 10px;">
-                                    <div class="layui-form-item" style="margin-bottom: 0px;">
+                                <form class="layui-form" action="" style="padding-top: 10px;" lay-filter="form_filter">
+                                    <div class="layui-form-item">
                                         <div class="layui-inline">
                                             <label class="layui-form-label">数据库表名称:</label>
                                             <div class="layui-input-inline">
-                                                <input name="tableName" th:value="${tableName}" autocomplete="on" class="layui-input" disabled>
+                                                <input name="tableName" autocomplete="on" class="layui-input" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">所有列名称:</label>
+                                        <div class="layui-input-block">
+                                            <input name="tableColumns" autocomplete="on" class="layui-input" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">忽略的字段（可编辑）:</label>
+                                        <div class="layui-input-block">
+                                            <input name="ignoredColumns" autocomplete="on" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">基础包路径（可编辑）:</label>
+                                        <div class="layui-input-block">
+                                            <input name="packagePath" autocomplete="on" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">实体类名称（可编辑）:</label>
+                                            <div class="layui-input-inline">
+                                                <input name="entityName" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-inline">
-                                            <label class="layui-form-label">实体类名称:</label>
+                                            <label class="layui-form-label">作者（可编辑）:</label>
                                             <div class="layui-input-inline">
-                                                <input name="entityName" th:value="${entityName}" autocomplete="off" class="layui-input">
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label">基础包路径:</label>
-                                            <div class="layui-input-inline">
-                                                <input name="packagePath" value="com.github.mengweijin" autocomplete="on" class="layui-input">
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label">作者:</label>
-                                            <div class="layui-input-inline">
-                                                <input name="author" value="mengweijin" autocomplete="on" class="layui-input">
+                                                <input name="author" autocomplete="on" class="layui-input">
                                             </div>
                                         </div>
                                     </div>
@@ -67,18 +81,30 @@
     </div>
     
     <script th:inline="javascript">
-        layui.use(['jquery', 'element', 'util', 'code'], function () {
-            let $ = layui.$, element = layui.element, util = layui.util;
+        layui.use(['jquery', 'element', 'util', 'code', 'form'], function () {
+            let $ = layui.$, element = layui.element, util = layui.util, form = layui.form;
 
             let datasourceId = '[[${datasourceId}]]';
             let tableName = [[${tableName}]];
+            let entityName = [[${entityName}]];
+            let tableColumns = [[${tableColumns}]];
+
+            form.val("form_filter", {
+                "tableName": tableName
+                ,"tableColumns": tableColumns
+                ,"ignoredColumns": "ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME"
+                ,"entityName": entityName
+                ,"packagePath": "com.github.mengweijin"
+                ,"author": "mengweijin"
+            });
 
             util.event('lay-template-event', {
                 template: function (othis) {
                     let templateId = $(othis).attr("template-id");
                     let templateName = $(othis).find("a").text();
                     let url = "/generator/template/gen/execute/" + datasourceId + "/" + tableName + "/" + templateId;
-                    $.post(url, function(res){
+                    let config = form.val("form_filter");
+                    $.post(url, config, function(res){
                         if(res) {
                             let html = $("<pre/>", { "class": "layui-code" }).append(res).get(0).outerHTML;
                             $("#generator_template_gen_execute").html(html);

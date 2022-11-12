@@ -19,10 +19,15 @@
                         </div>
                         <pre class="layui-code">
 {
-    "name": "QBT_GEN_DATASOURCE",               // 数据库表名称
-    "havePrimaryKey": true,                     // 是否有主键
-    "fieldNames": "ID, USERNAME, CREATE_TIME",  // 表中的字段列名
-    "comment": "QBT_GEN_DATASOURCE",            // 数据库表注释
+    "name": "QBT_GEN_DATASOURCE",                                             // 数据库表名称
+    "havePrimaryKey": true,                                                   // 是否有主键
+    "fieldNames": "ID, USERNAME, CREATE_TIME",                                // 表中的字段列名
+    "comment": "QBT_GEN_DATASOURCE",                                          // 数据库表注释
+    "ignoredColumns": "ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME",   // 忽略的表字段
+    "entityName": "QbtGenDatasource",                                         // Entity 实体类名称
+    "packagePath": "com.github.mengweijin",                                   // Entity 实体类包路径
+    "author": "mengweijin",                                                   // 作者
+    "date": "2022-01-01",                                                     // 日期
     "fields": [
         {
             "keyFlag": true,                    // 当前字段是否主键
@@ -32,7 +37,8 @@
             "propertyType": "Long",             // Entity 字段属性 Java 类型
             "propertyName": "id",               // Entity 字段属性名称
             "propertyTypePackage": null,        // Entity 字段属性 Java 类型对应的 import package 路径
-            "comment": "id"                     // 字段注释
+            "comment": "id",                    // 字段注释
+            "entityIgnored": false              // 是否在 Entity.java 中忽略该字段
         },
         {
             "keyFlag": false,
@@ -42,7 +48,8 @@
             "propertyType": "String",
             "propertyName": "username",
             "propertyTypePackage": null,
-            "comment": "username"
+            "comment": "username",
+            "entityIgnored": false
         },
         {
             "keyFlag": false,
@@ -52,7 +59,8 @@
             "propertyType": "LocalDateTime",
             "propertyName": "createTime",
             "propertyTypePackage": "java.time.LocalDateTime",
-            "comment": "creation time"
+            "comment": "creation time",
+            "entityIgnored": true
         }
     ]
 }

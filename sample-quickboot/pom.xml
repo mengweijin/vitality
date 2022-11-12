@@ -16,8 +16,8 @@
         <maven.deploy.skip>true</maven.deploy.skip>  
         <!-- 跳过maven test，否则打包时耗时较久，开发时可以开启 -->  
         <skipTests>true</skipTests>
-        <quickboot-spring-boot-starter.version>1.1.1-SNAPSHOT</quickboot-spring-boot-starter.version>
-        <quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
+        <quickboot-spring-boot-starter.version>1.1.1</quickboot-spring-boot-starter.version>
+        <quickboot-layui.version>1.1.1</quickboot-layui.version>
         <springdoc.version>1.6.11</springdoc.version>
     </properties>
     <dependencies>

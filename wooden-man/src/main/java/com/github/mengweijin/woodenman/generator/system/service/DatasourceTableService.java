@@ -79,6 +79,11 @@ public class DatasourceTableService {
             dto.setFieldNames(table.getFieldNames());
             dto.setComment(table.getComment());
             dto.setFields(BeanUtils.copyList(table.getFields(), TableFieldDTO.class));
+
+            dto.getFields().forEach(field -> {
+                field.setPropertyName(field.getColumnType().getType());
+                field.setPropertyTypePackage(field.getColumnType().getPkg());
+            });
             return dto;
         }).collect(Collectors.toList());
     }

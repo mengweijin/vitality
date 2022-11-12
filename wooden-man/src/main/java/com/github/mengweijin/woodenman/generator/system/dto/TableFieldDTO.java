@@ -1,6 +1,6 @@
 package com.github.mengweijin.woodenman.generator.system.dto;
 
-import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,14 +27,24 @@ public class TableFieldDTO implements Serializable {
     private String columnName;
 
     /**
-     * 属性类型
+     * 列类型。实际的 java 对象为 DbColumnType.java 的实例
      */
-    private DbColumnType columnType;
+    private IColumnType columnType;
 
     /**
-     * 属性名
+     * Entity 字段属性 Java 类型
+     */
+    private String propertyType;
+
+    /**
+     * Entity 字段属性名
      */
     private String propertyName;
+
+    /**
+     * Entity 字段属性 Java 类型对应的 import package 路径
+     */
+    private String propertyTypePackage;
 
     /**
      * 列注释

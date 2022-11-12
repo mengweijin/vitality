@@ -1,7 +1,9 @@
 package com.github.mengweijin.quickboot.domain;
 
 import cn.hutool.extra.spring.SpringUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.quickboot.exception.QuickBootException;
 
 /**
  * @author mengweijin
@@ -14,5 +16,13 @@ public final class P {
 
     public static ObjectMapper objectMapper() {
         return SpringUtil.getBean(ObjectMapper.class);
+    }
+
+    public static String writeValueAsString(Object value) {
+        try {
+            return objectMapper().writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            throw new QuickBootException(e);
+        }
     }
 }

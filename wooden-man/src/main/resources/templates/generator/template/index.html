@@ -14,12 +14,49 @@
 <!--                    <div style="text-align: center; padding: 15px 0; border-bottom: 1px solid #dadada;"><h3>模板详情 <i class="fa-solid fa-angles-down"></i></h3></div>-->
                     <div id="generator_template_detail">
 <!--                        <div style="display:flex;justify-content: center; align-items:center; height: 300px;">-->
-                        <div style="">
-                            <div style="border: 1px solid #dadada; border-radius:30px; margin: 30px 30px; padding: 50px 100px;">
-                                <i class="fa-solid fa-hand-point-left"></i> 想查看模板代码内容？试试点击左侧菜单。
-
-                            </div>
+                        <div style="border: 1px solid #dadada; border-radius:30px; margin: 30px 30px; padding: 50px 100px;">
+                            <i class="fa-solid fa-hand-point-left"></i> 想查看模板代码内容？试试点击左侧菜单。
                         </div>
+                        <pre class="layui-code">
+{
+    "name": "QBT_GEN_DATASOURCE",               // 数据库表名称
+    "havePrimaryKey": true,                     // 是否有主键
+    "fieldNames": "ID, USERNAME, CREATE_TIME",  // 表中的字段列名
+    "comment": "QBT_GEN_DATASOURCE",            // 数据库表注释
+    "fields": [
+        {
+            "keyFlag": true,                    // 当前字段是否主键
+            "keyIdentityFlag": false,           // 主键是否为自增类型
+            "columnName": "ID",                 // 列名
+            "columnType": "LONG",               // 列类型
+            "propertyType": "Long",             // Entity 字段属性 Java 类型
+            "propertyName": "id",               // Entity 字段属性名称
+            "propertyTypePackage": null,        // Entity 字段属性 Java 类型对应的 import package 路径
+            "comment": "id"                     // 字段注释
+        },
+        {
+            "keyFlag": false,
+            "keyIdentityFlag": false,
+            "columnName": "USERNAME",
+            "columnType": "STRING",
+            "propertyType": "String",
+            "propertyName": "username",
+            "propertyTypePackage": null,
+            "comment": "username"
+        },
+        {
+            "keyFlag": false,
+            "keyIdentityFlag": false,
+            "columnName": "CREATE_TIME",
+            "columnType": "LOCAL_DATE_TIME",
+            "propertyType": "LocalDateTime",
+            "propertyName": "createTime",
+            "propertyTypePackage": "java.time.LocalDateTime",
+            "comment": "creation time"
+        }
+    ]
+}
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -27,9 +64,13 @@
     </div>
     
     <script th:inline="javascript">
-        layui.use(['jquery', 'layer','table', 'tree'], function () {
+        layui.use(['jquery', 'layer', 'table', 'tree', 'code'], function () {
             let $ = layui.$, layer = layui.layer, table = layui.table, tree = layui.tree;
+
+            layui.code({ title: 'Freemarker 模板参数 JSON 示例（单个数据库表）', skin:'dark'});
+
             let treeData = [[${treeData}]];
+
 
             var inst1 = tree.render({
               id: 'template_tree'

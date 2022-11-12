@@ -90,10 +90,10 @@
                     });
                 }
                 ,add: function(othis){
-                    $.layer.open('/generator/template/add/', { title: '新增', maxmin: false, area: ['90%', '100%'] })
+                    $.layer.open('/generator/template/add/', { title: '新增', maxmin: false, area: ['90%', '100%'], closeBtn: 2 })
                 }
                 ,edit: function(othis){
-                    $.layer.open('/generator/template/edit/' + domain.id, { title: '编辑', maxmin: false, area: ['90%', '100%'] })
+                    $.layer.open('/generator/template/edit/' + domain.id, { title: '编辑', maxmin: false, area: ['90%', '100%'], closeBtn: 2 })
                 }
                 ,delete: function(othis){
                     layer.confirm('确定删除吗？', function (index) {

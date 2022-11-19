@@ -11,7 +11,6 @@
     <modules>
         <module>./quickboot-spring-boot-starter</module>
         <module>./quickboot-layui</module>
-        <module>./wooden-man</module>
         <module>./sample-quickboot</module>
     </modules>
 

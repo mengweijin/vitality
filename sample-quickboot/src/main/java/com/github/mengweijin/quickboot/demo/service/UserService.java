@@ -1,7 +1,7 @@
-package com.github.mengweijin.quickboot.demo.service;
+package com.github.mengweijin.vitality.demo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.mengweijin.quickboot.demo.entity.User;
+import com.github.mengweijin.vitality.demo.entity.User;
 
 /**
  * @author mengweijin

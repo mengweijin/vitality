@@ -1,6 +1,6 @@
-package com.github.mengweijin.quickboot.demo.controller;
+package com.github.mengweijin.vitality.demo.controller;
 
-import com.github.mengweijin.quickboot.exception.QuickBootException;
+import com.github.mengweijin.vitality.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

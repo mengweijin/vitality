@@ -6,12 +6,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.demo.async.AsyncFactory;
 import com.github.mengweijin.vitality.demo.entity.User;
 import com.github.mengweijin.vitality.demo.enums.Gender;
 import com.github.mengweijin.vitality.demo.service.UserService;
-import com.github.mengweijin.vitality.mybatis.Pager;
+import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.redis.inteceptor.RepeatSubmit;
 import com.github.mengweijin.vitality.redis.limiter.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
@@ -58,13 +57,9 @@ public class UserController {
     /**
      * Cache 测试接口
      *
-     * @apiNote 注解 {@link org.springframework.cache.annotation.Cacheable Cacheable} 中的参数 {@code cacheNames} 表示使用哪一个缓存名称。
-     * 注解 CacheExpired 中的参数：
-     * {@code expire} 表示过期时间。
-     * {@code chronoUnit} 表示过期时间单位。
+     * @apiNote 注解 {@link Cacheable Cacheable} 中的参数 {@code cacheNames} 表示使用哪一个缓存名称。
      * @return {@link String String}
      */
-    //@CacheExpired(expire = 10, chronoUnit = ChronoUnit.SECONDS)
     @Cacheable(cacheNames = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_CLASS + "+':TableInfoList'")
     @GetMapping("/cache")
     public String hello(){
@@ -123,12 +118,6 @@ public class UserController {
         return userService.page(page);
     }
 
-    @GetMapping("/pager")
-    public Pager<User> getPager(Pager<User> pager) {
-        final IPage<User> page = userService.page(pager.toPage());
-        return pager.toPager(page);
-    }
-
     @GetMapping("/get/{id}")
     public User getUserById(@PathVariable("id") Long id){
         return userService.getById(id);
@@ -161,5 +150,10 @@ public class UserController {
         String s = stringFuture.get();
         log.info("Async Completed. result=" + s);
         return "async";
+    }
+
+    @GetMapping("/exception")
+    public void exception(){
+        throw new RuntimeException("error");
     }
 }

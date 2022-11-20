@@ -28,9 +28,8 @@ import java.util.function.Function;
 public class DownLoadUtils {
 
     /**
-     * 谨慎使用！会被恶意用户下载到服务器上所有的文件！
+     * 谨慎使用！使用不当会被恶意用户下载到服务器上所有的文件！
      */
-    @Deprecated
     public static void download(String filePath, HttpServletRequest request, HttpServletResponse response) {
         download(filePath, request, response, FileUtil::file);
     }

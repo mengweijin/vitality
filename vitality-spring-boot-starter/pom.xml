@@ -29,7 +29,6 @@
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <commons-net.version>3.8.0</commons-net.version>
         <jsoup.version>1.15.3</jsoup.version>
-        <springdoc.version>1.6.12</springdoc.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.8.1</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
@@ -115,11 +114,6 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${springdoc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

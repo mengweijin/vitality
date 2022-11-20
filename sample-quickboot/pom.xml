@@ -59,7 +59,7 @@
                         <outputPackage>com.github.mengweijin.quietly.system</outputPackage>
                         <tables>QTL_PROJECT</tables>
                         <tablePrefix>QTL_</tablePrefix>
-                        <superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
+                        <superEntityClass>com.github.mengweijin.vitality.mybatis.entity.BaseEntity</superEntityClass>
                         <dbInfo>
                             <username>sa</username>
                             <password/>

@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality;
 
-import com.github.mengweijin.vitality.spring.VitalityBeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -27,7 +26,7 @@ public class VitalityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public VitalityBeanDefinitionRegistryPostProcessor vitalityBeanDefinitionRegistryPostProcessor() {
+    public static VitalityBeanDefinitionRegistryPostProcessor vitalityBeanDefinitionRegistryPostProcessor() {
         return new VitalityBeanDefinitionRegistryPostProcessor();
     }
 

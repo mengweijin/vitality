@@ -1,6 +1,8 @@
-package com.github.mengweijin.vitality.demo.spring.listener;
+package com.github.mengweijin.vitality.demo;
 
+import com.github.mengweijin.vitality.controller.CommonController;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -10,7 +12,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class QuickBootApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+public class DefaultApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+
+    @Autowired
+    private CommonController commonController;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

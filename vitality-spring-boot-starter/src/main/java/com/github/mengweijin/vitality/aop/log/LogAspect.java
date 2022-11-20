@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
@@ -27,7 +27,6 @@ import java.util.function.Consumer;
  **/
 @Slf4j
 @Aspect
-@Component
 public class LogAspect {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.demo.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.demo.entity.User;
 import com.github.mengweijin.vitality.demo.mapper.UserMapper;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserService extends ServiceImpl<UserMapper, User> implements IService<User> {
 
     @Autowired
     private UserMapper userMapper;

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile({"dev", "test"})
 @ConditionalOnClass({GroupedOpenApi.class})
-public class SpringDocAutoConfiguration {
+public class SpringDocConfig {
 
     /**
      * 可以多添加几个这样的 bean,

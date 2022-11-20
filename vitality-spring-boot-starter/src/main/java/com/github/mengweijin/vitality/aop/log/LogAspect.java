@@ -61,7 +61,7 @@ public class LogAspect {
             sysLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
             sysLog.setUrl(request.getRequestURI());
             sysLog.setHttpMethod(requestMethod);
-            sysLog.setOperateTime(LocalDateTime.now());
+            sysLog.setCreateTime(LocalDateTime.now());
             sysLog.setIp(ServletUtil.getClientIP(request));
             sysLog.setSuccess(true);
             joinPoint.proceed();

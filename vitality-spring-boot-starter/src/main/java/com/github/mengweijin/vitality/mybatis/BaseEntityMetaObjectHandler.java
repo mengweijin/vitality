@@ -42,10 +42,10 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_TIME, LocalDateTime.class, localDateTime);
 
             // session LOGIN_USER
-            String username = this.getUserId();
-            if(StrUtil.isNotBlank(username)) {
-                this.strictInsertFill(metaObject, BASE_ENTITY_CREATE_BY, String.class, username);
-                this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, username);
+            String userId = this.getUserId();
+            if(StrUtil.isNotBlank(userId)) {
+                this.strictInsertFill(metaObject, BASE_ENTITY_CREATE_BY, String.class, userId);
+                this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, userId);
             }
         }
     }
@@ -57,9 +57,9 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             LocalDateTime localDateTime = LocalDateTime.now();
             this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_TIME, LocalDateTime.class, localDateTime);
 
-            String username = this.getUserId();
-            if(StrUtil.isNotBlank(username)) {
-                this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, username);
+            String userId = this.getUserId();
+            if(StrUtil.isNotBlank(userId)) {
+                this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, userId);
             }
         }
     }

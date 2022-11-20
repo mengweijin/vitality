@@ -1,16 +1,17 @@
 package com.github.mengweijin.vitality.aop.log;
 
+import com.github.mengweijin.vitality.mybatis.entity.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.time.LocalDateTime;
 
 /**
  * @author mengweiijin
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysLog {
+public class SysLog extends BaseEntity {
 
     /** request url */
     private String url;
@@ -30,9 +31,4 @@ public class SysLog {
     /** error information */
     private String error;
 
-    /** operate time */
-    private LocalDateTime operateTime;
-
-    /** Operate user id */
-    private String operator;
 }

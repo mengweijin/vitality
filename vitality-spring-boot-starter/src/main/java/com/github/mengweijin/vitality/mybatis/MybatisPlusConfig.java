@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,6 +30,8 @@ import javax.sql.DataSource;
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class MybatisPlusConfig {
 
+    @Autowired
+    private DataSourceProperties dataSourceProperties;
     /**
      * map-underscore-to-camel-case: true。
      * 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，
@@ -42,6 +47,9 @@ public class MybatisPlusConfig {
     }
 
     /**
+     * 注解：@InterceptorIgnore {@link com.baomidou.mybatisplus.annotation.InterceptorIgnore}
+     * 用于 Mapper.java 的类或方法上。哪个配置为 true, 哪个拦截器就不会生效。常用于对某个方法或类忽略指定的拦截器。
+     *
      * 目前已有的功能:
      *
      * 自动分页: PaginationInnerInterceptor
@@ -53,10 +61,13 @@ public class MybatisPlusConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    public MybatisPlusInterceptor mybatisPlusInterceptor(PaginationInnerInterceptor paginationInnerInterceptor) {
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        // 注意：插件有一定顺序，不能乱放。
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 数据权限插件
+        interceptor.addInnerInterceptor(dataPermissionInterceptor());
         // 分页插件, 一缓和二缓遵循mybatis的规则
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+        interceptor.addInnerInterceptor(paginationInnerInterceptor());
         // 乐观锁插件。注解实体字段 @Version
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         // 防止全表更新与删除
@@ -70,9 +81,25 @@ public class MybatisPlusConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    public PaginationInnerInterceptor paginationInnerInterceptor(DataSourceProperties dataSourceProperties){
+    public PaginationInnerInterceptor paginationInnerInterceptor(){
         DbType dbType = JdbcUtils.getDbType(dataSourceProperties.getUrl());
         return new PaginationInnerInterceptor(dbType);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DataPermissionInterceptor dataPermissionInterceptor(){
+        return new DataPermissionInterceptor(dataPermissionHandler());
+    }
+
+    /**
+     * 如果需要数据权限拦截器，只需要子工程重新按照自己的业务要求来实现 BaseDataPermissionHandler.java。
+     * 这里的默认实现只是给个参考。
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public DataPermissionHandler dataPermissionHandler(){
+        return new DefaultDataPermissionHandler();
     }
 
     /**

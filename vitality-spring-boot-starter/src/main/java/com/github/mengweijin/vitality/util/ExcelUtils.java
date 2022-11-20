@@ -35,7 +35,7 @@ public class ExcelUtils {
      * @param cls
      * */
     public static <T> void write(Class<T> cls, List<T> list, File targetFile) {
-        EasyExcel.write(targetFile, cls).sheet(0).doWrite(list);
+        EasyExcel.write(targetFile, cls).sheet("sheet1").doWrite(list);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ExcelUtils {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + DownLoadUtils.setFileName(request, fileName));
-            EasyExcel.write(response.getOutputStream(), cls).sheet(0).doWrite(list);
+            EasyExcel.write(response.getOutputStream(), cls).sheet("sheet1").doWrite(list);
         }catch (IOException e) {
             throw new RuntimeException(e);
         }

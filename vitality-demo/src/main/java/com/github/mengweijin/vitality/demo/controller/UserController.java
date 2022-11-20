@@ -13,6 +13,7 @@ import com.github.mengweijin.vitality.demo.service.UserService;
 import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.redis.inteceptor.RepeatSubmit;
 import com.github.mengweijin.vitality.redis.limiter.RateLimiter;
+import com.github.mengweijin.vitality.util.ExcelUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -155,5 +158,10 @@ public class UserController {
     @GetMapping("/exception")
     public void exception(){
         throw new RuntimeException("error");
+    }
+
+    @GetMapping("/export")
+    public void export(HttpServletRequest request, HttpServletResponse response){
+        ExcelUtils.download("user.xlsx", User.class, userService.list(), request, response);
     }
 }

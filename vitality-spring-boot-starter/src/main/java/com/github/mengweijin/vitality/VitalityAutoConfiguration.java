@@ -1,5 +1,8 @@
 package com.github.mengweijin.vitality;
 
+import com.github.mengweijin.vitality.controller.CommonController;
+import com.github.mengweijin.vitality.exception.handler.GlobalExceptionHandler;
+import com.github.mengweijin.vitality.response.DefaultResponseBodyAdvice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -26,14 +29,26 @@ public class VitalityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public static VitalityBeanDefinitionRegistryPostProcessor vitalityBeanDefinitionRegistryPostProcessor() {
-        return new VitalityBeanDefinitionRegistryPostProcessor();
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+        return restTemplateBuilder.build();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
+    public CommonController commonController() {
+        return new CommonController();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public GlobalExceptionHandler globalExceptionHandler() {
+        return new GlobalExceptionHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultResponseBodyAdvice responseBodyAdvice() {
+        return new DefaultResponseBodyAdvice();
     }
 
 }

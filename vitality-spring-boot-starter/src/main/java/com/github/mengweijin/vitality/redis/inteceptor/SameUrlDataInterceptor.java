@@ -1,12 +1,13 @@
 package com.github.mengweijin.vitality.redis.inteceptor;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.redis.RedisService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         }
 
         // body参数为空，获取Parameter的数据
-        if (StringUtils.isEmpty(nowParams)) {
+        if (StrUtil.isEmpty(nowParams)) {
             nowParams = objectMapper.writeValueAsString(request.getParameterMap());
         }
         Map<String, Object> nowDataMap = new HashMap<>();

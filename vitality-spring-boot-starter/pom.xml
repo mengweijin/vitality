@@ -33,6 +33,7 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.8.1</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
+        <easyexcel.version>3.1.2</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -124,6 +125,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <!--<scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
         </dependency>
 
 

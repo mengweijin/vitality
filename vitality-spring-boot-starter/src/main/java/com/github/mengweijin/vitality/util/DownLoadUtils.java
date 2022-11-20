@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 /**
+ * All contentType refer to MimeTypeMappings.properties in tomcat.
  * @author mengweijin
  */
 @Slf4j
@@ -64,7 +65,7 @@ public class DownLoadUtils {
     public static void download(InputStream in, String fileName, HttpServletRequest request, HttpServletResponse response) {
         try (OutputStream out = response.getOutputStream()) {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            response.setContentType("multipart/form-data");
+            response.setContentType(request.getServletContext().getMimeType(fileName));
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment;fileName=" + setFileName(request, fileName));
             IoUtil.copy(in, out);
@@ -190,7 +191,7 @@ public class DownLoadUtils {
         }
     }
 
-    private static String setFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+    public static String setFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
         final String agent = request.getHeader("USER-AGENT");
         String encodeFileName = fileName;
         if (agent.contains("MSIE")) {

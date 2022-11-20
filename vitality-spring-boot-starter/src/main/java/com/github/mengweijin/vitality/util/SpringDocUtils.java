@@ -9,7 +9,7 @@ import cn.hutool.core.text.CharSequenceUtil;
 public class SpringDocUtils {
 
     /**
-     * com.github.mengweijin.quickboot.framework.doc
+     * com.github.mengweijin.vitality.framework.doc
      */
     public static <E> String getPackagePath(Class<E> cls) {
         return cls.getPackage().getName();
@@ -21,7 +21,7 @@ public class SpringDocUtils {
 
     /**
      * 以最后一个包名作为 Group 名称，首字母大写然后拼接 + “ APIs"。例如："Doc APIs"
-     * @param packagePath com.github.mengweijin.quickboot.framework.doc
+     * @param packagePath com.github.mengweijin.vitality.framework.doc
      * @return doc
      */
     public static String createGroupName(String packagePath) {

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022/10/29
  */
 @Configuration
-public class ResponseBodyAdviceAutoConfiguration {
+public class ResponseBodyAdviceConfig {
 
     @Bean
     @ConditionalOnMissingBean

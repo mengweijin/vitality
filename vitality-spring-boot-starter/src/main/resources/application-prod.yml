@@ -1,5 +1,5 @@
 decorator:
   datasource:
     enabled: false
-quickboot:
+vitality:
   debug: false

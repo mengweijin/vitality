@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.quickboot.QuickBootProperties;
-import com.github.mengweijin.quickboot.domain.R;
+import com.github.mengweijin.vitality.VitalityProperties;
+import com.github.mengweijin.vitality.domain.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Autowired
-    private QuickBootProperties quickBootProperties;
+    private VitalityProperties vitalityProperties;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -48,7 +48,7 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         HttpMethod httpMethod = request.getMethod();
         String path = request.getURI().getPath();
-        boolean match = quickBootProperties.getBodyAdviceExcludePathPrefix().stream().anyMatch(item -> path.toLowerCase().startsWith(item.toLowerCase()));
+        boolean match = vitalityProperties.getBodyAdviceExcludePathPrefix().stream().anyMatch(item -> path.toLowerCase().startsWith(item.toLowerCase()));
         if(match) {
             return body;
         }
@@ -66,7 +66,7 @@ public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                 //     return objectMapper.writeValueAsString(R.success(body));
                 // } catch (JsonProcessingException e) {
                 //     log.error("An exception has occurred that should not have occurred!", e);
-                //     throw new QuickBootException(e.getMessage());
+                //     throw new RuntimeException(e.getMessage());
                 // }
             } else {
                 return R.success(body);

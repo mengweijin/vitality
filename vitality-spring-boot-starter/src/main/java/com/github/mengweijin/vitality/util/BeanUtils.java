@@ -1,8 +1,7 @@
 package com.github.mengweijin.vitality.util;
 
 import cn.hutool.core.lang.func.LambdaUtil;
-import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
-
+import com.github.mengweijin.vitality.mybatis.entity.BaseEntity;
 import java.util.ArrayList;
 import java.util.List;
 

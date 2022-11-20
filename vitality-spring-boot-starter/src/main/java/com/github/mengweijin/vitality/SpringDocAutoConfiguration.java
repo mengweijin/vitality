@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
  * @date 2022/1/16
  */
 @Configuration
-@Profile({"!prod"})
+@Profile({"dev", "test"})
 @ConditionalOnClass({GroupedOpenApi.class})
 public class SpringDocAutoConfiguration {
 
@@ -30,7 +30,7 @@ public class SpringDocAutoConfiguration {
                 .group("All APIs")
                 .pathsToMatch(Constants.ALL_PATTERN)
                 .addOpenApiCustomiser(openApi ->
-                        openApi.info(new Info().title("All APIs").version("1.0.0-SNAPSHOT"))
+                        openApi.info(new Info().title("All APIs").version("Latest Version"))
                 )
                 .build();
     }

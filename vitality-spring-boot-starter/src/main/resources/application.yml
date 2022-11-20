@@ -63,9 +63,9 @@ management:
         # 要暴露出来的接口，可配置：health(默认), info（2.5.0后不再默认暴露出去）, 配置为 * 代表所有
         include: [ "health" ]
         # exclude: ["trace"]
-quickboot:
+vitality:
   debug: true
   # 是否允许跨域
   cors: true
   # 默认配置加密 key。如：spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
-  #cipher: quickboot-abcd-1234
+  #cipher: vitality-abcd-1234

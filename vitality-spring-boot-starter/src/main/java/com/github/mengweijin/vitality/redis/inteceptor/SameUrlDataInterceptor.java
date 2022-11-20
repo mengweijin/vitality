@@ -3,11 +3,10 @@ package com.github.mengweijin.vitality.redis.inteceptor;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.quickboot.filter.repeatable.RepeatedlyRequestWrapper;
-import com.github.mengweijin.quickboot.redis.RedisService;
+import com.github.mengweijin.vitality.filter.repeatable.RepeatedlyRequestWrapper;
+import com.github.mengweijin.vitality.redis.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;

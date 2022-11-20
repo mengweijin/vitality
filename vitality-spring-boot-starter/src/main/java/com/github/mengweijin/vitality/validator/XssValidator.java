@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.validator;
 
-import com.github.mengweijin.quickboot.validator.annotation.Xss;
 
+import com.github.mengweijin.vitality.validator.annotation.Xss;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;

@@ -1,8 +1,7 @@
 package com.github.mengweijin.vitality.redis.limiter;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import com.github.mengweijin.quickboot.exception.QuickBootException;
-import com.github.mengweijin.quickboot.util.ServletUtils;
+import com.github.mengweijin.vitality.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,7 +10,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
-
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -48,10 +46,10 @@ public class RateLimiterAspect {
         try {
             Long number = redisTemplate.execute(limitScript, keys, count, time);
             if (number == null || number.intValue() > count) {
-                throw new QuickBootException("Too many requests. Please try later.");
+                throw new RuntimeException("Too many requests. Please try later.");
             }
             log.info("Request Limits '{}', Current Request '{}', Cache Key '{}'", count, number.intValue(), key);
-        } catch (QuickBootException e) {
+        } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Traffic limiting on the server is abnormal. Please try again later.");

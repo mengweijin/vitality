@@ -5,9 +5,7 @@ import cn.hutool.crypto.KeyUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
-import com.github.mengweijin.quickboot.exception.QuickBootException;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.FileInputStream;
@@ -94,7 +92,7 @@ public class AESUtils {
             SecretKey secretKey = KeyUtil.generateKey(SymmetricAlgorithm.AES.getValue(), keySize, secureRandom);
             return secretKey.getEncoded();
         } catch (NoSuchAlgorithmException e) {
-            throw new QuickBootException(e);
+            throw new RuntimeException(e);
         }
 
     }

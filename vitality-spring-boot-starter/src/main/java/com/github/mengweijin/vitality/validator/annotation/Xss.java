@@ -1,7 +1,6 @@
 package com.github.mengweijin.vitality.validator.annotation;
 
-import com.github.mengweijin.quickboot.validator.XssValidator;
-
+import com.github.mengweijin.vitality.validator.XssValidator;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.ElementType;

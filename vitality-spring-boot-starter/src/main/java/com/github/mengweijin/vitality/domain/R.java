@@ -1,10 +1,9 @@
 package com.github.mengweijin.vitality.domain;
 
-import com.github.mengweijin.quickboot.util.Const;
+import com.github.mengweijin.vitality.util.Const;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

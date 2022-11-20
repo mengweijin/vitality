@@ -30,7 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableCaching
 @Configuration
 @ConditionalOnClass({RedisConnectionFactory.class, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class})
-public class QuickBootRedisAutoConfiguration extends CachingConfigurerSupport implements WebMvcConfigurer {
+public class RedisConfig extends CachingConfigurerSupport implements WebMvcConfigurer {
 
     @Bean
     public RedisService redisService(RedisTemplate redisTemplate) {

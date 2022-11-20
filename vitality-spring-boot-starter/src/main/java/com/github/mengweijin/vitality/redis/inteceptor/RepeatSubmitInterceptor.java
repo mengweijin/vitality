@@ -1,12 +1,11 @@
 package com.github.mengweijin.vitality.redis.inteceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.mengweijin.quickboot.domain.R;
-import com.github.mengweijin.quickboot.util.ServletUtils;
+import com.github.mengweijin.vitality.domain.R;
+import com.github.mengweijin.vitality.util.ServletUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;

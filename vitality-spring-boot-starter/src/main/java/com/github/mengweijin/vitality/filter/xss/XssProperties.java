@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * application.yaml
- * quickboot:
+ * vitality:
  *   xss:
  *     # 是否启用xss过滤，default false.
  *     enabled: true
@@ -29,7 +29,7 @@ public class XssProperties {
      * 不需要xss校验的链接
      * <p>
      * 配置示例：
-     * quickboot:
+     * vitality:
      *   xss:
      *     - /system/*
      *     - /tool/*

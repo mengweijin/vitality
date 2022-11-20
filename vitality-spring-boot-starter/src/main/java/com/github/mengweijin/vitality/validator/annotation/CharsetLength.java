@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.validator.annotation;
 
-import com.github.mengweijin.quickboot.validator.CharsetLengthValidator;
 
+import com.github.mengweijin.vitality.validator.CharsetLengthValidator;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;

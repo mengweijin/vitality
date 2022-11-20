@@ -1,9 +1,11 @@
 package com.github.mengweijin.vitality.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,10 +18,12 @@ import java.util.concurrent.TimeUnit;
  * spring redis 工具类
  **/
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
+@Component
 public class RedisService {
 
     public RedisTemplate redisTemplate;
 
+    @Autowired
     public RedisService(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }

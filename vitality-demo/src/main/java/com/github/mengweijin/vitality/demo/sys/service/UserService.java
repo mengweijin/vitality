@@ -1,9 +1,9 @@
-package com.github.mengweijin.vitality.demo.service;
+package com.github.mengweijin.vitality.demo.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.demo.entity.User;
-import com.github.mengweijin.vitality.demo.mapper.UserMapper;
+import com.github.mengweijin.vitality.demo.sys.entity.User;
+import com.github.mengweijin.vitality.demo.sys.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

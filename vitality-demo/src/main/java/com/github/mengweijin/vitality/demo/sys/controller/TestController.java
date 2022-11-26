@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.demo.controller;
+package com.github.mengweijin.vitality.demo.sys.controller;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.demo.async.AsyncFactory;
-import com.github.mengweijin.vitality.demo.entity.User;
+import com.github.mengweijin.vitality.demo.sys.entity.User;
 import com.github.mengweijin.vitality.demo.enums.Gender;
-import com.github.mengweijin.vitality.demo.service.UserService;
+import com.github.mengweijin.vitality.demo.sys.service.UserService;
 import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.redis.inteceptor.RepeatSubmit;
 import com.github.mengweijin.vitality.redis.limiter.RateLimiter;
@@ -42,8 +42,8 @@ import java.util.concurrent.Future;
  */
 @Slf4j
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/test")
+public class TestController {
 
     @Autowired
     private UserService userService;

@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.demo.entity;
+package com.github.mengweijin.vitality.demo.sys.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
@@ -10,6 +10,8 @@ import com.github.mengweijin.vitality.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * @author mengweijin

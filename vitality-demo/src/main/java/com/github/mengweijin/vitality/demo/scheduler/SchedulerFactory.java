@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.demo.scheduler;
 
-import com.github.mengweijin.vitality.demo.entity.User;
-import com.github.mengweijin.vitality.demo.service.UserService;
+import com.github.mengweijin.vitality.demo.sys.entity.User;
+import com.github.mengweijin.vitality.demo.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

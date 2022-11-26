@@ -47,31 +47,30 @@ public class LogAspect {
     }
 
     @Around("pointCut()")
-    public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ServletUtils.getRequest();
         String requestMethod = request.getMethod();
-        if(HttpMethod.GET.name().equals(requestMethod)) {
-            joinPoint.proceed();
-            return;
+        if(!HttpMethod.GET.name().equals(requestMethod)) {
+            SysLog sysLog = new SysLog();
+            try {
+                sysLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
+                sysLog.setUrl(request.getRequestURI());
+                sysLog.setHttpMethod(requestMethod);
+                sysLog.setCreateTime(LocalDateTime.now());
+                sysLog.setIp(ServletUtil.getClientIP(request));
+                sysLog.setSuccess(true);
+
+                log.debug(objectMapper.writeValueAsString(sysLog));
+            } catch (Exception e) {
+                sysLog.setSuccess(false);
+                sysLog.setError(e.getMessage());
+                throw e;
+            } finally {
+                consumer.accept(sysLog);
+            }
         }
 
-        SysLog sysLog = new SysLog();
-        try {
-            sysLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
-            sysLog.setUrl(request.getRequestURI());
-            sysLog.setHttpMethod(requestMethod);
-            sysLog.setCreateTime(LocalDateTime.now());
-            sysLog.setIp(ServletUtil.getClientIP(request));
-            sysLog.setSuccess(true);
-            joinPoint.proceed();
-            log.debug(objectMapper.writeValueAsString(sysLog));
-        } catch (Exception e) {
-            sysLog.setSuccess(false);
-            sysLog.setError(e.getMessage());
-            throw e;
-        } finally {
-            consumer.accept(sysLog);
-        }
+        return joinPoint.proceed();
     }
 
 }

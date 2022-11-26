@@ -12,7 +12,6 @@
 
     <modules>
         <module>vitality-demo</module>
-        <module>vitality-layui</module>
         <module>generator-spring-boot-starter</module>
         <module>vitality-spring-boot-starter</module>
     </modules>

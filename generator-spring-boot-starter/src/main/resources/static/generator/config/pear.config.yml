@@ -7,7 +7,7 @@ logo:
 ## 菜单配置
 menu: 
   ## 菜单数据来源
-  data: "admin/data/menu.json"
+  data: "admin/data/menu-generator.json"
   ## 菜单接口的请求方式 GET / POST
   method: "GET" 
   ## 是否同时只打开一个菜单目录
@@ -37,9 +37,9 @@ tab:
   ## 首页
   index: 
     id: "0" ## 标识 ID , 建议与菜单项中的 ID 一致
-    href: "home.html" ## 页面地址
+    href: "page/generator.html" ## 页面地址
     # href: "view/console/console1.html" ## 页面地址
-    title: "首页" ## 标题
+    title: "数据库表" ## 标题
 ## 主题配置
 theme: 
   ## 默认主题色，对应 colors 配置中的 ID 标识

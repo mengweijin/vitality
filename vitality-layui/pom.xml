@@ -11,11 +11,10 @@
     </parent>
 
     <groupId>com.github.mengweijin</groupId>
-    <artifactId>quickboot-layui</artifactId>
-    <version>1.1.1</version>
+    <artifactId>vitality-layui</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
 
-    <name>quickboot-layui</name>
-    <description>quickboot-layui</description>
+    <name>vitality-layui</name>
 
     <properties> 
 
@@ -36,7 +35,7 @@
         </dependency>
     </dependencies>
 
-    <url>https://gitee.com/mengweijin/quickboot</url>
+    <url>https://gitee.com/mengweijin/vitality</url>
     <!-- 开源许可证 -->
     <licenses>
         <license>
@@ -53,12 +52,12 @@
     </developers>
     <!--开源地址-->
     <scm>
-        <url>https://gitee.com/mengweijin/quickboot</url>
+        <url>https://gitee.com/mengweijin/vitality</url>
     </scm>
     <!--  Issue地址  -->
     <issueManagement>
         <system>Gitee Issue</system>
-        <url>https://gitee.com/mengweijin/quickboot/issues</url>
+        <url>https://gitee.com/mengweijin/vitality/issues</url>
     </issueManagement>
 
     <build>

@@ -1,3 +1,6 @@
+spring:
+  thymeleaf:
+    cache: true
 decorator:
   datasource:
     enabled: false

@@ -12,7 +12,7 @@
 
     <modules>
 <!--        <module>./quickboot-spring-boot-starter</module>-->
-<!--        <module>./quickboot-layui</module>-->
+        <module>vitality-layui</module>
         <module>vitality-demo</module>
         <module>vitality-spring-boot-starter</module>
     </modules>

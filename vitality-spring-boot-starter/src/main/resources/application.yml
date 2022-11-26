@@ -6,9 +6,11 @@ spring:
   application:
     name: @project.artifactId@
   profiles:
-    active: db,layui,dev
+    active: db,dev
   banner:
     location: classpath:banner.txt
+  thymeleaf:
+    cache: false
   mvc:
     throw-exception-if-no-handler-found: false
   resources:

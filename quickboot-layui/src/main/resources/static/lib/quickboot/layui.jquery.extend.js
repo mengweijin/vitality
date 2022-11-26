@@ -177,11 +177,27 @@ layui.use(['jquery'], function () {
 
         "iframe": {
             refresh: function(id, url) {
-                document.getElementById(id).setAttribute('src', url);
+                let iframe = document.getElementById(id);
+                if(layui.$.util.isEmpty(url)) {
+                    url = iframe.getAttribute("src");
+                }
+                 iframe.setAttribute('src', url);
             }
         },
 
         "util": {
+            /**
+             * 判断是否是空
+             * @param value
+             */
+            isEmpty: function(value) {
+                if(value == null || undefined) {
+                    return true;
+                } else {
+                    value = value.replace(/\s/g, "");
+                    return value == "" || value == "undefined" || value == "null";
+                }
+            },
             /**
              * 复制文本到剪切板。text是复制文本
              */
@@ -201,11 +217,11 @@ layui.use(['jquery'], function () {
              * location.search的值就是 "?i=1&j=2" 
              * substr(1)   就是从索引1开始截取 
              * 所以以这个页面为例的话 location.search.substring(1) 的值就是 "i=1&j=2"
-             * 使用：$.util.getUrlParamValue('i'); 结果返回：1
-             * @param {String} name param name 
+             * 使用：$.util.getQueryVariable('i'); 结果返回：1
+             * @param {String} variable param name 
              */
-            getUrlParamValue: function (name) {
-                let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            getQueryVariable: function (variable) {
+                let reg = new RegExp("(^|&)" + variable + "=([^&]*)(&|$)");
                 let matchedArray = decodeURI(window.location.search.substring(1)).match(reg);
                 return matchedArray == null ? null : matchedArray[2];
             },
@@ -310,6 +326,9 @@ layui.use(['jquery'], function () {
             if (csrfHeader && csrf) {
                 xhr.setRequestHeader(header, csrf);
             }
+            //if(this.data) {
+            //    this.data = JSON.stringify(this.data);
+            //}
         },
         complete: function (xhr) {
             layui.layer.close(this.layerIndex);

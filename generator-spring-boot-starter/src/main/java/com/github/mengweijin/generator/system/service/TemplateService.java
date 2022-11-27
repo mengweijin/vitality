@@ -4,10 +4,9 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
 import com.github.mengweijin.vitality.cache.CacheConst;
-import com.github.mengweijin.vitality.domain.layui.LayuiTree;
+import com.github.mengweijin.vitality.layui.LayuiTree;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

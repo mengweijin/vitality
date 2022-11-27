@@ -2,15 +2,20 @@ package com.github.mengweijin.generator.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
+import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.dtree.DTreeDTO;
 import com.github.mengweijin.vitality.dtree.DTreeNode;
+import org.springframework.aop.framework.AopContext;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -20,20 +25,39 @@ import java.util.stream.Collectors;
 @Service
 public class TemplateService {
 
-    public DTreeDTO tree() {
+    @Cacheable(
+            cacheNames = CacheConst.NAME_NEVER_EXPIRE,
+            key = CacheConst.KEY_CLASS_METHOD,
+            unless = CacheConst.UNLESS_LIST
+    )
+    public List<TemplateDTO> findTemplate() {
         List<File> templateFileList = FileUtil.loopFiles("ftl/",
                 file -> file.isFile() && file.getName().toLowerCase().endsWith(".ftl"));
 
-        Map<String, List<TemplateDTO>> map = templateFileList.stream()
+        return templateFileList.stream()
                 .map(file -> {
                     TemplateDTO dto = new TemplateDTO();
-                    dto.setCategory(FileUtil.getParent(file, 1).getName());
+                    dto.setId(IdUtil.simpleUUID());
+                    dto.setCategory(file.getParentFile().getName());
                     dto.setName(file.getName());
                     dto.setContent(FileUtil.readUtf8String(file));
-                    dto.setAbsolutePath(file.getAbsolutePath());
                     return dto;
                 })
-                .collect(Collectors.groupingBy(TemplateDTO::getCategory));
+                .collect(Collectors.toList());
+    }
+
+    public TemplateDTO findTemplateById(String id) {
+        TemplateService templateService = (TemplateService) AopContext.currentProxy();
+        List<TemplateDTO> templateList = templateService.findTemplate();
+        Optional<TemplateDTO> first = templateList.stream().filter(tpl -> tpl.getId().equals(id)).findFirst();
+        return first.orElse(null);
+    }
+
+    public DTreeDTO tree() {
+        TemplateService templateService = (TemplateService) AopContext.currentProxy();
+        List<TemplateDTO> templateList = templateService.findTemplate();
+
+        Map<String, List<TemplateDTO>> map = templateList.stream().collect(Collectors.groupingBy(TemplateDTO::getCategory));
 
         List<DTreeNode> treeNodeList = new ArrayList<>();
         map.forEach((k, v) -> {
@@ -57,7 +81,7 @@ public class TemplateService {
         }
         return templateList.stream().map(tpl -> {
             DTreeNode node = new DTreeNode();
-            node.setId(tpl.getAbsolutePath());
+            node.setId(tpl.getId());
             node.setTitle(tpl.getName());
             node.setLast(true);
             node.setParentId(parentId);

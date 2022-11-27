@@ -63,7 +63,7 @@ public class TestController {
      * @apiNote 注解 {@link Cacheable Cacheable} 中的参数 {@code cacheNames} 表示使用哪一个缓存名称。
      * @return {@link String String}
      */
-    @Cacheable(cacheNames = CacheConst.NAME_DEFAULT, key = CacheConst.KEY_CLASS + "+':TableInfoList'")
+    @Cacheable(cacheNames = CacheConst.NAME_12_HOURS, key = CacheConst.KEY_CLASS + "+':TableInfoList'")
     @GetMapping("/cache")
     public String hello(){
         log.info("Entered hello method.");

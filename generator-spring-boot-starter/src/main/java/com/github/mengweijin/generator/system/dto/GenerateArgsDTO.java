@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class GenerateArgsDTO {
 
-    private String templatePath;
+    private String templateId;
 
     private GenerateConfigDTO config;
 }

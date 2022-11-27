@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>代码页面</title>
+		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
+	</head>
+	<body>
+		<div class="layui-card">
+			<div class="layui-card-body">
+				<div style="text-align: right;">
+					<button class="layui-btn layui-btn-normal" lay-template-event="copy"><i class="fa-solid fa-clone"></i> 复制代码</button>
+				</div>
+				<textarea name="code" rows="20" disabled class="layui-textarea" style="background: #3f3f3f; color: #c2be9e;"></textarea>
+			</div>
+		</div>
+
+		<script src="../../component/layui/layui.js"></script>
+		<script src="../../component/pear/pear.js"></script>
+		<script>
+
+			layui.use(['form', 'jquery', 'http', 'common', 'util'], function() {
+				let form = layui.form;
+				let $ = layui.jquery;
+				let http = layui.http;
+				let common = layui.common;
+				let util = layui.util;
+
+				let tableName = http.getQueryVariable('tableName');
+				let templateId = http.getQueryVariable('templateId');
+				let queryVariables = http.getQueryVariable();
+
+				util.event('lay-template-event', {
+					copy: function(othis) {
+						let $code = $("textarea[name='code']");
+                    	common.copyToClip($code.text());
+					}
+				});
+
+				window.execute = function(tableName, templateId) {
+					//let url = "/gen/execute/" + tableName + '?' + http.buildQueryVariable(config).substring(1);
+					let config = form.val("form-filter");
+					$.ajax({
+						url: "/gen/execute/" + tableName,
+						data: JSON.stringify({templatePath: templateId, config: queryVariables }),
+						dataType: 'text',
+						contentType: 'application/json',
+						type: 'post',
+						success: function(result) {
+							$("textarea[name='code']").text(result);
+						}
+					})
+				}
+			})
+		</script>
+		<script>
+		</script>
+	</body>
+</html>

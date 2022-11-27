@@ -113,6 +113,7 @@
 					} else {
 						//layer.msg("叶子节点就不展开了,刷新右侧列表");
 						window.execute(obj.param.nodeId)
+						window.openCode(tableName, obj.param.nodeId);
 					}
 				});
 
@@ -133,7 +134,7 @@
 					let config = form.val("form-filter");
 					$.ajax({
 						url: "/gen/execute/" + tableName,
-						data: JSON.stringify({templatePath: templateTreeId, config: config }),
+						data: JSON.stringify({templateId: templateTreeId, config: config }),
 						dataType: 'text',
 						contentType: 'application/json',
 						type: 'post',
@@ -141,6 +142,21 @@
 							$("textarea[name='code']").text(result);
 						}
 					})
+				}
+
+				window.openCode = function(tableName, templateId) {
+					let config = form.val("form-filter");
+					layer.open({
+						type: 2,
+						title: tableName,
+						shade: [0.5, "#393D49"],
+						closeBtn: 1,
+						shadeClose: true,
+						maxmin: true,
+						resize: false,
+						area: ['800px', '450px'],
+						content: 'code.html?tableName=' + tableName + '&templateId=' + templateId + http.buildQueryVariable(config)
+					});
 				}
 
 				window.initFormValue = function(tableName) {

@@ -48,7 +48,7 @@ public class GeneratorController {
     public String execute(
                           @PathVariable("tableName") String tableName,
                           @RequestBody GenerateArgsDTO dto) {
-        String codeContent = generatorService.generate(tableName, dto.getTemplatePath(), dto.getConfig());
+        String codeContent = generatorService.generate(tableName, dto.getTemplateId(), dto.getConfig());
         return codeContent;
     }
 }

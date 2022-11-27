@@ -40,6 +40,7 @@ public class CacheConfig {
         // 从 jcache 中拿到 CacheManager
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
         // 创建一个缓存名为 CacheConst.NAME_1_DAY 的缓存(核心是Eh107Configuration.fromEhcacheCacheConfiguration)
+        cacheManager.createCache(CacheConst.NAME_NEVER_EXPIRE, defaultCacheConfiguration(null));
         cacheManager.createCache(CacheConst.NAME_7_DAY, defaultCacheConfiguration(Duration.ofDays(7L)));
         cacheManager.createCache(CacheConst.NAME_1_DAY, defaultCacheConfiguration(Duration.ofDays(1L)));
         cacheManager.createCache(CacheConst.NAME_12_HOURS, defaultCacheConfiguration(Duration.ofHours(12L)));
@@ -52,26 +53,27 @@ public class CacheConfig {
      * 默认缓存配置属性
      */
     private javax.cache.configuration.Configuration<Object, Object> defaultCacheConfiguration(Duration duration) {
-        return Eh107Configuration.fromEhcacheCacheConfiguration(
-                CacheConfigurationBuilder.newCacheConfigurationBuilder(
-                        // 缓存数据K和V的数值类型，在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
-                        Object.class,
-                        Object.class,
-                        ResourcePoolsBuilder
-                            // 设置缓存堆容纳元素个数(JVM内存空间)超出个数后会存到 offheap 中
-                            .heap(10000L)
-                            // 设置堆外内存大小(直接内存) 超出 offheap 的大小会淘汰规则被淘汰，数值大小必须小于磁盘配置的大小
-                            .offheap(50, MemoryUnit.MB)
-                            // 配置磁盘持久化储存大小(硬盘存储)，用来持久化到磁盘, 这里设置为false不启用
-                            //.disk(100, MemoryUnit.MB, false)
-                )
-                .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(duration))
-                // 数据最大存活时间 TTL
-                .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(duration))
-                // 缓存监听器
-                .withService(cacheEventListenerConfiguration())
-                .build()
-        );
+        CacheConfigurationBuilder<Object, Object> builder = CacheConfigurationBuilder.newCacheConfigurationBuilder(
+                // 缓存数据K和V的数值类型，在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
+                Object.class,
+                Object.class,
+                ResourcePoolsBuilder
+                        // 设置缓存堆容纳元素个数(JVM内存空间)超出个数后会存到 offheap 中
+                        .heap(10000L)
+                        // 设置堆外内存大小(直接内存) 超出 offheap 的大小会淘汰规则被淘汰，数值大小必须小于磁盘配置的大小
+                        .offheap(50, MemoryUnit.MB)
+                // 配置磁盘持久化储存大小(硬盘存储)，用来持久化到磁盘, 这里设置为false不启用
+                //.disk(100, MemoryUnit.MB, false)
+        )
+        // 缓存监听器
+        .withService(cacheEventListenerConfiguration());
+
+        if(duration != null) {
+            // 数据最大存活时间 TTL
+            builder.withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(duration));
+        }
+
+        return Eh107Configuration.fromEhcacheCacheConfiguration(builder.build());
     }
 
     private CacheEventListenerConfiguration<?> cacheEventListenerConfiguration() {

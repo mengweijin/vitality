@@ -2,7 +2,6 @@ package com.github.mengweijin.generator.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -13,6 +12,7 @@ import com.github.mengweijin.generator.engine.FreemarkerTemplateEngine;
 import com.github.mengweijin.generator.system.dto.GenerateConfigDTO;
 import com.github.mengweijin.generator.system.dto.TableFieldDTO;
 import com.github.mengweijin.generator.system.dto.TableInfoDTO;
+import com.github.mengweijin.generator.system.dto.TemplateDTO;
 import com.github.mengweijin.vitality.domain.P;
 import com.github.mengweijin.vitality.util.BeanUtils;
 import com.github.mengweijin.vitality.util.ClassUtils;
@@ -22,7 +22,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -36,6 +35,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class GeneratorService extends AutoGenerator {
+
+    @Autowired
+    private TemplateService templateService;
 
     public GeneratorService(@Autowired DataSource dataSource) {
         super(new DataSourceConfig.Builder(dataSource).build());
@@ -97,7 +99,7 @@ public class GeneratorService extends AutoGenerator {
         return config;
     }
 
-    public String generate(String tableName, String templatePath, GenerateConfigDTO config) {
+    public String generate(String tableName, String templateId, GenerateConfigDTO config) {
         TableInfoDTO tableInfoDTO = this.selectFirstTable(tableName);
         if(tableInfoDTO == null) {
             return null;
@@ -107,8 +109,8 @@ public class GeneratorService extends AutoGenerator {
         config.initTableInfo(tableInfoDTO);
         log.debug(P.writeValueAsString(config));
 
-        File tplFile = FileUtil.file(templatePath);
-        return FreemarkerTemplateEngine.process(tplFile.getName(), FileUtil.readUtf8String(tplFile), config);
+        TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        return FreemarkerTemplateEngine.process(templateDTO.getName(), templateDTO.getContent(), config);
     }
 
     private void processIgnoredColumns(TableInfoDTO tableInfoDTO, String ignoredColumns) {

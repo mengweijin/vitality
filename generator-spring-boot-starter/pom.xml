@@ -20,6 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vitality.version>1.2.0-SNAPSHOT</vitality.version>
+    <vitality-layui.version>1.2.0-SNAPSHOT</vitality-layui.version>
     <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
   </properties>
 
@@ -28,6 +29,11 @@
       <groupId>com.github.mengweijin</groupId>
       <artifactId>vitality-spring-boot-starter</artifactId>
       <version>${vitality.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.mengweijin</groupId>
+      <artifactId>vitality-layui</artifactId>
+      <version>${vitality-layui.version}</version>
     </dependency>
     <dependency>
       <groupId>com.baomidou</groupId>

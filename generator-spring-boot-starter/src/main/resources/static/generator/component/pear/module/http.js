@@ -177,5 +177,11 @@ layui.define(['jquery', 'layer'], function (exports) {
         return http.ajax.ajaxSendHandler(event, request, settings);
     });
 
+    http.getQueryVariable = function (variable) {
+        let reg = new RegExp("(^|&)" + variable + "=([^&]*)(&|$)");
+        let matchedArray = decodeURI(window.location.search.substring(1)).match(reg);
+        return matchedArray == null ? null : matchedArray[2];
+    }
+
     exports('http', http);
 });

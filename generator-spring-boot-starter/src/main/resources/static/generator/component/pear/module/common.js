@@ -66,6 +66,18 @@ layui.define(['jquery', 'element','table'], function(exports) {
 			    }
 			})
 		}
+
+		this.copyToClip = function(text) {
+		    let el = document.createElement('textarea')
+            el.value = text
+            document.body.appendChild(el)
+            // 选中input元素的文本
+            el.select()
+            // 复制内容到剪贴板
+            document.execCommand('copy')
+            document.body.removeChild(el)
+            layer.msg("Copy SUCCESS!")
+		}
 	}
 	exports(MOD_NAME, common);
 });

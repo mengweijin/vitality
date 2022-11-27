@@ -49,12 +49,14 @@
 		<script src="../component/layui/layui.js"></script>
 		<script src="../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','common', 'admin'], function() {
+			layui.use(['table', 'form', 'jquery','common', 'http'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let common = layui.common;
-				let admin = layui.admin;
+				let http = layui.http;
+
+				console.log(http.getQueryVariable('name'))
 
 				let cols = [
 					[
@@ -103,8 +105,8 @@
 					table.reload('gen-table', { where: field })
 				}
 
-				window.generate = function(tableName) {
-					top.layui.admin.jump(tableName, '生成代码【' + tableName + '】', 'page/execute.html?name=' + tableName)
+				window.generate = function() {
+
 				}
 
 			})

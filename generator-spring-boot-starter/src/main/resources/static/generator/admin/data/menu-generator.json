@@ -5,7 +5,7 @@
 		"icon": "pear-icon pear-icon-menu",
 		"type": 1,
 		"openType": "_iframe",
-		"href": "page/generator.html"
+		"href": "view/gen/list.html"
 	},
 	{
 		"id": -1,

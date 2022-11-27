@@ -37,7 +37,7 @@ tab:
   ## 首页
   index: 
     id: "0" ## 标识 ID , 建议与菜单项中的 ID 一致
-    href: "page/generator.html" ## 页面地址
+    href: "view/gen/list.html" ## 页面地址
     # href: "view/console/console1.html" ## 页面地址
     title: "数据库表" ## 标题
 ## 主题配置

@@ -60,16 +60,15 @@ public class LogAspect {
                 sysLog.setIp(ServletUtil.getClientIP(request));
                 sysLog.setSuccess(true);
 
+                consumer.accept(sysLog);
+
                 log.debug(objectMapper.writeValueAsString(sysLog));
             } catch (Exception e) {
                 sysLog.setSuccess(false);
                 sysLog.setError(e.getMessage());
                 throw e;
-            } finally {
-                consumer.accept(sysLog);
             }
         }
-
         return joinPoint.proceed();
     }
 

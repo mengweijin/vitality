@@ -182,6 +182,14 @@ layui.define(['jquery', 'layer'], function (exports) {
         let matchedArray = decodeURI(window.location.search.substring(1)).match(reg);
         return matchedArray == null ? null : matchedArray[2];
     }
+
+    http.buildQueryVariable = function (data) {
+        let url = '';
+        for(let i in data) {
+            url += '&' + i + '=' + data[i];
+        }
+        return encodeURIComponent(url);
+    }
     
     exports('http', http);
 });

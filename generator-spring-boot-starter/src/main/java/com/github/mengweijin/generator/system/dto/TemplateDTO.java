@@ -17,4 +17,6 @@ public class TemplateDTO {
 
     private String content;
 
+    private String absolutePath;
+
 }

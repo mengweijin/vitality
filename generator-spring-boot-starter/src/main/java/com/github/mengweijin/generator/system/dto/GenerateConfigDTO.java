@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author mengweijin
@@ -23,9 +22,12 @@ public class GenerateConfigDTO extends TableInfoDTO {
 
     private String author;
 
-    private String date = LocalDateTimeUtil.format(LocalDate.now(), DateTimeFormatter.ISO_LOCAL_DATE);
+    private String date = LocalDateTimeUtil.formatNormal(LocalDate.now());
 
-    public GenerateConfigDTO(TableInfoDTO dto) {
+    public void initTableInfo(TableInfoDTO dto) {
+        if(dto == null) {
+            return;
+        }
         this.setName(dto.getName());
         this.setHavePrimaryKey(dto.getHavePrimaryKey());
         this.setFieldNames(dto.getFieldNames());

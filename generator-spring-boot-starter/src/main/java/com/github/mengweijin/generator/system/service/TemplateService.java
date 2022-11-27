@@ -3,6 +3,7 @@ package com.github.mengweijin.generator.system.service;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
 import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.dtree.DTreeDTO;
@@ -39,7 +40,7 @@ public class TemplateService {
                     TemplateDTO dto = new TemplateDTO();
                     dto.setId(IdUtil.simpleUUID());
                     dto.setCategory(file.getParentFile().getName());
-                    dto.setName(file.getName());
+                    dto.setName(StrUtil.subBefore(file.getName(), ".", true));
                     dto.setContent(FileUtil.readUtf8String(file));
                     return dto;
                 })

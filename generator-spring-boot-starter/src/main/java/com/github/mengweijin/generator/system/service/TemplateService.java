@@ -39,7 +39,7 @@ public class TemplateService {
             unless = CacheConst.UNLESS_LIST
     )
     public List<TemplateDTO> findTemplate() {
-        List<File> templateFileList = FileUtil.loopFiles("ftl/",
+        List<File> templateFileList = FileUtil.loopFiles("generator/",
                 file -> file.isFile() && file.getName().toLowerCase().endsWith(".ftl"));
 
         return templateFileList.stream()

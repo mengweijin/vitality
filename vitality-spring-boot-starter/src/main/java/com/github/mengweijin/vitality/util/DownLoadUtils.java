@@ -64,6 +64,7 @@ public class DownLoadUtils {
     public static void download(InputStream in, String fileName, HttpServletRequest request, HttpServletResponse response) {
         try (OutputStream out = response.getOutputStream()) {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            // "multipart/form-data"
             response.setContentType(request.getServletContext().getMimeType(fileName));
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                     "attachment;fileName=" + setFileName(request, fileName));

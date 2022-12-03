@@ -181,13 +181,13 @@ layui.define(['jquery', 'layer'], function (exports) {
         if(variable) {
             let reg = new RegExp("(^|&)" + variable + "=([^&]*)(&|$)");
             let matchedArray = decodeURI(window.location.search.substring(1)).match(reg);
-            return matchedArray == null ? null : matchedArray[2];
+            return matchedArray == null ? null : decodeURIComponent(matchedArray[2]);
         } else {
             let obj = {};
             let splitArray = decodeURI(window.location.search.substring(1)).split('&');
             for(let i in splitArray) {
                 let variableArray = splitArray[i].split('=');
-                obj[variableArray[0]] = variableArray[1];
+                obj[variableArray[0]] = decodeURIComponent(variableArray[1]);
             }
             return obj;
         }
@@ -196,9 +196,9 @@ layui.define(['jquery', 'layer'], function (exports) {
     http.buildQueryVariable = function (data) {
         let url = '';
         for(let i in data) {
-            url += '&' + i + '=' + data[i];
+            url += '&' + i + '=' + encodeURIComponent(data[i]);
         }
-        return encodeURIComponent(url);
+        return url.substring(1);
     }
     
     exports('http', http);

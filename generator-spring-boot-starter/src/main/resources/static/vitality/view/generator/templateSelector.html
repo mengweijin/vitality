@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>部门管理</title>
+		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
+		<link rel="stylesheet" href="../../admin/css/other/department.css"/>
+	</head>
+	<body class="pear-container">
+		<form class="layui-form" lay-filter="form-filter">
+			<div class="layui-card">
+				<div class="layui-card-header">MyBatis-Plus</div>
+				<div class="layui-card-body">
+					<input type="checkbox" name="" title="写作" lay-skin="primary" checked>
+					<input type="checkbox" name="" title="发呆" lay-skin="primary">
+					<input type="checkbox" name="" title="禁用" lay-skin="primary">
+				</div>
+			</div>
+
+			<div class="layui-card">
+				<div class="layui-card-header">MyBatis-Plus</div>
+				<div class="layui-card-body">
+					<input type="checkbox" name="" title="写作" lay-skin="primary" checked>
+					<input type="checkbox" name="" title="发呆" lay-skin="primary">
+					<input type="checkbox" name="" title="禁用" lay-skin="primary">
+				</div>
+			</div>
+		</form>
+
+		<script src="../../component/layui/layui.js"></script>
+		<script src="../../component/pear/pear.js"></script>
+		<script>
+			layui.use(['form', 'jquery', 'dtree', 'http', 'common', 'util'], function() {
+				let form = layui.form;
+				let $ = layui.jquery;
+				let dtree = layui.dtree;
+				let http = layui.http;
+				let common = layui.common;
+				let util = layui.util;
+
+				let tableName = http.getQueryVariable('table');
+				console.log(http.getQueryVariable())
+
+				window.initFormValue = function() {
+					$.ajax({
+						url: "/gen/template/tree",
+						dataType: 'json',
+						type: 'get',
+						success: function(result) {
+							console.log(result.data)
+							let card = $("<div/>", { class: "layui-card" });
+							let header = $("<div/>", { class: "layui-card-header" });
+							let body = $("<div/>", { class: "layui-card-body" });
+						}
+					})
+				}
+
+				window.initFormValue();
+
+			})
+		</script>
+	</body>
+</html>

@@ -9,6 +9,7 @@ import com.github.mengweijin.vitality.cache.CacheConst;
 import com.github.mengweijin.vitality.dtree.DTreeDTO;
 import com.github.mengweijin.vitality.dtree.DTreeNode;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,15 @@ import java.util.stream.Collectors;
 @Service
 public class TemplateService {
 
+    @CacheEvict(
+            cacheNames = CacheConst.NAME_NEVER_EXPIRE,
+            key = CacheConst.KEY_CLASS + "+':template'"
+    )
+    public void templateCacheEvict() {}
+
     @Cacheable(
             cacheNames = CacheConst.NAME_NEVER_EXPIRE,
-            key = CacheConst.KEY_CLASS_METHOD,
+            key = CacheConst.KEY_CLASS + "+':template'",
             unless = CacheConst.UNLESS_LIST
     )
     public List<TemplateDTO> findTemplate() {

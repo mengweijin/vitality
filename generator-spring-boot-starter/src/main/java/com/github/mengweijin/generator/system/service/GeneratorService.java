@@ -2,6 +2,7 @@ package com.github.mengweijin.generator.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -16,12 +17,14 @@ import com.github.mengweijin.generator.system.dto.TemplateDTO;
 import com.github.mengweijin.vitality.domain.P;
 import com.github.mengweijin.vitality.util.BeanUtils;
 import com.github.mengweijin.vitality.util.ClassUtils;
+import com.github.mengweijin.vitality.util.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -124,5 +127,23 @@ public class GeneratorService extends AutoGenerator {
                 field.setEntityIgnored(true);
             }
         }
+    }
+
+    public void generateAndWriteToFile(String tableName, String templateId, GenerateConfigDTO config) {
+        String content = this.generate(tableName, templateId, config);
+        TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        String targetPath = Const.PROJECT_PATH + "target/";
+        targetPath += StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
+
+        String[] split = templateDTO.getName().split("\\.");
+        targetPath += config.getEntityName();
+        if(!"entity".equalsIgnoreCase(split[0])) {
+            targetPath += StrUtil.upperFirst(split[0]);
+        }
+        targetPath += Const.DOT + split[1];
+
+        File file = FileUtil.file(targetPath);
+        FileUtil.mkParentDirs(file);
+        FileUtil.writeUtf8String(content, file);
     }
 }

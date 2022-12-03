@@ -1,5 +1,6 @@
 package com.github.mengweijin.generator.system.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.github.mengweijin.generator.system.dto.GenerateArgsDTO;
 import com.github.mengweijin.generator.system.dto.GenerateConfigDTO;
 import com.github.mengweijin.generator.system.dto.TableInfoDTO;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author mengweijin
@@ -48,7 +51,21 @@ public class GeneratorController {
     public String execute(
                           @PathVariable("tableName") String tableName,
                           @RequestBody GenerateArgsDTO dto) {
-        String codeContent = generatorService.generate(tableName, dto.getTemplateId(), dto.getConfig());
-        return codeContent;
+        if(CollUtil.isEmpty(dto.getTemplateIdList())) {
+            return null;
+        }
+        return generatorService.generate(tableName, dto.getTemplateIdList().get(0), dto.getConfig());
+    }
+
+    @PostMapping("/executeBatch/{tableName}")
+    public void executeBatchToFile(
+                                        @PathVariable("tableName") String tableName,
+                                        @RequestBody GenerateArgsDTO dto) {
+        List<String> templateIdList = dto.getTemplateIdList();
+        if(CollUtil.isNotEmpty(templateIdList)) {
+            templateIdList.forEach(templateId -> {
+                generatorService.generateAndWriteToFile(tableName, templateId, dto.getConfig());
+            });
+        }
     }
 }

@@ -129,11 +129,10 @@ public class GeneratorService extends AutoGenerator {
         }
     }
 
-    public void generateAndWriteToFile(String tableName, String templateId, GenerateConfigDTO config) {
+    public void generateAndWriteToFile(String tableName, String templateId, GenerateConfigDTO config, String basePath) {
         String content = this.generate(tableName, templateId, config);
         TemplateDTO templateDTO = templateService.findTemplateById(templateId);
-        String targetPath = Const.PROJECT_PATH + "target/";
-        targetPath += StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
+        String targetPath = basePath + StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
 
         String[] split = templateDTO.getName().split("\\.");
         targetPath += config.getEntityName();

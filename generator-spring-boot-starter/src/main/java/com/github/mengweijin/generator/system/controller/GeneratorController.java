@@ -1,13 +1,16 @@
 package com.github.mengweijin.generator.system.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.FileUtil;
 import com.github.mengweijin.generator.system.dto.GenerateArgsDTO;
 import com.github.mengweijin.generator.system.dto.GenerateConfigDTO;
 import com.github.mengweijin.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.generator.system.service.GeneratorService;
 import com.github.mengweijin.generator.system.service.TemplateService;
+import com.github.mengweijin.vitality.domain.R;
 import com.github.mengweijin.vitality.dtree.DTreeDTO;
 import com.github.mengweijin.vitality.layui.LayuiTable;
+import com.github.mengweijin.vitality.util.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,14 +61,17 @@ public class GeneratorController {
     }
 
     @PostMapping("/executeBatch/{tableName}")
-    public void executeBatchToFile(
+    public R executeBatchToFile(
                                         @PathVariable("tableName") String tableName,
                                         @RequestBody GenerateArgsDTO dto) {
+        String basePath = Const.PROJECT_PATH + "target/generator/";
+        FileUtil.del(FileUtil.file(basePath));
         List<String> templateIdList = dto.getTemplateIdList();
         if(CollUtil.isNotEmpty(templateIdList)) {
             templateIdList.forEach(templateId -> {
-                generatorService.generateAndWriteToFile(tableName, templateId, dto.getConfig());
+                generatorService.generateAndWriteToFile(tableName, templateId, dto.getConfig(), basePath);
             });
         }
+        return R.success(basePath);
     }
 }

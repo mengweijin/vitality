@@ -78,6 +78,22 @@ layui.define(['jquery', 'element','table'], function(exports) {
             document.body.removeChild(el)
             layer.msg("Copy SUCCESS!")
 		}
+
+		/**
+         * 获取 Layui checkbox 的提交值。
+         * selector: 如：
+         * 根据 lay-filter 和 checkbox 的 name 属性选择：'[lay-filter=operate-filter] input:checkbox[name=hobby]:checked'
+         * 根据 formId 和 checkbox 的 name 属性选择：'form input:checkbox[name=hobby]:checked'
+         * @return 示例：[1,2,3,4]
+         */
+        this.checkedCheckBoxValue = function (selector) {
+            let value = [];
+            $(selector).each(function () {
+                value.push($(this).val());
+            });
+            // return value.join(",");
+            return value;
+        }
 	}
 	exports(MOD_NAME, common);
 });

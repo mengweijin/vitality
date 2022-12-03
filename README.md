@@ -1,7 +1,7 @@
 # QuickBoot
 <p align="center">	
-	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-spring-boot-starter%22">
-		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-spring-boot-starter" />
+	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22">
+		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter" />
 	</a>
 	<a target="_blank" href="https://github.com/mengweijin/quickboot/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" />
@@ -9,19 +9,20 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-8-green.svg" />
 	</a>
-	<a target="_blank" href="https://gitee.com/mengweijin/quickboot/stargazers">
-		<img src="https://gitee.com/mengweijin/quickboot/badge/star.svg?theme=dark" alt='gitee star'/>
+	<a target="_blank" href="https://gitee.com/mengweijin/vitality/stargazers">
+		<img src="https://gitee.com/mengweijin/vitality/badge/star.svg?theme=dark" alt='gitee star'/>
 	</a>
-	<a target="_blank" href='https://github.com/mengweijin/quickboot'>
-		<img src="https://img.shields.io/github/stars/mengweijin/quickboot.svg?style=social" alt="github star"/>
+	<a target="_blank" href='https://github.com/mengweijin/vitality'>
+		<img src="https://img.shields.io/github/stars/mengweijin/vitality.svg?style=social" alt="github star"/>
 	</a>
 </p>
 
-## QuickBoot 版本
+## Vitality
 | 模块                            | 最新版本                                                                                                                                                                                                                                                |
 |:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| quickboot-spring-boot-starter | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-spring-boot-starter"/></a> |
-| quickboot-layui               | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22quickboot-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/quickboot-layui"/></a>                             |
+| vitality-spring-boot-starter  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter"/></a>   |
+| generator-spring-boot-starter | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22generator-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/generator-spring-boot-starter"/></a> |
+| vitality-layui                | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-layui"/></a>                               |
 
 ## 介绍
 快速搭建 SpringBoot 项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
@@ -33,48 +34,16 @@
 - 接口请求和返回值详情的 debug 日志记录。
 - cors 跨域请求和 XSS 过滤
 - mybatis plus
-- orika 对象映射
 - redis 重复提交拦截器、限流拦截器
 - 各种 util 工具类
-- spring doc
 
 ### quickboot-spring-boot-starter
 ```xml
 <dependency>
     <groupId>com.github.mengweijin</groupId>
-    <artifactId>quickboot-spring-boot-starter</artifactId>
-    <version>${quickboot.version}</version>
+    <artifactId>vitality-spring-boot-starter</artifactId>
+    <version>${vitality.version}</version>
 </dependency>
-```
-
-#### orika
-Bean 类型转换。扩展了 LocalDate, LocalDateTime 的默认转换。
-
-使用示例：
-```java
-// 注册到 Spring 容器
-@Component
-public class BeanAToBConverter extends BeanConverter<BeanA, BeanB> {
-
-    @Override
-    public void fieldMapping(ClassMapBuilder<BeanA, BeanB> classMapBuilder) {
-        // 字段映射。使用默认转换器
-        classMapBuilder.field("nameA", "nameB")
-                // 显示指定转换器
-                .fieldMap("stringToDate", "stringToDate").converter(OrikaConverter.DATE_NORM_DATE.name()).add()
-                .field("date", LambdaUtil.getFieldName(BeanB::getLocalDate))
-                .field(LambdaUtil.getFieldName(BeanA::getDate), LambdaUtil.getFieldName(BeanB::getLocalDateTime));
-    }
-}
-
-class BeanConverterTest {
-  @Autowired
-  private MapperFacade mapperFacade;
-  public void test() {
-    BeanA beanA = new BeanA();
-    BeanB beanB = mapperFacade.map(beanA, BeanB.class);
-  }
-}
 ```
 
 #### 配置加密
@@ -93,7 +62,7 @@ SafetyEncryptEnvironmentPostProcessor 可以实现配置文件敏感信息的加
 #### cors 跨域
 跨域配置。根据规则在application.yml中配置：
 ~~~~yaml
-quickboot:
+vitality:
   cors:
     # 是否启用自动配置，默认 false。如果为 false, 则默认采用 SpringBoot 规则（不能跨域请求）；
     enabled: true
@@ -102,7 +71,7 @@ quickboot:
 #### xss
 XSS 过滤配置。根据规则在application.yml中配置：依赖 Jsoup。
 ~~~~yaml
-quickboot:
+vitality:
   xss:
     # 是否启用 xss 过滤，默认 false
     enabled: true
@@ -128,19 +97,6 @@ public class UserController {
 #### p6spy 数据库查询日志记录
 自动记录每一条真实查询的 SQL 记录到 debug 日志中。
 
-#### SpringDoc OpenAPI（Swagger）
-```xml
-<dependency> 
-    <groupId>org.springdoc</groupId>  
-    <artifactId>springdoc-openapi-ui</artifactId>
-    <version>${springdoc.version}</version>
-</dependency> 
-```
-启动服务后访问 url: http://localhost:8080/swagger-ui/index.html
-
-#### AOP debug 级别，请求、响应参数详情等日志记录
-仅当 spring.profiles.active 中配置了 !prod 才启用。如：spring.profiles.active=quickboot,dev 不包含 prod, 就会启用
-
 #### flyway
 ~~~yaml
 spring:
@@ -156,39 +112,13 @@ spring:
       # - classpath:db/migration/oracle
 ~~~
 
-#### 分页 IPage & Pager
-~~~java
-@GetMapping("/page")
-public IPage<User> getPage(Page<User> page){
-    return userService.page(page);
-}
 
-@GetMapping("/pager")
-public Pager<User> getPager(Pager<User> pager) {
-final IPage<User> page = userService.page(pager.toPage());
-    return pager.toPager(page);
-}
-~~~
-
-
-#### CacheManager 的使用
-* 放入缓存：cache.put(Object key, @Nullable Object value);
-* 取出缓存：cache.get(Object key);
-```java
-@Autowired
-private CacheManager cacheManager;
-Cache cache=cacheManager.getCache("cacheName");
-```
-
-### quickboot-layui
-- 集成 Thymeleaf，Layui，扩展了一个 Layui 的 quickboot 模块。
-- 全局 jquery 配置。
-- 添加 Ajax 的 put，delete 方法到 jquery。
-
+### vitality-layui
+管理系统模板。
 ```xml
 <dependency>
     <groupId>com.github.mengweijin</groupId>
-    <artifactId>quickboot-layui</artifactId>
-    <version>${quickboot-layui.version}</version>
+    <artifactId>vitality-layui</artifactId>
+    <version>${vitality-layui.version}</version>
 </dependency>
 ```

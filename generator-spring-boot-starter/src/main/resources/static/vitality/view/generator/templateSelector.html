@@ -15,7 +15,7 @@
 						<i class="layui-icon layui-icon-ok"></i>
 						提交
 					</button>
-					<button type="reset" class="pear-btn pear-btn-sm">
+					<button type="reset" class="pear-btn pear-btn-sm layui-hide">
 						<i class="layui-icon layui-icon-refresh"></i>
 						重置
 					</button>
@@ -36,8 +36,43 @@
 
 				let params = http.getQueryVariable();
 
+				window.initFormValue = function() {
+					$.ajax({
+						url: "/gen/template/tree",
+						dataType: 'json',
+						type: 'get',
+						success: function(result) {
+							let data = result.data;
+							let card = $("<div/>", { class: "layui-card" });
+							let header = $("<div/>", { class: "layui-card-header" });
+							let body = $("<div/>", { class: "layui-card-body" });
+							let input = $("<input/>", { type: "checkbox"}).attr("lay-skin", "primary").attr("lay-filter", "template");
+							let checkedAll = $('<input type="checkbox" name="" title="全选" lay-skin="primary" lay-filter="check-all">');
+							for(let i in data) {
+								let headerClone = header.clone().text(data[i].title)
+									.append($('<span>&emsp;<span>'))
+									.append(checkedAll.clone().attr('name', data[i].title));
+								let cardClone = card.clone().append(headerClone);
+								let bodyClone = body.clone();
+								for(let j in data[i].children) {
+									input.clone()
+										.attr("name", data[i].children[j].title)
+										.attr("title", data[i].children[j].title)
+										.attr("value", data[i].children[j].id)
+										.appendTo(bodyClone);
+								}
+								bodyClone.appendTo(cardClone);
+								$("form").children(":last-child").before(cardClone);
+							}
+							form.render();
+						}
+					})
+				}
+
+				window.initFormValue();
+
 				form.on('submit(submit-filter)', function(data) {
-					let checkedTemplateIdList = common.checkedCheckBoxValue('form input:checkbox:checked');
+					let checkedTemplateIdList = common.checkedCheckBoxValue('form input:checkbox[lay-filter=template]:checked');
 					if(checkedTemplateIdList.length < 1) {
 						layer.msg("请至少选择一个模板！", { icon: 2 });
 						return false;
@@ -61,37 +96,28 @@
 					return false;
 				});
 
-				window.initFormValue = function() {
-					$.ajax({
-						url: "/gen/template/tree",
-						dataType: 'json',
-						type: 'get',
-						success: function(result) {
-							let data = result.data;
-							let card = $("<div/>", { class: "layui-card" });
-							let header = $("<div/>", { class: "layui-card-header" });
-							let body = $("<div/>", { class: "layui-card-body" });
-							let input = $("<input/>", { type: "checkbox"}).attr("lay-skin", "primary");
+				form.on('checkbox(check-all)', function(data){
+					if(data.elem.checked) {
+						$(data.othis).parent().siblings('[class=layui-card-body]').children('input:checkbox')
+						.prop('checked', true); // 注意：这里不能使用 attr() 来设置。
+						form.render("checkbox")
+					} else {
+						$(data.othis).parent().siblings('[class=layui-card-body]').children('input:checkbox:checked')
+						.prop('checked', false);
+						form.render("checkbox")
+					}
+				});
 
-							for(let i in data) {
-								let cardClone = card.clone().append(header.clone().text(data[i].title));
-								let bodyClone = body.clone();
-								for(let j in data[i].children) {
-									input.clone()
-										.attr("name", data[i].children[j].title)
-										.attr("title", data[i].children[j].title)
-										.attr("value", data[i].children[j].id)
-										.appendTo(bodyClone);
-								}
-								bodyClone.appendTo(cardClone);
-								$("form").children(":last-child").before(cardClone);
-							}
-							form.render();
-						}
-					})
+			util.event('lay-select-event', {
+				check: function(othis) {
+					othis.parent().siblings('[class=layui-card-body]').children('input:checkbox').attr('checked', true);
+					form.render();
+				},
+				cancel: function(othis) {
+					othis.parent().siblings('[class=layui-card-body]').children('input:checkbox').attr('checked', false);
+					form.render();
 				}
-
-				window.initFormValue();
+			});
 
 			})
 		</script>

@@ -57,7 +57,7 @@
 								for(let j in data[i].children) {
 									input.clone()
 										.attr("name", data[i].children[j].title)
-										.attr("title", data[i].children[j].title)
+										.attr("title", data[i].children[j].title.replaceAll('{EntityName}', params.entityName))
 										.attr("value", data[i].children[j].id)
 										.appendTo(bodyClone);
 								}

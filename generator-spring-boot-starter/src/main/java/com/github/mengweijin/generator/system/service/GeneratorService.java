@@ -135,10 +135,7 @@ public class GeneratorService extends AutoGenerator {
         String targetPath = basePath + StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
 
         String[] split = templateDTO.getName().split("\\.");
-        targetPath += config.getEntityName();
-        if(!"entity".equalsIgnoreCase(split[0])) {
-            targetPath += StrUtil.upperFirst(split[0]);
-        }
+        targetPath += StrUtil.replace(split[0], "{EntityName}", config.getEntityName());
         targetPath += Const.DOT + split[1];
 
         File file = FileUtil.file(targetPath);

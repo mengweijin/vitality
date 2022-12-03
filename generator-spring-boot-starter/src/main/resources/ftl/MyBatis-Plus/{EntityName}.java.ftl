@@ -35,7 +35,7 @@ public class ${entityName} extends BaseEntity {
         <#else>
     @TableField("${field.columnName}")
         </#if>
-        <#-- 日期、时间 -->
+        <#-- 日期、时间、Long -->
         <#if field.propertyType == 'LocalDateTime'>
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -45,6 +45,8 @@ public class ${entityName} extends BaseEntity {
         <#elseif field.propertyType == 'LocalTime'>
     @JsonFormat(pattern = "HH:mm:ss")
     @DateTimeFormat(pattern = "HH:mm:ss")
+        <#elseif field.propertyType == 'Long'>
+    @JsonSerialize(using = ToStringSerializer.class)
         </#if>
     private ${field.propertyType} ${field.propertyName};
 

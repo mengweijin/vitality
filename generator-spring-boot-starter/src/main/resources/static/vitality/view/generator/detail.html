@@ -76,10 +76,14 @@
 							<div style="height: 300px;">
 								<div style="border: 1px solid #dadada; border-radius:30px; margin: 0 30px; padding: 50px 100px;">
 									<i class="pear-icon pear-icon-direction-left"></i> 想预览生成的代码内容？试试点击左侧树列表。<br>
-									想快速生成代码到本地目录？试试点击右上角↗
+									想快速生成代码到本地项目工程目录？试试点击右上角↗
 									<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="execute-generate">
 										<i class="layui-icon layui-icon-play"></i>生成代码到项目工程
-									</button> 按钮。
+									</button> 按钮。<br>
+									想自定义代码模板？点击左侧
+									<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="document">
+										<i class="layui-icon layui-icon-form"></i>代码生成器（文档）
+									</button> 菜单。
 								</div>
 							</div>
 						</div>
@@ -134,6 +138,11 @@
 
 				form.on('submit(execute-generate)', function(data) {
 					window.openTemplateSelector();
+					return false;
+				});
+
+				form.on('submit(document)', function(data) {
+					top.layui.admin.jump('-2', '代码生成器（文档）', 'view/generator/document.html')
 					return false;
 				});
 

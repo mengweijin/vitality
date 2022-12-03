@@ -98,6 +98,4 @@ public class TemplateService {
         }).collect(Collectors.toList());
     }
 
-
-
 }

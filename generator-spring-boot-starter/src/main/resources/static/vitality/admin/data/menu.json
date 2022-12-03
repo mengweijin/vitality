@@ -16,6 +16,14 @@
 		"href": "view/generator/index.html"
 	},
 	{
+		"id": -2,
+		"title": "代码生成器（文档）",
+		"icon": "layui-icon layui-icon-form",
+		"type": 1,
+		"openType": "_iframe",
+		"href": "view/generator/document.html"
+	},
+	{
 		"id": 1,
 		"title": "工作空间",
 		"icon": "layui-icon layui-icon-console",

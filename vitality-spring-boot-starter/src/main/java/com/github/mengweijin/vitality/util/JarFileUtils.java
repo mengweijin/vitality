@@ -34,19 +34,23 @@ public class JarFileUtils {
      * @throws IOException
      * @throws URISyntaxException
      */
-    public static void copyJarDirectoryToDirectory(String folderPath, String targetDir) throws IOException, URISyntaxException {
-        URL url = Thread.currentThread().getContextClassLoader().getResource(folderPath);
-        if(url == null) {
-            throw new IllegalArgumentException("this argument is error! argument=" + folderPath);
-        }
+    public static void copyJarDirectoryToDirectory(String folderPath, String targetDir) {
+        try {
+            URL url = Thread.currentThread().getContextClassLoader().getResource(folderPath);
+            if(url == null) {
+                throw new IllegalArgumentException("this argument is error! argument=" + folderPath);
+            }
 
-        URLConnection urlConnection = url.openConnection();
-        if (urlConnection instanceof JarURLConnection) {
-            // 项目打成jar时运行会得到JarURLConnection
-            copyJarDirectoryToDirectory((JarURLConnection) urlConnection, targetDir);
-        } else {
-            // 在IDE里运行使用普通方式复制文件夹即可
-            FileUtil.copy(FileUtil.file(url.toURI()), FileUtil.file(targetDir), true);
+            URLConnection urlConnection = url.openConnection();
+            if (urlConnection instanceof JarURLConnection) {
+                // 项目打成jar时运行会得到JarURLConnection
+                copyJarDirectoryToDirectory((JarURLConnection) urlConnection, targetDir);
+            } else {
+                // 在IDE里运行使用普通方式复制文件夹即可
+                FileUtil.copy(FileUtil.file(url.toURI()), FileUtil.file(targetDir), true);
+            }
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,4 +1,4 @@
-# QuickBoot
+# Vitality
 <p align="center">	
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22">
 		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter" />
@@ -17,7 +17,6 @@
 	</a>
 </p>
 
-## Vitality
 | 模块                            | 最新版本                                                                                                                                                                                                                                                |
 |:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | vitality-spring-boot-starter  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter"/></a>   |

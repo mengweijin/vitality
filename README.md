@@ -24,19 +24,10 @@
 | vitality-layui                | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-layui"/></a>                               |
 
 ## 介绍
-快速搭建 SpringBoot 项目，整合和配置常用的模块功能，节省搭建项目工程的时间。
+快速搭建 SpringBoot 项目，整合和配置常用的模块和功能，提供一些简单的工具，比如代码生成器等。
 
-- 接口统一返回格式：R.java
-- 全局异常处理
-- 可重复从 request 获取 body 的过滤器
-- JdbcTemplate ColumnMapRowMapper
-- 接口请求和返回值详情的 debug 日志记录。
-- cors 跨域请求和 XSS 过滤
-- mybatis plus
-- redis 重复提交拦截器、限流拦截器
-- 各种 util 工具类
-
-### quickboot-spring-boot-starter
+### vitality-spring-boot-starter
+可以在任何 spring boot 工程中单独使用。
 ```xml
 <dependency>
     <groupId>com.github.mengweijin</groupId>
@@ -44,6 +35,18 @@
     <version>${vitality.version}</version>
 </dependency>
 ```
+- 接口统一返回格式：R.java
+- 操作日志统一打印。
+- Ehcache3 集成和自动配置。
+- 公共的上传/下载文件接口。
+- 全局异常处理
+- 可重复从 request 获取 body 的过滤器
+- JdbcTemplate ColumnMapRowMapper 和动态加载 jdbc driver 包功能。
+- debug 模式不缓存静态资源，如 static 目录下的文件。
+- cors 跨域请求和 XSS 过滤配置
+- mybatis plus 集成，create_time 等字段自动填充、基于用户、部门、角色等的 @DataScope 数据权限过滤器。
+- redis 重复提交拦截器、限流拦截器
+- 各种 util 工具类
 
 #### 配置加密
 SafetyEncryptEnvironmentPostProcessor 可以实现配置文件敏感信息的加密配置。比如：数据库密码等信息。 使用方式：
@@ -112,8 +115,35 @@ spring:
 ~~~
 
 
+### generator-spring-boot-starter
+可以在任何 spring boot 工程中单独使用。
+```xml
+<dependency>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>generator-spring-boot-starter</artifactId>
+    <version>${generator.version}</version>
+    <scope>provided</scope>
+</dependency>
+```
+代码生成器，引用包后，启动程序，直接访问主页：http://localhost:8080/vitality/index.html
+
+可以在线预览生成的代码，也可以直接生成代码到你的工程目录，方便复制和调整。
+
+可以自定义 freemarker 模板来满足不同的代码需求。文档也访问主页：http://localhost:8080/vitality/index.html
+
+#### 页面展示
+![image](docs/generator/image/table.png)
+
+![image](docs/generator/image/table-detail.png)
+
+![image](docs/generator/image/table-detail-code.png)
+
+![image](docs/generator/image/document.png)
+
 ### vitality-layui
-管理系统模板。
+漂亮的后台管理系统模板，方便实现简单页面，使用的是 pear-admin-layui 模板，这里做了些简单改动，并且打包为 jar 发布在 maven 中央仓库。
+
+maven 引用后，启动程序，直接访问主页：http://localhost:8080/vitality/index.html
 ```xml
 <dependency>
     <groupId>com.github.mengweijin</groupId>

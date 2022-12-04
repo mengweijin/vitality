@@ -67,7 +67,7 @@ spring:
 
 
 ### generator-spring-boot-starter
-可以在任何 spring boot 工程中单独使用。
+可以在任何 spring boot 工程中单独使用。支持所有支持JDBC连接的数据库：例如：DB2, DM, H2, Mariadb, MySQL, Oracle, Postgre, Sqlite, SQLServer
 ```xml
 <dependency>
     <groupId>com.github.mengweijin</groupId>

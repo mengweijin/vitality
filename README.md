@@ -43,63 +43,15 @@
 - 可重复从 request 获取 body 的过滤器
 - JdbcTemplate ColumnMapRowMapper 和动态加载 jdbc driver 包功能。
 - debug 模式不缓存静态资源，如 static 目录下的文件。
-- cors 跨域请求和 XSS 过滤配置
+- cors 跨域请求（vitality.cors.enabled=true）和 XSS 过滤配置（vitality.xss.enabled=true）
 - mybatis plus 集成，create_time 等字段自动填充、基于用户、部门、角色等的 @DataScope 数据权限过滤器。
 - redis 重复提交拦截器、限流拦截器
 - 各种 util 工具类
-
-#### 配置加密
-SafetyEncryptEnvironmentPostProcessor 可以实现配置文件敏感信息的加密配置。比如：数据库密码等信息。 使用方式：
-
-1. 生成 16 位随机 AES 密钥：String randomKey = AESUtils.generateRandomKey();
-2. 在启动 jar 时把下面生成的 key 通过命令行参数 -Dquickboot.cipher=${randomKey} 或者配置到 application.yml 中传递到应用程序中。Jar 启动参数（idea 设置 JVM arguments）
-   - 命令行参数配置示例：-Dquickboot.cipher=abcd1234
-   - application.properties 示例：quickboot.cipher=abcd1234
-3. 密钥加密：配置在 application.yaml 中的加密值：String encrypt = AESUtils.encryptByKey(randomKey, password);
-4. YML 配置：加密配置 {cipher} 开头紧接加密内容（ 非数据库配置专用， YML 中其它配置也是可以使用的 ）
-   - spring.datasource.username='{cipher}Xb+EgsyuYRXw7U7sBJjBpA=='
-   - spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
-5. 为什么以 {cipher} 作为前缀？目的是和 Spring cloud config 加密前缀保持一直
-
-#### cors 跨域
-跨域配置。根据规则在application.yml中配置：
-~~~~yaml
-vitality:
-  cors:
-    # 是否启用自动配置，默认 false。如果为 false, 则默认采用 SpringBoot 规则（不能跨域请求）；
-    enabled: true
-~~~~
-
-#### xss
-XSS 过滤配置。根据规则在application.yml中配置：依赖 Jsoup。
-~~~~yaml
-vitality:
-  xss:
-    # 是否启用 xss 过滤，默认 false
-    enabled: true
-    # 不需要xss校验的链接（配置示例：/system/*,/tool/*）
-    excludes: /druid/*,/actuator/*
-~~~~
-```java
-@RestController
-@RequestMapping("/user")
-public class UserController {
-  /**
-   * 访问 http://localhost:8080/user/xss?html=<script>aaaa</script>bbbb
-   * @return 返回 bbbb，说明过滤了 <script>aaaa</script>
-   */
-  @GetMapping("/xss")
-  public String xss(String html){
-    log.info("Entered xss method.");
-    return html;
-  }
-}
-```
-
-#### p6spy 数据库查询日志记录
-自动记录每一条真实查询的 SQL 记录到 debug 日志中。
+- application.yml 配置加密 SafetyEncryptEnvironmentPostProcessor.java
+- p6spy 数据库查询日志记录，自动记录每一条真实查询的 SQL 记录到 debug 日志中。
 
 #### flyway
+额外支持达梦数据库。
 ~~~yaml
 spring:
   # flyway在spring boot中默认配置位置为：classpath:db/migration

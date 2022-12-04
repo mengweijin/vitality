@@ -50,8 +50,7 @@
 - application.yml 配置加密 SafetyEncryptEnvironmentPostProcessor.java
 - p6spy 数据库查询日志记录，自动记录每一条真实查询的 SQL 记录到 debug 日志中。
 
-#### flyway
-额外支持达梦数据库。
+#### Flyway（额外支持达梦数据库，无需额外配置。）
 ~~~yaml
 spring:
   # flyway在spring boot中默认配置位置为：classpath:db/migration

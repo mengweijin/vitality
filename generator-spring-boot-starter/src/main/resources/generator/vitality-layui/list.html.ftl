@@ -65,7 +65,8 @@
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 100, hide: true },
-                    { field: 'name', title: '名称', minWidth: 300 },
+                    { field: 'name', title: '名称', minWidth: 200 },
+                    { field: 'remark', title: '备注', width: 200 },
                     { field: 'status', title: '状态', width: 100, templet: '#statusTpl' },
                     { field: 'createBy', title: '创建者', width: 100, hide: true },
                     { field: 'createTime', title: '创建时间', width: 180, templet: function (d) {
@@ -90,9 +91,11 @@
 				});
 
 				table.on('toolbar(data-table-filter)', function(obj) {
-					if (obj.event === 'refresh') {
-						window.refresh();
-					}
+					if (obj.event === 'add') {
+						window.edit();
+					} else if (obj.event === 'refresh') {
+                        window.refresh();
+                    }
 				});
 
 				table.on('tool(data-table-filter)', function(obj) {
@@ -100,9 +103,6 @@
                     switch (obj.event) {
                         case 'detail':
                             window.detail(row.id, row.name);
-                            break;
-                        case 'add':
-                            window.edit();
                             break;
                         case 'edit':
                             window.edit(row.id);

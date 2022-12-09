@@ -25,12 +25,12 @@
         <where>
 <#list fields as field>
     <#if field.propertyType == 'String'>
-            <if test="${field.propertyName} != null and ${field.propertyName} != '' ">
-                and t.${field.columnName} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse>
+            <if test="p.${field.propertyName} != null and p.${field.propertyName} != '' ">
+                and t.${field.columnName} = <#noparse>#{</#noparse>p.${field.propertyName}<#noparse>}</#noparse>
             </if>
     <#else>
-            <if test="${field.propertyName} != null" >
-                and t.${field.columnName} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse>
+            <if test="p.${field.propertyName} != null" >
+                and t.${field.columnName} = <#noparse>#{</#noparse>p.${field.propertyName}<#noparse>}</#noparse>
             </if>
     </#if>
 </#list>
@@ -42,12 +42,12 @@
             <where>
     <#list fields as field>
         <#if field.propertyType == 'String'>
-                <if test="${field.propertyName} != null and ${field.propertyName} != '' ">
-                    and t.${field.columnName} like concat(concat('%', <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse>), '%')
+                <if test="p.${field.propertyName} != null and p.${field.propertyName} != '' ">
+                    and t.${field.columnName} like concat(concat('%', <#noparse>#{</#noparse>p.${field.propertyName}<#noparse>}</#noparse>), '%')
                 </if>
         <#else>
-                <if test="${field.propertyName} != null" >
-                    and t.${field.columnName} = <#noparse>#{</#noparse>${field.propertyName}<#noparse>}</#noparse>
+                <if test="p.${field.propertyName} != null" >
+                    and t.${field.columnName} = <#noparse>#{</#noparse>p.${field.propertyName}<#noparse>}</#noparse>
                 </if>
         </#if>
     </#list>
@@ -58,7 +58,7 @@
         select
           <include refid="BaseColumn"/>
         from ${name} t
-        <include refid="BaseWhere"/>
+        <include refid="BaseWhereLike"/>
     </select>
 
 </mapper>

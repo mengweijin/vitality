@@ -19,7 +19,7 @@ import java.util.Arrays;
  * @author ${author}
  * @since ${date}
  */
-@Controller
+@RestController
 @RequestMapping("/${tableName?replace('_','-')}")
 public class ${entityName}Controller extends BaseController {
 

@@ -21,6 +21,6 @@ public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
      * @param dto ${entityName}DTO
      * @return IPage
      */
-    IPage<${entityName}DTO> page(IPage<${entityName}DTO> page, @Param("param") ${entityName}DTO dto);
+    IPage<${entityName}DTO> page(IPage<${entityName}DTO> page, @Param("p") ${entityName}DTO dto);
 
 }

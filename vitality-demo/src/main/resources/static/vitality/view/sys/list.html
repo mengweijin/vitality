@@ -89,11 +89,10 @@
                     { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
-                <#assign tableName='${name?lower_case}'>
-
+                
 				table.render({
 					elem: '#data-table-id',
-					url: '/${tableName?replace('_','-')}/page',
+					url: '/sys-goods/page',
 					parseData: function(res) {
                         return {
                             "code": 0,
@@ -123,7 +122,7 @@
 				    let row = obj.data;
                     switch (obj.event) {
                         case 'detail':
-                            window.detail(row.id, '商品详情 - ' + row.name);
+                            window.detail(row.id, row.name);
                             break;
                         case 'edit':
                             window.edit(row.id);
@@ -152,7 +151,7 @@
                     layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
                         $.ajax({
-                            url: '/${tableName?replace('_','-')}/' + obj.data.id,
+                            url: '/sys-goods/' + obj.data.id,
                             dataType: 'json',
                             type: 'delete',
                             success: function(result) {
@@ -165,7 +164,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(new Date(), title, 'view/${tableName?replace('_','-')}/edit.html?detail=true&id=' + id)
+					top.layui.admin.jump(new Date(), title, 'view/sys-goods/edit.html?detail=true&id=' + id)
 				}
 
 			})

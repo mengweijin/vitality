@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.demo.sys.mapper.SysGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.demo.sys.entity.SysGoods">
+        <result column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumn">
+        t.ID,
+        t.NAME,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME
+    </sql>
+
+    <!-- 通用 Where 条件列 -->
+    <sql id="BaseWhere">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.name != null and p.name != '' ">
+                and t.NAME = #{p.name}
+            </if>
+            <if test="p.createBy != null and p.createBy != '' ">
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null and p.updateBy != '' ">
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+        <!-- 通用 Where Like 条件列 -->
+        <sql id="BaseWhereLike">
+            <where>
+                <if test="p.id != null" >
+                    and t.ID = #{p.id}
+                </if>
+                <if test="p.name != null and p.name != '' ">
+                    and t.NAME like concat(concat('%', #{p.name}), '%')
+                </if>
+                <if test="p.createBy != null and p.createBy != '' ">
+                    and t.CREATE_BY like concat(concat('%', #{p.createBy}), '%')
+                </if>
+                <if test="p.createTime != null" >
+                    and t.CREATE_TIME = #{p.createTime}
+                </if>
+                <if test="p.updateBy != null and p.updateBy != '' ">
+                    and t.UPDATE_BY like concat(concat('%', #{p.updateBy}), '%')
+                </if>
+                <if test="p.updateTime != null" >
+                    and t.UPDATE_TIME = #{p.updateTime}
+                </if>
+            </where>
+        </sql>
+
+    <select id="page" resultType="com.github.mengweijin.vitality.demo.sys.dto.SysGoodsDTO">
+        select
+          <include refid="BaseColumn"/>
+        from SYS_GOODS t
+        <include refid="BaseWhereLike"/>
+    </select>
+
+</mapper>

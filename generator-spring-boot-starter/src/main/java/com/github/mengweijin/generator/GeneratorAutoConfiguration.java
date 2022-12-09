@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class GeneratorAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
-    public GeneratorBeanDefinitionRegistryPostProcessor generatorBeanDefinitionRegistryPostProcessor(){
+    public static GeneratorBeanDefinitionRegistryPostProcessor generatorBeanDefinitionRegistryPostProcessor(){
         return new GeneratorBeanDefinitionRegistryPostProcessor();
     }
 

@@ -88,7 +88,7 @@ public class GeneratorService extends AutoGenerator {
 
     public GenerateConfigDTO getDefaultConfig(String tableName) {
         GenerateConfigDTO config = new GenerateConfigDTO();
-        config.setIgnoredColumns("CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME");
+        config.setIgnoredColumns("ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME");
         config.setEntityName(StrUtil.upperFirst(StrUtil.toCamelCase(tableName)));
         config.setPackagePath(ClassUtils.getSpringBootApplicationClassPackage());
         config.setAuthor(SystemUtil.get("user.name", false));

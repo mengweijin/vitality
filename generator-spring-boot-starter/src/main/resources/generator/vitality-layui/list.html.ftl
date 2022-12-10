@@ -69,13 +69,13 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin', 'http'], function() {
+			layui.use(['table', 'form', 'jquery','layer', 'admin', 'common'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
-				let http = layui.http;
+				let common = layui.common;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
@@ -164,11 +164,6 @@
 				}
 
 				window.edit = function(id) {
-				    String url = 'edit.html'
-                    if(id) {
-                        url += '?id=' + id;
-                    }
-
                     layer.open({
                         type: 2,
                         title: '编辑',
@@ -178,23 +173,18 @@
                         maxmin: true,
                         resize: false,
                         area: ['800px', '450px'],
-                        content: url
+                        content: 'edit.html' + (common.isEmpty(id) ? '' : ('?id=' + id))
                     });
                 }
 
 				window.delete = function(obj) {
                     layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.ajax({
-                            url: '/${tableName?replace('_','-')}/' + obj.data.id,
-                            dataType: 'json',
-                            type: 'delete',
-                            success: function(result) {
-                                if (result.code == 200) {
-                                    obj.del();
-                                }
+                        $.delete('/${tableName?replace('_','-')}/' + obj.data.id, function(result) {
+                            if (result.code == 200) {
+                                obj.del();
                             }
-                        })
+                        });
                     });
                 }
 

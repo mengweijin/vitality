@@ -117,6 +117,20 @@ layui.define(['jquery', 'element','table'], function(exports) {
             // return value.join(",");
             return value;
         }
+
+		/**
+		 * 判断是否是空
+		 * @param value
+		 */
+		 this.isEmpty = function(value) {
+			if(value == null || undefined) {
+				return true;
+			} else {
+				value = value.replace(/\s/g, "");
+				return value == "" || value == "undefined" || value == "null";
+			}
+		}
+		
 	}
 	exports(MOD_NAME, common);
 });

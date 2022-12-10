@@ -10,12 +10,12 @@
 			<div class="layui-card-body">
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
-						<div class="layui-form-item layui-inline">
-							<label class="layui-form-label">名称</label>
-							<div class="layui-input-inline">
-								<input type="text" name="name" placeholder="" class="layui-input">
-							</div>
-						</div>
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">NAME</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" placeholder="" class="layui-input">
+                            </div>
+                        </div>
 						<div class="layui-form-item layui-inline">
 							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
 								<i class="layui-icon layui-icon-search"></i>查询
@@ -74,22 +74,21 @@
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
-                    { field: 'id', title: 'ID', width: 100, hide: true },
-                    { field: 'name', title: '名称', minWidth: 200 },
-                    { field: 'remark', title: '备注', width: 200 },
-                    { field: 'status', title: '状态', width: 100, templet: '#statusTpl', event: 'status' },
-                    { field: 'createBy', title: '创建者', width: 100, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 180, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+                    { field: 'id', title: 'ID', width: 200, hide: true },
+                    { field: 'name', title: 'NAME', width: 200 },
+                    { field: 'createBy', title: 'CREATE_BY', width: 200 },
+                    { field: 'createTime', title: 'CREATE_TIME', width: 130, templet: function (d) {
+                        return "2022-01-01";
                     }},
-                    { field: 'createBy', title: '更新者', width: 100, hide: true },
-                    { field: 'updateTime', title: '更新时间', width: 180, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+                    { field: 'updateBy', title: 'UPDATE_BY', width: 200 },
+                    { field: 'updateTime', title: 'UPDATE_TIME', width: 160, templet: function (d) {
+                        return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'status', title: '状态', minWidth: 100, templet: '#statusTpl', event: 'status' },
+                    { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
-                
+
 				table.render({
 					elem: '#data-table-id',
 					url: '/sys-goods/page',
@@ -122,7 +121,7 @@
 				    let row = obj.data;
                     switch (obj.event) {
                         case 'detail':
-                            window.detail(row.id, row.name);
+                            window.detail(row.id, '商品详情 - ' + row.name);
                             break;
                         case 'edit':
                             window.edit(row.id);

@@ -10,12 +10,16 @@
 			<div class="layui-card-body">
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
-						<div class="layui-form-item layui-inline">
-							<label class="layui-form-label">名称</label>
-							<div class="layui-input-inline">
-								<input type="text" name="name" placeholder="" class="layui-input">
-							</div>
-						</div>
+<#list fields as field>
+    <#if !field.entityIgnored && field.propertyType == 'String'>
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">${field.columnName}</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="${field.propertyName}" placeholder="" class="layui-input">
+                            </div>
+                        </div>
+    </#if>
+</#list>
 						<div class="layui-form-item layui-inline">
 							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
 								<i class="layui-icon layui-icon-search"></i>查询
@@ -65,28 +69,39 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin'], function() {
+			layui.use(['table', 'form', 'jquery','layer', 'admin', 'http'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
+				let http = layui.http;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
-                    { field: 'id', title: 'ID', width: 100, hide: true },
-                    { field: 'name', title: '名称', minWidth: 200 },
-                    { field: 'remark', title: '备注', width: 200 },
-                    { field: 'status', title: '状态', width: 100, templet: '#statusTpl', event: 'status' },
-                    { field: 'createBy', title: '创建者', width: 100, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 180, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+<#list fields as field>
+    <#if field.keyFlag>
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 200, hide: true },
+    <#else>
+        <#if field.propertyType == 'LocalDateTime'>
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 160, templet: function (d) {
+                        return layui.util.toDateString(d.${field.propertyName},  "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'createBy', title: '更新者', width: 100, hide: true },
-                    { field: 'updateTime', title: '更新时间', width: 180, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+        <#elseif field.propertyType == 'LocalDate'>
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 130, templet: function (d) {
+                        return layui.util.toDateString(d.${field.propertyName},  "yyyy-MM-dd");
                     }},
-                    { field: 'operation', title: '操作', width: 260, fixed: 'right', templet: '#operationTpl' }
+        <#elseif field.propertyType == 'LocalTime'>
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 130, templet: function (d) {
+                        return layui.util.toDateString(d.${field.propertyName},  "HH:mm:ss");
+                    }},
+        <#else>
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 100 },
+        </#if>
+    </#if>
+</#list>
+                    { field: 'status', title: '状态', minWidth: 100, templet: '#statusTpl', event: 'status' },
+                    { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
                 <#assign tableName='${name?lower_case}'>
@@ -147,6 +162,25 @@
 				window.refresh = function(field = {}) {
 					table.reloadData('data-table-id', { where: field }, false);
 				}
+
+				window.edit = function(id) {
+				    String url = 'edit.html'
+                    if(id) {
+                        url += '?id=' + id;
+                    }
+
+                    layer.open({
+                        type: 2,
+                        title: '编辑',
+                        shade: [0.5, "#393D49"],
+                        closeBtn: 1,
+                        shadeClose: true,
+                        maxmin: true,
+                        resize: false,
+                        area: ['800px', '450px'],
+                        content: url
+                    });
+                }
 
 				window.delete = function(obj) {
                     layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {

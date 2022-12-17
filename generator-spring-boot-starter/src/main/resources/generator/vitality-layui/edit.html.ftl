@@ -129,15 +129,14 @@
                             form.val("form-filter", result);
                         });
                     }
+
+                    if(readonly) {
+                        $(".bottom").addClass("layui-hide");
+                        $("form *").attr("disabled", true);
+                    }
 				}
 
 				window.init(id);
-
-				if(readonly) {
-				    $(".bottom").addClass("layui-hide");
-				    $("form *").attr("disabled", true);
-				}
-
 			})
 		</script>
 	</body>

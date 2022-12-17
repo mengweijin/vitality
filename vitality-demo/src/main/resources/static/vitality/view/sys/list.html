@@ -30,7 +30,7 @@
 		</div>
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<table id="data-table-id" lay-filter="data-table-filter"></table>
+				<table id="data-table" lay-filter="data-table-filter"></table>
 			</div>
 		</div>
 
@@ -76,12 +76,12 @@
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'name', title: 'NAME', width: 100 },
-                    { field: 'createBy', title: 'CREATE_BY', width: 100 },
+                    { field: 'name', title: 'NAME', width: 120 },
+                    { field: 'createBy', title: 'CREATE_BY', width: 120 },
                     { field: 'createTime', title: 'CREATE_TIME', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'updateBy', title: 'UPDATE_BY', width: 100 },
+                    { field: 'updateBy', title: 'UPDATE_BY', width: 120 },
                     { field: 'updateTime', title: 'UPDATE_TIME', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
                     }},
@@ -91,7 +91,7 @@
 
 
 				table.render({
-					elem: '#data-table-id',
+					elem: '#data-table',
 					url: '/sys-goods/page',
 					parseData: function(res) {
                         return {
@@ -144,7 +144,7 @@
 				});
 
 				window.refresh = function(field = {}) {
-					table.reloadData('data-table-id', { where: field }, false);
+					table.reloadData('data-table', { where: field }, false);
 				}
 
 				window.edit = function(id) {

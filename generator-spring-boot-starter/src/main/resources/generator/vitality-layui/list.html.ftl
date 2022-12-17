@@ -96,7 +96,7 @@
                         return layui.util.toDateString(d.${field.propertyName},  "HH:mm:ss");
                     }},
         <#else>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 100 },
+                    { field: '${field.propertyName}', title: '${field.columnName}', width: 120 },
         </#if>
     </#if>
 </#list>

@@ -11,7 +11,7 @@
 
   <groupId>com.github.mengweijin</groupId>
   <artifactId>generator-spring-boot-starter</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>generator-spring-boot-starter</name>
@@ -19,7 +19,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <vitality.version>1.2.1</vitality.version>
+    <vitality.version>1.2.2-SNAPSHOT</vitality.version>
     <vitality-layui.version>1.2.1</vitality-layui.version>
     <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
   </properties>

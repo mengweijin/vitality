@@ -10,7 +10,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>vitality-spring-boot-starter</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>vitality-spring-boot-starter</name>

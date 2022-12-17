@@ -17,11 +17,11 @@
 	</a>
 </p>
 
-| 模块                            | 最新版本                                                                                                                                                                                                                                                |
-|:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| vitality-spring-boot-starter  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter"/></a>   |
-| generator-spring-boot-starter | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22generator-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/generator-spring-boot-starter"/></a> |
-| vitality-layui                | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-layui"/></a>                               |
+| 模块                            | 描述              | 最新版本                                                                                                                                                                                                                                                |
+|:------------------------------|:----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| vitality-spring-boot-starter  | SpringBoot 脚手架  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter"/></a>   |
+| generator-spring-boot-starter | 代码生成器           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22generator-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/generator-spring-boot-starter"/></a> |
+| vitality-layui                | 基于 Layui 的后台脚手架 | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-layui"/></a>                               |
 
 ## 介绍
 快速搭建 SpringBoot 项目，整合和配置常用的模块和功能，提供一些简单的工具，比如代码生成器等。

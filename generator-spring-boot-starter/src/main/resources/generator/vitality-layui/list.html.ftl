@@ -189,7 +189,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(new Date(), title, 'view/${tableName?replace('_','-')}/edit.html?detail=true&id=' + id)
+					top.layui.admin.jump(new Date(), title, 'view/${tableName?replace('_','-')}/edit.html?readonly=true&id=' + id)
 				}
 
 			})

@@ -2,28 +2,38 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>修改页面</title>
+		<title></title>
 		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
 	</head>
 	<body>
-		<form class="layui-form" action="">
+		<form class="layui-form" action="" lay-filter="form-filter">
 			<div class="mainBox">
 				<div class="main-container">
+<#list fields as field>
+    <#if !field.entityIgnored>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">${field.columnName}</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="${field.propertyName}" required lay-verify="required" placeholder="" autocomplete="new-password" class="layui-input">
+                        </div>
+                    </div>
+    </#if>
+</#list>
 					<div class="layui-form-item">
 						<label class="layui-form-label required">输入框</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="new-password" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="new-password" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">密码框</label>
+						<label class="layui-form-label required">密码框</label>
 						<div class="layui-input-inline">
 							<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="new-password" class="layui-input">
 						</div>
 						<div class="layui-form-mid layui-word-aux">辅助文字</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">选择框</label>
+						<label class="layui-form-label required">选择框</label>
 						<div class="layui-input-block">
 							<select name="city" lay-verify="required">
 								<option value=""></option>
@@ -76,19 +86,48 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery'], function() {
+			layui.use(['form', 'jquery', 'http'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
+				let http = layui.http;
+				let id = http.getQueryVariable('id');
+				let detail = http.getQueryVariable('detail');
 
+                <#assign tableName='${name?lower_case}'>
 				form.on('submit(submit-filter)', function(data) {
-					$.post('/sys-goods', data.field, function(result) {
-						if (result.code == 200) {
-							parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
-							parent.layui.table.reload("data-table");
-						}
-					});
+				    if(id) {
+				        $.put('/${tableName?replace('_','-')}', data.field, function(result) {
+                            if (result.code == 200) {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
+                                parent.layui.table.reload("data-table");
+                            }
+                        });
+				    } else {
+				        $.post('/${tableName?replace('_','-')}', data.field, function(result) {
+                            if (result.code == 200) {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
+                                parent.layui.table.reload("data-table");
+                            }
+                        });
+				    }
+
 					return false;
 				});
+
+				window.init = function(id) {
+				    $.get('/${tableName?replace('_','-')}/' + id, function(result) {
+                        form.val("form-filter", result);
+                    });
+				}
+
+				if(id) {
+				    window.init(id);
+				}
+
+				if(detail) {
+				    $(".bottom").addClass("layui-hide");
+				    $("form *").attr("disabled", true);
+				}
 			})
 		</script>
 	</body>

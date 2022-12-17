@@ -19,7 +19,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <generator.version>1.0-SNAPSHOT</generator.version>
+    <generator.version>1.0.1</generator.version>
   </properties>
 
   <dependencies>

@@ -9,11 +9,11 @@
 	},
 	{
 		"id": -8888,
-		"title": "商品列表（生成代码）",
+		"title": "商品表（生成的代码）",
 		"icon": "pear-icon pear-icon-menu",
 		"type": 1,
 		"openType": "_iframe",
-		"href": "view/sys/list.html"
+		"href": "view/sys-goods/list.html"
 	},
 	{
 		"id": -1,

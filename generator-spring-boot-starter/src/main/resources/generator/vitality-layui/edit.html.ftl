@@ -9,6 +9,12 @@
 		<form class="layui-form" action="" lay-filter="form-filter">
 			<div class="mainBox">
 				<div class="main-container">
+				    <div class="layui-form-item layui-hide">
+                        <label class="layui-form-label required">ID</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="id" class="layui-input" disabled>
+                        </div>
+                    </div>
 <#list fields as field>
     <#if !field.entityIgnored>
                     <div class="layui-form-item">
@@ -91,7 +97,7 @@
 				let $ = layui.jquery;
 				let http = layui.http;
 				let id = http.getQueryVariable('id');
-				let detail = http.getQueryVariable('detail');
+				let readonly = http.getQueryVariable('readonly');
 
                 <#assign tableName='${name?lower_case}'>
 				form.on('submit(submit-filter)', function(data) {
@@ -124,7 +130,7 @@
 				    window.init(id);
 				}
 
-				if(detail) {
+				if(readonly) {
 				    $(".bottom").addClass("layui-hide");
 				    $("form *").attr("disabled", true);
 				}

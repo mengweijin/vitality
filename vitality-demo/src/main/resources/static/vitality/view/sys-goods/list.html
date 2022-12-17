@@ -30,7 +30,7 @@
 		</div>
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<table id="data-table-id" lay-filter="data-table-filter"></table>
+				<table id="data-table" lay-filter="data-table-filter"></table>
 			</div>
 		</div>
 
@@ -91,7 +91,7 @@
 
 
 				table.render({
-					elem: '#data-table-id',
+					elem: '#data-table',
 					url: '/sys-goods/page',
 					parseData: function(res) {
                         return {
@@ -144,7 +144,7 @@
 				});
 
 				window.refresh = function(field = {}) {
-					table.reloadData('data-table-id', { where: field }, false);
+					table.reloadData('data-table', { where: field }, false);
 				}
 
 				window.edit = function(id) {
@@ -173,7 +173,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(new Date(), title, 'view/sys/edit.html?detail=true&id=' + id)
+					top.layui.admin.jump(new Date(), title, 'view/sys-goods/edit.html?readonly=true&id=' + id)
 				}
 
 			})

@@ -34,7 +34,7 @@
 		</div>
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<table id="data-table-id" lay-filter="data-table-filter"></table>
+				<table id="data-table" lay-filter="data-table-filter"></table>
 			</div>
 		</div>
 
@@ -107,7 +107,7 @@
                 <#assign tableName='${name?lower_case}'>
 
 				table.render({
-					elem: '#data-table-id',
+					elem: '#data-table',
 					url: '/${tableName?replace('_','-')}/page',
 					parseData: function(res) {
                         return {
@@ -160,7 +160,7 @@
 				});
 
 				window.refresh = function(field = {}) {
-					table.reloadData('data-table-id', { where: field }, false);
+					table.reloadData('data-table', { where: field }, false);
 				}
 
 				window.edit = function(id) {

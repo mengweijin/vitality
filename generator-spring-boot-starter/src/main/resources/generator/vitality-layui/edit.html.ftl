@@ -121,19 +121,23 @@
 				});
 
 				window.init = function(id) {
-				    $.get('/${tableName?replace('_','-')}/' + id, function(result) {
-                        form.val("form-filter", result);
-                    });
+				    let $option = $("<option/>", { value: "4" });
+				    $("select[name=city]").append($option.clone().text("西安"));
+
+				    if(id) {
+                		$.get('/${tableName?replace('_','-')}/' + id, function(result) {
+                            form.val("form-filter", result);
+                        });
+                    }
 				}
 
-				if(id) {
-				    window.init(id);
-				}
+				window.init(id);
 
 				if(readonly) {
 				    $(".bottom").addClass("layui-hide");
 				    $("form *").attr("disabled", true);
 				}
+
 			})
 		</script>
 	</body>

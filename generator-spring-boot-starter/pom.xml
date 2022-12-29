@@ -19,16 +19,15 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <vitality.version>1.2.2-SNAPSHOT</vitality.version>
     <vitality-layui.version>1.2.1</vitality-layui.version>
     <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+    <hutool.version>5.8.11</hutool.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.github.mengweijin</groupId>
-      <artifactId>vitality-spring-boot-starter</artifactId>
-      <version>${vitality.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
       <groupId>com.github.mengweijin</groupId>
@@ -41,8 +40,18 @@
       <version>${mybatis-plus-generator.version}</version>
     </dependency>
     <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${hutool.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <!--<scope>provided</scope>-->
     </dependency>
   </dependencies>
 

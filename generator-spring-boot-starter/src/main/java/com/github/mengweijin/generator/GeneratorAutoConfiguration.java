@@ -10,6 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * TemplateService templateService = (TemplateService) AopContext.currentProxy();
  * @author Meng Wei Jin
  **/
 @EnableCaching

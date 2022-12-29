@@ -80,11 +80,11 @@
 					$.ajax({
 						url: "/gen/executeBatch/" + params.tableName,
 						data: JSON.stringify({ templateIdList: checkedTemplateIdList, config: params }),
-						dataType: 'json',
+						dataType: 'text',
 						contentType: 'application/json',
 						type: 'post',
 						success: function(result) {
-							layer.msg(result.message + '代码已生成到文件夹：' + result.data, { icon: 1, time: 0, closeBtn: 1, shade: [0.5, "#393D49"] }, function() {
+							layer.msg(result.message + '代码已生成到文件夹：' + result, { icon: 1, time: 0, closeBtn: 1, shade: [0.5, "#393D49"] }, function() {
 								parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
 							});
 						},

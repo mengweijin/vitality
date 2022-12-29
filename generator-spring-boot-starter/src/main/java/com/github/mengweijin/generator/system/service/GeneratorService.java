@@ -14,10 +14,7 @@ import com.github.mengweijin.generator.system.dto.GenerateConfigDTO;
 import com.github.mengweijin.generator.system.dto.TableFieldDTO;
 import com.github.mengweijin.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
-import com.github.mengweijin.vitality.domain.P;
-import com.github.mengweijin.vitality.util.BeanUtils;
-import com.github.mengweijin.vitality.util.ClassUtils;
-import com.github.mengweijin.vitality.util.Const;
+import com.github.mengweijin.generator.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -76,7 +73,7 @@ public class GeneratorService extends AutoGenerator {
             dto.setHavePrimaryKey(table.isHavePrimaryKey());
             dto.setFieldNames(table.getFieldNames());
             dto.setComment(table.getComment());
-            dto.setFields(BeanUtils.copyList(table.getFields(), TableFieldDTO.class));
+            dto.setFields(Utils.copyList(table.getFields(), TableFieldDTO.class));
 
             dto.getFields().forEach(field -> {
                 field.setPropertyType(field.getColumnType().getType());
@@ -90,7 +87,7 @@ public class GeneratorService extends AutoGenerator {
         GenerateConfigDTO config = new GenerateConfigDTO();
         config.setIgnoredColumns("ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME");
         config.setEntityName(StrUtil.upperFirst(StrUtil.toCamelCase(tableName)));
-        config.setPackagePath(ClassUtils.getSpringBootApplicationClassPackage());
+        config.setPackagePath(Utils.getSpringBootApplicationClassPackage());
         config.setAuthor(SystemUtil.get("user.name", false));
         config.setDate(LocalDateTimeUtil.formatNormal(LocalDate.now()));
 
@@ -110,7 +107,7 @@ public class GeneratorService extends AutoGenerator {
 
         this.processIgnoredColumns(tableInfoDTO, config.getIgnoredColumns());
         config.initTableInfo(tableInfoDTO);
-        log.debug(P.writeValueAsString(config));
+        log.debug(Utils.writeValueAsString(config));
 
         TemplateDTO templateDTO = templateService.findTemplateById(templateId);
         return FreemarkerTemplateEngine.process(templateDTO.getName(), templateDTO.getContent(), config);
@@ -136,7 +133,7 @@ public class GeneratorService extends AutoGenerator {
 
         String[] split = templateDTO.getName().split("\\.");
         targetPath += StrUtil.replace(split[0], "{EntityName}", config.getEntityName());
-        targetPath += Const.DOT + split[1];
+        targetPath += "." + split[1];
 
         File file = FileUtil.file(targetPath);
         FileUtil.mkParentDirs(file);

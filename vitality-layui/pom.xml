@@ -11,7 +11,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>vitality-layui</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <packaging>jar</packaging>
 
     <name>vitality-layui</name>

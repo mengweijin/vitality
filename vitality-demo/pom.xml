@@ -20,7 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vitality.version>1.2.2</vitality.version>
-    <generator.version>1.0.3</generator.version>
+    <generator.version>1.0.5-SNAPSHOT</generator.version>
   </properties>
 
   <dependencies>
@@ -39,6 +39,11 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.11</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -49,6 +54,22 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>com.github.mengweijin</groupId>
+        <artifactId>code-generator-maven-plugin</artifactId>
+        <version>1.0.16</version>
+        <configuration>
+          <parameters>
+            <dbInfo>
+              <username>root</username>
+              <password>root</password>
+              <url>jdbc:mysql://localhost:3306/flowable</url>
+            </dbInfo>
+            <tables>flyway_schema_history</tables>
+          </parameters>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>

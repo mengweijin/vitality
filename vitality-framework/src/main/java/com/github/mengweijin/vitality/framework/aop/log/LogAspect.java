@@ -1,13 +1,11 @@
 package com.github.mengweijin.vitality.framework.aop.log;
 
-import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -26,7 +24,8 @@ import java.util.function.Consumer;
  * 执行顺序：Before, After, AfterReturning, AfterThrowing
  **/
 @Slf4j
-@Aspect
+//@Aspect
+@Deprecated
 public class LogAspect {
 
     @Autowired
@@ -35,37 +34,35 @@ public class LogAspect {
     /**
      * 钩子函数。比如：可以把 SysLog 保存到数据库作为系统操作日志记录
      */
-    private final Consumer<SysLog> consumer;
+    private final Consumer<AopLog> consumer;
 
-    public LogAspect(Consumer<SysLog> consumer){
+    public LogAspect(Consumer<AopLog> consumer){
         this.consumer = consumer;
     }
 
     @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")
-    public void pointCut() {
-        // just a point cut, no need do anything.
-    }
+    public void pointCut() {}
 
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ServletUtils.getRequest();
         String requestMethod = request.getMethod();
         if(!HttpMethod.GET.name().equals(requestMethod)) {
-            SysLog sysLog = new SysLog();
+            AopLog aopLog = new AopLog();
             try {
-                sysLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
-                sysLog.setUrl(request.getRequestURI());
-                sysLog.setHttpMethod(requestMethod);
-                sysLog.setCreateTime(LocalDateTime.now());
-                sysLog.setIp(JakartaServletUtil.getClientIP(request));
-                sysLog.setSuccess(true);
+                aopLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
+                aopLog.setUrl(request.getRequestURI());
+                aopLog.setHttpMethod(requestMethod);
+                aopLog.setCreateTime(LocalDateTime.now());
+                aopLog.setIp(ServletUtils.getClientIP(request));
+                aopLog.setSuccess(true);
 
-                consumer.accept(sysLog);
+                consumer.accept(aopLog);
 
-                log.debug(objectMapper.writeValueAsString(sysLog));
+                log.debug(objectMapper.writeValueAsString(aopLog));
             } catch (Exception e) {
-                sysLog.setSuccess(false);
-                sysLog.setError(e.getMessage());
+                aopLog.setSuccess(false);
+                aopLog.setError(e.getMessage());
                 throw e;
             }
         }

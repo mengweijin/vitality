@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.framework.mvc;
 
 import com.github.mengweijin.vitality.framework.VitalityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -21,6 +22,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private VitalityProperties vitalityProperties;
+
+    @Bean
+    @ConditionalOnMissingBean
+    public GlobalExceptionHandler globalExceptionHandler() {
+        return new GlobalExceptionHandler();
+    }
 
     /**
      * 跨域

@@ -10,19 +10,23 @@ import org.springframework.context.annotation.Configuration;
  * @author mengweijin
  * @date 2023/4/1
  */
+// @ConditionalOnClass({ MinioClient.class })
 @Configuration
 @EnableConfigurationProperties({MinioProperties.class})
-public class MinioAutoConfiguration {
+public class MinioConfig {
 
     @Autowired
     private MinioProperties minioProperties;
 
     @Bean
-    public MinioService minioService() {
-        MinioClient minioClient = MinioClient.builder()
+    public MinioClient minioClient() {
+        return MinioClient.builder()
                 .endpoint(minioProperties.getUrl())
                 .credentials(minioProperties.getUsername(), minioProperties.getPassword())
                 .build();
-        return new MinioService(minioClient);
+    }
+    @Bean
+    public MinioService minioService() {
+        return new MinioService();
     }
 }

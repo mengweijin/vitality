@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysLog extends BaseEntity {
+public class AopLog extends BaseEntity {
 
     /** request url */
     private String url;

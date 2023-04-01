@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework.mybatis;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.vitality.framework.VitalityProperties;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
@@ -8,8 +7,8 @@ import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
+
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
 
 /**
  * 自动填充。
@@ -42,10 +41,10 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_TIME, LocalDateTime.class, localDateTime);
 
             // session LOGIN_USER
-            String userId = this.getUserId();
-            if(StrUtil.isNotBlank(userId)) {
-                this.strictInsertFill(metaObject, BASE_ENTITY_CREATE_BY, String.class, userId);
-                this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, userId);
+            Long userId = this.getUserId();
+            if(userId != null) {
+                this.strictInsertFill(metaObject, BASE_ENTITY_CREATE_BY, Long.class, userId);
+                this.strictInsertFill(metaObject, BASE_ENTITY_UPDATE_BY, Long.class, userId);
             }
         }
     }
@@ -57,9 +56,9 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             LocalDateTime localDateTime = LocalDateTime.now();
             this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_TIME, LocalDateTime.class, localDateTime);
 
-            String userId = this.getUserId();
-            if(StrUtil.isNotBlank(userId)) {
-                this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_BY, String.class, userId);
+            Long userId = this.getUserId();
+            if(userId != null) {
+                this.strictUpdateFill(metaObject, BASE_ENTITY_UPDATE_BY, Long.class, userId);
             }
         }
     }
@@ -69,22 +68,22 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
      * MetaObjectHandler提供的默认方法的策略均为：如果属性有值则不覆盖，如果填充值为null则不填充
      * 这里修改为：一律填充
      */
-    @Override
-    public MetaObjectHandler strictFillStrategy(MetaObject metaObject, String fieldName, Supplier<?> fieldVal) {
-        metaObject.setValue(fieldName, fieldVal.get());
-        return this;
-    }
+    // @Override
+    // public MetaObjectHandler strictFillStrategy(MetaObject metaObject, String fieldName, Supplier<?> fieldVal) {
+    //     metaObject.setValue(fieldName, fieldVal.get());
+    //     return this;
+    // }
 
     /**
      * session LOGIN_USER_ID
      * @return username from session key LOGIN_USER_ID
      */
-    protected String getUserId() {
+    protected Long getUserId() {
         Object username = null;
         if(RequestContextHolder.getRequestAttributes() != null) {
             username = ServletUtils.getSession().getAttribute(vitalityProperties.getLoginUserIdKeyName());
         }
-        return username == null ? null : String.valueOf(username);
+        return username == null ? null : Long.valueOf((String) username);
     }
 
 }

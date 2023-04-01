@@ -19,6 +19,7 @@ import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,11 +32,8 @@ public class MinioService {
     @Autowired
     private MinioProperties minioProperties;
 
+    @Autowired
     private MinioClient minioClient;
-
-    public MinioService(MinioClient minioClient) {
-        this.minioClient = minioClient;
-    }
 
     public boolean bucketExists(String bucketName) {
         try {

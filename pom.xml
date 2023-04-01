@@ -36,8 +36,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.8.16</hutool.version>
-        <commons-fileupload.version>1.5</commons-fileupload.version>
-        <commons-net.version>3.9.0</commons-net.version>
         <jsoup.version>1.15.4</jsoup.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>

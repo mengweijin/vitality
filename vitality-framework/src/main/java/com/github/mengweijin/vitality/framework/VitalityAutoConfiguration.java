@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.controller.CommonController;
 import com.github.mengweijin.vitality.framework.mvc.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,12 +29,6 @@ public class VitalityAutoConfiguration {
     @ConditionalOnMissingBean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public CommonController commonController() {
-        return new CommonController();
     }
 
     @Bean

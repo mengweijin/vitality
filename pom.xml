@@ -36,6 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.8.16</hutool.version>
+        <minio.version>8.5.2</minio.version>
         <jsoup.version>1.15.4</jsoup.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
@@ -78,14 +79,9 @@
                 <version>${hutool.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
             <!-- JSOUP HTML解析器 -->
             <dependency>

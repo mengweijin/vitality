@@ -1,12 +1,12 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpHeaders;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,32 +25,6 @@ import java.util.function.Function;
  */
 @Slf4j
 public class DownLoadUtils {
-
-    /**
-     * 谨慎使用！使用不当会被恶意用户下载到服务器上所有的文件！
-     */
-    public static void download(String filePath, HttpServletRequest request, HttpServletResponse response) {
-        download(filePath, request, response, FileUtil::file);
-    }
-
-    /**
-     * 文件下载。
-     * @param fileId 文件 ID。根据文件 id 获取文件对象。
-     *               比如数据库中存储的文件表中的 id。或者一个在服务器上的文件绝对路径。
-     *               或者其他情况，根据应用存放文件的方案来实现具体逻辑。return File
-     *               （一般不要实现的是 fileId 为服务器上的绝对全路径这样搞，
-     *               会被恶意用户下载到服务器上所有的文件！）。
-     * @param request HttpServletRequest
-     * @param response HttpServletResponse
-     * @param function 函数式接口，需要开发者自定义逻辑。根据 fileId 返回一个 File 对象。
-     */
-    public static void download(String fileId, HttpServletRequest request, HttpServletResponse response, Function<String, File> function) {
-        download(function.apply(fileId), request, response);
-    }
-
-    public static void download(String fileId, String downloadFileName, HttpServletRequest request, HttpServletResponse response, Function<String, InputStream> function) {
-        download(function.apply(fileId), downloadFileName, request, response);
-    }
 
     public static void download(File file, HttpServletRequest request, HttpServletResponse response) {
         try(FileInputStream in = new FileInputStream(file)) {

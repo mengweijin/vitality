@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.controller;
+package com.github.mengweijin.vitality.framework.mvc;
 
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;

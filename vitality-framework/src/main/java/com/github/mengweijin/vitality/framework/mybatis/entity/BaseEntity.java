@@ -27,24 +27,26 @@ public abstract class BaseEntity implements Serializable {
      * JsonSerialize：JavaScript 无法处理 Java 的长整型 Long 导致精度丢失，具体表现为主键最后两位永远为 0
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(value = "ID", type = IdType.ASSIGN_ID)
     protected Long id;
 
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
     protected LocalDateTime createTime;
 
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
     protected LocalDateTime updateTime;
 
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
-    protected String createBy;
+    @JsonSerialize(using = ToStringSerializer.class)
+    @TableField(value = "CREATE_BY", fill = FieldFill.INSERT)
+    protected Long createBy;
 
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
-    protected String updateBy;
+    @JsonSerialize(using = ToStringSerializer.class)
+    @TableField(value = "UPDATE_BY", fill = FieldFill.INSERT_UPDATE)
+    protected Long updateBy;
 
     @TableField(exist = false)
     protected String createName;
@@ -52,11 +54,4 @@ public abstract class BaseEntity implements Serializable {
     @TableField(exist = false)
     protected String updateName;
 
-    public void clearBaseEntityFieldValue() {
-        this.setId(null);
-        this.setCreateBy(null);
-        this.setCreateTime(null);
-        this.setUpdateBy(null);
-        this.setUpdateTime(null);
-    }
 }

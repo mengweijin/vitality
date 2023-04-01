@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>vitality-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>vitality-admin</artifactId>
+  <packaging>jar</packaging>
+  <name>vitality-admin</name>
+
+  <properties>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.mengweijin</groupId>
+      <artifactId>vitality-framework</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.32</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.mengweijin</groupId>
+        <artifactId>code-generator-maven-plugin</artifactId>
+        <version>1.0.16</version>
+        <configuration>
+          <parameters>
+            <dbInfo>
+              <username>root</username>
+              <password>root</password>
+              <url>jdbc:mysql://localhost:3306/flowable</url>
+            </dbInfo>
+            <tables>flyway_schema_history</tables>
+          </parameters>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <!-- 将所有依赖包全部打到一个Jar包里面 -->
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includeSystemScope>true</includeSystemScope>
+        </configuration>
+      </plugin>
+    </plugins>
+    <!-- 最终打出来的Jar的名称 -->
+    <!--<finalName>${project.artifactId}</finalName>-->
+  </build>
+</project>

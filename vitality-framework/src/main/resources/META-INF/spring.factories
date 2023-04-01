@@ -1,0 +1,19 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.mengweijin.vitality.aop.AopConfig,\
+com.github.mengweijin.vitality.cache.CacheConfig,\
+com.github.mengweijin.vitality.filter.FilterConfig,\
+com.github.mengweijin.vitality.framework.jackson.JacksonConfig,\
+com.github.mengweijin.vitality.framework.mvc.WebMvcConfig,\
+com.github.mengweijin.vitality.framework.mybatis.MybatisPlusConfig,\
+com.github.mengweijin.vitality.framework.redis.RedisConfig,\
+com.github.mengweijin.vitality.framework.VitalityAutoConfiguration
+
+# Environment Post Processors
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.github.mengweijin.vitality.framework.SafetyEncryptEnvironmentPostProcessor
+
+
+
+
+

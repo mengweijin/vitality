@@ -53,11 +53,11 @@
         <configuration>
           <parameters>
             <dbInfo>
-              <username>root</username>
-              <password>root</password>
-              <url>jdbc:mysql://localhost:3306/flowable</url>
+              <username>sa</username>
+              <password></password>
+              <url>jdbc:h2:file:./../h2/vitality;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
             </dbInfo>
-            <tables>flyway_schema_history</tables>
+            <tables>SYS_ERROR_LOG, SYS_FILE, SYS_USER</tables>
           </parameters>
         </configuration>
       </plugin>

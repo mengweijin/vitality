@@ -142,14 +142,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.5.0</version>
                 <configuration>
+                    <doclint>none</doclint>
                     <charset>UTF-8</charset>
                     <docencoding>UTF-8</docencoding>
-                    <additionalOptions>
-                        <!--由于JDK8的java doc生成机制比之前的要严谨许多,导致项目用maven打包的时候出错 解决办法: 添加-Xdoclint:none配置-->
-                        <additionalOption>-Xdoclint:none</additionalOption>
-                    </additionalOptions>
+<!--                    <additionalOptions>-->
+<!--                        &lt;!&ndash;由于JDK8的java doc生成机制比之前的要严谨许多,导致项目用maven打包的时候出错 解决办法: 添加-Xdoclint:none配置&ndash;&gt;-->
+<!--                        <additionalOption>-Xdoclint:none</additionalOption>-->
+<!--                    </additionalOptions>-->
                 </configuration>
                 <executions>
                     <execution>

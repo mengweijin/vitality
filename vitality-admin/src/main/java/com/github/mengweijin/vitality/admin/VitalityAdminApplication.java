@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.demo;
+package com.github.mengweijin.vitality.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author mengweijin
  */
 @SpringBootApplication
-public class VitalityDemoApplication {
+public class VitalityAdminApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VitalityDemoApplication.class, args);
+		SpringApplication.run(VitalityAdminApplication.class, args);
 	}
 }

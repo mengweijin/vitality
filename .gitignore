@@ -37,3 +37,4 @@ h2/
 logs
 /upload
 /data
+application-local.yml

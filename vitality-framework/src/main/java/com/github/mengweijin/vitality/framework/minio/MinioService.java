@@ -3,7 +3,7 @@ package com.github.mengweijin.vitality.framework.minio;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.IdUtil;
 import com.github.mengweijin.vitality.framework.exception.MinioServiceException;
-import com.github.mengweijin.vitality.framework.util.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
@@ -20,7 +20,6 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.time.LocalDate;
 import java.util.List;
 

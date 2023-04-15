@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.util;
+package com.github.mengweijin.vitality.framework.constant;
 
 import java.io.File;
 import java.nio.charset.Charset;

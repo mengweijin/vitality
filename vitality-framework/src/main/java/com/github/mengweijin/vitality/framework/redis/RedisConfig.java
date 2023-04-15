@@ -9,6 +9,7 @@ import com.github.mengweijin.vitality.framework.redis.inteceptor.SameUrlDataInte
 import com.github.mengweijin.vitality.framework.redis.limiter.RateLimiterAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SuppressWarnings(value = {"rawtypes"})
 @EnableCaching
 @Configuration
-@ConditionalOnClass({RedisConnectionFactory.class, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class})
+@ConditionalOnClass({RedisConnectionFactory.class, RedisAutoConfiguration.class})
 public class RedisConfig implements CachingConfigurer, WebMvcConfigurer {
 
     @Bean

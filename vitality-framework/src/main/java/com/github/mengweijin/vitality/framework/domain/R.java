@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.domain;
 
-import com.github.mengweijin.vitality.framework.util.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;

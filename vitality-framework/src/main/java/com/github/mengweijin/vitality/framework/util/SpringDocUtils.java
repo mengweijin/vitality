@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.framework.util;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import com.github.mengweijin.vitality.framework.constant.Const;
 
 /**
  * @author mengweijin

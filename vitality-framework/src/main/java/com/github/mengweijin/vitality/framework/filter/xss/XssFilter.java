@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.framework.filter.xss;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ReUtil;
-import com.github.mengweijin.vitality.framework.util.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;

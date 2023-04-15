@@ -4,7 +4,7 @@ import com.github.mengweijin.vitality.framework.VitalityProperties;
 import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.vitality.framework.filter.xss.XssFilter;
 import com.github.mengweijin.vitality.framework.filter.xss.XssProperties;
-import com.github.mengweijin.vitality.framework.util.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import jakarta.servlet.DispatcherType;
 import org.jsoup.Jsoup;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

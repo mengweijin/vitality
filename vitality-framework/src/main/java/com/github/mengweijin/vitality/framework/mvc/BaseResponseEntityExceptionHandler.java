@@ -52,14 +52,13 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
      * @return ResponseEntity<Object>
      */
     public ResponseEntity<Object> errorBindingResultResponseEntity(Exception e, BindingResult bindingResult, HttpStatusCode statusCode) {
-        log.error(e.getMessage(), e);
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-
         R r = R.error(statusCode.value(), null);
         for (FieldError error : fieldErrors) {
             r.appendMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
         }
-        log.error("ErrorInfo: {}", r);
+        log.error("Error info: {}", r);
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(statusCode).body(r);
     }
 

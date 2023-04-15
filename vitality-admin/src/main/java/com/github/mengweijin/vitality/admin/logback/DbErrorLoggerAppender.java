@@ -74,7 +74,7 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
             // 错误日志实体类写入数据库
             sysErrorLogService.save(sysErrorLog);
         } catch (RuntimeException e) {
-            this.addError("Report error log failure: " + e.getMessage());
+            this.addError("Record error log to database failed! " + e.getMessage());
         }
     }
 

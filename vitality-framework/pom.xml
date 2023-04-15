@@ -52,7 +52,7 @@
             <classifier>jakarta</classifier>
         </dependency>
         <dependency>
-            <groupId>com.baomidou</groupId>
+            <groupId>com.fhs-opensource</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>

@@ -49,9 +49,9 @@ public abstract class BaseEntity implements Serializable {
     protected Long updateBy;
 
     @TableField(exist = false)
-    protected String createName;
+    protected String createByName;
 
     @TableField(exist = false)
-    protected String updateName;
+    protected String updateByName;
 
 }

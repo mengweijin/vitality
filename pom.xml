@@ -19,9 +19,6 @@
 
     <modules>
         <module>vitality-admin</module>
-        <!--<module>vitality-layui</module>-->
-        <!--<module>generator-spring-boot-starter</module>-->
-        <!--<module>vitality-spring-boot-starter</module>-->
         <module>vitality-framework</module>
     </modules>
 
@@ -35,10 +32,10 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hutool.version>5.8.16</hutool.version>
+        <hutool.version>5.8.17</hutool.version>
         <minio.version>8.5.2</minio.version>
         <jsoup.version>1.15.4</jsoup.version>
-        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <mybatis-plus.version>4.0.8</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
         <easyexcel.version>3.2.1</easyexcel.version>
@@ -59,7 +56,7 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.baomidou</groupId>
+                <groupId>com.fhs-opensource</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>

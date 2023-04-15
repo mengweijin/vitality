@@ -16,9 +16,11 @@ import io.minio.RemoveBucketArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,8 +33,15 @@ public class MinioService {
     @Autowired
     private MinioProperties minioProperties;
 
-    @Autowired
     private MinioClient minioClient;
+
+    @PostConstruct
+    public void init() {
+        this.minioClient = MinioClient.builder()
+                .endpoint(minioProperties.getUrl())
+                .credentials(minioProperties.getUsername(), minioProperties.getPassword())
+                .build();
+    }
 
     public boolean bucketExists(String bucketName) {
         try {

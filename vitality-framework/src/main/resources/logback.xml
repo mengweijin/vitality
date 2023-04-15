@@ -3,7 +3,7 @@
     <!-- 日志存放路径 -->
     <property name="log.path" value="./logs" />
     <!-- 日志输出格式 -->
-    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{100} - [%method,%line] - %msg%n" />
 
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -25,28 +25,26 @@
         <encoder>
             <pattern>${log.pattern}</pattern>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 过滤的级别 -->
+        <!-- ThresholdFilter：临界值过滤器。 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 过滤的级别。TRACE < DEBUG < INFO < WARN < ERROR。配置为 INFO，即只记录 INFO, WARN, ERROR 日志。 -->
             <level>INFO</level>
-            <!-- 匹配时的操作：接收（记录） -->
-            <onMatch>ACCEPT</onMatch>
-            <!-- 不匹配时的操作：拒绝（不记录） -->
-            <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
     <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/warn.log</file>
+        <file>${log.path}/warn/warn.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/warn/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 60天 -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
         </encoder>
+        <!-- LevelFilter：只过滤指定级别的日志。 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!-- 过滤的级别 -->
             <level>WARN</level>
@@ -58,11 +56,11 @@
     </appender>
 
     <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/error.log</file>
+        <file>${log.path}/error/error.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/error/error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 60天 -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
@@ -78,7 +76,6 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-
 
 
     <!-- 系统模块日志级别控制  -->

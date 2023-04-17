@@ -22,6 +22,10 @@ import java.time.LocalDateTime;
 @Data
 public abstract class BaseEntity implements Serializable {
 
+    public static final String CREATE_BY_NAME = "createByName";
+
+    public static final String UPDATE_BY_NAME = "updateByName";
+
     /**
      * 自动生成主键，子类不可重写，但可以在项目中重新定义一个BaseEntity。
      * JsonSerialize：JavaScript 无法处理 Java 的长整型 Long 导致精度丢失，具体表现为主键最后两位永远为 0

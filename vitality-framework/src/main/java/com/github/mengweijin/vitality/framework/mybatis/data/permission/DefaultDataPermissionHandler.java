@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.mybatis;
+package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
 import java.util.List;
 

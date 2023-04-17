@@ -1,9 +1,9 @@
-package com.github.mengweijin.vitality.framework.mybatis;
+package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
@@ -12,11 +12,13 @@ import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.schema.Column;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * {@link DataScope} Can only be used in *Mapper.java.
  * @author mengweijin
  * @date 2022/11/20
  */
@@ -25,9 +27,11 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
 
     @Override
     public Expression getSqlSegment(Expression where, String mappedStatementId) {
+        log.debug("BaseDataPermissionHandler Expression where = {}", where);
+        log.debug("BaseDataPermissionHandler mappedStatementId = {}", mappedStatementId);
         try {
-            Class<?> clazz = Class.forName(mappedStatementId.substring(0, mappedStatementId.lastIndexOf(".")));
-            String methodName = mappedStatementId.substring(mappedStatementId.lastIndexOf(".") + 1);
+            Class<?> clazz = Class.forName(mappedStatementId.substring(0, mappedStatementId.lastIndexOf(Const.DOT)));
+            String methodName = mappedStatementId.substring(mappedStatementId.lastIndexOf(Const.DOT) + 1);
             Method[] methods = clazz.getDeclaredMethods();
             for (Method method : methods) {
                 DataScope dataScope = method.getAnnotation(DataScope.class);
@@ -55,38 +59,37 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
 
         Expression expression = null;
         switch (dataScope.scope()) {
-            case DEPT:
+            case USER -> {
+                String loginUserId = this.getLoginUserId();
+                if (StrUtil.isNotBlank(loginUserId)) {
+                    EqualsTo userEqualsTo = new EqualsTo();
+                    userEqualsTo.setLeftExpression(buildColumn(dataScope));
+                    userEqualsTo.setRightExpression(new StringValue(loginUserId));
+                    expression = userEqualsTo;
+                }
+            }
+            case DEPT -> {
                 List<String> loginUserDeptIdList = this.getLoginUserDeptIdList();
-                if(CollUtil.isNotEmpty(loginUserDeptIdList)) {
+                if (CollUtil.isNotEmpty(loginUserDeptIdList)) {
                     InExpression deptInExpression = new InExpression();
-                    deptInExpression.setLeftExpression(buildColumn(dataScope, dataScope.scope()));
+                    deptInExpression.setLeftExpression(buildColumn(dataScope));
                     List<Expression> deptExpressionList = loginUserDeptIdList.stream().map(StringValue::new).collect(Collectors.toList());
                     deptInExpression.setRightItemsList(new ExpressionList(deptExpressionList));
                     expression = deptInExpression;
                 }
-                break;
-            case ROLE:
+            }
+            case ROLE -> {
                 List<String> loginUserRoleIdList = this.getLoginUserRoleIdList();
-                if(CollUtil.isNotEmpty(loginUserRoleIdList)) {
+                if (CollUtil.isNotEmpty(loginUserRoleIdList)) {
                     InExpression roleInExpression = new InExpression();
-                    roleInExpression.setLeftExpression(buildColumn(dataScope, dataScope.scope()));
+                    roleInExpression.setLeftExpression(buildColumn(dataScope));
                     List<Expression> roleExpressionList = loginUserRoleIdList.stream().map(StringValue::new).collect(Collectors.toList());
                     roleInExpression.setRightItemsList(new ExpressionList(roleExpressionList));
                     expression = roleInExpression;
                 }
-                break;
-            case USER:
-                String loginUserId = this.getLoginUserId();
-                if(StrUtil.isNotBlank(loginUserId)) {
-                    EqualsTo userEqualsTo = new EqualsTo();
-                    userEqualsTo.setLeftExpression(buildColumn(dataScope, dataScope.scope()));
-                    userEqualsTo.setRightExpression(new StringValue(loginUserId));
-                    expression = userEqualsTo;
-                }
-                break;
-            case ALL:
-            default:
-                break;
+            }
+            default -> {
+            }
         }
         return where == null ? expression : new AndExpression(where, expression);
     }
@@ -102,20 +105,16 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
     /**
      * 构建Column
      *
-     * @param dataScope
-     * @param scope
+     * @param dataScope dataScope
      * @return 带表别名字段
      */
-    protected static Column buildColumn(DataScope dataScope, DataScope.Scope scope) {
-        String tableColumn = dataScope.tableColumn();
-        if(StrUtil.isBlank(tableColumn) && StrUtil.isNotBlank(scope.getDefaultColumn())) {
-            tableColumn = scope.getDefaultColumn();
+    protected static Column buildColumn(DataScope dataScope) {
+        String tableColumnName = dataScope.tableColumnName();
+        if(StrUtil.isBlank(tableColumnName)) {
+            tableColumnName = dataScope.scope().getColumnName();
         }
-        Assert.notBlank(tableColumn);
-
         String tableAlias = dataScope.tableAlias();
-        tableAlias = StrUtil.isBlank(tableAlias) ? tableAlias : tableAlias + ".";
-
-        return new Column(tableAlias + tableColumn);
+        tableAlias = StrUtil.isBlank(tableAlias) ? Const.EMPTY : tableAlias + Const.DOT;
+        return new Column(tableAlias + tableColumnName);
     }
 }

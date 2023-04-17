@@ -1,5 +1,6 @@
-package com.github.mengweijin.vitality.framework.mybatis;
+package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
+import com.github.mengweijin.vitality.framework.mybatis.consts.ColumnConst;
 import lombok.Getter;
 
 import java.lang.annotation.Documented;
@@ -9,6 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Can only be used in *Mapper.java. More detail refer to {@link BaseDataPermissionHandler}
  * @author mengweijin
  * @date 2022/11/20
  */
@@ -25,25 +27,22 @@ public @interface DataScope {
      * ROLE: role_id
      * USER: create_by
      * */
-    String tableColumn() default "";
+    String tableColumnName() default "";
 
-    Scope scope() default Scope.ALL;
+    Scope scope() default Scope.USER;
 
     @Getter
     enum Scope {
 
-        DEPT("dept_id"),
+        USER(ColumnConst.CREATE_BY),
 
-        ROLE("role_id"),
+        DEPT(ColumnConst.DEPT_ID),
 
-        USER("create_by"),
+        ROLE(ColumnConst.ROLE_ID);
 
-        ALL(null);
+        private String columnName;
 
-
-        private String defaultColumn;
-
-        Scope(String defaultColumn) {
+        Scope(String columnName) {
 
         }
     }

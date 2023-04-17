@@ -12,6 +12,8 @@ import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionIntercepto
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
+import com.github.mengweijin.vitality.framework.mybatis.data.username.SysUserNameInnerInterceptor;
+import com.github.mengweijin.vitality.framework.mybatis.data.permission.DefaultDataPermissionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -66,6 +68,8 @@ public class MybatisPlusConfig {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 数据权限插件
         interceptor.addInnerInterceptor(dataPermissionInterceptor());
+        // Left join SYS_USER 查询用户昵称插件
+        interceptor.addInnerInterceptor(new SysUserNameInnerInterceptor());
         // 分页插件, 一缓和二缓遵循mybatis的规则
         interceptor.addInnerInterceptor(paginationInnerInterceptor());
         // 乐观锁插件。注解实体字段 @Version

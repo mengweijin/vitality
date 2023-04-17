@@ -1,8 +1,8 @@
-package com.github.mengweijin.vitality.admin.system.service;
+package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.admin.system.entity.SysErrorLog;
-import com.github.mengweijin.vitality.admin.system.mapper.SysErrorLogMapper;
+import com.github.mengweijin.vitality.system.entity.SysErrorLog;
+import com.github.mengweijin.vitality.system.mapper.SysErrorLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

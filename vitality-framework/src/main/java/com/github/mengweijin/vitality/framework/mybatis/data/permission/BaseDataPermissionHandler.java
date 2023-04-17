@@ -12,7 +12,6 @@ import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.schema.Column;
-
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;

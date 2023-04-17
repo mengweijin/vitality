@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.admin.system.entity;
+package com.github.mengweijin.vitality.system.entity;
 
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;

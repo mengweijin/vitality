@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework;
+package com.github.mengweijin.vitality.system;
 
 import cn.hutool.core.util.ClassUtil;
 import org.springframework.beans.BeansException;
@@ -11,12 +11,13 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
  * @author mengweijin
  * @date 2022/7/27
  */
-public class VitalityBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+public class VitalitySystemBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        String pkg = ClassUtil.getPackage(VitalityAutoConfiguration.class);
+        //scanner.addIncludeFilter(new AnnotationTypeFilter(Mapper.class));
+        String pkg = ClassUtil.getPackage(VitalitySystemBeanDefinitionRegistryPostProcessor.class);
         scanner.scan(pkg);
     }
 

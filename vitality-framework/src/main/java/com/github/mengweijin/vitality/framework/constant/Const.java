@@ -8,156 +8,156 @@ import java.nio.charset.Charset;
  *
  * @author Meng Wei Jin
  **/
-public final class Const {
+public interface Const {
 
-    public static final String TILDA = "~";
+     String TILDA = "~";
 
-    public static final String BACKTICK = "`";
+     String BACKTICK = "`";
 
-    public static final String EXCLAMATION_MARK = "!";
+     String EXCLAMATION_MARK = "!";
 
-    public static final String AT = "@";
+     String AT = "@";
 
-    public static final String HASH = "#";
+     String HASH = "#";
 
-    public static final String DOLLAR = "$";
+     String DOLLAR = "$";
 
-    public static final String PERCENT = "%";
+     String PERCENT = "%";
 
-    public static final String CARET = "^";
+     String CARET = "^";
 
-    public static final String AMPERSAND = "&";
+     String AMPERSAND = "&";
 
-    public static final String ASTERISK = "*";
+     String ASTERISK = "*";
 
-    public static final String STAR = ASTERISK;
+     String STAR = ASTERISK;
 
-    public static final String LEFT_BRACKET = "(";
+     String LEFT_BRACKET = "(";
 
-    public static final String RIGHT_BRACKET = ")";
+     String RIGHT_BRACKET = ")";
 
-    public static final String DASH = "-";
+     String DASH = "-";
 
-    public static final String UNDERSCORE = "_";
+     String UNDERSCORE = "_";
 
-    public static final String PLUS = "+";
+     String PLUS = "+";
 
-    public static final String EQUAL = "=";
+     String EQUAL = "=";
 
-    public static final String LEFT_BRACE = "{";
+     String LEFT_BRACE = "{";
 
-    public static final String RIGHT_BRACE = "}";
+     String RIGHT_BRACE = "}";
 
-    public static final String LEFT_SQ_BRACKET = "[";
+     String LEFT_SQ_BRACKET = "[";
 
-    public static final String RIGHT_SQ_BRACKET = "]";
+     String RIGHT_SQ_BRACKET = "]";
 
-    public static final String PIPE = "|";
+     String PIPE = "|";
 
-    public static final String BACK_SLASH = "\\";
+     String BACK_SLASH = "\\";
 
-    public static final String SLASH = "/";
+     String SLASH = "/";
 
-    public static final String COLON = ":";
+     String COLON = ":";
 
-    public static final String SEMICOLON = ";";
+     String SEMICOLON = ";";
 
-    public static final String QUOTE = "\"";
+     String QUOTE = "\"";
 
-    public static final String SINGLE_QUOTE = "'";
+     String SINGLE_QUOTE = "'";
 
-    public static final String LEFT_CHEV = "<";
+     String LEFT_CHEV = "<";
 
-    public static final String RIGHT_CHEV = ">";
+     String RIGHT_CHEV = ">";
 
-    public static final String COMMA = ",";
+     String COMMA = ",";
 
-    public static final String DOT = ".";
+     String DOT = ".";
 
-    public static final String DOTDOT = "..";
+     String DOTDOT = "..";
 
-    public static final String QUESTION_MARK = "?";
+     String QUESTION_MARK = "?";
 
-    public static final String EMPTY = "";
+     String EMPTY = "";
 
-    public static final String NEWLINE = "\n";
+     String NEWLINE = "\n";
 
-    public static final String NEWLINE_HTML = "<br>";
+     String NEWLINE_HTML = "<br>";
 
-    public static final String TAB = "\t";
+     String TAB = "\t";
 
-    public static final String RETURN = "\r";
+     String RETURN = "\r";
 
-    public static final String CRLF = "\r\n";
+     String CRLF = "\r\n";
 
-    public static final String SPACE = " ";
+     String SPACE = " ";
 
-    public static final String NULL = "null";
+     String NULL = "null";
 
-    public static final String TRUE = "true";
+     String TRUE = "true";
 
-    public static final String FALSE = "false";
+     String FALSE = "false";
 
-    public static final String YES = "YES";
+     String YES = "YES";
 
-    public static final String NO = "NO";
+     String NO = "NO";
 
-    public static final String Y = "Y";
+     String Y = "Y";
 
-    public static final String N = "N";
+     String N = "N";
 
-    public static final String ON = "ON";
+     String ON = "ON";
 
-    public static final String OFF = "OFF";
+     String OFF = "OFF";
 
-    public static final String ZERO = "0";
+     String ZERO = "0";
 
-    public static final String ONE = "1";
+     String ONE = "1";
 
     /**
      * 成功
      */
-    public static final String SUCCESS = "SUCCESS";
+     String SUCCESS = "SUCCESS";
 
     /**
      * 失败
      */
-    public static final String FAILURE = "FAILURE";
+     String FAILURE = "FAILURE";
 
-    public static final String SUCCESS_CODE = ZERO;
+     String SUCCESS_CODE = ZERO;
 
-    public static final String FAILURE_CODE = ONE;
+     String FAILURE_CODE = ONE;
 
 
-    public static final String DOT_XML = ".xml";
+     String DOT_XML = ".xml";
 
-    public static final String HTML_NBSP = "&nbsp;";
+     String HTML_NBSP = "&nbsp;";
 
-    public static final String HTML_AMP = "&amp;";
+     String HTML_AMP = "&amp;";
 
-    public static final String HTML_QUOTE = "&quot;";
+     String HTML_QUOTE = "&quot;";
 
-    public static final String HTML_LT = "&lt;";
+     String HTML_LT = "&lt;";
 
-    public static final String HTML_GT = "&gt;";
+     String HTML_GT = "&gt;";
 
-    public static final String DOLLAR_LEFT_BRACE = "${";
+     String DOLLAR_LEFT_BRACE = "${";
 
-    public static final String HASH_LEFT_BRACE = "#{";
+     String HASH_LEFT_BRACE = "#{";
 
     /**
      * 系统字符集编码
      */
-    public static final String CHARSET_DEFAULT = Charset.defaultCharset().name();
+     String CHARSET_DEFAULT = Charset.defaultCharset().name();
 
     /**
      * java项目根路径
      */
-    public static final String PROJECT_PATH = System.getProperty("user.dir")  + File.separatorChar;
+     String PROJECT_PATH = System.getProperty("user.dir")  + File.separatorChar;
 
     /**
      * 操作系统的临时目录 Temp\  已经携带 File.separatorChar 字符
      */
-    public static final String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
+     String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
 
 }

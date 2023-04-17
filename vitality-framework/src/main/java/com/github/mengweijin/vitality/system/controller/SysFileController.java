@@ -1,6 +1,6 @@
-package com.github.mengweijin.vitality.admin.system.controller;
+package com.github.mengweijin.vitality.system.controller;
 
-import com.github.mengweijin.vitality.admin.system.entity.SysFile;
+import com.github.mengweijin.vitality.system.entity.SysFile;
 import com.github.mengweijin.vitality.framework.exception.MinioServiceException;
 import com.github.mengweijin.vitality.framework.minio.MinioService;
 import com.github.mengweijin.vitality.framework.util.DownLoadUtils;

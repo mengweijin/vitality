@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.admin.system.entity;
+package com.github.mengweijin.vitality.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

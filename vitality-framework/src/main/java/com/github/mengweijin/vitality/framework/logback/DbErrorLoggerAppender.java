@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.admin.logback;
+package com.github.mengweijin.vitality.framework.logback;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -10,8 +10,8 @@ import ch.qos.logback.classic.spi.StackTraceElementProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
-import com.github.mengweijin.vitality.admin.system.entity.SysErrorLog;
-import com.github.mengweijin.vitality.admin.system.service.SysErrorLogService;
+import com.github.mengweijin.vitality.system.entity.SysErrorLog;
+import com.github.mengweijin.vitality.system.service.SysErrorLogService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;

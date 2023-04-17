@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 /**
  * @author mengweiijin
  */
+@Deprecated
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)

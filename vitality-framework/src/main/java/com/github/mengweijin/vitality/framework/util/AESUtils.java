@@ -6,6 +6,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.FileInputStream;
@@ -80,10 +81,6 @@ public class AESUtils {
         aes.decrypt(in, out, true);
     }
 
-    public static String generateRandomKey() {
-        return IdUtil.fastSimpleUUID().substring(0, 16);
-    }
-
     /**
      * 注意：不要使用下面的方式：
      * keygen.init(128, new SecureRandom(encodeRules.getBytes()));
@@ -96,7 +93,7 @@ public class AESUtils {
      * SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG") ;
      * secureRandom.setSeed(key.getBytes(StandardCharsets.UTF_8));
      */
-    private static byte[] generateSecretKey(String key, int keySize) {
+    public static byte[] generateSecretKey(String key, int keySize) {
         try {
             SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
             secureRandom.setSeed(key.getBytes(StandardCharsets.UTF_8));
@@ -106,14 +103,17 @@ public class AESUtils {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public static String generateRandomKey() {
+        return IdUtil.fastSimpleUUID().substring(0, 16);
     }
 
     /**
      * 使用 generateSecretKey 方法来代替。这里仅做原生的写法展示。
      */
     @Deprecated
-    public static byte[] generateSecretKeyByKeyGenerator(String key, int keySize) throws NoSuchAlgorithmException {
+    private static byte[] generateSecretKeyByKeyGenerator(String key, int keySize) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(SymmetricAlgorithm.AES.getValue());
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG") ;
         secureRandom.setSeed(key.getBytes(StandardCharsets.UTF_8));

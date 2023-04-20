@@ -32,7 +32,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hutool.version>5.8.17</hutool.version>
+        <hutool.version>5.8.18</hutool.version>
+        <zxing.version>3.5.1</zxing.version>
         <minio.version>8.5.2</minio.version>
         <jsoup.version>1.15.4</jsoup.version>
         <mybatis-plus.version>4.0.8</mybatis-plus.version>
@@ -74,6 +75,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.minio</groupId>

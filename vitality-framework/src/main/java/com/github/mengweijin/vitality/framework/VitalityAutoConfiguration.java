@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.framework;
 
+import com.github.mengweijin.vitality.framework.otp.TOTPService;
 import com.github.mengweijin.vitality.system.VitalitySystemBeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -34,5 +35,10 @@ public class VitalityAutoConfiguration {
     @Bean
     public static VitalitySystemBeanDefinitionRegistryPostProcessor vitalitySystemBeanDefinitionRegistryPostProcessor() {
         return new VitalitySystemBeanDefinitionRegistryPostProcessor();
+    }
+
+    @Bean
+    public TOTPService totpService() {
+        return new TOTPService();
     }
 }

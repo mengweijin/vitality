@@ -12,8 +12,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author mengweijin
  * @date 2023/4/16
@@ -26,7 +24,8 @@ class TOTPServiceTest {
      * StrUtil.format("otpauth://totp/{}?secret={}", account, secretKey);
      * 比如：admin，也可以随意定义，比如加上系统名称：vitality_admin
      */
-    private static final String account = "admin";
+    private static final String label = "admin";
+    private static final String issuer = "vitality";
 
     /**
      * 这里仅作测试，使用下面代码生产随机的 secretKey。
@@ -65,7 +64,7 @@ class TOTPServiceTest {
      * 响应给客户端的二维码
      */
     public void generateQRCode() {
-        String qrCodeContent = StrUtil.format("otpauth://totp/{}?secret={}", account, SECRET_KEY);
+        String qrCodeContent = StrUtil.format("otpauth://totp/{}?secret={}&issuer={}", label, SECRET_KEY, issuer);
         String filePath = Const.PROJECT_PATH + "target/qrcode.png";
         QrCodeUtil.generate(qrCodeContent, 300, 300, FileUtil.file(filePath));
         System.out.println("二维码路径：" + filePath);

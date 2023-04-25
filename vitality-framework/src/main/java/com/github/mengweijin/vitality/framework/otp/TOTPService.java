@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
+ * 手机客户端可以使用：Microsoft Authenticator
  * @author mengweijin
  * @date 2023/4/16
  */

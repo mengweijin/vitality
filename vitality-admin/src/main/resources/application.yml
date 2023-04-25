@@ -82,10 +82,31 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，默认对返回类型为Map的对象的key不起作用，所以需要使用自定义MybatisMapWrapperFactory类来处理
     map-underscore-to-camel-case: true
-# Spring Boot的 actuator（健康监控）功能，访问：http://localhost:80/actuator
+# Spring Boot的 actuator（健康监控）功能，访问：http://localhost:8080/actuator
 # management.server: ManagementServerProperties.java
-# management.endpoints.web: WebEndpointProperties.java  默认：http://localhost:80/actuator/health
+# management.endpoints.web: WebEndpointProperties.java  默认：http://localhost:8080/actuator/health
 # management.endpoint.health: HealthEndpointProperties.java
+# springdoc-openapi项目配置
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.github.mengweijin
+# knife4j的增强配置。http://localhost:8080/doc.html
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体类列表
+  production: false
 decorator:
   datasource:
     enabled: false

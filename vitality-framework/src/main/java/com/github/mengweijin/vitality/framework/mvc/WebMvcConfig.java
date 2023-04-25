@@ -59,7 +59,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if(vitalityProperties.isDebug()) {
-            registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").setCacheControl(CacheControl.noStore());
+            registry
+                    // 设置哪些页面的静态资源不缓存，比如：[ "/**/index.html", "/" ]。
+                    // 不要配置为 "/**"，会使某些页面 404 无法加载，比如 Knife4j 的 doc.html。
+                    .addResourceHandler("/")
+                    .addResourceLocations("classpath:/static/")
+                    .setCacheControl(CacheControl.noStore());
         }
     }
 

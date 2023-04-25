@@ -6,3 +6,5 @@ decorator:
     enabled: false
 vitality:
   debug: false
+knife4j:
+  production: true

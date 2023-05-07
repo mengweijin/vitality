@@ -10,154 +10,132 @@ import java.nio.charset.Charset;
  **/
 public interface Const {
 
-     String TILDA = "~";
+    String TILDA = "~";
 
-     String BACKTICK = "`";
+    String BACKTICK = "`";
 
-     String EXCLAMATION_MARK = "!";
+    String EXCLAMATION_MARK = "!";
 
-     String AT = "@";
+    String AT = "@";
 
-     String HASH = "#";
+    String HASH = "#";
 
-     String DOLLAR = "$";
+    String DOLLAR = "$";
 
-     String PERCENT = "%";
+    String PERCENT = "%";
 
-     String CARET = "^";
+    String CARET = "^";
 
-     String AMPERSAND = "&";
+    String AMPERSAND = "&";
 
-     String ASTERISK = "*";
+    String ASTERISK = "*";
 
-     String STAR = ASTERISK;
+    String STAR = ASTERISK;
 
-     String LEFT_BRACKET = "(";
+    String LEFT_BRACKET = "(";
 
-     String RIGHT_BRACKET = ")";
+    String RIGHT_BRACKET = ")";
 
-     String DASH = "-";
+    String DASH = "-";
 
-     String UNDERSCORE = "_";
+    String UNDERSCORE = "_";
 
-     String PLUS = "+";
+    String PLUS = "+";
 
-     String EQUAL = "=";
+    String EQUAL = "=";
 
-     String LEFT_BRACE = "{";
+    String LEFT_BRACE = "{";
 
-     String RIGHT_BRACE = "}";
+    String RIGHT_BRACE = "}";
 
-     String LEFT_SQ_BRACKET = "[";
+    String LEFT_SQ_BRACKET = "[";
 
-     String RIGHT_SQ_BRACKET = "]";
+    String RIGHT_SQ_BRACKET = "]";
 
-     String PIPE = "|";
+    String PIPE = "|";
 
-     String BACK_SLASH = "\\";
+    String BACK_SLASH = "\\";
 
-     String SLASH = "/";
+    String SLASH = "/";
 
-     String COLON = ":";
+    String COLON = ":";
 
-     String SEMICOLON = ";";
+    String SEMICOLON = ";";
 
-     String QUOTE = "\"";
+    String QUOTE = "\"";
 
-     String SINGLE_QUOTE = "'";
+    String SINGLE_QUOTE = "'";
 
-     String LEFT_CHEV = "<";
+    String LEFT_CHEV = "<";
 
-     String RIGHT_CHEV = ">";
+    String RIGHT_CHEV = ">";
 
-     String COMMA = ",";
+    String COMMA = ",";
 
-     String DOT = ".";
+    String DOT = ".";
 
-     String DOTDOT = "..";
+    String DOTDOT = "..";
 
-     String QUESTION_MARK = "?";
+    String QUESTION_MARK = "?";
 
-     String EMPTY = "";
+    String EMPTY = "";
 
-     String NEWLINE = "\n";
+    String NEWLINE = "\n";
 
-     String NEWLINE_HTML = "<br>";
+    String NEWLINE_HTML = "<br>";
 
-     String TAB = "\t";
+    String TAB = "\t";
 
-     String RETURN = "\r";
+    String RETURN = "\r";
 
-     String CRLF = "\r\n";
+    String CRLF = "\r\n";
 
-     String SPACE = " ";
+    String SPACE = " ";
 
-     String NULL = "null";
+    String NULL = "null";
 
-     String TRUE = "true";
+    String DOT_XML = ".xml";
 
-     String FALSE = "false";
+    String HTML_NBSP = "&nbsp;";
 
-     String YES = "YES";
+    String HTML_AMP = "&amp;";
 
-     String NO = "NO";
+    String HTML_QUOTE = "&quot;";
 
-     String Y = "Y";
+    String HTML_LT = "&lt;";
 
-     String N = "N";
+    String HTML_GT = "&gt;";
 
-     String ON = "ON";
+    String DOLLAR_LEFT_BRACE = "${";
 
-     String OFF = "OFF";
+    String HASH_LEFT_BRACE = "#{";
 
-     String ZERO = "0";
+    String Y = "Y";
+    String N = "N";
 
-     String ONE = "1";
+    String ON = "ON";
+    String OFF = "OFF";
 
-    /**
-     * 成功
-     */
-     String SUCCESS = "SUCCESS";
+    String SUCCESS = "SUCCESS";
+    String FAILURE = "FAILURE";
 
-    /**
-     * 失败
-     */
-     String FAILURE = "FAILURE";
+    int ENABLED = 0;
+    int DISABLED = 1;
 
-     String SUCCESS_CODE = ZERO;
-
-     String FAILURE_CODE = ONE;
-
-
-     String DOT_XML = ".xml";
-
-     String HTML_NBSP = "&nbsp;";
-
-     String HTML_AMP = "&amp;";
-
-     String HTML_QUOTE = "&quot;";
-
-     String HTML_LT = "&lt;";
-
-     String HTML_GT = "&gt;";
-
-     String DOLLAR_LEFT_BRACE = "${";
-
-     String HASH_LEFT_BRACE = "#{";
 
     /**
      * 系统字符集编码
      */
-     String CHARSET_DEFAULT = Charset.defaultCharset().name();
+    String CHARSET_DEFAULT = Charset.defaultCharset().name();
 
     /**
      * java项目根路径
      */
-     String PROJECT_PATH = System.getProperty("user.dir")  + File.separatorChar;
+    String PROJECT_PATH = System.getProperty("user.dir") + File.separatorChar;
 
     /**
      * 操作系统的临时目录 Temp\  已经携带 File.separatorChar 字符
      */
-     String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
+    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
 
 }

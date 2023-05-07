@@ -17,12 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.concurrent.CompletableFuture;
 
 /**
- * No additional configuration.
+ * No need additional configuration.
  * @author mengweijin
  * @date 2023/4/1
  */
@@ -53,29 +55,31 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
 
     @Override
     protected void append(ILoggingEvent loggingEvent) {
-        LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-        IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
+        CompletableFuture.runAsync(() -> {
+            try {
+                LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+                IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-        VtlErrorLog vtlErrorLog = new VtlErrorLog();
-        if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
-            StackTraceElement element = loggingEvent.getCallerData()[0];
-            vtlErrorLog.setClassName(element.getClassName());
-            vtlErrorLog.setMethodName(element.getMethodName());
-        }
+                VtlErrorLog vtlErrorLog = new VtlErrorLog();
+                if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
+                    StackTraceElement element = loggingEvent.getCallerData()[0];
+                    vtlErrorLog.setClassName(element.getClassName());
+                    vtlErrorLog.setMethodName(element.getMethodName());
+                }
 
-        if (throwableProxy != null) {
-            vtlErrorLog.setExceptionName(throwableProxy.getClassName());
-            vtlErrorLog.setStackTrace(this.getStackTraceMsg(throwableProxy));
-        }
-        vtlErrorLog.setErrorMsg(loggingEvent.getMessage());
-        vtlErrorLog.setCreateTime(createTime);
+                if (throwableProxy != null) {
+                    vtlErrorLog.setExceptionName(throwableProxy.getClassName());
+                    vtlErrorLog.setStackTrace(this.getStackTraceMsg(throwableProxy));
+                }
+                vtlErrorLog.setErrorMsg(loggingEvent.getMessage());
+                vtlErrorLog.setCreateTime(createTime);
 
-        try {
-            // 错误日志实体类写入数据库
-            vtlErrorLogService.save(vtlErrorLog);
-        } catch (RuntimeException e) {
-            this.addError("Record error log to database failed! " + e.getMessage());
-        }
+                // 错误日志实体类异步写入数据库
+                vtlErrorLogService.save(vtlErrorLog);
+            } catch (RuntimeException e) {
+                this.addError("Record error log to database failed! " + e.getMessage());
+            }
+        });
     }
 
     /**

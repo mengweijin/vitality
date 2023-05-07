@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS SYS_ERROR_LOG;
-CREATE TABLE SYS_ERROR_LOG (
+DROP TABLE IF EXISTS VTL_ERROR_LOG;
+CREATE TABLE VTL_ERROR_LOG (
   ID                            bigint NOT NULL COMMENT '主键ID',
   CLASS_NAME                    varchar(255) DEFAULT NULL COMMENT '类名称',
   METHOD_NAME                   varchar(255) DEFAULT NULL COMMENT '方法名称',
@@ -14,8 +14,8 @@ CREATE TABLE SYS_ERROR_LOG (
 ) COMMENT = '系统错误日志记录表';
 
 
-DROP TABLE IF EXISTS SYS_FILE;
-CREATE TABLE SYS_FILE (
+DROP TABLE IF EXISTS VTL_FILE;
+CREATE TABLE VTL_FILE (
   ID                            bigint NOT NULL COMMENT '主键ID',
   FILE_NAME                     varchar(255) NOT NULL COMMENT '原始文件名称',
   FILE_PATH                     varchar(255) NOT NULL COMMENT 'minio 文件存储全路径',
@@ -29,8 +29,8 @@ CREATE TABLE SYS_FILE (
 ) COMMENT = '系统文件表';
 
 
-DROP TABLE IF EXISTS SYS_USER;
-CREATE TABLE SYS_USER (
+DROP TABLE IF EXISTS VTL_USER;
+CREATE TABLE VTL_USER (
   ID                            bigint NOT NULL COMMENT '主键ID',
   LOGIN_NAME                    varchar(64) NOT NULL COMMENT '用户登录名',
   PASSWORD                      varchar(64) NOT NULL COMMENT '登录密码',
@@ -46,13 +46,13 @@ CREATE TABLE SYS_USER (
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id),
-  UNIQUE KEY SYS_USER_UNIQUE_INDEX_LOGIN_NAME (LOGIN_NAME) USING BTREE
+  UNIQUE KEY VTL_USER_UNIQUE_INDEX_LOGIN_NAME (LOGIN_NAME) USING BTREE
 ) COMMENT = '用户表';
-insert into SYS_USER values(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+insert into VTL_USER values(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
-DROP TABLE IF EXISTS SYS_USER_PROFILE;
-CREATE TABLE SYS_USER_PROFILE (
+DROP TABLE IF EXISTS VTL_USER_PROFILE;
+CREATE TABLE VTL_USER_PROFILE (
   ID                            bigint NOT NULL COMMENT '主键ID',
   USER_ID                       bigint NOT NULL COMMENT '用户ID',
   PROFILE_PICTURE               longtext DEFAULT NULL COMMENT '用户头像，以 Base64 文本存储的大字段。',
@@ -61,6 +61,6 @@ CREATE TABLE SYS_USER_PROFILE (
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id),
-  UNIQUE KEY SYS_USER_PROFILE_UNIQUE_INDEX_USER_ID (USER_ID) USING BTREE
+  UNIQUE KEY VTL_USER_PROFILE_UNIQUE_INDEX_USER_ID (USER_ID) USING BTREE
 ) COMMENT = '用户头像存储表';
 

@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.mengweijin.vitality.system.entity.SysErrorLog;
+import com.github.mengweijin.vitality.system.entity.VtlErrorLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2023/4/1
  */
 @Mapper
-public interface SysErrorLogMapper extends BaseMapper<SysErrorLog> {
+public interface VtlErrorLogMapper extends BaseMapper<VtlErrorLog> {
 
 }

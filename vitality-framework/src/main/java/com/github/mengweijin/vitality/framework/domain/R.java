@@ -73,10 +73,8 @@ public class R implements Serializable {
      * add a message
      *
      * @param message message
-     * @return this
      */
-    public R appendMessage(String message) {
+    public void appendMessage(String message) {
         this.message = this.message == null ? message : (this.message +  " | " + message);
-        return this;
     }
 }

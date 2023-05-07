@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.github.mengweijin.vitality.system.entity.SysFile;
+import com.github.mengweijin.vitality.system.entity.VtlFile;
 import com.github.mengweijin.vitality.framework.exception.MinioServiceException;
 import com.github.mengweijin.vitality.framework.minio.MinioService;
 import com.github.mengweijin.vitality.framework.util.DownLoadUtils;
@@ -42,9 +42,9 @@ public class SysFileController {
      */
     @PostMapping("/download/{fileId}")
     public void download(@PathVariable("fileId") String fileId, HttpServletRequest request, HttpServletResponse response) {
-        SysFile sysFile = new SysFile();
-        try(GetObjectResponse getObjectResponse = minioService.download(sysFile.getFilePath())) {
-            DownLoadUtils.download(getObjectResponse, sysFile.getFileName(), request, response);
+        VtlFile vtlFile = new VtlFile();
+        try(GetObjectResponse getObjectResponse = minioService.download(vtlFile.getFilePath())) {
+            DownLoadUtils.download(getObjectResponse, vtlFile.getFileName(), request, response);
         } catch (IOException e) {
             throw new MinioServiceException(e);
         }

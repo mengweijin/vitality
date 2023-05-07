@@ -14,22 +14,18 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("SYS_ERROR_LOG")
-public class SysErrorLog extends BaseEntity {
+@TableName("VTL_FILE")
+public class VtlFile extends BaseEntity {
 
-    @TableField("CLASS_NAME")
-    private String className;
+    @TableField("FILE_NAME")
+    private String fileName;
 
-    @TableField("METHOD_NAME")
-    private String methodName;
+    @TableField("FILE_PATH")
+    private String filePath;
 
-    @TableField("EXCEPTION_NAME")
-    private String exceptionName;
+    @TableField("DOMAIN_URL")
+    private String domainUrl;
 
-    @TableField("ERROR_MSG")
-    private String errorMsg;
-
-    @TableField("STACK_TRACE")
-    private String stackTrace;
-
+    @TableField("BUCKET")
+    private String bucket;
 }

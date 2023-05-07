@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.system.entity.SysErrorLog;
-import com.github.mengweijin.vitality.system.mapper.SysErrorLogMapper;
+import com.github.mengweijin.vitality.system.entity.VtlErrorLog;
+import com.github.mengweijin.vitality.system.mapper.VtlErrorLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
  * @date 2023/4/1
  */
 @Service
-public class SysErrorLogService extends ServiceImpl<SysErrorLogMapper, SysErrorLog> {
+public class VtlErrorLogService extends ServiceImpl<VtlErrorLogMapper, VtlErrorLog> {
 
     @Autowired
-    private SysErrorLogMapper sysErrorLogMapper;
+    private VtlErrorLogMapper vtlErrorLogMapper;
 
 }

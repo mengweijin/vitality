@@ -10,8 +10,8 @@ import ch.qos.logback.classic.spi.StackTraceElementProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
-import com.github.mengweijin.vitality.system.entity.SysErrorLog;
-import com.github.mengweijin.vitality.system.service.SysErrorLogService;
+import com.github.mengweijin.vitality.system.entity.VtlErrorLog;
+import com.github.mengweijin.vitality.system.service.VtlErrorLogService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ import java.time.ZoneId;
 public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
     @Autowired
-    private SysErrorLogService sysErrorLogService;
+    private VtlErrorLogService vtlErrorLogService;
 
     /**
      * DbErrorLogAppender初始化
@@ -56,23 +56,23 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
         LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
         IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-        SysErrorLog sysErrorLog = new SysErrorLog();
+        VtlErrorLog vtlErrorLog = new VtlErrorLog();
         if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
             StackTraceElement element = loggingEvent.getCallerData()[0];
-            sysErrorLog.setClassName(element.getClassName());
-            sysErrorLog.setMethodName(element.getMethodName());
+            vtlErrorLog.setClassName(element.getClassName());
+            vtlErrorLog.setMethodName(element.getMethodName());
         }
 
         if (throwableProxy != null) {
-            sysErrorLog.setExceptionName(throwableProxy.getClassName());
-            sysErrorLog.setStackTrace(this.getStackTraceMsg(throwableProxy));
+            vtlErrorLog.setExceptionName(throwableProxy.getClassName());
+            vtlErrorLog.setStackTrace(this.getStackTraceMsg(throwableProxy));
         }
-        sysErrorLog.setErrorMsg(loggingEvent.getMessage());
-        sysErrorLog.setCreateTime(createTime);
+        vtlErrorLog.setErrorMsg(loggingEvent.getMessage());
+        vtlErrorLog.setCreateTime(createTime);
 
         try {
             // 错误日志实体类写入数据库
-            sysErrorLogService.save(sysErrorLog);
+            vtlErrorLogService.save(vtlErrorLog);
         } catch (RuntimeException e) {
             this.addError("Record error log to database failed! " + e.getMessage());
         }

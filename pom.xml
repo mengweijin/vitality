@@ -33,13 +33,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.8.18</hutool.version>
+        <hutool6.version>6.0.0.M3</hutool6.version>
         <zxing.version>3.5.1</zxing.version>
         <minio.version>8.5.2</minio.version>
-        <jsoup.version>1.15.4</jsoup.version>
+        <jsoup.version>1.16.1</jsoup.version>
         <mybatis-plus.version>4.0.8</mybatis-plus.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
-        <easyexcel.version>3.2.1</easyexcel.version>
+        <easyexcel.version>3.3.1</easyexcel.version>
         <knife4j.version>4.1.0</knife4j.version>
     </properties>
 
@@ -76,6 +77,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dromara.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool6.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>

@@ -1,7 +1,5 @@
 package com.github.mengweijin.vitality.framework.filter.xss;
 
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.ReUtil;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -10,6 +8,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.dromara.hutool.core.regex.ReUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

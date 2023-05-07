@@ -1,7 +1,5 @@
 package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +10,9 @@ import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.schema.Column;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.text.StrUtil;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,10 +1,10 @@
 package com.github.mengweijin.vitality.framework.otp;
 
-import cn.hutool.core.codec.Base32;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.digest.otp.TOTP;
-import cn.hutool.extra.qrcode.QrCodeUtil;
-import cn.hutool.extra.qrcode.QrConfig;
+import org.dromara.hutool.core.codec.binary.Base32;
+import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.crypto.digest.otp.TOTP;
+import org.dromara.hutool.extra.qrcode.QrCodeUtil;
+import org.dromara.hutool.extra.qrcode.QrConfig;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -28,9 +28,9 @@ public class TOTPService {
      * @param issuer 代表应用名称，系统名称、代号等，比如 Google。
      * @return 图片 Base64 编码字符串
      */
-    public static String generateQRCode(String secretKey, String label, String issuer) {
+    public static String generateQrCode(String secretKey, String label, String issuer) {
         String qrCodeContent = StrUtil.format("otpauth://totp/{}?secret={}&issuer={}", label, secretKey, issuer);
-        return QrCodeUtil.generateAsBase64(qrCodeContent, QR_CONFIG, QrCodeUtil.QR_TYPE_SVG);
+        return QrCodeUtil.generateAsBase64DataUri(qrCodeContent, QR_CONFIG, QrCodeUtil.QR_TYPE_SVG);
     }
 
     public static boolean validate(String secretKey, int code) {

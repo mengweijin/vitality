@@ -1,8 +1,9 @@
 package com.github.mengweijin.vitality.framework.domain;
 
-import cn.hutool.extra.spring.SpringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dromara.hutool.extra.spring.SpringUtil;
+
 /**
  * @author mengweijin
  * @date 2022/5/17

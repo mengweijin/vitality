@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.framework;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.text.CharSequenceUtil;
 import com.github.mengweijin.vitality.framework.util.AESUtils;
+import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;

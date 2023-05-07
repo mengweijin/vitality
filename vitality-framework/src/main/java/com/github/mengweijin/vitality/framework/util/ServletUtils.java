@@ -1,17 +1,17 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.NumberUtil;
-import cn.hutool.extra.servlet.JakartaServletUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.framework.domain.R;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.dromara.hutool.core.math.NumberUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.dromara.hutool.extra.spring.SpringUtil;
+import org.dromara.hutool.http.server.servlet.JakartaServletUtil;
+import org.dromara.hutool.http.useragent.UserAgent;
+import org.dromara.hutool.http.useragent.UserAgentUtil;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -49,7 +49,7 @@ public class ServletUtils extends JakartaServletUtil {
      * 获取String参数
      */
     public static String getParameter(String name, String defaultValue) {
-        return CharSequenceUtil.blankToDefault(getParameter(name), defaultValue);
+        return CharSequenceUtil.defaultIfBlank(getParameter(name), defaultValue);
     }
 
     /**

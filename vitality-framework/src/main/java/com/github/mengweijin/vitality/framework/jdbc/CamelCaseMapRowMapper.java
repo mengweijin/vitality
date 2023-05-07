@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.framework.jdbc;
 
-import cn.hutool.core.text.CharSequenceUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
-
 import java.util.Locale;
 
 /**
@@ -19,6 +19,7 @@ public class CamelCaseMapRowMapper extends ColumnMapRowMapper {
      * @param columnName columnName
      * @return columnName
      */
+    @NotNull
     @Override
     protected String getColumnKey(String columnName) {
         return CharSequenceUtil.toCamelCase(columnName.toLowerCase(Locale.ROOT));

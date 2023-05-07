@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework.filter.repeatable;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -8,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.springframework.http.MediaType;
 import java.io.IOException;
 

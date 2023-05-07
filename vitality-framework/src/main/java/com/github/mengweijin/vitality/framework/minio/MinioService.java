@@ -1,9 +1,7 @@
 package com.github.mengweijin.vitality.framework.minio;
 
-import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.util.IdUtil;
-import com.github.mengweijin.vitality.framework.exception.MinioServiceException;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.exception.MinioServiceException;
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
@@ -18,9 +16,12 @@ import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -80,7 +81,7 @@ public class MinioService {
 
     public String upload(MultipartFile file) {
         String bucket = minioProperties.getBucket();
-        String filePath = LocalDateTimeUtil.format(LocalDate.now(), "yyyy/MM/dd") + Const.SLASH + IdUtil.simpleUUID() + Const.SLASH + file.getOriginalFilename();
+        String filePath = DateUtil.format(LocalDateTime.now(), "yyyy/MM/dd") + Const.SLASH + IdUtil.simpleUUID() + Const.SLASH + file.getOriginalFilename();
         try {
             if(!this.bucketExists(bucket)) {
                 this.makeBucket(bucket);

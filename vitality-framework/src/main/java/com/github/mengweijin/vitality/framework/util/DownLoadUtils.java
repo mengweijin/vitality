@@ -1,13 +1,12 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.hutool.core.io.IoUtil;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
+import org.dromara.hutool.core.io.IoUtil;
 import org.springframework.http.HttpHeaders;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,7 +48,7 @@ public class DownLoadUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            IoUtil.close(in);
+            IoUtil.closeQuietly(in);
         }
     }
 

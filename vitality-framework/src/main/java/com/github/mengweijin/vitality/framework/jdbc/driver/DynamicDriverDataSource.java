@@ -1,11 +1,11 @@
 package com.github.mengweijin.vitality.framework.jdbc.driver;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.lang.JarClassLoader;
-import cn.hutool.db.dialect.DialectFactory;
 import com.github.mengweijin.vitality.framework.exception.BusinessException;
 import lombok.Getter;
+import org.dromara.hutool.core.classloader.JarClassLoader;
+import org.dromara.hutool.core.io.file.FileUtil;
+import org.dromara.hutool.core.lang.Assert;
+import org.dromara.hutool.db.dialect.DialectFactory;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.PrintWriter;
@@ -40,7 +40,7 @@ public class DynamicDriverDataSource implements DataSource {
 
     public DynamicDriverDataSource(File jarFile, String url, String username, String password) {
         Assert.notNull(jarFile);
-        if(!FileUtil.exist(jarFile)) {
+        if(!FileUtil.exists(jarFile)) {
             throw new BusinessException("File not exist at path " + jarFile.getAbsolutePath());
         }
         this.classLoader = JarClassLoader.loadJar(jarFile);

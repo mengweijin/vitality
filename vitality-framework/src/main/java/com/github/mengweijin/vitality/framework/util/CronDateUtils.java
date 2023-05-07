@@ -1,8 +1,7 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.scheduling.support.CronExpression;
-
 import java.util.Date;
 
 /**

@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.system;
 
-import cn.hutool.core.util.ClassUtil;
+import org.dromara.hutool.core.reflect.ClassUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 public class VitalitySystemBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(@NotNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
         //scanner.addIncludeFilter(new AnnotationTypeFilter(Mapper.class));
         String pkg = ClassUtil.getPackage(VitalitySystemBeanDefinitionRegistryPostProcessor.class);
@@ -22,7 +23,7 @@ public class VitalitySystemBeanDefinitionRegistryPostProcessor implements BeanDe
     }
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
 

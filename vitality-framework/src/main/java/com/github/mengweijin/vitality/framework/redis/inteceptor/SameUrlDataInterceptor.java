@@ -1,13 +1,12 @@
 package com.github.mengweijin.vitality.framework.redis.inteceptor;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.redis.RedisService;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.Map;

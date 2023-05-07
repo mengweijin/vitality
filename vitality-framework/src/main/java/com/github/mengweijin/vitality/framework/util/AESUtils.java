@@ -1,12 +1,11 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.crypto.KeyUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.AES;
-import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.crypto.KeyUtil;
+import org.dromara.hutool.crypto.SecureUtil;
+import org.dromara.hutool.crypto.symmetric.AES;
+import org.dromara.hutool.crypto.symmetric.SymmetricAlgorithm;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.FileInputStream;
@@ -23,14 +22,14 @@ import java.security.SecureRandom;
 @Slf4j
 public class AESUtils {
 
-    private static final AES aes = new AES();
+    private static final AES INSTANCE = new AES();
 
     public static String encrypt(String value) {
-        return aes.encryptBase64(value);
+        return INSTANCE.encryptBase64(value);
     }
 
     public static String decrypt(String value) {
-        return aes.decryptStr(value);
+        return INSTANCE.decryptStr(value);
     }
 
     public static String encryptByKey(String key, String value) {

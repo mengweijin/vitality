@@ -14,6 +14,6 @@ import org.springframework.stereotype.Service;
 public class VtlErrorLogService extends ServiceImpl<VtlErrorLogMapper, VtlErrorLog> {
 
     @Autowired
-    private VtlErrorLogMapper vtlErrorLogMapper;
+    private VtlErrorLogMapper errorLogMapper;
 
 }

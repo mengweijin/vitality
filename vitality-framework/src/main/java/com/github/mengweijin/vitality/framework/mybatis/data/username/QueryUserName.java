@@ -7,17 +7,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Not useful.
  * Can only be used in *Mapper.java. More detail refer to {@link SysUserNameInnerInterceptor}
  * @author mengweijin
  * @date 2022/11/20
  */
+@Deprecated
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface QueryUserName {
-
-    boolean createByName() default true;
-
-    boolean updateByName() default true;
 
 }

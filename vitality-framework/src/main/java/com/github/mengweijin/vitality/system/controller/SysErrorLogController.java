@@ -25,39 +25,39 @@ import java.util.Arrays;
 @RequestMapping("/vtl-error-log")
 public class SysErrorLogController {
     @Autowired
-    private VtlErrorLogService vtlErrorLogService;
+    private VtlErrorLogService errorLogService;
 
     @PostMapping
     public R add(VtlErrorLog vtlErrorLog) {
-        boolean bool = vtlErrorLogService.save(vtlErrorLog);
+        boolean bool = errorLogService.save(vtlErrorLog);
         return R.bool(bool);
     }
 
     @PutMapping
     public R edit(VtlErrorLog vtlErrorLog) {
-        boolean bool = vtlErrorLogService.updateById(vtlErrorLog);
+        boolean bool = errorLogService.updateById(vtlErrorLog);
         return R.bool(bool);
     }
 
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
-        boolean bool = vtlErrorLogService.removeById(id);
+        boolean bool = errorLogService.removeById(id);
         return R.bool(bool);
     }
 
     @DeleteMapping
     public R delete(Long[] ids) {
-        boolean bool = vtlErrorLogService.removeBatchByIds(Arrays.asList(ids));
+        boolean bool = errorLogService.removeBatchByIds(Arrays.asList(ids));
         return R.bool(bool);
     }
 
     @GetMapping("/{id}")
     public VtlErrorLog getById(@PathVariable("id") Long id) {
-        return vtlErrorLogService.getById(id);
+        return errorLogService.getById(id);
     }
 
     @GetMapping("/page")
     public IPage<VtlErrorLog> page(Page<VtlErrorLog> page, VtlErrorLog vtlErrorLog) {
-        return vtlErrorLogService.page(page, new QueryWrapper<>(vtlErrorLog));
+        return errorLogService.page(page, new QueryWrapper<>(vtlErrorLog));
     }
 }

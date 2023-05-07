@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.mybatis.data.MapperUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
@@ -13,7 +14,6 @@ import net.sf.jsqlparser.schema.Column;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.text.StrUtil;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,22 +27,13 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
 
     @Override
     public Expression getSqlSegment(Expression where, String mappedStatementId) {
-        log.debug("BaseDataPermissionHandler Expression where = {}", where);
-        log.debug("BaseDataPermissionHandler mappedStatementId = {}", mappedStatementId);
-        try {
-            Class<?> clazz = Class.forName(mappedStatementId.substring(0, mappedStatementId.lastIndexOf(Const.DOT)));
-            String methodName = mappedStatementId.substring(mappedStatementId.lastIndexOf(Const.DOT) + 1);
-            Method[] methods = clazz.getDeclaredMethods();
-            for (Method method : methods) {
-                DataScope dataScope = method.getAnnotation(DataScope.class);
-                if (dataScope != null && method.getName().equals(methodName)) {
-                    return dataScopeFilter(dataScope, where);
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return where;
+        log.debug("BaseDataPermissionHandler Expression where: {}", where);
+        log.debug("BaseDataPermissionHandler mappedStatementId: {}", mappedStatementId);
+
+        return MapperUtils.processMethodExpression(
+                mappedStatementId,
+                DataScope.class,
+                dataScope -> this.dataScopeFilter(dataScope, where));
     }
 
     /**

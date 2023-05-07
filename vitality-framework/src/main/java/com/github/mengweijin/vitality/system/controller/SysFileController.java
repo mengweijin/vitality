@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2022/10/30
  */
 @RestController
-@RequestMapping("/sys-file")
+@RequestMapping("/vtl-file")
 @Validated
 public class SysFileController {
 

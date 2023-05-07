@@ -74,7 +74,7 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
                 vtlErrorLog.setErrorMsg(loggingEvent.getMessage());
                 vtlErrorLog.setCreateTime(createTime);
 
-                // 错误日志实体类异步写入数据库
+                // 错误日志实体类写入数据库
                 vtlErrorLogService.save(vtlErrorLog);
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());

@@ -3,9 +3,9 @@ package com.github.mengweijin.vitality.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.system.entity.VtlErrorLog;
 import com.github.mengweijin.vitality.system.service.VtlErrorLogService;
-import com.github.mengweijin.vitality.framework.domain.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Arrays;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Arrays;
  * @date 2023/4/1
  */
 @RestController
-@RequestMapping("/sys-error-log")
+@RequestMapping("/vtl-error-log")
 public class SysErrorLogController {
     @Autowired
     private VtlErrorLogService vtlErrorLogService;

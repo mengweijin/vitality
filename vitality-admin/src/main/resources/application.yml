@@ -39,7 +39,7 @@ spring:
       pool:
         # default 8  TaskExecutionProperties
         core-size: 8
-    # scheduler Spring调度任务
+    # @Scheduled Spring调度任务
     scheduling:
       pool:
         # default 1  TaskSchedulingProperties

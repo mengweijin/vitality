@@ -18,15 +18,12 @@ public class LongToStringSerializer extends StdSerializer<Long> {
 
     public LongToStringSerializer() { super(Long.class, false); }
 
-    /**
-     * if(value <= JS_MAX_SAFE_INTEGER && value >= JS_MIN_SAFE_INTEGER){
-     *     gen.writeNumber(value);
-     * }else{
-     *     gen.writeString(value.toString());
-     * }
-     */
     @Override
     public void serialize(Long value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-        gen.writeString(value.toString());
+        if(value <= JS_MAX_SAFE_INTEGER && value >= JS_MIN_SAFE_INTEGER){
+            gen.writeNumber(value);
+        }else{
+            gen.writeString(value.toString());
+        }
     }
 }

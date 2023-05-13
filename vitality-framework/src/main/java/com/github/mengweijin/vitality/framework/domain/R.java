@@ -66,7 +66,7 @@ public class R implements Serializable {
     }
 
     public static R bool(boolean flag) {
-        return flag ? R.success() : R.error();
+        return flag ? R.success() : R.error(HttpStatus.NO_CONTENT.value(), HttpStatus.NO_CONTENT.getReasonPhrase() + " or Business Failed.");
     }
 
     /**

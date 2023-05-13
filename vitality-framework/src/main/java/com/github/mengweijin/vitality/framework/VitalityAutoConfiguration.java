@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.logback.DbErrorLoggerAppender;
+import com.github.mengweijin.vitality.framework.log.LogAspect;
+import com.github.mengweijin.vitality.framework.log.DbErrorLoggerAppender;
 import com.github.mengweijin.vitality.framework.otp.TOTPService;
 import com.github.mengweijin.vitality.system.VitalitySystemBeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -34,6 +35,11 @@ public class VitalityAutoConfiguration {
     @Bean
     public static VitalitySystemBeanDefinitionRegistryPostProcessor vitalitySystemBeanDefinitionRegistryPostProcessor() {
         return new VitalitySystemBeanDefinitionRegistryPostProcessor();
+    }
+
+    @Bean
+    public LogAspect logAspect() {
+        return new LogAspect(aopLog -> {});
     }
 
     @Bean

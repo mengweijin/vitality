@@ -18,7 +18,6 @@ public interface CacheConst {
     String NAME_NEVER_EXPIRE = "cache_never_expire";
     String NAME_7_DAY = "cache_7_day";
     String NAME_1_DAY = "cache_1_day";
-    String NAME_12_HOURS = "cache_12_hours";
     String NAME_10_MINUTES = "cache_10_minutes";
     String NAME_1_MINUTES = "cache_1_minutes";
 

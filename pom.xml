@@ -32,8 +32,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hutool.version>5.8.18</hutool.version>
-        <hutool6.version>6.0.0.M3</hutool6.version>
+        <hutool.version>6.0.0.M3</hutool.version>
         <zxing.version>3.5.1</zxing.version>
         <minio.version>8.5.2</minio.version>
         <jsoup.version>1.16.1</jsoup.version>
@@ -74,14 +73,9 @@
                 <version>${flyway-extend.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.dromara.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>${hutool6.version}</version>
+                <version>${hutool.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>

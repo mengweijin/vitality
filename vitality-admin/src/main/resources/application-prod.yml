@@ -1,3 +1,6 @@
+logging:
+  level:
+    com.github.mengweijin: info
 spring:
   thymeleaf:
     cache: true

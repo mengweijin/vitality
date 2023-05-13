@@ -8,7 +8,7 @@ logging:
     name: logs/application.log
   level:
     root: info
-    com.github.mengweijin: info
+    com.github.mengweijin: debug
 spring:
   application:
     name: @project.artifactId@

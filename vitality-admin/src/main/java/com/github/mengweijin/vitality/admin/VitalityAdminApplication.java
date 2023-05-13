@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author mengweijin
  */
-@MapperScan("com.github.mengweijin.vitality.**.mapper")
+@MapperScan({ "com.github.mengweijin.vitality.**.mapper" })
 @SpringBootApplication
 public class VitalityAdminApplication {
 

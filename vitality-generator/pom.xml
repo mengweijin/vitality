@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.mengweijin</groupId>
+    <artifactId>vitality-parent</artifactId>
+    <version>${revision}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>vitality-generator</artifactId>
+  <version>1.3.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>vitality-generator</name>
+  <url>https://gitee.com/mengweijin/vitality</url>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.mengweijin</groupId>
+      <artifactId>vitality-layui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-generator</artifactId>
+      <version>${mybatis-plus-generator.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dromara.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+</project>

@@ -28,19 +28,4 @@
 @import url("module/tag.css");
 @import url("module/fullscreen.css");
 @import url("module/popover.min.css");
-
-
-.layui-form-label {
-    width: 150px;
-}
-.layui-input-block {
-    margin-left: 180px;
-}
-.layui-form-label.required:before {
-    content: '* ';
-    color: red;
-}
-.layui-layer-setwin .layui-layer-close2 {
-    right: -24px;
-    top: -24px;
-}
+@import url("module/vitality.css");

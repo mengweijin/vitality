@@ -35,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        if(vitalityProperties.isAllowedCORS()) {
+        if(vitalityProperties.isAllowedCors()) {
             registry.addMapping("/**")
                     .allowedOriginPatterns("*")
                     .allowedHeaders("*")

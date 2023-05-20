@@ -113,6 +113,6 @@ decorator:
 vitality:
   debug: false
   # 是否允许跨域
-  cors: true
+  allowed-cors: true
   # 默认配置加密 key。如：spring.datasource.password='{cipher}Hzy5iliJbwDHhjLs1L0j6w=='
   #cipher: vitality-abcd-1234

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
     public List<MenuDataVO> tree() {
-        List<VtlMenu> menuList = this.lambdaQuery().le(VtlMenu::getType, EMenuType.BTN.getValue()).eq(VtlMenu::getDisabled, 0).list();
+        List<VtlMenu> menuList = this.lambdaQuery().le(VtlMenu::getType, EMenuType.MENU.getValue()).eq(VtlMenu::getDisabled, 0).list();
         List<MenuDataVO> voList = BeanUtil.copyToList(menuList, MenuDataVO.class);
         voList.forEach(item -> item.setHref(item.getUrl()));
         return this.buildTree(voList, SystemConst.MENU_ROOT_ID);

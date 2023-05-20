@@ -7,7 +7,7 @@ logo:
 ## 菜单配置
 menu: 
   ## 菜单数据来源
-  data: "admin/data/menu.json"
+  data: "http://localhost:8080/vtl-menu/tree"
   ## 菜单接口的请求方式 GET / POST
   method: "GET" 
   ## 是否同时只打开一个菜单目录

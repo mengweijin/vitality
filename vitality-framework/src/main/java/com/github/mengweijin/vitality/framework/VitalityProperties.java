@@ -24,7 +24,7 @@ public class VitalityProperties {
 
     private XssProperties xss = new XssProperties();
 
-    private boolean allowedCORS = false;
+    private boolean allowedCors = false;
 
     private boolean debug = false;
 

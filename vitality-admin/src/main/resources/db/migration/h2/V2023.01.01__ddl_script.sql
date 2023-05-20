@@ -47,6 +47,29 @@ CREATE TABLE VTL_FILE (
 ) COMMENT = '系统文件表';
 
 
+DROP TABLE IF EXISTS VTL_MENU;
+CREATE TABLE VTL_MENU (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  PARENT_ID              		bigint DEFAULT 0 COMMENT '父菜单ID',
+  TITLE 		                varchar(50) NOT NULL COMMENT '菜单标题',
+  TYPE 		                    int(4) DEFAULT 2 COMMENT '菜单类型。{ 0=目录; 1=菜单; 2=按钮; 3=其它 }',
+  PERMISSION 	                varchar(64) NOT NULL COMMENT '权限标识,唯一性约束。',
+  SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',
+  ICON 				            varchar(64) COMMENT '菜单图标',
+  URL 				            varchar(256) COMMENT '菜单请求链接地址',
+  OPEN_TYPE 				    varchar(7) COMMENT '菜单打开类型。当 type 为 1 时，openType 生效，_iframe 正常打开 _blank 新建浏览器标签页',
+  SYSTEM_DEFAULT 				int(4) DEFAULT 0 COMMENT '是否系统内置菜单。{ 0：否；1：是；}',
+  DISABLED                      int(4) DEFAULT 0 NOT NULL COMMENT '是否已禁用。{ 0：正常；1：禁用；}',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_MENU_UNIQUE_INDEX_PERMISSION (PERMISSION) USING BTREE
+) COMMENT = '菜单及权限配置表';
+
+
 DROP TABLE IF EXISTS VTL_USER;
 CREATE TABLE VTL_USER (
   ID                            bigint NOT NULL COMMENT '主键ID',
@@ -66,7 +89,6 @@ CREATE TABLE VTL_USER (
   PRIMARY KEY (id),
   UNIQUE KEY VTL_USER_UNIQUE_INDEX_LOGIN_NAME (LOGIN_NAME) USING BTREE
 ) COMMENT = '用户表';
-insert into VTL_USER values(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
 DROP TABLE IF EXISTS VTL_USER_PROFILE;

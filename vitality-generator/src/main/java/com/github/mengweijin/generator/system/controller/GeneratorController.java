@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping(GeneratorController.PREFIX)
 public class GeneratorController {
-    public static final String PREFIX = "/gen";
+    public static final String PREFIX = "/generator";
 
     @Autowired
     private GeneratorService generatorService;

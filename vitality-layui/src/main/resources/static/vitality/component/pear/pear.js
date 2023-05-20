@@ -45,8 +45,7 @@ layui.config({
 	nprogress: "nprogress",      // 进度过渡
 	watermark:"watermark/watermark", //水印组件
 	fullscreen:"fullscreen",     //全屏组件
-	popover:"popover/popover",    //汽泡组件
-	vitality: "vitality"
+	popover:"popover/popover"    //汽泡组件
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });

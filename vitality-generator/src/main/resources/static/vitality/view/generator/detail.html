@@ -101,15 +101,17 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery', 'dtree', 'http', 'common', 'util'], function() {
+			layui.use(['vitality'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
 				let dtree = layui.dtree;
-				let http = layui.http;
-				let common = layui.common;
 				let util = layui.util;
+				let vtl = layui.vitality;
 
-				let tableName = http.getQueryVariable('name');
+				let url = layui.url();
+				debugger
+
+				let tableName = url.search.name;
 
 				var DTree = dtree.render({
 					elem: "#templateTree",
@@ -119,7 +121,7 @@
 					ficon: ["1", "-1"], // 设定一级图标样式。0表示方形加减图标，8表示小圆点图标
 					icon: ["0", "2"], // 设定二级图标样式。0表示文件夹图标，5表示叶子图标
 					method: 'get',
-					url: "/gen/template/tree"
+					url: "/generator/template/tree"
 				});
 
 				// 绑定节点点击事件
@@ -149,15 +151,15 @@
 				util.event('lay-template-event', {
 					copy: function(othis) {
 						let $code = $("textarea[name='code']");
-                    	common.copyToClip($code.text());
+                    	vtl.copyToClip($code.text());
 					}
 				});
 
 				window.execute = function(templateTreeId) {
-					//let url = "/gen/execute/" + tableName + '?' + http.buildQueryVariable(config);
+					//let url = "/generator/execute/" + tableName + '?' + vtl.buildQueryVariable(config);
 					let config = form.val("form-filter");
 					$.ajax({
-						url: "/gen/execute/" + tableName,
+						url: "/generator/execute/" + tableName,
 						data: JSON.stringify({ templateIdList: [ templateTreeId ], config: config }),
 						dataType: 'text',
 						contentType: 'application/json',
@@ -179,13 +181,13 @@
 						maxmin: true,
 						resize: false,
 						area: ['800px', '450px'],
-						content: 'templateSelector.html?' + http.buildQueryVariable(config)
+						content: 'templateSelector.html?' + vtl.buildQueryVariable(config)
 					});
 				}
 
 				window.initFormValue = function(tableName) {
 					$.ajax({
-						url: "/gen/config/default/" + tableName,
+						url: "/generator/config/default/" + tableName,
 						dataType: 'json',
 						type: 'get',
 						success: function(result) {

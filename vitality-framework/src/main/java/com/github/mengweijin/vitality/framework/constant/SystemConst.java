@@ -9,4 +9,6 @@ public interface SystemConst {
     long ADMIN_ID = 1L;
     String ADMIN_LOGIN_NAME = "admin";
     String ADMIN_ROLE = "role_admin";
+
+    long MENU_ROOT_ID = 0L;
 }

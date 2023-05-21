@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>代码生成器（文档）</title>
+		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
+	</head>
+	<body class="pear-container">
+		<div class="layui-card">
+			<div class="layui-card-body">
+				<blockquote class="layui-elem-quote">
+					<h2>如何自定义 freemarker 模板？</h2>
+					<p>1、在自己项目工程的 <strong>src/main/resources/generator/</strong> 目录下创建一个文件夹，比如叫：demo，此时文件夹路径为 src/main/resources/generator/demo/</p>
+					<p>2、可以从 generator-spring-boot-starter 的jar中的<strong>src/main/resources/generator/</strong>目录下复制默认的 .ftl 文件到上一步的demo文件夹。当然，不复制的话也可以自己创建 .ftl 文件。</p>
+					<p>3、.ftl 文件命名规则（如文件：<strong>{EntityName}Service.java.ftl</strong>）：<br>
+						&emsp; 3.1、用小数点分隔为三段，其中 {EntityName} 为占位符，会被替换为实体类名称，比如：SYS_USER 表，实体类名称为 SysUser。<br>
+						&emsp; 3.2、中间一段（java）为文件后缀，最后一段（ftl）表示 freemarker 的模板后缀。<br>
+						&emsp; 3.3、如果想自己使用一个固定的文件名，比如 list.vue，那么可以直接定义模板名称为：<strong>list.vue.ftl</strong> 即可。
+					</p>
+					<p>4、freemarker 模板参数可参考如下，这样你就可以自定义你的模板了，也能拿到你想要的数据库字段等参数。<br>
+					<pre class="layui-code">
+{
+    "name": "QBT_GEN_DATASOURCE",                                             // 数据库表名称
+    "havePrimaryKey": true,                                                   // 是否有主键
+    "fieldNames": "ID, USERNAME, CREATE_TIME",                                // 表中的字段列名
+    "comment": "QBT_GEN_DATASOURCE",                                          // 数据库表注释
+    "ignoredColumns": "ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME",   // 忽略的表字段
+    "entityName": "QbtGenDatasource",                                         // Entity 实体类名称
+    "packagePath": "com.github.mengweijin",                                   // Entity 实体类包路径
+    "author": "mengweijin",                                                   // 作者
+    "date": "2022-01-01",                                                     // 日期
+    "fields": [
+        {
+            "keyFlag": true,                    // 当前字段是否主键
+            "keyIdentityFlag": false,           // 主键是否为自增类型
+            "columnName": "ID",                 // 列名
+            "columnType": "LONG",               // 列类型
+            "propertyType": "Long",             // Entity 字段属性 Java 类型
+            "propertyName": "id",               // Entity 字段属性名称
+            "propertyTypePackage": null,        // Entity 字段属性 Java 类型对应的 import package 路径
+            "comment": "id",                    // 字段注释
+            "entityIgnored": false              // 是否在 Entity.java 中忽略该字段
+        },
+        {
+            "keyFlag": false,
+            "keyIdentityFlag": false,
+            "columnName": "USERNAME",
+            "columnType": "STRING",
+            "propertyType": "String",
+            "propertyName": "username",
+            "propertyTypePackage": null,
+            "comment": "username",
+            "entityIgnored": false
+        },
+        {
+            "keyFlag": false,
+            "keyIdentityFlag": false,
+            "columnName": "CREATE_TIME",
+            "columnType": "LOCAL_DATE_TIME",
+            "propertyType": "LocalDateTime",
+            "propertyName": "createTime",
+            "propertyTypePackage": "java.time.LocalDateTime",
+            "comment": "creation time",
+            "entityIgnored": true
+        }
+    ]
+}
+                        </pre>
+					</p>
+				</blockquote>
+
+			</div>
+		</div>
+
+		<script src="../../component/layui/layui.js"></script>
+		<script src="../../component/pear/pear.js"></script>
+		<script>
+			layui.use(['code'], function() {
+				let code = layui.code;
+				layui.code({ title: 'Freemarker 模板参数 JSON 示例（单个数据库表）', skin:'dark'});
+			})
+		</script>
+	</body>
+</html>

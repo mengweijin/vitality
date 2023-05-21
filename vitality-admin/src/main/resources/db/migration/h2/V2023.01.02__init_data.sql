@@ -68,8 +68,8 @@ INSERT INTO VTL_MENU VALUES(70000020, 700000, '柱状图', 1, 'sys:echarts:colum
 
 INSERT INTO VTL_MENU VALUES(800000, 0, '开发工具', 0, 'sys:devTools', 800000, 'layui-icon layui-icon-util', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(80000010, 800000, '表单构建', 1, 'sys:devTools:form', 1, null, 'component/code/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_MENU VALUES(80000020, 800000, '代码生成器', 1, 'sys:devTools:generator', 2, null, 'view/generator/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_MENU VALUES(80000030, 800000, '代码生成器（文档）', 1, 'sys:devTools:generatorDocment', 3, null, 'view/generator/document.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MENU VALUES(80000020, 800000, '代码生成器', 1, 'sys:devTools:generator', 2, null, 'views/generator/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MENU VALUES(80000030, 800000, '代码生成器（文档）', 1, 'sys:devTools:generatorDocment', 3, null, 'views/generator/document.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 --
 INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.vitality.system.entity.VtlMessage;
 import lombok.Data;
 import org.dromara.hutool.core.date.DatePattern;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,9 +39,9 @@ public class MessageHeaderMenuDataVO {
 
         private String context;
 
-        private String from;
+        private String form;
 
-        @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+        @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
         private LocalDateTime time;
 
         private String urlLink;
@@ -52,7 +51,7 @@ public class MessageHeaderMenuDataVO {
             this.avatar = message.getAvatar();
             this.title = message.getTitle();
             this.context = message.getDescription();
-            this.from = message.getUpdateByName();
+            this.form = message.getUpdateByName();
             this.time = message.getUpdateTime();
             this.urlLink = message.getUrlLink();
         }

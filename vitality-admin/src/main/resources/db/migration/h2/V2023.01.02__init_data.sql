@@ -1,4 +1,12 @@
 --
+INSERT INTO VTL_MESSAGE VALUES(1, 'NOTICE', 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png', '你收到了 14 份新周报', '这是消息内容。', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MESSAGE VALUES(2, 'NOTICE', 'https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png', '曲妮妮 已通过第三轮面试', '这是消息内容。', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MESSAGE VALUES(3, 'NOTICE', 'https://gw.alipayobjects.com/zos/rmsportal/kISTdvpyTAhtGxpovNWd.png', '可以区分多种通知类型', '这是消息内容。', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MESSAGE VALUES(4, 'NOTICE', 'https://gw.alipayobjects.com/zos/rmsportal/GvqBnKhFgObvnSGkDsje.png', '左侧图标用于区分不同的类型', '这是消息内容。', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MESSAGE VALUES(5, 'NOTICE', 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png', '内容不要超过两行字', '这是消息内容。', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+
+
+--
 INSERT INTO VTL_MENU VALUES(1, 0, '主页', 1, 'sys:home', 1, 'layui-icon layui-icon-home', 'home.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 INSERT INTO VTL_MENU VALUES(100000, 0, '工作空间', 0, 'sys:workspace', 100000, 'layui-icon layui-icon-console', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());

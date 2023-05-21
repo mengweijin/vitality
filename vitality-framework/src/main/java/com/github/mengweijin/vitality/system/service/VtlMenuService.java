@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.SystemConst;
-import com.github.mengweijin.vitality.framework.enums.EMenuType;
+import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.mapper.VtlMenuMapper;
 import com.github.mengweijin.vitality.system.vo.MenuDataVO;

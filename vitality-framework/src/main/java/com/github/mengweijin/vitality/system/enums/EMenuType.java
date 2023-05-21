@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.enums;
+package com.github.mengweijin.vitality.system.enums;
 
 /**
  * @author mengweijin

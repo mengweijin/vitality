@@ -1,3 +1,22 @@
+DROP TABLE IF EXISTS VTL_MESSAGE;
+CREATE TABLE VTL_MESSAGE (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  TYPE                          varchar(10) DEFAULT NULL COMMENT '消息类型。{NOTICE=通知, BACKLOG=待办}',
+  AVATAR                        varchar(255) DEFAULT NULL COMMENT '图像链接url',
+  TITLE                         varchar(255) DEFAULT NULL COMMENT '标题',
+  DESCRIPTION                   varchar(500) DEFAULT NULL COMMENT '内容',
+  POSTED                        int(4) DEFAULT 0 COMMENT '是否已发布。{0=否, 1=是}',
+  CONFIRMED                     int(4) DEFAULT 0 COMMENT '是否已确认。{0=否, 1=是}',
+  HANDLED                       int(4) DEFAULT 0 COMMENT '是否已处理。{0=否, 1=是}',
+  URL_LINK                      varchar(500) DEFAULT NULL COMMENT '跳转URL链接',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id)
+) COMMENT = '系统消息（通知，待办）记录表';
+
+
 DROP TABLE IF EXISTS VTL_LOG_ERROR;
 CREATE TABLE VTL_LOG_ERROR (
   ID                            bigint NOT NULL COMMENT '主键ID',

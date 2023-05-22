@@ -21,12 +21,13 @@ public class VtlMessageService extends ServiceImpl<VtlMessageMapper, VtlMessage>
     public List<MessageHeaderMenuDataVO> headerMenuData() {
         List<VtlMessage> noticeList = this.lambdaQuery()
                 .eq(VtlMessage::getType, EMessageType.NOTICE)
-                .eq(VtlMessage::getPosted, true)
+                .eq(VtlMessage::getReleased, true)
+                .eq(VtlMessage::getConfirmed, false)
                 .list();
 
         List<VtlMessage> backlogList = this.lambdaQuery()
                 .eq(VtlMessage::getType, EMessageType.BACKLOG)
-                .eq(VtlMessage::getPosted, true)
+                .eq(VtlMessage::getReleased, true)
                 .eq(VtlMessage::getHandled, false)
                 .list();
 

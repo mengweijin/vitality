@@ -25,7 +25,7 @@ public class VtlMessage extends BaseEntity {
 
     private String description;
 
-    private Boolean posted;
+    private Boolean released;
 
     private Boolean confirmed;
 

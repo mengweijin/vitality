@@ -55,6 +55,7 @@
 				let $ = layui.jquery;
 				let admin = layui.admin;
 
+
 				let cols = [
 					[
 						{ type: 'checkbox', hide: true },
@@ -103,7 +104,7 @@
 				}
 
 				window.generate = function(tableName) {
-					top.layui.admin.jump(tableName, '生成代码【' + tableName + '】', 'view/generator/detail.html?name=' + tableName)
+					top.layui.admin.jump(tableName, '生成代码【' + tableName + '】', 'views/generator/detail.html?name=' + tableName)
 				}
 
 			})

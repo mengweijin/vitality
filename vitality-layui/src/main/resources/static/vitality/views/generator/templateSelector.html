@@ -32,7 +32,7 @@
 				let dtree = layui.dtree;
 				let util = layui.util;
 
-				let params = vtl.getQueryVariable();
+				let params = $.vtl.getQueryVariable();
 
 				window.initFormValue = function() {
 					$.ajax({
@@ -70,7 +70,7 @@
 				window.initFormValue();
 
 				form.on('submit(submit-filter)', function(data) {
-					let checkedTemplateIdList = vtl.checkBoxCheckedValue('form input:checkbox[lay-filter=template]:checked');
+					let checkedTemplateIdList = $.vtl.getCheckBoxCheckedValue('form input:checkbox[lay-filter=template]:checked');
 					if(checkedTemplateIdList.length < 1) {
 						layer.msg("请至少选择一个模板！", { icon: 2 });
 						return false;

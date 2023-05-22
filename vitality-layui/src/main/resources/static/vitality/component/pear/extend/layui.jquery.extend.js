@@ -274,7 +274,7 @@ layui.use(['jquery'], function () {
                         }
 
                         let ajaxBaseUrl = $.vtl.getAjaxBaseUrlFromSession();
-                        if(!(this.url.indexOf('http') == 0) && !this_.isBlank(ajaxBaseUrl)) {
+                        if(!this_.isBlank(ajaxBaseUrl) && !(this.url.indexOf(ajaxBaseUrl) == 0) && !(this.url.indexOf('http') == 0)) {
                             if(this.url.indexOf('/') == 0){
                                 this.url = ajaxBaseUrl + this.url;
                             } else {

@@ -36,7 +36,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>6.0.0.M3</hutool.version>
         <zxing.version>3.5.1</zxing.version>
-        <minio.version>8.5.2</minio.version>
+        <minio.version>8.5.3</minio.version>
         <ip2region.version>2.7.0</ip2region.version>
         <jsoup.version>1.16.1</jsoup.version>
         <mybatis-plus.version>4.0.8</mybatis-plus.version>

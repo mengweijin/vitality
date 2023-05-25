@@ -10,7 +10,6 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
  **/
 @Slf4j
 @Validated
-@Deprecated
 public abstract class BaseController {
 
     /**

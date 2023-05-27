@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.system.vo;
+package com.github.mengweijin.vitality.system.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2023/5/21
  */
 @Data
-public class MessageHeaderMenuDataVO {
+public class VtlMessageHeaderMenuDataDTO {
 
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
@@ -27,8 +27,7 @@ public class MessageHeaderMenuDataVO {
     private List<MessageItemDataVO> children;
 
     @Data
-    public static
-    class MessageItemDataVO {
+    public static class MessageItemDataVO {
 
         @JsonSerialize(using = ToStringSerializer.class)
         private Long id;

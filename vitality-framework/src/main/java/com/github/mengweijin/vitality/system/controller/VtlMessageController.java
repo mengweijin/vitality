@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.system.entity.VtlMessage;
 import com.github.mengweijin.vitality.system.service.VtlMessageService;
-import com.github.mengweijin.vitality.system.vo.MessageHeaderMenuDataVO;
+import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +64,7 @@ public class VtlMessageController {
     }
 
     @GetMapping("/headerMenuData")
-    public List<MessageHeaderMenuDataVO> headerMenuData() {
+    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
         return messageService.headerMenuData();
     }
 }

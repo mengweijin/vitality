@@ -1,13 +1,16 @@
 package com.github.mengweijin.vitality.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.SystemConst;
-import com.github.mengweijin.vitality.system.enums.EMenuType;
+import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
+import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.mapper.VtlMenuMapper;
-import com.github.mengweijin.vitality.system.vo.MenuDataVO;
+import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import org.dromara.hutool.core.bean.BeanUtil;
 import org.dromara.hutool.core.collection.CollUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -22,17 +25,23 @@ import java.util.stream.Collectors;
 @Service
 public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
-    public List<MenuDataVO> tree() {
+    @Autowired
+    private VtlMenuMapper vtlMenuMapper;
+
+    public IPage<VtlMenuDTO> page(IPage<VtlMenuDTO> page, VtlMenuDTO dto){
+        return vtlMenuMapper.page(page, dto);
+    }
+    public List<VtlMenuTreeDataDTO> tree() {
         List<VtlMenu> menuList = this.lambdaQuery().le(VtlMenu::getType, EMenuType.MENU.getValue()).eq(VtlMenu::getDisabled, 0).list();
-        List<MenuDataVO> voList = BeanUtil.copyToList(menuList, MenuDataVO.class);
+        List<VtlMenuTreeDataDTO> voList = BeanUtil.copyToList(menuList, VtlMenuTreeDataDTO.class);
         voList.forEach(item -> item.setHref(item.getUrl()));
         return this.buildTree(voList, SystemConst.MENU_ROOT_ID);
     }
 
-    public List<MenuDataVO> buildTree(List<MenuDataVO> list, Long parentId) {
-        Map<Long, List<MenuDataVO>> collect = list.stream().collect(Collectors.groupingBy(MenuDataVO::getParentId));
-        for (MenuDataVO node : list) {
-            List<MenuDataVO> children = collect.get(node.getId());
+    public List<VtlMenuTreeDataDTO> buildTree(List<VtlMenuTreeDataDTO> list, Long parentId) {
+        Map<Long, List<VtlMenuTreeDataDTO>> collect = list.stream().collect(Collectors.groupingBy(VtlMenuTreeDataDTO::getParentId));
+        for (VtlMenuTreeDataDTO node : list) {
+            List<VtlMenuTreeDataDTO> children = collect.get(node.getId());
             if(CollUtil.isNotEmpty(children)) {
                 children.sort(Comparator.comparingInt(VtlMenu::getSeq));
                 node.setChildren(children);
@@ -40,4 +49,5 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         }
         return collect.get(parentId);
     }
+
 }

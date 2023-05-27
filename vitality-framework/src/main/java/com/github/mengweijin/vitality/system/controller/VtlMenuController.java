@@ -1,12 +1,12 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.service.VtlMenuService;
-import com.github.mengweijin.vitality.system.vo.MenuDataVO;
+import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,12 +59,12 @@ public class VtlMenuController {
     }
 
     @GetMapping("/page")
-    public IPage<VtlMenu> page(Page<VtlMenu> page, VtlMenu vtlMenu) {
-        return menuService.page(page, new QueryWrapper<>(vtlMenu));
+    public IPage<VtlMenuDTO> page(Page<VtlMenuDTO> page, VtlMenuDTO dto) {
+        return menuService.page(page, dto);
     }
 
     @GetMapping("/tree")
-    public List<MenuDataVO> tree() {
+    public List<VtlMenuTreeDataDTO> tree() {
         return menuService.tree();
     }
 }

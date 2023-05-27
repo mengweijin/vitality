@@ -56,9 +56,14 @@
 
     <select id="page" resultType="${packagePath}.dto.${entityName}DTO">
         select
-          <include refid="BaseColumn"/>
+          <include refid="BaseColumn"/>,
+          cu.NICKNAME as 'createByName',
+          uu.NICKNAME as 'updateByName'
         from ${name} t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
         <include refid="BaseWhereLike"/>
+        order by t.CREATE_TIME desc
     </select>
 
 </mapper>

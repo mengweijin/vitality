@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.system.vo;
+package com.github.mengweijin.vitality.system.dto;
 
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import lombok.Data;
@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class MenuDataVO extends VtlMenu {
+public class VtlMenuTreeDataDTO extends VtlMenu {
 
     private String href;
 
-    private List<MenuDataVO> children;
+    private List<VtlMenuTreeDataDTO> children;
 
 }

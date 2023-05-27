@@ -76,7 +76,7 @@ CREATE TABLE VTL_MENU (
   SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',
   ICON 				            varchar(64) COMMENT '菜单图标',
   URL 				            varchar(256) COMMENT '菜单请求链接地址',
-  OPEN_TYPE 				    varchar(7) COMMENT '菜单打开类型。当 type 为 1 时，openType 生效，_iframe 正常打开 _blank 新建浏览器标签页',
+  OPEN_TYPE 				    varchar(7) COMMENT '菜单打开类型。当 type 为 1 时，openType 生效，{ _iframe：正常打开；_blank：新建浏览器标签页 }',
   SYSTEM_DEFAULT 				int(4) DEFAULT 0 COMMENT '是否系统内置菜单。{ 0：否；1：是；}',
   DISABLED                      int(4) DEFAULT 0 NOT NULL COMMENT '是否已禁用。{ 0：正常；1：禁用；}',
   REMARK 	                    varchar(500) COMMENT '备注',
@@ -92,9 +92,9 @@ CREATE TABLE VTL_MENU (
 DROP TABLE IF EXISTS VTL_USER;
 CREATE TABLE VTL_USER (
   ID                            bigint NOT NULL COMMENT '主键ID',
-  LOGIN_NAME                    varchar(64) NOT NULL COMMENT '用户登录名',
+  USERNAME                      varchar(64) NOT NULL COMMENT '用户登录名（字母数字下划线）',
   PASSWORD                      varchar(64) NOT NULL COMMENT '登录密码',
-  NICK_NAME                     varchar(64) NOT NULL COMMENT '用户昵称',
+  NICKNAME                      varchar(64) NOT NULL COMMENT '用户昵称',
   GENDER                        varchar(6) DEFAULT NULL COMMENT '性别 { MALE: 男；FEMALE：女；OTHER：其他；}',
   EMAIL                         varchar(128) DEFAULT NULL COMMENT '电子邮箱',
   MOBILE_PHONE                  varchar(15) DEFAULT NULL COMMENT '移动电话',
@@ -106,7 +106,7 @@ CREATE TABLE VTL_USER (
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id),
-  UNIQUE KEY VTL_USER_UNIQUE_INDEX_LOGIN_NAME (LOGIN_NAME) USING BTREE
+  UNIQUE KEY VTL_USER_UNIQUE_INDEX_USERNAME (USERNAME) USING BTREE
 ) COMMENT = '用户表';
 
 

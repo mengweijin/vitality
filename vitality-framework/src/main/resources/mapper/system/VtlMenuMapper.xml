@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.VtlMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.VtlMenu">
+        <result column="ID" property="id" />
+        <result column="PARENT_ID" property="parentId" />
+        <result column="TITLE" property="title" />
+        <result column="TYPE" property="type" />
+        <result column="PERMISSION" property="permission" />
+        <result column="SEQ" property="seq" />
+        <result column="ICON" property="icon" />
+        <result column="URL" property="url" />
+        <result column="OPEN_TYPE" property="openType" />
+        <result column="SYSTEM_DEFAULT" property="systemDefault" />
+        <result column="DISABLED" property="disabled" />
+        <result column="REMARK" property="remark" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumn">
+        t.ID,
+        t.PARENT_ID,
+        t.TITLE,
+        t.TYPE,
+        t.PERMISSION,
+        t.SEQ,
+        t.ICON,
+        t.URL,
+        t.OPEN_TYPE,
+        t.SYSTEM_DEFAULT,
+        t.DISABLED,
+        t.REMARK,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME
+    </sql>
+
+    <!-- 通用 Where 条件列 -->
+    <sql id="BaseWhere">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.parentId != null" >
+                and t.PARENT_ID = #{p.parentId}
+            </if>
+            <if test="p.title != null and p.title != '' ">
+                and t.TITLE = #{p.title}
+            </if>
+            <if test="p.type != null" >
+                and t.TYPE = #{p.type}
+            </if>
+            <if test="p.permission != null and p.permission != '' ">
+                and t.PERMISSION = #{p.permission}
+            </if>
+            <if test="p.seq != null" >
+                and t.SEQ = #{p.seq}
+            </if>
+            <if test="p.icon != null and p.icon != '' ">
+                and t.ICON = #{p.icon}
+            </if>
+            <if test="p.url != null and p.url != '' ">
+                and t.URL = #{p.url}
+            </if>
+            <if test="p.openType != null and p.openType != '' ">
+                and t.OPEN_TYPE = #{p.openType}
+            </if>
+            <if test="p.systemDefault != null" >
+                and t.SYSTEM_DEFAULT = #{p.systemDefault}
+            </if>
+            <if test="p.disabled != null" >
+                and t.DISABLED = #{p.disabled}
+            </if>
+            <if test="p.remark != null and p.remark != '' ">
+                and t.REMARK = #{p.remark}
+            </if>
+            <if test="p.createBy != null" >
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null" >
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 通用 Where Like 条件列 -->
+    <sql id="BaseWhereLike">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.parentId != null" >
+                and t.PARENT_ID = #{p.parentId}
+            </if>
+            <if test="p.title != null and p.title != '' ">
+                and t.TITLE like concat(concat('%', #{p.title}), '%')
+            </if>
+            <if test="p.type != null" >
+                and t.TYPE = #{p.type}
+            </if>
+            <if test="p.permission != null and p.permission != '' ">
+                and t.PERMISSION like concat(concat('%', #{p.permission}), '%')
+            </if>
+            <if test="p.seq != null" >
+                and t.SEQ = #{p.seq}
+            </if>
+            <if test="p.icon != null and p.icon != '' ">
+                and t.ICON like concat(concat('%', #{p.icon}), '%')
+            </if>
+            <if test="p.url != null and p.url != '' ">
+                and t.URL like concat(concat('%', #{p.url}), '%')
+            </if>
+            <if test="p.openType != null and p.openType != '' ">
+                and t.OPEN_TYPE like concat(concat('%', #{p.openType}), '%')
+            </if>
+            <if test="p.systemDefault != null" >
+                and t.SYSTEM_DEFAULT = #{p.systemDefault}
+            </if>
+            <if test="p.disabled != null" >
+                and t.DISABLED = #{p.disabled}
+            </if>
+            <if test="p.remark != null and p.remark != '' ">
+                and t.REMARK like concat(concat('%', #{p.remark}), '%')
+            </if>
+            <if test="p.createBy != null" >
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null" >
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlMenuDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as 'createByName',
+        uu.NICKNAME as 'updateByName'
+        from VTL_MENU t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        <include refid="BaseWhereLike"/>
+        order by t.CREATE_TIME desc
+    </select>
+
+</mapper>

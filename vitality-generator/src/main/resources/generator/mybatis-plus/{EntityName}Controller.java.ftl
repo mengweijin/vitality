@@ -27,23 +27,27 @@ public class ${entityName}Controller extends BaseController {
     private ${entityName}Service ${entityName?uncap_first}Service;
 
     @PostMapping
-    public void add(${entityName} ${entityName?uncap_first}) {
-        ${entityName?uncap_first}Service.save(${entityName?uncap_first});
+    public R add(${entityName} ${entityName?uncap_first}) {
+        boolean bool = ${entityName?uncap_first}Service.save(${entityName?uncap_first});
+        return R.bool(bool);
     }
 
     @PutMapping
-    public void edit(${entityName} ${entityName?uncap_first}) {
-        ${entityName?uncap_first}Service.updateById(${entityName?uncap_first});
+    public R edit(${entityName} ${entityName?uncap_first}) {
+        boolean bool = ${entityName?uncap_first}Service.updateById(${entityName?uncap_first});
+        return R.bool(bool);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        ${entityName?uncap_first}Service.removeById(id);
+    public R delete(@PathVariable("id") Long id) {
+        boolean bool = ${entityName?uncap_first}Service.removeById(id);
+        return R.bool(bool);
     }
 
     @DeleteMapping
-    public void delete(Long[] ids) {
-        ${entityName?uncap_first}Service.removeBatchByIds(Arrays.asList(ids));
+    public R delete(Long[] ids) {
+        boolean bool = ${entityName?uncap_first}Service.removeBatchByIds(Arrays.asList(ids));
+        return R.bool(bool);
     }
 
     @GetMapping("/{id}")

@@ -77,7 +77,7 @@ other:
   autoHead: false
   ## 页脚
   footer: true
-  ## jquery ajax 请求后端接口基础路径前缀。如果前后端不分离，配置为空字符串即可。
+  ## jquery ajax 请求后端接口基础路径前缀（比如：/api）。如果前后端不分离，配置为空字符串即可。
   ajaxBaseUrl:
 ## 头部配置
 header:

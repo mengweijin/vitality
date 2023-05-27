@@ -36,7 +36,7 @@
 
 				window.initFormValue = function() {
 					$.ajax({
-						url: "/generator/template/tree",
+						url: "/vtl-generator/template/tree",
 						dataType: 'json',
 						type: 'get',
 						success: function(result) {
@@ -76,7 +76,7 @@
 						return false;
 					}
 					$.ajax({
-						url: "/generator/executeBatch/" + params.tableName,
+						url: "/vtl-generator/executeBatch/" + params.tableName,
 						data: JSON.stringify({ templateIdList: checkedTemplateIdList, config: params }),
 						dataType: 'text',
 						contentType: 'application/json',

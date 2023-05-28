@@ -33,26 +33,6 @@ layui.use(['jquery'], function () {
                 $(selector + " *").attr("disabled", true);
             },
 
-
-            /**
-             * 
-             * @param {String} id tableId Mandatory. 
-             * @param {Object} where Optional
-             * @param {Boolean} deep Optional. 是否采用深度重载（即参数深度克隆，也就是重载时始终携带初始时及上一次重载时的参数），默认 false
-             */
-            reloadTable: function (tableId, where = {}, deep = false) {
-                if(typeof where === 'boolean') {
-                    deep = where;
-                    where = {};
-                }
-                layui.table.reloadData(tableId, { where: where, page: { theme: '#1E9FFF', curr: 1 } }, deep)
-            },
-
-            reloadParentTable: function (tableId) {
-                parent.layui.table.reloadData(tableId, { page: { theme: '#1E9FFF', curr: 1 } }, true)
-            },
-
-
             /**
              * 从layer弹层本身关闭自己。（从父页面获取值 parent.$('#父页面元素id').val();）
              * 注意：window.parent和parent是有区别的

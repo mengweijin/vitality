@@ -23,24 +23,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="gender" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="email" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">电话</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="mobilePhone" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
                     <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
                         <i class="layui-icon layui-icon-search"></i>查询
                     </button>
@@ -107,11 +89,11 @@
                     { field: 'disabled', title: '账号状态', width: 120, templet: '#disabledTpl', event: 'disabled'},
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+                        return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'updateByName', title: '更新者', width: 120 },
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
+                        return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
@@ -120,6 +102,10 @@
 				table.render({
 					elem: '#data-table',
 					url: '/vtl-user/page',
+					request: {
+                        pageName: 'current', // 页码的参数名称，默认：page
+                        limitName: 'size' // 每页数据条数的参数名，默认：limit
+                    },
 					parseData: function(res) {
                         return {
                             "code": 0,
@@ -149,7 +135,7 @@
 				    let row = obj.data;
                     switch (obj.event) {
                         case 'detail':
-                            window.detail(row.id, '商品详情 - ' + row.name);
+                            window.detail(row.id);
                             break;
                         case 'edit':
                             window.edit(row.id);
@@ -195,7 +181,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(new Date(), title, 'view/vtl-user/edit.html?readonly=true&id=' + id)
+					top.layui.admin.jump(id, title, 'views/vtl-user/edit.html?readonly=true&id=' + id)
 				}
 
 			})

@@ -48,7 +48,7 @@
 		</script>
         <script type="text/html" id="statusTpl">
             <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-                   lay-filter="dept-switch-filter" {{ d.status == '0' ? 'checked' : '' }}>
+                   lay-filter="status-switch-filter" {{ d.status == '0' ? 'checked' : '' }}>
         </script>
         <script type="text/html" id="userSexTpl">
             {{#if (d.sex == "MALE") { }}
@@ -100,6 +100,14 @@
     </#if>
 </#list>
                     { field: 'status', title: '状态', minWidth: 100, templet: '#statusTpl', event: 'status' },
+                    { field: 'createByName', title: '创建者', width: 120, hide: true },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
+                        return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+                    }},
+                    { field: 'updateByName', title: '更新者', width: 120 },
+                    { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
+                        return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
+                    }},
                     { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
@@ -108,6 +116,10 @@
 				table.render({
 					elem: '#data-table',
 					url: '/${tableName?replace('_','-')}/page',
+					request: {
+                        pageName: 'current',
+                        limitName: 'size'
+                    },
 					parseData: function(res) {
                         return {
                             "code": 0,
@@ -137,7 +149,7 @@
 				    let row = obj.data;
                     switch (obj.event) {
                         case 'detail':
-                            window.detail(row.id, '商品详情 - ' + row.name);
+                            window.detail(row.id);
                             break;
                         case 'edit':
                             window.edit(row.id);
@@ -179,7 +191,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(new Date(), title, 'view/${tableName?replace('_','-')}/edit.html?readonly=true&id=' + id)
+					top.layui.admin.jump(id, title, 'views/${tableName?replace('_','-')}/edit.html?readonly=true&id=' + id)
 				}
 
 			})

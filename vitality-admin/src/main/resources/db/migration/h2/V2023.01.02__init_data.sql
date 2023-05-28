@@ -29,6 +29,7 @@ INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OP
 
 
 INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
 

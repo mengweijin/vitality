@@ -41,7 +41,7 @@ CREATE TABLE VTL_LOG_OPERATION (
   METHOD_NAME                   varchar(255) DEFAULT NULL COMMENT '请求方法名称',
   IP                            varchar(46) DEFAULT NULL COMMENT '操作IP地址',
   IP_LOCATION                   varchar(128) DEFAULT NULL COMMENT 'IP所属位置',
-  IS_SUCCESS                    int(4) DEFAULT 0 COMMENT '操作是否成功。{0=失败, 1=成功}',
+  SUCCEEDED                     int(4) DEFAULT 0 COMMENT '操作是否成功。{0=失败, 1=成功}',
   ERROR_INFO                    varchar(1000) DEFAULT NULL COMMENT '错误消息',
   CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

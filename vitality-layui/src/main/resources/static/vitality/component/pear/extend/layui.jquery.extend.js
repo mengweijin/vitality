@@ -251,6 +251,24 @@ layui.use(['jquery'], function () {
                         }, jQuery.isPlainObject(url) && url));
                     };
                 });
+
+                jQuery["sync"] = function (method, url, data, callback, type) {
+                    // shift arguments if data argument was omitted
+                    if (jQuery.isFunction(data)) {
+                        type = type || callback;
+                        callback = data;
+                        data = undefined;
+                    }
+                    return jQuery.ajax(jQuery.extend({
+                        url: url,
+                        async: false,
+                        method: method, // alias for type. version added: 1.9.0
+                        type: method,  // prior to 1.9.0.
+                        dataType: type,
+                        data: data,
+                        success: callback
+                    }, jQuery.isPlainObject(url) && url));
+                };
             },
 
             /**

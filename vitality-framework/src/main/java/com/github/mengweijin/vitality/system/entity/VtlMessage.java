@@ -1,15 +1,17 @@
 package com.github.mengweijin.vitality.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.vitality.system.enums.EMessageType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
+ * 系统消息（通知，待办）记录表
+ *
  * @author mengweijin
- * @date 2023/4/1
+ * @since 2023-05-28
  */
 @Data
 @Accessors(chain = true)
@@ -17,19 +19,52 @@ import lombok.experimental.Accessors;
 @TableName("VTL_MESSAGE")
 public class VtlMessage extends BaseEntity {
 
-    private EMessageType type;
+    /**
+     * 消息类型。{NOTICE=通知, BACKLOG=待办}
+     */
+    @TableField("TYPE")
+    private String type;
 
+    /**
+     * 图像链接url
+     */
+    @TableField("AVATAR")
     private String avatar;
 
+    /**
+     * 标题
+     */
+    @TableField("TITLE")
     private String title;
 
+    /**
+     * 内容
+     */
+    @TableField("DESCRIPTION")
     private String description;
 
-    private Boolean released;
+    /**
+     * 是否已发布。{0=否, 1=是}
+     */
+    @TableField("RELEASED")
+    private Integer released;
 
-    private Boolean confirmed;
+    /**
+     * 是否已确认。{0=否, 1=是}
+     */
+    @TableField("CONFIRMED")
+    private Integer confirmed;
 
-    private Boolean handled;
+    /**
+     * 是否已处理。{0=否, 1=是}
+     */
+    @TableField("HANDLED")
+    private Integer handled;
 
+    /**
+     * 跳转URL链接
+     */
+    @TableField("URL_LINK")
     private String urlLink;
+
 }

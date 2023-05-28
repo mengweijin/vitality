@@ -63,4 +63,11 @@ public class VtlUserController extends BaseController {
     public IPage<VtlUserDTO> page(Page<VtlUserDTO> page, VtlUserDTO dto) {
         return vtlUserService.page(page, dto);
     }
+
+
+    @PostMapping("/disabledChange/{id}")
+    public R disabledChange(@PathVariable("id") Long id, boolean disabled) {
+        boolean bool = vtlUserService.disabledChange(id, disabled);
+        return R.bool(bool);
+    }
 }

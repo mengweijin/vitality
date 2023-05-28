@@ -21,6 +21,11 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
     private VtlUserMapper vtlUserMapper;
 
     public IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, VtlUserDTO dto){
+        dto.setDeleted(false);
         return vtlUserMapper.page(page, dto);
+    }
+
+    public boolean disabledChange(Long id, boolean disabled) {
+        return this.lambdaUpdate().set(VtlUser::getDisabled, disabled).eq(VtlUser::getId, id).update();
     }
 }

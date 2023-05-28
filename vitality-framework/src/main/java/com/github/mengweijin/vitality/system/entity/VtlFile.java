@@ -8,8 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
+ * 系统文件表
+ *
  * @author mengweijin
- * @date 2023/4/1
+ * @since 2023-05-28
  */
 @Data
 @Accessors(chain = true)
@@ -17,15 +19,28 @@ import lombok.experimental.Accessors;
 @TableName("VTL_FILE")
 public class VtlFile extends BaseEntity {
 
+    /**
+     * 原始文件名称
+     */
     @TableField("FILE_NAME")
     private String fileName;
 
+    /**
+     * minio 文件存储全路径
+     */
     @TableField("FILE_PATH")
     private String filePath;
 
+    /**
+     * minio 主机 URL 地址
+     */
     @TableField("DOMAIN_URL")
     private String domainUrl;
 
+    /**
+     * minio bucket name
+     */
     @TableField("BUCKET")
     private String bucket;
+
 }

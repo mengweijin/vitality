@@ -82,7 +82,7 @@
 <script type="text/html" id="operationTpl">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-search"></i></button>
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+    <button class="pear-btn pear-btn-danger pear-btn-sm layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
 
 
@@ -102,12 +102,9 @@
                     { field: 'username', title: '账号', width: 120 },
                     { field: 'nickname', title: '姓名', width: 120 },
                     { field: 'gender', title: '性别', width: 60, templet: '#genderTpl' },
-                    { field: 'email', title: '邮箱', width: 200 },
-                    { field: 'mobilePhone', title: '电话', width: 120 },
+                    { field: 'email', title: '邮箱', width: 260 },
+                    { field: 'mobilePhone', title: '电话', width: 150 },
                     { field: 'disabled', title: '账号状态', width: 120, templet: '#disabledTpl', event: 'disabled'},
-                    { field: 'deleted', title: '已删除', width: 120, templet: function (d) {
-                        return d.deleted ? '是' : '否';
-                    }},
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
@@ -161,7 +158,7 @@
                             window.delete(obj);
                             break;
                         case 'disabled':
-                            alert("disabled")
+                            window.disabledChange(obj);
                             break;
                         default:
                             break;
@@ -191,6 +188,10 @@
                             }
                         });
                     });
+                }
+
+                window.disabledChange = function(obj) {
+                    $.sync('post', '/vtl-user/disabledChange/' + obj.data.id, { disabled: !obj.data.disabled });
                 }
 
 				window.detail = function(id, title = '详情') {

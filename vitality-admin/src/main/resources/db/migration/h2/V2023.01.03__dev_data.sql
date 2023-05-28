@@ -79,4 +79,15 @@ INSERT INTO VTL_MENU VALUES(80000020, 800000, '代码生成器', 1, 'sys:devTool
 INSERT INTO VTL_MENU VALUES(80000030, 800000, '代码生成器（文档）', 1, 'sys:devTools:generatorDocment', 3, null, 'views/generator/document.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
+INSERT INTO VTL_USER VALUES(11, 'user01', '1qaz2wsx', '用户01', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(12, 'user02', '1qaz2wsx', '用户02', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(13, 'user03', '1qaz2wsx', '用户03', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(14, 'user04', '1qaz2wsx', '用户04', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(15, 'user05', '1qaz2wsx', '用户05', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(16, 'user06', '1qaz2wsx', '用户06', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(17, 'user07', '1qaz2wsx', '用户07', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(18, 'user08', '1qaz2wsx', '用户08', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(19, 'user09', '1qaz2wsx', '用户09', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 1, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(20, 'user10', '1qaz2wsx', '用户10', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 1, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(21, 'user11', '1qaz2wsx', '用户11', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 

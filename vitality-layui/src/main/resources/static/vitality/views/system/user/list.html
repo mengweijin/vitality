@@ -11,45 +11,33 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">USERNAME</label>
+                    <label class="layui-form-label">账号</label>
                     <div class="layui-input-inline">
                         <input type="text" name="username" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">PASSWORD</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="password" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">NICKNAME</label>
+                    <label class="layui-form-label">姓名</label>
                     <div class="layui-input-inline">
                         <input type="text" name="nickname" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">GENDER</label>
+                    <label class="layui-form-label">性别</label>
                     <div class="layui-input-inline">
                         <input type="text" name="gender" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">EMAIL</label>
+                    <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-inline">
                         <input type="text" name="email" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">MOBILE_PHONE</label>
+                    <label class="layui-form-label">电话</label>
                     <div class="layui-input-inline">
                         <input type="text" name="mobilePhone" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">SECRET_KEY_2FA</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="secretKey2fa" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
@@ -78,14 +66,14 @@
         <i class="layui-icon layui-icon-delete"></i>删除
     </button>
 </script>
-<script type="text/html" id="statusTpl">
-    <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-           lay-filter="dept-switch-filter" {{ d.status == '0' ? 'checked' : '' }}>
+<script type="text/html" id="disabledTpl">
+    <input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|已停用"
+           lay-filter="disabled-switch-filter" {{ d.disabled ? '' : 'checked' }}>
 </script>
-<script type="text/html" id="userSexTpl">
-    {{#if (d.sex == "MALE") { }}
+<script type="text/html" id="genderTpl">
+    {{#if (d.gender == "MALE") { }}
     <span>男</span>
-    {{# } else if(d.sex == "FEMALE"){ }}
+    {{# } else if(d.gender == "FEMALE"){ }}
     <span>女</span>
     {{# } else { }}
     <span></span>
@@ -111,24 +99,23 @@
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'username', title: 'USERNAME', width: 120 },
-                    { field: 'password', title: 'PASSWORD', width: 120 },
-                    { field: 'nickname', title: 'NICKNAME', width: 120 },
-                    { field: 'gender', title: 'GENDER', width: 120 },
-                    { field: 'email', title: 'EMAIL', width: 120 },
-                    { field: 'mobilePhone', title: 'MOBILE_PHONE', width: 120 },
-                    { field: 'secretKey2fa', title: 'SECRET_KEY_2FA', width: 120 },
-                    { field: 'disabled', title: 'DISABLED', width: 120 },
-                    { field: 'deleted', title: 'DELETED', width: 120 },
-                    { field: 'createBy', title: 'CREATE_BY', width: 120 },
-                    { field: 'createTime', title: 'CREATE_TIME', width: 160, templet: function (d) {
+                    { field: 'username', title: '账号', width: 120 },
+                    { field: 'nickname', title: '姓名', width: 120 },
+                    { field: 'gender', title: '性别', width: 60, templet: '#genderTpl' },
+                    { field: 'email', title: '邮箱', width: 200 },
+                    { field: 'mobilePhone', title: '电话', width: 120 },
+                    { field: 'disabled', title: '账号状态', width: 120, templet: '#disabledTpl', event: 'disabled'},
+                    { field: 'deleted', title: '已删除', width: 120, templet: function (d) {
+                        return d.deleted ? '是' : '否';
+                    }},
+                    { field: 'createByName', title: '创建者', width: 120, hide: true },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'updateBy', title: 'UPDATE_BY', width: 120 },
-                    { field: 'updateTime', title: 'UPDATE_TIME', width: 160, templet: function (d) {
+                    { field: 'updateByName', title: '更新者', width: 120 },
+                    { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'status', title: '状态', minWidth: 100, templet: '#statusTpl', event: 'status' },
                     { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
@@ -173,8 +160,8 @@
                         case 'delete':
                             window.delete(obj);
                             break;
-                        case 'status':
-                            alert("status")
+                        case 'disabled':
+                            alert("disabled")
                             break;
                         default:
                             break;

@@ -18,8 +18,6 @@ import lombok.experimental.Accessors;
 @TableName("${name}")
 public class ${entityName} extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
 <#list fields as field>
     <#if !field.entityIgnored>
         <#if field.comment!?length gt 0>

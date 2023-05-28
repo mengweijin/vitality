@@ -90,6 +90,7 @@
 						<div id="generator_template_gen_code" style="display: none;">
 							<div style="text-align: left;">
 								<button class="layui-btn layui-btn-normal pear-btn-xs" lay-template-event="copy"><i class="fa-solid fa-clone"></i> 复制代码</button>
+								<span style="margin-left: 10px;" id="generatedFileName"></span>
 							</div>
 							<textarea name="code" rows="20" disabled class="layui-textarea" style="background: #3f3f3f; color: #c2be9e;"></textarea>
 						</div>
@@ -131,8 +132,11 @@
 						//layer.msg("叶子节点就不展开了,刷新右侧列表");
 						$('#generator_template_gen_hint').hide();
 						$('#generator_template_gen_code').show();
-						window.execute(obj.param.nodeId)
+						window.execute(obj.param.nodeId);
 
+						let tplName = obj.param.context;
+						let fileName = tplName.replace('{EntityName}', $("form input[name='entityName']").val());
+						$('#generatedFileName').text(fileName)
 					}
 				});
 

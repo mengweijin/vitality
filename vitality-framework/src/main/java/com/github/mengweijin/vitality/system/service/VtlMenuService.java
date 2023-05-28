@@ -31,6 +31,7 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
     public IPage<VtlMenuDTO> page(IPage<VtlMenuDTO> page, VtlMenuDTO dto){
         return vtlMenuMapper.page(page, dto);
     }
+
     public List<VtlMenuTreeDataDTO> tree() {
         List<VtlMenu> menuList = this.lambdaQuery().le(VtlMenu::getType, EMenuType.MENU.getValue()).eq(VtlMenu::getDisabled, 0).list();
         List<VtlMenuTreeDataDTO> voList = BeanUtil.copyToList(menuList, VtlMenuTreeDataDTO.class);

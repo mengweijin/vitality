@@ -69,13 +69,12 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin', 'common'], function() {
+			layui.use(['table', 'form', 'jquery','layer', 'admin'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
-				let common = layui.common;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
@@ -164,17 +163,8 @@
 				}
 
 				window.edit = function(id) {
-                    layer.open({
-                        type: 2,
-                        title: '编辑',
-                        shade: [0.5, "#393D49"],
-                        closeBtn: 1,
-                        shadeClose: true,
-                        maxmin: true,
-                        resize: false,
-                        area: ['800px', '450px'],
-                        content: 'edit.html' + (common.isEmpty(id) ? '' : ('?id=' + id))
-                    });
+				    let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
+				    $.vtl.openLayer(url, { title: '编辑' });
                 }
 
 				window.delete = function(obj) {

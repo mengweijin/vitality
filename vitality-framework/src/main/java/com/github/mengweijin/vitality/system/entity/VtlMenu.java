@@ -41,6 +41,9 @@ public class VtlMenu extends BaseEntity {
      */
     private String openType;
 
+    /**
+     * 是否系统内置菜单。{ 0：否；1：是；}
+     */
     private Boolean systemDefault;
 
     private Boolean disabled;

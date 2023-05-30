@@ -1,13 +1,13 @@
 # Vitality
 <p align="center">	
-	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22">
-		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter" />
+	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-parent%22">
+		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-parent" />
 	</a>
 	<a target="_blank" href="https://github.com/mengweijin/quickboot/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
-		<img src="https://img.shields.io/badge/JDK-8-green.svg" />
+		<img src="https://img.shields.io/badge/JDK-17-green.svg" />
 	</a>
 	<a target="_blank" href="https://gitee.com/mengweijin/vitality/stargazers">
 		<img src="https://gitee.com/mengweijin/vitality/badge/star.svg?theme=dark" alt='gitee star'/>
@@ -17,90 +17,30 @@
 	</a>
 </p>
 
-| 模块                            | 描述              | 最新版本                                                                                                                                                                                                                                                |
-|:------------------------------|:----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| vitality-spring-boot-starter  | SpringBoot 脚手架  | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-spring-boot-starter"/></a>   |
-| generator-spring-boot-starter | 代码生成器           | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22generator-spring-boot-starter%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/generator-spring-boot-starter"/></a> |
-| vitality-layui                | 基于 Layui 的后台脚手架 | <a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-layui%22"><img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-layui"/></a>                               |
-
 ## 介绍
-快速搭建 SpringBoot 项目，整合和配置常用的模块和功能，提供一些简单的工具，比如代码生成器等。
+基于 SpringBoot 3+、sa-token、Layui 2.8+ **可前后端分离**的后台管理系统，可以用于常见的的 Web 应用程序，比如网站管理后台等。
 
-### vitality-spring-boot-starter
-可以在任何 spring boot 工程中单独使用。
-```xml
-<dependency>
-    <groupId>com.github.mengweijin</groupId>
-    <artifactId>vitality-spring-boot-starter</artifactId>
-    <version>${vitality.version}</version>
-</dependency>
-```
-- 接口统一返回格式：R.java
-- 操作日志统一打印。
-- Ehcache3 集成和自动配置。
-- 公共的上传/下载文件接口。
-- 全局异常处理
-- 可重复从 request 获取 body 的过滤器
-- JdbcTemplate ColumnMapRowMapper 和动态加载 jdbc driver 包功能。
-- debug 模式不缓存静态资源，如 static 目录下的文件。
-- cors 跨域请求（vitality.cors.enabled=true）和 XSS 过滤配置（vitality.xss.enabled=true）
-- mybatis plus 集成，create_time 等字段自动填充、基于用户、部门、角色等的 @DataScope 数据权限过滤器。
-- redis 重复提交拦截器、限流拦截器
-- 各种 util 工具类
-- application.yml 配置加密 SafetyEncryptEnvironmentPostProcessor.java
-- p6spy 数据库查询日志记录，自动记录每一条真实查询的 SQL 记录到 debug 日志中。
+全部开源的快速开发平台，毫无保留给个人及企业免费使用。
 
-#### Flyway（额外支持达梦数据库，无需额外配置。）
-~~~yaml
-spring:
-  # flyway在spring boot中默认配置位置为：classpath:db/migration
-  # flyway命名规则为：V<VERSION>__<NAME>.sql (with <VERSION> an underscore-separated version, such as ‘1’ or ‘2_1’)
-  flyway:
-    # 默认不启用
-    enabled: true
-    baseline-on-migrate: true
-    locations:
-      - classpath:db/migration/h2
-      # - classpath:db/migration/mysql
-      # - classpath:db/migration/oracle
-~~~
+### 内置功能
+- 系统管理
+  - 用户管理：系统用户的管理。
+  - 角色管理：角色配置，以及角色所拥有的菜单权限配置。
+  - 菜单管理：配置系统菜单，操作权限，按钮权限标识等。
+  - 部门管理：配置系统组织机构（公司、部门），以及组织机构拥有的权限。
+  - 岗位管理：系统用户所担任的岗位。
+  - 字典管理：对系统中经常使用的一些较为固定的数据进行维护。
+  - 分类管理：对系统中经常使用的一些较为固定的数据进行维护，特点是树状结构。
+  - 参数配置：对系统动态配置常用参数。
+  - 通知公告：系统通知公告信息发布维护。
+- 系统监控 
+  - 应用监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
+  - 在线用户：当前系统中活跃用户状态监控。
+  - 登录日志：系统登录日志记录和查询。
+  - 操作日志：系统正常操作日志记录和查询；
+  - 错误日志：系统异常信息日志记录和查询。
+- 开发工具
+  - 代码生成器：前后端代码的生成（java、html、sql、脚本）支持代码直接生成到工程目录下。
+  - 表单构建器：拖动表单元素生成相应的HTML代码。
 
-
-### generator-spring-boot-starter
-可以在任何 spring boot 工程中单独使用。
-
-支持所有支持JDBC连接的数据库：例如：DB2, DM, H2, Mariadb, MySQL, Oracle, Postgre, Sqlite, SQLServer 等
-```xml
-<dependency>
-    <groupId>com.github.mengweijin</groupId>
-    <artifactId>generator-spring-boot-starter</artifactId>
-    <version>${generator.version}</version>
-    <scope>provided</scope>
-</dependency>
-```
-代码生成器，引用包后，启动程序，直接访问主页：http://localhost:8080/vitality/index.html
-
-可以在线预览生成的代码，也可以直接生成代码到你的工程目录，方便复制和调整。
-
-可以自定义 freemarker 模板来满足不同的代码需求。文档也访问主页：http://localhost:8080/vitality/index.html
-
-#### 页面展示
-![image](docs/generator/image/table.png)
-
-![image](docs/generator/image/table-detail.png)
-
-![image](docs/generator/image/table-detail-code.png)
-
-![image](docs/generator/image/document.png)
-
-### vitality-layui
-漂亮的后台管理系统模板，方便实现简单页面，使用的是 pear-admin-layui 模板，这里做了些简单改动，并且打包为 jar 发布在 maven 中央仓库。
-
-maven 引用后，启动程序，直接访问主页：http://localhost:8080/vitality/index.html
-```xml
-<dependency>
-    <groupId>com.github.mengweijin</groupId>
-    <artifactId>vitality-layui</artifactId>
-    <version>${vitality-layui.version}</version>
-</dependency>
-```
+### 演示图

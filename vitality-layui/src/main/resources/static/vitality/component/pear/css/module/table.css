@@ -33,10 +33,6 @@
 	background-color: #5FB878 !important;
 }
 
-.layui-table-view .layui-table{
-	width: 100%;
-}
-
 .layui-table tr {
 	height: 34px;
 	line-height: 34px;
@@ -57,6 +53,14 @@
 
 .layui-table-box button {
 	font-size: 15px !important;
+}
+
+.layui-table-cell .pear-btn {
+	margin-right: 5px;
+}
+
+.layui-table-cell .pear-btn:last-child {
+	margin-right: 0px;
 }
 
 .layui-table-page {

@@ -76,7 +76,7 @@
 					
 				</span>
 				<span class="center">
-					<a href="www.aday.fun">www.aday.fun</a> Meng Wei Jin <a href="https://beian.miit.gov.cn" target="_blank">陕ICP备2022013125号</a> Copyright © 2021-2022 <a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>
+					<a href="www.aday.fun">www.aday.fun</a> Meng Wei Jin <a href="https://beian.miit.gov.cn" target="_blank">陕ICP备2022013125号</a> Copyright © 2018-<span id="footerNowYear"></span> <a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>
 				</span>
 				<span class="right">
 					The MIT license.
@@ -99,19 +99,22 @@
 		<script src="component/pear/pear.js"></script>
 		<!-- 框 架 初 始 化 -->
 		<script>
-			//sessionStorage.clear();
-			//localStorage.clear();
+			sessionStorage.clear();
+			localStorage.clear();
 
 			layui.use(['admin','jquery','popup','drawer'], function() {
 				var $ = layui.jquery;
 				var admin = layui.admin;
 				var popup = layui.popup;
-				
+
 				admin.setConfigType("yml");
 				admin.setConfigPath("config/pear.config.yml");
 				
+				layui.sessionData('pear_config', { key: 'config', value: admin.readConfig() });
+				$.vtl.setJqueryAjaxSetup(); // 必须在 admin.render(); 之前。
+
 				admin.render();
-				
+
 				// 登出逻辑 
 				admin.logout(function(){
 					popup.success("注销成功",function(){
@@ -123,6 +126,8 @@
 				
 				// 消息点击回调
 				admin.message(function(id, title, context, form) {});
+
+				$("#footerNowYear").text(new Date().getFullYear());
 			})
 		</script>		
 	</body>

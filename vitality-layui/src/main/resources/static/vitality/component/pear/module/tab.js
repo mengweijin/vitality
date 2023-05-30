@@ -280,7 +280,7 @@ layui.define(['jquery', 'element'], function(exports) {
 					id: opt.id
 				});
 				if (time != false && time != 0) {
-					tabIframeLoading(this.option.elem, opt.id);
+					tabIframeLoading(elem, opt.id);
 				}
 				tabData.push(opt);
 				sessionStorage.setItem(elem + "-pear-tab-data", JSON.stringify(tabData));

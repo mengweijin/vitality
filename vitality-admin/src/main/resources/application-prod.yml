@@ -1,0 +1,13 @@
+logging:
+  level:
+    com.github.mengweijin: info
+spring:
+  thymeleaf:
+    cache: true
+decorator:
+  datasource:
+    enabled: false
+vitality:
+  debug: false
+knife4j:
+  production: true

@@ -92,12 +92,12 @@
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery', 'http'], function() {
+			layui.use(['form', 'jquery'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
-				let http = layui.http;
-				let id = http.getQueryVariable('id');
-				let readonly = http.getQueryVariable('readonly');
+				let url = layui.url();
+				let id = url.search.id;
+				let readonly = url.search.readonly;
 
                 <#assign tableName='${name?lower_case}'>
 				form.on('submit(submit-filter)', function(data) {

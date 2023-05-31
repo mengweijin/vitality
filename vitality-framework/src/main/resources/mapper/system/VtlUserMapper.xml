@@ -136,18 +136,7 @@
 
     <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
         select
-            t.ID,
-            t.USERNAME,
-            t.NICKNAME,
-            t.GENDER,
-            t.EMAIL,
-            t.MOBILE_PHONE,
-            t.DISABLED,
-            t.DELETED,
-            t.CREATE_BY,
-            t.CREATE_TIME,
-            t.UPDATE_BY,
-            t.UPDATE_TIME,
+            <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
             uu.NICKNAME as update_by_name
         from VTL_USER t

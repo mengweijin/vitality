@@ -33,6 +33,14 @@ layui.use(['jquery'], function () {
                 $(selector + " *").attr("disabled", true);
             },
 
+            tableReloadData: function(tableId, field = {}, deep = false) {
+                if(field && typeof field === 'boolean') {
+                    deep = field;
+                    field = {};
+                }
+                layui.table.reloadData(tableId, { where: field }, deep);
+            },
+
             /**
              * 从layer弹层本身关闭自己。（从父页面获取值 parent.$('#父页面元素id').val();）
              * 注意：window.parent和parent是有区别的

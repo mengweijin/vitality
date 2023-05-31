@@ -1,9 +1,10 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.log.LogAspect;
 import com.github.mengweijin.vitality.framework.log.DbErrorLoggerAppender;
+import com.github.mengweijin.vitality.framework.log.LogAspect;
 import com.github.mengweijin.vitality.framework.otp.TOTPService;
 import com.github.mengweijin.vitality.system.VitalitySystemBeanDefinitionRegistryPostProcessor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
  */
 //@EnableAsync // 不推荐使用
 //@EnableScheduling // 不推荐使用
+@MapperScan({ "com.github.mengweijin.vitality.**.mapper" })
 @Configuration
 @EnableConfigurationProperties({VitalityProperties.class})
 public class VitalityAutoConfiguration {

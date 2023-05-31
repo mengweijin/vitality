@@ -141,7 +141,7 @@
                     } else if (obj.event === 'batchDelete') {
                         window.batchDelete();
 					} else if (obj.event === 'refresh') {
-                        window.refresh();
+                        window.refresh(true);
                     }
 				});
 
@@ -170,8 +170,8 @@
 					return false;
 				});
 
-				window.refresh = function(field = {}) {
-					table.reloadData('data-table', { where: field }, false);
+				window.refresh = function(field = {}, deep = false) {
+				    $.vtl.tableReloadData('data-table', field, deep);
 				}
 
 				window.edit = function(id) {

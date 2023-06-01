@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
+		<link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 	</head>
 	<body>
 		<form class="layui-form" action="" lay-filter="form-filter">
@@ -89,8 +89,8 @@
 				</div>
 			</div>
 		</form>
-		<script src="../../component/layui/layui.js"></script>
-		<script src="../../component/pear/pear.js"></script>
+		<script src="../../../component/layui/layui.js"></script>
+		<script src="../../../component/pear/pear.js"></script>
 		<script>
 			layui.use(['form', 'jquery'], function() {
 				let form = layui.form;

@@ -180,8 +180,8 @@
                     $.sync('post', '/vtl-user/disabledChange/' + obj.data.id, { disabled: !obj.data.disabled });
                 }
 
-				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(id, title, 'views/vtl-user/edit.html?readonly=true&id=' + id)
+				window.detail = function(id, title = '用户详情') {
+					top.layui.admin.jump('vtl-user-' + id, title, 'views/system/user/detail.html?id=' + id)
 				}
 
 			})

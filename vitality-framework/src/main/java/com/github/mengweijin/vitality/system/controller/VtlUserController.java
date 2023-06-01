@@ -55,8 +55,8 @@ public class VtlUserController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public VtlUser getById(@PathVariable("id") Long id) {
-        return vtlUserService.getById(id);
+    public VtlUserDTO getById(@PathVariable("id") Long id) {
+        return vtlUserService.getByIdWithoutPassword(id);
     }
 
     @GetMapping("/page")

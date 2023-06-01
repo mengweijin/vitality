@@ -84,13 +84,13 @@ layui.use(['jquery'], function () {
              * 判断是否是空
              * @param value
              */
-            isBlank: function(value) {
-                if(value == null || undefined) {
+            isBlank: function(val) {
+                if(val == null || undefined) {
                     return true;
                 } else {
                     // 1. 替换所有空白字符（不是空格，比如，回车换行符等）; 2. trim() 去前后空格
-                    value = value.replace(/\s/g, "").trim();
-                    return value == "" || value == "undefined" || value == "null";
+                    val = val.toString().replace(/\s/g, "").trim();
+                    return val == "" || val == "undefined" || val == "null";
                 }
             },
             /**

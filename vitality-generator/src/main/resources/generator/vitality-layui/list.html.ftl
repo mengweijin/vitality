@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
+		<link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 	</head>
 	<body class="pear-container">
 		<div class="layui-card">
@@ -66,8 +66,8 @@
 		</script>
 
 
-		<script src="../../component/layui/layui.js"></script>
-		<script src="../../component/pear/pear.js"></script>
+		<script src="../../../component/layui/layui.js"></script>
+		<script src="../../../component/pear/pear.js"></script>
 		<script>
 			layui.use(['table', 'form', 'jquery','layer', 'admin'], function() {
 				let table = layui.table;
@@ -191,7 +191,7 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump(id, title, 'views/${tableName?replace('_','-')}/edit.html?readonly=true&id=' + id)
+					top.layui.admin.jump('${tableName?replace('_','-')}-' + id, title, 'views/${tableName?replace('_','-')}/detail.html?&id=' + id)
 				}
 
 			})

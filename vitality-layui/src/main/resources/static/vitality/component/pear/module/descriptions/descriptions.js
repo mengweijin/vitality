@@ -1,59 +1,101 @@
-layui.define(['table', 'jquery'], function(exports) {
+layui.define(['jquery'], function(exports) {
 	"use strict";
 
-	var MOD_NAME = 'descriptions',
-		$ = layui.jquery;
-
-
+	var MOD_NAME = 'descriptions';
+	var $ = layui.jquery;
 
 
     var descriptions = {
-
-        getData: function(options) {
-
+        config: {
+            elem: null,
+            fieldNum: 2,
+            lineHeight: '20px',
+            titleBackgroundColor: '#a5dcbb' || '#c9edea' || '#d3e7f9',
+            valueBackgroundColor: '#eeeeee',
+            url: null,
+            cols: [],
+            data: {}
         },
-
-
-        render: function(options) {
-            let defaults = {
-                elem: '#descriptions',
-                columnNum: 2,
-                url: null,
-                cols: [
-                    { field: 'username', title: '账号' },
-                    { field: 'password', title: '密码' },
-                    { field: 'nickname', title: '昵称' },
-                    { field: 'createTime', title: '创建时间', templet: function (d) {
-                        return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
-                    }},
-                ],
-                data: { username: 'zhangsan', password: '123456', nickname: '张三', createTime: '2023-01-01' }
+        init: function() {
+            let that = this;
+            if(this.config.fieldNum < 1) {
+                this.config.fieldNum = 1;
+            } else if(this.config.fieldNum > 3) {
+                this.config.fieldNum = 3;
             }
-            options = $.extend(defaults, options);
-            let cols = options.cols;
-            let data = options.data;
+            if(this.config.url) {
+                $.ajax({
+                    url: this.config.url,
+                    async: false,
+                    method: 'get',
+                    success: function(result) {
+                        that.config.data = result;
+                    }
+                });
+            }
+        },
+        render: function(options) {
+            this.config = $.extend(this.config, options);
+            this.init();
+            if(!this.config.data) {
+                console.warn('No data was found in http response by url: ' + this.config.url);
+                return;
+            }
+            let rowColNum = 12 / (this.config.fieldNum * 2);
 
-            var container = $("<div/>", { class: "layui-fluid" });
-            let rowColNum = 12 / (options.columnNum * 2);
+            let $container = $("<div/>", { class: "layui-fluid", style: "padding: 15px;" });
+            let $row = $("<div/>", { class: "layui-row", style: "margin-top: 2px; padding: 0 15px;" });
+            let $titleColumn = $("<div/>", { style: "padding: 10px; text-align: right;" })
+                .css("line-height", this.config.lineHeight)
+                .css("background-color", this.config.titleBackgroundColor)
+                .addClass("layui-col-xs" + rowColNum);
+            let $valueColumn = $("<div/>", { style: "padding: 10px; text-align: left;" })
+                .text("-")
+                .css("line-height", this.config.lineHeight)
+                .css("background-color", this.config.valueBackgroundColor)
+                .addClass("layui-col-xs" + rowColNum);
 
+            let cols = this.config.cols;
+            let data = this.config.data;
+
+            let count = 0;
             let currentRow = null;
             for (let i in cols) {
-                if(i % options.columnNum == 0) {
-                    currentRow = $("<div/>", { class: "layui-row", style: "margin-top: 2px; padding: 0 15px;" });
-                    $(container).append(currentRow);
+                if(cols[i].hide) {
+                    continue;
                 }
+                if(cols[i].newline || cols[i].longtext) {
+                    count = 0;
+                }
+                if(count % this.config.fieldNum == 0) {
+                    currentRow = $row.clone();
+                    $container.append(currentRow);
+                }
+
+                $(currentRow).append($titleColumn.clone().text(cols[i].title + "："));
+                let $currentValueColumn = $valueColumn.clone();
+                if(cols[i].longtext) {
+                    $currentValueColumn.removeClass("layui-col-xs" + rowColNum).addClass("layui-col-xs" + (12 - rowColNum));
+                }
+                $(currentRow).append($currentValueColumn);
                 for (let j in data) {
-                    if(cols[i].field === j) {
-                        $(currentRow).append($("<div/>", { style: "background-color: #d3e7f9; padding: 10px; line-height: 20px; text-align: right;", class: "layui-col-xs" + rowColNum }).text(cols[i].title + "："));
-                        $(currentRow).append($("<div/>", { style: "background-color: #eeeeee; padding: 10px; line-height: 20px;", class: "layui-col-xs" + rowColNum }).text(data[j]));
+                    let templet = cols[i].templet;
+                    if(templet && typeof templet === 'function') {
+                        let text = templet.call(this, data);
+                        $currentValueColumn.text($.vtl.isBlank(text) ? '-' : text);
+                        count++;
+                        break;
+                    } else if(cols[i].field === j) {
+                        let text = data[j];
+                        $currentValueColumn.text($.vtl.isBlank(text) ? '-' : text);
+                        count++;
+                        break;
                     }
                 }
-
             }
-
-            $(options.elem).html($(container).html());
+            $(this.config.elem).append($container);
         }
-    }
+    };
 
 	exports(MOD_NAME, descriptions);
 })

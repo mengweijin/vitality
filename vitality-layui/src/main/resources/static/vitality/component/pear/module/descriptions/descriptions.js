@@ -41,19 +41,19 @@ layui.define(['jquery'], function(exports) {
                 console.warn('No data was found in http response by url: ' + this.config.url);
                 return;
             }
-            let rowColNum = 12 / (this.config.fieldNum * 2);
+            let colSmSize = (12 - (this.config.fieldNum * 2)) / this.config.fieldNum;
 
             let $container = $("<div/>", { class: "layui-fluid", style: "padding: 15px;" });
             let $row = $("<div/>", { class: "layui-row", style: "margin-top: 2px; padding: 0 15px;" });
             let $titleColumn = $("<div/>", { style: "padding: 10px; text-align: right;" })
                 .css("line-height", this.config.lineHeight)
                 .css("background-color", this.config.titleBackgroundColor)
-                .addClass("layui-col-xs" + rowColNum);
+                .addClass("layui-col-xs12 layui-col-sm2");
             let $valueColumn = $("<div/>", { style: "padding: 10px; text-align: left;" })
                 .text("-")
                 .css("line-height", this.config.lineHeight)
                 .css("background-color", this.config.valueBackgroundColor)
-                .addClass("layui-col-xs" + rowColNum);
+                .addClass("layui-col-xs12 layui-col-sm" + colSmSize);
 
             let cols = this.config.cols;
             let data = this.config.data;
@@ -75,7 +75,7 @@ layui.define(['jquery'], function(exports) {
                 $(currentRow).append($titleColumn.clone().text(cols[i].title + "："));
                 let $currentValueColumn = $valueColumn.clone();
                 if(cols[i].longtext) {
-                    $currentValueColumn.removeClass("layui-col-xs" + rowColNum).addClass("layui-col-xs" + (12 - rowColNum));
+                    $currentValueColumn.removeClass("layui-col-sm" + colSmSize).addClass("layui-col-sm10");
                 }
                 $(currentRow).append($currentValueColumn);
                 for (let j in data) {

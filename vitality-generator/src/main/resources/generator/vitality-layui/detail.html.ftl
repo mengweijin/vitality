@@ -15,6 +15,8 @@
         let url = layui.url();
         let id = url.search.id;
 
+<#assign tableName='${name?lower_case}'>
+
         desc.render({
             elem: '#descriptions',
             fieldNum: 2,

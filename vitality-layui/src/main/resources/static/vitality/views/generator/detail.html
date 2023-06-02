@@ -5,13 +5,24 @@
 		<title>部门管理</title>
 		<link rel="stylesheet" href="../../component/pear/css/pear.css" />
 		<link rel="stylesheet" href="../../admin/css/other/department.css"/>
+		<style>
+			.layui-form-label {
+				width: 100px;
+			}
+			.layui-input-block {
+				margin-left: 130px;
+			}
+			.layui-form-item .layui-input-inline {
+				width: 280px;
+			}
+		</style>
 	</head>
 	<body class="pear-container">
 		<div class="layui-card">
 			<div class="layui-card-body">
 				<form class="layui-form" lay-filter="form-filter">
 					<div class="layui-form-item">
-						<div class="layui-form-item layui-inline">
+						<div class="layui-form-item layui-inline layui-hide">
 							<label class="layui-form-label">表名称</label>
 							<div class="layui-input-inline">
 								<input type="text" name="tableName" placeholder="" class="layui-input" disabled>

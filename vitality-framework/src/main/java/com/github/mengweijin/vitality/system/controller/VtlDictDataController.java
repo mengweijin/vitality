@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 字典数据表 控制器
@@ -63,6 +64,11 @@ public class VtlDictDataController extends BaseController {
     @GetMapping("/page")
     public IPage<VtlDictDataDTO> page(Page<VtlDictDataDTO> page, VtlDictDataDTO dto) {
         return vtlDictDataService.page(page, dto);
+    }
+
+    @GetMapping("/list/all")
+    public List<VtlDictData> listAll() {
+        return vtlDictDataService.lambdaQuery().eq(VtlDictData::getDisabled, 0).list();
     }
 
     @PostMapping("/disabledChange/{id}")

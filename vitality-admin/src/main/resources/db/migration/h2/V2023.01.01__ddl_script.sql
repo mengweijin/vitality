@@ -128,7 +128,7 @@ CREATE TABLE VTL_USER (
   USERNAME                      varchar(64) NOT NULL COMMENT '用户登录名（字母数字下划线）',
   PASSWORD                      varchar(64) NOT NULL COMMENT '登录密码',
   NICKNAME                      varchar(64) NOT NULL COMMENT '用户昵称',
-  GENDER                        varchar(6) DEFAULT NULL COMMENT '性别 { MALE: 男；FEMALE：女；OTHER：其他；}',
+  GENDER                        varchar(6) DEFAULT NULL COMMENT '性别。关联数据字典：user_gender',
   EMAIL                         varchar(128) DEFAULT NULL COMMENT '电子邮箱',
   MOBILE_PHONE                  varchar(15) DEFAULT NULL COMMENT '移动电话',
   SECRET_KEY_2FA                varchar(16) DEFAULT NULL COMMENT '2FA（two-factor authentication）双重身份验证密钥',

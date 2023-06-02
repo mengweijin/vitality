@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.vitality.system.enums.EGender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -40,10 +39,10 @@ public class VtlUser extends BaseEntity {
     private String nickname;
 
     /**
-     * 性别 { MALE: 男；FEMALE：女；OTHER：其他；}
+     * 性别。关联数据字典：user_gender
      */
     @TableField("GENDER")
-    private EGender gender;
+    private String gender;
 
     /**
      * 电子邮箱

@@ -46,7 +46,8 @@ layui.config({
 	watermark:"watermark/watermark", //水印组件
 	fullscreen:"fullscreen",     //全屏组件
 	popover:"popover/popover",    //汽泡组件
-	descriptions: "vitality/descriptions"
+	descriptions: "vitality/descriptions",
+	dict: "vitality/dict"
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });

@@ -37,7 +37,7 @@ INSERT INTO VTL_DICT_DATA (ID, TYPE_CODE, DATA_CODE, LABEL, SEQ, DEFAULT_SELECTE
 
 
 
-INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 

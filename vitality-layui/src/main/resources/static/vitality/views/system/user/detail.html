@@ -10,8 +10,9 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['descriptions'], function() {
+    layui.use(['descriptions', 'dict'], function() {
         let desc = layui.descriptions;
+        let dict = layui.dict;
         let url = layui.url();
         let id = url.search.id;
 
@@ -27,7 +28,7 @@
                 }},
                 { field: 'nickname', title: '用户昵称' },
                 { field: 'gender', title: '性别', templet: function(d) {
-                    return d.gender == 'MALE' ? '女' : '男';
+                    return dict.label('user_gender', d.gender);
                 }},
                 { field: 'mobilePhone', title: '电话' },
                 { field: 'email', title: '邮箱' },

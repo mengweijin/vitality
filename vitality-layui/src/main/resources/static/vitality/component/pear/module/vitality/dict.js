@@ -27,6 +27,10 @@ layui.define(['jquery'], function(exports) {
         },
         dataList: function(typeCode) {
             let dictTable = layui.sessionData(TABLE_NAME);
+            if(!dictTable || $.isEmptyObject(dictTable)) {
+                this.init();
+                dictTable = layui.sessionData(TABLE_NAME);
+            }
             if(dictTable[typeCode]) {
                 return dictTable[typeCode];
             }
@@ -50,6 +54,9 @@ layui.define(['jquery'], function(exports) {
             }
             console.warn('No dict data was found by [typeCode=' + typeCode + '] and [dataCode=' + dataCode + ']');
             return '';
+        },
+        clear: function() {
+            layui.sessionData(TABLE_NAME, null);
         }
     };
 

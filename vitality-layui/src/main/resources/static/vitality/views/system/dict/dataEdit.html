@@ -70,9 +70,10 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery'], function() {
+			layui.use(['form', 'jquery', 'dict'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
+				let dict = layui.dict;
 				let url = layui.url();
 				let id = url.search.id;
 				let dictTypeCode = url.search.typeCode;
@@ -83,6 +84,7 @@
                             if (result.code == 200) {
                                 $.vtl.closeLayer();
                                 parent.refreshData();
+                                dict.clear();
                             }
                         });
 				    } else {
@@ -90,6 +92,7 @@
                             if (result.code == 200) {
                                 $.vtl.closeLayer();
                                 parent.refreshData();
+                                dict.clear();
                             }
                         });
 				    }

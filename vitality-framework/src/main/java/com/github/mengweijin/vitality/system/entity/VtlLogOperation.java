@@ -53,7 +53,7 @@ public class VtlLogOperation extends BaseEntity {
      * 操作是否成功。{0=失败, 1=成功}
      */
     @TableField("SUCCEEDED")
-    private Boolean succeeded;
+    private Integer succeeded;
 
     /**
      * 错误消息

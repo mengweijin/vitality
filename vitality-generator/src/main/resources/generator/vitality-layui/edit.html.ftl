@@ -97,22 +97,21 @@
 				let $ = layui.jquery;
 				let url = layui.url();
 				let id = url.search.id;
-				let readonly = url.search.readonly;
 
                 <#assign tableName='${name?lower_case}'>
 				form.on('submit(submit-filter)', function(data) {
 				    if(id) {
 				        $.put('/${tableName?replace('_','-')}', data.field, function(result) {
                             if (result.code == 200) {
-                                parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
-                                parent.layui.table.reload("data-table");
+                                $.vtl.closeLayer();
+                                parent.refresh();
                             }
                         });
 				    } else {
 				        $.post('/${tableName?replace('_','-')}', data.field, function(result) {
                             if (result.code == 200) {
-                                parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭当前页
-                                parent.layui.table.reload("data-table");
+                                $.vtl.closeLayer();
+                                parent.refresh();
                             }
                         });
 				    }
@@ -130,10 +129,6 @@
                         });
                     }
 
-                    if(readonly) {
-                        $(".bottom").addClass("layui-hide");
-                        $("form *").attr("disabled", true);
-                    }
 				}
 
 				window.init(id);

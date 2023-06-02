@@ -67,13 +67,13 @@ public class VtlUser extends BaseEntity {
      * 是否已禁用。{ 0：正常；1：禁用；}
      */
     @TableField("DISABLED")
-    private Boolean disabled;
+    private Integer disabled;
 
     /**
      * 逻辑删除
      */
     @TableLogic
     @TableField("DELETED")
-    private Boolean deleted;
+    private Integer deleted;
 
 }

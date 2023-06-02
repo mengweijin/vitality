@@ -23,7 +23,7 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
     private VtlUserMapper vtlUserMapper;
 
     public IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, VtlUserDTO dto){
-        dto.setDeleted(false);
+        dto.setDeleted(0);
         return vtlUserMapper.page(page, dto);
     }
 

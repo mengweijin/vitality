@@ -63,7 +63,7 @@ INSERT INTO VTL_MENU VALUES(50000020, 500000, '角色管理', 1, 'sys:manage:rol
 INSERT INTO VTL_MENU VALUES(50000030, 500000, '权限管理', 1, 'sys:manage:power', 3, null, 'view/system/power.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(50000040, 500000, '部门管理', 1, 'sys:manage:deptment', 4, null, 'view/system/deptment.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(50000050, 500000, '行为日志', 1, 'sys:manage:log', 5, null, 'view/system/log.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_MENU VALUES(50000060, 500000, '数据字典', 1, 'sys:manage:dict', 6, null, 'view/system/dict.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MENU VALUES(50000060, 500000, '数据字典', 1, 'sys:manage:dict', 6, null, 'view/system/list.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 INSERT INTO VTL_MENU VALUES(600000, 0, '常用页面', 0, 'sys:commonPage', 600000, 'layui-icon layui-icon-template-1', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(60000010, 600000, '登录页面', 1, 'sys:commonPage:login', 1, null, 'login.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
@@ -77,17 +77,4 @@ INSERT INTO VTL_MENU VALUES(800000, 0, '开发工具', 0, 'sys:devTools', 800000
 INSERT INTO VTL_MENU VALUES(80000010, 800000, '表单构建', 1, 'sys:devTools:form', 1, null, 'component/code/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(80000020, 800000, '代码生成器', 1, 'sys:devTools:generator', 2, null, 'views/generator/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(80000030, 800000, '代码生成器（文档）', 1, 'sys:devTools:generatorDocment', 3, null, 'views/generator/document.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-
-
-INSERT INTO VTL_USER VALUES(11, 'user01', '1qaz2wsx', '用户01', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(12, 'user02', '1qaz2wsx', '用户02', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(13, 'user03', '1qaz2wsx', '用户03', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(14, 'user04', '1qaz2wsx', '用户04', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(15, 'user05', '1qaz2wsx', '用户05', 'MALE', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(16, 'user06', '1qaz2wsx', '用户06', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(17, 'user07', '1qaz2wsx', '用户07', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(18, 'user08', '1qaz2wsx', '用户08', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(19, 'user09', '1qaz2wsx', '用户09', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 1, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(20, 'user10', '1qaz2wsx', '用户10', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 1, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(21, 'user11', '1qaz2wsx', '用户11', 'FEMALE', 'work111111111@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 

@@ -66,6 +66,39 @@ CREATE TABLE VTL_FILE (
 ) COMMENT = '系统文件表';
 
 
+DROP TABLE IF EXISTS VTL_DICT_TYPE;
+CREATE TABLE VTL_DICT_TYPE (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  NAME 		                    varchar(50) NOT NULL COMMENT '字典名称',
+  TYPE_CODE 		            varchar(50) NOT NULL COMMENT '字典类型编码。',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_DICT_TYPE_UNIQUE_INDEX_TYPE_CODE (TYPE_CODE) USING BTREE
+) COMMENT = '字典类型表';
+
+DROP TABLE IF EXISTS VTL_DICT_DATA;
+CREATE TABLE VTL_DICT_DATA (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  TYPE_CODE                     varchar(50) NOT NULL COMMENT '字典类型编码。',
+  DATA_CODE 		            varchar(50) NOT NULL COMMENT '字典数据编码。',
+  LABEL 		                varchar(50) NOT NULL COMMENT '字典数据标签名称',
+  SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',
+  DEFAULT_SELECTED              int(4) DEFAULT 0 COMMENT '是否设置为默认选择项。{ 0：否；1：是；}',
+  DISABLED                      int(4) DEFAULT 0 NOT NULL COMMENT '是否已禁用。{ 0：正常；1：禁用；}',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  KEY VTL_DICT_DATA_INDEX_TYPE_CODE (TYPE_CODE) USING BTREE
+) COMMENT = '字典数据表';
+
+
 DROP TABLE IF EXISTS VTL_MENU;
 CREATE TABLE VTL_MENU (
   ID                            bigint NOT NULL COMMENT '主键ID',

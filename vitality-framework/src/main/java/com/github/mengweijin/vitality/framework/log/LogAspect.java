@@ -62,7 +62,7 @@ public class LogAspect {
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
                 operationLog.setIp(ServletUtils.getClientIP(request));
                 operationLog.setIpLocation(Ip2regionUtils.search(operationLog.getIp()));
-                operationLog.setSucceeded(true);
+                operationLog.setSucceeded(1);
 
                 threadLocal.set(operationLog);
             }
@@ -102,7 +102,7 @@ public class LogAspect {
         }
 
         try {
-            operationLog.setSucceeded(e == null ? Boolean.TRUE : Boolean.FALSE);
+            operationLog.setSucceeded(e == null ? 1 : 0);
             if(e != null) {
                 operationLog.setErrorInfo(StrUtil.subByLength(e.getMessage(), 0, 500));
             }

@@ -126,7 +126,7 @@
         left join VTL_USER uu on uu.ID = t.UPDATE_BY
         left join VTL_USER ru on ru.ID = t.RECEIVED_BY
         <include refid="BaseWhereLike"/>
-        order by t.CREATE_TIME desc
+        order by t.UPDATE_TIME desc
     </select>
 
 </mapper>

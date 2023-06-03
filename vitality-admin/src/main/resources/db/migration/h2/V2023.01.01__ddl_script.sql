@@ -6,7 +6,7 @@ CREATE TABLE VTL_NOTICE (
   DESCRIPTION                   varchar(20000) DEFAULT NULL COMMENT '内容',
   RELEASED                      int(4) DEFAULT 0 COMMENT '是否已发布。{0=否, 1=是}',
   RECEIVED_RANGE                varchar(20) DEFAULT NULL COMMENT '消息接收人范围。比如：全体人员、指定人员、指定部门人员、指定角色人员、指定岗位人员',
-  RECEIVED_CODE                 bigint DEFAULT NULL COMMENT '消息接收者（多个逗号分隔）。根据接收人范围的不同，分别存储：null、用户id、部门id、角色id、岗位id',
+  RECEIVED_CODE                 varchar(255) DEFAULT NULL COMMENT '消息接收者（多个逗号分隔）。根据接收人范围的不同，分别存储：null、用户id、部门id、角色id、岗位id',
   CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',

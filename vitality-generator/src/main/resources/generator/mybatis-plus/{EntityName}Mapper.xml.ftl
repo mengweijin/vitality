@@ -62,7 +62,7 @@
         from ${name} t
         left join VTL_USER cu on cu.ID = t.CREATE_BY
         left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        where t.ID = #{id}
+        where t.ID = <#noparse>#{</#noparse>id<#noparse>}</#noparse>
     </select>
 
     <select id="page" resultType="${packagePath}.dto.${entityName}DTO">

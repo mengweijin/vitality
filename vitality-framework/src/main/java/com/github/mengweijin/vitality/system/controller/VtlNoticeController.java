@@ -69,4 +69,16 @@ public class VtlNoticeController extends BaseController {
     public IPage<VtlNoticeDTO> page(Page<VtlNoticeDTO> page, VtlNoticeDTO dto) {
         return vtlNoticeService.page(page, dto);
     }
+
+    @PostMapping("/release/{id}")
+    public R release(@PathVariable("id") Long id) {
+        boolean bool = vtlNoticeService.lambdaUpdate().set(VtlNotice::getReleased, 1).eq(VtlNotice::getId, id).update();
+        return R.bool(bool);
+    }
+
+    @PostMapping("/revocation/{id}")
+    public R revocation(@PathVariable("id") Long id) {
+        boolean bool = vtlNoticeService.lambdaUpdate().set(VtlNotice::getReleased, 0).eq(VtlNotice::getId, id).update();
+        return R.bool(bool);
+    }
 }

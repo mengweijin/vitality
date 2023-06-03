@@ -9,8 +9,7 @@
         <result column="TITLE" property="title" />
         <result column="DESCRIPTION" property="description" />
         <result column="RELEASED" property="released" />
-        <result column="RECEIVED_RANGE" property="receivedRange" />
-        <result column="RECEIVED_CODE" property="receivedCode" />
+        <result column="RECEIVED_BY" property="receivedBy" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -24,8 +23,7 @@
         t.TITLE,
         t.DESCRIPTION,
         t.RELEASED,
-        t.RECEIVED_RANGE,
-        t.RECEIVED_CODE,
+        t.RECEIVED_BY,
         t.CREATE_BY,
         t.CREATE_TIME,
         t.UPDATE_BY,
@@ -50,11 +48,8 @@
             <if test="p.released != null" >
                 and t.RELEASED = #{p.released}
             </if>
-            <if test="p.receivedRange != null and p.receivedRange != '' ">
-                and t.RECEIVED_RANGE = #{p.receivedRange}
-            </if>
-            <if test="p.receivedCode != null and p.receivedCode != '' " >
-                and t.RECEIVED_CODE = #{p.receivedCode}
+            <if test="p.receivedBy != null" >
+                and t.RECEIVED_BY = #{p.receivedBy}
             </if>
             <if test="p.createBy != null" >
                 and t.CREATE_BY = #{p.createBy}
@@ -89,11 +84,8 @@
                 <if test="p.released != null" >
                     and t.RELEASED = #{p.released}
                 </if>
-                <if test="p.receivedRange != null and p.receivedRange != '' ">
-                    and t.RECEIVED_RANGE like concat(concat('%', #{p.receivedRange}), '%')
-                </if>
-                <if test="p.receivedCode != null and p.receivedCode != ''" >
-                    and t.RECEIVED_CODE like concat(concat('%', #{p.receivedCode}), '%')
+                <if test="p.receivedBy != null" >
+                    and t.RECEIVED_BY = #{p.receivedBy}
                 </if>
                 <if test="p.createBy != null" >
                     and t.CREATE_BY = #{p.createBy}
@@ -114,10 +106,12 @@
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
+            uu.NICKNAME as update_by_name,
+            ru.NICKNAME as received_by_name
         from VTL_NOTICE t
         left join VTL_USER cu on cu.ID = t.CREATE_BY
         left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        left join VTL_USER ru on ru.ID = t.RECEIVED_BY
         where t.ID = #{id}
     </select>
 
@@ -125,10 +119,12 @@
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
+            uu.NICKNAME as update_by_name,
+            ru.NICKNAME as received_by_name
         from VTL_NOTICE t
         left join VTL_USER cu on cu.ID = t.CREATE_BY
         left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        left join VTL_USER ru on ru.ID = t.RECEIVED_BY
         <include refid="BaseWhereLike"/>
         order by t.CREATE_TIME desc
     </select>

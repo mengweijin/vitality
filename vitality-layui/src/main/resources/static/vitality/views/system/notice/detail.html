@@ -22,23 +22,13 @@
             url: '/vtl-notice/' + id,
             cols: [
                 { field: 'id', title: 'ID', hide: true },
-                { field: 'avatar', title: 'AVATAR' },
-                { field: 'title', title: 'TITLE' },
-                { field: 'description', title: 'DESCRIPTION' },
-                { field: 'released', title: 'RELEASED' },
-                { field: 'receivedRange', title: 'RECEIVED_RANGE' },
-                { field: 'receivedCode', title: 'RECEIVED_CODE' },
-                { field: 'createBy', title: 'CREATE_BY' },
-                { field: 'createTime', title: 'CREATE_TIME', templet: function (d) {
-                    return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+                { field: 'avatar', title: '图像', hide: true },
+                { field: 'title', title: '标题', longtext: true },
+                { field: 'description', title: '正文', longtext: true },
+                { field: 'released', title: '已发布', newline: true, templet: function (d) {
+                    return d.released == 1 ? '是' : '否';
                 }},
-                { field: 'updateBy', title: 'UPDATE_BY' },
-                { field: 'updateTime', title: 'UPDATE_TIME', templet: function (d) {
-                    return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
-                }},
-                { title: '描述', longtext: true, templet: function(d) {
-                    return '';
-                }},
+                { field: 'receivedByName', title: '接收人' },
                 { field: 'createByName', title: '创建者', newline: true },
                 { field: 'createTime', title: '创建时间', templet: function (d) {
                     return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");

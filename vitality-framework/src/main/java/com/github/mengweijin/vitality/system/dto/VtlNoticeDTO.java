@@ -14,4 +14,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VtlNoticeDTO extends VtlNotice {
 
+    private String receivedByName;
+
 }

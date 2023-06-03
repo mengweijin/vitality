@@ -11,27 +11,9 @@
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">AVATAR</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="avatar" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">TITLE</label>
+                            <label class="layui-form-label">标题</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="title" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">DESCRIPTION</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="description" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">RECEIVED_RANGE</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="receivedRange" placeholder="" class="layui-input">
                             </div>
                         </div>
 						<div class="layui-form-item layui-inline">
@@ -60,23 +42,18 @@
 		        <i class="layui-icon layui-icon-delete"></i>删除
 		    </button>
 		</script>
-        <script type="text/html" id="statusTpl">
-            <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-                   lay-filter="status-switch-filter" {{ d.status == '0' ? 'checked' : '' }}>
-        </script>
-        <script type="text/html" id="userSexTpl">
-            {{#if (d.sex == "MALE") { }}
-                <span>男</span>
-            {{# } else if(d.sex == "FEMALE"){ }}
-                <span>女</span>
-            {{# } else { }}
-                <span></span>
-            {{# } }}
-        </script>
+
 		<script type="text/html" id="operationTpl">
+			{{#if (d.released == 0) { }}
+			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="release" title="发布"><i class="layui-icon layui-icon-release"></i></button>
+			{{# } else { }}
+			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
+			{{# } }}
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			{{#if (d.released == 0) { }}
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			{{# } }}
 		</script>
 
 
@@ -93,21 +70,13 @@
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'avatar', title: 'AVATAR', width: 120 },
-                    { field: 'title', title: 'TITLE', width: 120 },
-                    { field: 'description', title: 'DESCRIPTION', width: 120 },
-                    { field: 'released', title: 'RELEASED', width: 120 },
-                    { field: 'receivedRange', title: 'RECEIVED_RANGE', width: 120 },
-                    { field: 'receivedCode', title: 'RECEIVED_CODE', width: 120 },
-                    { field: 'createBy', title: 'CREATE_BY', width: 120 },
-                    { field: 'createTime', title: 'CREATE_TIME', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
+                    { field: 'avatar', title: '图标', width: 120, hide: true },
+                    { field: 'title', title: '标题', width: 200 },
+                    { field: 'description', title: '正文' },
+                    { field: 'released', title: '已发布', width: 80, templet: function (d) {
+                        return d.released == 1 ? '是' : '否';
                     }},
-                    { field: 'updateBy', title: 'UPDATE_BY', width: 120 },
-                    { field: 'updateTime', title: 'UPDATE_TIME', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
-                    }},
-                    { field: 'status', title: '状态', minWidth: 100, templet: '#statusTpl', event: 'status' },
+                    { field: 'receivedByName', title: '接收者', width: 120 },
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
@@ -116,7 +85,7 @@
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 200, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
 
@@ -155,6 +124,12 @@
 				table.on('tool(data-table-filter)', function(obj) {
 				    let row = obj.data;
                     switch (obj.event) {
+                    	case 'release':
+                            window.release(row.id);
+                            break;
+						case 'revocation':
+                            window.revocation(row.id);
+                            break;
                         case 'detail':
                             window.detail(row.id);
                             break;
@@ -197,8 +172,26 @@
                     });
                 }
 
+                window.release = function(id) {
+                    layer.confirm('确定发布？', { icon: 3, title: '提示' }, function(index) {
+                        layer.close(index);
+                        $.post('/vtl-notice/release/' + id, function(result) {
+                        	window.refresh(true);
+                        });
+                    });
+                }
+
+                window.revocation = function(id) {
+                    layer.confirm('确定撤回？', { icon: 3, title: '提示' }, function(index) {
+                        layer.close(index);
+                        $.post('/vtl-notice/revocation/' + id, function(result) {
+                        	window.refresh(true);
+                        });
+                    });
+                }
+
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump('vtl-notice-' + id, title, 'views/vtl-notice/detail.html?&id=' + id)
+					top.layui.admin.jump('vtl-notice-' + id, title, 'views/system/notice/detail.html?&id=' + id)
 				}
 
 			})

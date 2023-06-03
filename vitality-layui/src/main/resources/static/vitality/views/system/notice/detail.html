@@ -24,7 +24,7 @@
                 { field: 'id', title: 'ID', hide: true },
                 { field: 'avatar', title: '图像', hide: true },
                 { field: 'title', title: '标题', longtext: true },
-                { field: 'description', title: '正文', longtext: true },
+                { field: 'description', title: '正文', longtext: true, hide: true},
                 { field: 'released', title: '已发布', newline: true, templet: function (d) {
                     return d.released == 1 ? '是' : '否';
                 }},

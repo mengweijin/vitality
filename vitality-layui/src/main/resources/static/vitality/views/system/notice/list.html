@@ -49,7 +49,7 @@
 			{{# } else { }}
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
 			{{# } }}
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			{{#if (d.released == 0) { }}
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
 			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
@@ -70,15 +70,15 @@
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'avatar', title: '图标', width: 120, hide: true },
-                    { field: 'title', title: '标题', width: 200 },
-                    { field: 'description', title: '正文' },
+                    //{ field: 'avatar', title: '图标', width: 120, hide: true },
+                    { field: 'title', title: '标题' },
+                    //{ field: 'description', title: '正文' },
                     { field: 'released', title: '已发布', width: 80, templet: function (d) {
                         return d.released == 1 ? '是' : '否';
                     }},
                     { field: 'receivedByName', title: '接收者', width: 120 },
-                    { field: 'createByName', title: '创建者', width: 120, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
+                    { field: 'createByName', title: '创建者', width: 120, hide: false },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'updateByName', title: '更新者', width: 120 },

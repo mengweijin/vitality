@@ -10,7 +10,7 @@ layui.define(['jquery'], function(exports) {
             elem: null,
             fieldNum: 2,
             lineHeight: '20px',
-            titleBackgroundColor: '#a5dcbb' || '#c9edea' || '#d3e7f9',
+            titleBackgroundColor: '#d3e7f9' || '#a5dcbb' || '#c9edea',
             valueBackgroundColor: '#eeeeee',
             url: null,
             cols: [],

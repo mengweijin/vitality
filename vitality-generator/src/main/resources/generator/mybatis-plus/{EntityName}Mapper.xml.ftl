@@ -54,6 +54,17 @@
             </where>
         </sql>
 
+    <select id="detailById" resultType="${packagePath}.dto.${entityName}DTO">
+        select
+            <include refid="BaseColumn"/>,
+            cu.NICKNAME as create_by_name,
+            uu.NICKNAME as update_by_name
+        from ${name} t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        where t.ID = #{id}
+    </select>
+
     <select id="page" resultType="${packagePath}.dto.${entityName}DTO">
         select
             <include refid="BaseColumn"/>,

@@ -16,6 +16,12 @@ import org.apache.ibatis.annotations.Param;
 public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
 
     /**
+     * Get ${entityName} detail by id
+     * @param id id
+     */
+    ${entityName}DTO detailById(Long id);
+
+    /**
      * 自定义分页
      * @param page page
      * @param dto ${entityName}DTO

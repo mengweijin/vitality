@@ -55,6 +55,11 @@ public class ${entityName}Controller extends BaseController {
         return ${entityName?uncap_first}Service.getById(id);
     }
 
+    @GetMapping("/detail/{id}")
+    public ${entityName}DTO detailById(@PathVariable("id") Long id) {
+        return ${entityName?uncap_first}Service.detailById(id);
+    }
+
     @GetMapping("/page")
     public IPage<${entityName}DTO> page(Page<${entityName}DTO> page, ${entityName}DTO dto) {
         return ${entityName?uncap_first}Service.page(page, dto);

@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.system.enums.EMessageType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,10 +21,10 @@ import lombok.experimental.Accessors;
 public class VtlMessage extends BaseEntity {
 
     /**
-     * 消息类型。{NOTICE=通知, BACKLOG=待办}
+     * 消息类型。{ NOTICE("通知"), ANNOUNCEMENT("公告"), BACKLOG("待办") }
      */
     @TableField("TYPE")
-    private String type;
+    private EMessageType type;
 
     /**
      * 图像链接url

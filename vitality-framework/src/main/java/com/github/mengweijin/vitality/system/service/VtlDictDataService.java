@@ -8,6 +8,8 @@ import com.github.mengweijin.vitality.system.mapper.VtlDictDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 字典数据表 服务类
  *
@@ -30,5 +32,9 @@ public class VtlDictDataService extends ServiceImpl<VtlDictDataMapper, VtlDictDa
 
     public boolean disabledChange(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlDictData::getDisabled, disabled).eq(VtlDictData::getId, id).update();
+    }
+
+    public List<VtlDictData> getByTypeCode(String typeCode) {
+        return this.lambdaQuery().eq(VtlDictData::getTypeCode, typeCode).eq(VtlDictData::getDisabled, 0).orderByAsc(VtlDictData::getSeq).list();
     }
 }

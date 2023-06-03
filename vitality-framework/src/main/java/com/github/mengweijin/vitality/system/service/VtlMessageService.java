@@ -1,10 +1,15 @@
 package com.github.mengweijin.vitality.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.system.dto.VtlMessageDTO;
+import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMessage;
 import com.github.mengweijin.vitality.system.enums.EMessageType;
 import com.github.mengweijin.vitality.system.mapper.VtlMessageMapper;
-import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,31 +23,45 @@ import java.util.stream.Collectors;
 @Service
 public class VtlMessageService extends ServiceImpl<VtlMessageMapper, VtlMessage> {
 
-    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
-        List<VtlMessage> noticeList = this.lambdaQuery()
-                .eq(VtlMessage::getType, EMessageType.NOTICE)
-                .eq(VtlMessage::getReleased, true)
-                .eq(VtlMessage::getConfirmed, false)
-                .list();
+    @Autowired
+    private VtlDictDataService dictDataService;
 
-        List<VtlMessage> backlogList = this.lambdaQuery()
-                .eq(VtlMessage::getType, EMessageType.BACKLOG)
-                .eq(VtlMessage::getReleased, true)
-                .eq(VtlMessage::getHandled, false)
-                .list();
+    @Autowired
+    private VtlMessageMapper vtlMessageMapper;
 
-        VtlMessageHeaderMenuDataDTO noticeVO = this.buildMessageHeaderMenuDataVO(1L, EMessageType.NOTICE, noticeList);
-        VtlMessageHeaderMenuDataDTO backlogVO = this.buildMessageHeaderMenuDataVO(2L, EMessageType.BACKLOG, backlogList);
-        return Arrays.asList(noticeVO, backlogVO);
+    public IPage<VtlMessageDTO> page(IPage<VtlMessageDTO> page, VtlMessageDTO dto){
+        return vtlMessageMapper.page(page, dto);
     }
 
-    private VtlMessageHeaderMenuDataDTO buildMessageHeaderMenuDataVO(Long tabId, EMessageType messageType, List<VtlMessage> list) {
+    public List<VtlMessageDTO> getFirstPageHeaderMenuDataByType(EMessageType type) {
+        VtlMessageDTO dto = new VtlMessageDTO();
+        dto.setType(type);
+        dto.setReleased(1);
+        if(EMessageType.BACKLOG == type) {
+            dto.setHandled(0);
+        }
+        IPage<VtlMessageDTO> page = new Page<>();
+        return this.page(page, dto).getRecords();
+    }
+
+    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
+        List<VtlMessageDTO> noticeList = this.getFirstPageHeaderMenuDataByType(EMessageType.NOTICE);
+        List<VtlMessageDTO> announcementList = this.getFirstPageHeaderMenuDataByType(EMessageType.ANNOUNCEMENT);
+        List<VtlMessageDTO> backlogList = this.getFirstPageHeaderMenuDataByType(EMessageType.BACKLOG);
+
+        VtlMessageHeaderMenuDataDTO noticeVO = this.buildMessageHeaderMenuDataVO(EMessageType.NOTICE, noticeList);
+        VtlMessageHeaderMenuDataDTO announcementVO = this.buildMessageHeaderMenuDataVO(EMessageType.ANNOUNCEMENT, announcementList);
+        VtlMessageHeaderMenuDataDTO backlogVO = this.buildMessageHeaderMenuDataVO(EMessageType.BACKLOG, backlogList);
+        return Arrays.asList(noticeVO, announcementVO, backlogVO);
+    }
+
+    private VtlMessageHeaderMenuDataDTO buildMessageHeaderMenuDataVO(EMessageType messageType, List<VtlMessageDTO> list) {
         List<VtlMessageHeaderMenuDataDTO.MessageItemDataVO> itemDataVOList = list.stream()
                 .map(VtlMessageHeaderMenuDataDTO.MessageItemDataVO::new)
                 .collect(Collectors.toList());
 
         VtlMessageHeaderMenuDataDTO vo = new VtlMessageHeaderMenuDataDTO();
-        vo.setId(tabId);
+        vo.setId(IdUtil.simpleUUID());
         vo.setTitle(messageType.getValue());
         vo.setChildren(itemDataVOList);
         return vo;

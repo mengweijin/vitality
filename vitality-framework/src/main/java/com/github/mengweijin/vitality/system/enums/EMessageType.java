@@ -6,7 +6,7 @@ package com.github.mengweijin.vitality.system.enums;
  */
 public enum EMessageType {
 
-    NOTICE("通知"), BACKLOG("待办");
+    NOTICE("通知"), ANNOUNCEMENT("公告"), BACKLOG("待办");
 
     private final String value;
 

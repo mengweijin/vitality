@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS VTL_MESSAGE;
 CREATE TABLE VTL_MESSAGE (
   ID                            bigint NOT NULL COMMENT '主键ID',
-  TYPE                          varchar(10) DEFAULT 'NOTICE' COMMENT '消息类型。{NOTICE=通知, BACKLOG=待办}',
+  TYPE                          varchar(20) DEFAULT NULL COMMENT '消息类型。{ NOTICE("通知"), ANNOUNCEMENT("公告"), BACKLOG("待办") }',
   AVATAR                        varchar(255) DEFAULT NULL COMMENT '图像链接url',
   TITLE                         varchar(255) DEFAULT NULL COMMENT '标题',
   DESCRIPTION                   varchar(20000) DEFAULT NULL COMMENT '内容',

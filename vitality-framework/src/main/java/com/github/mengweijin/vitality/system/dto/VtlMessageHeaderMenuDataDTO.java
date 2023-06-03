@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.vitality.system.entity.VtlMessage;
 import lombok.Data;
 import org.dromara.hutool.core.date.DatePattern;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,8 +17,7 @@ import java.util.List;
 @Data
 public class VtlMessageHeaderMenuDataDTO {
 
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private String id;
 
     /**
      * 存放：通知类型

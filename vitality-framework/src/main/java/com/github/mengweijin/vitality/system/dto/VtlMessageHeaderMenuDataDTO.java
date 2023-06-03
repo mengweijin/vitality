@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.github.mengweijin.vitality.system.entity.VtlNotice;
 import lombok.Data;
 import org.dromara.hutool.core.date.DatePattern;
 
@@ -42,17 +43,14 @@ public class VtlMessageHeaderMenuDataDTO {
         @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
         private LocalDateTime time;
 
-        private String urlLink;
-
-        //public MessageItemDataVO(VtlMessage message) {
-        //    this.id = message.getId();
-        //    this.avatar = message.getAvatar();
-        //    this.title = message.getTitle();
-        //    this.context = message.getDescription();
-        //    this.form = message.getUpdateByName();
-        //    this.time = message.getUpdateTime();
-        //    this.urlLink = message.getUrlLink();
-        //}
+        public MessageItemDataVO(VtlNotice notice) {
+           this.id = notice.getId();
+           this.avatar = notice.getAvatar();
+           this.title = notice.getTitle();
+           this.context = notice.getDescription();
+           this.form = notice.getUpdateByName();
+           this.time = notice.getUpdateTime();
+        }
 
     }
 }

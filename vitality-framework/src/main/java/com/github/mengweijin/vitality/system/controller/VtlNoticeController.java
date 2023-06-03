@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
+import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
 import com.github.mengweijin.vitality.system.dto.VtlNoticeDTO;
 import com.github.mengweijin.vitality.system.entity.VtlNotice;
 import com.github.mengweijin.vitality.system.service.VtlNoticeService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 通知记录表 控制器
@@ -68,6 +70,11 @@ public class VtlNoticeController extends BaseController {
     @GetMapping("/page")
     public IPage<VtlNoticeDTO> page(Page<VtlNoticeDTO> page, VtlNoticeDTO dto) {
         return vtlNoticeService.page(page, dto);
+    }
+
+    @GetMapping("/headerMenuData")
+    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
+        return vtlNoticeService.headerMenuData();
     }
 
     @PostMapping("/release/{id}")

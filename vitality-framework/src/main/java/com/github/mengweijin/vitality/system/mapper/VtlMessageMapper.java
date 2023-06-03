@@ -22,4 +22,5 @@ public interface VtlMessageMapper extends BaseMapper<VtlMessage> {
      */
     IPage<VtlMessageDTO> page(IPage<VtlMessageDTO> page, @Param("p") VtlMessageDTO dto);
 
+    VtlMessageDTO detail(Long id);
 }

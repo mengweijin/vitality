@@ -1,12 +1,12 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.system.dto.VtlMessageDTO;
+import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMessage;
 import com.github.mengweijin.vitality.system.service.VtlMessageService;
-import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,9 +59,15 @@ public class VtlMessageController {
     }
 
     @GetMapping("/page")
-    public IPage<VtlMessage> page(Page<VtlMessage> page, VtlMessage vtlMessage) {
-        return messageService.page(page, new QueryWrapper<>(vtlMessage));
+    public IPage<VtlMessageDTO> page(Page<VtlMessageDTO> page, VtlMessageDTO dto) {
+        return messageService.page(page, dto);
     }
+
+    @GetMapping("/detail/{id}")
+    public VtlMessageDTO detail(@PathVariable("id") Long id) {
+        return messageService.detail(id);
+    }
+
 
     @GetMapping("/headerMenuData")
     public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {

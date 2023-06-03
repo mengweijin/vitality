@@ -66,4 +66,8 @@ public class VtlMessageService extends ServiceImpl<VtlMessageMapper, VtlMessage>
         vo.setChildren(itemDataVOList);
         return vo;
     }
+
+    public VtlMessageDTO detail(Long id) {
+        return vtlMessageMapper.detail(id);
+    }
 }

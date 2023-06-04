@@ -42,7 +42,7 @@ INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengwe
 INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 -- 参数配置
-INSERT INTO VTL_CONFIG (ID, TITLE, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '用户管理-初始密码', 'vtl_user_init_password', '123@vtl.com', null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_CONFIG (ID, TITLE, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '用户管理-初始密码', 'vtl_user_init_password', '123456', null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
 -- 公告管理

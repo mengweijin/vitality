@@ -28,6 +28,22 @@ CREATE TABLE VTL_ANNOUNCEMENT (
 ) COMMENT = '公告管理表';
 
 
+DROP TABLE IF EXISTS VTL_CONFIG;
+CREATE TABLE VTL_CONFIG (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  TITLE                         varchar(255) NOT NULL COMMENT '标题',
+  CODE                          varchar(100) NOT NULL COMMENT '配置编码',
+  VAL                           varchar(255) NOT NULL COMMENT '值',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_CONFIG_UNIQUE_INDEX_CODE (CODE) USING BTREE
+) COMMENT = '配置管理表';
+
+
 DROP TABLE IF EXISTS VTL_LOG_ERROR;
 CREATE TABLE VTL_LOG_ERROR (
   ID                            bigint NOT NULL COMMENT '主键ID',

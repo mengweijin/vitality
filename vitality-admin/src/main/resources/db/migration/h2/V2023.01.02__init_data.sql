@@ -41,6 +41,9 @@ INSERT INTO VTL_DICT_DATA (ID, TYPE_CODE, DATA_CODE, LABEL, SEQ, DEFAULT_SELECTE
 INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
+-- 参数配置
+INSERT INTO VTL_CONFIG (ID, TITLE, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '用户管理-初始密码', 'vtl_user_init_password', '123@vtl.com', null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
--- 公告
+
+-- 公告管理
 INSERT INTO VTL_ANNOUNCEMENT (ID, AVATAR, TITLE, DESCRIPTION, RELEASED, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, null, '欢迎来到 vitality 管理系统！', '<h2 style="text-align: left;"><span style="color: #3a3a3a; font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;"><span style="font-size: 14px;">vitality 管理系统简介</span></span></h2><p><span style="color: #3a3a3a; font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;"><span style="font-size: 14px;">vitality 是一个基于 SpringBoot 3+、sa-token、Layui 2.8+ 等技术，可前后端分离，的后台管理系统，可以用于常见的的 Web 应用程序，比如网站管理后台等。</span></span></p><pre>生活中有很多小型系统，没有很高的并发量，需要一个简单，无重度依赖三方组件的系统作为基础框架进行二次开发。<br /><br />于是就在网上找各种开源项目，发现：<br />1、要么是技术栈不喜欢。比如前后端分离的项目，前端开发要一大堆 npm 包依赖以及各种环境；再比如传统的安全认证和授权框架 shiro/spring security用起来不爽，我想用 sa-token;<br />2、要么需要依赖太多三方组件或服务，部署太麻烦。比如要依赖 Redis 做缓存、nacos 做配置中心。<br /><br />而我就只想要一个，启动一个 jar 包，技术栈也是自己喜欢的就行。找来找去，没找到合适的，那就自己写一个吧！<br /><br />于是，基于以前的积累，在我 2018 年写的一个后台管理系统 mwj-cms 的练习项目的基础上，重构、重写大量代码，产生了 vitality 管理系统！<br /><br />没事可以扩展一些其他功能，以作技术积累。<br /><br /><strong>发展历史：<br /></strong>- version 1.3.*: 2023年，正式更名为 vitality，现处于开发中阶段。<strong><br /></strong>- version 1.2.*: 2022年，基于 quickboot 项目，更名为 vitality-spring-boot-starter 工程，独立代码生成器模块。<strong><br /></strong>- version 1.1.*：2020年，基于 mwj-cms 后台管理系统提取封装公共类，创建 vitality 的前身 quickboot 项目。<br />- version 1.0.*：2018年，第一版，mwj-cms 后台管理系统。<br /><br /></pre>', 1, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());

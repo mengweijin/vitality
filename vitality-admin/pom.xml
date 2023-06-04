@@ -67,16 +67,19 @@
         </executions>
         <configuration>
           <includeSystemScope>true</includeSystemScope>
-          <includes>
-            <!--
+          <!--
                 这里只包含一个不存在的项nothing,即代表什么都不包含，当然名字可以随便写。
                 如果要打可执行 jar，则删掉这段 include
-             -->
+          -->
+          <!--
+          <includes>
             <include>
               <groupId>nothing</groupId>
               <artifactId>nothing</artifactId>
             </include>
           </includes>
+          <mainClass>com.github.mengweijin.vitality.admin.VitalityAdminApplication</mainClass>
+          -->
         </configuration>
       </plugin>
     </plugins>

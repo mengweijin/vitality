@@ -17,6 +17,16 @@
                             </div>
                         </div>
 						<div class="layui-form-item layui-inline">
+							<label class="layui-form-label">发布状态</label>
+							<div class="layui-input-inline">
+								<select name="released">
+									<option value=""></option>
+									<option value="0">未发布</option>
+									<option value="1">已发布</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item layui-inline">
 							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
 								<i class="layui-icon layui-icon-search"></i>查询
 							</button>
@@ -43,15 +53,13 @@
 		    </button>
 		</script>
 		<script type="text/html" id="operationTpl">
-			{{#if (d.released == 0) { }}
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="release" title="发布"><i class="layui-icon layui-icon-release"></i></button>
-			{{# } else { }}
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
-			{{# } }}
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			{{#if (d.released == 0) { }}
+			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="release" title="发布"><i class="layui-icon layui-icon-release"></i></button>
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
 			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			{{# } else { }}
+			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
 			{{# } }}
 		</script>
 

@@ -20,7 +20,7 @@
         desc.render({
             elem: '#descriptions',
             fieldNum: 2,
-            url: '/${tableName?replace('_','-')}/' + id,
+            url: '/${tableName?replace('_','-')}/detail/' + id,
             cols: [
 <#list fields as field>
     <#if field.keyFlag>

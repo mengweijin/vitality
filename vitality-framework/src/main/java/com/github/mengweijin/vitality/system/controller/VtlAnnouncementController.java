@@ -69,4 +69,16 @@ public class VtlAnnouncementController extends BaseController {
     public IPage<VtlAnnouncementDTO> page(Page<VtlAnnouncementDTO> page, VtlAnnouncementDTO dto) {
         return vtlAnnouncementService.page(page, dto);
     }
+
+    @PostMapping("/release/{id}")
+    public R release(@PathVariable("id") Long id) {
+        boolean bool = vtlAnnouncementService.lambdaUpdate().set(VtlAnnouncement::getReleased, 1).eq(VtlAnnouncement::getId, id).update();
+        return R.bool(bool);
+    }
+
+    @PostMapping("/revocation/{id}")
+    public R revocation(@PathVariable("id") Long id) {
+        boolean bool = vtlAnnouncementService.lambdaUpdate().set(VtlAnnouncement::getReleased, 0).eq(VtlAnnouncement::getId, id).update();
+        return R.bool(bool);
+    }
 }

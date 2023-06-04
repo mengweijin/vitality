@@ -79,7 +79,6 @@ layui.use(['jquery'], function () {
                 return index;
             },
 
-
             /**
              * 判断是否是空
              * @param value
@@ -93,6 +92,15 @@ layui.use(['jquery'], function () {
                     return val == "" || val == "undefined" || val == "null";
                 }
             },
+
+            /**
+             * 判断是否是空
+             * @param value
+             */
+            blankToDefault: function(val, defaultVal) {
+                return this.isBlank(val) ? defaultVal : val;
+            },
+
             /**
              * 复制文本到剪切板。text是复制文本
              */

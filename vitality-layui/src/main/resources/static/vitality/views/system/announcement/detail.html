@@ -6,47 +6,35 @@
     <link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 </head>
 <body>
-<div id="descriptions"></div>
+<div class="layui-card">
+    <div class="layui-card-header" style="text-align: center;"><h1 id="title"></h1></div>
+    <div class="layui-card-body" id="description"></div>
+</div>
+
+<div id="createInfo" style="text-align: right; padding-right: 50px;">
+</div>
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['descriptions'], function() {
+    layui.use(['descriptions', 'jquery'], function() {
         let desc = layui.descriptions;
+        let $ = layui.jquery;
         let url = layui.url();
         let id = url.search.id;
 
+        $.get('/vtl-announcement/detail/' + id, function(result) {
+            let releasedContent = result.released == 1 ? '已发布' : '未发布';
+            $('#title').text(result.title + '（' + releasedContent + '）');
+            $('#description').html(result.description);
 
-        desc.render({
-            elem: '#descriptions',
-            fieldNum: 2,
-            url: '/vtl-announcement/' + id,
-            cols: [
-                { field: 'id', title: 'ID', hide: true },
-                { field: 'avatar', title: 'AVATAR' },
-                { field: 'title', title: 'TITLE' },
-                { field: 'description', title: 'DESCRIPTION' },
-                { field: 'released', title: 'RELEASED' },
-                { field: 'createBy', title: 'CREATE_BY' },
-                { field: 'createTime', title: 'CREATE_TIME', templet: function (d) {
-                    return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
-                }},
-                { field: 'updateBy', title: 'UPDATE_BY' },
-                { field: 'updateTime', title: 'UPDATE_TIME', templet: function (d) {
-                    return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
-                }},
-                { title: '描述', longtext: true, templet: function(d) {
-                    return '';
-                }},
-                { field: 'createByName', title: '创建者', newline: true },
-                { field: 'createTime', title: '创建时间', templet: function (d) {
-                    return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
-                }},
-                { field: 'updateByName', title: '更新者' },
-                { field: 'updateTime', title: '更新时间', templet: function (d) {
-                    return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
-                }},
-            ]
-        });
+            let createInfo = '';
+            if(result.released == 1) {
+                createInfo = '<h4>发布者：' + $.vtl.blankToDefault(result.updateByName, '') + '&emsp;&emsp;&emsp;发布时间：' + result.updateTime + '</h4>';
+            } else {
+                createInfo = '<h4>更新者：' + $.vtl.blankToDefault(result.updateByName, '') + '&emsp;&emsp;&emsp;更新时间：' + result.updateTime + '</h4>';
+            }
+            $('#createInfo').html(createInfo);
+        })
     })
 </script>
 </body>

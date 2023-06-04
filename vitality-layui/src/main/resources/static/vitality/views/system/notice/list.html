@@ -76,7 +76,7 @@
                     { field: 'released', title: '已发布', width: 80, templet: function (d) {
                         return d.released == 1 ? '是' : '否';
                     }},
-                    { field: 'receivedByName', title: '接收者', width: 120 },
+                    { field: 'receivedByName', title: '通知接收者', width: 120 },
                     { field: 'createByName', title: '创建者', width: 120, hide: false },
                     { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");

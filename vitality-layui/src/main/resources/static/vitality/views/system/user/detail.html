@@ -6,13 +6,36 @@
     <link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 </head>
 <body>
-<div id="descriptions"></div>
+
+<div class="layui-card">
+    <div class="layui-card-header">
+        <strong>用户信息</strong>
+        <span class="layui-layout-right" style="padding-right: 30px;">
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="updateProfile"><i class="layui-icon layui-icon-upload"></i>更新图像</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="resetPassword"><i class="layui-icon layui-icon-refresh-1"></i>重置密码</button>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-row">
+            <div class="layui-col-xs12 layui-col-sm2" style="text-align: center; margin-top: 25px;">
+                <img src="" id="userAvatar" width="115px" height="115px" alt="">
+            </div>
+            <div class="layui-col-xs6 layui-col-sm10">
+                <div id="descriptions"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['descriptions', 'dict'], function() {
+    layui.use(['jquery', 'descriptions', 'dict', 'util'], function() {
+        let $ = layui.jquery;
         let desc = layui.descriptions;
         let dict = layui.dict;
+        let util = layui.util;
         let url = layui.url();
         let id = url.search.id;
 
@@ -24,7 +47,7 @@
                 { field: 'id', title: 'ID', hide: true },
                 { field: 'username', title: '登录账号' },
                 { field: 'password', title: '用户密码', templet: function(d) {
-                    return '保密';
+                    return '********';
                 }},
                 { field: 'nickname', title: '用户昵称' },
                 { field: 'gender', title: '性别', templet: function(d) {
@@ -46,6 +69,25 @@
                 }},
             ]
         });
+
+        // 处理属性 为 lay-on 的所有元素事件
+        util.on('lay-on', {
+            edit: function(){
+                console.log(this); // 当前触发事件的 DOM 对象
+                layer.msg('触发了事件 1');
+            },
+            updateProfile: function(){
+                window.profile(id);
+            },
+            resetPassword: function(){
+                layer.msg('触发了事件 3');
+            }
+        });
+
+        window.profile = function(id) {
+            let url = 'profile.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
+            $.vtl.openLayer(url, { title: '更新图像', area: ['850px', '500px'] });
+        }
     })
 </script>
 </body>

@@ -10,8 +10,8 @@ layui.define(['jquery'], function(exports) {
             elem: null,
             fieldNum: 2,
             lineHeight: '20px',
-            titleBackgroundColor: '#d3e7f9' || '#a5dcbb' || '#c9edea',
-            valueBackgroundColor: '#eeeeee',
+            titleBackgroundColor: 'white' || '#d3e7f9' || '#a5dcbb' || '#c9edea',
+            valueBackgroundColor: 'white' || '#eeeeee',
             url: null,
             cols: [],
             data: {}
@@ -47,6 +47,7 @@ layui.define(['jquery'], function(exports) {
             let $row = $("<div/>", { class: "layui-row", style: "margin-top: 2px; padding: 0 15px;" });
             let $titleColumn = $("<div/>", { style: "padding: 10px; text-align: right;" })
                 .css("line-height", this.config.lineHeight)
+                .css("font-weight", 'bold')
                 .css("background-color", this.config.titleBackgroundColor)
                 .addClass("layui-col-xs12 layui-col-sm2");
             let $valueColumn = $("<div/>", { style: "padding: 10px; text-align: left;" })

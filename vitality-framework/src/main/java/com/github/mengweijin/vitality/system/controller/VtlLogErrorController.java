@@ -1,9 +1,10 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.mvc.BaseController;
+import com.github.mengweijin.vitality.system.dto.VtlLogErrorDTO;
 import com.github.mengweijin.vitality.system.entity.VtlLogError;
 import com.github.mengweijin.vitality.system.service.VtlLogErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,46 +19,54 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 /**
+ * 系统错误日志记录表 控制器
+ *
  * @author mengweijin
- * @date 2023/4/1
+ * @since 2023-06-06
  */
 @RestController
 @RequestMapping("/vtl-log-error")
-public class VtlLogErrorController {
+public class VtlLogErrorController extends BaseController {
+
     @Autowired
-    private VtlLogErrorService errorLogService;
+    private VtlLogErrorService vtlLogErrorService;
 
     @PostMapping
     public R add(VtlLogError vtlLogError) {
-        boolean bool = errorLogService.save(vtlLogError);
+        boolean bool = vtlLogErrorService.save(vtlLogError);
         return R.bool(bool);
     }
 
     @PutMapping
     public R edit(VtlLogError vtlLogError) {
-        boolean bool = errorLogService.updateById(vtlLogError);
+        boolean bool = vtlLogErrorService.updateById(vtlLogError);
         return R.bool(bool);
     }
 
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
-        boolean bool = errorLogService.removeById(id);
+        boolean bool = vtlLogErrorService.removeById(id);
         return R.bool(bool);
     }
 
     @DeleteMapping
     public R delete(Long[] ids) {
-        boolean bool = errorLogService.removeBatchByIds(Arrays.asList(ids));
+        boolean bool = vtlLogErrorService.removeBatchByIds(Arrays.asList(ids));
         return R.bool(bool);
     }
 
     @GetMapping("/{id}")
     public VtlLogError getById(@PathVariable("id") Long id) {
-        return errorLogService.getById(id);
+        return vtlLogErrorService.getById(id);
+    }
+
+    @GetMapping("/detail/{id}")
+    public VtlLogErrorDTO detailById(@PathVariable("id") Long id) {
+        return vtlLogErrorService.detailById(id);
     }
 
     @GetMapping("/page")
-    public IPage<VtlLogError> page(Page<VtlLogError> page, VtlLogError vtlLogError) {
-        return errorLogService.page(page, new QueryWrapper<>(vtlLogError));
+    public IPage<VtlLogErrorDTO> page(Page<VtlLogErrorDTO> page, VtlLogErrorDTO dto) {
+        return vtlLogErrorService.page(page, dto);
     }
 }

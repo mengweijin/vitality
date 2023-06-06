@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.VtlLogOperationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.VtlLogOperation">
+        <result column="ID" property="id" />
+        <result column="URL" property="url" />
+        <result column="HTTP_METHOD" property="httpMethod" />
+        <result column="METHOD_NAME" property="methodName" />
+        <result column="IP" property="ip" />
+        <result column="IP_LOCATION" property="ipLocation" />
+        <result column="SUCCEEDED" property="succeeded" />
+        <result column="ERROR_INFO" property="errorInfo" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumn">
+        t.ID,
+        t.URL,
+        t.HTTP_METHOD,
+        t.METHOD_NAME,
+        t.IP,
+        t.IP_LOCATION,
+        t.SUCCEEDED,
+        t.ERROR_INFO,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME
+    </sql>
+
+    <!-- 通用 Where 条件列 -->
+    <sql id="BaseWhere">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.url != null and p.url != '' ">
+                and t.URL = #{p.url}
+            </if>
+            <if test="p.httpMethod != null and p.httpMethod != '' ">
+                and t.HTTP_METHOD = #{p.httpMethod}
+            </if>
+            <if test="p.methodName != null and p.methodName != '' ">
+                and t.METHOD_NAME = #{p.methodName}
+            </if>
+            <if test="p.ip != null and p.ip != '' ">
+                and t.IP = #{p.ip}
+            </if>
+            <if test="p.ipLocation != null and p.ipLocation != '' ">
+                and t.IP_LOCATION = #{p.ipLocation}
+            </if>
+            <if test="p.succeeded != null" >
+                and t.SUCCEEDED = #{p.succeeded}
+            </if>
+            <if test="p.errorInfo != null and p.errorInfo != '' ">
+                and t.ERROR_INFO = #{p.errorInfo}
+            </if>
+            <if test="p.createBy != null" >
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null" >
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+        <!-- 通用 Where Like 条件列 -->
+        <sql id="BaseWhereLike">
+            <where>
+                <if test="p.id != null" >
+                    and t.ID = #{p.id}
+                </if>
+                <if test="p.url != null and p.url != '' ">
+                    and t.URL like concat(concat('%', #{p.url}), '%')
+                </if>
+                <if test="p.httpMethod != null and p.httpMethod != '' ">
+                    and t.HTTP_METHOD like concat(concat('%', #{p.httpMethod}), '%')
+                </if>
+                <if test="p.methodName != null and p.methodName != '' ">
+                    and t.METHOD_NAME like concat(concat('%', #{p.methodName}), '%')
+                </if>
+                <if test="p.ip != null and p.ip != '' ">
+                    and t.IP like concat(concat('%', #{p.ip}), '%')
+                </if>
+                <if test="p.ipLocation != null and p.ipLocation != '' ">
+                    and t.IP_LOCATION like concat(concat('%', #{p.ipLocation}), '%')
+                </if>
+                <if test="p.succeeded != null" >
+                    and t.SUCCEEDED = #{p.succeeded}
+                </if>
+                <if test="p.errorInfo != null and p.errorInfo != '' ">
+                    and t.ERROR_INFO like concat(concat('%', #{p.errorInfo}), '%')
+                </if>
+                <if test="p.createBy != null" >
+                    and t.CREATE_BY = #{p.createBy}
+                </if>
+                <if test="p.createTime != null" >
+                    and t.CREATE_TIME = #{p.createTime}
+                </if>
+                <if test="p.updateBy != null" >
+                    and t.UPDATE_BY = #{p.updateBy}
+                </if>
+                <if test="p.updateTime != null" >
+                    and t.UPDATE_TIME = #{p.updateTime}
+                </if>
+            </where>
+        </sql>
+
+    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.VtlLogOperationDTO">
+        select
+            <include refid="BaseColumn"/>,
+            cu.NICKNAME as create_by_name,
+            uu.NICKNAME as update_by_name
+        from VTL_LOG_OPERATION t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        where t.ID = #{id}
+    </select>
+
+    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlLogOperationDTO">
+        select
+            <include refid="BaseColumn"/>,
+            cu.NICKNAME as create_by_name,
+            uu.NICKNAME as update_by_name
+        from VTL_LOG_OPERATION t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        <include refid="BaseWhereLike"/>
+        order by t.CREATE_TIME desc
+    </select>
+
+</mapper>

@@ -64,7 +64,7 @@ INSERT INTO VTL_MENU VALUES(50000020, 500000, '角色管理', 1, 'sys:manage:rol
 INSERT INTO VTL_MENU VALUES(50000030, 500000, '权限管理', 1, 'sys:manage:power', 3, null, 'view/system/power.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(50000040, 500000, '部门管理', 1, 'sys:manage:deptment', 4, null, 'view/system/deptment.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(50000050, 500000, '行为日志', 1, 'sys:manage:log', 5, null, 'view/system/log.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_MENU VALUES(50000060, 500000, '数据字典', 1, 'sys:manage:dict', 6, null, 'view/system/list.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_MENU VALUES(50000060, 500000, '数据字典', 1, 'sys:manage:dict', 6, null, 'view/system/operationLog.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 INSERT INTO VTL_MENU VALUES(600000, 0, '常用页面', 0, 'sys:commonPage', 600000, 'layui-icon layui-icon-template-1', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU VALUES(60000010, 600000, '登录页面', 1, 'sys:commonPage:login', 1, null, 'login.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());

@@ -20,6 +20,13 @@ public class Ip2regionUtils {
      * @return 数据格式：国家|区域|省份|城市|ISP。例如：中国|0|广东省|广州市|联通
      */
     public static String search(String ip) {
+        if(ip == null) {
+            return null;
+        }
+        if("0:0:0:0:0:0:0:1".equals(ip.trim())) {
+            return "本地";
+        }
+
         InputStream in = Ip2regionUtils.class.getClassLoader().getResourceAsStream("ip2region.xdb");
         Searcher searcher = null;
         try(in) {

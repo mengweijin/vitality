@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 系统错误日志记录表
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-06
  */
 @Data
 @Accessors(chain = true)

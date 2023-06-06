@@ -135,6 +135,32 @@
     </sql>
 
     <!-- 不查询密码  -->
+    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
+        select
+            t.ID,
+            t.USERNAME,
+            t.NICKNAME,
+            t.GENDER,
+            t.EMAIL,
+            t.MOBILE_PHONE,
+            t.SECRET_KEY_2FA,
+            t.DISABLED,
+            t.DELETED,
+            t.CREATE_BY,
+            t.CREATE_TIME,
+            t.UPDATE_BY,
+            t.UPDATE_TIME,
+            cu.NICKNAME as create_by_name,
+            uu.NICKNAME as update_by_name,
+            up.PROFILE_PICTURE
+        from VTL_USER t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        left join VTL_USER_PROFILE up on up.ID = t.ID
+        where t.ID = #{id}
+    </select>
+
+    <!-- 不查询密码  -->
     <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
         select
             t.ID,

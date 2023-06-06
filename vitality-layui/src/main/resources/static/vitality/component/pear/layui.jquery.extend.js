@@ -80,6 +80,37 @@ layui.use(['jquery'], function () {
             },
 
             /**
+             * 图片裁剪。注意：回调函数 success 和 yes 的三个参数顺序是不一样的！！！
+             * @param {Function} success 回调函数。可以在这里实现初始图片回显，把图片通过 that 对象设置进去。
+             *      function(layero, index, that){
+             *          // 弹层的最外层元素的 jQuery 对象
+             *          console.log(layero);
+             *          // 弹层的索引值
+             *          console.log(index);
+             *          // 弹层内部原型链中的 this --- 2.8+
+             *          console.log(that);
+             *      }
+             * @param {Function} yes 回调函数。可以在这里实现裁剪后的图片保存，通过 that 对象获取图片的 base64 字符串。
+             *      function(index, layero, that){
+             *          // 获取 iframe 中 body 元素的 jQuery 对象
+             *          var body = layer.getChildFrame('body', index);
+             *          // 给 iframe 页中的某个输入框赋值
+             *          body.find('input').val('Hello layer.');
+             *      }
+             * @returns
+             */
+            openCopper: function(success, yes) {
+                let url = this.getCtxFromSession() + '/component/html/cropper.html';
+                return this.openLayer(url, {
+                    title: '图片裁剪',
+                    area: ['900px', '500px'],
+                    btn: ['保存', '取消'],
+                    success: success,
+                    yes: yes
+                });
+            },
+
+            /**
              * 判断是否是空
              * @param value
              */
@@ -207,6 +238,15 @@ layui.use(['jquery'], function () {
                 } 
 
                 return ajaxBaseUrl;
+            },
+
+            getCtxFromSession: function() {
+                let pearConfig = layui.sessionData('pear_config');
+                let ctx = '';
+                if(pearConfig && pearConfig.config && pearConfig.config.other && pearConfig.config.other.ctx) {
+                    ctx = pearConfig.config.other.ctx;
+                }
+                return this.blankToDefault(ctx, '');
             },
 
 

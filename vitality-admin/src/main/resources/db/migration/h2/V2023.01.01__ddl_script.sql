@@ -172,14 +172,12 @@ CREATE TABLE VTL_USER (
 
 DROP TABLE IF EXISTS VTL_USER_PROFILE;
 CREATE TABLE VTL_USER_PROFILE (
-  ID                            bigint NOT NULL COMMENT '主键ID',
-  USER_ID                       bigint NOT NULL COMMENT '用户ID',
+  ID                            bigint NOT NULL COMMENT '主键ID，也是用户ID',
   PROFILE_PICTURE               longtext DEFAULT NULL COMMENT '用户头像，以 Base64 文本存储的大字段。',
   CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id),
-  UNIQUE KEY VTL_USER_PROFILE_UNIQUE_INDEX_USER_ID (USER_ID) USING BTREE
+  PRIMARY KEY (id)
 ) COMMENT = '用户头像存储表';
 

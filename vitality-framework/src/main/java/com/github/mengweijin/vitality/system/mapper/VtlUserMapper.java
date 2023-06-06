@@ -17,6 +17,12 @@ import org.apache.ibatis.annotations.Param;
 public interface VtlUserMapper extends BaseMapper<VtlUser> {
 
     /**
+     * Get VtlUser detail by id
+     * @param id id
+     */
+    VtlUserDTO detailById(Long id);
+
+    /**
      * 自定义分页
      * @param page page
      * @param dto VtlUserDTO

@@ -107,13 +107,13 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
 
         for (int i = 0; i < stepArray.length - commonFrames; ++i) {
             StackTraceElementProxy step = stepArray[i];
-            stringBuilder.append("<br />&nbsp;&nbsp;&nbsp;&nbsp;");
+            //stringBuilder.append("<br />&nbsp;&nbsp;&nbsp;&nbsp;");
             stringBuilder.append(Transform.escapeTags(step.toString()));
             stringBuilder.append(CoreConstants.LINE_SEPARATOR);
         }
 
         if (commonFrames > 0) {
-            stringBuilder.append("<br />&nbsp;&nbsp;&nbsp;&nbsp;");
+            //stringBuilder.append("<br />&nbsp;&nbsp;&nbsp;&nbsp;");
             stringBuilder.append("\t... ").append(commonFrames).append(" common frames omitted").append(CoreConstants.LINE_SEPARATOR);
         }
 
@@ -125,7 +125,8 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
     public void printFirstLine(StringBuilder sb, IThrowableProxy tp) {
         int commonFrames = tp.getCommonFrames();
         if (commonFrames > 0) {
-            sb.append("<br />").append("Caused by: ");
+            //sb.append("<br />").append("Caused by: ");
+            sb.append("Caused by: ");
         }
 
         sb.append(tp.getClassName()).append(": ").append(Transform.escapeTags(tp.getMessage()));

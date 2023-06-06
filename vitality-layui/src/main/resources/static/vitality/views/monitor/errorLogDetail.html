@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+</head>
+<body>
+<div id="descriptions"></div>
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script>
+    layui.use(['descriptions'], function() {
+        let desc = layui.descriptions;
+        let url = layui.url();
+        let id = url.search.id;
+
+
+        desc.render({
+            elem: '#descriptions',
+            fieldNum: 2,
+            url: '/vtl-log-error/detail/' + id,
+            cols: [
+                { field: 'id', title: 'ID', hide: true },
+                { field: 'className', title: '类名称', longtext: true },
+                { field: 'methodName', title: '方法名称', longtext: true },
+                { field: 'exceptionName', title: '异常名称', longtext: true },
+                { field: 'errorMsg', title: '异常信息', longtext: true },
+                { field: 'createByName', title: '创建者', hide: true, longtext: true },
+                { field: 'createTime', title: '发生时间', templet: function (d) {
+                    return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+                }},
+                { field: 'updateByName', title: '更新者', hide: true },
+                { field: 'updateTime', title: '更新时间', hide: true, templet: function (d) {
+                    return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
+                }},
+                { field: 'stackTrace', title: '异常堆栈信息', longtext: true },
+            ]
+        });
+    })
+</script>
+</body>
+</html>

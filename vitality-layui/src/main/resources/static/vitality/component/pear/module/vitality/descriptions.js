@@ -83,12 +83,12 @@ layui.define(['jquery'], function(exports) {
                     let templet = cols[i].templet;
                     if(templet && typeof templet === 'function') {
                         let text = templet.call(this, data);
-                        $currentValueColumn.text($.vtl.isBlank(text) ? '-' : text);
+                        $currentValueColumn.html($.vtl.isBlank(text) ? '-' : text);
                         count++;
                         break;
                     } else if(cols[i].field === j) {
                         let text = data[j];
-                        $currentValueColumn.text($.vtl.isBlank(text) ? '-' : text);
+                        $currentValueColumn.html($.vtl.isBlank(text) ? '-' : text);
                         count++;
                         break;
                     }

@@ -154,6 +154,25 @@ layui.use(['jquery'], function () {
                  return bytes + ' ' + symbols[i];
              },
 
+             secondsFormat: function (seconds) {
+                let daySec = 24 *  60 * 60;
+                let hourSec=  60 * 60;
+                let minuteSec = 60;
+                let dd = Math.floor(seconds / daySec);
+                let hh = Math.floor((seconds % daySec) / hourSec);
+                let mm = Math.floor((seconds % hourSec) / minuteSec);
+                let ss = seconds % minuteSec;
+                if(dd > 0) {
+                    return dd + "天" + hh + "小时" + mm + "分钟" + ss + "秒";
+                } else if (hh > 0) {
+                    return hh + "小时" + mm + "分钟" + ss + "秒";
+                } else if (mm > 0) {
+                    return mm + "分钟" + ss + "秒";
+                } else {
+                    return ss + "秒";
+                }
+             },
+
             /**
              * 复制文本到剪切板。text是复制文本
              */

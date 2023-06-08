@@ -90,7 +90,7 @@
 	</script>
 
 	<script type="text/html" id="dict-type-bar">
-		<button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="detail">
+		<button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="detail" title="展开">
 			<i class="layui-icon layui-icon-transfer"></i>
 		</button>
 		<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">
@@ -146,7 +146,7 @@
 				{ field: 'updateTime', title: '更新时间', width: 160, hide: false, templet: function (d) {
 					return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
 				}},
-				{ title: '操作', toolbar: '#dict-type-bar', align: 'center', width: 150, fixed: 'right' }
+				{ title: '操作', toolbar: '#dict-type-bar', align: 'center', width: 160, fixed: 'right' }
 			]];
 
 			table.render({

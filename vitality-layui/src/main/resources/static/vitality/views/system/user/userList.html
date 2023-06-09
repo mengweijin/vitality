@@ -147,7 +147,7 @@
                             window.delete(obj);
                             break;
                         case 'disabled':
-                            window.disabledChange(obj);
+                            window.setDisabledValue(obj);
                             break;
                         default:
                             break;
@@ -179,8 +179,8 @@
                     });
                 }
 
-                window.disabledChange = function(obj) {
-                    $.sync('post', '/vtl-user/disabledChange/' + obj.data.id, { disabled: !obj.data.disabled });
+                window.setDisabledValue = function(obj) {
+                     $.sync('post', '/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled });
                 }
 
 				window.detail = function(id, title = '用户详情') {

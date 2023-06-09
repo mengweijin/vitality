@@ -30,7 +30,7 @@ public class VtlDictDataService extends ServiceImpl<VtlDictDataMapper, VtlDictDa
         this.lambdaUpdate().eq(VtlDictData::getTypeCode, typeCode).remove();
     }
 
-    public boolean disabledChange(Long id, boolean disabled) {
+    public boolean setDisabledValue(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlDictData::getDisabled, disabled).eq(VtlDictData::getId, id).update();
     }
 

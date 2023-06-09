@@ -120,6 +120,7 @@
                     { field: 'runTimeSeconds', title: 'JVM运行时长', templet: function (d) {
                         return $.vtl.secondsFormat(d.runTimeSeconds);
                     }},
+                    { field: 'startArgs', title: '运行参数', newline: true },
                     { field: 'maxMemory', title: 'JVM最大内存', newline: true },
                     { field: 'usableMemory', title: 'JVM最大可用内存' },
                     { field: 'totalMemory', title: 'JVM已分配内存' },

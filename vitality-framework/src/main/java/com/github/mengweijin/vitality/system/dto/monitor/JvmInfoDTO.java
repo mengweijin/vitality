@@ -9,7 +9,6 @@ import org.dromara.hutool.extra.management.JavaRuntimeInfo;
 import org.dromara.hutool.extra.management.JvmInfo;
 import org.dromara.hutool.extra.management.RuntimeInfo;
 import org.dromara.hutool.extra.management.UserInfo;
-
 import java.lang.management.ManagementFactory;
 import java.time.LocalDateTime;
 
@@ -43,6 +42,8 @@ public class JvmInfoDTO {
     private String totalMemory;
     private String freeMemory;
     private String usableMemory;
+
+    private String startArgs;
     public JvmInfoDTO() {
         JvmInfo jvmInfo = new JvmInfo();
         this.jvmName = jvmInfo.getName();
@@ -60,5 +61,7 @@ public class JvmInfoDTO {
         this.totalMemory = FileUtil.readableFileSize(runtimeInfo.getTotalMemory());
         this.freeMemory = FileUtil.readableFileSize(runtimeInfo.getFreeMemory());
         this.usableMemory = FileUtil.readableFileSize(runtimeInfo.getUsableMemory());
+
+        this.startArgs = ManagementFactory.getRuntimeMXBean().getInputArguments().toString();
     }
 }

@@ -10,16 +10,18 @@
 			<div class="layui-card-body">
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
-<#list fields as field>
-    <#if !field.entityIgnored && field.propertyType == 'String'>
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">${field.columnName}</label>
+                            <label class="layui-form-label">角色名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="${field.propertyName}" placeholder="" class="layui-input">
+                                <input type="text" name="name" placeholder="" class="layui-input">
                             </div>
                         </div>
-    </#if>
-</#list>
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">角色编码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="code" placeholder="" class="layui-input">
+                            </div>
+                        </div>
 						<div class="layui-form-item layui-inline">
 							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
 								<i class="layui-icon layui-icon-search"></i>查询
@@ -50,17 +52,8 @@
 			<input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
 				   lay-filter="disabled-switch-filter" {{ d.disabled ? '' : 'checked' }}>
 		</script>
-        <script type="text/html" id="userSexTpl">
-            {{#if (d.sex == "MALE") { }}
-                <span>男</span>
-            {{# } else if(d.sex == "FEMALE"){ }}
-                <span>女</span>
-            {{# } else { }}
-                <span></span>
-            {{# } }}
-        </script>
 		<script type="text/html" id="operationTpl">
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
             <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
@@ -78,30 +71,14 @@
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
-<#list fields as field>
-    <#if field.keyFlag>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 200, hide: true },
-    <#else>
-        <#if field.propertyType == 'LocalDateTime'>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.${field.propertyName},  "yyyy-MM-dd HH:mm:ss");
-                    }},
-        <#elseif field.propertyType == 'LocalDate'>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 130, templet: function (d) {
-                        return layui.util.toDateString(d.${field.propertyName},  "yyyy-MM-dd");
-                    }},
-        <#elseif field.propertyType == 'LocalTime'>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 130, templet: function (d) {
-                        return layui.util.toDateString(d.${field.propertyName},  "HH:mm:ss");
-                    }},
-        <#else>
-                    { field: '${field.propertyName}', title: '${field.columnName}', width: 120 },
-        </#if>
-    </#if>
-</#list>
+                    { field: 'id', title: 'ID', width: 200, hide: true },
+                    { field: 'name', title: '角色名称', width: 160 },
+                    { field: 'code', title: '角色编码', width: 200 },
+                    { field: 'seq', title: '排序号', width: 80 },
                     { field: 'disabled', title: '状态', minWidth: 100, templet: '#disabledTpl', event: 'disabled' },
-                    { field: 'createByName', title: '创建者', width: 120, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
+                    { field: 'remark', title: '备注' },
+                    { field: 'createByName', title: '创建者', width: 120, hide: false },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'updateByName', title: '更新者', width: 120 },
@@ -111,11 +88,10 @@
                     { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
-                <#assign tableName='${name?lower_case}'>
 
 				table.render({
 					elem: '#data-table',
-					url: '/${tableName?replace('_','-')}/page',
+					url: '/vtl-role/page',
 					request: {
                         pageName: 'current',
                         limitName: 'size'
@@ -157,8 +133,8 @@
                         case 'delete':
                             window.delete(obj);
                             break;
-                        case 'status':
-                            alert("status")
+                        case 'disabled':
+                            window.setDisabledValue(obj);
                             break;
                         default:
                             break;
@@ -182,7 +158,7 @@
 				window.delete = function(obj) {
                     layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.delete('/${tableName?replace('_','-')}/' + obj.data.id, function(result) {
+                        $.delete('/vtl-role/' + obj.data.id, function(result) {
                             if (result.code == 200) {
                                 obj.del();
                             }
@@ -191,8 +167,12 @@
                 }
 
 				window.detail = function(id, title = '详情') {
-					top.layui.admin.jump('${tableName?replace('_','-')}-' + id, title, 'views/${tableName?replace('_','-')}/detail.html?&id=' + id)
+					top.layui.admin.jump('vtl-role-' + id, title, 'views/vtl-role/detail.html?&id=' + id)
 				}
+
+				window.setDisabledValue = function(obj) {
+                     $.sync('post', '/vtl-role/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled });
+                }
 
 			})
 		</script>

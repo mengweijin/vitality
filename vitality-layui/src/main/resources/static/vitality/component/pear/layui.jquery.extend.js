@@ -379,12 +379,12 @@ layui.use(['jquery'], function () {
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         let message = 'Unknown error!';
+                        if (xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
                         switch (xhr.status) {
                             case (400):
-                                message = "客户端异常，请检查你的输入！<br>Client Error! Please check your input!"
-                                if (xhr.responseJSON.message) {
-                                    message = xhr.responseJSON.message;
-                                }
+                                message = "客户端异常，请检查你的输入！<br>Client Error! Please check your input! <br>" + message;
                                 layui.layer.msg(message, { icon: 5, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                             case (401):
@@ -397,17 +397,17 @@ layui.use(['jquery'], function () {
                                 layui.layer.msg("无权限！No permission!", { icon: 2, title: xhr.status });
                                 break;
                             case (404):
-                                layui.layer.msg("找不到资源！Not Found!", { icon: 2, title: xhr.status });
+                                layui.layer.msg("找不到资源！Not Found! <br>" + message, { icon: 2, title: xhr.status });
                                 break;
                             case (408):
                                 layui.layer.msg("请求超时！Request timeout!", { icon: 2, title: xhr.status });
                                 break;
                             case (500):
-                                layui.layer.msg("服务器异常！Server Exception!", { icon: 2, title: xhr.status });
+                                layui.layer.msg("服务器异常！Server Exception! <br>" + message, { icon: 2, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                             default:
-                                message = "未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator!"
-                                layui.layer.msg(message, { icon: 2, title: xhr.status });
+                                message = "未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator! <br>" + message;
+                                layui.layer.msg(message, { icon: 2, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                         }
                     },        

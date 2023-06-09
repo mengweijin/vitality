@@ -75,9 +75,9 @@ public class VtlUserController extends BaseController {
     }
 
 
-    @PostMapping("/disabledChange/{id}")
-    public R disabledChange(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = vtlUserService.disabledChange(id, disabled);
+    @PostMapping("/setDisabledValue/{id}")
+    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
+        boolean bool = vtlUserService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
 

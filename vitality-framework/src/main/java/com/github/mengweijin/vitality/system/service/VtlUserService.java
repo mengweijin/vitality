@@ -33,7 +33,7 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         return vtlUserMapper.page(page, dto);
     }
 
-    public boolean disabledChange(Long id, boolean disabled) {
+    public boolean setDisabledValue(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlUser::getDisabled, disabled).eq(VtlUser::getId, id).update();
     }
 

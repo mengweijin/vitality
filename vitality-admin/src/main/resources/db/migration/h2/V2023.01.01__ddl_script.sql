@@ -93,6 +93,40 @@ CREATE TABLE VTL_FILE (
 ) COMMENT = '系统文件表';
 
 
+DROP TABLE IF EXISTS VTL_ROLE;
+CREATE TABLE VTL_ROLE (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  NAME 		                    varchar(50) NOT NULL COMMENT '角色名称',
+  CODE 		                    varchar(50) NOT NULL COMMENT '角色编码',
+  SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',
+  DISABLED                      int(4) DEFAULT 0 NOT NULL COMMENT '是否已禁用。{ 0：正常；1：禁用；}',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_ROLE_UNIQUE_INDEX_CODE (CODE) USING BTREE
+) COMMENT = '角色管理表';
+
+
+DROP TABLE IF EXISTS VTL_POST;
+CREATE TABLE VTL_POST (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  NAME 		                    varchar(50) NOT NULL COMMENT '岗位名称',
+  CODE 		                    varchar(50) NOT NULL COMMENT '岗位编码',
+  SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',
+  DISABLED                      int(4) DEFAULT 0 NOT NULL COMMENT '是否已禁用。{ 0：正常；1：禁用；}',
+  REMARK 	                    varchar(500) COMMENT '备注',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_POST_UNIQUE_INDEX_CODE (CODE) USING BTREE
+) COMMENT = '岗位管理表';
+
+
 DROP TABLE IF EXISTS VTL_DICT_TYPE;
 CREATE TABLE VTL_DICT_TYPE (
   ID                            bigint NOT NULL COMMENT '主键ID',

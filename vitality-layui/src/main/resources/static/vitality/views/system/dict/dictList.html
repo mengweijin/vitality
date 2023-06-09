@@ -264,7 +264,8 @@
 					height: 'full-148',
 					cols: dataCols,
 					skin: 'line',
-					toolbar: '#dict-data-toolbar'
+					toolbar: '#dict-data-toolbar',
+					defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh' }, 'filter', 'print', 'exports']
 				});
 			}
 
@@ -285,8 +286,8 @@
 				});
 			}
 
-			window.disabledChange = function(obj) {
-				$.sync('post', '/vtl-dict-data/disabledChange/' + obj.data.id, { disabled: !obj.data.disabled });
+			window.setDisabledValue = function(obj) {
+				$.sync('post', '/vtl-dict-data/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled });
 				dict.clear();
 			}
 
@@ -297,13 +298,15 @@
 				} else if (obj.event === 'edit') {
 					window.editData(row.id);
 				} else if(obj.event == 'disabled') {
-					window.disabledChange(obj);
+					window.setDisabledValue(obj);
 				}
 			});
 
 			table.on('toolbar(dict-data-table)', function(obj) {
 				if (obj.event === 'add') {
 					window.editData();
+				} else if (obj.event === 'refresh') {
+					window.refreshData(true);
 				}
 			});
 

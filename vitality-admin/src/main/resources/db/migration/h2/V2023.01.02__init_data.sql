@@ -1,3 +1,13 @@
+-- 用户
+INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+
+
+-- 角色
+INSERT INTO VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '超级管理员', 'admin', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (2, '游客', 'guest', 2, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+
+
 -- TYPE：菜单类型。{ 0=目录; 1=菜单; 2=按钮; 3=其它 }
 -- OPEN_TYPE：TYPE 为 1 时生效，{ _iframe：正常打开；_blank：新建浏览器标签页 }
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, 0, '主页', 1, 'home', 10, 'layui-icon layui-icon-home', 'home.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
@@ -10,19 +20,19 @@ INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OP
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1001006, 1001, '字典管理', 1, 'system:dict', 6, null, 'views/system/dict/dictList.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1001007, 1001, '配置管理', 1, 'system:config', 7, null, 'views/system/config/configList.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1001008, 1001, '公告管理', 1, 'system:announcement', 8, null, 'views/system/announcement/announcementList.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-
+-- 菜单 系统监控
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002, 0, '系统监控', 0, 'monitor', 30, 'layui-icon layui-icon-chart', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002001, 1002, '应用监控', 1, 'monitor:application', 1, null, 'views/monitor/server.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002002, 1002, '在线用户', 1, 'monitor:onlineUser', 2, null, 'views/monitor/onlineUser.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002003, 1002, '登录日志', 1, 'monitor:loginLog', 3, null, 'views/monitor/loginLog.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002004, 1002, '操作日志', 1, 'monitor:operationLog', 4, null, 'views/monitor/operationLog.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1002005, 1002, '错误日志', 1, 'monitor:errorLog', 5, null, 'views/monitor/errorLog.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-
+-- 菜单 工作空间
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1003, 0, '工作空间', 0, 'workspace', 40, 'layui-icon layui-icon-console', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1003001, 1003, '控制后台', 1, 'workspace:console', 1, null, 'view/console/console1.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1003002, 1003, '数据分析', 1, 'workspace:analysis', 2, null, 'view/console/console2.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1003003, 1003, '大屏展示', 1, 'workspace:largeScreen', 3, null, 'view/console/console2.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-
+-- 菜单 开发工具
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (9001, 0, '开发工具', 0, 'tool', 9000, 'layui-icon layui-icon-util', null, null, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (9001001, 9001, '代码生成器', 1, 'tool:codeGenerator', 1, null, 'views/generator/generatorIndex.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (9001002, 9001, '表单构建器', 1, 'tool:formBuilder', 2, null, 'component/code/index.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
@@ -31,18 +41,22 @@ INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OP
 INSERT INTO VTL_MENU (ID, PARENT_ID, TITLE, TYPE, PERMISSION, SEQ, ICON, URL, OPEN_TYPE, SYSTEM_DEFAULT, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (9001004001, 9001009, '通知数据', 1, 'tool:systemData:notice', 1, null, 'views/system/notice/list.html', '_iframe', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
+-- 岗位
+INSERT INTO VTL_POST (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '董事长', 'ceo', 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_POST (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (2, '人力资源', 'hr', 2, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_POST (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (3, '开发工程师', 'development_engineer', 3, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+
+
+-- 字典
 INSERT INTO VTL_DICT_TYPE (ID, NAME, TYPE_CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '用户性别', 'user_gender', null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_DICT_DATA (ID, TYPE_CODE, DATA_CODE, LABEL, SEQ, DEFAULT_SELECTED, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (10001, 'user_gender', 'male', '男', 1, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_DICT_DATA (ID, TYPE_CODE, DATA_CODE, LABEL, SEQ, DEFAULT_SELECTED, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (10002, 'user_gender', 'female', '女', 2, 0, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 INSERT INTO VTL_DICT_DATA (ID, TYPE_CODE, DATA_CODE, LABEL, SEQ, DEFAULT_SELECTED, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (10003, 'user_gender', 'unknow', '未知', 3, 1, 0, null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
-INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-
--- 参数配置
+-- 配置
 INSERT INTO VTL_CONFIG (ID, TITLE, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, '用户管理-初始密码', 'vtl_user_init_password', '123456', null, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
--- 公告管理
+-- 公告
 INSERT INTO VTL_ANNOUNCEMENT (ID, AVATAR, TITLE, DESCRIPTION, RELEASED, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) VALUES (1, null, '欢迎来到 vitality 管理系统！', '<h2 style="text-align: left;"><span style="color: #3a3a3a; font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;"><span style="font-size: 14px;">vitality 管理系统简介</span></span></h2><p><span style="color: #3a3a3a; font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;"><span style="font-size: 14px;">vitality 是一个基于 SpringBoot 3+、sa-token、Layui 2.8+ 等技术，可前后端分离，的后台管理系统，可以用于常见的的 Web 应用程序，比如网站管理后台等。</span></span></p><pre>生活中有很多小型系统，没有很高的并发量，需要一个简单，无重度依赖三方组件的系统作为基础框架进行二次开发。<br /><br />于是就在网上找各种开源项目，发现：<br />1、要么是技术栈不喜欢。比如前后端分离的项目，前端开发要一大堆 npm 包依赖以及各种环境；再比如传统的安全认证和授权框架 shiro/spring security用起来不爽，我想用 sa-token;<br />2、要么需要依赖太多三方组件或服务，部署太麻烦。比如要依赖 Redis 做缓存、nacos 做配置中心。<br /><br />而我就只想要一个，启动一个 jar 包，技术栈也是自己喜欢的就行。找来找去，没找到合适的，那就自己写一个吧！<br /><br />于是，基于以前的积累，在我 2018 年写的一个后台管理系统 mwj-cms 的练习项目的基础上，重构、重写大量代码，产生了 vitality 管理系统！<br /><br />没事可以扩展一些其他功能，以作技术积累。<br /><br /><strong>发展历史：<br /></strong>- version 1.3.*: 2023年，正式更名为 vitality，升级 JDK17，SpringBoot 3+，现处于开发中阶段。<strong><br /></strong>- version 1.2.*: 2022年，基于 quickboot 项目，更名为 vitality-spring-boot-starter 工程。<strong><br /></strong>- version 1.1.*：2020年，基于 mwj-cms 后台管理系统提取封装公共类，创建 vitality 的前身 quickboot 项目。<br />- version 1.0.*：2018年，第一版，mwj-cms 后台管理系统，基于 JDK8。<br /><br /></pre>', 1, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());

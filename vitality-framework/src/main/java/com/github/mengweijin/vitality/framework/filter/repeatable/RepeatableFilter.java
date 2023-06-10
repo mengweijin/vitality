@@ -18,7 +18,6 @@ import java.io.IOException;
  * if (request instanceof RepeatedlyRequestWrapper wrapper) {
  *    String read = IoUtil.read(wrapper.getInputStream(), StandardCharsets.UTF_8);
  * }
- * 借鉴 ruoyi-Vue
  * @author mengweijin
  */
 public class RepeatableFilter implements Filter {

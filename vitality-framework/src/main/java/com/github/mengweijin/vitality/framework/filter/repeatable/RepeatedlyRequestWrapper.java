@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 /**
  * 构建可重复读取 inputStream 的 request
  * 默认情况下，从 HttpServletRequest 中读取数据只能读取一次，第二次就取不到值了
- * 借鉴 ruoyi-Vue
  * @author mengweijin
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper {

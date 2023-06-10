@@ -21,17 +21,24 @@ public class BusinessCheckValidator implements ConstraintValidator<BusinessCheck
 
     @Override
     public void initialize(BusinessCheck parameters) {
-        clazz = parameters.cls();
+        clazz = parameters.clazz();
         validateParameters();
     }
     @Override
-    public boolean isValid(CharSequence value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
+        //禁止默认消息返回
+        context.disableDefaultConstraintViolation();
         try {
             BusinessCheckRule businessCheck = clazz.getDeclaredConstructor().newInstance();
-            return businessCheck.isValid(value.toString());
+            boolean valid = businessCheck.isValid(value);
+            if(!valid) {
+                //自定义返回消息
+                context.buildConstraintViolationWithTemplate(businessCheck.message()).addConstraintViolation();
+            }
+            return valid;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -44,8 +51,8 @@ public class BusinessCheckValidator implements ConstraintValidator<BusinessCheck
     }
 
     public interface BusinessCheckRule {
-        default boolean isValid(String value) {
-            return false;
-        }
+        boolean isValid(CharSequence value);
+
+        String message();
     }
 }

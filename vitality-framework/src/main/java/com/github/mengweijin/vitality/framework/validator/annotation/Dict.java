@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.validator.annotation;
 
-import com.github.mengweijin.vitality.framework.validator.BusinessCheckValidator;
+import com.github.mengweijin.vitality.framework.validator.DictValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -10,17 +10,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自定义业务校验注解
+ * 自定义字典数据校验注解
  * @author mengweijin
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
-@Constraint(validatedBy = {BusinessCheckValidator.class})
-public @interface BusinessCheck {
+@Constraint(validatedBy = {DictValidator.class})
+public @interface Dict {
 
-    String message() default "Business Check failed!";
+    String message() default "Dict data Check failed!";
 
-    Class<? extends BusinessCheckValidator.BusinessCheckRule> clazz();
+    String typeCode() default "";
 
     Class<?>[] groups() default {};
 

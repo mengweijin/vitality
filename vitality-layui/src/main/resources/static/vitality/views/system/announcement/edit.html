@@ -53,7 +53,8 @@
 
 				let editor = tinymce.render({
 					elem: "#editor",
-					height: 400
+					height: 400,
+					images_upload_url: '/vtl-file/tinymce/upload'
 				});
 
 				form.on('submit(submit-filter)', function(data) {

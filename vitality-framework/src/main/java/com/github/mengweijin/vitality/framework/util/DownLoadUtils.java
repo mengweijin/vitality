@@ -169,18 +169,18 @@ public class DownLoadUtils {
         String encodeFileName = fileName;
         if (agent.contains("MSIE")) {
             // IE浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8);
             encodeFileName = encodeFileName.replace("+", " ");
         } else if (agent.contains("Firefox")) {
             // 火狐浏览器
             encodeFileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
         } else if (agent.contains("Chrome")) {
             // google浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8);
             encodeFileName = encodeFileName.replace("+", " ");
         } else {
             // 其它浏览器
-            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8.name());
+            encodeFileName = URLEncoder.encode(encodeFileName, StandardCharsets.UTF_8);
         }
         return encodeFileName;
     }

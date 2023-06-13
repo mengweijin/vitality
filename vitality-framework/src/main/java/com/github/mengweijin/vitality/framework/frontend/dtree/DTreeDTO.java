@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.dtree;
+package com.github.mengweijin.vitality.framework.frontend.dtree;
 
 import lombok.Data;
 

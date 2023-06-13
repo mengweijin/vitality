@@ -32,12 +32,6 @@ public class VtlFile extends BaseEntity {
     private String filePath;
 
     /**
-     * minio 主机 URL 地址
-     */
-    @TableField("DOMAIN_URL")
-    private String domainUrl;
-
-    /**
      * minio bucket name
      */
     @TableField("BUCKET")

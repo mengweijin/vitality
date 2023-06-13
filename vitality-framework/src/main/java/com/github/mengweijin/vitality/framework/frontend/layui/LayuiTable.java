@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.layui;
+package com.github.mengweijin.vitality.framework.frontend.layui;
 
 import lombok.Data;
 import java.util.List;

@@ -1,13 +1,14 @@
 package com.github.mengweijin.generator.system.service;
 
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
-import com.github.mengweijin.vitality.dtree.DTreeDTO;
-import com.github.mengweijin.vitality.dtree.DTreeNode;
+import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeDTO;
+import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeNode;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

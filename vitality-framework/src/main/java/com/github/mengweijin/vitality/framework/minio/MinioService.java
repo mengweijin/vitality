@@ -18,6 +18,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.io.file.FileNameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,9 +80,10 @@ public class MinioService {
         }
     }
 
-    public String upload(MultipartFile file) {
+    public ObjectWriteResponse upload(MultipartFile file) {
         String bucket = minioProperties.getBucket();
-        String filePath = DateUtil.format(LocalDateTime.now(), "yyyy/MM/dd") + Const.SLASH + IdUtil.simpleUUID() + Const.SLASH + file.getOriginalFilename();
+        String suffix = FileNameUtil.getSuffix(file.getOriginalFilename());
+        String filePath = DateUtil.format(LocalDateTime.now(), "yyyy/MM/dd") + Const.SLASH + IdUtil.simpleUUID() + Const.DOT + suffix;
         try {
             if(!this.bucketExists(bucket)) {
                 this.makeBucket(bucket);
@@ -93,21 +95,21 @@ public class MinioService {
                     .contentType(file.getContentType())
                     .build();
             //文件名称相同会覆盖
-            ObjectWriteResponse objectWriteResponse = minioClient.putObject(objectArgs);
+            return minioClient.putObject(objectArgs);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new MinioServiceException(e);
         }
-        return filePath;
     }
 
-    public String preview(String filePath) {
+    public String previewUrl(String filePath) {
         try {
             // 查看文件地址
             GetPresignedObjectUrlArgs build = GetPresignedObjectUrlArgs.builder()
                     .bucket(minioProperties.getBucket())
                     .object(filePath)
                     .method(Method.GET)
+                    //.expiry(1, TimeUnit.DAYS)
                     .build();
             return minioClient.getPresignedObjectUrl(build);
         } catch (Exception e) {
@@ -134,4 +136,5 @@ public class MinioService {
             throw new MinioServiceException(e);
         }
     }
+
 }

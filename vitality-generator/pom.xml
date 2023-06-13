@@ -22,12 +22,7 @@
   <dependencies>
     <dependency>
       <groupId>com.github.mengweijin</groupId>
-      <artifactId>vitality-layui</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <scope>provided</scope>
+      <artifactId>vitality-framework</artifactId>
     </dependency>
     <dependency>
       <groupId>com.baomidou</groupId>

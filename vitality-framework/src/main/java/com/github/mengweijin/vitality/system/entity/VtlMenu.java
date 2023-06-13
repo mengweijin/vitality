@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.system.enums.EMenuType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -35,10 +36,10 @@ public class VtlMenu extends BaseEntity {
     private String title;
 
     /**
-     * 菜单类型。{ 0=目录; 1=菜单; 2=按钮; 3=其它 }
+     * 菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮; OTHER=其它 }
      */
     @TableField("TYPE")
-    private Integer type;
+    private EMenuType type;
 
     /**
      * 权限标识,唯一性约束。

@@ -4,6 +4,8 @@ import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,11 +14,35 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
-public class VtlMenuTreeDataDTO extends VtlMenu {
+@EqualsAndHashCode
+public class VtlMenuTreeDataDTO implements Serializable {
+
+    private Long id;
+
+    private Integer type;
+
+    private String icon;
+
+    private String title;
 
     private String href;
 
+    private String openType;
+
+    private Long parentId;
+
+    private Integer seq;
+
     private List<VtlMenuTreeDataDTO> children;
 
+    public VtlMenuTreeDataDTO(VtlMenu menu) {
+        this.id = menu.getId();
+        this.type = menu.getType().getValue();
+        this.icon = menu.getIcon();
+        this.title = menu.getTitle();
+        this.href = menu.getUrl();
+        this.openType = menu.getOpenType();
+        this.parentId = menu.getParentId();
+        this.seq = menu.getSeq();
+    }
 }

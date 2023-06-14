@@ -42,10 +42,6 @@
     <i class="layui-icon layui-icon-delete"></i>删除
   </button>
 </script>
-<script type="text/html" id="disabledTpl">
-  <input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-         lay-filter="disabled-switch-filter" {{ d.disabled ? '' : 'checked' }}>
-</script>
 <script type="text/html" id="operationTpl">
   <button class="pear-btn pear-btn-primary pear-btn-xs layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
   <button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
@@ -68,7 +64,7 @@
             { field: 'id', title: 'ID', width: 200, hide: true },
             { field: 'parentId', title: 'PARENT_ID', width: 200, hide: true },
             { field: 'title', title: '菜单名称', width: 200 },
-            { field: 'type', title: '菜单类型', width: 90, templet: function(d){
+            { field: 'type', title: '菜单类型', width: 90, align: 'center', templet: function(d){
                 let text = dict.label('vtl_menu_type', d.type);
                 let $result = $('<span/>', { class: 'layui-badge' }).text(text);
                 switch (d.type) {
@@ -88,11 +84,16 @@
                 }
                 return $result.get(0).outerHTML;
             }},
-            { field: 'icon', title: '图标', width: 40, templet: function (d) {
+            { field: 'icon', title: '图标', width: 40, align: 'center', templet: function (d) {
                 return '<i class="' + d.icon + '"></i>';
             }},
             { field: 'permission', title: '权限编码', width: 200 },
-            { field: 'disabled', title: '状态', width: 100, templet: '#disabledTpl', event: 'disabled' },
+            { field: 'disabled', title: '状态', minWidth: 100, align: 'center', templet: function(d){
+                let text = dict.label('vtl_disabled', d.disabled);
+                let $result = $('<button />', {type: 'button', class: 'layui-btn layui-btn-xs' }).text(text).attr('lay-event', 'disabled');
+                if(d.disabled == 1) { $result.addClass('layui-btn-warm'); }
+                return $result.get(0).outerHTML;
+            }},
             { field: 'seq', title: '排序号', width: 80 },
             { field: 'openType', title: '打开类型', width: 120 },
             { field: 'url', title: '页面链接' },
@@ -101,8 +102,8 @@
             { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                 return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
             }},
-            { field: 'updateByName', title: '更新者', width: 120, hide: false },
-            { field: 'updateTime', title: '更新时间', width: 160, hide: false, templet: function (d) {
+            { field: 'updateByName', title: '更新者', width: 120, hide: true },
+            { field: 'updateTime', title: '更新时间', width: 160, hide: true, templet: function (d) {
                 return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
             }},
             { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }

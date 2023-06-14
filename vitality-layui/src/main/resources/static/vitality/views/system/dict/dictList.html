@@ -118,10 +118,7 @@
 	    <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>
 	    </button>
 	</script>
-	<script type="text/html" id="dict-data-enable">
-		<input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-			   lay-filter="dict-data-enable" {{ d.disabled ? '' : 'checked' }}>
-	</script>
+
 	<script src="../../../component/layui/layui.js"></script>
 	<script src="../../../component/pear/pear.js"></script>
 	<script>
@@ -136,7 +133,7 @@
 			let cols = [[
 				{ type: 'checkbox', hide: true },
 				{ title: '字典名称', field: 'name', align: 'center', width: 120 },
-				{ title: '字典类型编码', field: 'typeCode', align: 'center' },
+				{ title: '字典类型编码', field: 'typeCode' },
 				{ title: '备注', field: 'remark', align: 'center', width: 120 },
 				{ field: 'createByName', title: '创建者', width: 120, hide: true },
 				{ field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
@@ -228,7 +225,12 @@
 					{ field: 'typeCode', title: '字典类型编码', width: 180 },
 					{ field: 'label', title: '名称', align: 'right', width: 120 },
 					{ field: 'dataCode', title: '编码', width: 120 },
-					{ field: 'disabled', title: '状态', align: 'center', width: 100, templet: '#dict-data-enable', event: 'disabled' },
+					{ field: 'disabled', title: '状态', minWidth: 100, templet: function(d){
+                        let text = dict.label('vtl_disabled', d.disabled);
+                        let $result = $('<button />', {type: 'button', class: 'layui-btn layui-btn-xs' }).text(text).attr('lay-event', 'disabled');
+                        if(d.disabled == 1) { $result.addClass('layui-btn-warm'); }
+                        return $result.get(0).outerHTML;
+                    }},
 					{ field: 'defaultSelected', title: '默认', width: 70, templet: function (d) {
 						return d.defaultSelected ? '是' : '否';
 					}},
@@ -287,8 +289,19 @@
 			}
 
 			window.setDisabledValue = function(obj) {
-				$.sync('post', '/vtl-dict-data/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled });
-				dict.clear();
+				if(obj.data.typeCode == 'vtl_disabled') {
+					layer.msg('禁止修改【禁用/启用】字典状态，否则会造成系统展示异常！', { icon: 5, time: 0, closeBtn: 1, title: '提示' });
+					return;
+				}
+				 layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
+					layer.close(index);
+					$.post('/vtl-dict-data/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
+						if (result.code == 200) {
+							dict.refresh();
+						   	window.refreshData(true);
+						}
+					});
+				});
 			}
 
 			table.on('tool(dict-data-table)', function(obj) {

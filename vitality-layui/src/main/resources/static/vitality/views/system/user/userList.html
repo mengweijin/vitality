@@ -71,12 +71,12 @@
                     { field: 'username', title: '账号', width: 120 },
                     { field: 'nickname', title: '姓名', width: 120 },
                     { field: 'gender', title: '性别', width: 60, templet: function(d) {
-                        return dict.label('user_gender', d.gender);
+                        return dict.label('vtl_user_gender', d.gender);
                     } },
                     { field: 'email', title: '邮箱' },
                     { field: 'mobilePhone', title: '电话', width: 150 },
                     { field: 'disabled', title: '账号状态', width: 120, templet: function(d) {
-                        let text = dict.label('disabled_status', d.disabled);
+                        let text = dict.label('vtl_disabled', d.disabled);
                         let $result = $('<button />', {type: 'button', class: 'layui-btn layui-btn-xs' }).text(text).attr('lay-event', 'disabled');
                         if(d.disabled == 1) { $result.addClass('layui-btn-warm'); }
                         return $result.get(0).outerHTML;

@@ -69,7 +69,7 @@
             { field: 'parentId', title: 'PARENT_ID', width: 200, hide: true },
             { field: 'title', title: '菜单名称', width: 200 },
             { field: 'type', title: '菜单类型', width: 90, templet: function(d){
-                let text = dict.label('menu_type', d.type);
+                let text = dict.label('vtl_menu_type', d.type);
                 let $result = $('<span/>', { class: 'layui-badge' }).text(text);
                 switch (d.type) {
                   case 'DIR':

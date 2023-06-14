@@ -57,7 +57,11 @@ layui.define(['jquery'], function(exports) {
         },
         clear: function() {
             layui.sessionData(TABLE_NAME, null);
-        }
+        },
+         refresh: function() {
+             this.clear();
+             this.init();
+         }
     };
 
 	exports(MOD_NAME, dict);

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
+import com.github.mengweijin.vitality.system.dto.VtlMessageMenuHeaderDataDTO;
 import com.github.mengweijin.vitality.system.dto.VtlNoticeDTO;
 import com.github.mengweijin.vitality.system.entity.VtlNotice;
 import com.github.mengweijin.vitality.system.service.VtlNoticeService;
@@ -73,7 +73,7 @@ public class VtlNoticeController extends BaseController {
     }
 
     @GetMapping("/headerMenuData")
-    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
+    public List<VtlMessageMenuHeaderDataDTO> headerMenuData() {
         return vtlNoticeService.headerMenuData();
     }
 

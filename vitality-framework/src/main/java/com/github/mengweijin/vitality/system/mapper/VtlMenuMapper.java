@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author mengweijin
  * @date 2023/4/1
@@ -20,5 +22,7 @@ public interface VtlMenuMapper extends BaseMapper<VtlMenu> {
      * @return IPage
      */
     IPage<VtlMenuDTO> page(IPage<VtlMenuDTO> page, @Param("p") VtlMenuDTO dto);
+
+    List<VtlMenuDTO> treeTableDataList(@Param("p") VtlMenuDTO dto);
 
 }

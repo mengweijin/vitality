@@ -90,13 +90,13 @@
 	</script>
 
 	<script type="text/html" id="dict-type-bar">
-		<button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="detail" title="展开">
+		<button class="pear-btn pear-btn-warming pear-btn-xs" lay-event="detail" title="展开">
 			<i class="layui-icon layui-icon-transfer"></i>
 		</button>
-		<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">
+		<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit">
 	        <i class="layui-icon layui-icon-edit"></i>
 	    </button>
-	    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove">
+	    <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="remove">
 	        <i class="layui-icon layui-icon-delete"></i>
 	    </button>
 	</script>
@@ -113,9 +113,9 @@
 	</script>
 
 	<script type="text/html" id="dict-data-bar">
-		<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
+		<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
 	    </button>
-	    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>
+	    <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>
 	    </button>
 	</script>
 	<script type="text/html" id="dict-data-enable">
@@ -136,14 +136,14 @@
 			let cols = [[
 				{ type: 'checkbox', hide: true },
 				{ title: '字典名称', field: 'name', align: 'center', width: 120 },
-				{ title: '字典类型编码', field: 'typeCode', align: 'center', width: 120 },
-				{ title: '备注', field: 'remark', align: 'center' },
+				{ title: '字典类型编码', field: 'typeCode', align: 'center' },
+				{ title: '备注', field: 'remark', align: 'center', width: 120 },
 				{ field: 'createByName', title: '创建者', width: 120, hide: true },
 				{ field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
 					return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
 				}},
 				{ field: 'updateByName', title: '更新者', width: 120, hide: true },
-				{ field: 'updateTime', title: '更新时间', width: 160, hide: false, templet: function (d) {
+				{ field: 'updateTime', title: '更新时间', width: 160, hide: true, templet: function (d) {
 					return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
 				}},
 				{ title: '操作', toolbar: '#dict-type-bar', align: 'center', width: 160, fixed: 'right' }
@@ -166,7 +166,7 @@
 				},
 				page: true,
 				cols: cols,
-				skin: 'line',
+				skin: 'grid',
 				height: 'full-148',
 				toolbar: '#dict-type-toolbar',
 				defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh' }, 'filter', 'print', 'exports']
@@ -225,7 +225,7 @@
 
 				let dataCols = [[
 					{ type: 'checkbox', hide: true },
-					{ field: 'typeCode', title: '字典类型编码', width: 120 },
+					{ field: 'typeCode', title: '字典类型编码', width: 180 },
 					{ field: 'label', title: '名称', align: 'right', width: 120 },
 					{ field: 'dataCode', title: '编码', width: 120 },
 					{ field: 'disabled', title: '状态', align: 'center', width: 100, templet: '#dict-data-enable', event: 'disabled' },
@@ -263,7 +263,7 @@
 					page: true,
 					height: 'full-148',
 					cols: dataCols,
-					skin: 'line',
+					skin: 'grid',
 					toolbar: '#dict-data-toolbar',
 					defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh' }, 'filter', 'print', 'exports']
 				});

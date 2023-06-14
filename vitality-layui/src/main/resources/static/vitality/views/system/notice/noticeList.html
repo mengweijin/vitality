@@ -44,13 +44,13 @@
 		</script>
 
 		<script type="text/html" id="operationTpl">
-			<button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-xs layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			{{#if (d.released == 0) { }}
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="release" title="发布"><i class="layui-icon layui-icon-release"></i></button>
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="release" title="发布"><i class="layui-icon layui-icon-release"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+			<button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 			{{# } else { }}
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
+			<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="revocation" title="撤回"><i class="layui-icon layui-icon-refresh-1"></i></button>
 			{{# } }}
 		</script>
 

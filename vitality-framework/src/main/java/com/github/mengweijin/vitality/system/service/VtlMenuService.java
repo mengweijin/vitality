@@ -32,6 +32,10 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         return vtlMenuMapper.page(page, dto);
     }
 
+    public List<VtlMenuDTO> treeTableDataList(VtlMenuDTO dto){
+        return vtlMenuMapper.treeTableDataList(dto);
+    }
+
     public List<VtlMenuTreeDataDTO> tree() {
         List<VtlMenu> menuList = this.lambdaQuery().eq(VtlMenu::getDisabled, 0).in(VtlMenu::getType, EMenuType.DIR, EMenuType.MENU).list();
         List<VtlMenuTreeDataDTO> voList = Optional.ofNullable(menuList).orElse(new ArrayList<>()).stream().map(VtlMenuTreeDataDTO::new).toList();
@@ -48,6 +52,14 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
             }
         }
         return collect.get(parentId);
+    }
+
+    public List<VtlMenu> treeTable() {
+        return this.getByParentId(0L);
+    }
+
+    public List<VtlMenu> getByParentId(Long parentId) {
+        return this.lambdaQuery().eq(VtlMenu::getParentId, parentId).eq(VtlMenu::getDisabled, 0).list();
     }
 
 }

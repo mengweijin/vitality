@@ -218,7 +218,7 @@ layui.use(['jquery'], function () {
              *      { "id": "5", "parentId": "4", "name": "zzz", "age": "34" }
              *  ];
              * 
-             *  let result = qb.tree(dataList, '0');
+             *  let result = $.vtl.tree(dataList, '0');
              * 
              * @param {Array} dataList Mandatory. 
              * @param {String} rootId Mandatory. For Example: '0'

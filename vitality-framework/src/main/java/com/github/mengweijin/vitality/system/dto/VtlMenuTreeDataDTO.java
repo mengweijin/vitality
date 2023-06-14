@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.system.dto;
 
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
+import com.github.mengweijin.vitality.system.enums.EMenuOpenType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -27,7 +28,7 @@ public class VtlMenuTreeDataDTO implements Serializable {
 
     private String href;
 
-    private String openType;
+    private EMenuOpenType openType;
 
     private Long parentId;
 

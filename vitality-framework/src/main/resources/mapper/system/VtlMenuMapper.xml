@@ -13,7 +13,6 @@
         <result column="ICON" property="icon" />
         <result column="URL" property="url" />
         <result column="OPEN_TYPE" property="openType" />
-        <result column="SYSTEM_DEFAULT" property="systemDefault" />
         <result column="DISABLED" property="disabled" />
         <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
@@ -33,7 +32,6 @@
         t.ICON,
         t.URL,
         t.OPEN_TYPE,
-        t.SYSTEM_DEFAULT,
         t.DISABLED,
         t.REMARK,
         t.CREATE_BY,
@@ -71,9 +69,6 @@
             </if>
             <if test="p.openType != null and p.openType != '' ">
                 and t.OPEN_TYPE = #{p.openType}
-            </if>
-            <if test="p.systemDefault != null" >
-                and t.SYSTEM_DEFAULT = #{p.systemDefault}
             </if>
             <if test="p.disabled != null" >
                 and t.DISABLED = #{p.disabled}
@@ -126,9 +121,6 @@
             <if test="p.openType != null and p.openType != '' ">
                 and t.OPEN_TYPE like concat(concat('%', #{p.openType}), '%')
             </if>
-            <if test="p.systemDefault != null" >
-                and t.SYSTEM_DEFAULT = #{p.systemDefault}
-            </if>
             <if test="p.disabled != null" >
                 and t.DISABLED = #{p.disabled}
             </if>
@@ -162,4 +154,15 @@
         order by t.CREATE_TIME desc
     </select>
 
+    <select id="treeTableDataList" resultType="com.github.mengweijin.vitality.system.dto.VtlMenuDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as create_by_name,
+        uu.NICKNAME as update_by_name
+        from VTL_MENU t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        <include refid="BaseWhereLike"/>
+        order by t.SEQ asc
+    </select>
 </mapper>

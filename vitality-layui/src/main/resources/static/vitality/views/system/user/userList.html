@@ -48,25 +48,11 @@
         <i class="layui-icon layui-icon-delete"></i>删除
     </button>
 </script>
-<script type="text/html" id="disabledTpl">
-    <input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-           lay-filter="disabled-switch-filter" {{ d.disabled ? '' : 'checked' }}>
-</script>
-<script type="text/html" id="genderTpl">
-    {{#if (d.gender == "MALE") { }}
-    <span>男</span>
-    {{# } else if(d.gender == "FEMALE"){ }}
-    <span>女</span>
-    {{# } else { }}
-    <span></span>
-    {{# } }}
-</script>
 <script type="text/html" id="operationTpl">
-    <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-    <button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-    <button class="pear-btn pear-btn-danger pear-btn-sm layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-danger layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
-
 
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
@@ -89,7 +75,12 @@
                     } },
                     { field: 'email', title: '邮箱' },
                     { field: 'mobilePhone', title: '电话', width: 150 },
-                    { field: 'disabled', title: '账号状态', width: 120, templet: '#disabledTpl', event: 'disabled'},
+                    { field: 'disabled', title: '账号状态', width: 120, templet: function(d) {
+                        let text = dict.label('disabled_status', d.disabled);
+                        let $result = $('<button />', {type: 'button', class: 'layui-btn layui-btn-xs' }).text(text).attr('lay-event', 'disabled');
+                        if(d.disabled == 1) { $result.addClass('layui-btn-warm'); }
+                        return $result.get(0).outerHTML;
+                    } },
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
@@ -98,7 +89,7 @@
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 180, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
 
@@ -180,7 +171,14 @@
                 }
 
                 window.setDisabledValue = function(obj) {
-                     $.sync('post', '/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled });
+                    layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
+                        layer.close(index);
+                        $.post('/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
+                        	if (result.code == 200) {
+                               window.refresh(true);
+                            }
+                        });
+                    });
                 }
 
 				window.detail = function(id, title = '用户详情') {

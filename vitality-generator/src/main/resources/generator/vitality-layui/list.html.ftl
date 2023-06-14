@@ -60,9 +60,9 @@
             {{# } }}
         </script>
 		<script type="text/html" id="operationTpl">
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+            <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
 
 
@@ -99,7 +99,7 @@
         </#if>
     </#if>
 </#list>
-                    { field: 'disabled', title: '状态', minWidth: 100, templet: '#disabledTpl', event: 'disabled' },
+                    { field: 'disabled', title: '状态', width: 100, templet: '#disabledTpl', event: 'disabled' },
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");

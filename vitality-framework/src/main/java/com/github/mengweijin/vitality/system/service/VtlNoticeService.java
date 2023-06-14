@@ -3,7 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.system.dto.VtlMessageHeaderMenuDataDTO;
+import com.github.mengweijin.vitality.system.dto.VtlMessageMenuHeaderDataDTO;
 import com.github.mengweijin.vitality.system.dto.VtlNoticeDTO;
 import com.github.mengweijin.vitality.system.entity.VtlNotice;
 import com.github.mengweijin.vitality.system.mapper.VtlNoticeMapper;
@@ -34,22 +34,22 @@ public class VtlNoticeService extends ServiceImpl<VtlNoticeMapper, VtlNotice> {
         return vtlNoticeMapper.page(page, dto);
     }
 
-    public List<VtlMessageHeaderMenuDataDTO> headerMenuData() {
+    public List<VtlMessageMenuHeaderDataDTO> headerMenuData() {
         VtlNoticeDTO dto = new VtlNoticeDTO();
         dto.setReleased(1);
         IPage<VtlNoticeDTO> page = new Page<>();
         List<VtlNoticeDTO> dtoList = this.page(page, dto).getRecords();
 
-        VtlMessageHeaderMenuDataDTO noticeVO = this.buildMessageHeaderMenuDataVO(dtoList);
+        VtlMessageMenuHeaderDataDTO noticeVO = this.buildMessageHeaderMenuDataVO(dtoList);
         return List.of(noticeVO);
     }
 
-    private VtlMessageHeaderMenuDataDTO buildMessageHeaderMenuDataVO(List<VtlNoticeDTO> list) {
-        List<VtlMessageHeaderMenuDataDTO.MessageItemDataVO> itemDataVOList = list.stream()
-                .map(VtlMessageHeaderMenuDataDTO.MessageItemDataVO::new)
+    private VtlMessageMenuHeaderDataDTO buildMessageHeaderMenuDataVO(List<VtlNoticeDTO> list) {
+        List<VtlMessageMenuHeaderDataDTO.MessageItemDataVO> itemDataVOList = list.stream()
+                .map(VtlMessageMenuHeaderDataDTO.MessageItemDataVO::new)
                 .collect(Collectors.toList());
 
-        VtlMessageHeaderMenuDataDTO vo = new VtlMessageHeaderMenuDataDTO();
+        VtlMessageMenuHeaderDataDTO vo = new VtlMessageMenuHeaderDataDTO();
         vo.setId(IdUtil.simpleUUID());
         vo.setTitle("NOTICE");
         vo.setChildren(itemDataVOList);

@@ -40,7 +40,7 @@ layui.define(['jquery'], function(exports) {
             let list = this.dataList(typeCode);
             if(list) {
                 for(let j in list) {
-                    if(list[j].dataCode === dataCode) {
+                    if(list[j].dataCode == dataCode) {
                         return list[j];
                     }
                 }

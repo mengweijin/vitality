@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2023/5/21
  */
 @Data
-public class VtlMessageHeaderMenuDataDTO {
+public class VtlMessageMenuHeaderDataDTO {
 
     private String id;
 

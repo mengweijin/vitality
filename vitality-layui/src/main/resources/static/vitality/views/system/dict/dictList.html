@@ -113,10 +113,9 @@
 	</script>
 
 	<script type="text/html" id="dict-data-bar">
-		<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
-	    </button>
-	    <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>
-	    </button>
+		<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="defaultSelected" title="设置为默认项"><i class="layui-icon layui-icon-set-sm"></i></button>
+		<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
+	    <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></button>
 	</script>
 
 	<script src="../../../component/layui/layui.js"></script>
@@ -223,7 +222,7 @@
 				let dataCols = [[
 					{ type: 'checkbox', hide: true },
 					{ field: 'typeCode', title: '字典类型编码', width: 180 },
-					{ field: 'label', title: '名称', align: 'right', width: 120 },
+					{ field: 'label', title: '名称', align: 'right', width: 180 },
 					{ field: 'dataCode', title: '编码', width: 120 },
 					{ field: 'disabled', title: '状态', minWidth: 100, templet: function(d){
                         let text = dict.label('vtl_disabled', d.disabled);
@@ -244,7 +243,7 @@
 					{ field: 'updateTime', title: '更新时间', width: 160, hide: true, templet: function (d) {
 						return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
 					}},
-					{ title: '操作', toolbar: '#dict-data-bar', align: 'center', width: 120, fixed: 'right' }
+					{ title: '操作', toolbar: '#dict-data-bar', align: 'center', width: 150, fixed: 'right' }
 				]];
 
 				table.render({
@@ -312,6 +311,8 @@
 					window.editData(row.id);
 				} else if(obj.event == 'disabled') {
 					window.setDisabledValue(obj);
+				} else if(obj.event == 'defaultSelected') {
+					window.setDefaultSelected(row.id);
 				}
 			});
 
@@ -325,6 +326,18 @@
 
 			window.refreshData = function(field = {}, deep = false) {
 				$.vtl.tableReloadData('dict-data-table', field, deep);
+			}
+
+			window.setDefaultSelected = function(id) {
+				layer.confirm('确定设置为默认项？', { icon: 3, title: '提示' }, function(index) {
+					layer.close(index);
+					$.post('/vtl-dict-data/setDefaultSelected/' + id, function(result) {
+						if (result.code == 200) {
+							dict.refresh();
+						   	window.refreshData(true);
+						}
+					});
+				});
 			}
 		})
 	</script>

@@ -157,8 +157,8 @@
                         case 'delete':
                             window.delete(obj);
                             break;
-                        case 'status':
-                            alert("status")
+                        case 'disabled':
+                            window.setDisabledValue(obj);
                             break;
                         default:
                             break;
@@ -193,6 +193,17 @@
 				window.detail = function(id, title = '详情') {
 					top.layui.admin.jump('${tableName?replace('_','-')}-' + id, title, 'views/${tableName?replace('_','-')}/detail.html?&id=' + id)
 				}
+
+				window.setDisabledValue = function(obj) {
+                    layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
+                        layer.close(index);
+                        $.post('/${tableName?replace('_','-')}/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
+                            if (result.code == 200) {
+                               window.refresh(true);
+                            }
+                        });
+                    });
+                }
 
 			})
 		</script>

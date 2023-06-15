@@ -47,7 +47,8 @@ layui.config({
 	fullscreen:"fullscreen",     //全屏组件
 	popover:"popover/popover",    //汽泡组件
 	descriptions: "vitality/descriptions",
-	dict: "vitality/dict"
+	dict: "vitality/dict",
+	vtlForm: "vitality/vtlForm"
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });

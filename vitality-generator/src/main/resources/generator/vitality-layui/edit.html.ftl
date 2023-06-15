@@ -20,7 +20,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label required">${field.columnName}</label>
                         <div class="layui-input-block">
-                            <input type="text" name="${field.propertyName}" required lay-verify="required" placeholder="" autocomplete="new-password" class="layui-input">
+                            <input type="text" name="${field.propertyName}" lay-verify="required" placeholder="" autocomplete="new-password" class="layui-input">
                         </div>
                     </div>
     </#if>
@@ -28,13 +28,13 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label required">输入框</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="new-password" class="layui-input">
+							<input type="text" name="title" lay-verify="required" placeholder="请输入标题" autocomplete="new-password" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label required">密码框</label>
 						<div class="layui-input-inline">
-							<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="new-password" class="layui-input">
+							<input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="new-password" class="layui-input">
 						</div>
 						<div class="layui-form-mid layui-word-aux">辅助文字</div>
 					</div>

@@ -7,6 +7,7 @@ import com.github.mengweijin.vitality.system.entity.VtlDictData;
 import com.github.mengweijin.vitality.system.mapper.VtlDictDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,5 +37,12 @@ public class VtlDictDataService extends ServiceImpl<VtlDictDataMapper, VtlDictDa
 
     public List<VtlDictData> getByTypeCode(String typeCode) {
         return this.lambdaQuery().eq(VtlDictData::getTypeCode, typeCode).eq(VtlDictData::getDisabled, 0).orderByAsc(VtlDictData::getSeq).list();
+    }
+
+    @Transactional(rollbackFor = RuntimeException.class)
+    public boolean setDefaultSelected(Long id) {
+        VtlDictData vtlDictData = this.getById(id);
+        this.lambdaUpdate().set(VtlDictData::getDefaultSelected, 1).eq(VtlDictData::getTypeCode, vtlDictData.getTypeCode()).eq(VtlDictData::getId, id).update();
+        return this.lambdaUpdate().set(VtlDictData::getDefaultSelected, 0).eq(VtlDictData::getTypeCode, vtlDictData.getTypeCode()).ne(VtlDictData::getId, id).update();
     }
 }

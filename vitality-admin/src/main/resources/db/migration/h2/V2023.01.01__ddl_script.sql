@@ -163,6 +163,7 @@ DROP TABLE IF EXISTS VTL_MENU;
 CREATE TABLE VTL_MENU (
   ID                            bigint NOT NULL COMMENT '主键ID',
   PARENT_ID              		bigint DEFAULT 0 COMMENT '父菜单ID',
+  ANCESTORS              		varchar(2048) NOT NULL COMMENT '祖先层级ID，以"/" 分隔。',
   TITLE 		                varchar(50) NOT NULL COMMENT '菜单标题',
   TYPE 		                    varchar(5) DEFAULT 'BTN' COMMENT '菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮; OTHER=其它 }',
   PERMISSION 	                varchar(64) NOT NULL COMMENT '权限标识,唯一性约束。',

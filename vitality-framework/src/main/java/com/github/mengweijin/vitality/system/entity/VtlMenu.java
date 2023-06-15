@@ -31,6 +31,12 @@ public class VtlMenu extends BaseEntity {
     private Long parentId;
 
     /**
+     * 祖先层级ID，以"/" 分隔。
+     */
+    @TableField("ANCESTORS")
+    private String ancestors;
+
+    /**
      * 菜单标题
      */
     @TableField("TITLE")

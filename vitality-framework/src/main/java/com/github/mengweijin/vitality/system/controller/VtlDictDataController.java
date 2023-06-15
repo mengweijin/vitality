@@ -76,4 +76,10 @@ public class VtlDictDataController extends BaseController {
         boolean bool = vtlDictDataService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
+
+    @PostMapping("/setDefaultSelected/{id}")
+    public R setDefaultSelected(@PathVariable("id") Long id) {
+        boolean bool = vtlDictDataService.setDefaultSelected(id);
+        return R.bool(bool);
+    }
 }

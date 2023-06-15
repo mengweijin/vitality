@@ -3,11 +3,10 @@ package com.github.mengweijin.vitality.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
-import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTable;
 import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
+import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.service.VtlMenuService;
-import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,11 +73,14 @@ public class VtlMenuController {
         return menuService.treeTableDataList(dto);
     }
 
-    @GetMapping("/byParentId")
-    public LayuiTable<VtlMenu> getByParentId(Long parentId) {
-        List<VtlMenu> menuList = menuService.getByParentId(parentId);
-        return new LayuiTable<>(menuList);
+    @GetMapping("/listWithAllChildren/{id}")
+    public List<VtlMenu> listWithAllChildren(@PathVariable("id") Long id) {
+        return menuService.getWithAllChildrenById(id);
     }
 
-
+    @PostMapping("/setDisabledValue/{id}")
+    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
+        boolean bool = menuService.setDisabledValue(id, disabled);
+        return R.bool(bool);
+    }
 }

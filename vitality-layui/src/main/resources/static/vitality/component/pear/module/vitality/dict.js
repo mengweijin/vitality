@@ -21,6 +21,9 @@ layui.define(['jquery'], function(exports) {
                 }
             });
         },
+        /**
+         * 数组排序。字典排序
+         */
         sort: function(list) {
             list.sort(function(a, b) { return a.seq - b.seq; });
             return list;
@@ -34,6 +37,7 @@ layui.define(['jquery'], function(exports) {
             if(dictTable[typeCode]) {
                 return dictTable[typeCode];
             }
+            console.error('No dict data was found by dict typeCode=' + typeCode);
             return null;
         },
         dataItem: function(typeCode, dataCode) {

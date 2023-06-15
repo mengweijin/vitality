@@ -11,6 +11,7 @@ import com.github.mengweijin.vitality.system.mapper.VtlMenuMapper;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -54,12 +55,18 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         return collect.get(parentId);
     }
 
-    public List<VtlMenu> treeTable() {
-        return this.getByParentId(0L);
-    }
-
     public List<VtlMenu> getByParentId(Long parentId) {
         return this.lambdaQuery().eq(VtlMenu::getParentId, parentId).eq(VtlMenu::getDisabled, 0).list();
     }
+
+    public List<VtlMenu> getWithAllChildrenById(Long id) {
+        VtlMenu vtlMenu = this.getById(id);
+        return this.lambdaQuery().eq(VtlMenu::getDisabled, 0).likeRight(VtlMenu::getAncestors, vtlMenu.getAncestors()).list();
+    }
+
+    public boolean setDisabledValue(Long id, boolean disabled) {
+        return this.lambdaUpdate().set(VtlMenu::getDisabled, disabled).eq(VtlMenu::getId, id).update();
+    }
+
 
 }

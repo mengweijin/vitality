@@ -65,24 +65,7 @@
             { field: 'parentId', title: 'PARENT_ID', width: 200, hide: true },
             { field: 'title', title: '菜单名称', width: 200 },
             { field: 'type', title: '菜单类型', width: 90, align: 'center', templet: function(d){
-                let text = dict.label('vtl_menu_type', d.type);
-                let $result = $('<span/>', { class: 'layui-badge' }).text(text);
-                switch (d.type) {
-                  case 'DIR':
-                      $result.addClass('layui-bg-green');
-                      break;
-                  case 'MENU':
-                      $result.addClass('layui-bg-blue');
-                      break;
-                  case 'BTN':
-                      $result.addClass('layui-bg-orange');
-                      break;
-                  case 'OTHER':
-                      break;
-                  default:
-                      break;
-                }
-                return $result.get(0).outerHTML;
+                return dict.label('vtl_menu_type', d.type, true);
             }},
             { field: 'icon', title: '图标', width: 40, align: 'center', templet: function (d) {
                 return '<i class="' + d.icon + '"></i>';
@@ -99,7 +82,9 @@
                 }
             }},
             { field: 'seq', title: '排序号', width: 80 },
-            { field: 'openType', title: '打开类型', width: 120 },
+            { field: 'openType', title: '打开类型', width: 120, templet: function(d) {
+                return d.type == 'MENU' ? dict.label('vtl_menu_open_type', d.openType, true) : '';
+            } },
             { field: 'url', title: '页面链接' },
             { field: 'remark', title: '备注', width: 120, hide: true },
             { field: 'createByName', title: '创建者', width: 120, hide: true },
@@ -182,7 +167,7 @@
 
           window.edit = function(id) {
               let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
-              $.vtl.openLayer(url, { title: '编辑' });
+              $.vtl.openLayer(url, { title: '编辑', area: ['900px', '90%'] });
           }
 
           window.delete = function(obj) {

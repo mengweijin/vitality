@@ -17,34 +17,22 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">上级菜单</label>
-                <div class="layui-input-group">
-                    <input type="hidden" name="parentId">
-                    <input type="text" name="parentId" class="layui-input" disabled>
-                    <div class="layui-input-split layui-input-suffix" style="cursor: pointer;">
-                        <i class="layui-icon layui-icon-search"></i>
-                    </div>
+                <div class="layui-input-block">
+                    <input type="hidden" name="parentId" lay-verify="required" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">菜单类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="type">
+                    <input type="radio" name="type" lay-filter="radio-type-filter">
                 </div>
             </div>
-<!--            <div class="layui-form-item layui-inline">-->
-<!--                <label class="layui-form-label required">菜单图标</label>-->
-<!--                <div class="layui-input-inline">-->
-<!--                    <input type="text" name="icon" lay-verify="required" placeholder="" class="layui-input">-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="layui-form-item layui-inline">
-                <label class="layui-form-label required">菜单图标</label>
+                <label class="layui-form-label required">目录图标</label>
                 <div class="layui-input-inline">
                     <input type="text" name="icon" id="iconPicker" value="layui-icon-face-smile" lay-filter="iconPicker" class="hide">
                 </div>
             </div>
-
-
             <div class="layui-form-item">
                 <label class="layui-form-label required">菜单名称</label>
                 <div class="layui-input-inline">
@@ -103,13 +91,22 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery', 'vtlForm', 'iconPicker'], function() {
+    layui.use(['form', 'jquery', 'vtlForm', 'iconPicker', 'zTree'], function() {
         let form = layui.form;
         let $ = layui.jquery;
         let vtlForm = layui.vtlForm;
         let iconPicker = layui.iconPicker;
+        let zTree = layui.zTree;
         let url = layui.url();
         let id = url.search.id;
+
+        form.on('radio(radio-type-filter)', function(data){
+            var elem = data.elem; // 获得 radio 原始 DOM 对象
+            var checked = elem.checked; // 获得 radio 选中状态
+            var value = elem.value; // 获得 radio 值
+            var othis = data.othis; // 获得 radio 元素被替换后的 jQuery 对象
+            window.setVisibleByMenuType(elem.value);
+        });
 
         form.on('submit(submit-filter)', function(data) {
             if(id) {
@@ -147,18 +144,56 @@
             });
         }
 
+        window.setVisibleByMenuType = function(type) {
+            let $icon = $('form input:text[name=icon]');
+            let $permission = $('form input:text[name=permission]');
+            let $url = $('form input:text[name=url]');
+            let $openType = $('form input:radio[name=openType]');
+            switch (type) {
+                  case 'DIR':
+                      $icon.attr('lay-verify', 'required').parents('div .layui-form-item').show();
+                      $permission.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $url.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $openType.parents('div .layui-form-item').hide();
+                      break;
+                  case 'MENU':
+                      $icon.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $permission.attr('lay-verify', 'required').parents('div .layui-form-item').show();
+                      $url.attr('lay-verify', 'required').parents('div .layui-form-item').show();
+                      $openType.parents('div .layui-form-item').show();
+                      break;
+                  case 'BTN':
+                  case 'OTHER':
+                      $icon.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $permission.attr('lay-verify', 'required').parents('div .layui-form-item').show();
+                      $url.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $openType.parents('div .layui-form-item').hide();
+                      break;
+                  default:
+                      $icon.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $permission.attr('lay-verify', 'required').parents('div .layui-form-item').show();
+                      $url.removeAttr('lay-verify').parents('div .layui-form-item').hide();
+                      $openType.parents('div .layui-form-item').hide();
+                      break;
+                }
+        }
+
         window.init = function(id) {
             vtlForm.initRadioByDict('form input:radio[name=type]', 'vtl_menu_type');
             vtlForm.initRadioByDict('form input:radio[name=openType]', 'vtl_menu_open_type');
             vtlForm.initRadioByDict('form input:radio[name=disabled]', 'vtl_disabled');
-
             if(id) {
                 $.get('/vtl-menu/' + id, function(result) {
                     form.val("form-filter", result);
+                    vtlForm.initTreeSelect('form input:hidden[name=parentId]', '/vtl-menu/treeSelectDataList', { menubar: true, selectInitVal: result.parentId } );
                     window.initIconPicker();
+                    window.setVisibleByMenuType(result.type);
+
                 });
             } else {
+                vtlForm.initTreeSelect('form input:hidden[name=parentId]', '/vtl-menu/treeSelectDataList', { checkbar: 'true' } );
                 window.initIconPicker();
+                window.setVisibleByMenuType('BTN');
             }
 
         }

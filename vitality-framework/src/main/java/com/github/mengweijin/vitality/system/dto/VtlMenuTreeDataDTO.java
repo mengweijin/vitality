@@ -5,9 +5,13 @@ import com.github.mengweijin.vitality.system.enums.EMenuOpenType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.dromara.hutool.core.collection.CollUtil;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author mengweijin
@@ -45,5 +49,17 @@ public class VtlMenuTreeDataDTO implements Serializable {
         this.openType = menu.getOpenType();
         this.parentId = menu.getParentId();
         this.seq = menu.getSeq();
+    }
+
+    public static List<VtlMenuTreeDataDTO> buildTree(List<VtlMenuTreeDataDTO> list, Long parentId) {
+        Map<Long, List<VtlMenuTreeDataDTO>> collect = list.stream().collect(Collectors.groupingBy(VtlMenuTreeDataDTO::getParentId));
+        for (VtlMenuTreeDataDTO node : list) {
+            List<VtlMenuTreeDataDTO> children = collect.get(node.getId());
+            if(CollUtil.isNotEmpty(children)) {
+                children.sort(Comparator.comparingInt(VtlMenuTreeDataDTO::getSeq));
+                node.setChildren(children);
+            }
+        }
+        return collect.get(parentId);
     }
 }

@@ -48,7 +48,8 @@ layui.config({
 	popover:"popover/popover",    //汽泡组件
 	descriptions: "vitality/descriptions",
 	dict: "vitality/dict",
-	vtlForm: "vitality/vtlForm"
+	vtlForm: "vitality/vtlForm",
+	zTree: "vitality/zTree"
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });

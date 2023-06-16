@@ -71,7 +71,7 @@
                     { field: 'username', title: '账号', width: 120 },
                     { field: 'nickname', title: '姓名', width: 120 },
                     { field: 'gender', title: '性别', width: 60, templet: function(d) {
-                        return dict.label('vtl_user_gender', d.gender);
+                        return dict.label('vtl_user_gender', d.gender, true);
                     } },
                     { field: 'email', title: '邮箱' },
                     { field: 'mobilePhone', title: '电话', width: 150 },

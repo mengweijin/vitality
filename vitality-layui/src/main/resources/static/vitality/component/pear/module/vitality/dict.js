@@ -28,6 +28,23 @@ layui.define(['jquery'], function(exports) {
             list.sort(function(a, b) { return a.seq - b.seq; });
             return list;
         },
+        getBadgeClass: function(index) {
+            // 绿，蓝，橙，赤，青，深，浅
+            let badgeClassArray = [
+                'layui-badge layui-bg-green',
+                'layui-badge layui-bg-blue',
+                'layui-badge layui-bg-orange',
+                'layui-badge',
+                'layui-badge layui-bg-cyan',
+                'layui-badge layui-bg-black',
+                'layui-badge layui-bg-gray',
+            ];
+            if(index < badgeClassArray.length) {
+                return badgeClassArray[index];
+            } else {
+                return badgeClassArray[badgeClassArray.length - 1];
+            }
+        },
         dataList: function(typeCode) {
             let dictTable = layui.sessionData(TABLE_NAME);
             if(!dictTable || $.isEmptyObject(dictTable)) {
@@ -40,21 +57,19 @@ layui.define(['jquery'], function(exports) {
             console.error('No dict data was found by dict typeCode=' + typeCode);
             return null;
         },
-        dataItem: function(typeCode, dataCode) {
+        label: function(typeCode, dataCode, badgeStyle = false) {
             let list = this.dataList(typeCode);
             if(list) {
-                for(let j in list) {
+                for(let j = 0; j < list.length; j++) {
                     if(list[j].dataCode == dataCode) {
-                        return list[j];
+                        let item = list[j];
+                        if(badgeStyle) {
+                            return $('<span />', { class: this.getBadgeClass(j) }).text(list[j].label).get(0).outerHTML;
+                        } else {
+                            return list[j].label;
+                        }
                     }
                 }
-            }
-            return null;
-        },
-        label: function(typeCode, dataCode) {
-            let item = this.dataItem(typeCode, dataCode);
-            if(item && item.label) {
-                return item.label;
             }
             console.warn('No dict data was found by [typeCode=' + typeCode + '] and [dataCode=' + dataCode + ']');
             return '';

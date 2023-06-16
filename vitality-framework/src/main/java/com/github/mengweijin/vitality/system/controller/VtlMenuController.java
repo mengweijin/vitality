@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeLayuiStyleDTO;
 import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
@@ -63,14 +64,19 @@ public class VtlMenuController {
         return menuService.page(page, dto);
     }
 
-    @GetMapping("/tree")
-    public List<VtlMenuTreeDataDTO> tree() {
-        return menuService.tree();
+    @GetMapping("/treeLeftSideData")
+    public List<VtlMenuTreeDataDTO> treeLeftSideData() {
+        return menuService.treeLeftSideData();
     }
 
     @GetMapping("/treeTableDataList")
     public List<VtlMenuDTO> treeTableDataList(VtlMenuDTO dto) {
         return menuService.treeTableDataList(dto);
+    }
+
+    @GetMapping("/treeSelectDataList")
+    public DTreeLayuiStyleDTO treeSelectDataList() {
+        return menuService.treeSelectDataList();
     }
 
     @GetMapping("/listWithAllChildren/{id}")

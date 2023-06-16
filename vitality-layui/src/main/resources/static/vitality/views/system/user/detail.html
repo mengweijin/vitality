@@ -61,7 +61,7 @@
                     }},
                     { field: 'nickname', title: '用户昵称' },
                     { field: 'gender', title: '性别', templet: function(d) {
-                        return dict.label('vtl_user_gender', d.gender);
+                        return dict.label('vtl_user_gender', d.gender, true);
                     }},
                     { field: 'mobilePhone', title: '电话' },
                     { field: 'email', title: '邮箱' },

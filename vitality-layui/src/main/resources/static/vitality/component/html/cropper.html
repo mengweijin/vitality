@@ -33,66 +33,66 @@
 <script src="../layui/layui.js"></script>
 <script src="../pear/pear.js"></script>
 <script>
-        layui.use(['jquery','layer','cropper'], function () {
-            let $ = layui.jquery;
-            let layer = layui.layer;
-            let cropper = layui.cropper;
+    layui.use(['jquery','layer','cropper'], function () {
+        let $ = layui.jquery;
+        let layer = layui.layer;
+        let cropper = layui.cropper;
 
-            var options = {
-                aspectRatio: 1 / 1, // 裁剪框比例
-                preview: '#previewImage', // 预览div
-                viewmode: 1,
-                autoCropArea: 1
-            };
-            $("#sourceImage").cropper(options);
+        var options = {
+            aspectRatio: 1 / 1, // 裁剪框比例
+            preview: '#previewImage', // 预览div
+            viewmode: 1,
+            autoCropArea: 1
+        };
+        $("#sourceImage").cropper(options);
 
-            window.init = function(img = '') {
-                $("#sourceImage").cropper('replace', img, false);
+        window.init = function(img = '') {
+            $("#sourceImage").cropper('replace', img, false);
+        }
+
+        window.save = function () {
+            $("#sourceImage").crossOrigin = 'anonymous';//解决跨域图片问题
+
+            let img = $("#sourceImage")
+                .cropper("getCroppedCanvas", { width: 280, height: 140 })
+                .toDataURL('image/jpeg'); // 转换为base64;
+
+            // 更换cropper的图片。默认false，适应高度，不失真
+            $("#sourceImage").cropper('replace', img, false);
+            return img;
+        }
+
+        $(".pear-btn").on('click', function () {
+            var event = $(this).attr("cropper-event");
+
+            if (event === 'rotate') {
+                var option = $(this).attr('data-option');
+                $("#sourceImage").cropper('rotate', option);
+            } else if (event === 'reset') {
+                $("#sourceImage").cropper('reset');
             }
 
-            window.save = function () {
-                $("#sourceImage").crossOrigin = 'anonymous';//解决跨域图片问题
+            $("#uploadPicture").change(function () {
+                var r = new FileReader();
+                var f = this.files[0];
 
-                let img = $("#sourceImage")
-                    .cropper("getCroppedCanvas", { width: 280, height: 140 })
-                    .toDataURL('image/jpeg'); // 转换为base64;
-
-                // 更换cropper的图片。默认false，适应高度，不失真
-                $("#sourceImage").cropper('replace', img, false);
-                return img;
-            }
-
-            $(".pear-btn").on('click', function () {
-                var event = $(this).attr("cropper-event");
-
-                if (event === 'rotate') {
-                    var option = $(this).attr('data-option');
-                    $("#sourceImage").cropper('rotate', option);
-                } else if (event === 'reset') {
-                    $("#sourceImage").cropper('reset');
+                var uploadFileSize = f.size / 1024;
+                if (uploadFileSize > 5120) {
+                    parent.layer.msg("上传文件不得超过5m", { icon: 5 });
+                    return false;
                 }
 
-                $("#uploadPicture").change(function () {
-                    var r = new FileReader();
-                    var f = this.files[0];
-
-                    var uploadFileSize = f.size / 1024;
-                    if (uploadFileSize > 5120) {
-                        parent.layer.msg("上传文件不得超过5m", { icon: 5 });
-                        return false;
-                    }
-
-                    r.readAsDataURL(f);
-                    r.onload = function (e) {
-                        $("#sourceImage")
-                            .cropper('destroy')
-                            .attr('src', this.result)
-                            .cropper(options);
-                    };
-                });
+                r.readAsDataURL(f);
+                r.onload = function (e) {
+                    $("#sourceImage")
+                        .cropper('destroy')
+                        .attr('src', this.result)
+                        .cropper(options);
+                };
             });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>

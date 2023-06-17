@@ -1,11 +1,12 @@
-layui.define(['jquery', 'dict', 'form', 'dtree'], function(exports) {
+layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
 	"use strict";
 
 	var MOD_NAME = 'vtlForm';
 	var $ = layui.jquery;
 	var dict = layui.dict;
 	var form = layui.form;
-	var dtree = layui.dtree;
+	var zTree = layui.zTree;
+	var popover = layui.popover;
 
     var vtlForm = {
         initRadioByDict: function(elem, dictTypeCode) {
@@ -29,32 +30,50 @@ layui.define(['jquery', 'dict', 'form', 'dtree'], function(exports) {
             form.render('radio');
         },
 
-        initTreeSelect: function(elem, url, options = {}) {
+        /**
+         * 表单绑定气泡组件
+         * vtlForm.initPopover('form input:hidden[name=parentId]', '/vitality/views/system/config/configList.html');
+         */
+        initPopover: function(elem, url, options = {}) {
             let $elem = $(elem);
             let name = $elem.attr('name');
-            let $container = $elem.parent().empty().append($elem);
-            let $tpl = $('<ul />', { id: name, class: 'dtree' });
-            $container.append($tpl);
+            let layFilter = $elem.attr('lay-filter') || '';
+            let labelInputLayFilter = 'popover-' + layFilter;
+            let $container = $elem.parent();
 
-            dtree.renderSelect({
-                elem: "#" + name,
-                //width: "100%",
-                initLevel: 1,
-                //icon: "-1",  // 隐藏二级图标
-                //skin: options.skin || null,  // 主题风格。可选：【 'layui', 'laySimple' 】
-                menubar: options.menubar || false, //开启菜单栏，包含下拉搜索
-                checkbar: options.checkbar || false, // 设置复选框, 多选
-                checkbarType: options.checkbarType || "self", // 默认就是all，其他的值为： no-all  p-casc   self(复选框多选)  only(复选框单选)
-                method: 'get',
-                url: $.vtl.getAjaxBaseUrlFromSession() + url,
-                dataStyle: "layuiStyle",  //使用layui风格的数据格式。{"code":0,"msg":"操作成功","data": [{"id":"001","title": "湖南省","parentId": "0","children":[]}]}
-                response: { message: "msg", statusCode: 0 },  //使用layui风格，修改response中返回数据的定义
-                //dataFormat: "list",  //配置data的风格为list
-                selectInitVal: options.selectInitVal || null, // 你可以在这里指定默认值，比如："001001,001003"
-                done: function(res, $ul, first) {
+            let $inputTpl = $('<input />', { name: name + 'Label', readonly: '', class: 'layui-input', placeholder: '点击选择(Click here)......' }).attr('lay-filter', labelInputLayFilter);
+            $container.append($inputTpl);
 
-                }
+            form.render('input');
+
+            let popoverWidth = $inputTpl.width();
+            let popoverHeight = $(window).height() - $inputTpl.offset().top - $inputTpl.height() - 150;
+
+            popover.create('form input:text[lay-filter=' + labelInputLayFilter + ']', {
+                title: '数据选择',
+                trigger: 'click', //values:  click,hover,manual(handle events by your self),sticky(always show after popover is created);
+                animation: 'pop', //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
+                closeable: true, //display close button or not
+                placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left,horizontal,vertical
+                delay: {
+                    //show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
+                    show: null,
+                    hide: 100
+                },
+                async: {
+                     type:'GET', // ajax request method type, default is GET
+                },
+                direction: 'ltr', // direction of the popover content default is ltr ,values:'rtl';
+                padding: false, //content padding
+                opacity: 0.98,
+                type: 'iframe', //content type, values:'html','iframe','async'
+                url: url, //if type equals 'html', value should be jQuery selecor.  if type equels 'async' the plugin will load content by url.
+                width: popoverWidth, //auto, or can be set with number
+                height: 'auto', //auto, can be set with number
+                onShow: function($element) {}, // callback after show
+                onHide: function($element) {}, // callback after hide
             });
+
         }
     };
 

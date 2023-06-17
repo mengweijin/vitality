@@ -113,7 +113,7 @@
         });
 
         form.on('submit(submit-filter)', function(data) {
-            if(data.field.icon) {
+            if(data.field.icon && data.field.icon.indexOf('layui-icon ') == -1) {
                 data.field.icon = 'layui-icon ' + data.field.icon;
             }
             if(id) {
@@ -192,7 +192,7 @@
             if(id) {
                 $.get('/vtl-menu/' + id, function(result) {
                     form.val("form-filter", result);
-                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', { checkedId: result.parentId });
+                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', { checkedId: result.parentId, disabled: true });
                     window.initIconPicker();
                     window.setVisibleByMenuType(result.type);
                 });

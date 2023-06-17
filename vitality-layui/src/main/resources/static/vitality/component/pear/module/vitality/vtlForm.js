@@ -34,6 +34,7 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             let $elem = $(elem);
             let name = $elem.attr('name');
             let value = $elem.attr('value');
+            let disabled = options.disabled || false;
 
             let layFilter = $elem.attr('lay-filter') || '0';
             let labelInputLayFilter = 'menu-tree-' + layFilter;
@@ -43,7 +44,8 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             let $inputTpl = $('<input />', { name: name + 'Label', class: 'layui-input', placeholder: '点击选择(Click here)......' })
                 .attr('lay-filter', labelInputLayFilter)
                 .attr('lay-affix', 'close')
-                .attr('lay-options', '{split: true}');
+                .attr('lay-options', '{split: true}')
+                .attr("disabled", disabled);
             if(!$.vtl.isBlank(value)) {
                 $.sync('get', '/vtl-menu/titleHierarchy/' + value, function(result){
                     $inputTpl.val(result);
@@ -52,12 +54,16 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
 
             $container.append($wrapDiv.append($inputTpl));
 
-            form.on('input-affix(' + labelInputLayFilter + ')', function(data){
-                $elem.val(0);
-                $inputTpl.val('');
-            });
-
             form.render('input');
+
+            if(disabled) {
+                $container.find("i").parent().remove();
+            } else {
+                form.on('input-affix(' + labelInputLayFilter + ')', function(data){
+                    $elem.val(0);
+                    $inputTpl.val('');
+                });
+            }
 
             $inputTpl.click(function(){
                 let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html?checkedId=' + options.checkedId;
@@ -72,6 +78,7 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
                     let checkedArray = iframeWin.getChecked();
                     $elem.val(checkedArray[0]);
                     $inputTpl.val(checkedArray[1]);
+
                     layer.close(index);
                 };
                 $.vtl.openLayer(url, {

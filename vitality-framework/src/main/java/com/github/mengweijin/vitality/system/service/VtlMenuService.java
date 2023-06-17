@@ -42,6 +42,11 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         return super.save(entity);
     }
 
+    @Override
+    public boolean updateById(VtlMenu entity) {
+        return super.updateById(entity);
+    }
+
     public IPage<VtlMenuDTO> page(IPage<VtlMenuDTO> page, VtlMenuDTO dto){
         return vtlMenuMapper.page(page, dto);
     }

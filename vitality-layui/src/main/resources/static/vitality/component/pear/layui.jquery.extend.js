@@ -100,7 +100,7 @@ layui.use(['jquery'], function () {
              * @returns
              */
             openCopper: function(success, yes) {
-                let url = this.getCtxFromSession() + '/component/html/cropper.html';
+                let url = this.getCtx() + '/component/html/cropper.html';
                 return this.openLayer(url, {
                     title: '图片裁剪',
                     area: ['900px', '500px'],
@@ -263,7 +263,7 @@ layui.use(['jquery'], function () {
              * 
              * @returns 比如：/api
              */
-            getAjaxBaseUrlFromSession: function() {
+            getAjaxBaseUrl: function() {
                 let pearConfig = layui.sessionData('pear_config');
                 let ajaxBaseUrl = '';
                 if(pearConfig && pearConfig.config && pearConfig.config.other && pearConfig.config.other.ajaxBaseUrl) {
@@ -281,7 +281,7 @@ layui.use(['jquery'], function () {
                 return ajaxBaseUrl;
             },
 
-            getCtxFromSession: function() {
+            getCtx: function() {
                 let pearConfig = layui.sessionData('pear_config');
                 let ctx = '';
                 if(pearConfig && pearConfig.config && pearConfig.config.other && pearConfig.config.other.ctx) {
@@ -368,7 +368,7 @@ layui.use(['jquery'], function () {
                             xhr.setRequestHeader(csrfHeader, csrf);
                         }
 
-                        let ajaxBaseUrl = $.vtl.getAjaxBaseUrlFromSession();
+                        let ajaxBaseUrl = $.vtl.getAjaxBaseUrl();
                         if(!this_.isBlank(ajaxBaseUrl) && !(this.url.indexOf(ajaxBaseUrl) == 0) && !(this.url.indexOf('http') == 0)) {
                             if(this.url.indexOf('/') == 0){
                                 this.url = ajaxBaseUrl + this.url;

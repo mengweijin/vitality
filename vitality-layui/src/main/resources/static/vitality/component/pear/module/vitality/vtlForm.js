@@ -30,6 +30,44 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             form.render('radio');
         },
 
+        initMenuTreeSelector: function(elem, options = {}) {
+            let $elem = $(elem);
+            let name = $elem.attr('name');
+            let layFilter = $elem.attr('lay-filter') || '0';
+            let labelInputLayFilter = 'menu-tree-' + layFilter;
+            let $container = $elem.parent();
+
+            let $inputTpl = $('<input />', { name: name + 'Label', readonly: '', class: 'layui-input', placeholder: '点击选择(Click here)......' }).attr('lay-filter', labelInputLayFilter);
+            $container.append($inputTpl);
+
+            form.render('input');
+
+            $inputTpl.click(function(){
+                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html';
+                let success = function(layero, index, that) {
+                    // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    //iframeWin.init($('#userAvatar').attr('src'));
+                };
+                let yes = function(index, layero, that) {
+                    // var $body = layui.layer.getChildFrame('body', index);
+                    // var $sourceImage = layui.layer.getChildFrame('#sourceImage', index);
+                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                    //let img = iframeWin.save();
+                    //$('#userAvatar').attr('src', img);
+                };
+                $.vtl.openLayer(url, {
+                    title: '选择数据',
+                    area: ['90%', '90%'],
+                    btn: ['确定', '取消'],
+                    success: success,
+                    yes: yes
+                });
+            });
+
+
+        },
+
         /**
          * 表单绑定气泡组件
          * vtlForm.initPopover('form input:hidden[name=parentId]', '/vitality/views/system/config/configList.html');

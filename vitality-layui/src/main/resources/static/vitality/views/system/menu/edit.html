@@ -22,18 +22,6 @@
                     <input type="hidden" name="parentId" lay-verify="required" lay-filter="input-parentId-filter" class="layui-input">
                 </div>
             </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">上级菜单</label>
-                <div class="layui-input-group">
-<!--                    <input type="text" placeholder="带任意后置内容" class="layui-input">-->
-                    <input id="citySel" type="text" readonly="" value="" style="width:120px;" onclick="showMenu();">
-                    <div class="layui-input-split layui-input-suffix" style="cursor: pointer;">
-                        <i class="layui-icon layui-icon-search" id="menuBtn" onclick="showMenu(); return false;"></i>
-                    </div>
-                </div>
-
-            </div>
             <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
                 <ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
             </div>
@@ -115,94 +103,6 @@
         let zTree = layui.zTree;
         let url = layui.url();
         let id = url.search.id;
-
-        var setting = {
-            check: {
-                enable: true,
-                chkboxType: {"Y":"", "N":""}
-            },
-            view: {
-                dblClickExpand: false
-            },
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            },
-            callback: {
-                //beforeClick: beforeClick,
-                //onCheck: onCheck
-            }
-        };
-
-        var zNodes =[
-            {id:1, pId:0, name:"北京"},
-            {id:2, pId:0, name:"天津"},
-            {id:3, pId:0, name:"上海"},
-            {id:6, pId:0, name:"重庆"},
-            {id:4, pId:0, name:"河北省", open:true, nocheck:true},
-            {id:41, pId:4, name:"石家庄"},
-            {id:42, pId:4, name:"保定"},
-            {id:43, pId:4, name:"邯郸"},
-            {id:44, pId:4, name:"承德"},
-            {id:5, pId:0, name:"广东省", open:true, nocheck:true},
-            {id:51, pId:5, name:"广州"},
-            {id:52, pId:5, name:"深圳"},
-            {id:53, pId:5, name:"东莞"},
-            {id:54, pId:5, name:"佛山"},
-            {id:6, pId:0, name:"福建省", open:true, nocheck:true},
-            {id:61, pId:6, name:"福州"},
-            {id:62, pId:6, name:"厦门"},
-            {id:63, pId:6, name:"泉州"},
-            {id:64, pId:6, name:"三明"}
-         ];
-
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
-        window.beforeClick = function(treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.checkNode(treeNode, !treeNode.checked, null, true);
-            return false;
-        }
-
-        window.onCheck = function(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-            nodes = zTree.getCheckedNodes(true),
-            v = "";
-            for (var i=0, l=nodes.length; i<l; i++) {
-                v += nodes[i].name + ",";
-            }
-            if (v.length > 0 ) v = v.substring(0, v.length-1);
-            var cityObj = $("#citySel");
-            cityObj.attr("value", v);
-        }
-
-        window.showMenu = function() {
-            var cityObj = $("#citySel");
-            var cityOffset = $("#citySel").offset();
-            $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
-            $("body").bind("mousedown", onBodyDown);
-        }
-        window.hideMenu = function() {
-            $("#menuContent").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDown);
-        }
-        window.onBodyDown = function(event) {
-            if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
-                hideMenu();
-            }
-        }
-
-
-
-
-
-
-
-
-
-
 
         form.on('radio(radio-type-filter)', function(data){
             var elem = data.elem; // 获得 radio 原始 DOM 对象
@@ -289,12 +189,12 @@
             if(id) {
                 $.get('/vtl-menu/' + id, function(result) {
                     form.val("form-filter", result);
+                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', {});
                     window.initIconPicker();
                     window.setVisibleByMenuType(result.type);
-
                 });
             } else {
-                vtlForm.initPopover('form input:hidden[name=parentId]', '/vitality/views/system/config/configList.html');
+                vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', {});
                 window.initIconPicker();
                 window.setVisibleByMenuType('BTN');
             }

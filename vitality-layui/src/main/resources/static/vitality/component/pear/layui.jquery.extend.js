@@ -379,7 +379,7 @@ layui.use(['jquery'], function () {
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         let message = 'Unknown error!';
-                        if (xhr.responseJSON.message) {
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
                             message = xhr.responseJSON.message;
                         }
                         switch (xhr.status) {

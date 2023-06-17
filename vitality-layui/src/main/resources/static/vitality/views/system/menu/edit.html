@@ -17,9 +17,9 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label required">上级菜单</label>
+                <label class="layui-form-label">上级菜单</label>
                 <div class="layui-input-block">
-                    <input type="hidden" name="parentId" lay-verify="required" lay-filter="input-parentId-filter" class="layui-input">
+                    <input type="hidden" name="parentId" lay-filter="input-parentId-filter" class="layui-input">
                 </div>
             </div>
             <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
@@ -113,6 +113,9 @@
         });
 
         form.on('submit(submit-filter)', function(data) {
+            if(data.field.icon) {
+                data.field.icon = 'layui-icon ' + data.field.icon;
+            }
             if(id) {
                 $.put('/vtl-menu', data.field, function(result) {
                     if (result.code == 200) {
@@ -189,12 +192,12 @@
             if(id) {
                 $.get('/vtl-menu/' + id, function(result) {
                     form.val("form-filter", result);
-                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', {});
+                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', { checkedId: result.parentId });
                     window.initIconPicker();
                     window.setVisibleByMenuType(result.type);
                 });
             } else {
-                vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', {});
+                vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]');
                 window.initIconPicker();
                 window.setVisibleByMenuType('BTN');
             }

@@ -109,7 +109,7 @@
                     "code": 0,
                     "msg": 'SUCCESS',
                     "count": res.length,
-                    "data": $.vtl.tree(res, '0')
+                    "data": res
                 };
             },
             tree: {
@@ -121,7 +121,7 @@
                 pid: 'parentId',
                 icon: 'treeDataIcon',
               },
-              data: {rootPid: 0, isSimpleData: false },
+              data: { isSimpleData: true, rootPid: '0' },
             },
             skin: 'line',
             toolbar: '#toolbarLeftTpl',

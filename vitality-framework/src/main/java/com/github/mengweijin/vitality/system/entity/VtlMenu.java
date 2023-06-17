@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.vitality.system.enums.EMenuOpenType;
 import com.github.mengweijin.vitality.system.enums.EMenuType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -76,7 +75,7 @@ public class VtlMenu extends BaseEntity {
      * 菜单打开类型。当 type 为 MENU 时，openType 生效，{ _iframe：正常打开；_blank：新建浏览器标签页 }
      */
     @TableField("OPEN_TYPE")
-    private EMenuOpenType openType;
+    private String openType;
 
     /**
      * 是否已禁用。{ 0：正常；1：禁用；}

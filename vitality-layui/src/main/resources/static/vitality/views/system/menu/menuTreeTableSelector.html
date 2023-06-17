@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 </head>
 <body class="pear-container">
-<div class="layui-card">
+<div class="layui-card layui-hide">
   <div class="layui-card-body">
     <form class="layui-form" action="">
       <div class="layui-form-item">
@@ -38,7 +38,8 @@
   <div class="layui-form-item" style="margin-bottom: 0;">
     <div class="layui-input-group">
       <div class="layui-input-prefix">已选择</div>
-      <input type="text" readonly class="layui-input">
+      <input type="hidden" id="checked" name="checked">
+      <input type="text" id="checkedLabel" name="checkedLabel" readonly class="layui-input">
       <div class="layui-input-split layui-input-suffix" style="cursor: pointer;" lay-event="clearSelected">
         <i class="layui-icon layui-icon-close"></i>
       </div>
@@ -57,11 +58,13 @@
         let admin = layui.admin;
         let dict = layui.dict;
         let util = layui.util;
+        let url = layui.url();
+        let checkedId = url.search.checkedId;
 
         util.fixbar();
 
         let cols = [[
-            { type: 'checkbox', hide: false },
+            { type: 'radio', hide: false },
             { field: 'id', title: 'ID', width: 200, hide: true },
             { field: 'parentId', title: 'PARENT_ID', width: 200, hide: true },
             { field: 'title', title: '菜单名称', width: 200 },
@@ -103,7 +106,7 @@
                     "code": 0,
                     "msg": 'SUCCESS',
                     "count": res.length,
-                    "data": $.vtl.tree(res, '0')
+                    "data": res
                 };
             },
             tree: {
@@ -115,7 +118,7 @@
                 pid: 'parentId',
                 icon: 'treeDataIcon',
               },
-              data: {rootPid: 0, isSimpleData: false },
+              data: { isSimpleData: true, rootPid: '0' },
             },
             skin: 'grid',
             toolbar: '#toolbarLeftTpl',
@@ -125,10 +128,16 @@
 
           treeTable.on('toolbar(data-table-filter)', function(obj) {
               if (obj.event === 'clearSelected') {
-
+                  $('#checked').val(0);
+                  $('#checkedLabel').val('');
+                  //treeTable.setRowChecked('data-table', { type: 'radio', index: 'all', checked: false });
               } else if (obj.event === 'refresh') {
                   window.refresh(true);
               }
+          });
+
+          treeTable.on('radio(data-table-filter)', function(obj) {
+              window.setChecked(obj.data.id);
           });
 
           form.on('submit(data-table-query-filter)', function(data) {
@@ -140,6 +149,28 @@
               $.vtl.tableReloadData('data-table', field, deep);
           }
 
+          window.setChecked = function(id) {
+              if($.vtl.isBlank(id)) {
+                  $('#checked').val(0);
+                  $('#checkedLabel').val('');
+                  return;
+              }
+
+              $('#checked').val(id);
+              $.sync('get', '/vtl-menu/titleHierarchy/' + id, function(result){
+                  $('#checkedLabel').val(result);
+              });
+          }
+
+          window.getChecked = function() {
+              return [$('#checked').val(), $('#checkedLabel').val()];
+          }
+
+          window.init = function() {
+              window.setChecked(checkedId);
+          }
+
+          window.init();
     })
 </script>
 </body>

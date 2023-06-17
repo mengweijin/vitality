@@ -33,28 +33,46 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
         initMenuTreeSelector: function(elem, options = {}) {
             let $elem = $(elem);
             let name = $elem.attr('name');
+            let value = $elem.attr('value');
+
             let layFilter = $elem.attr('lay-filter') || '0';
             let labelInputLayFilter = 'menu-tree-' + layFilter;
             let $container = $elem.parent();
 
-            let $inputTpl = $('<input />', { name: name + 'Label', readonly: '', class: 'layui-input', placeholder: '点击选择(Click here)......' }).attr('lay-filter', labelInputLayFilter);
-            $container.append($inputTpl);
+            let $wrapDiv = $('<div />', { class: 'layui-input-wrap' });
+            let $inputTpl = $('<input />', { name: name + 'Label', class: 'layui-input', placeholder: '点击选择(Click here)......' })
+                .attr('lay-filter', labelInputLayFilter)
+                .attr('lay-affix', 'close')
+                .attr('lay-options', '{split: true}');
+            if(!$.vtl.isBlank(value)) {
+                $.sync('get', '/vtl-menu/titleHierarchy/' + value, function(result){
+                    $inputTpl.val(result);
+                });
+            }
+
+            $container.append($wrapDiv.append($inputTpl));
+
+            form.on('input-affix(' + labelInputLayFilter + ')', function(data){
+                $elem.val(0);
+                $inputTpl.val('');
+            });
 
             form.render('input');
 
             $inputTpl.click(function(){
-                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html';
+                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html?checkedId=' + options.checkedId;
                 let success = function(layero, index, that) {
                     // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
                     var iframeWin = window[layero.find('iframe')[0]['name']];
-                    //iframeWin.init($('#userAvatar').attr('src'));
                 };
                 let yes = function(index, layero, that) {
                     // var $body = layui.layer.getChildFrame('body', index);
                     // var $sourceImage = layui.layer.getChildFrame('#sourceImage', index);
                     var iframeWin = window[layero.find('iframe')[0]['name']];
-                    //let img = iframeWin.save();
-                    //$('#userAvatar').attr('src', img);
+                    let checkedArray = iframeWin.getChecked();
+                    $elem.val(checkedArray[0]);
+                    $inputTpl.val(checkedArray[1]);
+                    layer.close(index);
                 };
                 $.vtl.openLayer(url, {
                     title: '选择数据',

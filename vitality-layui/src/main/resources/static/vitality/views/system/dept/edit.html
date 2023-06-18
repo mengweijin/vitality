@@ -18,7 +18,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">父部门</label>
                         <div class="layui-input-block">
-							<input type="hidden" name="parentId" lay-verify="required" placeholder="" class="layui-input">
+							<input type="hidden" name="parentId" placeholder="" class="layui-input">
 						</div>
                     </div>
                     <div class="layui-form-item">
@@ -104,8 +104,6 @@
 					let config = { data: data, radio: true, clickClose: true, tree: { show: true } };
 					if(id) {
 						config = $.extend(true, config, { disabled: true, model: {label: {block: {showIcon: false}}} });
-					} else {
-						config = { data: data, radio: true, clickClose: true, tree: { show: true } };
 					}
 					vtlForm.initXmSelect('form input:hidden[name=parentId]', config);
 				}

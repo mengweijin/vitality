@@ -156,62 +156,6 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             //inst.append([ 2 ]);
             // 清空选中项
             //inst.setValue([  ])
-
-        },
-
-        initMenuTreeSelector: function(elem) {
-            let $elem = $(elem);
-            let name = $elem.attr('name');
-            let value = $elem.attr('value');
-
-            let layFilter = $elem.attr('lay-filter') || '0';
-            let labelInputLayFilter = 'menu-tree-' + layFilter;
-            let $container = $elem.parent();
-
-            let $wrapDiv = $('<div />', { class: 'layui-input-wrap' });
-            let $inputTpl = $('<input />', { name: name + 'Label', class: 'layui-input', placeholder: '点击选择(Click here)......' })
-                .attr('lay-filter', labelInputLayFilter)
-                .attr('lay-affix', 'close')
-                .attr('lay-options', '{split: true}');
-            if(!$.vtl.isBlank(value)) {
-                $.sync('get', '/vtl-menu/titleHierarchy/' + value, function(result){
-                    $inputTpl.val(result);
-                });
-            }
-
-            $container.append($wrapDiv.append($inputTpl));
-
-            form.render('input');
-
-            form.on('input-affix(' + labelInputLayFilter + ')', function(data){
-                $elem.val(0);
-                $inputTpl.val('');
-            });
-
-            $inputTpl.click(function(){
-                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html?checkedId=' + value;
-                let success = function(layero, index, that) {
-                    // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                    var iframeWin = window[layero.find('iframe')[0]['name']];
-                };
-                let yes = function(index, layero, that) {
-                    // var $body = layui.layer.getChildFrame('body', index);
-                    // var $sourceImage = layui.layer.getChildFrame('#sourceImage', index);
-                    var iframeWin = window[layero.find('iframe')[0]['name']];
-                    let checkedArray = iframeWin.getChecked();
-                    $elem.val(checkedArray[0]);
-                    $inputTpl.val(checkedArray[1]);
-
-                    layer.close(index);
-                };
-                $.vtl.openLayer(url, {
-                    title: '选择数据',
-                    area: ['90%', '90%'],
-                    btn: ['确定', '取消'],
-                    success: success,
-                    yes: yes
-                });
-            });
         },
 
         /**

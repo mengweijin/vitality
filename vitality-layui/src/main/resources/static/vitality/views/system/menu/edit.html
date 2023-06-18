@@ -187,17 +187,29 @@
                 }
         }
 
+        window.initParentIdSelector = function() {
+            let data = [];
+            $.sync('get', '/vtl-menu/treeTableDataList', function(result){
+                data = $.vtl.tree(result, '0');
+            });
+
+            let config = { data: data, radio: true, clickClose: true, tree: { show: true }, prop: {name: 'title'} };
+            if(id) {
+                config = $.extend(true, config, { disabled: true, model: {label: {block: {showIcon: false}}} });
+            }
+            vtlForm.initXmSelect('form input:hidden[name=parentId]', config);
+        }
+
         window.init = function(id) {
             vtlForm.initRadioByDict('form input:radio[name=type]', 'vtl_menu_type');
             vtlForm.initRadioByDict('form input:radio[name=openType]', 'vtl_menu_open_type');
             vtlForm.initRadioByDict('form input:radio[name=disabled]', 'vtl_disabled');
             if(id) {
                 $.sync('get', '/vtl-menu/' + id, function(result) { form.val("form-filter", result); });
-                $(('form input:hidden[name=parentId]')).parents('div .layui-form-item').hide();
             }
             window.setVisibleByMenuType();
             window.initIconPicker();
-            vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]');
+             window.initParentIdSelector();
         }
 
         window.init(id);

@@ -16,10 +16,11 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">PARENT_ID</label>
+                        <label class="layui-form-label">父部门</label>
                         <div class="layui-input-block">
-                            <input type="text" name="parentId" placeholder="" autocomplete="new-password" class="layui-input">
-                        </div>
+							<div id="parentId"></div>
+							<input type="hidden" name="parentId" lay-verify="required" class="layui-input">
+						</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label required">部门名称</label>
@@ -67,12 +68,23 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery', 'vtlForm'], function() {
+			layui.use(['form', 'jquery', 'vtlForm', 'xmSelect'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
 				let vtlForm = layui.vtlForm;
+				let xmSelect = layui.xmSelect;
 				let url = layui.url();
 				let id = url.search.id;
+
+				var demo1 = xmSelect.render({
+					el: '#parentId',
+					name: 'parentId',
+					data: [
+						{name: '张三', value: 1},
+						{name: '李四', value: 2},
+						{name: '王五', value: 3},
+					]
+				})
 
 				form.on('submit(submit-filter)', function(data) {
 				    if(id) {

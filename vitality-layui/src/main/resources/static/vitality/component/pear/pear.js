@@ -55,3 +55,4 @@ layui.config({
 });
 
 document.write("<script src='" + window.rootPath + "layui.jquery.extend.js?v=1.0.0'></script>");
+document.write("<script src='" + window.rootPath + "../xmselect/xm-select.js?v=1.2.4'></script>");

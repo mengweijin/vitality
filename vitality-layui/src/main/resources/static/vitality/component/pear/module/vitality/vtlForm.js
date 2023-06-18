@@ -22,12 +22,38 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             for (let i in dictDataList) {
                 let $radio = $radioTpl.clone().attr('title', dictDataList[i].label).attr('value', dictDataList[i].dataCode);
                 if(!checkedFlag && dictDataList[i].defaultSelected == 1) {
-                    $radio.attr('checked', 'true');
+                    $radio.attr('checked', true);
                     checkedFlag = true;
                 }
                 $container.append($radio);
             }
             form.render('radio');
+        },
+
+        initSelectByDict: function(elem, dictTypeCode, defaultSelected = false) {
+            let dictDataList = dict.dataList(dictTypeCode);
+            if(!dictDataList) {
+                return;
+            }
+
+            let $select = $(elem).attr('lay-search', '');
+
+            let $optionTpl = $('<option />', { value: '' });
+            $select.append($optionTpl.clone());
+
+            let selectedFlag = false;
+            for (let i in dictDataList) {
+                let $option = $optionTpl.clone().attr('value', dictDataList[i].dataCode).text(dictDataList[i].label);
+                if(dictDataList[i].disabled == 1) {
+                    $option.attr('disabled', true);
+                }
+                if(defaultSelected && !selectedFlag && dictDataList[i].defaultSelected == 1) {
+                    $option.attr('selected', true);
+                    selectedFlag = true;
+                }
+                $select.append($option);
+            }
+            form.render('select');
         },
 
         initMenuTreeSelector: function(elem, options = {}) {
@@ -58,6 +84,7 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
 
             if(disabled) {
                 $container.find("i").parent().remove();
+                $inputTpl.attr('placeholder', '/');
             } else {
                 form.on('input-affix(' + labelInputLayFilter + ')', function(data){
                     $elem.val(0);
@@ -89,8 +116,6 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
                     yes: yes
                 });
             });
-
-
         },
 
         /**

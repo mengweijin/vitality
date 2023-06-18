@@ -6,9 +6,12 @@ package com.github.mengweijin.vitality.framework.constant;
  */
 public interface VitalityConst {
 
-    long ADMIN_ID = 1L;
-    String ADMIN_LOGIN_NAME = "admin";
-    String ADMIN_ROLE = "role_admin";
+    long USER_ID_ADMIN = 1L;
+    String USER_LOGIN_NAME_ADMIN = "admin";
+
+    String ROLE_ADMIN = "role_admin";
 
     long MENU_ROOT_ID = 0L;
+
+    long DEPT_ROOT_ID = 0L;
 }

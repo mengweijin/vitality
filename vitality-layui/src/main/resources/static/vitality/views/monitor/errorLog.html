@@ -48,25 +48,11 @@
 		        <i class="layui-icon layui-icon-delete"></i>删除
 		    </button>
 		</script>
-        <script type="text/html" id="statusTpl">
-            <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-                   lay-filter="status-switch-filter" {{ d.status == '0' ? 'checked' : '' }}>
-        </script>
-        <script type="text/html" id="userSexTpl">
-            {{#if (d.sex == "MALE") { }}
-                <span>男</span>
-            {{# } else if(d.sex == "FEMALE"){ }}
-                <span>女</span>
-            {{# } else { }}
-                <span></span>
-            {{# } }}
-        </script>
 		<script type="text/html" id="operationTpl">
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			<button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
             <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
-
 
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>

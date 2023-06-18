@@ -65,21 +65,17 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         return this.lambdaQuery().eq(VtlMenu::getParentId, parentId).eq(VtlMenu::getDisabled, 0).list();
     }
 
-    public List<Long> getMenuIdWithAllParentById(Long id) {
+    public List<Long> getAllParentById(Long id) {
         VtlMenu vtlMenu = this.getById(id);
         String ancestors = vtlMenu.getAncestors();
         return Arrays.stream(ancestors.split(Const.SLASH)).map(Long::valueOf).toList();
     }
 
-    public List<Long> getMenuIdWithAllChildrenById(Long id) {
+    public List<Long> getAllChildrenById(Long id) {
         VtlMenu vtlMenu = this.getById(id);
         return this.lambdaQuery().select(VtlMenu::getId)
-                .likeRight(VtlMenu::getAncestors, vtlMenu.getAncestors())
+                .likeRight(VtlMenu::getAncestors, vtlMenu.getAncestors() + Const.SLASH + vtlMenu.getId())
                 .list().stream().map(VtlMenu::getId).toList();
-    }
-
-    public List<VtlMenu> getWithAllChildrenByAncestors(String ancestors) {
-        return this.lambdaQuery().likeRight(VtlMenu::getAncestors, ancestors).list();
     }
 
     public boolean setDisabledValue(Long id, boolean disabled) {

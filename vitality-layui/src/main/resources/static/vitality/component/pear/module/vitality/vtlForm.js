@@ -70,66 +70,70 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             let $div = $('<div />', { id: divId });
             $container.append($div);
 
-            var inst = xmSelect.render({
+            let defaults = {
                 el: '#' + divId,
                 name: name,                             // 表单提交时的属性名
                 layVerify: layVerify,                   // 表单验证, 同layui的lay-verify
-                initValue: options.initValue || [],     // 初始化选中的数据, 需要在data中存在。数组格式：[ 1 ]
-                filterable: options.filterable || true, // filterable
-                paging: options.paging || false,        // 分页
+                initValue: [],                          // 初始化选中的数据, 需要在data中存在。数组格式：[ 1 ]
+                filterable: true,                       // filterable
+                paging: false,                          // 分页
                 pageSize: 10,                           // 每页显示数量
                 pageEmptyShow: false,                   // 无数据不展示分页
                 list: [ 'ALL', 'CLEAR', 'REVERSE' ],    // 工具条。【全选, 清空, 反选】
-                autoRow: options.autoRow || true,       // 自动换行
-                size: options.size || 'medium',         // 大小。large, medium, small, mini
-                radio: options.radio || false,          // 是否开启单选模式
-                disabled: options.disabled || false,    // 是否禁用该组件
+                autoRow: true,                          // 自动换行
+                size: 'medium',                         // 大小。large, medium, small, mini
+                radio: false,                           // 是否开启单选模式
+                disabled: false,                        // 是否禁用该组件
                 theme: {
                     color: '#1cbbb4',
                 },
                 model: {
-                	label: {
-                		type: 'block',
-                		block: {
-                			showCount: 0,               //最大显示数量, 0:不限制。如果配置为 1，则为超过1个，后面的隐藏。
-                			showIcon: true,             //是否显示删除图标
-                		}
-                	}
+                    label: {
+                        type: 'block',
+                        block: {
+                            showCount: 0,               //最大显示数量, 0:不限制。如果配置为 1，则为超过1个，后面的隐藏。
+                            showIcon: true,             //是否显示删除图标
+                        }
+                    }
                 },
                 tree: {
-                	//是否显示树状结构
-                	show: false,
-                	//是否展示三角图标
-                	showFolderIcon: true,
-                	//是否显示虚线
-                	showLine: false,
-                	//间距
-                	indent: 20,
-                	//默认展开节点的数组, 为 true 时, 展开所有节点。为 [] 表示不展开任何节点。
-                	expandedKeys: true,
-                	//是否严格遵守父子模式
-                	strict: false,
-                	//是否开启极简模式
-                	simple: false,
-                	//点击节点是否展开
-                	clickExpand: true,
-                	//点击节点是否选中
-                	clickCheck: true,
+                    //是否显示树状结构
+                    show: false,
+                    //是否展示三角图标
+                    showFolderIcon: true,
+                    //是否显示虚线
+                    showLine: false,
+                    //间距
+                    indent: 20,
+                    //默认展开节点的数组, 为 true 时, 展开所有节点。为 [] 表示不展开任何节点。
+                    expandedKeys: true,
+                    //是否严格遵守父子模式
+                    strict: false,
+                    //是否开启极简模式
+                    simple: false,
+                    //点击节点是否展开
+                    clickExpand: true,
+                    //点击节点是否选中
+                    clickCheck: true,
                 },
                 prop: {
-                		name: 'name',               // 显示名称
-                		value: 'id',                // 选中值, 当前多选唯一。原来的组件默认为：value
-                		selected: 'selected',       // 是否选中
-                		disabled: 'disabled',       // 是否选中
-                		children: 'children',       // 分组children
-                		optgroup: 'optgroup',       // 分组children
+                        name: 'name',               // 显示名称
+                        value: 'id',                // 选中值, 当前多选唯一。原来的组件默认为：value
+                        selected: 'selected',       // 是否选中
+                        disabled: 'disabled',       // 是否选中
+                        children: 'children',       // 分组children
+                        optgroup: 'optgroup',       // 分组children
                 },
                 data: [
                     { name: '张三', id: 1, children: [{name: '香蕉3', id: 15}, {name: '葡萄3', id: 16},] },
                     { name: '李四', id: 2, selected: true },
                     { name: '王五', id: 3, disabled: true },
                 ]
-            });
+            };
+
+            debugger
+            let config = $.extend(true, defaults, options);
+            var inst = xmSelect.render(config);
 
             //获取当前多选选中的值
             //var selectArr = inst.getValue();

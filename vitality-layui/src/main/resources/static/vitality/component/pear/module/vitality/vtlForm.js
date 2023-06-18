@@ -117,8 +117,12 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
                 	clickCheck: true,
                 },
                 prop: {
-                		name: 'name',
-                		value: 'id',
+                		name: 'name',               // 显示名称
+                		value: 'id',                // 选中值, 当前多选唯一。原来的组件默认为：value
+                		selected: 'selected',       // 是否选中
+                		disabled: 'disabled',       // 是否选中
+                		children: 'children',       // 分组children
+                		optgroup: 'optgroup',       // 分组children
                 },
                 data: [
                     { name: '张三', id: 1, children: [{name: '香蕉3', id: 15}, {name: '葡萄3', id: 16},] },

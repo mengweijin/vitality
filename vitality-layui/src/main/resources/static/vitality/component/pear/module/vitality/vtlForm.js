@@ -57,7 +57,14 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             form.render('select');
         },
 
-        initXmSelect: function(elem, url, options = {}) {
+        /**
+         * data: [
+         *     { name: '张三', id: 1, children: [{name: '香蕉3', id: 15}, {name: '葡萄3', id: 16},] },
+         *     { name: '李四', id: 2, selected: true },
+         *     { name: '王五', id: 3, disabled: true },
+         * ]
+         */
+        initXmSelect: function(elem, options = {}) {
             let $elem = $(elem);
             let name = $elem.attr('name');
             let value = $elem.attr('value') || '';
@@ -132,11 +139,7 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
                         children: 'children',       // 分组children
                         optgroup: 'optgroup',       // 分组children
                 },
-                data: [
-                    { name: '张三', id: 1, children: [{name: '香蕉3', id: 15}, {name: '葡萄3', id: 16},] },
-                    { name: '李四', id: 2, selected: true },
-                    { name: '王五', id: 3, disabled: true },
-                ]
+                data: []
             };
 
             let config = $.extend(true, defaults, options);

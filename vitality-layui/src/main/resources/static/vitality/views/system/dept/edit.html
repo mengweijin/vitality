@@ -95,19 +95,31 @@
 					return false;
 				});
 
+				window.initParentIdSelector = function() {
+					let data = [];
+					$.sync('get', '/vtl-dept/treeTableDataList', function(result){
+						data = $.vtl.tree(result, '0');
+					});
+
+					let config = { data: data, radio: true, clickClose: true, tree: { show: true } };
+					if(id) {
+						config = $.extend(true, config, { disabled: true, model: {label: {block: {showIcon: false}}} });
+					} else {
+						config = { data: data, radio: true, clickClose: true, tree: { show: true } };
+					}
+					vtlForm.initXmSelect('form input:hidden[name=parentId]', config);
+				}
+
 				window.init = function(id) {
 				    vtlForm.initRadioByDict('form input:radio[name=disabled]', 'vtl_disabled');
 
 				    if(id) {
                 		$.sync('get', '/vtl-dept/' + id, function(result) {
                             form.val("form-filter", result);
-                            vtlForm.initXmSelect('form input:hidden[name=parentId]', '', { disabled: true, radio: true, clickClose: true, model: {label: {block: {showIcon: false}}}, tree: { show: true } });
                         });
-                    } else {
-						vtlForm.initXmSelect('form input:hidden[name=parentId]', '', { radio: true, clickClose: true, tree: { show: true } });
                     }
 
-
+                    window.initParentIdSelector();
 				}
 
 				window.init(id);

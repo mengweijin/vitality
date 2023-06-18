@@ -18,20 +18,19 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">父部门</label>
                         <div class="layui-input-block">
-							<div id="parentId"></div>
-							<input type="hidden" name="parentId" lay-verify="required" class="layui-input">
+							<input type="hidden" name="parentId" lay-verify="required" placeholder="" class="layui-input">
 						</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label required">部门名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="name" lay-verify="required" placeholder="" autocomplete="new-password" class="layui-input">
+                            <input type="text" name="name" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label required">部门编码</label>
                         <div class="layui-input-block">
-                            <input type="text" name="code" lay-verify="required" placeholder="" autocomplete="new-password" class="layui-input">
+                            <input type="text" name="code" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -76,16 +75,6 @@
 				let url = layui.url();
 				let id = url.search.id;
 
-				var demo1 = xmSelect.render({
-					el: '#parentId',
-					name: 'parentId',
-					data: [
-						{name: '张三', value: 1},
-						{name: '李四', value: 2},
-						{name: '王五', value: 3},
-					]
-				})
-
 				form.on('submit(submit-filter)', function(data) {
 				    if(id) {
 				        $.put('/vtl-dept', data.field, function(result) {
@@ -110,10 +99,12 @@
 				    vtlForm.initRadioByDict('form input:radio[name=disabled]', 'vtl_disabled');
 
 				    if(id) {
-                		$.get('/vtl-dept/' + id, function(result) {
+                		$.sync('get', '/vtl-dept/' + id, function(result) {
                             form.val("form-filter", result);
                         });
                     }
+
+                    vtlForm.initXmSelect('form input:hidden[name=parentId]');
 
 				}
 

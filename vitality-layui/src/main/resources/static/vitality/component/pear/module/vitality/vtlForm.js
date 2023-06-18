@@ -1,11 +1,11 @@
-layui.define(['jquery', 'dict', 'form', 'zTree', 'popover', 'tag'], function(exports) {
+layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(exports) {
 	"use strict";
 
 	var MOD_NAME = 'vtlForm';
 	var $ = layui.jquery;
 	var dict = layui.dict;
 	var form = layui.form;
-	var zTree = layui.zTree;
+	var xmSelect = layui.xmSelect;
 	var popover = layui.popover;
 	var tag = layui.tag;
 
@@ -55,6 +55,71 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover', 'tag'], function(exp
                 $select.append($option);
             }
             form.render('select');
+        },
+
+        initXmSelect: function(elem, url) {
+            let $elem = $(elem);
+            let name = $elem.attr('name');
+            let value = $elem.attr('value');
+            let layFilter = $elem.attr('lay-filter');
+            let layVerify = $elem.attr('lay-verify');
+
+            let $container = $elem.parent().empty();
+
+            let divId = 'xm-select-' + name;
+            let $div = $('<div />', { id: divId });
+            $container.append($div);
+
+            var inst = xmSelect.render({
+                el: '#' + divId,
+                name: name,                             // 表单提交时的属性名
+                layVerify: layVerify,                   // 表单验证, 同layui的lay-verify
+                initValue: [ value ],                   // 初始化选中的数据, 需要在data中存在
+                filterable: true,                       // filterable
+                paging: false,                          // 分页
+                pageSize: 10,                           // 每页显示数量
+                pageEmptyShow: false,                   // 无数据不展示分页
+                list: [ 'ALL', 'CLEAR', 'REVERSE' ],    // 工具条。【全选, 清空, 反选】
+                autoRow: true,                          // 自动换行
+                size: 'medium',                         // 大小。large, medium, small, mini
+                radio: false,                           // 是否开启单选模式
+                disabled: false,                        // 是否禁用该组件
+                theme: {
+                    color: '#1cbbb4',
+                },
+                model: {
+                	label: {
+                		type: 'block',
+                		block: {
+                			showCount: 0,               //最大显示数量, 0:不限制。如果配置为 1，则为超过1个，后面的隐藏。
+                			showIcon: true,             //是否显示删除图标
+                		}
+                	}
+                },
+                prop: {
+                		name: 'label',
+                		value: 'id',
+                },
+                data: [
+                    {label: '张三', id: 1 },
+                    {label: '李四', id: 2 },
+                    {label: '王五', id: 3 },
+                ]
+            });
+
+            //获取当前多选选中的值
+            var selectArr = inst.getValue();
+            console.log(selectArr)
+
+            // 动态禁用组件
+            //inst.update({ disabled: true });
+            // 设置选中项
+            //inst.setValue([ 1 ])
+            // 追加选中项
+            //inst.append([ 2 ]);
+            // 清空选中项
+            //inst.setValue([  ])
+
         },
 
         initMenuTreeSelector: function(elem) {

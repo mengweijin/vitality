@@ -14,5 +14,4 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VtlUserDTO extends VtlUser {
 
-    private String profilePicture;
 }

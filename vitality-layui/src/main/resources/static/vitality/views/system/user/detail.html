@@ -66,7 +66,7 @@
                     { field: 'mobilePhone', title: '电话' },
                     { field: 'email', title: '邮箱' },
                     { field: 'disabled', title: '账号状态', templet: function(d) {
-                        return d.disabled ? '已禁用' : '正常';
+                        return dict.label('vtl_disabled', d.disabled, true);
                     }},
                     { title: '描述', longtext: true, hide: false, templet: function(d) { return ''; }},
                     { field: 'createByName', title: '创建者', newline: true },

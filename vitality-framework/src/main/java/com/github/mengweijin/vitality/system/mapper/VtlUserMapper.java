@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
+import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,7 +21,7 @@ public interface VtlUserMapper extends BaseMapper<VtlUser> {
      * Get VtlUser detail by id
      * @param id id
      */
-    VtlUserDTO detailById(Long id);
+    VtlUserDetailDTO detailById(Long id);
 
     /**
      * 自定义分页

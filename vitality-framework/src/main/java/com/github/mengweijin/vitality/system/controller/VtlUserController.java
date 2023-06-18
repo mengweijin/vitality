@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
+import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.service.VtlUserProfileService;
 import com.github.mengweijin.vitality.system.service.VtlUserService;
@@ -65,7 +66,7 @@ public class VtlUserController extends BaseController {
     }
 
     @GetMapping("/detail/{id}")
-    public VtlUserDTO detailById(@PathVariable("id") Long id) {
+    public VtlUserDetailDTO detailById(@PathVariable("id") Long id) {
         return vtlUserService.detailById(id);
     }
 

@@ -135,7 +135,7 @@
     </sql>
 
     <!-- 不查询密码  -->
-    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
+    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO">
         select
             t.ID,
             t.USERNAME,

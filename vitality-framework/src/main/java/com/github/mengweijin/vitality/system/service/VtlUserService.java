@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
+import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.mapper.VtlUserMapper;
 import com.github.mengweijin.vitality.system.mapper.VtlUserProfileMapper;
@@ -24,8 +25,14 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
     @Autowired
     private VtlUserProfileMapper vtlUserProfileMapper;
 
-    public VtlUserDTO detailById(Long id) {
-        return vtlUserMapper.detailById(id);
+    public VtlUserDetailDTO detailById(Long id) {
+        VtlUserDetailDTO dto = vtlUserMapper.detailById(id);
+
+        //dto.setDeptList();
+        //dto.setRoleList();
+        //dto.setPostList();
+
+        return dto;
     }
 
     public IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, VtlUserDTO dto){

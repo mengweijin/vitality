@@ -101,10 +101,12 @@
 				    if(id) {
                 		$.sync('get', '/vtl-dept/' + id, function(result) {
                             form.val("form-filter", result);
+                            vtlForm.initXmSelect('form input:hidden[name=parentId]', '', { disabled: true, radio: true, clickClose: true, model: {label: {block: {showIcon: false}}}, tree: { show: true } });
                         });
+                    } else {
+						vtlForm.initXmSelect('form input:hidden[name=parentId]', '', { radio: true, clickClose: true, tree: { show: true } });
                     }
 
-                    vtlForm.initXmSelect('form input:hidden[name=parentId]', '', { radio: true, tree: { show: true } });
 
 				}
 

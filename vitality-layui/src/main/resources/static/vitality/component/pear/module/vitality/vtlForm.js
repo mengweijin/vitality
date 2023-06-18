@@ -60,7 +60,7 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
         initXmSelect: function(elem, url, options = {}) {
             let $elem = $(elem);
             let name = $elem.attr('name');
-            let value = $elem.attr('value');
+            let value = $elem.attr('value') || '';
             let layFilter = $elem.attr('lay-filter');
             let layVerify = $elem.attr('lay-verify');
 
@@ -70,11 +70,18 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             let $div = $('<div />', { id: divId });
             $container.append($div);
 
+            let initValue = null;
+            if(value instanceof Array) {
+                initValue = value;
+            } else {
+                initValue = [ value ];
+            }
+
             let defaults = {
                 el: '#' + divId,
                 name: name,                             // 表单提交时的属性名
                 layVerify: layVerify,                   // 表单验证, 同layui的lay-verify
-                initValue: [],                          // 初始化选中的数据, 需要在data中存在。数组格式：[ 1 ]
+                initValue: initValue,                   // 初始化选中的数据, 需要在data中存在。数组格式：[ 1 ]
                 filterable: true,                       // filterable
                 paging: false,                          // 分页
                 pageSize: 10,                           // 每页显示数量
@@ -83,6 +90,7 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
                 autoRow: true,                          // 自动换行
                 size: 'medium',                         // 大小。large, medium, small, mini
                 radio: false,                           // 是否开启单选模式
+                clickClose: false,                      // 是否点击选项后自动关闭下拉框
                 disabled: false,                        // 是否禁用该组件
                 theme: {
                     color: '#1cbbb4',
@@ -131,7 +139,6 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
                 ]
             };
 
-            debugger
             let config = $.extend(true, defaults, options);
             var inst = xmSelect.render(config);
 

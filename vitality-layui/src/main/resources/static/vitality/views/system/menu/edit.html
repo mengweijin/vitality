@@ -151,7 +151,9 @@
             });
         }
 
-        window.setVisibleByMenuType = function(type) {
+        window.setVisibleByMenuType = function() {
+            let type = $('form input:radio[name=type]:checked').val() || 'BTN';
+
             let $icon = $('form input:text[name=icon]');
             let $permission = $('form input:text[name=permission]');
             let $url = $('form input:text[name=url]');
@@ -190,18 +192,12 @@
             vtlForm.initRadioByDict('form input:radio[name=openType]', 'vtl_menu_open_type');
             vtlForm.initRadioByDict('form input:radio[name=disabled]', 'vtl_disabled');
             if(id) {
-                $.get('/vtl-menu/' + id, function(result) {
-                    form.val("form-filter", result);
-                    vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]', { checkedId: result.parentId, disabled: true });
-                    window.initIconPicker();
-                    window.setVisibleByMenuType(result.type);
-                });
-            } else {
-                vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]');
-                window.initIconPicker();
-                window.setVisibleByMenuType('BTN');
+                $.sync('get', '/vtl-menu/' + id, function(result) { form.val("form-filter", result); });
+                $(('form input:hidden[name=parentId]')).parents('div .layui-form-item').hide();
             }
-
+            window.setVisibleByMenuType();
+            window.initIconPicker();
+            vtlForm.initMenuTreeSelector('form input:hidden[name=parentId]');
         }
 
         window.init(id);

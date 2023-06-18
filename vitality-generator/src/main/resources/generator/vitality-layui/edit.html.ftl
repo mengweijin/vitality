@@ -120,15 +120,9 @@
 				});
 
 				window.init = function(id) {
-				    let $option = $("<option/>", { value: "4" });
-				    $("select[name=city]").append($option.clone().text("西安"));
-
 				    if(id) {
-                		$.get('/${tableName?replace('_','-')}/' + id, function(result) {
-                            form.val("form-filter", result);
-                        });
+                		$.sync('get', ''/${tableName?replace('_','-')}/' + id, function(result) { form.val("form-filter", result); });
                     }
-
 				}
 
 				window.init(id);

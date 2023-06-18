@@ -224,12 +224,9 @@
 					{ field: 'typeCode', title: '字典类型编码', width: 180 },
 					{ field: 'label', title: '名称', align: 'right', width: 180 },
 					{ field: 'dataCode', title: '编码', width: 120 },
-					{ field: 'disabled', title: '状态', minWidth: 100, templet: function(d){
-                        let text = dict.label('vtl_disabled', d.disabled);
-                        let $result = $('<button />', {type: 'button', class: 'layui-btn layui-btn-xs' }).text(text).attr('lay-event', 'disabled');
-                        if(d.disabled == 1) { $result.addClass('layui-btn-warm'); }
-                        return $result.get(0).outerHTML;
-                    }},
+					{ field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {
+                        return dict.labelButton('vtl_disabled', d.disabled, true);
+                    } },
 					{ field: 'defaultSelected', title: '默认', width: 70, templet: function (d) {
 						return d.defaultSelected ? '是' : '否';
 					}},

@@ -1,4 +1,4 @@
-layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
+layui.define(['jquery', 'dict', 'form', 'zTree', 'popover', 'tag'], function(exports) {
 	"use strict";
 
 	var MOD_NAME = 'vtlForm';
@@ -7,6 +7,7 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
 	var form = layui.form;
 	var zTree = layui.zTree;
 	var popover = layui.popover;
+	var tag = layui.tag;
 
     var vtlForm = {
         initRadioByDict: function(elem, dictTypeCode) {
@@ -56,11 +57,10 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             form.render('select');
         },
 
-        initMenuTreeSelector: function(elem, options = {}) {
+        initMenuTreeSelector: function(elem) {
             let $elem = $(elem);
             let name = $elem.attr('name');
             let value = $elem.attr('value');
-            let disabled = options.disabled || false;
 
             let layFilter = $elem.attr('lay-filter') || '0';
             let labelInputLayFilter = 'menu-tree-' + layFilter;
@@ -70,8 +70,7 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
             let $inputTpl = $('<input />', { name: name + 'Label', class: 'layui-input', placeholder: '点击选择(Click here)......' })
                 .attr('lay-filter', labelInputLayFilter)
                 .attr('lay-affix', 'close')
-                .attr('lay-options', '{split: true}')
-                .attr("disabled", disabled);
+                .attr('lay-options', '{split: true}');
             if(!$.vtl.isBlank(value)) {
                 $.sync('get', '/vtl-menu/titleHierarchy/' + value, function(result){
                     $inputTpl.val(result);
@@ -82,18 +81,13 @@ layui.define(['jquery', 'dict', 'form', 'zTree', 'popover'], function(exports) {
 
             form.render('input');
 
-            if(disabled) {
-                $container.find("i").parent().remove();
-                $inputTpl.attr('placeholder', '/');
-            } else {
-                form.on('input-affix(' + labelInputLayFilter + ')', function(data){
-                    $elem.val(0);
-                    $inputTpl.val('');
-                });
-            }
+            form.on('input-affix(' + labelInputLayFilter + ')', function(data){
+                $elem.val(0);
+                $inputTpl.val('');
+            });
 
             $inputTpl.click(function(){
-                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html?checkedId=' + options.checkedId;
+                let url = $.vtl.getCtx() + '/views/system/menu/menuTreeTableSelector.html?checkedId=' + value;
                 let success = function(layero, index, that) {
                     // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
                     var iframeWin = window[layero.find('iframe')[0]['name']];

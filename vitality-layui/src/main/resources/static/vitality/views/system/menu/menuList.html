@@ -120,10 +120,10 @@
               },
               data: { isSimpleData: true, rootPid: '0' },
             },
+            cols: cols,
             skin: 'line',
             toolbar: '#toolbarLeftTpl',
-            defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh'}, 'filter', 'print', 'exports'],
-            cols: cols
+            defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh'}, 'filter', 'print', 'exports']
           });
 
           treeTable.on('toolbar(data-table-filter)', function(obj) {

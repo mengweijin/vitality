@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.system.entity.VtlDept;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 部门管理表 Mapper 接口
  *
@@ -30,4 +32,5 @@ public interface VtlDeptMapper extends BaseMapper<VtlDept> {
      */
     IPage<VtlDeptDTO> page(IPage<VtlDeptDTO> page, @Param("p") VtlDeptDTO dto);
 
+    List<VtlDeptDTO> treeTableDataList(@Param("p") VtlDeptDTO dto);
 }

@@ -92,9 +92,11 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery'], function() {
+			layui.use(['form', 'jquery', 'dict', 'vtlForm'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
+				let dict = layui.dict;
+				let vtlForm = layui.vtlForm;
 				let url = layui.url();
 				let id = url.search.id;
 

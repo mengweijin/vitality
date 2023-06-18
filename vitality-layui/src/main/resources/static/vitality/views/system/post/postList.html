@@ -81,7 +81,7 @@
                     { field: 'name', title: '岗位名称', width: 160 },
                     { field: 'code', title: '岗位编码', width: 200 },
                     { field: 'seq', title: '排序号', width: 80 },
-                    { field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {
+                    { field: 'disabled', title: '状态', width: 120, event: 'disabled', templet: function(d) {
                         return dict.labelButton('vtl_disabled', d.disabled, true);
                     } },
                     { field: 'remark', title: '备注' },

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 部门管理表 控制器
@@ -68,5 +69,16 @@ public class VtlDeptController extends BaseController {
     @GetMapping("/page")
     public IPage<VtlDeptDTO> page(Page<VtlDeptDTO> page, VtlDeptDTO dto) {
         return vtlDeptService.page(page, dto);
+    }
+
+    @GetMapping("/treeTableDataList")
+    public List<VtlDeptDTO> treeTableDataList(VtlDeptDTO dto) {
+        return vtlDeptService.treeTableDataList(dto);
+    }
+
+    @PostMapping("/setDisabledValue/{id}")
+    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
+        boolean bool = vtlDeptService.setDisabledValue(id, disabled);
+        return R.bool(bool);
     }
 }

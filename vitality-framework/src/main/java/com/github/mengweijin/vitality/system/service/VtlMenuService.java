@@ -9,12 +9,15 @@ import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.mapper.VtlMenuMapper;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -97,5 +100,65 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
                 .collect(Collectors.joining(Const.SLASH));
 
         return titleHierarchy + Const.SLASH + menu.getTitle();
+    }
+
+    public List<VtlMenu> getAllChildrenByTitle(String title) {
+        List<Long> idList = this.lambdaQuery().select(VtlMenu::getId).like(VtlMenu::getTitle, title).list().stream().map(VtlMenu::getId).toList();
+        List<VtlMenu> allList = this.list();
+        List<VtlMenu> resultList = new ArrayList<>();
+        for (Long id : idList) {
+            resultList.addAll(this.findAllChildrenByParentId(allList, id));
+        }
+        resultList = CollUtil.distinct(resultList, VtlMenu::getId, true);
+        resultList.sort(Comparator.comparingInt(VtlMenu::getSeq));
+        return resultList;
+    }
+
+
+    public List<VtlMenu> getAllChildrenByParentId(Long parentId) {
+        List<VtlMenu> menuList = this.list();
+        return this.findAllChildrenByParentId(menuList, parentId);
+    }
+
+    public List<VtlMenu> findAllChildrenByParentId(List<VtlMenu> list, Long parentId) {
+        Map<Long, List<VtlMenu>> groupedList = list.stream().collect(Collectors.groupingBy(VtlMenu::getParentId));
+        List<VtlMenu> resultList = new ArrayList<>();
+        this.recursiveSearchChildren(groupedList, parentId, resultList);
+        resultList.sort(Comparator.comparingInt(VtlMenu::getSeq));
+        return resultList;
+    }
+
+    private void recursiveSearchChildren(Map<Long, List<VtlMenu>> groupedList, Long id, List<VtlMenu> resultList) {
+        List<VtlMenu> menuList = groupedList.get(id);
+        if(menuList != null && !menuList.isEmpty()) {
+            resultList.addAll(menuList);
+            for (VtlMenu menu : menuList) {
+                recursiveSearchChildren(groupedList, menu.getId(), resultList);
+            }
+        }
+    }
+
+    public List<VtlMenu> findAllParentById(List<VtlMenu> list, Long id) {
+        List<VtlMenu> resultList = new ArrayList<>();
+        Long rootId = this.recursiveSearchParent(list, id, resultList);
+        resultList.sort(Comparator.comparingInt(VtlMenu::getSeq));
+        return resultList;
+    }
+
+    /**
+     * all parent and current id node
+     * @param list all list data
+     * @param id id
+     * @param resultList result list
+     * @return rootId
+     */
+    private Long recursiveSearchParent(List<VtlMenu> list, Long id, List<VtlMenu> resultList) {
+        Optional<VtlMenu> currentNodeOptional = list.stream().filter(m -> m.getId().equals(id)).findFirst();
+        if(currentNodeOptional.isPresent()) {
+            resultList.add(currentNodeOptional.get());
+            return this.recursiveSearchParent(list, currentNodeOptional.get().getParentId(), resultList);
+        } else {
+            return id;
+        }
     }
 }

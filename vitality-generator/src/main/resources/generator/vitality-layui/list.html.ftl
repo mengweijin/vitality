@@ -69,12 +69,13 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin'], function() {
+			layui.use(['table', 'form', 'jquery','layer', 'admin', 'dict'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
+				let dict = layui.dict;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
@@ -100,6 +101,9 @@
     </#if>
 </#list>
                     { field: 'disabled', title: '状态', width: 100, templet: '#disabledTpl', event: 'disabled' },
+                    { field: 'disabled', title: '状态', width: 120, event: 'disabled', templet: function(d) {
+                        return dict.labelButton('vtl_disabled', d.disabled, true);
+                    } },
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");

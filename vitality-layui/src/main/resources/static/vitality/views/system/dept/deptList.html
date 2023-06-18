@@ -6,32 +6,20 @@
 		<link rel="stylesheet" href="../../../component/pear/css/pear.css" />
 	</head>
 	<body class="pear-container">
-		<div class="layui-card">
+		<div class="layui-card layui-hide">
 			<div class="layui-card-body">
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">ANCESTORS</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="ancestors" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">NAME</label>
+                            <label class="layui-form-label">部门名称</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="name" placeholder="" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">CODE</label>
+                            <label class="layui-form-label">部门编码</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="code" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">REMARK</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="remark" placeholder="" class="layui-input">
                             </div>
                         </div>
 						<div class="layui-form-item layui-inline">
@@ -60,21 +48,9 @@
 		        <i class="layui-icon layui-icon-delete"></i>删除
 		    </button>
 		</script>
-		<script type="text/html" id="disabledTpl">
-			<input type="checkbox" name="disabled" value="{{d.id}}" lay-skin="switch" lay-text="正常|停用"
-				   lay-filter="disabled-switch-filter" {{ d.disabled ? '' : 'checked' }}>
-		</script>
-        <script type="text/html" id="userSexTpl">
-            {{#if (d.sex == "MALE") { }}
-                <span>男</span>
-            {{# } else if(d.sex == "FEMALE"){ }}
-                <span>女</span>
-            {{# } else { }}
-                <span></span>
-            {{# } }}
-        </script>
+
 		<script type="text/html" id="operationTpl">
-			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-xs pear-btn-primary layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
             <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
@@ -83,34 +59,28 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin'], function() {
-				let table = layui.table;
+			layui.use(['treeTable', 'form', 'jquery','layer', 'admin', 'dict'], function() {
+				let treeTable = layui.treeTable;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
+				let dict = layui.dict;
+
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'parentId', title: 'PARENT_ID', width: 120 },
-                    { field: 'ancestors', title: 'ANCESTORS', width: 120 },
-                    { field: 'name', title: 'NAME', width: 120 },
-                    { field: 'code', title: 'CODE', width: 120 },
-                    { field: 'seq', title: 'SEQ', width: 120 },
-                    { field: 'disabled', title: 'DISABLED', width: 120 },
-                    { field: 'remark', title: 'REMARK', width: 120 },
-                    { field: 'createBy', title: 'CREATE_BY', width: 120 },
-                    { field: 'createTime', title: 'CREATE_TIME', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.createTime,  "yyyy-MM-dd HH:mm:ss");
-                    }},
-                    { field: 'updateBy', title: 'UPDATE_BY', width: 120 },
-                    { field: 'updateTime', title: 'UPDATE_TIME', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.updateTime,  "yyyy-MM-dd HH:mm:ss");
-                    }},
-                    { field: 'disabled', title: '状态', width: 100, templet: '#disabledTpl', event: 'disabled' },
-                    { field: 'createByName', title: '创建者', width: 120, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
+                    { field: 'parentId', title: 'PARENT_ID', width: 200, hide: true },
+                    { field: 'name', title: '部门名称', width: 200 },
+                    { field: 'code', title: '部门编码', width: 200 },
+                    { field: 'seq', title: '排序号', width: 80 },
+                    { field: 'disabled', title: '状态', width: 120, event: 'disabled', templet: function(d) {
+                        return dict.labelButton('vtl_disabled', d.disabled, true);
+                    } },
+                    { field: 'remark', title: '备注' },
+                    { field: 'createByName', title: '创建者', width: 120, hide: false },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'updateByName', title: '更新者', width: 120 },
@@ -121,29 +91,36 @@
                 ]]
 
 
-				table.render({
+				treeTable.render({
 					elem: '#data-table',
-					url: '/vtl-dept/page',
-					request: {
-                        pageName: 'current',
-                        limitName: 'size'
-                    },
+					url: '/vtl-dept/treeTableDataList',
 					parseData: function(res) {
                         return {
                             "code": 0,
                             "msg": 'SUCCESS',
-                            "count": res.total,
-                            "data": res.records
+                            "count": res.length,
+                            "data": res
                         };
                     },
-					page: true,
+                    tree: {
+                      view: { expandAllDefault: true },
+					  customName: {
+						children: 'children',
+						isParent: 'isParent',
+						name: 'name',
+						id: 'id',
+						pid: 'parentId',
+						icon: 'treeDataIcon',
+					  },
+					  data: { isSimpleData: true, rootPid: '0' },
+					},
 					cols: cols,
 					skin: 'line',
 					toolbar: '#toolbarLeftTpl',
 					defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh'}, 'filter', 'print', 'exports']
 				});
 
-				table.on('toolbar(data-table-filter)', function(obj) {
+				treeTable.on('toolbar(data-table-filter)', function(obj) {
 					if (obj.event === 'add') {
 						window.edit();
                     } else if (obj.event === 'batchDelete') {
@@ -153,7 +130,7 @@
                     }
 				});
 
-				table.on('tool(data-table-filter)', function(obj) {
+				treeTable.on('tool(data-table-filter)', function(obj) {
 				    let row = obj.data;
                     switch (obj.event) {
                         case 'detail':

@@ -141,4 +141,15 @@
         order by t.CREATE_TIME desc
     </select>
 
+    <select id="treeTableDataList" resultType="com.github.mengweijin.vitality.system.dto.VtlDeptDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as create_by_name,
+        uu.NICKNAME as update_by_name
+        from VTL_DEPT t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        <include refid="BaseWhereLike"/>
+        order by t.SEQ asc
+    </select>
 </mapper>

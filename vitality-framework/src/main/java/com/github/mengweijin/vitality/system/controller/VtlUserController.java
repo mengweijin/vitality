@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
+import com.github.mengweijin.vitality.system.constant.ConfigConst;
+import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
+import com.github.mengweijin.vitality.system.entity.VtlConfig;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
+import com.github.mengweijin.vitality.system.service.VtlConfigService;
 import com.github.mengweijin.vitality.system.service.VtlUserProfileService;
 import com.github.mengweijin.vitality.system.service.VtlUserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +37,10 @@ public class VtlUserController extends BaseController {
 
     @Autowired
     private VtlUserService vtlUserService;
-
     @Autowired
     private VtlUserProfileService vtlUserProfileService;
+    @Autowired
+    private VtlConfigService configService;
 
     @PostMapping
     public R add(VtlUser vtlUser) {
@@ -84,6 +90,18 @@ public class VtlUserController extends BaseController {
     @PostMapping("/updateProfile/{id}")
     public R updateProfile(@PathVariable("id") Long id, String profilePicture) {
         boolean bool = vtlUserProfileService.updateProfileById(id, profilePicture);
+        return R.bool(bool);
+    }
+
+    @PostMapping("/changePassword")
+    public R changePassword(@Valid VtlUserChangePasswordDTO dto) {
+        return R.bool(vtlUserService.changePassword(dto));
+    }
+
+    @PostMapping("/resetPassword/{id}")
+    public R resetPassword(@PathVariable("id") Long id) {
+        VtlConfig config = configService.getByCode(ConfigConst.CODE_USER_INIT_PASSWORD);
+        boolean bool = vtlUserService.updatePassword(id, config.getVal());
         return R.bool(bool);
     }
 }

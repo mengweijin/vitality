@@ -51,6 +51,7 @@
 <script type="text/html" id="operationTpl">
     <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
     <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="resetPassword" title="重置密码"><i class="layui-icon layui-icon-refresh-1">重置密码</i></button>
     <button class="pear-btn pear-btn-xs pear-btn-danger layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
 
@@ -87,7 +88,7 @@
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 180, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 230, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
 
@@ -132,6 +133,9 @@
                         case 'edit':
                             window.edit(row.id);
                             break;
+                        case 'resetPassword':
+                            window.resetPassword(obj);
+                            break;
                         case 'delete':
                             window.delete(obj);
                             break;
@@ -155,6 +159,13 @@
 				window.edit = function(id) {
 				    let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
 				    $.vtl.openLayer(url, { title: '编辑' });
+                }
+
+				window.resetPassword = function(obj) {
+				    layer.confirm('确定重置密码？', { icon: 3, title: '提示' }, function(index) {
+                        layer.close(index);
+                        $.post('/vtl-user/resetPassword/' + obj.data.id);
+                    });
                 }
 
 				window.delete = function(obj) {

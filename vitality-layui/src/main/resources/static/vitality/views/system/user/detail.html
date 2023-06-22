@@ -12,7 +12,7 @@
         <strong>用户信息</strong>
         <span class="layui-layout-right" style="padding-right: 30px;">
             <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
-            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="resetPassword"><i class="layui-icon layui-icon-refresh-1"></i>重置密码</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="resetPassword"><i class="layui-icon layui-icon-edit"></i>修改密码</button>
             <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="updateProfile"><i class="layui-icon layui-icon-upload"></i>更新图像</button>
         </span>
     </div>
@@ -86,16 +86,25 @@
         // 处理属性 为 lay-on 的所有元素事件
         util.on('lay-on', {
             edit: function(){
-                console.log(this); // 当前触发事件的 DOM 对象
-                layer.msg('触发了事件 1');
+                window.edit(id);
             },
             updateProfile: function(){
                 window.profile(id);
             },
             resetPassword: function(){
-                layer.msg('触发了事件 3');
+                window.changePassword(id);
             }
         });
+
+        window.edit = function(id) {
+            let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
+            $.vtl.openLayer(url, { title: '编辑' });
+        }
+
+        window.changePassword = function(id) {
+            let url = 'changePassword.html?id=' + id;
+            $.vtl.openLayer(url, { title: '修改密码' });
+        }
 
 
         window.profile = function() {

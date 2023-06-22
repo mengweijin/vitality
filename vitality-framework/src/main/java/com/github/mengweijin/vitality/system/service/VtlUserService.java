@@ -3,6 +3,8 @@ package com.github.mengweijin.vitality.system.service;
 import cn.dev33.satoken.secure.BCrypt;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
@@ -65,5 +67,24 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
 
     public VtlUser getByUsername(String username) {
         return this.lambdaQuery().eq(VtlUser::getUsername, username).one();
+    }
+
+    public boolean checkPassword(String plaintext, String hashed) {
+        return BCrypt.checkpw(plaintext, hashed);
+    }
+
+    public boolean changePassword(VtlUserChangePasswordDTO dto) {
+        VtlUser vtlUser = this.getById(dto.getId());
+        boolean checked = this.checkPassword(dto.getPassword(), vtlUser.getPassword());
+        if(!checked) {
+            throw new ClientException("Old password check failed!");
+        }
+        return this.updatePassword(dto.getId(), dto.getNewPassword());
+    }
+
+    public boolean updatePassword(Long id, String password) {
+        String salt = BCrypt.gensalt();
+        String hashedPwd = BCrypt.hashpw(password, salt);
+        return this.lambdaUpdate().set(VtlUser::getPassword, hashedPwd).set(VtlUser::getPwdSalt, salt).eq(VtlUser::getId, id).update();
     }
 }

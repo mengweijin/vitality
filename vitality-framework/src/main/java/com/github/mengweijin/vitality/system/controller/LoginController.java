@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
@@ -24,7 +23,7 @@ public class LoginController extends BaseController {
     @PostMapping("/login")
     public R login(@NotBlank String username, @NotBlank String password) {
         VtlUser user = userService.getByUsername(username);
-        if(BCrypt.checkpw(password, user.getPassword())) {
+        if(userService.checkPassword(password, user.getPassword())) {
             StpUtil.login(username);
             return R.success();
         }

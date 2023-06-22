@@ -3,7 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.Const;
-import com.github.mengweijin.vitality.framework.constant.VitalityConst;
+import com.github.mengweijin.vitality.system.constant.DeptConst;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
 import com.github.mengweijin.vitality.system.entity.VtlDept;
 import com.github.mengweijin.vitality.system.mapper.VtlDeptMapper;
@@ -27,9 +27,9 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
     @Override
     public boolean save(VtlDept entity) {
         Long parentId = entity.getParentId();
-        if(parentId == null || VitalityConst.DEPT_ROOT_ID == parentId) {
-            entity.setParentId(VitalityConst.DEPT_ROOT_ID);
-            entity.setAncestors(String.valueOf(VitalityConst.DEPT_ROOT_ID));
+        if(parentId == null || DeptConst.ROOT_ID == parentId) {
+            entity.setParentId(DeptConst.ROOT_ID);
+            entity.setAncestors(String.valueOf(DeptConst.ROOT_ID));
         } else {
             VtlDept parent = this.getById(parentId);
             entity.setParentId(parentId);

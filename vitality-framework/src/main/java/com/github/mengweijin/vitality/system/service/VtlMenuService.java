@@ -3,7 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.Const;
-import com.github.mengweijin.vitality.framework.constant.VitalityConst;
+import com.github.mengweijin.vitality.system.constant.MenuConst;
 import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
@@ -34,9 +34,9 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
     @Override
     public boolean save(VtlMenu entity) {
         Long parentId = entity.getParentId();
-        if(parentId == null || VitalityConst.MENU_ROOT_ID == parentId) {
-            entity.setParentId(VitalityConst.MENU_ROOT_ID);
-            entity.setAncestors(String.valueOf(VitalityConst.MENU_ROOT_ID));
+        if(parentId == null || MenuConst.ROOT_ID == parentId) {
+            entity.setParentId(MenuConst.ROOT_ID);
+            entity.setAncestors(String.valueOf(MenuConst.ROOT_ID));
         } else {
             VtlMenu parentMenu = this.getById(parentId);
             entity.setParentId(parentId);
@@ -61,7 +61,7 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
     public List<VtlMenuTreeDataDTO> treeLeftSideData() {
         List<VtlMenu> menuList = this.lambdaQuery().eq(VtlMenu::getDisabled, 0).in(VtlMenu::getType, EMenuType.DIR, EMenuType.MENU).list();
         List<VtlMenuTreeDataDTO> voList = Optional.ofNullable(menuList).orElse(new ArrayList<>()).stream().map(VtlMenuTreeDataDTO::new).toList();
-        return VtlMenuTreeDataDTO.buildTree(voList, VitalityConst.MENU_ROOT_ID);
+        return VtlMenuTreeDataDTO.buildTree(voList, MenuConst.ROOT_ID);
     }
 
     public List<VtlMenu> getByParentId(Long parentId) {
@@ -87,7 +87,7 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
     public String titleHierarchyById(Long id) {
         String titleHierarchy;
-        if(VitalityConst.MENU_ROOT_ID == id) {
+        if(MenuConst.ROOT_ID == id) {
             return Const.EMPTY;
         }
         VtlMenu menu = this.getById(id);

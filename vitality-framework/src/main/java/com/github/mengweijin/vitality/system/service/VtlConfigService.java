@@ -27,4 +27,8 @@ public class VtlConfigService extends ServiceImpl<VtlConfigMapper, VtlConfig> {
     public IPage<VtlConfigDTO> page(IPage<VtlConfigDTO> page, VtlConfigDTO dto){
         return vtlConfigMapper.page(page, dto);
     }
+
+    public VtlConfig getByCode(String code) {
+        return this.lambdaQuery().eq(VtlConfig::getCode, code).one();
+    }
 }

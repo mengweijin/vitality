@@ -88,6 +88,23 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 对JavaBean中属性开启自动驼峰命名规则（camel case）映射，默认对返回类型为Map的对象的key不起作用，所以需要使用自定义MybatisMapWrapperFactory类来处理
     map-underscore-to-camel-case: true
+############## Sa-Token 配置 (文档: https://sa-token.cc) 可以零配置启动项目 ##############
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: satoken
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 2592000
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒, -1代表永不过期
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: false
+
 # Spring Boot的 actuator（健康监控）功能，访问：http://localhost:8080/actuator
 # management.server: ManagementServerProperties.java
 # management.endpoints.web: WebEndpointProperties.java  默认：http://localhost:8080/actuator/health

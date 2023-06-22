@@ -48,11 +48,12 @@ layui.config({
 	popover:"popover/popover",    //汽泡组件
 	descriptions: "vitality/descriptions",
 	dict: "vitality/dict",
+	vtlConfig: "vitality/vtlConfig",
 	vtlForm: "vitality/vtlForm",
 	zTree: "vitality/zTree"
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 });
 
-document.write("<script src='" + window.rootPath + "layui.jquery.extend.js?v=1.0.0'></script>");
+document.write("<script src='" + window.rootPath + "module/vitality/layui.jquery.extend.js?v=1.0.0'></script>");
 document.write("<script src='" + window.rootPath + "../xmselect/xm-select.js?v=1.2.4'></script>");

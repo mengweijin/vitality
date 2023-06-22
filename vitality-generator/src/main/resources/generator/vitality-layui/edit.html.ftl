@@ -123,7 +123,7 @@
 
 				window.init = function(id) {
 				    if(id) {
-                		$.sync('get', ''/${tableName?replace('_','-')}/' + id, function(result) { form.val("form-filter", result); });
+                		$.sync('get', /${tableName?replace('_','-')}/' + id, function(result) { form.val("form-filter", result); });
                     }
 				}
 

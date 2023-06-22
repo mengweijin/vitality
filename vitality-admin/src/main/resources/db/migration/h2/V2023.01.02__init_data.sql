@@ -1,6 +1,6 @@
 -- 用户
-INSERT INTO VTL_USER VALUES(1, 'admin', '1qaz2wsx', '管理员', 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
-INSERT INTO VTL_USER VALUES(2, 'guest', '1qaz2wsx', '游客', 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(1, 'admin', '$2a$10$IQsJol0i/mlvXoBn.VeZLe2gypGLIC3DBLu5fs3fo34fGLOuSTEkK', '$2a$10$IQsJol0i/mlvXoBn.VeZLe', '管理员', NULL, 'male', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
+INSERT INTO VTL_USER VALUES(2, 'guest', '$2a$10$IQsJol0i/mlvXoBn.VeZLe2gypGLIC3DBLu5fs3fo34fGLOuSTEkK', '$2a$10$IQsJol0i/mlvXoBn.VeZLe', '游客',   NULL, 'female', 'mengweijin.work@foxmail.com', NULL, NULL, 0, 0, 1, CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP());
 
 
 -- 角色

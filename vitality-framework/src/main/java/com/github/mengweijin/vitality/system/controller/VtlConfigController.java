@@ -69,4 +69,10 @@ public class VtlConfigController extends BaseController {
     public IPage<VtlConfigDTO> page(Page<VtlConfigDTO> page, VtlConfigDTO dto) {
         return vtlConfigService.page(page, dto);
     }
+
+    @GetMapping("/byCode/{code}")
+    public VtlConfig byCode(@PathVariable("code") String code) {
+        return vtlConfigService.getByCode(code);
+    }
+
 }

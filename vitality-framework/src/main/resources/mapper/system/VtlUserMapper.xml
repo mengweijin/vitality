@@ -7,7 +7,9 @@
         <result column="ID" property="id" />
         <result column="USERNAME" property="username" />
         <result column="PASSWORD" property="password" />
+        <result column="PWD_SALT" property="pwdSalt" />
         <result column="NICKNAME" property="nickname" />
+        <result column="ID_CARD_NUMBER" property="idCardNumber" />
         <result column="GENDER" property="gender" />
         <result column="EMAIL" property="email" />
         <result column="MOBILE_PHONE" property="mobilePhone" />
@@ -20,16 +22,15 @@
         <result column="UPDATE_TIME" property="updateTime" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
+    <!-- 通用查询结果列。不查询密码相关字段 -->
     <sql id="BaseColumn">
         t.ID,
         t.USERNAME,
-        t.PASSWORD,
         t.NICKNAME,
+        t.ID_CARD_NUMBER,
         t.GENDER,
         t.EMAIL,
         t.MOBILE_PHONE,
-        t.SECRET_KEY_2FA,
         t.DISABLED,
         t.DELETED,
         t.CREATE_BY,
@@ -47,11 +48,11 @@
             <if test="p.username != null and p.username != '' ">
                 and t.USERNAME = #{p.username}
             </if>
-            <if test="p.password != null and p.password != '' ">
-                and t.PASSWORD = #{p.password}
-            </if>
             <if test="p.nickname != null and p.nickname != '' ">
                 and t.NICKNAME = #{p.nickname}
+            </if>
+            <if test="p.idCardNumber != null and p.idCardNumber != '' ">
+                and t.ID_CARD_NUMBER = #{p.idCardNumber}
             </if>
             <if test="p.gender != null and p.gender != '' ">
                 and t.GENDER = #{p.gender}
@@ -61,9 +62,6 @@
             </if>
             <if test="p.mobilePhone != null and p.mobilePhone != '' ">
                 and t.MOBILE_PHONE = #{p.mobilePhone}
-            </if>
-            <if test="p.secretKey2fa != null and p.secretKey2fa != '' ">
-                and t.SECRET_KEY_2FA = #{p.secretKey2fa}
             </if>
             <if test="p.disabled != null" >
                 and t.DISABLED = #{p.disabled}
@@ -95,11 +93,11 @@
             <if test="p.username != null and p.username != '' ">
                 and t.USERNAME like concat(concat('%', #{p.username}), '%')
             </if>
-            <if test="p.password != null and p.password != '' ">
-                and t.PASSWORD like concat(concat('%', #{p.password}), '%')
-            </if>
             <if test="p.nickname != null and p.nickname != '' ">
                 and t.NICKNAME like concat(concat('%', #{p.nickname}), '%')
+            </if>
+            <if test="p.idCardNumber != null and p.idCardNumber != '' ">
+                and t.ID_CARD_NUMBER like concat(concat('%', #{p.idCardNumber}), '%')
             </if>
             <if test="p.gender != null and p.gender != '' ">
                 and t.GENDER like concat(concat('%', #{p.gender}), '%')
@@ -109,9 +107,6 @@
             </if>
             <if test="p.mobilePhone != null and p.mobilePhone != '' ">
                 and t.MOBILE_PHONE like concat(concat('%', #{p.mobilePhone}), '%')
-            </if>
-            <if test="p.secretKey2fa != null and p.secretKey2fa != '' ">
-                and t.SECRET_KEY_2FA like concat(concat('%', #{p.secretKey2fa}), '%')
             </if>
             <if test="p.disabled != null" >
                 and t.DISABLED = #{p.disabled}
@@ -137,19 +132,7 @@
     <!-- 不查询密码  -->
     <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO">
         select
-            t.ID,
-            t.USERNAME,
-            t.NICKNAME,
-            t.GENDER,
-            t.EMAIL,
-            t.MOBILE_PHONE,
-            t.SECRET_KEY_2FA,
-            t.DISABLED,
-            t.DELETED,
-            t.CREATE_BY,
-            t.CREATE_TIME,
-            t.UPDATE_BY,
-            t.UPDATE_TIME,
+            <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
             uu.NICKNAME as update_by_name,
             up.PROFILE_PICTURE
@@ -163,19 +146,7 @@
     <!-- 不查询密码  -->
     <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
         select
-            t.ID,
-            t.USERNAME,
-            t.NICKNAME,
-            t.GENDER,
-            t.EMAIL,
-            t.MOBILE_PHONE,
-            t.SECRET_KEY_2FA,
-            t.DISABLED,
-            t.DELETED,
-            t.CREATE_BY,
-            t.CREATE_TIME,
-            t.UPDATE_BY,
-            t.UPDATE_TIME,
+            <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
             uu.NICKNAME as update_by_name
         from VTL_USER t

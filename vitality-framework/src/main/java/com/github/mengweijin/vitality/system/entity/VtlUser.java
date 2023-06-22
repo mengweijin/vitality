@@ -33,11 +33,22 @@ public class VtlUser extends BaseEntity {
     private String password;
 
     /**
+     * 加盐
+     */
+    @TableField("PWD_SALT")
+    private String pwdSalt;
+
+    /**
      * 用户昵称
      */
     @TableField("NICKNAME")
     private String nickname;
 
+    /**
+     * 身份证号
+     */
+    @TableField("ID_CARD_NUMBER")
+    private String idCardNumber;
     /**
      * 性别。关联数据字典：user_gender
      */

@@ -152,4 +152,12 @@
         <include refid="BaseWhereLike"/>
         order by t.SEQ asc
     </select>
+
+    <select id="getByUserId" resultType="com.github.mengweijin.vitality.system.dto.VtlDeptDTO">
+        select
+            <include refid="BaseColumn"/>
+        from VTL_DEPT t
+        left join VTL_USER_DEPT_RLT vudr on vudr.DEPT_ID = t.ID
+        where vudr.USER_ID = #{userId}
+    </select>
 </mapper>

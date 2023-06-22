@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.system.entity.VtlRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 角色管理表 Mapper 接口
  *
@@ -30,4 +32,5 @@ public interface VtlRoleMapper extends BaseMapper<VtlRole> {
      */
     IPage<VtlRoleDTO> page(IPage<VtlRoleDTO> page, @Param("p") VtlRoleDTO dto);
 
+    List<VtlRoleDTO> getByUserId(Long userId);
 }

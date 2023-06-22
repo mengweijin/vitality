@@ -53,4 +53,8 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
     public boolean setDisabledValue(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlDept::getDisabled, disabled).eq(VtlDept::getId, id).update();
     }
+
+    public List<VtlDeptDTO> getByUserId(Long userId) {
+        return vtlDeptMapper.getByUserId(userId);
+    }
 }

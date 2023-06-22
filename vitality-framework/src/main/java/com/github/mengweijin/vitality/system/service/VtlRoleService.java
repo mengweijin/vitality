@@ -8,6 +8,8 @@ import com.github.mengweijin.vitality.system.mapper.VtlRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 角色管理表 服务类
  *
@@ -30,5 +32,10 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
 
     public boolean setDisabledValue(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlRole::getDisabled, disabled).eq(VtlRole::getId, id).update();
+    }
+
+    public List<VtlRoleDTO> getByUserId(Long userId) {
+        return vtlRoleMapper.getByUserId(userId);
+
     }
 }

@@ -235,3 +235,46 @@ CREATE TABLE VTL_USER_PROFILE (
   PRIMARY KEY (id)
 ) COMMENT = '用户头像存储表';
 
+
+DROP TABLE IF EXISTS VTL_USER_ROLE_RLT;
+CREATE TABLE VTL_USER_ROLE_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  USER_ID                       bigint NOT NULL COMMENT '用户ID',
+  ROLE_ID                       bigint NOT NULL COMMENT '角色ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_USER_ROLE_RLT_UNIQUE_INDEX_USERID_ROLEID (USER_ID, ROLE_ID) USING BTREE
+) COMMENT = '用户-角色关联表';
+
+
+DROP TABLE IF EXISTS VTL_USER_DEPT_RLT;
+CREATE TABLE VTL_USER_DEPT_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  USER_ID                       bigint NOT NULL COMMENT '用户ID',
+  DEPT_ID                       bigint NOT NULL COMMENT '部门ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_USER_DEPT_RLT_UNIQUE_INDEX_USERID_ROLEID (USER_ID, DEPT_ID) USING BTREE
+) COMMENT = '用户-部门关联表';
+
+
+DROP TABLE IF EXISTS VTL_USER_POST_RLT;
+CREATE TABLE VTL_USER_POST_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  USER_ID                       bigint NOT NULL COMMENT '用户ID',
+  POST_ID                       bigint NOT NULL COMMENT '岗位ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_USER_POST_RLT_UNIQUE_INDEX_USERID_ROLEID (USER_ID, POST_ID) USING BTREE
+) COMMENT = '用户-岗位关联表';
+
+

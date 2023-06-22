@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.system.entity.VtlPost;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 岗位管理表 Mapper 接口
  *
@@ -30,4 +32,5 @@ public interface VtlPostMapper extends BaseMapper<VtlPost> {
      */
     IPage<VtlPostDTO> page(IPage<VtlPostDTO> page, @Param("p") VtlPostDTO dto);
 
+    List<VtlPostDTO> getByUserId(Long userId);
 }

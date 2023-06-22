@@ -125,4 +125,11 @@
         order by t.SEQ asc
     </select>
 
+    <select id="getByUserId" resultType="com.github.mengweijin.vitality.system.dto.VtlRoleDTO">
+        select
+        <include refid="BaseColumn"/>
+        from VTL_ROLE t
+        left join VTL_USER_ROLE_RLT vurr on vurr.ROLE_ID = t.ID
+        where vurr.USER_ID = #{userId}
+    </select>
 </mapper>

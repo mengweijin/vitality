@@ -33,4 +33,6 @@ public interface VtlDeptMapper extends BaseMapper<VtlDept> {
     IPage<VtlDeptDTO> page(IPage<VtlDeptDTO> page, @Param("p") VtlDeptDTO dto);
 
     List<VtlDeptDTO> treeTableDataList(@Param("p") VtlDeptDTO dto);
+
+    List<VtlDeptDTO> getByUserId(Long userId);
 }

@@ -73,6 +73,7 @@
                     { field: 'gender', title: '性别', width: 70, templet: function(d) {
                         return dict.label('vtl_user_gender', d.gender, true);
                     } },
+                    { field: 'idCardNumber', title: '身份证号', hide: true },
                     { field: 'email', title: '邮箱' },
                     { field: 'mobilePhone', title: '电话', width: 150 },
                     { field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {

@@ -67,7 +67,7 @@
 				let roleId = url.search.roleId;
 
 				let cols = [[
-                    { type: 'checkbox', hide: false },
+                    { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
                     { field: 'username', title: '账号', width: 120 },
                     { field: 'nickname', title: '姓名', width: 120 },
@@ -159,13 +159,14 @@
                         // var $sourceImage = layui.layer.getChildFrame('#sourceImage', index);
                         var iframeWin = window[layero.find('iframe')[0]['name']];
                         let checkedUserIdList = iframeWin.getCheckedIdList();
-                        console.log(checkedUserIdList);
-                        //$.post('/vtl-user/updateProfile/' + id, { profilePicture: img }, function(result) {
-                        //    if(result.code == 200) {
-                        //        $('#userAvatar').attr('src', img);
-                        //        layer.close(index);
-                        //    }
-                        //});
+                        if(checkedUserIdList.length > 0) {
+                            $.post('/vtl-role/addUser/' + roleId, { userIdList: checkedUserIdList }, function(result) {
+                                if(result.code == 200) {
+                                    window.refresh();
+                                    layer.close(index);
+                                }
+                            });
+                        }
                     };
                     $.vtl.openUserSelector(success, yes, true);
                 }
@@ -173,7 +174,7 @@
 				window.delete = function(obj) {
                     layer.confirm('确定从角色中删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.delete('/vtl-user-role/' + obj.data.id, function(result) {
+                        $.delete('/vtl-role/removeUser/' + roleId, { userIdList: [ obj.data.id ] }, function(result) {
                             if (result.code == 200) {
                                 obj.del();
                             }

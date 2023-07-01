@@ -11,8 +11,11 @@
     <div class="layui-card-header">
         <strong>用户信息</strong>
         <span class="layui-layout-right" style="padding-right: 30px;">
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="changeDept"><i class="layui-icon layui-icon-edit"></i>更新部门</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="changePost"><i class="layui-icon layui-icon-edit"></i>更新岗位</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="changeRole"><i class="layui-icon layui-icon-edit"></i>更新角色</button>
             <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
-            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="resetPassword"><i class="layui-icon layui-icon-edit"></i>修改密码</button>
+            <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="changePassword"><i class="layui-icon layui-icon-edit"></i>修改密码</button>
             <button class="pear-btn pear-btn-primary pear-btn-sm" lay-on="updateProfile"><i class="layui-icon layui-icon-upload"></i>更新图像</button>
         </span>
     </div>
@@ -69,6 +72,21 @@
                     { field: 'disabled', title: '账号状态', templet: function(d) {
                         return dict.label('vtl_disabled', d.disabled, true);
                     }},
+                    { title: '用户部门', newline: true, templet: function(d) {
+                        return d.deptList
+                            .map(dept => { return '<span class="layui-badge layui-bg-green">' + dept.name + '</span>'; })
+                            .join(' ');
+                    }},
+                    { title: '用户岗位', templet: function(d) {
+                        return d.postList
+                            .map(post => { return '<span class="layui-badge layui-bg-green">' + post.name + '</span>'; })
+                            .join(' ');
+                    }},
+                    { title: '用户角色', newline: true, templet: function(d) {
+                        return d.roleList
+                            .map(role => { return '<span class="layui-badge layui-bg-green">' + role.name + '</span>'; })
+                            .join(' ');
+                    }},
                     { field: 'createByName', title: '创建者', newline: true },
                     { field: 'createTime', title: '创建时间', templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
@@ -89,7 +107,7 @@
             updateProfile: function(){
                 window.profile(id);
             },
-            resetPassword: function(){
+            changePassword: function(){
                 window.changePassword(id);
             }
         });

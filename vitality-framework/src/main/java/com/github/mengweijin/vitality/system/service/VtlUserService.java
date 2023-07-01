@@ -51,11 +51,9 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         // TODO DesensitizedUtil.password(dto.getPassword());
         // TODO DesensitizedUtil.idCardNum(dto.getIdentityCardNumber(), 1, 2);
         // TODO DesensitizedUtil.mobilePhone(dto.getMobilePhone());
-
         dto.setDeptList(deptService.getByUserId(id));
         dto.setRoleList(roleService.getByUserId(id));
         dto.setPostList(postService.getByUserId(id));
-
         return dto;
     }
 

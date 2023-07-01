@@ -46,8 +46,12 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
         if(CollUtil.isEmpty(userIdList)) {
             return;
         }
-        List<VtlUserRoleRlt> alreadyExistedRltList = vtlUserRoleRltService.lambdaQuery().eq(VtlUserRoleRlt::getRoleId, roleId).in(VtlUserRoleRlt::getUserId, userIdList).list();
-        List<Long> alreadyExistedUserIdList = alreadyExistedRltList.stream().map(VtlUserRoleRlt::getUserId).toList();
+        List<Long> alreadyExistedUserIdList = vtlUserRoleRltService.lambdaQuery()
+                .select(VtlUserRoleRlt::getUserId)
+                .eq(VtlUserRoleRlt::getRoleId, roleId)
+                .in(VtlUserRoleRlt::getUserId, userIdList)
+                .list()
+                .stream().map(VtlUserRoleRlt::getUserId).toList();
 
         List<VtlUserRoleRlt> userRoleRltList = userIdList.stream()
                 .filter(userId -> alreadyExistedUserIdList.stream().noneMatch(existed -> existed.equals(userId)))
@@ -63,5 +67,15 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
             vtlUserRoleRltService.saveBatch(userRoleRltList);
         }
 
+    }
+
+    public void removeUsers(Long roleId, List<Long> userIdList) {
+        if(CollUtil.isEmpty(userIdList)) {
+            return;
+        }
+        vtlUserRoleRltService.lambdaUpdate()
+                .eq(VtlUserRoleRlt::getRoleId, roleId)
+                .in(VtlUserRoleRlt::getUserId, userIdList)
+                .remove();
     }
 }

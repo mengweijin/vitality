@@ -24,7 +24,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label required">字典类型编码</label>
                         <div class="layui-input-block">
-                            <input type="text" name="typeCode" disabled lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                            <input type="text" name="typeCode" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 					<div class="layui-form-item layui-form-text">
@@ -80,6 +80,7 @@
 
 				window.init = function(id) {
 				    if(id) {
+				    	$('form input[name=typeCode]').attr('disabled', true);
                 		$.get('/vtl-dict-type/' + id, function(result) {
                             form.val("form-filter", result);
                         });

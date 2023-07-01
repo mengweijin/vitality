@@ -260,36 +260,19 @@ layui.use(['jquery'], function () {
             },
 
             /**
-             * 
-             * @returns 比如：/api
+             * @returns 前端项目根路径。比如：/vitality
              */
-            getAjaxBaseUrl: function() {
-                let pearConfig = layui.sessionData('pear_config');
-                let ajaxBaseUrl = '';
-                if(pearConfig && pearConfig.config && pearConfig.config.other && pearConfig.config.other.ajaxBaseUrl) {
-                    ajaxBaseUrl = pearConfig.config.other.ajaxBaseUrl;
-                    if(!this.isBlank(ajaxBaseUrl)) {
-                        if(ajaxBaseUrl.indexOf('/') != 0){
-                            ajaxBaseUrl = '/' + ajaxBaseUrl;
-                        }
-                        if(ajaxBaseUrl.charAt(ajaxBaseUrl.length - 1) == '/'){
-                            ajaxBaseUrl = ajaxBaseUrl.substring(0, ajaxBaseUrl.length - 1);
-                        }
-                    }
-                } 
-
-                return ajaxBaseUrl;
+            getRootPath: function() {
+                let rootPath = layui.sessionData('vitality').rootPath;
+                return this.blankToDefault(rootPath, '');
             },
-
-            getCtx: function() {
-                let pearConfig = layui.sessionData('pear_config');
-                let ctx = '';
-                if(pearConfig && pearConfig.config && pearConfig.config.other && pearConfig.config.other.ctx) {
-                    ctx = pearConfig.config.other.ctx;
-                }
-                return this.blankToDefault(ctx, '');
+            /**
+             * @returns 后台接口代理根路径。比如：/api
+             */
+            getApiRootPath: function() {
+                let apiRootPath = layui.sessionData('vitality').apiRootPath;
+                return this.blankToDefault(apiRootPath, '');
             },
-
 
             extendJqueryAjaxMethod: function() {
                 if($.hasOwnProperty('delete')) {
@@ -351,7 +334,7 @@ layui.use(['jquery'], function () {
             /**
             * 设置 jquery ajax 全局配置
             */
-            setJqueryAjaxSetup: function() {
+            setJqueryAjaxSetup: function(apiRootPath = '') {
                 let this_ = this;
 
                 $.ajaxSetup({
@@ -367,14 +350,9 @@ layui.use(['jquery'], function () {
                         if (csrfHeader && csrf) {
                             xhr.setRequestHeader(csrfHeader, csrf);
                         }
-
-                        let ajaxBaseUrl = $.vtl.getAjaxBaseUrl();
-                        if(!this_.isBlank(ajaxBaseUrl) && !(this.url.indexOf(ajaxBaseUrl) == 0) && !(this.url.indexOf('http') == 0)) {
-                            if(this.url.indexOf('/') == 0){
-                                this.url = ajaxBaseUrl + this.url;
-                            } else {
-                                this.url = ajaxBaseUrl + '/' + this.url;
-                            }
+                        if(!this_.isBlank(apiRootPath) && !(this.url.indexOf('http') == 0)) {
+                            let slash = this.url.indexOf('/') == 0 ? '' : '/';
+                            this.url = apiRootPath + slash + this.url;
                         }
                     },
                     error: function (xhr, textStatus, errorThrown) {
@@ -425,6 +403,6 @@ layui.use(['jquery'], function () {
 
 
     $.vtl.extendJqueryAjaxMethod();
-    $.vtl.setJqueryAjaxSetup();
+    $.vtl.setJqueryAjaxSetup($.vtl.getApiRootPath());
 
 });

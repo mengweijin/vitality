@@ -108,13 +108,18 @@
 				var popup = layui.popup;
 				let dict = layui.dict;
 
+				window.getRootPath = function() {
+					let pathName = document.location.pathname;
+					let index = pathName.substr(1).indexOf("/");
+					return pathName.substr(0, index + 1);
+				}
+				layui.sessionData('vitality', { key: 'rootPath', value: window.getRootPath() });
+				// layui.sessionData('vitality', { key: 'apiRootPath', value: '/api' });
+				layui.sessionData('vitality', { key: 'apiRootPath', value: '' });
+				$.vtl.setJqueryAjaxSetup($.vtl.getApiRootPath()); // 必须在 admin.render(); 之前。
+
 				admin.setConfigType("yml");
 				admin.setConfigPath("config/pear.config.yml");
-
-				dict.refresh();
-				layui.sessionData('pear_config', { key: 'config', value: admin.readConfig() });
-				$.vtl.setJqueryAjaxSetup(); // 必须在 admin.render(); 之前。
-
 				admin.render();
 
 				// 登出逻辑 

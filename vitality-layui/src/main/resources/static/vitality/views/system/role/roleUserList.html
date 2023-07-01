@@ -42,7 +42,7 @@
 
 <script type="text/html" id="toolbarLeftTpl">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
-        <i class="layui-icon layui-icon-add-1"></i>新增
+        <i class="layui-icon layui-icon-add-1"></i>分配用户
     </button>
     <button class="pear-btn pear-btn-danger pear-btn-md layui-hide" lay-event="batchDelete">
         <i class="layui-icon layui-icon-delete"></i>删除
@@ -50,9 +50,7 @@
 </script>
 <script type="text/html" id="operationTpl">
     <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-    <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-    <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="resetPassword" title="重置密码"><i class="layui-icon layui-icon-refresh-1">重置密码</i></button>
-    <button class="pear-btn pear-btn-xs pear-btn-danger layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="从角色中删除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
 
 <script src="../../../component/layui/layui.js"></script>
@@ -69,7 +67,7 @@
 				let roleId = url.search.roleId;
 
 				let cols = [[
-                    { type: 'checkbox', hide: true },
+                    { type: 'checkbox', hide: false },
                     { field: 'id', title: 'ID', width: 200, hide: true },
                     { field: 'username', title: '账号', width: 120 },
                     { field: 'nickname', title: '姓名', width: 120 },
@@ -90,7 +88,7 @@
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 230, fixed: 'right', hide: true, templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
 
@@ -118,7 +116,7 @@
 
 				table.on('toolbar(data-table-filter)', function(obj) {
 					if (obj.event === 'add') {
-						window.edit();
+						window.selectUser();
                     } else if (obj.event === 'batchDelete') {
                         window.batchDelete();
 					} else if (obj.event === 'refresh') {
@@ -132,17 +130,8 @@
                         case 'detail':
                             window.detail(row.id);
                             break;
-                        case 'edit':
-                            window.edit(row.id);
-                            break;
-                        case 'resetPassword':
-                            window.resetPassword(obj);
-                            break;
                         case 'delete':
                             window.delete(obj);
-                            break;
-                        case 'disabled':
-                            window.setDisabledValue(obj);
                             break;
                         default:
                             break;
@@ -158,35 +147,17 @@
 				    $.vtl.tableReloadData('data-table', field, deep);
 				}
 
-				window.edit = function(id) {
-				    let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
-				    $.vtl.openLayer(url, { title: '编辑' });
-                }
-
-				window.resetPassword = function(obj) {
-				    layer.confirm('确定重置密码？', { icon: 3, title: '提示' }, function(index) {
-                        layer.close(index);
-                        $.post('/vtl-user/resetPassword/' + obj.data.id);
-                    });
+				window.selectUser = function() {
+				    let url = $.vtl.getCtx() + '/views/system/user/userTableSelector.html?roleId=' + roleId;
+				    $.vtl.openLayer(url, { title: '选择用户' });
                 }
 
 				window.delete = function(obj) {
-                    layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
+                    layer.confirm('确定从角色中删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.delete('/vtl-user/' + obj.data.id, function(result) {
+                        $.delete('/vtl-user-role/' + obj.data.id, function(result) {
                             if (result.code == 200) {
                                 obj.del();
-                            }
-                        });
-                    });
-                }
-
-                window.setDisabledValue = function(obj) {
-                    layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
-                        layer.close(index);
-                        $.post('/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
-                        	if (result.code == 200) {
-                               window.refresh(true);
                             }
                         });
                     });

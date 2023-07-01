@@ -77,10 +77,6 @@ other:
   autoHead: false
   ## 页脚
   footer: true
-  ## jquery ajax 请求后端接口基础路径前缀（比如：/api）。如果前后端不分离，配置为空字符串即可。
-  ajaxBaseUrl:
-  ## 前端上下文。类似于 tomcat 的 context-path
-  ctx: /vitality
 ## 头部配置
 header:
   ## 站内消息，通过 false 设置关闭

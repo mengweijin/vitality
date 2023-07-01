@@ -138,8 +138,8 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             };
 
             let config = $.extend(true, defaults, options);
-            var inst = xmSelect.render(config);
-
+            let inst = xmSelect.render(config);
+            return inst;
             //获取当前多选选中的值
             //var selectArr = inst.getValue();
             //console.log(selectArr)

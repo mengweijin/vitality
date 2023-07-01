@@ -45,7 +45,7 @@ public class ${entityName}Controller extends BaseController {
     }
 
     @DeleteMapping
-    public R delete(Long[] ids) {
+    public R delete(@RequestParam(value = "ids[]") Long[] ids) {
         boolean bool = ${entityName?uncap_first}Service.removeBatchByIds(Arrays.asList(ids));
         return R.bool(bool);
     }

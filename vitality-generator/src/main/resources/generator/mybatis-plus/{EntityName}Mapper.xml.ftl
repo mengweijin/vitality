@@ -20,9 +20,8 @@
 </#list>
     </sql>
 
-    <!-- 通用 Where 条件列 -->
-    <sql id="BaseWhere">
-        <where>
+    <!-- 通用 Equal 查询条件列 -->
+    <sql id="BaseQueryConditionEqual">
 <#list fields as field>
     <#if field.propertyType == 'String'>
             <if test="p.${field.propertyName} != null and p.${field.propertyName} != '' ">
@@ -34,12 +33,10 @@
             </if>
     </#if>
 </#list>
-        </where>
     </sql>
 
-        <!-- 通用 Where Like 条件列 -->
-        <sql id="BaseWhereLike">
-            <where>
+        <!-- 通用 Like 查询条件列 -->
+        <sql id="BaseQueryConditionLike">
     <#list fields as field>
         <#if field.propertyType == 'String'>
                 <if test="p.${field.propertyName} != null and p.${field.propertyName} != '' ">
@@ -51,7 +48,6 @@
                 </if>
         </#if>
     </#list>
-            </where>
         </sql>
 
     <select id="detailById" resultType="${packagePath}.dto.${entityName}DTO">
@@ -73,7 +69,9 @@
         from ${name} t
         left join VTL_USER cu on cu.ID = t.CREATE_BY
         left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        <include refid="BaseWhereLike"/>
+        <where>
+            <include refid="BaseQueryConditionLike"/>
+        </where>
         order by t.CREATE_TIME desc
     </select>
 

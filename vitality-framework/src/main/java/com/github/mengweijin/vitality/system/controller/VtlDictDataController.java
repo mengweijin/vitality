@@ -68,7 +68,7 @@ public class VtlDictDataController extends BaseController {
 
     @GetMapping("/list/all")
     public List<VtlDictData> listAll() {
-        return vtlDictDataService.lambdaQuery().eq(VtlDictData::getDisabled, 0).list();
+        return vtlDictDataService.lambdaQuery().list();
     }
 
     @PostMapping("/setDisabledValue/{id}")

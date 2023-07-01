@@ -77,8 +77,13 @@ public class VtlUserController extends BaseController {
     }
 
     @GetMapping("/page")
-    public IPage<VtlUserDTO> page(Page<VtlUserDTO> page, VtlUserDTO dto) {
-        return vtlUserService.page(page, dto);
+    public IPage<VtlUserDTO> page(Page<VtlUserDTO> page, VtlUserDTO dto, Long deptId) {
+        return vtlUserService.page(page, dto, deptId);
+    }
+
+    @GetMapping("/page/byRole/{roleId}")
+    public IPage<VtlUserDTO> pageByRole(@PathVariable("roleId") Long roleId, Page<VtlUserDTO> page, VtlUserDTO dto) {
+        return vtlUserService.pageByRole(page, roleId, dto);
     }
 
     @PostMapping("/setDisabledValue/{id}")

@@ -77,12 +77,7 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             let $div = $('<div />', { id: divId });
             $container.append($div);
 
-            let initValue = null;
-            if(value instanceof Array) {
-                initValue = value;
-            } else {
-                initValue = [ value ];
-            }
+            let initValue = value instanceof Array ? value : [ value ];
 
             let defaults = {
                 el: '#' + divId,
@@ -135,7 +130,7 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
                         name: 'name',               // 显示名称
                         value: 'id',                // 选中值, 当前多选唯一。原来的组件默认为：value
                         selected: 'selected',       // 是否选中
-                        disabled: 'disabled',       // 是否选中
+                        disabled: 'disabled',       // 是否禁用
                         children: 'children',       // 分组children
                         optgroup: 'optgroup',       // 分组children
                 },

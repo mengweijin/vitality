@@ -285,10 +285,6 @@
 			}
 
 			window.setDisabledValue = function(obj) {
-				if(obj.data.typeCode == 'vtl_disabled') {
-					layer.msg('禁止修改【禁用/启用】字典状态，否则会造成系统展示异常！', { icon: 5, time: 0, closeBtn: 1, title: '提示' });
-					return;
-				}
 				 layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
 					layer.close(index);
 					$.post('/vtl-dict-data/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {

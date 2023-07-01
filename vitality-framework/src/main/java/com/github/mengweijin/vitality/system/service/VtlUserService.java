@@ -13,6 +13,9 @@ import com.github.mengweijin.vitality.system.mapper.VtlUserProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 用户表 服务类
  *
@@ -56,9 +59,19 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         return dto;
     }
 
-    public IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, VtlUserDTO dto){
+    public IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, VtlUserDTO dto, Long deptId) {
+        List<Long> deptIdList = new ArrayList<>();
+        if(deptId != null) {
+            deptIdList.add(deptId);
+            deptIdList.addAll(deptService.getAllChildrenById(deptId));
+        }
         dto.setDeleted(0);
-        return vtlUserMapper.page(page, dto);
+        return vtlUserMapper.page(page, dto, deptIdList);
+    }
+
+    public IPage<VtlUserDTO> pageByRole(IPage<VtlUserDTO> page, Long roleId, VtlUserDTO dto){
+        dto.setDeleted(0);
+        return vtlUserMapper.pageByRole(page, roleId, dto);
     }
 
     public boolean setDisabledValue(Long id, boolean disabled) {

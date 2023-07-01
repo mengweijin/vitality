@@ -34,9 +34,20 @@
         </form>
     </div>
 </div>
-<div class="layui-card">
-    <div class="layui-card-body">
-        <table id="data-table" lay-filter="data-table-filter"></table>
+<div class="layui-row layui-col-space15">
+    <div class="layui-col-md3">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div id="deptTree"></div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md9">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <table id="data-table" lay-filter="data-table-filter"></table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -58,143 +69,160 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin', 'dict'], function() {
-				let table = layui.table;
-				let form = layui.form;
-				let $ = layui.jquery;
-				let layer = layui.layer;
-				let admin = layui.admin;
-				let dict = layui.dict;
+    layui.use(['table', 'form', 'jquery','layer', 'admin', 'dict', 'tree'], function() {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+        let layer = layui.layer;
+        let admin = layui.admin;
+        let dict = layui.dict;
+        let tree = layui.tree;
 
-				let cols = [[
-                    { type: 'checkbox', hide: true },
-                    { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'username', title: '账号', width: 120 },
-                    { field: 'nickname', title: '姓名', width: 120 },
-                    { field: 'gender', title: '性别', width: 70, templet: function(d) {
-                        return dict.label('vtl_user_gender', d.gender, true);
-                    } },
-                    { field: 'idCardNumber', title: '身份证号', hide: true },
-                    { field: 'email', title: '邮箱' },
-                    { field: 'mobilePhone', title: '电话', width: 150 },
-                    { field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {
-                        return dict.labelButton('vtl_disabled', d.disabled, true);
-                    } },
-                    { field: 'createByName', title: '创建者', width: 120, hide: true },
-                    { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
-                        return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
-                    }},
-                    { field: 'updateByName', title: '更新者', width: 120 },
-                    { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
-                        return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
-                    }},
-                    { field: 'operation', title: '操作', width: 230, fixed: 'right', templet: '#operationTpl' }
-                ]]
+        $.get('/vtl-dept/layuiTree', function(result){
+            tree.render({
+                elem: '#deptTree',
+                data: result,
+                showCheckbox: false,  // 是否显示复选框
+                showLine: true,  // 是否开启连接线
+                onlyIconControl: true,  // 是否仅允许节点左侧图标控制展开收缩
+                //id: 'deptTree',
+                isJump: false, // 是否允许点击节点时弹出新窗口跳转
+                click: function(obj) {
+                    let data = obj.data;  //获取当前点击的节点数据
+                    window.refresh({ deptId: obj.data.id });
+                }
+            });
+        });
+
+        let cols = [[
+            { type: 'checkbox', hide: true },
+            { field: 'id', title: 'ID', width: 200, hide: true },
+            { field: 'username', title: '账号', width: 120 },
+            { field: 'nickname', title: '姓名', width: 120 },
+            { field: 'gender', title: '性别', width: 70, templet: function(d) {
+                return dict.label('vtl_user_gender', d.gender, true);
+            } },
+            { field: 'idCardNumber', title: '身份证号', hide: true },
+            { field: 'email', title: '邮箱' },
+            { field: 'mobilePhone', title: '电话', width: 150 },
+            { field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {
+                return dict.labelButton('vtl_disabled', d.disabled, true);
+            } },
+            { field: 'createByName', title: '创建者', width: 120, hide: true },
+            { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
+                return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+            }},
+            { field: 'updateByName', title: '更新者', width: 120, hide: true },
+            { field: 'updateTime', title: '更新时间', width: 160, hide: true, templet: function (d) {
+                return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
+            }},
+            { field: 'operation', title: '操作', width: 230, fixed: 'right', templet: '#operationTpl' }
+        ]]
 
 
-				table.render({
-					elem: '#data-table',
-					url: '/vtl-user/page',
-					request: {
-                        pageName: 'current', // 页码的参数名称，默认：page
-                        limitName: 'size' // 每页数据条数的参数名，默认：limit
-                    },
-					parseData: function(res) {
-                        return {
-                            "code": 0,
-                            "msg": 'SUCCESS',
-                            "count": res.total,
-                            "data": res.records
-                        };
-                    },
-					page: true,
-					cols: cols,
-					skin: 'line',
-					toolbar: '#toolbarLeftTpl',
-					defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh'}, 'filter', 'print', 'exports']
-				});
+        table.render({
+            elem: '#data-table',
+            url: '/vtl-user/page',
+            request: {
+                pageName: 'current', // 页码的参数名称，默认：page
+                limitName: 'size' // 每页数据条数的参数名，默认：limit
+            },
+            parseData: function(res) {
+                return {
+                    "code": 0,
+                    "msg": 'SUCCESS',
+                    "count": res.total,
+                    "data": res.records
+                };
+            },
+            page: true,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#toolbarLeftTpl',
+            defaultToolbar: [{ title: '刷新', layEvent: 'refresh', icon: 'layui-icon-refresh'}, 'filter', 'print', 'exports']
+        });
 
-				table.on('toolbar(data-table-filter)', function(obj) {
-					if (obj.event === 'add') {
-						window.edit();
-                    } else if (obj.event === 'batchDelete') {
-                        window.batchDelete();
-					} else if (obj.event === 'refresh') {
-                        window.refresh(true);
+        table.on('toolbar(data-table-filter)', function(obj) {
+            if (obj.event === 'add') {
+                window.edit();
+            } else if (obj.event === 'batchDelete') {
+                window.batchDelete();
+            } else if (obj.event === 'refresh') {
+                window.refresh(true);
+            }
+        });
+
+        table.on('tool(data-table-filter)', function(obj) {
+            let row = obj.data;
+            switch (obj.event) {
+                case 'detail':
+                    window.detail(row.id);
+                    break;
+                case 'edit':
+                    window.edit(row.id);
+                    break;
+                case 'resetPassword':
+                    window.resetPassword(obj);
+                    break;
+                case 'delete':
+                    window.delete(obj);
+                    break;
+                case 'disabled':
+                    window.setDisabledValue(obj);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        form.on('submit(data-table-query-filter)', function(data) {
+            window.refresh(data.field);
+            return false;
+        });
+
+        window.refresh = function(field = {}, deep = false) {
+            $.vtl.tableReloadData('data-table', field, deep);
+        }
+
+        window.edit = function(id) {
+            let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
+            $.vtl.openLayer(url, { title: '编辑' });
+        }
+
+        window.resetPassword = function(obj) {
+            layer.confirm('确定重置密码？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('/vtl-user/resetPassword/' + obj.data.id);
+            });
+        }
+
+        window.delete = function(obj) {
+            layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.delete('/vtl-user/' + obj.data.id, function(result) {
+                    if (result.code == 200) {
+                        obj.del();
                     }
-				});
+                });
+            });
+        }
 
-				table.on('tool(data-table-filter)', function(obj) {
-				    let row = obj.data;
-                    switch (obj.event) {
-                        case 'detail':
-                            window.detail(row.id);
-                            break;
-                        case 'edit':
-                            window.edit(row.id);
-                            break;
-                        case 'resetPassword':
-                            window.resetPassword(obj);
-                            break;
-                        case 'delete':
-                            window.delete(obj);
-                            break;
-                        case 'disabled':
-                            window.setDisabledValue(obj);
-                            break;
-                        default:
-                            break;
+        window.setDisabledValue = function(obj) {
+            layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
+                layer.close(index);
+                $.post('/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
+                    if (result.code == 200) {
+                       window.refresh(true);
                     }
-				});
+                });
+            });
+        }
 
-				form.on('submit(data-table-query-filter)', function(data) {
-					window.refresh(data.field);
-					return false;
-				});
+        window.detail = function(id, title = '用户详情') {
+            top.layui.admin.jump('vtl-user-' + id, title, 'views/system/user/detail.html?id=' + id)
+        }
 
-				window.refresh = function(field = {}, deep = false) {
-				    $.vtl.tableReloadData('data-table', field, deep);
-				}
-
-				window.edit = function(id) {
-				    let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
-				    $.vtl.openLayer(url, { title: '编辑' });
-                }
-
-				window.resetPassword = function(obj) {
-				    layer.confirm('确定重置密码？', { icon: 3, title: '提示' }, function(index) {
-                        layer.close(index);
-                        $.post('/vtl-user/resetPassword/' + obj.data.id);
-                    });
-                }
-
-				window.delete = function(obj) {
-                    layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
-                        layer.close(index);
-                        $.delete('/vtl-user/' + obj.data.id, function(result) {
-                            if (result.code == 200) {
-                                obj.del();
-                            }
-                        });
-                    });
-                }
-
-                window.setDisabledValue = function(obj) {
-                    layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
-                        layer.close(index);
-                        $.post('/vtl-user/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
-                        	if (result.code == 200) {
-                               window.refresh(true);
-                            }
-                        });
-                    });
-                }
-
-				window.detail = function(id, title = '用户详情') {
-					top.layui.admin.jump('vtl-user-' + id, title, 'views/system/user/detail.html?id=' + id)
-				}
-
-			})
-		</script>
+    })
+</script>
 </body>
 </html>

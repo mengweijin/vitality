@@ -185,8 +185,8 @@
                     });
                 }
 
-				window.addUser = function(id, title = '分配用户') {
-					top.layui.admin.jump('vtl-role-add-user-' + id, title, 'views/system/role/roleUserList.html?id=' + id)
+				window.addUser = function(id, title = '角色分配用户') {
+					top.layui.admin.jump('vtl-role-add-user-' + id, title, 'views/system/role/roleUserList.html?roleId=' + id)
 				}
 
 			})

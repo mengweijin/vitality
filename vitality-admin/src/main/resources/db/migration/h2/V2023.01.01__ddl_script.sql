@@ -113,7 +113,7 @@ DROP TABLE IF EXISTS VTL_DEPT;
 CREATE TABLE VTL_DEPT (
   ID                            bigint NOT NULL COMMENT '主键ID',
   PARENT_ID              		bigint DEFAULT 0 COMMENT '父部门ID',
-  ANCESTORS              		varchar(2048) NOT NULL COMMENT '祖先层级ID，以"/" 分隔。',
+  ANCESTORS              		varchar(2048) DEFAULT '0' COMMENT '祖先层级ID，以"/" 分隔。',
   NAME 		                    varchar(50) NOT NULL COMMENT '部门名称',
   CODE 		                    varchar(50) NOT NULL COMMENT '部门编码',
   SEQ 		                    int(4) DEFAULT 0 COMMENT '展示顺序',

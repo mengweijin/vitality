@@ -65,6 +65,8 @@
 				let layer = layui.layer;
 				let admin = layui.admin;
 				let dict = layui.dict;
+				let url = layui.url();
+				let roleId = url.search.roleId;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
@@ -77,8 +79,8 @@
                     { field: 'idCardNumber', title: '身份证号', hide: true },
                     { field: 'email', title: '邮箱' },
                     { field: 'mobilePhone', title: '电话', width: 150 },
-                    { field: 'disabled', title: '账号状态', width: 120, event: 'disabled', templet: function(d) {
-                        return dict.labelButton('vtl_disabled', d.disabled, true);
+                    { field: 'disabled', title: '账号状态', width: 120, templet: function(d) {
+                        return dict.label('vtl_disabled', d.disabled, true);
                     } },
                     { field: 'createByName', title: '创建者', width: 120, hide: true },
                     { field: 'createTime', title: '创建时间', width: 160, hide: true, templet: function (d) {
@@ -88,13 +90,13 @@
                     { field: 'updateTime', title: '更新时间', width: 160, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 230, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 230, fixed: 'right', hide: true, templet: '#operationTpl' }
                 ]]
 
 
 				table.render({
 					elem: '#data-table',
-					url: '/vtl-user/page',
+					url: '/vtl-user/page/byRole/' + roleId,
 					request: {
                         pageName: 'current', // 页码的参数名称，默认：page
                         limitName: 'size' // 每页数据条数的参数名，默认：limit

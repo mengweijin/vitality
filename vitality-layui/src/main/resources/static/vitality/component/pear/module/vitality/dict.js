@@ -72,7 +72,7 @@ layui.define(['jquery'], function(exports) {
                 }
             }
             console.warn('No dict data was found by [typeCode=' + typeCode + '] and [dataCode=' + dataCode + ']');
-            return '';
+            return dataCode;
         },
         labelButton: function(typeCode, dataCode, badgeStyle = true) {
             let list = this.dataList(typeCode);
@@ -91,7 +91,7 @@ layui.define(['jquery'], function(exports) {
                 }
             }
             console.warn('No dict data was found by [typeCode=' + typeCode + '] and [dataCode=' + dataCode + ']');
-            return '';
+            return dataCode;
         },
         clear: function() {
             layui.sessionData(TABLE_NAME, null);

@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTreeNode;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
 import com.github.mengweijin.vitality.system.entity.VtlDept;
@@ -44,6 +45,12 @@ public class VtlDeptController extends BaseController {
         return R.bool(bool);
     }
 
+    @PostMapping("/setDisabledValue/{id}")
+    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
+        boolean bool = vtlDeptService.setDisabledValue(id, disabled);
+        return R.bool(bool);
+    }
+
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlDeptService.removeById(id);
@@ -76,9 +83,10 @@ public class VtlDeptController extends BaseController {
         return vtlDeptService.treeTableDataList(dto);
     }
 
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = vtlDeptService.setDisabledValue(id, disabled);
-        return R.bool(bool);
+    @GetMapping("/layuiTree")
+    public List<LayuiTreeNode> layuiTree() {
+        return vtlDeptService.layuiTree();
     }
+
+
 }

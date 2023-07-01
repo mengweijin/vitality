@@ -8,6 +8,8 @@ import com.github.mengweijin.vitality.system.entity.VtlUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 用户表 Mapper 接口
  *
@@ -29,6 +31,14 @@ public interface VtlUserMapper extends BaseMapper<VtlUser> {
      * @param dto VtlUserDTO
      * @return IPage
      */
-    IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, @Param("p") VtlUserDTO dto);
+    IPage<VtlUserDTO> page(IPage<VtlUserDTO> page, @Param("p") VtlUserDTO dto, @Param("deptIdList") List<Long> deptIdList);
+
+    /**
+     * 自定义分页
+     * @param page page
+     * @param dto VtlUserDTO
+     * @return IPage
+     */
+    IPage<VtlUserDTO> pageByRole(IPage<VtlUserDTO> page, @Param("roleId") Long roleId, @Param("p") VtlUserDTO dto);
 
 }

@@ -68,7 +68,7 @@ layui.use(['jquery'], function () {
                     type: 2,
                     shade: [0.5, "#393D49"],
                     closeBtn: 1,
-                    shadeClose: true,
+                    shadeClose: false,
                     maxmin: true,
                     resize: false,
                     area: ['800px', '450px']
@@ -100,7 +100,7 @@ layui.use(['jquery'], function () {
              * @returns
              */
             openCopper: function(success, yes) {
-                let url = this.getCtx() + '/component/html/cropper.html';
+                let url = this.getRootPath() + '/component/html/cropper.html';
                 return this.openLayer(url, {
                     title: '图片裁剪',
                     area: ['900px', '500px'],

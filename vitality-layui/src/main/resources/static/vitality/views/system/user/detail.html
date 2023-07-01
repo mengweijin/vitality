@@ -45,7 +45,7 @@
             if(result.profilePicture) {
                 $('#userAvatar').attr('src', result.profilePicture);
             } else {
-                $('#userAvatar').attr('src', $.vtl.getCtx() + '/admin/images/profile.jpg');
+                $('#userAvatar').attr('src', $.vtl.getRootPath() + '/admin/images/profile.jpg');
             }
 
             desc.render({

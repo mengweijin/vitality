@@ -148,8 +148,9 @@
 				}
 
 				window.selectUser = function() {
-				    let url = $.vtl.getCtx() + '/views/system/user/userTableSelector.html?roleId=' + roleId;
-				    $.vtl.openLayer(url, { title: '选择用户' });
+				    let url = $.vtl.getRootPath() + '/views/system/user/userTableSelector.html?roleId=' + roleId;
+				    //url += '&radio=true';
+				    $.vtl.openLayer(url, { title: '选择用户', area: ['80%', '90%'] });
                 }
 
 				window.delete = function(obj) {

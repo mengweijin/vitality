@@ -53,37 +53,17 @@
 				</div>
 			</div>
 		</div>
-<!--	<div class="main-container">-->
-<!--		<div class="layui-form-item">-->
-<!--			<label class="layui-form-label required">角色名称</label>-->
-<!--			<div class="layui-input-block">-->
-<!--				<input type="text" name="name" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
 	</div>
 	<div class="bottom">
 		<form class="layui-form" action="" lay-filter="select-form-filter">
-			<div class="layui-row">
-				<div class="layui-col-md9">
-					<div class="layui-form-item">
-						<label class="layui-form-label" style="width: 80px;">已选择:</label>
-						<div class="layui-input-block" style="margin-left: 110px;">
-							<div class="layui-btn-container tag" lay-allowclose="true" lay-filter="tag-filter"></div>
-						</div>
-					</div>
-				</div>
-				<div class="layui-col-md3">
-					<div class="button-container">
-						<button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="select-submit-filter">
-							<i class="layui-icon layui-icon-ok"></i>确定
-						</button>
-					</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 80px;">已选择:</label>
+				<div class="layui-input-block" style="margin-left: 110px;">
+					<div class="layui-btn-container tag" lay-allowclose="true" lay-filter="tag-filter"></div>
 				</div>
 			</div>
 		</form>
 	</div>
-
 
 	<script type="text/html" id="toolbarLeftTpl">
 
@@ -105,7 +85,7 @@
 			let tree = layui.tree;
 			let tag = layui.tag;
 			let url = layui.url();
-			let tableSelectType = url.search.radio == 'true' ? 'radio' : 'checkbox';
+			let tableSelectType = url.search.multiple == 'true' ? 'checkbox' : 'radio';
 
 			$.get('/vtl-dept/layuiTree', function(result){
 				tree.render({
@@ -189,6 +169,44 @@
 				}
 			});
 
+			// 复选框事件
+			table.on('checkbox(data-table-filter)', function(obj){
+				// console.log(obj); // 查看对象所有成员
+				// console.log(obj.checked); // 当前是否选中状态
+				// console.log(obj.data); // 选中行的相关数据
+				// console.log(obj.type); // 若触发的是全选，则为：all；若触发的是单选，则为：one
+				if(obj.checked) {
+					if(obj.type == 'all') {
+						let allData = table.getData('data-table');
+						$.each(allData, function(index, row){
+							window.addTag(row.id, row.nickname);
+						});
+					} else {
+						window.addTag(obj.data.id, obj.data.nickname);
+					}
+				} else {
+					if(obj.type == 'all') {
+						let allData = table.getData('data-table');
+						$.each(allData, function(index, row){
+							window.deleteTag(row.id);
+						});
+					} else {
+						window.deleteTag(obj.data.id);
+					}
+				}
+			});
+
+			// 单选框事件
+			table.on('radio(data-table-filter)', function(obj){
+				// console.log(obj); // 当前行的一些常用操作集合
+				// console.log(obj.checked); // 当前是否选中状态
+				// console.log(obj.data); // 选中行的相关数据
+				if(obj.checked) {
+					window.clearTag();
+					window.addTag(obj.data.id, obj.data.nickname);
+				}
+			});
+
 			form.on('submit(data-table-query-filter)', function(data) {
 				window.refresh(data.field);
 				return false;
@@ -202,9 +220,35 @@
 				top.layui.admin.jump('vtl-user-' + id, title, 'views/system/user/detail.html?id=' + id)
 			}
 
-			tag.add('tag-filter', {text: '新选项', id: 1});
-			tag.add('tag-filter', {text: '新选项2', id: 2});
-			//tag.delete('tag-filter', 2);
+			window.addTag = function(id, text) {
+				if(id) {
+					let checkExist = $('div[lay-filter=tag-filter] > button[lay-id=' + id + ']');
+					if(checkExist.length == 0) {
+						tag.add('tag-filter', {id: id, text: text });
+					}
+				}
+			}
+
+			window.deleteTag = function(id) {
+				if(id) {
+					tag.delete('tag-filter', id);
+				}
+			}
+
+			window.clearTag = function() {
+				$('div[lay-filter=tag-filter] > button').each(function(index){
+					window.deleteTag($(this).attr('lay-id'));
+				});
+			}
+
+			window.getCheckedIdList = function() {
+				let result = [];
+				$('div[lay-filter=tag-filter] > button').each(function(index){
+					result.push($(this).attr('lay-id'));
+				});
+				return result;
+			}
+
 		})
 	</script>
 </body>

@@ -110,6 +110,17 @@ layui.use(['jquery'], function () {
                 });
             },
 
+            openUserSelector: function(success, yes, multiple = true) {
+                let url = $.vtl.getRootPath() + '/views/system/user/userTableSelector.html?multiple=' + multiple;
+                return this.openLayer(url, {
+                    title: '选择用户',
+                    area: ['80%', '90%'],
+                    btn: ['保存', '取消'],
+                    success: success,
+                    yes: yes
+                });
+            },
+
             /**
              * 判断是否是空
              * @param value

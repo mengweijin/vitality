@@ -8,8 +8,8 @@ import com.github.mengweijin.vitality.system.constant.ConfigConst;
 import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
+import com.github.mengweijin.vitality.system.dto.VtlUserEditDTO;
 import com.github.mengweijin.vitality.system.entity.VtlConfig;
-import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.service.VtlConfigService;
 import com.github.mengweijin.vitality.system.service.VtlUserProfileService;
 import com.github.mengweijin.vitality.system.service.VtlUserService;
@@ -43,13 +43,13 @@ public class VtlUserController extends BaseController {
     private VtlConfigService configService;
 
     @PostMapping
-    public R add(VtlUser vtlUser) {
+    public R add(VtlUserEditDTO vtlUser) {
         boolean bool = vtlUserService.save(vtlUser);
         return R.bool(bool);
     }
 
     @PutMapping
-    public R edit(VtlUser vtlUser) {
+    public R edit(VtlUserEditDTO vtlUser) {
         boolean bool = vtlUserService.updateById(vtlUser);
         return R.bool(bool);
     }

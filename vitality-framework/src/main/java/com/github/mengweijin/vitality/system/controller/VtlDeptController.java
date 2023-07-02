@@ -58,12 +58,6 @@ public class VtlDeptController extends BaseController {
         return R.bool(bool);
     }
 
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = vtlDeptService.removeBatchByIds(Arrays.asList(ids));
-        return R.bool(bool);
-    }
-
     @GetMapping("/{id}")
     public VtlDept getById(@PathVariable("id") Long id) {
         return vtlDeptService.getById(id);

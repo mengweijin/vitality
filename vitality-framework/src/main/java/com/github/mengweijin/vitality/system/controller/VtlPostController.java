@@ -51,12 +51,6 @@ public class VtlPostController extends BaseController {
         return R.bool(bool);
     }
 
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = vtlPostService.removeBatchByIds(Arrays.asList(ids));
-        return R.bool(bool);
-    }
-
     @GetMapping("/{id}")
     public VtlPost getById(@PathVariable("id") Long id) {
         return vtlPostService.getById(id);

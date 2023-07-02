@@ -51,12 +51,6 @@ public class VtlRoleController extends BaseController {
         return R.bool(bool);
     }
 
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = vtlRoleService.removeBatchByIds(Arrays.asList(ids));
-        return R.bool(bool);
-    }
-
     @GetMapping("/{id}")
     public VtlRole getById(@PathVariable("id") Long id) {
         return vtlRoleService.getById(id);

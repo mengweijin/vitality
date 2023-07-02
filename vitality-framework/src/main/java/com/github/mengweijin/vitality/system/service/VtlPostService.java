@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.dto.VtlPostDTO;
 import com.github.mengweijin.vitality.system.entity.VtlPost;
 import com.github.mengweijin.vitality.system.entity.VtlUserPostRlt;
@@ -10,6 +11,7 @@ import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,6 +28,15 @@ public class VtlPostService extends ServiceImpl<VtlPostMapper, VtlPost> {
 
     @Autowired
     private VtlUserPostRltService vtlUserPostRltService;
+
+    @Override
+    public boolean removeById(Serializable id) {
+        Long count = vtlUserPostRltService.lambdaQuery().eq(VtlUserPostRlt::getPostId, id).count();
+        if(count > 0) {
+            throw new ClientException("Users already exist in current post and cannot be deleted!");
+        }
+        return super.removeById(id);
+    }
 
     public VtlPostDTO detailById(Long id) {
         return vtlPostMapper.detailById(id);

@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
 import com.github.mengweijin.vitality.system.entity.VtlRole;
 import com.github.mengweijin.vitality.system.entity.VtlUserRoleRlt;
@@ -10,6 +11,7 @@ import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -25,6 +27,15 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
     private VtlRoleMapper vtlRoleMapper;
     @Autowired
     private VtlUserRoleRltService vtlUserRoleRltService;
+
+    @Override
+    public boolean removeById(Serializable id) {
+        Long count = vtlUserRoleRltService.lambdaQuery().eq(VtlUserRoleRlt::getRoleId, id).count();
+        if(count > 0) {
+            throw new ClientException("Users already exist in current role and cannot be deleted!");
+        }
+        return super.removeById(id);
+    }
 
     public VtlRoleDTO detailById(Long id) {
         return vtlRoleMapper.detailById(id);

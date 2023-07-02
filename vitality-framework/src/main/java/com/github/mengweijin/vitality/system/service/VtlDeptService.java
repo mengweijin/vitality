@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTreeNode;
 import com.github.mengweijin.vitality.system.constant.DeptConst;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
@@ -13,6 +14,7 @@ import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -41,6 +43,19 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
             entity.setAncestors(parent.getAncestors() + Const.SLASH + parentId);
         }
         return super.save(entity);
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        Long count = vtlUserDeptRltService.lambdaQuery().eq(VtlUserDeptRlt::getDeptId, id).count();
+        if(count > 0) {
+            throw new ClientException("Users already exist in current department and cannot be deleted!");
+        }
+        List<Long> allChildrenList = this.getAllChildrenById((Long) id);
+        if(CollUtil.isNotEmpty(allChildrenList)) {
+            throw new ClientException("Users already exist children in the department and cannot be deleted!");
+        }
+        return super.removeById(id);
     }
 
     public VtlDeptDTO detailById(Long id) {

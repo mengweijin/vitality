@@ -373,7 +373,7 @@ layui.use(['jquery'], function () {
                         }
                         switch (xhr.status) {
                             case (400):
-                                message = "客户端异常，请检查你的输入！<br>Client Error! Please check your input! <br>" + message;
+                                message = "客户端操作异常，请检查你的输入或操作！<br>Client Error! Please check your input or operation! <br>" + message;
                                 layui.layer.msg(message, { icon: 5, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                             case (401):

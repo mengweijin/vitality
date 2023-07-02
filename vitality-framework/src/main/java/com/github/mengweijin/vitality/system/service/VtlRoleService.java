@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
+import com.github.mengweijin.vitality.system.entity.VtlMenuRoleRlt;
 import com.github.mengweijin.vitality.system.entity.VtlRole;
 import com.github.mengweijin.vitality.system.entity.VtlUserRoleRlt;
 import com.github.mengweijin.vitality.system.mapper.VtlRoleMapper;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +29,8 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
     private VtlRoleMapper vtlRoleMapper;
     @Autowired
     private VtlUserRoleRltService vtlUserRoleRltService;
+    @Autowired
+    private VtlMenuRoleRltService vtlMenuRoleRltService;
 
     @Override
     public boolean removeById(Serializable id) {
@@ -87,5 +91,15 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
                 .eq(VtlUserRoleRlt::getRoleId, roleId)
                 .in(VtlUserRoleRlt::getUserId, userIdList)
                 .remove();
+    }
+
+    @Transactional
+    public void setMenu(Long id, List<Long> menuIdList) {
+        vtlMenuRoleRltService.lambdaUpdate().eq(VtlMenuRoleRlt::getRoleId, id).remove();
+        if(CollUtil.isEmpty(menuIdList)) {
+            return;
+        }
+        List<VtlMenuRoleRlt> list = menuIdList.stream().map(menuId -> new VtlMenuRoleRlt().setRoleId(id).setMenuId(menuId)).toList();
+        vtlMenuRoleRltService.saveBatch(list);
     }
 }

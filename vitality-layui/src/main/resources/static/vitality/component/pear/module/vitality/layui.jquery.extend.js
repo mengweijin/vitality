@@ -122,6 +122,22 @@ layui.use(['jquery'], function () {
             },
 
             /**
+             * type {String} 可选 role, dept, post, user
+             * id {Long} 对应 type 的表记录 ID
+             */
+            openMenuSelector: function(success, yes, type, id) {
+                let params = this.buildQueryVariable({ type: type, id: id });
+                let url = $.vtl.getRootPath() + '/views/system/menu/menuAuthorizationList.html?' + params;
+                return this.openLayer(url, {
+                    title: '选择权限',
+                    area: ['70%', '90%'],
+                    btn: ['保存', '取消'],
+                    success: success,
+                    yes: yes
+                });
+            },
+
+            /**
              * 判断是否是空
              * @param value
              */

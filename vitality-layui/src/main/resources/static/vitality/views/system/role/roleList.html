@@ -195,7 +195,24 @@
 				}
 
 				window.authorization = function(id) {
-
+					let _this = this;
+                    let success = function(layero, index, that) {
+                        // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                        // var iframeWin = window[layero.find('iframe')[0]['name']];
+                        // iframeWin.init($('#userAvatar').attr('src'));
+                    };
+                    let yes = function(index, layero, that) {
+                        // var $body = layui.layer.getChildFrame('body', index);
+                        // var $sourceImage = layui.layer.getChildFrame('#sourceImage', index);
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        let checkedMenuIdList = iframeWin.getCheckedIdList();
+                        $.post('/vtl-role/setMenu/' + id, { menuIdList: checkedMenuIdList }, function(result) {
+							if(result.code == 200) {
+								layer.close(index);
+							}
+						});
+                    };
+                    $.vtl.openMenuSelector(success, yes, 'role', id);
 				}
 
 			})

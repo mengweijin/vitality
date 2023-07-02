@@ -88,4 +88,10 @@ public class VtlRoleController extends BaseController {
         vtlRoleService.removeUsers(id, Arrays.asList(userIdList));
         return R.success();
     }
+
+    @PostMapping("/setMenu/{id}")
+    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]") Long[] menuIdList) {
+        vtlRoleService.setMenu(id, List.of(menuIdList));
+        return R.success();
+    }
 }

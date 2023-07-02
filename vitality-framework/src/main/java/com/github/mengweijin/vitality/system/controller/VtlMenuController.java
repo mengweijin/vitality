@@ -83,4 +83,25 @@ public class VtlMenuController {
         boolean bool = menuService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
+
+    @GetMapping("/byRole/{roleId}")
+    public List<Long> byRole(@PathVariable("roleId") Long roleId) {
+        return menuService.byRole(roleId);
+    }
+
+    @GetMapping("/byDept/{deptId}")
+    public List<Long> byDept(@PathVariable("deptId") Long deptId) {
+        return menuService.byDept(deptId);
+    }
+
+    @GetMapping("/byPost/{postId}")
+    public List<Long> byPost(@PathVariable("postId") Long postId) {
+        return menuService.byPost(postId);
+    }
+
+    @GetMapping("/byUser/{userId}")
+    public List<Long> byUser(@PathVariable("userId") Long userId) {
+        return menuService.byUser(userId);
+    }
+
 }

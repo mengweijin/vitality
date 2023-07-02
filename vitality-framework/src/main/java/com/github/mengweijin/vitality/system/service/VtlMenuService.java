@@ -7,6 +7,10 @@ import com.github.mengweijin.vitality.system.constant.MenuConst;
 import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
+import com.github.mengweijin.vitality.system.entity.VtlMenuDeptRlt;
+import com.github.mengweijin.vitality.system.entity.VtlMenuPostRlt;
+import com.github.mengweijin.vitality.system.entity.VtlMenuRoleRlt;
+import com.github.mengweijin.vitality.system.entity.VtlMenuUserRlt;
 import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.mapper.VtlMenuMapper;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -30,6 +34,14 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
     @Autowired
     private VtlMenuMapper vtlMenuMapper;
+    @Autowired
+    private VtlMenuRoleRltService vtlMenuRoleRltService;
+    @Autowired
+    private VtlMenuDeptRltService vtlMenuDeptRltService;
+    @Autowired
+    private VtlMenuPostRltService vtlMenuPostRltService;
+    @Autowired
+    private VtlMenuUserRltService vtlMenuUserRltService;
 
     @Override
     public boolean save(VtlMenu entity) {
@@ -160,5 +172,37 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
         } else {
             return id;
         }
+    }
+
+    public List<Long> byRole(Long roleId) {
+        return vtlMenuRoleRltService.lambdaQuery()
+                .select(VtlMenuRoleRlt::getMenuId)
+                .eq(VtlMenuRoleRlt::getRoleId, roleId)
+                .list()
+                .stream().map(VtlMenuRoleRlt::getMenuId).toList();
+    }
+
+    public List<Long> byDept(Long deptId) {
+        return vtlMenuDeptRltService.lambdaQuery()
+                .select(VtlMenuDeptRlt::getMenuId)
+                .eq(VtlMenuDeptRlt::getDeptId, deptId)
+                .list()
+                .stream().map(VtlMenuDeptRlt::getMenuId).toList();
+    }
+
+    public List<Long> byPost(Long postId) {
+        return vtlMenuPostRltService.lambdaQuery()
+                .select(VtlMenuPostRlt::getMenuId)
+                .eq(VtlMenuPostRlt::getPostId, postId)
+                .list()
+                .stream().map(VtlMenuPostRlt::getMenuId).toList();
+    }
+
+    public List<Long> byUser(Long userId) {
+        return vtlMenuUserRltService.lambdaQuery()
+                .select(VtlMenuUserRlt::getMenuId)
+                .eq(VtlMenuUserRlt::getUserId, userId)
+                .list()
+                .stream().map(VtlMenuUserRlt::getMenuId).toList();
     }
 }

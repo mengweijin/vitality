@@ -28,12 +28,12 @@ public class LoginController extends BaseController {
 
     @SaIgnore
     @PostMapping("/login")
-    public R login(@NotBlank String username, @NotBlank String password) {
+    public R login(@NotBlank String username, @NotBlank String password, boolean rememberMe, String captcha) {
         VtlUser user = userService.getByUsername(username);
         if(!userService.checkPassword(password, user.getPassword())) {
             throw new ClientException("The username or password incorrect!");
         }
-        StpUtil.login(user.getId());
+        StpUtil.login(user.getId(), rememberMe);
         return R.success();
     }
 

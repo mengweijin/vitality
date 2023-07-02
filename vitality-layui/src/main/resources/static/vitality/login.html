@@ -29,7 +29,7 @@
 				<img src="admin/images/captcha.gif" class="codeImage" />
 			</div>
 			<div class="layui-form-item">
-				<input type="checkbox" name="rememberMe" title="记住密码" lay-skin="primary">
+				<input type="checkbox" name="rememberMe" title="记住密码" lay-skin="primary" checked>
 			</div>
 			<div class="layui-form-item">
 				<button type="button" class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
@@ -59,6 +59,7 @@
                 });
 
 				form.on('submit(login)', function(data) {
+					data.field.rememberMe = data.field.rememberMe == 'on' ? true : false;
 					$.post('/login', data.field, function(result){
 						if (result.code == 200) {
 							top.window.location.href = 'index.html';

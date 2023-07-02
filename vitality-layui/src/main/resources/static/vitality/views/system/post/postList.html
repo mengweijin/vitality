@@ -58,6 +58,7 @@
             {{# } }}
         </script>
 		<script type="text/html" id="operationTpl">
+			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="addUser" title="分配用户"><i class="layui-icon layui-icon-user"></i></button>
 			<button class="pear-btn pear-btn-primary pear-btn-xs layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
 			<button class="pear-btn pear-btn-primary pear-btn-xs" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
             <button class="pear-btn pear-btn-danger pear-btn-xs" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
@@ -144,6 +145,9 @@
                         case 'disabled':
                             window.setDisabledValue(obj);
                             break;
+						case 'addUser':
+                            window.addUser(row.id, '岗位【' + row.name + '】用户');
+                            break;
                         default:
                             break;
                     }
@@ -188,6 +192,10 @@
                         });
                     });
                 }
+
+				window.addUser = function(id, title = '分配用户') {
+					top.layui.admin.jump('vtl-post-add-user-' + id, title, 'views/system/post/postUserList.html?postId=' + id)
+				}
 			})
 		</script>
 	</body>

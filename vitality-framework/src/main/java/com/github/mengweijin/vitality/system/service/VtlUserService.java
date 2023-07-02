@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import cn.dev33.satoken.secure.BCrypt;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
@@ -70,6 +71,11 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         return vtlUserMapper.pageByRole(page, roleId, dto);
     }
 
+    public IPage<VtlUserDTO> pageByPost(Page<VtlUserDTO> page, Long postId, VtlUserDTO dto) {
+        dto.setDeleted(0);
+        return vtlUserMapper.pageByPost(page, postId, dto);
+    }
+
     public boolean setDisabledValue(Long id, boolean disabled) {
         return this.lambdaUpdate().set(VtlUser::getDisabled, disabled).eq(VtlUser::getId, id).update();
     }
@@ -96,4 +102,5 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         String hashedPwd = BCrypt.hashpw(password, salt);
         return this.lambdaUpdate().set(VtlUser::getPassword, hashedPwd).set(VtlUser::getPwdSalt, salt).eq(VtlUser::getId, id).update();
     }
+
 }

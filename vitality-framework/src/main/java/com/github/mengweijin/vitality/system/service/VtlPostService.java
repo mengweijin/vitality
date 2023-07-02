@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.system.dto.VtlPostDTO;
 import com.github.mengweijin.vitality.system.entity.VtlPost;
+import com.github.mengweijin.vitality.system.entity.VtlUserPostRlt;
 import com.github.mengweijin.vitality.system.mapper.VtlPostMapper;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class VtlPostService extends ServiceImpl<VtlPostMapper, VtlPost> {
     @Autowired
     private VtlPostMapper vtlPostMapper;
 
+    @Autowired
+    private VtlUserPostRltService vtlUserPostRltService;
+
     public VtlPostDTO detailById(Long id) {
         return vtlPostMapper.detailById(id);
     }
@@ -36,5 +41,41 @@ public class VtlPostService extends ServiceImpl<VtlPostMapper, VtlPost> {
 
     public List<VtlPostDTO> getByUserId(Long userId) {
         return vtlPostMapper.getByUserId(userId);
+    }
+
+    public void addUsers(Long postId, List<Long> userIdList) {
+        if(CollUtil.isEmpty(userIdList)) {
+            return;
+        }
+        List<Long> alreadyExistedUserIdList = vtlUserPostRltService.lambdaQuery()
+                .select(VtlUserPostRlt::getUserId)
+                .eq(VtlUserPostRlt::getPostId, postId)
+                .in(VtlUserPostRlt::getUserId, userIdList)
+                .list()
+                .stream().map(VtlUserPostRlt::getUserId).toList();
+
+        List<VtlUserPostRlt> userPostRltList = userIdList.stream()
+                .filter(userId -> alreadyExistedUserIdList.stream().noneMatch(existed -> existed.equals(userId)))
+                .map(userId -> {
+                    VtlUserPostRlt rlt = new VtlUserPostRlt();
+                    rlt.setUserId(userId);
+                    rlt.setPostId(postId);
+                    return rlt;
+                })
+                .toList();
+
+        if (CollUtil.isNotEmpty(userPostRltList)) {
+            vtlUserPostRltService.saveBatch(userPostRltList);
+        }
+    }
+
+    public void removeUsers(Long postId, List<Long> userIdList) {
+        if(CollUtil.isEmpty(userIdList)) {
+            return;
+        }
+        vtlUserPostRltService.lambdaUpdate()
+                .eq(VtlUserPostRlt::getPostId, postId)
+                .in(VtlUserPostRlt::getUserId, userIdList)
+                .remove();
     }
 }

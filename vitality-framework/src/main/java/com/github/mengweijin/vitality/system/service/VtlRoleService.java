@@ -66,7 +66,6 @@ public class VtlRoleService extends ServiceImpl<VtlRoleMapper, VtlRole> {
         if (CollUtil.isNotEmpty(userRoleRltList)) {
             vtlUserRoleRltService.saveBatch(userRoleRltList);
         }
-
     }
 
     public void removeUsers(Long roleId, List<Long> userIdList) {

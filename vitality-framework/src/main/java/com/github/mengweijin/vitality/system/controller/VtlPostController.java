@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 岗位管理表 控制器
@@ -74,5 +76,17 @@ public class VtlPostController extends BaseController {
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlPostService.setDisabledValue(id, disabled);
         return R.bool(bool);
+    }
+
+    @PostMapping("/addUser/{id}")
+    public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
+        vtlPostService.addUsers(id, List.of(userIdList));
+        return R.success();
+    }
+
+    @DeleteMapping("/removeUser/{id}")
+    public R removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
+        vtlPostService.removeUsers(id, Arrays.asList(userIdList));
+        return R.success();
     }
 }

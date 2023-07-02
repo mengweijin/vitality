@@ -86,6 +86,11 @@ public class VtlUserController extends BaseController {
         return vtlUserService.pageByRole(page, roleId, dto);
     }
 
+    @GetMapping("/page/byPost/{postId}")
+    public IPage<VtlUserDTO> pageByPost(@PathVariable("postId") Long postId, Page<VtlUserDTO> page, VtlUserDTO dto) {
+        return vtlUserService.pageByPost(page, postId, dto);
+    }
+
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlUserService.setDisabledValue(id, disabled);

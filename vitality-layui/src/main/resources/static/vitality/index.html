@@ -43,7 +43,8 @@
 						<a class="layui-icon layui-icon-username" href="javascript:;"></a>
 						<!-- 功 能 菜 单 -->
 						<dl class="layui-nav-child">
-							<dd><a user-menu-url="view/system/person.html" user-menu-id="5555" user-menu-title="基本资料">基本资料</a></dd>
+						<!--<dd><a user-menu-url="view/system/person.html" user-menu-id="5555" user-menu-title="基本资料">基本资料</a></dd>-->
+							<dd><a href="javascript:window.userDetail();">基本资料</a></dd>
 							<dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>
 						</dl>
 					</li>
@@ -124,8 +125,10 @@
 
 				// 登出逻辑 
 				admin.logout(function(){
-					popup.success("注销成功",function(){
-						location.href = "login.html";
+					$.post('/logout', function(result){
+						if (result.code == 200) {
+							top.window.location.href = 'login.html';
+						}
 					})
 					// 注销逻辑 返回 true / false
 					return true;
@@ -133,6 +136,13 @@
 				
 				// 消息点击回调
 				admin.message(function(id, title, context, form) {});
+
+				window.userDetail = function() {
+					$.get('/logged/userId', function(result){
+						let id = result;
+						top.layui.admin.jump('vtl-user-' + id, '用户详情', 'views/system/user/detail.html?id=' + id)
+					})
+				}
 
 				$("#footerNowYear").text(new Date().getFullYear());
 			})

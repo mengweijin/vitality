@@ -1,16 +1,17 @@
 package com.github.mengweijin.vitality.framework.mvc;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.exception.BusinessException;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ValidationException;
 
 /**
  * @author Meng Wei Jin
@@ -32,6 +33,13 @@ public class GlobalExceptionHandler extends BaseResponseEntityExceptionHandler {
         log.warn(e.getMessage());
         R r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
+    }
+
+    @ExceptionHandler({ NotLoginException.class })
+    @ResponseBody
+    ResponseEntity<R> handleNotLoginException(NotLoginException e, HttpServletRequest request) {
+        R r = R.error(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(r);
     }
 
     @ExceptionHandler({BusinessException.class, RuntimeException.class, Exception.class})

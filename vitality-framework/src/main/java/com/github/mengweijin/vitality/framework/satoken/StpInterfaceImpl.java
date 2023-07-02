@@ -1,7 +1,9 @@
 package com.github.mengweijin.vitality.framework.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.github.mengweijin.vitality.system.service.VtlDeptService;
 import com.github.mengweijin.vitality.system.service.VtlMenuService;
+import com.github.mengweijin.vitality.system.service.VtlPostService;
 import com.github.mengweijin.vitality.system.service.VtlRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,10 @@ public class StpInterfaceImpl implements StpInterface {
     private VtlMenuService menuService;
     @Autowired
     private VtlRoleService roleService;
-
+    @Autowired
+    private VtlDeptService deptService;
+    @Autowired
+    private VtlPostService postService;
     /**
      * 返回一个账号所拥有的权限码集合
      */

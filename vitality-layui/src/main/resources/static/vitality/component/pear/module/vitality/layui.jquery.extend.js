@@ -394,9 +394,10 @@ layui.use(['jquery'], function () {
                                 break;
                             case (401):
                                 message = '未登录或者会话已过期！<br>No login or Session was invalid!';
-                                layui.layer.msg(message, { icon: 2, title: xhr.status });
-                                // 刷新当前页面
-                                top.location.reload(true);
+                                //layui.layer.msg(message, { icon: 2, title: xhr.status });
+                                //top.location.reload(true);    // 刷新当前页面
+                                top.window.location.href = $.vtl.getRootPath() + '/login.html';
+                                //top.window.open($.vtl.getRootPath() + '/login.html', '_self');
                                 break;
                             case (403):
                                 layui.layer.msg("无权限！No permission!", { icon: 2, title: xhr.status });
@@ -419,7 +420,9 @@ layui.use(['jquery'], function () {
                     // 请求完成时运行的函数（在请求成功或失败之后均调用，即在 success 和 error 函数之后）。
                     complete: function (xhr, textStatus) {
                         layui.layer.close(this.layerIndex);
-                        if (this.type.toUpperCase() != 'GET' && xhr.status == 200) {
+                        if(this.url.endsWith("/login")) {
+                            return;
+                        } else if (this.type.toUpperCase() != 'GET' && xhr.status == 200) {
                             layui.layer.msg('操作成功！Operate successfully!', { icon: 1, time: 800 });
                         }
                     },

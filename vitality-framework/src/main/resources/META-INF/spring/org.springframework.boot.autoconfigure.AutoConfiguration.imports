@@ -5,4 +5,5 @@ com.github.mengweijin.vitality.framework.minio.MinioConfig
 com.github.mengweijin.vitality.framework.mvc.WebMvcConfig
 com.github.mengweijin.vitality.framework.mybatis.MybatisPlusConfig
 com.github.mengweijin.vitality.framework.redis.RedisConfig
+com.github.mengweijin.vitality.framework.satoken.SaTokenConfig
 com.github.mengweijin.vitality.framework.VitalityAutoConfiguration

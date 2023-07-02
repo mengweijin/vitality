@@ -7,6 +7,7 @@ import com.github.mengweijin.vitality.framework.mvc.BaseController;
 import com.github.mengweijin.vitality.system.dto.VtlPostDTO;
 import com.github.mengweijin.vitality.system.entity.VtlPost;
 import com.github.mengweijin.vitality.system.service.VtlPostService;
+import org.dromara.hutool.core.collection.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,7 +80,7 @@ public class VtlPostController extends BaseController {
 
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        vtlPostService.addUsers(id, List.of(userIdList));
+        vtlPostService.addUsers(id, ListUtil.of(userIdList));
         return R.success();
     }
 
@@ -88,4 +89,11 @@ public class VtlPostController extends BaseController {
         vtlPostService.removeUsers(id, Arrays.asList(userIdList));
         return R.success();
     }
+
+    @PostMapping("/setMenu/{id}")
+    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
+        vtlPostService.setMenu(id, ListUtil.of(menuIdList));
+        return R.success();
+    }
+
 }

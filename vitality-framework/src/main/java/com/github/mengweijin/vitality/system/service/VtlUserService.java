@@ -9,6 +9,7 @@ import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserEditDTO;
+import com.github.mengweijin.vitality.system.entity.VtlMenuUserRlt;
 import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.entity.VtlUserDeptRlt;
 import com.github.mengweijin.vitality.system.entity.VtlUserPostRlt;
@@ -49,6 +50,8 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
     private VtlUserMapper vtlUserMapper;
     @Autowired
     private VtlUserProfileMapper vtlUserProfileMapper;
+    @Autowired
+    private VtlMenuUserRltService vtlMenuUserRltService;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -166,4 +169,13 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         return this.lambdaUpdate().set(VtlUser::getPassword, hashedPwd).set(VtlUser::getPwdSalt, salt).eq(VtlUser::getId, id).update();
     }
 
+    @Transactional
+    public void setMenu(Long id, List<Long> menuIdList) {
+        vtlMenuUserRltService.lambdaUpdate().eq(VtlMenuUserRlt::getUserId, id).remove();
+        if(CollUtil.isEmpty(menuIdList)) {
+            return;
+        }
+        List<VtlMenuUserRlt> list = menuIdList.stream().map(menuId -> new VtlMenuUserRlt().setUserId(id).setMenuId(menuId)).toList();
+        vtlMenuUserRltService.saveBatch(list);
+    }
 }

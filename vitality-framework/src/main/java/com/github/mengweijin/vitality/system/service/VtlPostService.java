@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.dto.VtlPostDTO;
+import com.github.mengweijin.vitality.system.entity.VtlMenuPostRlt;
 import com.github.mengweijin.vitality.system.entity.VtlPost;
 import com.github.mengweijin.vitality.system.entity.VtlUserPostRlt;
 import com.github.mengweijin.vitality.system.mapper.VtlPostMapper;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,9 +27,10 @@ public class VtlPostService extends ServiceImpl<VtlPostMapper, VtlPost> {
 
     @Autowired
     private VtlPostMapper vtlPostMapper;
-
     @Autowired
     private VtlUserPostRltService vtlUserPostRltService;
+    @Autowired
+    private VtlMenuPostRltService vtlMenuPostRltService;
 
     @Override
     public boolean removeById(Serializable id) {
@@ -88,5 +91,15 @@ public class VtlPostService extends ServiceImpl<VtlPostMapper, VtlPost> {
                 .eq(VtlUserPostRlt::getPostId, postId)
                 .in(VtlUserPostRlt::getUserId, userIdList)
                 .remove();
+    }
+
+    @Transactional
+    public void setMenu(Long id, List<Long> menuIdList) {
+        vtlMenuPostRltService.lambdaUpdate().eq(VtlMenuPostRlt::getPostId, id).remove();
+        if(CollUtil.isEmpty(menuIdList)) {
+            return;
+        }
+        List<VtlMenuPostRlt> list = menuIdList.stream().map(menuId -> new VtlMenuPostRlt().setPostId(id).setMenuId(menuId)).toList();
+        vtlMenuPostRltService.saveBatch(list);
     }
 }

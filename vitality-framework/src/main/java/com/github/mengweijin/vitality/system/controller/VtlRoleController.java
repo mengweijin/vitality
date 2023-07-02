@@ -7,6 +7,7 @@ import com.github.mengweijin.vitality.framework.mvc.BaseController;
 import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
 import com.github.mengweijin.vitality.system.entity.VtlRole;
 import com.github.mengweijin.vitality.system.service.VtlRoleService;
+import org.dromara.hutool.core.collection.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,7 +80,7 @@ public class VtlRoleController extends BaseController {
 
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        vtlRoleService.addUsers(id, List.of(userIdList));
+        vtlRoleService.addUsers(id, ListUtil.of(userIdList));
         return R.success();
     }
 
@@ -90,8 +91,8 @@ public class VtlRoleController extends BaseController {
     }
 
     @PostMapping("/setMenu/{id}")
-    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]") Long[] menuIdList) {
-        vtlRoleService.setMenu(id, List.of(menuIdList));
+    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
+        vtlRoleService.setMenu(id, ListUtil.of(menuIdList));
         return R.success();
     }
 }

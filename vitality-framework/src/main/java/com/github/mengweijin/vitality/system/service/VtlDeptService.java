@@ -8,6 +8,7 @@ import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTreeNode;
 import com.github.mengweijin.vitality.system.constant.DeptConst;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
 import com.github.mengweijin.vitality.system.entity.VtlDept;
+import com.github.mengweijin.vitality.system.entity.VtlMenuDeptRlt;
 import com.github.mengweijin.vitality.system.entity.VtlUserDeptRlt;
 import com.github.mengweijin.vitality.system.mapper.VtlDeptMapper;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -30,6 +31,8 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
     private VtlDeptMapper vtlDeptMapper;
     @Autowired
     private VtlUserDeptRltService vtlUserDeptRltService;
+    @Autowired
+    private VtlMenuDeptRltService vtlMenuDeptRltService;
 
     @Override
     public boolean save(VtlDept entity) {
@@ -142,4 +145,12 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
                 .remove();
     }
 
+    public void setMenu(Long id, List<Long> menuIdList) {
+        vtlMenuDeptRltService.lambdaUpdate().eq(VtlMenuDeptRlt::getDeptId, id).remove();
+        if(CollUtil.isEmpty(menuIdList)) {
+            return;
+        }
+        List<VtlMenuDeptRlt> list = menuIdList.stream().map(menuId -> new VtlMenuDeptRlt().setDeptId(id).setMenuId(menuId)).toList();
+        vtlMenuDeptRltService.saveBatch(list);
+    }
 }

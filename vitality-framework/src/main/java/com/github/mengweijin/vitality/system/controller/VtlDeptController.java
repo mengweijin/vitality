@@ -8,6 +8,7 @@ import com.github.mengweijin.vitality.framework.mvc.BaseController;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
 import com.github.mengweijin.vitality.system.entity.VtlDept;
 import com.github.mengweijin.vitality.system.service.VtlDeptService;
+import org.dromara.hutool.core.collection.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,13 +87,19 @@ public class VtlDeptController extends BaseController {
 
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        vtlDeptService.addUsers(id, List.of(userIdList));
+        vtlDeptService.addUsers(id, ListUtil.of(userIdList));
         return R.success();
     }
 
     @DeleteMapping("/removeUser/{id}")
     public R removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
         vtlDeptService.removeUsers(id, Arrays.asList(userIdList));
+        return R.success();
+    }
+
+    @PostMapping("/setMenu/{id}")
+    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
+        vtlDeptService.setMenu(id, ListUtil.of(menuIdList));
         return R.success();
     }
 }

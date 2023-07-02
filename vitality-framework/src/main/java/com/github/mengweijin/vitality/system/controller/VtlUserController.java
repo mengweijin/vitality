@@ -14,6 +14,7 @@ import com.github.mengweijin.vitality.system.service.VtlConfigService;
 import com.github.mengweijin.vitality.system.service.VtlUserProfileService;
 import com.github.mengweijin.vitality.system.service.VtlUserService;
 import jakarta.validation.Valid;
+import org.dromara.hutool.core.collection.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -119,4 +121,11 @@ public class VtlUserController extends BaseController {
         boolean bool = vtlUserService.updatePassword(id, config.getVal());
         return R.bool(bool);
     }
+
+    @PostMapping("/setMenu/{id}")
+    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
+        vtlUserService.setMenu(id, ListUtil.of(menuIdList));
+        return R.success();
+    }
+
 }

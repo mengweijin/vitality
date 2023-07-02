@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.http.useragent.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
@@ -54,12 +55,15 @@ public class LogAspect {
     public void before(JoinPoint joinPoint){
         try {
             HttpServletRequest request = ServletUtils.getRequest();
+            UserAgent userAgent = ServletUtils.getUserAgent(request);
             String requestMethod = request.getMethod();
             if(!HttpMethod.GET.name().equals(requestMethod)) {
                 VtlLogOperation operationLog = new VtlLogOperation();
                 operationLog.setUrl(request.getRequestURI());
                 operationLog.setHttpMethod(requestMethod);
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
+                operationLog.setBrowser(userAgent.getBrowser().getName());
+                operationLog.setOperatingSystem(userAgent.getOs().getName());
                 operationLog.setIp(ServletUtils.getClientIP(request));
                 operationLog.setIpLocation(Ip2regionUtils.search(operationLog.getIp()));
                 operationLog.setSucceeded(1);

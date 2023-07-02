@@ -40,6 +40,18 @@
                             </div>
                         </div>
                         <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">浏览器</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="browser" placeholder="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">操作系统</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="operationSystem" placeholder="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-inline">
                             <label class="layui-form-label">IP</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="ip" placeholder="" class="layui-input">
@@ -102,11 +114,13 @@
                     { field: 'id', title: 'ID', width: 200, hide: true },
                     { field: 'url', title: '请求链接', width: 300 },
                     { field: 'httpMethod', title: '请求方式', width: 100 },
-                    { field: 'methodName', title: '方法名称' },
+                    { field: 'methodName', title: '方法名称', hide: true },
                     { field: 'succeeded', title: '请求状态', width: 100, templet: function(d){
                         return dict.label('vtl_succeeded', d.succeeded, true);
                     }},
-                    { field: 'ip', title: 'IP', width: 120 },
+                    { field: 'browser', title: '浏览器', width: 100 },
+                    { field: 'operatingSystem', title: '操作系统' },
+                    { field: 'ip', title: 'IP', width: 120, hide: true },
                     { field: 'ipLocation', title: 'IP 位置', width: 120 },
                     { field: 'errorInfo', title: '错误信息', hide: true },
                     { field: 'createByName', title: '操作者', width: 120, hide: false },

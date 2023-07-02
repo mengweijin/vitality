@@ -38,6 +38,18 @@ public class VtlLogOperation extends BaseEntity {
     private String methodName;
 
     /**
+     * 浏览器
+     */
+    @TableField("BROWSER")
+    private String browser;
+
+    /**
+     * 操作系统
+     */
+    @TableField("OPERATING_SYSTEM")
+    private String operatingSystem;
+
+    /**
      * 操作IP地址
      */
     @TableField("IP")

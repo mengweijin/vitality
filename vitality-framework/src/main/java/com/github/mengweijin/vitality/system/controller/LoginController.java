@@ -33,14 +33,13 @@ public class LoginController extends BaseController {
         if(!userService.checkPassword(password, user.getPassword())) {
             throw new ClientException("The username or password incorrect!");
         }
-        StpUtil.login(username);
+        StpUtil.login(user.getId());
         return R.success();
     }
 
     @GetMapping("/logged/userId")
     public String getLoginUserId() {
-        VtlUser user = userService.getByUsername(StpUtil.getLoginIdAsString());
-        return String.valueOf(user.getId());
+        return StpUtil.getLoginIdAsString();
     }
 
     @PostMapping("/logout")

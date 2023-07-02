@@ -1,12 +1,11 @@
 package com.github.mengweijin.vitality.framework.mybatis;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.vitality.framework.VitalityProperties;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import java.time.LocalDateTime;
 
@@ -74,16 +73,8 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     //     return this;
     // }
 
-    /**
-     * session LOGIN_USER_ID
-     * @return username from session key LOGIN_USER_ID
-     */
     protected Long getUserId() {
-        Object username = null;
-        if(RequestContextHolder.getRequestAttributes() != null) {
-            username = ServletUtils.getSession().getAttribute(vitalityProperties.getLoginUserIdKeyName());
-        }
-        return username == null ? null : Long.valueOf((String) username);
+        return StpUtil.getLoginIdAsLong();
     }
 
 }

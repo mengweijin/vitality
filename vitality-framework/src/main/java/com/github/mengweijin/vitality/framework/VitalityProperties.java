@@ -30,6 +30,4 @@ public class VitalityProperties {
 
     private List<String> bodyAdviceExcludePathPrefix = new ArrayList<>();
 
-    /** session/shiro/spring security 等认证框架上下文中存储的当前登录用户变量名名称 */
-    private String loginUserIdKeyName = "LOGIN_USER_ID";
 }

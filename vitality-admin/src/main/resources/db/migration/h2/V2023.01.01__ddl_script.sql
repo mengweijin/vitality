@@ -66,6 +66,8 @@ CREATE TABLE VTL_LOG_OPERATION (
   URL                           varchar(255) DEFAULT NULL COMMENT '请求url',
   HTTP_METHOD                   varchar(10) DEFAULT NULL COMMENT 'http 请求方式',
   METHOD_NAME                   varchar(255) DEFAULT NULL COMMENT '请求方法名称',
+  BROWSER                       varchar(255) DEFAULT NULL COMMENT '浏览器',
+  OPERATING_SYSTEM              varchar(255) DEFAULT NULL COMMENT '操作系统',
   IP                            varchar(46) DEFAULT NULL COMMENT '操作IP地址',
   IP_LOCATION                   varchar(128) DEFAULT NULL COMMENT 'IP所属位置',
   SUCCEEDED                     int(4) DEFAULT 0 COMMENT '操作是否成功。{0=失败, 1=成功}',

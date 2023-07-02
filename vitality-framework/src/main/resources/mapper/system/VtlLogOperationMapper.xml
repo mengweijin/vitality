@@ -8,6 +8,8 @@
         <result column="URL" property="url" />
         <result column="HTTP_METHOD" property="httpMethod" />
         <result column="METHOD_NAME" property="methodName" />
+        <result column="BROWSER" property="browser" />
+        <result column="OPERATING_SYSTEM" property="operatingSystem" />
         <result column="IP" property="ip" />
         <result column="IP_LOCATION" property="ipLocation" />
         <result column="SUCCEEDED" property="succeeded" />
@@ -24,6 +26,8 @@
         t.URL,
         t.HTTP_METHOD,
         t.METHOD_NAME,
+        t.BROWSER,
+        t.OPERATING_SYSTEM,
         t.IP,
         t.IP_LOCATION,
         t.SUCCEEDED,
@@ -48,6 +52,12 @@
             </if>
             <if test="p.methodName != null and p.methodName != '' ">
                 and t.METHOD_NAME = #{p.methodName}
+            </if>
+            <if test="p.browser != null and p.browser != '' ">
+                and t.BROWSER = #{p.browser}
+            </if>
+            <if test="p.operatingSystem != null and p.operatingSystem != '' ">
+                and t.OPERATING_SYSTEM = #{p.operatingSystem}
             </if>
             <if test="p.ip != null and p.ip != '' ">
                 and t.IP = #{p.ip}
@@ -90,6 +100,12 @@
                 </if>
                 <if test="p.methodName != null and p.methodName != '' ">
                     and t.METHOD_NAME like concat(concat('%', #{p.methodName}), '%')
+                </if>
+                <if test="p.browser != null and p.browser != '' ">
+                    and t.BROWSER like concat(concat('%', #{p.browser}), '%')
+                </if>
+                <if test="p.operatingSystem != null and p.operatingSystem != '' ">
+                    and t.OPERATING_SYSTEM like concat(concat('%', #{p.operatingSystem}), '%')
                 </if>
                 <if test="p.ip != null and p.ip != '' ">
                     and t.IP like concat(concat('%', #{p.ip}), '%')

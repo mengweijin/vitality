@@ -66,6 +66,11 @@ public class VtlPostController extends BaseController {
         return vtlPostService.page(page, dto);
     }
 
+    @GetMapping("/list")
+    public List<VtlPost> list() {
+        return vtlPostService.lambdaQuery().eq(VtlPost::getDisabled, 0).list();
+    }
+
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlPostService.setDisabledValue(id, disabled);

@@ -186,7 +186,7 @@
 
         window.edit = function(id) {
             let url = 'edit.html' + ($.vtl.isBlank(id) ? '' : ('?id=' + id));
-            $.vtl.openLayer(url, { title: '编辑' });
+            $.vtl.openLayer(url, { title: '编辑', area: [ '60%', '90%' ] });
         }
 
         window.resetPassword = function(obj) {

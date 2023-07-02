@@ -68,6 +68,8 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             let $elem = $(elem);
             let name = $elem.attr('name');
             let value = $elem.attr('value') || '';
+            let initValue = $.vtl.isBlank(value) ? [] : value.split(',');
+
             let layFilter = $elem.attr('lay-filter');
             let layVerify = $elem.attr('lay-verify');
 
@@ -76,8 +78,6 @@ layui.define(['jquery', 'dict', 'form', 'xmSelect', 'popover', 'tag'], function(
             let divId = 'xm-select-' + name;
             let $div = $('<div />', { id: divId });
             $container.append($div);
-
-            let initValue = value instanceof Array ? value : [ value ];
 
             let defaults = {
                 el: '#' + divId,

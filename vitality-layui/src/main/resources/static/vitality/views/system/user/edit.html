@@ -59,6 +59,25 @@
                             <input type="text" name="mobilePhone" lay-verify="phone" placeholder="" class="layui-input">
                         </div>
                     </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">部门</label>
+                        <div class="layui-input-block">
+                            <input type="hidden" name="deptIdList" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">岗位</label>
+                        <div class="layui-input-block">
+                            <input type="hidden" name="postIdList" placeholder="" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色</label>
+                        <div class="layui-input-block">
+                            <input type="hidden" name="roleIdList" placeholder="" class="layui-input">
+                        </div>
+                    </div>
 				</div>
 			</div>
 			<div class="bottom">
@@ -117,14 +136,52 @@
 					return false;
 				});
 
+				window.initDeptSelector = function() {
+					let data = [];
+					$.sync('get', '/vtl-dept/treeTableDataList', function(result){
+						data = $.vtl.tree(result, '0');
+					});
+
+					let config = { data: data, tree: { show: true } };
+					vtlForm.initXmSelect('form input:hidden[name=deptIdList]', config);
+				}
+
+				window.initPostSelector = function() {
+					let data = [];
+					$.sync('get', '/vtl-post/list', function(result){
+						data = result;
+					});
+
+					let config = { data: data };
+					vtlForm.initXmSelect('form input:hidden[name=postIdList]', config);
+				}
+
+				window.initRoleSelector = function() {
+					let data = [];
+					$.sync('get', '/vtl-role/list', function(result){
+						data = result;
+					});
+
+					let config = { data: data };
+					vtlForm.initXmSelect('form input:hidden[name=roleIdList]', config);
+				}
+
 				window.init = function(id) {
                     vtlForm.initRadioByDict('form input:radio[name=gender]', 'vtl_user_gender');
 				    if(id) {
 				        $('form input:password[name=password]').removeAttr('lay-verify').parents('div .layui-form-item').remove();
-                		$.sync('get', '/vtl-user/detail/' + id, function(result) { form.val("form-filter", result); });
+                		$.sync('get', '/vtl-user/detail/' + id, function(result) {
+                		    form.val("form-filter", result);
+                            $('form input:hidden[name=deptIdList]').val(result.deptList.map(dept => dept.id).join());
+                            $('form input:hidden[name=postIdList]').val(result.postList.map(post => post.id).join());
+                            $('form input:hidden[name=roleIdList]').val(result.roleList.map(role => role.id).join());
+                		});
                     } else {
                         $('form input:password[name=password]').val(vtlConfig.getValByCode('vtl_user_init_password'));
                     }
+                    window.initDeptSelector();
+                    window.initPostSelector();
+                    window.initRoleSelector();
 				}
 
 				window.init(id);

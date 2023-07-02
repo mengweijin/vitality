@@ -66,6 +66,11 @@ public class VtlRoleController extends BaseController {
         return vtlRoleService.page(page, dto);
     }
 
+    @GetMapping("/list")
+    public List<VtlRole> list() {
+        return vtlRoleService.lambdaQuery().eq(VtlRole::getDisabled, 0).list();
+    }
+
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlRoleService.setDisabledValue(id, disabled);

@@ -71,6 +71,11 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         return vtlUserMapper.pageByRole(page, roleId, dto);
     }
 
+    public IPage<VtlUserDTO> pageByDept(Page<VtlUserDTO> page, Long deptId, VtlUserDTO dto) {
+        dto.setDeleted(0);
+        return vtlUserMapper.pageByDept(page, deptId, dto);
+    }
+
     public IPage<VtlUserDTO> pageByPost(Page<VtlUserDTO> page, Long postId, VtlUserDTO dto) {
         dto.setDeleted(0);
         return vtlUserMapper.pageByPost(page, postId, dto);

@@ -41,6 +41,13 @@ public interface VtlUserMapper extends BaseMapper<VtlUser> {
      */
     IPage<VtlUserDTO> pageByRole(IPage<VtlUserDTO> page, @Param("roleId") Long roleId, @Param("p") VtlUserDTO dto);
 
+    /**
+     * 自定义分页
+     * @param page page
+     * @param dto VtlUserDTO
+     * @return IPage
+     */
+    IPage<VtlUserDTO> pageByDept(IPage<VtlUserDTO> page, @Param("deptId") Long deptId, @Param("p") VtlUserDTO dto);
 
     /**
      * 自定义分页

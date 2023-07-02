@@ -50,7 +50,7 @@
 </script>
 <script type="text/html" id="operationTpl">
     <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="从角色中删除"><i class="layui-icon layui-icon-delete"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="从角色中移除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
 
 <script src="../../../component/layui/layui.js"></script>
@@ -172,7 +172,7 @@
                 }
 
 				window.delete = function(obj) {
-                    layer.confirm('确定从角色中删除？', { icon: 3, title: '提示' }, function(index) {
+                    layer.confirm('确定从角色中移除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
                         $.delete('/vtl-role/removeUser/' + roleId, { userIdList: [ obj.data.id ] }, function(result) {
                             if (result.code == 200) {

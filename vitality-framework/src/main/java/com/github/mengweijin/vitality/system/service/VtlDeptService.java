@@ -7,7 +7,9 @@ import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTreeNode;
 import com.github.mengweijin.vitality.system.constant.DeptConst;
 import com.github.mengweijin.vitality.system.dto.VtlDeptDTO;
 import com.github.mengweijin.vitality.system.entity.VtlDept;
+import com.github.mengweijin.vitality.system.entity.VtlUserDeptRlt;
 import com.github.mengweijin.vitality.system.mapper.VtlDeptMapper;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
 
     @Autowired
     private VtlDeptMapper vtlDeptMapper;
+    @Autowired
+    private VtlUserDeptRltService vtlUserDeptRltService;
 
     @Override
     public boolean save(VtlDept entity) {
@@ -84,6 +88,43 @@ public class VtlDeptService extends ServiceImpl<VtlDeptMapper, VtlDept> {
         return this.lambdaQuery().select(VtlDept::getId)
                 .likeRight(VtlDept::getAncestors, vtlDept.getAncestors() + Const.SLASH + vtlDept.getId())
                 .list().stream().map(VtlDept::getId).toList();
+    }
+
+
+    public void addUsers(Long deptId, List<Long> userIdList) {
+        if(CollUtil.isEmpty(userIdList)) {
+            return;
+        }
+        List<Long> alreadyExistedUserIdList = vtlUserDeptRltService.lambdaQuery()
+                .select(VtlUserDeptRlt::getUserId)
+                .eq(VtlUserDeptRlt::getDeptId, deptId)
+                .in(VtlUserDeptRlt::getUserId, userIdList)
+                .list()
+                .stream().map(VtlUserDeptRlt::getUserId).toList();
+
+        List<VtlUserDeptRlt> userDeptRltList = userIdList.stream()
+                .filter(userId -> alreadyExistedUserIdList.stream().noneMatch(existed -> existed.equals(userId)))
+                .map(userId -> {
+                    VtlUserDeptRlt rlt = new VtlUserDeptRlt();
+                    rlt.setUserId(userId);
+                    rlt.setDeptId(deptId);
+                    return rlt;
+                })
+                .toList();
+
+        if (CollUtil.isNotEmpty(userDeptRltList)) {
+            vtlUserDeptRltService.saveBatch(userDeptRltList);
+        }
+    }
+
+    public void removeUsers(Long deptId, List<Long> userIdList) {
+        if(CollUtil.isEmpty(userIdList)) {
+            return;
+        }
+        vtlUserDeptRltService.lambdaUpdate()
+                .eq(VtlUserDeptRlt::getDeptId, deptId)
+                .in(VtlUserDeptRlt::getUserId, userIdList)
+                .remove();
     }
 
 }

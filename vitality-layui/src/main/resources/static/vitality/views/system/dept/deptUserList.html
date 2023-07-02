@@ -50,7 +50,7 @@
 </script>
 <script type="text/html" id="operationTpl">
     <button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="从岗位中移除"><i class="layui-icon layui-icon-delete"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="从部门中移除"><i class="layui-icon layui-icon-delete"></i></button>
 </script>
 
 <script src="../../../component/layui/layui.js"></script>
@@ -64,7 +64,7 @@
 				let admin = layui.admin;
 				let dict = layui.dict;
 				let url = layui.url();
-				let postId = url.search.postId;
+				let deptId = url.search.deptId;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
@@ -94,7 +94,7 @@
 
 				table.render({
 					elem: '#data-table',
-					url: '/vtl-user/page/byPost/' + postId,
+					url: '/vtl-user/page/byDept/' + deptId,
 					request: {
                         pageName: 'current', // 页码的参数名称，默认：page
                         limitName: 'size' // 每页数据条数的参数名，默认：limit
@@ -160,7 +160,7 @@
                         var iframeWin = window[layero.find('iframe')[0]['name']];
                         let checkedUserIdList = iframeWin.getCheckedIdList();
                         if(checkedUserIdList.length > 0) {
-                            $.post('/vtl-post/addUser/' + postId, { userIdList: checkedUserIdList }, function(result) {
+                            $.post('/vtl-dept/addUser/' + deptId, { userIdList: checkedUserIdList }, function(result) {
                                 if(result.code == 200) {
                                     window.refresh();
                                     layer.close(index);
@@ -172,9 +172,9 @@
                 }
 
 				window.delete = function(obj) {
-                    layer.confirm('确定从岗位中移除？', { icon: 3, title: '提示' }, function(index) {
+                    layer.confirm('确定从部门中移除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.delete('/vtl-post/removeUser/' + postId, { userIdList: [ obj.data.id ] }, function(result) {
+                        $.delete('/vtl-dept/removeUser/' + deptId, { userIdList: [ obj.data.id ] }, function(result) {
                             if (result.code == 200) {
                                 obj.del();
                             }

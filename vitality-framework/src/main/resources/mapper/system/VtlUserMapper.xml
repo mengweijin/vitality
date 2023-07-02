@@ -179,6 +179,20 @@
         order by vurr.CREATE_TIME desc
     </select>
 
+    <select id="pageByDept" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as create_by_name
+        from VTL_USER t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        right join VTL_USER_DEPT_RLT vudr on vudr.USER_ID = t.ID
+        <where>
+            vudr.DEPT_ID = #{deptId}
+            <include refid="BaseQueryConditionLike"/>
+        </where>
+        order by vudr.CREATE_TIME desc
+    </select>
+
     <select id="pageByPost" resultType="com.github.mengweijin.vitality.system.dto.VtlUserDTO">
         select
         <include refid="BaseColumn"/>,

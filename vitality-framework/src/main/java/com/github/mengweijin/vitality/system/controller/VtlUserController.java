@@ -86,6 +86,11 @@ public class VtlUserController extends BaseController {
         return vtlUserService.pageByRole(page, roleId, dto);
     }
 
+    @GetMapping("/page/byDept/{deptId}")
+    public IPage<VtlUserDTO> pageByDept(@PathVariable("deptId") Long deptId, Page<VtlUserDTO> page, VtlUserDTO dto) {
+        return vtlUserService.pageByDept(page, deptId, dto);
+    }
+
     @GetMapping("/page/byPost/{postId}")
     public IPage<VtlUserDTO> pageByPost(@PathVariable("postId") Long postId, Page<VtlUserDTO> page, VtlUserDTO dto) {
         return vtlUserService.pageByPost(page, postId, dto);

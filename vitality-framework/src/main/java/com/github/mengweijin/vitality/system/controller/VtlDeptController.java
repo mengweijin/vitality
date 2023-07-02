@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -89,4 +90,15 @@ public class VtlDeptController extends BaseController {
     }
 
 
+    @PostMapping("/addUser/{id}")
+    public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
+        vtlDeptService.addUsers(id, List.of(userIdList));
+        return R.success();
+    }
+
+    @DeleteMapping("/removeUser/{id}")
+    public R removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
+        vtlDeptService.removeUsers(id, Arrays.asList(userIdList));
+        return R.success();
+    }
 }

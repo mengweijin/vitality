@@ -278,3 +278,58 @@ CREATE TABLE VTL_USER_POST_RLT (
 ) COMMENT = '用户-岗位关联表';
 
 
+DROP TABLE IF EXISTS VTL_MENU_ROLE_RLT;
+CREATE TABLE VTL_MENU_ROLE_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  MENU_ID                       bigint NOT NULL COMMENT '菜单ID',
+  ROLE_ID                       bigint NOT NULL COMMENT '角色ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_MENU_ROLE_RLT_UNIQUE_INDEX_MENUID_ROLEID (MENU_ID, ROLE_ID) USING BTREE
+) COMMENT = '菜单-角色关联表';
+
+
+DROP TABLE IF EXISTS VTL_MENU_DEPT_RLT;
+CREATE TABLE VTL_MENU_DEPT_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  MENU_ID                       bigint NOT NULL COMMENT '菜单ID',
+  DEPT_ID                       bigint NOT NULL COMMENT '部门ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_MENU_DEPT_RLT_UNIQUE_INDEX_MENUID_DEPTID (MENU_ID, DEPT_ID) USING BTREE
+) COMMENT = '菜单-部门关联表';
+
+
+DROP TABLE IF EXISTS VTL_MENU_POST_RLT;
+CREATE TABLE VTL_MENU_POST_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  MENU_ID                       bigint NOT NULL COMMENT '菜单ID',
+  POST_ID                       bigint NOT NULL COMMENT '岗位ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_MENU_POST_RLT_UNIQUE_INDEX_MENUID_POSTID (MENU_ID, POST_ID) USING BTREE
+) COMMENT = '菜单-岗位关联表';
+
+
+DROP TABLE IF EXISTS VTL_MENU_USER_RLT;
+CREATE TABLE VTL_MENU_USER_RLT (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  MENU_ID                       bigint NOT NULL COMMENT '菜单ID',
+  USER_ID                       bigint NOT NULL COMMENT '用户ID',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY VTL_MENU_USER_RLT_UNIQUE_INDEX_MENUID_USERID (MENU_ID, USER_ID) USING BTREE
+) COMMENT = '菜单-用户关联表';
+

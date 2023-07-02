@@ -25,7 +25,9 @@
                 { field: 'url', title: '请求链接' },
                 { field: 'httpMethod', title: '请求方式' },
                 { field: 'methodName', title: '方法名称', longtext: true },
-                { field: 'ip', title: 'IP' },
+                { field: 'browser', title: '浏览器', newline: true },
+                { field: 'operatingSystem', title: '操作系统' },
+                { field: 'ip', title: 'IP', newline: true },
                 { field: 'ipLocation', title: 'IP 位置' },
                 { field: 'succeeded', title: '请求状态', templet: function(d){
                     return dict.label('vtl_succeeded', d.succeeded, true);

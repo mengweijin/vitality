@@ -14,4 +14,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VtlRoleDTO extends VtlRole {
 
+    private Long userCount;
+
 }

@@ -116,6 +116,7 @@
     <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlPostDTO">
         select
             <include refid="BaseColumn"/>,
+            (select count(*) from VTL_USER_POST_RLT vupr where vupr.POST_ID = t.ID) as user_count,
             cu.NICKNAME as create_by_name,
             uu.NICKNAME as update_by_name
         from VTL_POST t

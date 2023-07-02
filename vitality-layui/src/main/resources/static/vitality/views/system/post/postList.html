@@ -85,7 +85,8 @@
                     { field: 'disabled', title: '状态', width: 120, event: 'disabled', templet: function(d) {
                         return dict.labelButton('vtl_disabled', d.disabled, true);
                     } },
-                    { field: 'remark', title: '备注' },
+                    { field: 'userCount', title: '用户人数', width: 90 },
+                    { field: 'remark', title: '备注', hide: true },
                     { field: 'createByName', title: '创建者', width: 120, hide: false },
                     { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");

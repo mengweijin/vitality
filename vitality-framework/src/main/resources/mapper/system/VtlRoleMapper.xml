@@ -116,6 +116,7 @@
     <select id="page" resultType="com.github.mengweijin.vitality.system.dto.VtlRoleDTO">
         select
             <include refid="BaseColumn"/>,
+            (select count(*) from VTL_USER_ROLE_RLT vurr where vurr.ROLE_ID = t.ID) as user_count,
             cu.NICKNAME as create_by_name,
             uu.NICKNAME as update_by_name
         from VTL_ROLE t

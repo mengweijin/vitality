@@ -14,4 +14,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VtlPostDTO extends VtlPost {
 
+    private Long userCount;
+
 }

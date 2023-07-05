@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
         return R.success();
     }
 
-    @GetMapping("/logged/userId")
+    @GetMapping("/login/userId")
     public String getLoginUserId() {
         return StpUtil.getLoginIdAsString();
     }

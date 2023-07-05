@@ -138,7 +138,7 @@
 				admin.message(function(id, title, context, form) {});
 
 				window.userDetail = function() {
-					$.get('/logged/userId', function(result){
+					$.get('/login/userId', function(result){
 						let id = result;
 						top.layui.admin.jump('vtl-user-' + id, '用户详情', 'views/system/user/detail.html?id=' + id)
 					})

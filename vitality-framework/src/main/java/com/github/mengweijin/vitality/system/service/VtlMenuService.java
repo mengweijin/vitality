@@ -1,11 +1,16 @@
 package com.github.mengweijin.vitality.system.service;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.system.constant.MenuConst;
+import com.github.mengweijin.vitality.system.constant.RoleConst;
+import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.dto.VtlMenuDTO;
 import com.github.mengweijin.vitality.system.dto.VtlMenuTreeDataDTO;
+import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
+import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.entity.VtlMenuDeptRlt;
 import com.github.mengweijin.vitality.system.entity.VtlMenuPostRlt;
@@ -34,6 +39,14 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
     @Autowired
     private VtlMenuMapper vtlMenuMapper;
+    @Autowired
+    private VtlRoleService vtlRoleService;
+    @Autowired
+    private VtlDeptService vtlDeptService;
+    @Autowired
+    private VtlPostService vtlPostService;
+    @Autowired
+    private VtlUserService vtlUserService;
     @Autowired
     private VtlMenuRoleRltService vtlMenuRoleRltService;
     @Autowired
@@ -71,9 +84,44 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
     }
 
     public List<VtlMenuTreeDataDTO> treeLeftSideData() {
-        List<VtlMenu> menuList = this.lambdaQuery().eq(VtlMenu::getDisabled, 0).in(VtlMenu::getType, EMenuType.DIR, EMenuType.MENU).list();
+        List<VtlMenu> menuList;
+        long loginUserId = StpUtil.getLoginIdAsLong();
+        VtlUserDetailDTO vtlUserDetailDTO = vtlUserService.detailById(loginUserId);
+        List<VtlRoleDTO> roleList = vtlUserDetailDTO.getRoleList();
+        if(UserConst.ADMIN_ID == loginUserId || roleList.stream().anyMatch(role -> RoleConst.ADMIN.equals(role.getCode()))) {
+            menuList = this.lambdaQuery().in(VtlMenu::getType, EMenuType.DIR, EMenuType.MENU).list();
+        } else {
+            menuList = this.getMenuByLoginUser(loginUserId);
+            menuList = menuList.stream()
+                    .filter(menu -> menu.getDisabled() == 0 && (EMenuType.DIR == menu.getType() || EMenuType.MENU == menu.getType()))
+                    .toList();
+        }
+
         List<VtlMenuTreeDataDTO> voList = Optional.ofNullable(menuList).orElse(new ArrayList<>()).stream().map(VtlMenuTreeDataDTO::new).toList();
         return VtlMenuTreeDataDTO.buildTree(voList, MenuConst.ROOT_ID);
+    }
+
+    public List<VtlMenu> getMenuByLoginUser(Long userId) {
+        List<VtlRoleDTO> roleList = vtlRoleService.getByUserId(userId);
+        if(UserConst.ADMIN_ID == userId || roleList.stream().anyMatch(role -> RoleConst.ADMIN.equals(role.getCode()))) {
+            return this.lambdaQuery().list();
+        }
+
+        List<Long> menuIdListByDept = vtlDeptService.getByUserId(userId).stream().flatMap(deptDTO -> this.byDept(deptDTO.getId()).stream()).toList();
+        List<Long> menuIdListByRole = vtlRoleService.getByUserId(userId).stream().flatMap(roleDTO -> this.byRole(roleDTO.getId()).stream()).toList();
+        List<Long> menuIdListByPost = vtlPostService.getByUserId(userId).stream().flatMap(postDTO -> this.byPost(postDTO.getId()).stream()).toList();
+        List<Long> menuIdListByUser = this.byUser(userId);
+
+        List<Long> allMenuIdList = new ArrayList<>();
+        allMenuIdList.addAll(menuIdListByDept);
+        allMenuIdList.addAll(menuIdListByRole);
+        allMenuIdList.addAll(menuIdListByPost);
+        allMenuIdList.addAll(menuIdListByUser);
+        allMenuIdList = allMenuIdList.stream().distinct().toList();
+        if(CollUtil.isEmpty(allMenuIdList)) {
+            return new ArrayList<>();
+        }
+        return this.lambdaQuery().in(VtlMenu::getId, allMenuIdList).list();
     }
 
     public List<VtlMenu> getByParentId(Long parentId) {

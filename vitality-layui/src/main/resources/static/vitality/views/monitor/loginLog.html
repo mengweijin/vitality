@@ -11,52 +11,23 @@
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">请求链接</label>
+                            <label class="layui-form-label">登录账号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="url" placeholder="" class="layui-input">
+                                <input type="text" name="username" placeholder="" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">请求方式</label>
+                            <label class="layui-form-label">登录类型</label>
                             <div class="layui-input-inline">
-                                <select name="httpMethod">
-                                    <option value=""></option>
-                                    <option value="POST">POST</option>
-                                    <option value="PUT">PUT</option>
-                                    <option value="DELETE">DELETE</option>
-                                </select>
+								<select name="loginType"></select>
                             </div>
                         </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">方法名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="methodName" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">请求状态</label>
-                            <div class="layui-input-inline">
-                                <select name="succeeded"></select>
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">浏览器</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="browser" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">操作系统</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="operationSystem" placeholder="" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-inline">
-                            <label class="layui-form-label">IP</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="ip" placeholder="" class="layui-input">
-                            </div>
-                        </div>
+						<div class="layui-form-item layui-inline">
+							<label class="layui-form-label">操作状态</label>
+							<div class="layui-input-inline">
+								<select name="succeeded"></select>
+							</div>
+						</div>
 						<div class="layui-form-item layui-inline">
 							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="data-table-query-filter">
 								<i class="layui-icon layui-icon-search"></i>查询
@@ -83,62 +54,57 @@
 		        <i class="layui-icon layui-icon-delete"></i>删除
 		    </button>
 		</script>
-        <script type="text/html" id="succeededTpl">
-            {{#if (d.succeeded == 1) { }}
-            <span class="layui-badge layui-bg-green">成功</span>
-            {{# } else { }}
-            <span class="layui-badge">失败</span>
-            {{# } }}
-        </script>
+
 		<script type="text/html" id="operationTpl">
-			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
-			<button class="pear-btn pear-btn-primary pear-btn-sm layui-hide" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
-            <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+			<button class="pear-btn pear-btn-xs pear-btn-primary" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+			<button class="pear-btn pear-btn-xs pear-btn-primary layui-hide" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+            <button class="pear-btn pear-btn-xs pear-btn-danger layui-hide" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
 
 
 		<script src="../../component/layui/layui.js"></script>
 		<script src="../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['table', 'form', 'jquery','layer', 'admin', 'vtlForm', 'dict'], function() {
+			layui.use(['table', 'form', 'jquery','layer', 'admin', 'dict', 'vtlForm'], function() {
 				let table = layui.table;
 				let form = layui.form;
 				let $ = layui.jquery;
 				let layer = layui.layer;
 				let admin = layui.admin;
-                let vtlForm = layui.vtlForm;
-                let dict = layui.dict;
+				let dict = layui.dict;
+				let vtlForm = layui.vtlForm;
 
 				let cols = [[
                     { type: 'checkbox', hide: true },
                     { field: 'id', title: 'ID', width: 200, hide: true },
-                    { field: 'url', title: '请求链接', width: 300 },
-                    { field: 'httpMethod', title: '请求方式', width: 100 },
-                    { field: 'methodName', title: '方法名称', hide: true },
-                    { field: 'succeeded', title: '请求状态', width: 100, templet: function(d){
+                    { field: 'username', title: '登录账号', width: 120 },
+                    { field: 'loginType', title: '登录类型', width: 120, templet: function(d){
+                        return dict.label('vtl_login_type', d.loginType, true);
+                    }},
+                    { field: 'ip', title: '登录IP', width: 120 },
+                    { field: 'ipLocation', title: '登录地点' },
+                    { field: 'browser', title: '浏览器', width: 120 },
+                    { field: 'platform', title: '设备平台类型', width: 120 },
+                    { field: 'operatingSystem', title: '操作系统' },
+                    { field: 'succeeded', title: '操作状态', width: 100, templet: function(d){
                         return dict.label('vtl_succeeded', d.succeeded, true);
                     }},
-                    { field: 'browser', title: '浏览器', width: 100 },
-                    { field: 'platform', title: '设备平台', width: 100 },
-                    { field: 'operatingSystem', title: '操作系统' },
-                    { field: 'ip', title: 'IP', width: 120 },
-                    { field: 'ipLocation', title: 'IP 位置', width: 120 },
-                    { field: 'errorInfo', title: '错误信息', hide: true },
-                    { field: 'createByName', title: '操作者', width: 120, hide: false },
-                    { field: 'createTime', title: '操作时间', width: 160, hide: false, templet: function (d) {
+                    { field: 'errorInfo', title: '错误消息', width: 120, hide: true },
+                    { field: 'createByName', title: '创建者', width: 120, hide: true },
+                    { field: 'createTime', title: '创建时间', width: 160, hide: false, templet: function (d) {
                         return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                     }},
                     { field: 'updateByName', title: '更新者', width: 120, hide: true },
                     { field: 'updateTime', title: '更新时间', width: 160, hide: true, templet: function (d) {
                         return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                     }},
-                    { field: 'operation', title: '操作', width: 120, fixed: 'right', templet: '#operationTpl' }
+                    { field: 'operation', title: '操作', width: 160, fixed: 'right', templet: '#operationTpl' }
                 ]]
 
 
 				table.render({
 					elem: '#data-table',
-					url: '/vtl-log-operation/page',
+					url: '/vtl-log-login/page',
 					request: {
                         pageName: 'current',
                         limitName: 'size'
@@ -180,8 +146,8 @@
                         case 'delete':
                             window.delete(obj);
                             break;
-                        case 'status':
-                            alert("status")
+                        case 'disabled':
+                            window.setDisabledValue(obj);
                             break;
                         default:
                             break;
@@ -205,7 +171,7 @@
 				window.delete = function(obj) {
                     layer.confirm('确定删除？', { icon: 3, title: '提示' }, function(index) {
                         layer.close(index);
-                        $.delete('/vtl-log-operation/' + obj.data.id, function(result) {
+                        $.delete('/vtl-log-login/' + obj.data.id, function(result) {
                             if (result.code == 200) {
                                 obj.del();
                             }
@@ -213,15 +179,17 @@
                     });
                 }
 
-				window.detail = function(id, title = '操作日志详情') {
-					top.layui.admin.jump('vtl-log-operation-' + id, title, 'views/monitor/operationLogDetail.html?&id=' + id)
+				window.detail = function(id, title = '登录日志详情') {
+					top.layui.admin.jump('vtl-log-login-' + id, title, 'views/monitor/loginLogDetail.html?&id=' + id)
 				}
 
 				window.init = function() {
-				    vtlForm.initSelectByDict('form select[name=succeeded]', 'vtl_succeeded');
+				    vtlForm.initSelectByDict('form select[name=loginType]', 'vtl_login_type');
+					vtlForm.initSelectByDict('form select[name=succeeded]', 'vtl_succeeded');
 				}
 
-                window.init();
+				window.init();
+
 			})
 		</script>
 	</body>

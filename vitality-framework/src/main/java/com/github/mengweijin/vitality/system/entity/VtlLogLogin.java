@@ -3,60 +3,37 @@ package com.github.mengweijin.vitality.system.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.system.enums.ELoginType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 系统操作日志表
+ * 登录日志记录表
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-07-06
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_LOG_OPERATION")
-public class VtlLogOperation extends BaseEntity {
+@TableName("VTL_LOG_LOGIN")
+public class VtlLogLogin extends BaseEntity {
 
     /**
-     * 请求url
+     * 登录账号
      */
-    @TableField("URL")
-    private String url;
+    @TableField("USERNAME")
+    private String username;
 
     /**
-     * http 请求方式
+     * 登录类型。枚举类 ELoginType.java
      */
-    @TableField("HTTP_METHOD")
-    private String httpMethod;
+    @TableField("LOGIN_TYPE")
+    private ELoginType loginType;
 
     /**
-     * 请求方法名称
-     */
-    @TableField("METHOD_NAME")
-    private String methodName;
-
-    /**
-     * 浏览器
-     */
-    @TableField("BROWSER")
-    private String browser;
-
-    /**
-     * 操作系统
-     */
-    @TableField("OPERATING_SYSTEM")
-    private String operatingSystem;
-
-    /**
-     * 设备平台类型
-     */
-    @TableField("PLATFORM")
-    private String platform;
-
-    /**
-     * 操作IP地址
+     * 登录IP地址
      */
     @TableField("IP")
     private String ip;
@@ -68,7 +45,25 @@ public class VtlLogOperation extends BaseEntity {
     private String ipLocation;
 
     /**
-     * 操作是否成功。{0=失败, 1=成功}
+     * 浏览器
+     */
+    @TableField("BROWSER")
+    private String browser;
+
+    /**
+     * 设备平台类型
+     */
+    @TableField("PLATFORM")
+    private String platform;
+
+    /**
+     * 操作系统
+     */
+    @TableField("OPERATING_SYSTEM")
+    private String operatingSystem;
+
+    /**
+     * 登录是否成功。{0=失败, 1=成功}
      */
     @TableField("SUCCEEDED")
     private Integer succeeded;

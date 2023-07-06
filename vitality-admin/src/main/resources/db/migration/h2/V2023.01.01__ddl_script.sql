@@ -67,7 +67,8 @@ CREATE TABLE VTL_LOG_OPERATION (
   HTTP_METHOD                   varchar(10) DEFAULT NULL COMMENT 'http 请求方式',
   METHOD_NAME                   varchar(255) DEFAULT NULL COMMENT '请求方法名称',
   BROWSER                       varchar(255) DEFAULT NULL COMMENT '浏览器',
-  OPERATING_SYSTEM              varchar(255) DEFAULT NULL COMMENT '操作系统',
+  OPERATING_SYSTEM              varchar(100) DEFAULT NULL COMMENT '操作系统',
+  PLATFORM                      varchar(50) DEFAULT NULL COMMENT '设备平台类型',
   IP                            varchar(46) DEFAULT NULL COMMENT '操作IP地址',
   IP_LOCATION                   varchar(128) DEFAULT NULL COMMENT 'IP所属位置',
   SUCCEEDED                     int(4) DEFAULT 0 COMMENT '操作是否成功。{0=失败, 1=成功}',
@@ -78,6 +79,26 @@ CREATE TABLE VTL_LOG_OPERATION (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id)
 ) COMMENT = '系统操作日志表';
+
+
+DROP TABLE IF EXISTS VTL_LOG_LOGIN;
+CREATE TABLE VTL_LOG_LOGIN (
+  ID                            bigint NOT NULL COMMENT '主键ID',
+  USERNAME                      varchar(50) DEFAULT NULL COMMENT '登录账号',
+  LOGIN_TYPE                    varchar(50) DEFAULT NULL COMMENT '登录类型。枚举类 ELoginType.java',
+  IP                            varchar(46) DEFAULT NULL COMMENT '登录IP地址',
+  IP_LOCATION                   varchar(128) DEFAULT NULL COMMENT 'IP所属位置',
+  BROWSER                       varchar(255) DEFAULT NULL COMMENT '浏览器',
+  PLATFORM                      varchar(50) DEFAULT NULL COMMENT '设备平台类型',
+  OPERATING_SYSTEM              varchar(255) DEFAULT NULL COMMENT '操作系统',
+  SUCCEEDED                     int(4) DEFAULT 0 COMMENT '登录是否成功。{0=失败, 1=成功}',
+  ERROR_INFO                    varchar(1000) DEFAULT NULL COMMENT '错误消息',
+  CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (id)
+) COMMENT='登录日志记录表';
 
 
 DROP TABLE IF EXISTS VTL_FILE;

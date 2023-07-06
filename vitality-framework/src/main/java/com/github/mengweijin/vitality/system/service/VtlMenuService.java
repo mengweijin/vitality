@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.system.service;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.constant.Const;
@@ -85,7 +84,7 @@ public class VtlMenuService extends ServiceImpl<VtlMenuMapper, VtlMenu> {
 
     public List<VtlMenuTreeDataDTO> treeLeftSideData() {
         List<VtlMenu> menuList;
-        long loginUserId = StpUtil.getLoginIdAsLong();
+        Long loginUserId = vtlUserService.getSessionUser().getId();
         VtlUserDetailDTO vtlUserDetailDTO = vtlUserService.detailById(loginUserId);
         List<VtlRoleDTO> roleList = vtlUserDetailDTO.getRoleList();
         if(UserConst.ADMIN_ID == loginUserId || roleList.stream().anyMatch(role -> RoleConst.ADMIN.equals(role.getCode()))) {

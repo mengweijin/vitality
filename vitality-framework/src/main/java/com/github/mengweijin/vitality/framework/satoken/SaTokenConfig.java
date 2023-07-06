@@ -1,8 +1,11 @@
 package com.github.mengweijin.vitality.framework.satoken;
 
 import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.listener.SaTokenListener;
 import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,5 +32,15 @@ public class SaTokenConfig implements WebMvcConfigurer {
             //SaRouter.match("/user/**", r -> StpUtil.checkPermission("user"));
             //SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));
         })).addPathPatterns("/**");
+    }
+
+    @Bean
+    public StpInterface stpInterface() {
+        return new StpInterfaceImpl();
+    }
+
+    @Bean
+    public SaTokenListener saTokenListener() {
+        return new SaTokenListenerImpl();
     }
 }

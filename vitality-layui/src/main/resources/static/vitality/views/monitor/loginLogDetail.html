@@ -12,27 +12,29 @@
 <script>
     layui.use(['descriptions', 'dict'], function() {
         let desc = layui.descriptions;
+        let dict = layui.dict;
         let url = layui.url();
         let id = url.search.id;
-        let dict = layui.dict;
 
         desc.render({
             elem: '#descriptions',
             fieldNum: 2,
-            url: '/vtl-log-operation/detail/' + id,
+            url: '/vtl-log-login/detail/' + id,
             cols: [
                 { field: 'id', title: 'ID', hide: true },
-                { field: 'url', title: '请求链接' },
-                { field: 'httpMethod', title: '请求方式' },
-                { field: 'methodName', title: '方法名称', longtext: true },
-                { field: 'browser', title: '浏览器', newline: true },
+                { field: 'username', title: '登录账号' },
+                { field: 'loginType', title: '登录类型', templet: function(d){
+                    return dict.label('vtl_login_type', d.loginType, true);
+                }},
+                { field: 'ip', title: '登录IP' },
+                { field: 'ipLocation', title: '登录地点' },
+                { field: 'browser', title: '浏览器' },
                 { field: 'platform', title: '设备平台类型' },
                 { field: 'operatingSystem', title: '操作系统' },
-                { field: 'ip', title: 'IP', newline: true },
-                { field: 'ipLocation', title: 'IP 位置' },
-                { field: 'succeeded', title: '请求状态', templet: function(d){
+                { field: 'succeeded', title: '操作状态', templet: function(d){
                     return dict.label('vtl_succeeded', d.succeeded, true);
                 }},
+                { field: 'errorInfo', title: '错误消息', newline: true },
                 { field: 'createByName', title: '创建者', newline: true },
                 { field: 'createTime', title: '创建时间', templet: function (d) {
                     return layui.util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
@@ -41,7 +43,6 @@
                 { field: 'updateTime', title: '更新时间', templet: function (d) {
                     return layui.util.toDateString(d.updateTime, "yyyy-MM-dd HH:mm:ss");
                 }},
-                { field: 'errorInfo', title: '异常信息', longtext: true },
             ]
         });
     })

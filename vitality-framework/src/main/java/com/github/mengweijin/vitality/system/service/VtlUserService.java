@@ -1,10 +1,12 @@
 package com.github.mengweijin.vitality.system.service;
 
 import cn.dev33.satoken.secure.BCrypt;
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.dto.VtlUserChangePasswordDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDTO;
 import com.github.mengweijin.vitality.system.dto.VtlUserDetailDTO;
@@ -177,5 +179,13 @@ public class VtlUserService extends ServiceImpl<VtlUserMapper, VtlUser> {
         }
         List<VtlMenuUserRlt> list = menuIdList.stream().map(menuId -> new VtlMenuUserRlt().setUserId(id).setMenuId(menuId)).toList();
         vtlMenuUserRltService.saveBatch(list);
+    }
+
+    public void setSessionUser(VtlUser user) {
+        StpUtil.getSession().set(UserConst.SA_TOKEN_SESSION_USER_KEY, user);
+    }
+
+    public VtlUser getSessionUser() {
+        return (VtlUser) StpUtil.getSession().get(UserConst.SA_TOKEN_SESSION_USER_KEY);
     }
 }

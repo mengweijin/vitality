@@ -1,11 +1,10 @@
 package com.github.mengweijin.vitality.framework.mybatis;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.github.mengweijin.vitality.framework.VitalityProperties;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.system.service.VtlUserService;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.dromara.hutool.extra.spring.SpringUtil;
 
 import java.time.LocalDateTime;
 
@@ -27,9 +26,6 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     private static final String BASE_ENTITY_CREATE_TIME = "createTime";
     private static final String BASE_ENTITY_UPDATE_BY = "updateBy";
     private static final String BASE_ENTITY_UPDATE_TIME = "updateTime";
-
-    @Autowired
-    private VitalityProperties vitalityProperties;
 
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -74,7 +70,11 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     // }
 
     protected Long getUserId() {
-        return StpUtil.getLoginIdAsLong();
+        try {
+            return SpringUtil.getBean(VtlUserService.class).getSessionUser().getId();
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
 }

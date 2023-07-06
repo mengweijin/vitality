@@ -64,6 +64,7 @@ public class LogAspect {
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
                 operationLog.setBrowser(userAgent.getBrowser().getName());
                 operationLog.setOperatingSystem(userAgent.getOs().getName());
+                operationLog.setPlatform(userAgent.getPlatform().getName());
                 operationLog.setIp(ServletUtils.getClientIP(request));
                 operationLog.setIpLocation(Ip2regionUtils.search(operationLog.getIp()));
                 operationLog.setSucceeded(1);

@@ -4,6 +4,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.exception.BusinessException;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.framework.exception.LoginFailedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler extends BaseResponseEntityExceptionHandler {
     @ResponseBody
     ResponseEntity<R> handleClientException(Exception e, HttpServletRequest request) {
         log.warn(e.getMessage());
+        R r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
+    }
+
+    @ExceptionHandler({ LoginFailedException.class })
+    @ResponseBody
+    ResponseEntity<R> handleNotLoginException(LoginFailedException e, HttpServletRequest request) {
         R r = R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }

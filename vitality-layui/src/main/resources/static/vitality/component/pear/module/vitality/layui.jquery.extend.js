@@ -389,7 +389,7 @@ layui.use(['jquery'], function () {
                         }
                         switch (xhr.status) {
                             case (400):
-                                message = "客户端操作异常，请检查你的输入或操作！<br>Client Error! Please check your input or operation! <br>" + message;
+                                message = message + "<br>客户端操作异常，请检查你的输入或操作！<br>Client Error! Please check your input or operation!";
                                 layui.layer.msg(message, { icon: 5, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                             case (401):
@@ -403,16 +403,16 @@ layui.use(['jquery'], function () {
                                 layui.layer.msg("无权限！No permission!", { icon: 2, title: xhr.status });
                                 break;
                             case (404):
-                                layui.layer.msg("找不到资源！Not Found! <br>" + message, { icon: 2, title: xhr.status });
+                                layui.layer.msg(message + "<br>找不到资源！Not Found!", { icon: 2, title: xhr.status });
                                 break;
                             case (408):
                                 layui.layer.msg("请求超时！Request timeout!", { icon: 2, title: xhr.status });
                                 break;
                             case (500):
-                                layui.layer.msg("服务器异常！Server Exception! <br>" + message, { icon: 2, time: 0, closeBtn: 1, title: xhr.status });
+                                layui.layer.msg(message + "<br>服务器异常！Server Exception!", { icon: 2, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                             default:
-                                message = "未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator! <br>" + message;
+                                message = message + "<br>未知异常，请联系系统管理员！<br>Unknown error, please contact your administrator!";
                                 layui.layer.msg(message, { icon: 2, time: 0, closeBtn: 1, title: xhr.status });
                                 break;
                         }
@@ -424,6 +424,9 @@ layui.use(['jquery'], function () {
                             return;
                         } else if (this.type.toUpperCase() != 'GET' && xhr.status == 200) {
                             layui.layer.msg('操作成功！Operate successfully!', { icon: 1, time: 800 });
+                        }
+                        if(xhr.status == 401 && !this.url.endsWith("/login.html")) {
+                            top.window.location.href = $.vtl.getRootPath() + '/login.html';
                         }
                     },
                 });

@@ -20,8 +20,6 @@
 ## 介绍
 基于 SpringBoot 3+、sa-token、Layui 2.8+ **可前后端分离** 的后台管理系统，适合于一个人既是一个团队的小伙伴们，可以用于常见的的 Web 应用程序，比如网站管理后台等。
 
-功能正在开发中......
-
 ### 内置功能
 - 系统管理
   - 用户管理：系统用户的管理，以及用户所拥有的菜单及按钮权限配置。
@@ -47,3 +45,31 @@
     - 文件数据：系统上传文件后，产生的记录列表。
 
 ### 演示图
+|                                                    演示图【列一】 | 演示图【列二】                                                         |    
+|-----------------------------------------------------------:|:----------------------------------------------------------------|
+|            ![用户管理](docs/readme/images/user management.png) | ![用户详情](docs/readme/images/user detail.png)                     | 
+|            ![角色管理](docs/readme/images/role management.png) | ![角色授权](docs/readme/images/role authorization.png)              | 
+|            ![菜单管理](docs/readme/images/menu management.png) | ![部门管理](docs/readme/images/dept management.png)                 | 
+|            ![岗位管理](docs/readme/images/post management.png) | ![字典管理](docs/readme/images/dict management.png)                 | 
+|          ![公告编辑](docs/readme/images/announcement edit.png) | ![应用监控](docs/readme/images/monitor server.png)                  | 
+|        ![在线用户](docs/readme/images/monitor online user.png) | ![登录日志](docs/readme/images/monitor log login.png)               | 
+|      ![操作日志](docs/readme/images/monitor log operation.png) | ![错误日志](docs/readme/images/monitor log error.png)               | 
+| ![img.png](docs/readme/images/dev tool code generator.png) | ![代码生成器](docs/readme/images/dev tool code generator detail.png) | 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

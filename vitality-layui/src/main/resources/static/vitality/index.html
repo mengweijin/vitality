@@ -127,6 +127,7 @@
 				admin.logout(function(){
 					$.post('/logout', function(result){
 						if (result.code == 200) {
+							sessionStorage.clear();
 							top.window.location.href = 'login.html';
 						}
 					})

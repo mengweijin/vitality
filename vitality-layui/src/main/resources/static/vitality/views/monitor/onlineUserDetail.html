@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+</head>
+<body>
+
+<table class="layui-hide" id="data-table" lay-filter="data-table-filter"></table>
+
+<script type="text/html" id="operationTpl">
+    <button class="pear-btn pear-btn-xs pear-btn-primary layui-hide" lay-event="detail" title="详情"><i class="layui-icon layui-icon-eye"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-primary layui-hide" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></button>
+    <button class="pear-btn pear-btn-xs pear-btn-danger" lay-event="delete" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+</script>
+
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script>
+    layui.use(['jquery', 'table'], function() {
+        let $ = layui.jquery;
+        let table = layui.table;
+        let url = layui.url();
+        let sessionId = url.search.id;
+
+        $.get('/online-user/tokenSignList/' + decodeURIComponent(sessionId), function(result) {
+            table.render({
+                elem: '#data-table',
+                cols: [[
+                    {field: 'value', title: 'Token Value'},
+                    {field: 'device', title: '设备类型'},
+                    {field: 'operation', title: '操作', width: 80, fixed: 'right', templet: '#operationTpl' }
+                ]],
+                skin: 'line',
+                data: result,
+            });
+
+            table.on('tool(data-table-filter)', function(obj) {
+                let row = obj.data;
+                switch (obj.event) {
+                    case 'delete':
+                        window.delete(obj);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            window.delete = function(obj) {
+                layer.confirm('确定踢该终端下线？', { icon: 3, title: '提示' }, function(index) {
+                    layer.close(index);
+                    $.delete('/online-user/kickoffByToken/' + obj.data.value, function(result) {
+                        if (result.code == 200) {
+                            obj.del();
+                        }
+                    });
+                });
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

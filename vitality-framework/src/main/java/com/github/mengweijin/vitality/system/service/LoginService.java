@@ -25,7 +25,7 @@ public class LoginService {
     @Autowired
     private VtlLogLoginService vtlLogLoginService;
 
-    public void login(String username, String password, boolean rememberMe, String captcha) {
+    public VtlUser login(String username, String password, boolean rememberMe, String captcha) {
         HttpServletRequest request = ServletUtils.getRequest();
         UserAgent userAgent = ServletUtils.getUserAgent(request);
         String platformName = userAgent.getPlatform().getName();
@@ -45,6 +45,7 @@ public class LoginService {
             StpUtil.login(username, new SaLoginModel().setIsLastingCookie(rememberMe).setDevice(platformName));
 
             userService.setSessionUser(user);
+            return user;
         } catch (RuntimeException e) {
             vtlLogLoginService.addLoginLogAsync(username, ELoginType.LOGIN, e.getMessage(), request);
             throw new LoginFailedException(e);

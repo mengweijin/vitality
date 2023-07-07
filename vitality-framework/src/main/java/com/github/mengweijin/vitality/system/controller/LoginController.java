@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
+import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.service.LoginService;
 import com.github.mengweijin.vitality.system.service.VtlUserService;
 import jakarta.validation.constraints.NotBlank;
@@ -27,8 +28,14 @@ public class LoginController extends BaseController {
     @SaIgnore
     @PostMapping("/login")
     public R login(@NotBlank String username, @NotBlank String password, boolean rememberMe, String captcha) {
-        loginService.login(username, password, rememberMe, captcha);
-        return R.success();
+        VtlUser user = loginService.login(username, password, rememberMe, captcha);
+
+        VtlUser vtlUser = new VtlUser();
+        vtlUser.setUsername(user.getUsername());
+        vtlUser.setNickname(user.getNickname());
+        vtlUser.setGender(user.getGender());
+        vtlUser.setId(user.getId());
+        return R.success(vtlUser);
     }
 
     @GetMapping("/login/userId")

@@ -4,8 +4,10 @@ import cn.dev33.satoken.stp.StpInterface;
 import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
 import com.github.mengweijin.vitality.system.entity.VtlMenu;
 import com.github.mengweijin.vitality.system.entity.VtlRole;
+import com.github.mengweijin.vitality.system.entity.VtlUser;
 import com.github.mengweijin.vitality.system.service.VtlMenuService;
 import com.github.mengweijin.vitality.system.service.VtlRoleService;
+import com.github.mengweijin.vitality.system.service.VtlUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +25,16 @@ public class StpInterfaceImpl implements StpInterface {
     private VtlMenuService menuService;
     @Autowired
     private VtlRoleService roleService;
+    @Autowired
+    private VtlUserService userService;
 
     /**
      * 返回一个账号所拥有的权限码集合
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        List<VtlMenu> menuList = menuService.getMenuByLoginUser((Long) loginId);
+        VtlUser user = userService.getByUsername((String) loginId);
+        List<VtlMenu> menuList = menuService.getMenuByLoginUser(user.getId());
         return menuList.stream().map(VtlMenu::getPermission).toList();
     }
 
@@ -38,7 +43,8 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        List<VtlRoleDTO> roleList = roleService.getByUserId((Long) loginId);
+        VtlUser user = userService.getByUsername((String) loginId);
+        List<VtlRoleDTO> roleList = roleService.getByUserId(user.getId());
         return roleList.stream().map(VtlRole::getCode).toList();
     }
 

@@ -64,7 +64,7 @@ layui.use(['jquery'], function () {
             openLayer: function(content, options = {}) {
                 //设置参数的默认值
                 let defaults = {
-                    title: "",
+                    title: " ",
                     type: 2,
                     shade: [0.5, "#393D49"],
                     closeBtn: 1,
@@ -425,7 +425,7 @@ layui.use(['jquery'], function () {
                         } else if (this.type.toUpperCase() != 'GET' && xhr.status == 200) {
                             layui.layer.msg('操作成功！Operate successfully!', { icon: 1, time: 800 });
                         }
-                        if(xhr.status == 401 && !this.url.endsWith("/login.html")) {
+                        if(xhr.status == 401 && this.url.indexOf("/login.html") == -1) {
                             top.window.location.href = $.vtl.getRootPath() + '/login.html';
                         }
                     },

@@ -57,9 +57,10 @@ public class LogAspect {
             HttpServletRequest request = ServletUtils.getRequest();
             UserAgent userAgent = ServletUtils.getUserAgent(request);
             String requestMethod = request.getMethod();
-            if(!HttpMethod.GET.name().equals(requestMethod)) {
+            String uri = request.getRequestURI();
+            if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
                 VtlLogOperation operationLog = new VtlLogOperation();
-                operationLog.setUrl(request.getRequestURI());
+                operationLog.setUrl(uri);
                 operationLog.setHttpMethod(requestMethod);
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
                 operationLog.setBrowser(userAgent.getBrowser().getName());

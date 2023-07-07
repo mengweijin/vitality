@@ -175,7 +175,7 @@
           }
 
           window.getCheckedIdList = function() {
-              let checkStatus = treeTable.checkStatus('data-table');
+              let checkStatus = treeTable.checkStatus('data-table', true);
               let checkedData = checkStatus.data;
               return checkedData.map(menu => menu.id);
           }

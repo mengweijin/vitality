@@ -10,10 +10,12 @@ import ch.qos.logback.classic.spi.StackTraceElementProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
+import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.system.entity.VtlLogError;
 import com.github.mengweijin.vitality.system.service.VtlLogErrorService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.reflect.ClassUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -31,6 +34,8 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Component
 public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+
+    private static final Class[] EXCLUDE_CLASS = { NotLoginException.class };
 
     @Autowired
     private VtlLogErrorService vtlLogErrorService;
@@ -74,8 +79,11 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
                 vtlLogError.setErrorMsg(loggingEvent.getMessage());
                 vtlLogError.setCreateTime(createTime);
 
-                // 错误日志实体类写入数据库
-                vtlLogErrorService.save(vtlLogError);
+                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(vtlLogError.getExceptionName()));
+                if(noneMatch) {
+                    // 错误日志实体类写入数据库
+                    vtlLogErrorService.save(vtlLogError);
+                }
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());
             }

@@ -1,5 +1,7 @@
 package com.github.mengweijin.vitality.framework.log;
 
+import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.util.Ip2regionUtils;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.system.entity.VtlLogOperation;
@@ -12,11 +14,17 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.dromara.hutool.core.io.IoUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.http.useragent.UserAgent;
+import org.dromara.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -60,7 +68,35 @@ public class LogAspect {
             String uri = request.getRequestURI();
             if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
                 VtlLogOperation operationLog = new VtlLogOperation();
-                operationLog.setUrl(uri);
+
+                // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
+                // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
+                // 此时就造成日志这里因为读取不到流数据而报错。
+                // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
+                if (request instanceof RepeatedlyRequestWrapper repeatedlyRequest) {
+                    String body = IoUtil.read(repeatedlyRequest.getInputStream(), StandardCharsets.UTF_8);
+                    if(StrUtil.isNotBlank(body)) {
+                        if(JSONUtil.isTypeJSON(body)) {
+                            operationLog.setRequestBody(JSONUtil.formatJsonStr(body));
+                        } else {
+                            operationLog.setRequestBody(body);
+                        }
+                    }
+                }
+
+                // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
+                Map<String, String[]> parameterMap = request.getParameterMap();
+                String query = null;
+                if(parameterMap != null) {
+                    query = parameterMap.keySet().stream()
+                            .map(k -> Arrays.stream(Optional.ofNullable(parameterMap.get(k)).orElse(new String[]{}))
+                                    .reduce(Const.EMPTY, (result, next) -> result + Const.AMPERSAND + k + Const.EQUAL + next)
+                            )
+                            .reduce(Const.EMPTY, (result, next) -> result + next);
+                }
+                query = StrUtil.isBlank(query) ? Const.EMPTY : (Const.QUESTION_MARK + StrUtil.subAfter(query, Const.AMPERSAND, false));
+                operationLog.setUrl(uri + query);
+
                 operationLog.setHttpMethod(requestMethod);
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
                 operationLog.setBrowser(userAgent.getBrowser().getName());

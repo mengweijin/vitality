@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.VtlLogOperation">
         <result column="ID" property="id" />
         <result column="URL" property="url" />
+        <result column="REQUEST_BODY" property="requestBody" />
         <result column="HTTP_METHOD" property="httpMethod" />
         <result column="METHOD_NAME" property="methodName" />
         <result column="BROWSER" property="browser" />
@@ -25,6 +26,7 @@
     <sql id="BaseColumn">
         t.ID,
         t.URL,
+        t.REQUEST_BODY,
         t.HTTP_METHOD,
         t.METHOD_NAME,
         t.BROWSER,
@@ -48,6 +50,9 @@
             </if>
             <if test="p.url != null and p.url != '' ">
                 and t.URL = #{p.url}
+            </if>
+            <if test="p.requestBody != null and p.requestBody != '' ">
+                and t.REQUEST_BODY = #{p.requestBody}
             </if>
             <if test="p.httpMethod != null and p.httpMethod != '' ">
                 and t.HTTP_METHOD = #{p.httpMethod}
@@ -99,6 +104,9 @@
                 </if>
                 <if test="p.url != null and p.url != '' ">
                     and t.URL like concat(concat('%', #{p.url}), '%')
+                </if>
+                <if test="p.requestBody != null and p.requestBody != '' ">
+                    and t.REQUEST_BODY like concat(concat('%', #{p.requestBody}), '%')
                 </if>
                 <if test="p.httpMethod != null and p.httpMethod != '' ">
                     and t.HTTP_METHOD like concat(concat('%', #{p.httpMethod}), '%')

@@ -6,6 +6,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.dromara.hutool.core.io.IoUtil;
+import org.springframework.web.util.ContentCachingResponseWrapper;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 构建可重复读取 inputStream 的 request
  * 默认情况下，从 HttpServletRequest 中读取数据只能读取一次，第二次就取不到值了
+ * {@link ContentCachingResponseWrapper}
  * @author mengweijin
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper {

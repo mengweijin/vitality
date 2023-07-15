@@ -24,7 +24,7 @@ public class Ip2regionUtils {
             return null;
         }
         if("0:0:0:0:0:0:0:1".equals(ip.trim())) {
-            return "本地";
+            return "0|0|0|内网IP|内网IP";
         }
 
         InputStream in = Ip2regionUtils.class.getClassLoader().getResourceAsStream("ip2region.xdb");

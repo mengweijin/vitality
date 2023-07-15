@@ -25,13 +25,17 @@ public class VtlLogOperation extends BaseEntity {
     @TableField("URL")
     private String url;
 
+    /**
+     * 请求参数
+     */
+    @TableField("REQUEST_ARGS")
+    private String requestArgs;
 
     /**
      * 请求 Body
      */
     @TableField("REQUEST_BODY")
     private String requestBody;
-
     /**
      * http 请求方式
      */

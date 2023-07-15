@@ -64,6 +64,7 @@ DROP TABLE IF EXISTS VTL_LOG_OPERATION;
 CREATE TABLE VTL_LOG_OPERATION (
   ID                            bigint(20) NOT NULL COMMENT '主键ID',
   URL                           varchar(255) DEFAULT NULL COMMENT '请求url',
+  REQUEST_ARGS                  varchar(65535) DEFAULT NULL COMMENT '请求参数',
   REQUEST_BODY                  varchar(65535) DEFAULT NULL COMMENT '请求体 request body',
   HTTP_METHOD                   varchar(10) DEFAULT NULL COMMENT 'http 请求方式',
   METHOD_NAME                   varchar(255) DEFAULT NULL COMMENT '请求方法名称',

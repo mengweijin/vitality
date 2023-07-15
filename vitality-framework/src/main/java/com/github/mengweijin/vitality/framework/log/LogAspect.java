@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.log;
 
-import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.util.Ip2regionUtils;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
@@ -22,9 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -68,6 +66,13 @@ public class LogAspect {
             String uri = request.getRequestURI();
             if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
                 VtlLogOperation operationLog = new VtlLogOperation();
+                operationLog.setUrl(uri);
+
+                // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
+                Map<String, String[]> parameterMap = request.getParameterMap();
+                if(parameterMap != null) {
+                    operationLog.setRequestArgs(P.writeValueAsString(parameterMap));
+                }
 
                 // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
                 // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
@@ -77,25 +82,12 @@ public class LogAspect {
                     String body = IoUtil.read(repeatedlyRequest.getInputStream(), StandardCharsets.UTF_8);
                     if(StrUtil.isNotBlank(body)) {
                         if(JSONUtil.isTypeJSON(body)) {
-                            operationLog.setRequestBody(JSONUtil.formatJsonStr(body));
+                            operationLog.setRequestBody(body);
                         } else {
                             operationLog.setRequestBody(body);
                         }
                     }
                 }
-
-                // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
-                Map<String, String[]> parameterMap = request.getParameterMap();
-                String query = null;
-                if(parameterMap != null) {
-                    query = parameterMap.keySet().stream()
-                            .map(k -> Arrays.stream(Optional.ofNullable(parameterMap.get(k)).orElse(new String[]{}))
-                                    .reduce(Const.EMPTY, (result, next) -> result + Const.AMPERSAND + k + Const.EQUAL + next)
-                            )
-                            .reduce(Const.EMPTY, (result, next) -> result + next);
-                }
-                query = StrUtil.isBlank(query) ? Const.EMPTY : (Const.QUESTION_MARK + StrUtil.subAfter(query, Const.AMPERSAND, false));
-                operationLog.setUrl(uri + query);
 
                 operationLog.setHttpMethod(requestMethod);
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());

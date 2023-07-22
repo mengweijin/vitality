@@ -1,7 +1,7 @@
 package ${packagePath}.service;
 
 import ${packagePath}.mapper.${entityName}Mapper;
-import ${packagePath}.entity.${entityName};
+import ${packagePath}.entity.${entityName}DO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @since ${date}
  */
 @Service
-public class ${entityName}Service extends ServiceImpl<${entityName}Mapper, ${entityName}> {
+public class ${entityName}Service extends ServiceImpl<${entityName}Mapper, ${entityName}DO> {
 
     @Autowired
     private ${entityName}Mapper ${entityName?uncap_first}Mapper;

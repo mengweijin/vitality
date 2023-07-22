@@ -1,6 +1,6 @@
 package ${packagePath}.mapper;
 
-import ${packagePath}.entity.${entityName};
+import ${packagePath}.entity.${entityName}DO;
 import ${packagePath}.dto.${entityName}DTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @since ${date}
  */
 @Mapper
-public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
+public interface ${entityName}Mapper extends BaseMapper<${entityName}DO> {
 
     /**
      * Get ${entityName} detail by id

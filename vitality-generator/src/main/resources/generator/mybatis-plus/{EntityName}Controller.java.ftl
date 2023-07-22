@@ -27,13 +27,13 @@ public class ${entityName}Controller extends BaseController {
     private ${entityName}Service ${entityName?uncap_first}Service;
 
     @PostMapping
-    public R add(${entityName} ${entityName?uncap_first}) {
+    public R add(${entityName}DO ${entityName?uncap_first}) {
         boolean bool = ${entityName?uncap_first}Service.save(${entityName?uncap_first});
         return R.bool(bool);
     }
 
     @PutMapping
-    public R edit(${entityName} ${entityName?uncap_first}) {
+    public R edit(${entityName}DO ${entityName?uncap_first}) {
         boolean bool = ${entityName?uncap_first}Service.updateById(${entityName?uncap_first});
         return R.bool(bool);
     }
@@ -51,7 +51,7 @@ public class ${entityName}Controller extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public ${entityName} getById(@PathVariable("id") Long id) {
+    public ${entityName}DO getById(@PathVariable("id") Long id) {
         return ${entityName?uncap_first}Service.getById(id);
     }
 

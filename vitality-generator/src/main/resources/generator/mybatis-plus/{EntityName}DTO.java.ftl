@@ -12,6 +12,6 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ${entityName}DTO extends ${entityName} {
+public class ${entityName}DTO extends ${entityName}DO {
 
 }

@@ -19,6 +19,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>vitality-framework</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter-process-rest</artifactId>
             <version>${flowable.version}</version>

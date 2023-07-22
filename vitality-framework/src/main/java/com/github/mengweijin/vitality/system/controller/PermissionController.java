@@ -1,10 +1,10 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.github.mengweijin.vitality.system.dto.VtlRoleDTO;
-import com.github.mengweijin.vitality.system.entity.VtlMenu;
-import com.github.mengweijin.vitality.system.entity.VtlRole;
-import com.github.mengweijin.vitality.system.service.VtlMenuService;
-import com.github.mengweijin.vitality.system.service.VtlRoleService;
+import com.github.mengweijin.vitality.system.dto.RoleDTO;
+import com.github.mengweijin.vitality.system.entity.MenuDO;
+import com.github.mengweijin.vitality.system.entity.RoleDO;
+import com.github.mengweijin.vitality.system.service.MenuService;
+import com.github.mengweijin.vitality.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,20 +22,20 @@ import java.util.List;
 public class PermissionController {
 
     @Autowired
-    private VtlMenuService menuService;
+    private MenuService menuService;
     @Autowired
-    private VtlRoleService roleService;
+    private RoleService roleService;
 
     @GetMapping("/getUserPermission/{userId}")
     public List<String> getUserPermission(@PathVariable("userId") Long userId) {
-        List<VtlMenu> menuList = menuService.getMenuByLoginUser(userId);
-        return menuList.stream().map(VtlMenu::getPermission).toList();
+        List<MenuDO> menuList = menuService.getMenuByLoginUser(userId);
+        return menuList.stream().map(MenuDO::getPermission).toList();
     }
 
     @GetMapping("/getUserRole/{userId}")
     public List<String> getUserRole(@PathVariable("userId") Long userId) {
-        List<VtlRoleDTO> roleList = roleService.getByUserId(userId);
-        return roleList.stream().map(VtlRole::getCode).toList();
+        List<RoleDTO> roleList = roleService.getByUserId(userId);
+        return roleList.stream().map(RoleDO::getCode).toList();
     }
 
 }

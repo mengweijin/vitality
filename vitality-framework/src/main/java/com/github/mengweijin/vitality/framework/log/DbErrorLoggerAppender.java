@@ -11,8 +11,8 @@ import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
-import com.github.mengweijin.vitality.system.entity.VtlLogError;
-import com.github.mengweijin.vitality.system.service.VtlLogErrorService;
+import com.github.mengweijin.vitality.system.entity.LogErrorDO;
+import com.github.mengweijin.vitality.system.service.LogErrorService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.reflect.ClassUtil;
@@ -38,7 +38,7 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
     private static final Class[] EXCLUDE_CLASS = { NotLoginException.class };
 
     @Autowired
-    private VtlLogErrorService vtlLogErrorService;
+    private LogErrorService logErrorService;
 
     /**
      * DbErrorLogAppender初始化
@@ -65,24 +65,24 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
                 LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
                 IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-                VtlLogError vtlLogError = new VtlLogError();
+                LogErrorDO logErrorDO = new LogErrorDO();
                 if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
                     StackTraceElement element = loggingEvent.getCallerData()[0];
-                    vtlLogError.setClassName(element.getClassName());
-                    vtlLogError.setMethodName(element.getMethodName());
+                    logErrorDO.setClassName(element.getClassName());
+                    logErrorDO.setMethodName(element.getMethodName());
                 }
 
                 if (throwableProxy != null) {
-                    vtlLogError.setExceptionName(throwableProxy.getClassName());
-                    vtlLogError.setStackTrace(this.getStackTraceMsg(throwableProxy));
+                    logErrorDO.setExceptionName(throwableProxy.getClassName());
+                    logErrorDO.setStackTrace(this.getStackTraceMsg(throwableProxy));
                 }
-                vtlLogError.setErrorMsg(loggingEvent.getMessage());
-                vtlLogError.setCreateTime(createTime);
+                logErrorDO.setErrorMsg(loggingEvent.getMessage());
+                logErrorDO.setCreateTime(createTime);
 
-                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(vtlLogError.getExceptionName()));
+                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(logErrorDO.getExceptionName()));
                 if(noneMatch) {
                     // 错误日志实体类写入数据库
-                    vtlLogErrorService.save(vtlLogError);
+                    logErrorService.save(logErrorDO);
                 }
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());

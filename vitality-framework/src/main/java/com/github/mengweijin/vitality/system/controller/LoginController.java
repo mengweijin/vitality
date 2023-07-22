@@ -4,9 +4,9 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.entity.VtlUser;
+import com.github.mengweijin.vitality.system.entity.UserDO;
 import com.github.mengweijin.vitality.system.service.LoginService;
-import com.github.mengweijin.vitality.system.service.VtlUserService;
+import com.github.mengweijin.vitality.system.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,24 +23,24 @@ public class LoginController extends BaseController {
     @Autowired
     private LoginService loginService;
     @Autowired
-    private VtlUserService vtlUserService;
+    private UserService userService;
 
     @SaIgnore
     @PostMapping("/login")
     public R login(@NotBlank String username, @NotBlank String password, boolean rememberMe, String captcha) {
-        VtlUser user = loginService.login(username, password, rememberMe, captcha);
+        UserDO user = loginService.login(username, password, rememberMe, captcha);
 
-        VtlUser vtlUser = new VtlUser();
-        vtlUser.setUsername(user.getUsername());
-        vtlUser.setNickname(user.getNickname());
-        vtlUser.setGender(user.getGender());
-        vtlUser.setId(user.getId());
-        return R.success(vtlUser);
+        UserDO userDO = new UserDO();
+        userDO.setUsername(user.getUsername());
+        userDO.setNickname(user.getNickname());
+        userDO.setGender(user.getGender());
+        userDO.setId(user.getId());
+        return R.success(userDO);
     }
 
     @GetMapping("/login/userId")
     public Long getLoginUserId() {
-        return vtlUserService.getSessionUser().getId();
+        return userService.getSessionUser().getId();
     }
 
     @PostMapping("/logout")

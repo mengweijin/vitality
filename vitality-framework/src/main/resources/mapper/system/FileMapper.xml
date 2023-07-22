@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.FileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.FileDO">
+        <result column="ID" property="id" />
+        <result column="FILE_NAME" property="fileName" />
+        <result column="FILE_PATH" property="filePath" />
+        <result column="BUCKET" property="bucket" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumn">
+        t.ID,
+        t.FILE_NAME,
+        t.FILE_PATH,
+        t.BUCKET,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME
+    </sql>
+
+    <!-- 通用 Where 条件列 -->
+    <sql id="BaseWhere">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.fileName != null and p.fileName != '' ">
+                and t.FILE_NAME = #{p.fileName}
+            </if>
+            <if test="p.filePath != null and p.filePath != '' ">
+                and t.FILE_PATH = #{p.filePath}
+            </if>
+            <if test="p.bucket != null and p.bucket != '' ">
+                and t.BUCKET = #{p.bucket}
+            </if>
+            <if test="p.createBy != null" >
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null" >
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 通用 Where Like 条件列 -->
+    <sql id="BaseWhereLike">
+        <where>
+            <if test="p.id != null" >
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.fileName != null and p.fileName != '' ">
+                and t.FILE_NAME like concat(concat('%', #{p.fileName}), '%')
+            </if>
+            <if test="p.filePath != null and p.filePath != '' ">
+                and t.FILE_PATH like concat(concat('%', #{p.filePath}), '%')
+            </if>
+            <if test="p.bucket != null and p.bucket != '' ">
+                and t.BUCKET like concat(concat('%', #{p.bucket}), '%')
+            </if>
+            <if test="p.createBy != null" >
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null" >
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null" >
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null" >
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.FileDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as create_by_name,
+        uu.NICKNAME as update_by_name
+        from VTL_FILE t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        where t.ID = #{id}
+    </select>
+
+    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.FileDTO">
+        select
+        <include refid="BaseColumn"/>,
+        cu.NICKNAME as create_by_name,
+        uu.NICKNAME as update_by_name
+        from VTL_FILE t
+        left join VTL_USER cu on cu.ID = t.CREATE_BY
+        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+        <include refid="BaseWhereLike"/>
+        order by t.CREATE_TIME desc
+    </select>
+
+</mapper>

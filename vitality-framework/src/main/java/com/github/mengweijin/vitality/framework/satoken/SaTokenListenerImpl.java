@@ -5,7 +5,7 @@ import cn.dev33.satoken.listener.SaTokenListenerForLog;
 import cn.dev33.satoken.stp.SaLoginModel;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.system.enums.ELoginType;
-import com.github.mengweijin.vitality.system.service.VtlLogLoginService;
+import com.github.mengweijin.vitality.system.service.LogLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,34 +18,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaTokenListenerImpl implements SaTokenListener {
     @Autowired
-    private VtlLogLoginService vtlLogLoginService;
+    private LogLoginService logLoginService;
 
     /** 每次登录时触发 */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
         HttpServletRequest request = ServletUtils.getRequest();
-        vtlLogLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGIN, null, request);
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGIN, null, request);
     }
 
     /** 每次注销时触发 */
     @Override
     public void doLogout(String loginType, Object loginId, String tokenValue) {
         HttpServletRequest request = ServletUtils.getRequest();
-        vtlLogLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGOUT, null, request);
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGOUT, null, request);
     }
 
     /** 每次被踢下线时触发 */
     @Override
     public void doKickout(String loginType, Object loginId, String tokenValue) {
         HttpServletRequest request = ServletUtils.getRequest();
-        vtlLogLoginService.addLoginLogAsync((String) loginId, ELoginType.KICK_OUT, null, request);
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.KICK_OUT, null, request);
     }
 
     /** 每次被顶下线时触发 */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
         HttpServletRequest request = ServletUtils.getRequest();
-        vtlLogLoginService.addLoginLogAsync((String) loginId, ELoginType.REPLACED, null, request);
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.REPLACED, null, request);
     }
 
     /** 每次被封禁时触发 */

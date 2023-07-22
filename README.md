@@ -57,7 +57,9 @@
 | ![img.png](docs/readme/images/dev_tool_code_generator.png) | ![代码生成器](docs/readme/images/dev_tool_code_generator_detail.png) | 
 
 
+## ⭐Star Vitality
 
+[![Stargazers over time](https://starchart.cc/mengweijin/vitality.svg)](https://starchart.cc/mengweijin/vitality)
 
 
 

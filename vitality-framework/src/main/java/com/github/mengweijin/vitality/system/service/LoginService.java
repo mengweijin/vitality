@@ -5,7 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.exception.LoginFailedException;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
-import com.github.mengweijin.vitality.system.entity.VtlUser;
+import com.github.mengweijin.vitality.system.entity.UserDO;
 import com.github.mengweijin.vitality.system.enums.ELoginType;
 import jakarta.servlet.http.HttpServletRequest;
 import org.dromara.hutool.core.text.StrUtil;
@@ -29,20 +29,20 @@ import javax.cache.CacheManager;
 public class LoginService {
 
     @Autowired
-    private VtlUserService userService;
+    private UserService userService;
     @Autowired
-    private VtlLogLoginService vtlLogLoginService;
+    private LogLoginService logLoginService;
     @Autowired
     private CacheManager cacheManager;
 
-    public VtlUser login(String username, String password, boolean rememberMe, String captchaCode) {
+    public UserDO login(String username, String password, boolean rememberMe, String captchaCode) {
         HttpServletRequest request = ServletUtils.getRequest();
         UserAgent userAgent = ServletUtils.getUserAgent(request);
         String platformName = userAgent.getPlatform().getName();
         try {
             this.verifyCaptcha(captchaCode);
 
-            VtlUser user = userService.getByUsername(username);
+            UserDO user = userService.getByUsername(username);
             if(user == null) {
                 throw new LoginFailedException("The username or password incorrect!");
             }
@@ -59,7 +59,7 @@ public class LoginService {
             userService.setSessionUser(user);
             return user;
         } catch (RuntimeException e) {
-            vtlLogLoginService.addLoginLogAsync(username, ELoginType.LOGIN, e.getMessage(), request);
+            logLoginService.addLoginLogAsync(username, ELoginType.LOGIN, e.getMessage(), request);
             throw new LoginFailedException(e);
         }
     }

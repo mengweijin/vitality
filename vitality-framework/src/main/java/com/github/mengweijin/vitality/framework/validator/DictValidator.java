@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.framework.validator;
 
 import com.github.mengweijin.vitality.framework.validator.annotation.Dict;
-import com.github.mengweijin.vitality.system.entity.VtlDictData;
-import com.github.mengweijin.vitality.system.service.VtlDictDataService;
+import com.github.mengweijin.vitality.system.entity.DictDataDO;
+import com.github.mengweijin.vitality.system.service.DictDataService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -38,17 +38,17 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
         //禁止默认消息返回
         context.disableDefaultConstraintViolation();
 
-        VtlDictDataService dictDataService = SpringUtil.getBean(VtlDictDataService.class);
-        List<VtlDictData> dictDataList = dictDataService.getByTypeCode(typeCode);
+        DictDataService dictDataService = SpringUtil.getBean(DictDataService.class);
+        List<DictDataDO> dictDataList = dictDataService.getByTypeCode(typeCode);
         if(CollUtil.isEmpty(dictDataList)) {
             //自定义返回消息
             context.buildConstraintViolationWithTemplate("No dict data was found by dict typeCode=" + typeCode).addConstraintViolation();
             return false;
         }
 
-        boolean anyMatch = dictDataList.stream().map(VtlDictData::getDataCode).anyMatch(item -> item.equals(value.toString()));
+        boolean anyMatch = dictDataList.stream().map(DictDataDO::getDataCode).anyMatch(item -> item.equals(value.toString()));
         if(!anyMatch) {
-            String correctDictDataCode = dictDataList.stream().map(VtlDictData::getDataCode).collect(Collectors.joining());
+            String correctDictDataCode = dictDataList.stream().map(DictDataDO::getDataCode).collect(Collectors.joining());
             String message = StrUtil.format("The dict typeCode[{}] of dataCode[{}] is incorrect! The correct dataCode should be in [{}]", typeCode, value, correctDictDataCode);
             context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;

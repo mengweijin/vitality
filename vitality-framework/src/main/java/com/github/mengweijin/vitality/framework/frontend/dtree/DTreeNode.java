@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.frontend.dtree;
 
-import com.github.mengweijin.vitality.system.entity.VtlMenu;
+import com.github.mengweijin.vitality.system.entity.MenuDO;
 import lombok.Data;
 import org.dromara.hutool.core.collection.CollUtil;
 
@@ -31,7 +31,7 @@ public class DTreeNode {
 
     public DTreeNode() {}
 
-    public DTreeNode(VtlMenu menu) {
+    public DTreeNode(MenuDO menu) {
         this.id = String.valueOf(menu.getId());
         this.title = menu.getTitle();
         this.parentId = String.valueOf(menu.getParentId());

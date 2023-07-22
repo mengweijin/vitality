@@ -4,8 +4,8 @@ import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.util.Ip2regionUtils;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
-import com.github.mengweijin.vitality.system.entity.VtlLogOperation;
-import com.github.mengweijin.vitality.system.service.VtlLogOperationService;
+import com.github.mengweijin.vitality.system.entity.LogOperationDO;
+import com.github.mengweijin.vitality.system.service.LogOperationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -40,17 +40,17 @@ import java.util.function.Consumer;
 @Aspect
 public class LogAspect {
 
-    private final ThreadLocal<VtlLogOperation> threadLocal = new ThreadLocal<>();
+    private final ThreadLocal<LogOperationDO> threadLocal = new ThreadLocal<>();
 
     @Autowired
-    private VtlLogOperationService operationLogService;
+    private LogOperationService operationLogService;
 
     /**
      * 钩子函数。
      */
-    private final Consumer<VtlLogOperation> consumer;
+    private final Consumer<LogOperationDO> consumer;
 
-    public LogAspect(Consumer<VtlLogOperation> consumer){
+    public LogAspect(Consumer<LogOperationDO> consumer){
         this.consumer = consumer;
     }
 
@@ -65,7 +65,7 @@ public class LogAspect {
             String requestMethod = request.getMethod();
             String uri = request.getRequestURI();
             if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
-                VtlLogOperation operationLog = new VtlLogOperation();
+                LogOperationDO operationLog = new LogOperationDO();
                 operationLog.setUrl(uri);
 
                 // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
@@ -130,7 +130,7 @@ public class LogAspect {
      * @param e 异常
      */
     private void recordLog(final Exception e) {
-        VtlLogOperation operationLog = threadLocal.get();
+        LogOperationDO operationLog = threadLocal.get();
         if(operationLog == null) {
             return;
         }

@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.framework.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.vitality.system.service.VtlUserService;
+import com.github.mengweijin.vitality.system.service.UserService;
 import org.apache.ibatis.reflection.MetaObject;
 import org.dromara.hutool.extra.spring.SpringUtil;
 
@@ -71,7 +71,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     protected Long getUserId() {
         try {
-            return SpringUtil.getBean(VtlUserService.class).getSessionUser().getId();
+            return SpringUtil.getBean(UserService.class).getSessionUser().getId();
         } catch (RuntimeException e) {
             return null;
         }

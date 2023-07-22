@@ -159,7 +159,7 @@
 				window.initRoleSelector = function() {
 					let data = [];
 					$.sync('get', '/vtl-role/list', function(result){
-						data = result;
+						data = result.filter(role => role.id != 1 || role.code != 'role_admin');
 					});
 
 					let config = { data: data };

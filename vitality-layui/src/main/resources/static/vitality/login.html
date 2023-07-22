@@ -10,7 +10,7 @@
 	</head>
     <!-- 代 码 结 构 -->
 	<body background="admin/images/background.svg" style="background-size: cover;">
-		<form class="layui-form" action="javascript:void(0);">
+		<form class="layui-form" action="javascript:void(0);" lay-filter="form-login">
 			<div class="layui-form-item">
 				<img class="logo" src="admin/images/logo.png" />
 				<div class="title">www.aday.fun</div>
@@ -32,7 +32,7 @@
 				<input type="checkbox" name="rememberMe" title="记住密码" lay-skin="primary" checked>
 			</div>
 			<div class="layui-form-item">
-				<button type="button" class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
+				<button type="button" name="login" class="pear-btn pear-btn-success login" lay-submit lay-filter="login-btn">
 					登 入
 				</button>
 			</div>
@@ -58,16 +58,37 @@
                     password: [/^[\S]{6,20}$/, '密码必须为6到20位的非空字符']
                 });
 
-				form.on('submit(login)', function(data) {
+				form.on('submit(login-btn)', function(data) {
 					data.field.rememberMe = data.field.rememberMe == 'on' ? true : false;
-					$.post('/login', data.field, function(result){
-						if (result.code == 200) {
-							top.window.location.href = 'index.html';
-						}
-					})
+					$.ajax({
+                        url: '/login',
+                        async: false,
+                        method: 'post',
+                        data: data.field,
+                        success: function(result){
+                        	if (result.code == 200) {
+								top.window.location.href = 'index.html';
+							}
+                        },
+                        complete: function(xhr, textStatus){
+                        	if(xhr.status != 200) {
+                        		$.get('/captcha', function(captcha) {
+                        			console.log(captcha);
+                        			$('.codeImage').attr('src', captcha).parent().removeClass('layui-hide');
+                        			$('form input[name=captcha]').attr('lay-verify', 'required');
+                        		});
+                        	}
+                        }
+                    });
 
 					return false;
 				});
+
+				$(document).keyup(function(event){
+                	if(event.keyCode ==13){
+                		$('form button[name=login]').click();
+                	}
+                });
 			})
 		</script>
 	</body>

@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -34,18 +35,21 @@ public class VtlPostController extends BaseController {
     @Autowired
     private VtlPostService vtlPostService;
 
+    @SaCheckPermission("system:post:add")
     @PostMapping
     public R add(VtlPost vtlPost) {
         boolean bool = vtlPostService.save(vtlPost);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:post:edit")
     @PutMapping
     public R edit(VtlPost vtlPost) {
         boolean bool = vtlPostService.updateById(vtlPost);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:post:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlPostService.removeById(id);
@@ -57,11 +61,13 @@ public class VtlPostController extends BaseController {
         return vtlPostService.getById(id);
     }
 
+    @SaCheckPermission("system:post:detail")
     @GetMapping("/detail/{id}")
     public VtlPostDTO detailById(@PathVariable("id") Long id) {
         return vtlPostService.detailById(id);
     }
 
+    @SaCheckPermission("system:post:list")
     @GetMapping("/page")
     public IPage<VtlPostDTO> page(Page<VtlPostDTO> page, VtlPostDTO dto) {
         return vtlPostService.page(page, dto);
@@ -72,12 +78,14 @@ public class VtlPostController extends BaseController {
         return vtlPostService.lambdaQuery().eq(VtlPost::getDisabled, 0).list();
     }
 
+    @SaCheckPermission("system:post:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlPostService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:post:assignUser")
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
         vtlPostService.addUsers(id, ListUtil.of(userIdList));
@@ -90,6 +98,7 @@ public class VtlPostController extends BaseController {
         return R.success();
     }
 
+    @SaCheckPermission("system:post:authorization")
     @PostMapping("/setMenu/{id}")
     public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
         vtlPostService.setMenu(id, ListUtil.of(menuIdList));

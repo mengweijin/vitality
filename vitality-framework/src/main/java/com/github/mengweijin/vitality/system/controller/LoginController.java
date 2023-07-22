@@ -49,4 +49,9 @@ public class LoginController extends BaseController {
         return R.success();
     }
 
+    @GetMapping("/captcha")
+    public String getCaptcha() {
+        return loginService.getCaptcha();
+    }
+
 }

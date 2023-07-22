@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -32,24 +33,28 @@ public class VtlDictDataController extends BaseController {
     @Autowired
     private VtlDictDataService vtlDictDataService;
 
+    @SaCheckPermission("system:dict:data:add")
     @PostMapping
     public R add(VtlDictData vtlDictData) {
         boolean bool = vtlDictDataService.save(vtlDictData);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dict:data:edit")
     @PutMapping
     public R edit(VtlDictData vtlDictData) {
         boolean bool = vtlDictDataService.updateById(vtlDictData);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dict:data:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlDictDataService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dict:data:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = vtlDictDataService.removeBatchByIds(Arrays.asList(ids));
@@ -61,6 +66,7 @@ public class VtlDictDataController extends BaseController {
         return vtlDictDataService.getById(id);
     }
 
+    @SaCheckPermission("system:dict:data:list")
     @GetMapping("/page")
     public IPage<VtlDictDataDTO> page(Page<VtlDictDataDTO> page, VtlDictDataDTO dto) {
         return vtlDictDataService.page(page, dto);
@@ -71,12 +77,14 @@ public class VtlDictDataController extends BaseController {
         return vtlDictDataService.lambdaQuery().list();
     }
 
+    @SaCheckPermission("system:dict:data:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlDictDataService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dict:data:setDefault")
     @PostMapping("/setDefaultSelected/{id}")
     public R setDefaultSelected(@PathVariable("id") Long id) {
         boolean bool = vtlDictDataService.setDefaultSelected(id);

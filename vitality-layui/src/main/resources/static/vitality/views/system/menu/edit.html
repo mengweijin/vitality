@@ -193,7 +193,7 @@
                 data = $.vtl.tree(result, '0');
             });
 
-            let config = { data: data, radio: true, clickClose: true, tree: { show: true }, prop: {name: 'title'} };
+            let config = { data: data, radio: true, clickClose: true, tree: { show: true, expandedKeys: false }, prop: {name: 'title'} };
             if(id) {
                 config = $.extend(true, config, { disabled: true, model: {label: {block: {showIcon: false}}} });
             }

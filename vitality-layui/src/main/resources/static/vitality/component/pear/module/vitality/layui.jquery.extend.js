@@ -400,7 +400,17 @@ layui.use(['jquery'], function () {
                                 //top.window.open($.vtl.getRootPath() + '/login.html', '_self');
                                 break;
                             case (403):
-                                layui.layer.msg("无权限！No permission!", { icon: 2, title: xhr.status });
+                                message = message + "<br>无权限！No permission!";
+                                layui.layer.open({
+                                    icon: 4,
+                                    title: xhr.status,
+                                    content: message,
+                                    closeBtn: 0,
+                                    yes: function(index, layero, that){
+                                        layer.close(index);
+                                        top.window.layui.admin.closeCurrentTab()
+                                    }
+                                });
                                 break;
                             case (404):
                                 layui.layer.msg(message + "<br>找不到资源！Not Found!", { icon: 2, title: xhr.status });

@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.TokenSign;
 import cn.dev33.satoken.stp.StpUtil;
@@ -56,12 +57,14 @@ public class OnlineUserController {
         return session.getTokenSignList();
     }
 
+    @SaCheckPermission("system:onlineUser:delete")
     @DeleteMapping("/kickoffByLoginId/{loginId}")
     public R kickoffByLoginId(@PathVariable("loginId") String loginId) {
         StpUtil.logout(loginId);  // 强制指定账号注销下线
         return R.success();
     }
 
+    @SaCheckPermission("system:onlineUser:delete")
     @DeleteMapping("/kickoffByToken/{token}")
     public R kickoffByToken(@PathVariable("token") String token) {
         StpUtil.logoutByTokenValue(token);  // 强制指定 Token 注销下线

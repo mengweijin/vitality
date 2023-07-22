@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -44,24 +45,28 @@ public class VtlUserController extends BaseController {
     @Autowired
     private VtlConfigService configService;
 
+    @SaCheckPermission("system:user:add")
     @PostMapping
     public R add(VtlUserEditDTO vtlUser) {
         boolean bool = vtlUserService.save(vtlUser);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:user:edit")
     @PutMapping
     public R edit(VtlUserEditDTO vtlUser) {
         boolean bool = vtlUserService.updateById(vtlUser);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:user:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlUserService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:user:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = vtlUserService.removeBatchByIds(Arrays.asList(ids));
@@ -73,11 +78,13 @@ public class VtlUserController extends BaseController {
         return vtlUserService.detailById(id);
     }
 
+    @SaCheckPermission("system:user:detail")
     @GetMapping("/detail/{id}")
     public VtlUserDetailDTO detailById(@PathVariable("id") Long id) {
         return vtlUserService.detailById(id);
     }
 
+    @SaCheckPermission("system:user:list")
     @GetMapping("/page")
     public IPage<VtlUserDTO> page(Page<VtlUserDTO> page, VtlUserDTO dto, Long deptId) {
         return vtlUserService.page(page, dto, deptId);
@@ -98,6 +105,7 @@ public class VtlUserController extends BaseController {
         return vtlUserService.pageByPost(page, postId, dto);
     }
 
+    @SaCheckPermission("system:user:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlUserService.setDisabledValue(id, disabled);
@@ -115,6 +123,7 @@ public class VtlUserController extends BaseController {
         return R.bool(vtlUserService.changePassword(dto));
     }
 
+    @SaCheckPermission("system:user:resetPassword")
     @PostMapping("/resetPassword/{id}")
     public R resetPassword(@PathVariable("id") Long id) {
         VtlConfig config = configService.getByCode(ConfigConst.CODE_USER_INIT_PASSWORD);
@@ -122,6 +131,7 @@ public class VtlUserController extends BaseController {
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:user:authorization")
     @PostMapping("/setMenu/{id}")
     public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
         vtlUserService.setMenu(id, ListUtil.of(menuIdList));

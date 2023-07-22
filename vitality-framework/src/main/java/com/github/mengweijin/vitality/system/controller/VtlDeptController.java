@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -35,24 +36,28 @@ public class VtlDeptController extends BaseController {
     @Autowired
     private VtlDeptService vtlDeptService;
 
+    @SaCheckPermission("system:dept:add")
     @PostMapping
     public R add(VtlDept vtlDept) {
         boolean bool = vtlDeptService.save(vtlDept);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dept:edit")
     @PutMapping
     public R edit(VtlDept vtlDept) {
         boolean bool = vtlDeptService.updateById(vtlDept);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dept:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlDeptService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:dept:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlDeptService.removeById(id);
@@ -64,16 +69,19 @@ public class VtlDeptController extends BaseController {
         return vtlDeptService.getById(id);
     }
 
+    @SaCheckPermission("system:dept:detail")
     @GetMapping("/detail/{id}")
     public VtlDeptDTO detailById(@PathVariable("id") Long id) {
         return vtlDeptService.detailById(id);
     }
 
+    @SaCheckPermission("system:dept:list")
     @GetMapping("/page")
     public IPage<VtlDeptDTO> page(Page<VtlDeptDTO> page, VtlDeptDTO dto) {
         return vtlDeptService.page(page, dto);
     }
 
+    @SaCheckPermission("system:dept:list")
     @GetMapping("/treeTableDataList")
     public List<VtlDeptDTO> treeTableDataList(VtlDeptDTO dto) {
         return vtlDeptService.treeTableDataList(dto);
@@ -84,7 +92,7 @@ public class VtlDeptController extends BaseController {
         return vtlDeptService.layuiTree();
     }
 
-
+    @SaCheckPermission("system:dept:assignUser")
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
         vtlDeptService.addUsers(id, ListUtil.of(userIdList));
@@ -97,6 +105,7 @@ public class VtlDeptController extends BaseController {
         return R.success();
     }
 
+    @SaCheckPermission("system:dept:authorization")
     @PostMapping("/setMenu/{id}")
     public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
         vtlDeptService.setMenu(id, ListUtil.of(menuIdList));

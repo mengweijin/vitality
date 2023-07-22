@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -31,24 +32,28 @@ public class VtlConfigController extends BaseController {
     @Autowired
     private VtlConfigService vtlConfigService;
 
+    @SaCheckPermission("system:config:add")
     @PostMapping
     public R add(VtlConfig vtlConfig) {
         boolean bool = vtlConfigService.save(vtlConfig);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:config:edit")
     @PutMapping
     public R edit(VtlConfig vtlConfig) {
         boolean bool = vtlConfigService.updateById(vtlConfig);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:config:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlConfigService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:config:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = vtlConfigService.removeBatchByIds(Arrays.asList(ids));
@@ -60,11 +65,13 @@ public class VtlConfigController extends BaseController {
         return vtlConfigService.getById(id);
     }
 
+    @SaCheckPermission("system:config:detail")
     @GetMapping("/detail/{id}")
     public VtlConfigDTO detailById(@PathVariable("id") Long id) {
         return vtlConfigService.detailById(id);
     }
 
+    @SaCheckPermission("system:config:list")
     @GetMapping("/page")
     public IPage<VtlConfigDTO> page(Page<VtlConfigDTO> page, VtlConfigDTO dto) {
         return vtlConfigService.page(page, dto);

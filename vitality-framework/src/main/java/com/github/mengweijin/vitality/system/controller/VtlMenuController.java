@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -29,24 +30,28 @@ public class VtlMenuController {
     @Autowired
     private VtlMenuService menuService;
 
+    @SaCheckPermission("system:menu:add")
     @PostMapping
     public R add(VtlMenu vtlMenu) {
         boolean bool = menuService.save(vtlMenu);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:menu:edit")
     @PutMapping
     public R edit(VtlMenu vtlMenu) {
         boolean bool = menuService.updateById(vtlMenu);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:menu:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = menuService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:menu:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = menuService.removeBatchByIds(Arrays.asList(ids));
@@ -58,6 +63,7 @@ public class VtlMenuController {
         return menuService.getById(id);
     }
 
+    @SaCheckPermission("system:menu:list")
     @GetMapping("/page")
     public IPage<VtlMenuDTO> page(Page<VtlMenuDTO> page, VtlMenuDTO dto) {
         return menuService.page(page, dto);
@@ -68,6 +74,7 @@ public class VtlMenuController {
         return menuService.treeLeftSideData();
     }
 
+    @SaCheckPermission("system:menu:list")
     @GetMapping("/treeTableDataList")
     public List<VtlMenuDTO> treeTableDataList(VtlMenuDTO dto) {
         return menuService.treeTableDataList(dto);
@@ -78,6 +85,7 @@ public class VtlMenuController {
         return menuService.titleHierarchyById(id);
     }
 
+    @SaCheckPermission("system:menu:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = menuService.setDisabledValue(id, disabled);

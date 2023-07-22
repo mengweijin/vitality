@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -34,18 +35,21 @@ public class VtlRoleController extends BaseController {
     @Autowired
     private VtlRoleService vtlRoleService;
 
+    @SaCheckPermission("system:role:add")
     @PostMapping
     public R add(VtlRole vtlRole) {
         boolean bool = vtlRoleService.save(vtlRole);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:role:edit")
     @PutMapping
     public R edit(VtlRole vtlRole) {
         boolean bool = vtlRoleService.updateById(vtlRole);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:role:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlRoleService.removeById(id);
@@ -57,11 +61,13 @@ public class VtlRoleController extends BaseController {
         return vtlRoleService.getById(id);
     }
 
+    @SaCheckPermission("system:role:detail")
     @GetMapping("/detail/{id}")
     public VtlRoleDTO detailById(@PathVariable("id") Long id) {
         return vtlRoleService.detailById(id);
     }
 
+    @SaCheckPermission("system:role:list")
     @GetMapping("/page")
     public IPage<VtlRoleDTO> page(Page<VtlRoleDTO> page, VtlRoleDTO dto) {
         return vtlRoleService.page(page, dto);
@@ -72,12 +78,14 @@ public class VtlRoleController extends BaseController {
         return vtlRoleService.lambdaQuery().eq(VtlRole::getDisabled, 0).list();
     }
 
+    @SaCheckPermission("system:role:disabled")
     @PostMapping("/setDisabledValue/{id}")
     public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
         boolean bool = vtlRoleService.setDisabledValue(id, disabled);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:role:assignUser")
     @PostMapping("/addUser/{id}")
     public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
         vtlRoleService.addUsers(id, ListUtil.of(userIdList));
@@ -90,6 +98,7 @@ public class VtlRoleController extends BaseController {
         return R.success();
     }
 
+    @SaCheckPermission("system:role:authorization")
     @PostMapping("/setMenu/{id}")
     public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
         vtlRoleService.setMenu(id, ListUtil.of(menuIdList));

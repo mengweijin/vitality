@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -31,24 +32,28 @@ public class VtlAnnouncementController extends BaseController {
     @Autowired
     private VtlAnnouncementService vtlAnnouncementService;
 
+    @SaCheckPermission("system:announcement:add")
     @PostMapping
     public R add(VtlAnnouncement vtlAnnouncement) {
         boolean bool = vtlAnnouncementService.save(vtlAnnouncement);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:announcement:edit")
     @PutMapping
     public R edit(VtlAnnouncement vtlAnnouncement) {
         boolean bool = vtlAnnouncementService.updateById(vtlAnnouncement);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:announcement:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlAnnouncementService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:announcement:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = vtlAnnouncementService.removeBatchByIds(Arrays.asList(ids));
@@ -60,22 +65,26 @@ public class VtlAnnouncementController extends BaseController {
         return vtlAnnouncementService.getById(id);
     }
 
+    @SaCheckPermission("system:announcement:detail")
     @GetMapping("/detail/{id}")
     public VtlAnnouncementDTO detailById(@PathVariable("id") Long id) {
         return vtlAnnouncementService.detailById(id);
     }
 
+    @SaCheckPermission("system:announcement:list")
     @GetMapping("/page")
     public IPage<VtlAnnouncementDTO> page(Page<VtlAnnouncementDTO> page, VtlAnnouncementDTO dto) {
         return vtlAnnouncementService.page(page, dto);
     }
 
+    @SaCheckPermission("system:announcement:release")
     @PostMapping("/release/{id}")
     public R release(@PathVariable("id") Long id) {
         boolean bool = vtlAnnouncementService.lambdaUpdate().set(VtlAnnouncement::getReleased, 1).eq(VtlAnnouncement::getId, id).update();
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:announcement:revocation")
     @PostMapping("/revocation/{id}")
     public R revocation(@PathVariable("id") Long id) {
         boolean bool = vtlAnnouncementService.lambdaUpdate().set(VtlAnnouncement::getReleased, 0).eq(VtlAnnouncement::getId, id).update();

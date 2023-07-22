@@ -186,14 +186,16 @@
           }
 
           window.setDisabledValue = function(obj) {
-              layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
-                  layer.close(index);
-                  $.post('/vtl-menu/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
-                      if (result.code == 200) {
-                         window.refresh(true);
-                      }
+              if(obj.data.type == 'DIR' || obj.data.type == 'MENU') {
+                  layer.confirm('确定切换【启用/停用】状态？', { icon: 3, title: '提示' }, function(index) {
+                      layer.close(index);
+                      $.post('/vtl-menu/setDisabledValue/' + obj.data.id, { disabled: !obj.data.disabled }, function(result) {
+                          if (result.code == 200) {
+                             window.refresh(true);
+                          }
+                      });
                   });
-              });
+              }
           }
     })
 </script>

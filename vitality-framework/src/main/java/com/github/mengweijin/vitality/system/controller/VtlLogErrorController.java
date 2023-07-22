@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -43,12 +44,14 @@ public class VtlLogErrorController extends BaseController {
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:errorLog:delete")
     @DeleteMapping("/{id}")
     public R delete(@PathVariable("id") Long id) {
         boolean bool = vtlLogErrorService.removeById(id);
         return R.bool(bool);
     }
 
+    @SaCheckPermission("system:errorLog:delete")
     @DeleteMapping
     public R delete(Long[] ids) {
         boolean bool = vtlLogErrorService.removeBatchByIds(Arrays.asList(ids));
@@ -60,6 +63,7 @@ public class VtlLogErrorController extends BaseController {
         return vtlLogErrorService.getById(id);
     }
 
+    @SaCheckPermission("system:errorLog:detail")
     @GetMapping("/detail/{id}")
     public VtlLogErrorDTO detailById(@PathVariable("id") Long id) {
         return vtlLogErrorService.detailById(id);

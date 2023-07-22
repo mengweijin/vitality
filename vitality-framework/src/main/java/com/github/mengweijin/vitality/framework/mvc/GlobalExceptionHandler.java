@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.framework.mvc;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.exception.BusinessException;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
@@ -48,6 +49,13 @@ public class GlobalExceptionHandler extends BaseResponseEntityExceptionHandler {
     ResponseEntity<R> handleNotLoginException(NotLoginException e, HttpServletRequest request) {
         R r = R.error(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(r);
+    }
+
+    @ExceptionHandler({ NotPermissionException.class })
+    @ResponseBody
+    ResponseEntity<R> handleNotLoginException(NotPermissionException e, HttpServletRequest request) {
+        R r = R.error(HttpStatus.FORBIDDEN.value(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(r);
     }
 
     @ExceptionHandler({BusinessException.class, RuntimeException.class, Exception.class})

@@ -58,9 +58,8 @@ spring:
     # 禁用 placeholder replacement，否则 sql 脚本中不能写 ${} 这样的字符。
     placeholder-replacement: false
     locations:
-      - classpath:db/migration/h2
+      - classpath:db/migration/{vendor}
       # - classpath:db/migration/mysql
-      # - classpath:db/migration/oracle
   data:
     redis:
       host: localhost

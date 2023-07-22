@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <relativePath/>
     </parent>
 
@@ -22,6 +22,7 @@
         <module>vitality-framework</module>
         <module>vitality-layui</module>
         <module>vitality-generator</module>
+        <module>vitality-flowable</module>
     </modules>
 
     <properties>
@@ -46,6 +47,7 @@
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
         <knife4j.version>4.1.0</knife4j.version>
+        <flowable.version>6.8.0</flowable.version>
     </properties>
 
     <dependencyManagement>
@@ -70,6 +72,11 @@
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>vitality-generator</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>vitality-flowable</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

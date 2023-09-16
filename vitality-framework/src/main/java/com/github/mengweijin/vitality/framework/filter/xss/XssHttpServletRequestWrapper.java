@@ -2,8 +2,7 @@ package com.github.mengweijin.vitality.framework.filter.xss;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Safelist;
+import org.dromara.hutool.http.html.HTMLFilter;
 
 /**
  * XSS过滤处理
@@ -26,8 +25,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             int length = values.length;
             String[] escapeValues = new String[length];
             for (int i = 0; i < length; i++) {
-                // 防xss攻击和过滤前后空格
-                escapeValues[i] = Jsoup.clean(values[i], Safelist.relaxed()).trim();
+                escapeValues[i] = HTMLFilter.htmlSpecialChars(values[i]);
             }
             return escapeValues;
         }

@@ -1,13 +1,11 @@
 package com.github.mengweijin.vitality.framework.filter;
 
 import com.github.mengweijin.vitality.framework.VitalityProperties;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatableFilter;
 import com.github.mengweijin.vitality.framework.filter.xss.XssFilter;
 import com.github.mengweijin.vitality.framework.filter.xss.XssProperties;
-import com.github.mengweijin.vitality.framework.constant.Const;
 import jakarta.servlet.DispatcherType;
-import org.jsoup.Jsoup;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +36,6 @@ public class FilterConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnClass(Jsoup.class)
     public FilterRegistrationBean<XssFilter> xssFilter(VitalityProperties vitalityProperties) {
         XssProperties xssProperties = vitalityProperties.getXss();
         FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();

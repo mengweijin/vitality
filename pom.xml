@@ -43,7 +43,6 @@
         <easyexcel.version>3.3.2</easyexcel.version>
         <minio.version>8.5.4</minio.version>
         <ip2region.version>2.7.0</ip2region.version>
-        <jsoup.version>1.16.1</jsoup.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
         <flyway-extend.version>1.0.1</flyway-extend.version>
         <knife4j.version>4.1.0</knife4j.version>
@@ -123,12 +122,6 @@
                 <groupId>org.lionsoul</groupId>
                 <artifactId>ip2region</artifactId>
                 <version>${ip2region.version}</version>
-            </dependency>
-            <!-- JSOUP HTML解析器 -->
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -245,5 +238,18 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>huawei</id>
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>huawei</id>
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

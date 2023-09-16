@@ -68,10 +68,6 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>flyway-extend</artifactId>
-        </dependency>
-        <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot3-starter</artifactId>
         </dependency>

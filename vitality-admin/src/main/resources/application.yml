@@ -8,12 +8,12 @@ logging:
     name: logs/application.log
   level:
     root: info
-    com.github.mengweijin: debug
+    com.github.mengweijin: @logging.level@
 spring:
   application:
     name: @project.artifactId@
   profiles:
-    active: h2
+    active: @profiles.active@
   banner:
     location: classpath:banner.txt
   thymeleaf:

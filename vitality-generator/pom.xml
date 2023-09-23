@@ -9,7 +9,6 @@
   </parent>
 
   <artifactId>vitality-generator</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>vitality-generator</name>

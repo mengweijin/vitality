@@ -95,8 +95,7 @@
                     <execution>
                         <id>default</id>
                         <goals>
-                            <goal>build</goal>
-                        <!--<goal>push</goal>-->
+                        <!--<goal>build</goal>-->
                         </goals>
                     </execution>
                 </executions>

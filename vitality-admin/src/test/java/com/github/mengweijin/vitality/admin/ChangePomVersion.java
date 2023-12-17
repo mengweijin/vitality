@@ -19,7 +19,7 @@ import java.util.Optional;
  * @author mengweijin
  * @date 2023/12/17
  */
-class ChangePomVersionTest {
+class ChangePomVersion {
     private static final String PARENT_POM_XML = Const.PROJECT_PATH + "pom.xml";
     private static final String[] MODULE_POM_XML = {
             Const.PROJECT_PATH + "vitality-admin/pom.xml",
@@ -47,12 +47,12 @@ class ChangePomVersionTest {
         Element rootElement = document.getRootElement();
         Optional<Element> rootOptional = Optional.of(rootElement);
         Element versionElement = rootOptional.map(e -> e.element("version")).orElse(null);
-        versionElement.setText(ChangePomVersionTest.NEW_VERSION); // 更新 Version
+        versionElement.setText(ChangePomVersion.NEW_VERSION); // 更新 Version
 
         Element vitalityVersionElement = rootOptional
                 .map(e -> e.element("properties"))
                 .map(e -> e.element("vitality.version")).orElse(null);
-        vitalityVersionElement.setText(ChangePomVersionTest.NEW_VERSION);
+        vitalityVersionElement.setText(ChangePomVersion.NEW_VERSION);
 
         write(document, file);
     }
@@ -68,7 +68,7 @@ class ChangePomVersionTest {
             Element element = rootOptional
                     .map(e -> e.element("parent"))
                     .map(e -> e.element("version")).orElse(null);
-            element.setText(ChangePomVersionTest.NEW_VERSION);
+            element.setText(ChangePomVersion.NEW_VERSION);
 
             write(document, file);
         }

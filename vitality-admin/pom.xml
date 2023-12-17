@@ -1,78 +1,77 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <parent>
-        <groupId>com.github.mengweijin</groupId>
-        <artifactId>vitality-parent</artifactId>
-        <version>1.4.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-
-    <artifactId>vitality-admin</artifactId>
-    <packaging>jar</packaging>
-    <name>vitality-admin</name>
-
-    <properties>
-
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-framework</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-layui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-generator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 将所有依赖包全部打到一个Jar包里面 -->
-                            <!-- <goal>repackage</goal> -->
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                    <!-- <mainClass>com.github.mengweijin.vitality.admin.VitalityAdminApplication</mainClass> -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <parent> 
+        <groupId>com.github.mengweijin</groupId>  
+        <artifactId>vitality-parent</artifactId>  
+        <version>1.4.0</version>  
+        <relativePath>../pom.xml</relativePath> 
+    </parent>  
+    <artifactId>vitality-admin</artifactId>  
+    <packaging>jar</packaging>  
+    <name>vitality-admin</name>  
+    <properties></properties>  
+    <dependencies> 
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>vitality-framework</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>vitality-layui</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.mengweijin</groupId>  
+            <artifactId>vitality-generator</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.projectlombok</groupId>  
+            <artifactId>lombok</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.h2database</groupId>  
+            <artifactId>h2</artifactId>  
+            <scope>runtime</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.mysql</groupId>  
+            <artifactId>mysql-connector-j</artifactId>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-test</artifactId>  
+            <scope>test</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.dom4j</groupId>  
+            <artifactId>dom4j</artifactId>  
+            <version>2.1.3</version>  
+            <scope>test</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <plugins> 
+            <plugin> 
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>  
+                <executions> 
+                    <execution> 
+                        <goals> 
+                            <!-- 将所有依赖包全部打到一个Jar包里面 -->  
+                            <!-- <goal>repackage</goal> --> 
+                        </goals> 
+                    </execution> 
+                </executions>  
+                <configuration> 
+                    <includeSystemScope>true</includeSystemScope>  
+                    <!-- <mainClass>com.github.mengweijin.vitality.admin.VitalityAdminApplication</mainClass> -->  
                     <!--
                           这里只包含一个不存在的项nothing,即代表什么都不包含，当然名字可以随便写。
                           如果要打可执行 jar，则删掉这段 include
-                    -->
+                    -->  
                     <!--
                     <includes>
                       <include>
@@ -80,33 +79,31 @@
                         <artifactId>nothing</artifactId>
                       </include>
                     </includes>
-                    -->
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                        <!--<goal>build</goal>-->
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <repository>mengweijin/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
-                    <buildArgs>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
-            </plugin>
-
-        </plugins>
-        <!-- 最终打出来的Jar的名称 -->
-        <!-- <finalName>${project.artifactId}</finalName> -->
-    </build>
+                    --> 
+                </configuration> 
+            </plugin>  
+            <plugin> 
+                <groupId>com.spotify</groupId>  
+                <artifactId>dockerfile-maven-plugin</artifactId>  
+                <version>1.4.13</version>  
+                <executions> 
+                    <execution> 
+                        <id>default</id>  
+                        <goals> 
+                            <!--<goal>build</goal>--> 
+                        </goals> 
+                    </execution> 
+                </executions>  
+                <configuration> 
+                    <repository>mengweijin/${project.artifactId}</repository>  
+                    <tag>${project.version}</tag>  
+                    <buildArgs> 
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE> 
+                    </buildArgs> 
+                </configuration> 
+            </plugin> 
+        </plugins>  
+        <!-- 最终打出来的Jar的名称 -->  
+        <!-- <finalName>${project.artifactId}</finalName> --> 
+    </build> 
 </project>

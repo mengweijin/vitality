@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system;
 
+import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.core.reflect.ClassUtil;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

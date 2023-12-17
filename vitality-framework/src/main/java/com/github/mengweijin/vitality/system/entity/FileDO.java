@@ -26,6 +26,12 @@ public class FileDO extends BaseEntity {
     private String fileName;
 
     /**
+     * 文件后缀
+     */
+    @TableField("FILE_SUFFIX")
+    private String fileSuffix;
+
+    /**
      * minio 文件存储全路径
      */
     @TableField("FILE_PATH")

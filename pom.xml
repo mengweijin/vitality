@@ -11,7 +11,7 @@
 
     <groupId>com.github.mengweijin</groupId>
     <artifactId>vitality-parent</artifactId>
-    <version>${revision}</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>  
     <name>vitality-parent</name>
     <description>vitality-parent</description>
@@ -22,11 +22,10 @@
         <module>vitality-framework</module>
         <module>vitality-layui</module>
         <module>vitality-generator</module>
-        <module>vitality-flowable</module>
     </modules>
 
     <properties>
-        <revision>1.3.0</revision>
+        <vitality.version>1.4.0-SNAPSHOT</vitality.version>
         <!--    <gpg.skip>true</gpg.skip>-->
         <!--    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
         <skipTests>true</skipTests>
@@ -36,8 +35,8 @@
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatis-plus.version>3.5.3.2</mybatis-plus.version>
-        <hutool.version>6.0.0-M6</hutool.version>
+        <mybatis-plus.version>3.5.4.1</mybatis-plus.version>
+        <hutool.version>6.0.0-M8</hutool.version>
         <sa-token.version>1.36.0</sa-token.version>
         <oshi.version>6.4.5</oshi.version>
         <zxing.version>3.5.2</zxing.version>
@@ -46,7 +45,6 @@
         <ip2region.version>2.7.0</ip2region.version>
         <p6spy-spring-boot-starter.version>1.9.0</p6spy-spring-boot-starter.version>
         <knife4j.version>4.3.0</knife4j.version>
-        <flowable.version>6.8.0</flowable.version>
     </properties>
 
     <profiles>
@@ -115,26 +113,21 @@
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>vitality-framework</artifactId>
-                <version>${revision}</version>
+                <version>${vitality.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>vitality-layui</artifactId>
-                <version>${revision}</version>
+                <version>${vitality.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.mengweijin</groupId>
                 <artifactId>vitality-generator</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>vitality-flowable</artifactId>
-                <version>${revision}</version>
+                <version>${vitality.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>

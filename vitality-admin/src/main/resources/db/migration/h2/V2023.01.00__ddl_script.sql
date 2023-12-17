@@ -110,8 +110,9 @@ DROP TABLE IF EXISTS VTL_FILE;
 CREATE TABLE VTL_FILE (
   ID                            bigint NOT NULL COMMENT '主键ID',
   FILE_NAME                     varchar(255) NOT NULL COMMENT '原始文件名称',
-  BUCKET                        varchar(50) NOT NULL COMMENT 'minio bucket name',
-  FILE_PATH                     varchar(255) NOT NULL COMMENT 'minio 文件存储全路径',
+  FILE_SUFFIX                   varchar(10) COMMENT '文件后缀',
+  FILE_PATH                     varchar(255) NOT NULL COMMENT '文件存储全路径',
+  BUCKET                        varchar(50) COMMENT 'bucket name',
   CREATE_BY                     bigint DEFAULT NULL COMMENT '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL COMMENT '更新者',

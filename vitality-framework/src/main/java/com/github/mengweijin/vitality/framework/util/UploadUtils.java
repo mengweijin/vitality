@@ -4,10 +4,12 @@ import com.github.mengweijin.vitality.framework.exception.BusinessException;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.io.file.FileUtil;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +51,15 @@ public class UploadUtils {
             throw new BusinessException(e);
         }
         return fileList;
+    }
+
+    public static void storageFile(MultipartFile multipartFile, String path){
+        try {
+            FileUtil.writeFromStream(multipartFile.getInputStream(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

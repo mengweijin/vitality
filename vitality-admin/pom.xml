@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.mengweijin</groupId>
         <artifactId>vitality-parent</artifactId>
-        <version>${revision}</version>
+        <version>1.4.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -30,10 +30,6 @@
             <groupId>com.github.mengweijin</groupId>
             <artifactId>vitality-generator</artifactId>
         </dependency>
-        <!--    <dependency>-->
-        <!--      <groupId>com.github.mengweijin</groupId>-->
-        <!--      <artifactId>vitality-flowable</artifactId>-->
-        <!--    </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -47,6 +43,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

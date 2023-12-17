@@ -35,6 +35,6 @@ build/
 
 /h2
 logs
-/upload
+/file
 /data
 application-local.yml

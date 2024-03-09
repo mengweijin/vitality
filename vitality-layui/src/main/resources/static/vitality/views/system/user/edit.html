@@ -94,11 +94,11 @@
 		<script src="../../../component/layui/layui.js"></script>
 		<script src="../../../component/pear/pear.js"></script>
 		<script>
-			layui.use(['form', 'jquery', 'dict', 'configDO', 'vtlForm'], function() {
+			layui.use(['form', 'jquery', 'dict', 'vtlConfig', 'vtlForm'], function() {
 				let form = layui.form;
 				let $ = layui.jquery;
 				let dict = layui.dict;
-				let configDO = layui.configDO;
+				let vtlConfig = layui.vtlConfig;
 				let vtlForm = layui.vtlForm;
 				let url = layui.url();
 				let id = url.search.id;
@@ -177,7 +177,7 @@
                             $('form input:hidden[name=roleIdList]').val(result.roleList.map(role => role.id).join());
                 		});
                     } else {
-                        $('form input:password[name=password]').val(configDO.getValByCode('vtl_user_init_password'));
+                        $('form input:password[name=password]').val(vtlConfig.getValByCode('vtl_user_init_password'));
                     }
                     window.initDeptSelector();
                     window.initPostSelector();

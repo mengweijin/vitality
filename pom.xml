@@ -10,7 +10,7 @@
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
     <artifactId>vitality-parent</artifactId>  
-    <version>1.4.0</version>  
+    <version>1.4.1-SNAPSHOT</version>  
     <packaging>pom</packaging>  
     <name>vitality-parent</name>  
     <description>vitality-parent</description>  
@@ -22,7 +22,7 @@
         <module>vitality-generator</module> 
     </modules>  
     <properties> 
-        <vitality.version>1.4.0</vitality.version>  
+        <vitality.version>1.4.1-SNAPSHOT</vitality.version>  
         <!--    <gpg.skip>true</gpg.skip>-->  
         <!--    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->  
         <skipTests>true</skipTests>  

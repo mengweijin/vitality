@@ -5,13 +5,13 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>vitality-parent</artifactId>  
-        <version>1.4.0</version>  
+        <version>1.4.1-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>vitality-admin</artifactId>  
     <packaging>jar</packaging>  
     <name>vitality-admin</name>  
-    <properties></properties>  
+    <properties/>  
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>  
@@ -72,13 +72,13 @@
                           这里只包含一个不存在的项nothing,即代表什么都不包含，当然名字可以随便写。
                           如果要打可执行 jar，则删掉这段 include
                     -->  
-                    <includes>
-                      <include>
-                        <groupId>nothing</groupId>
-                        <artifactId>nothing</artifactId>
-                      </include>
-                    </includes>
-                </configuration>
+                    <!--                    <includes>-->  
+                    <!--                      <include>-->  
+                    <!--                        <groupId>nothing</groupId>-->  
+                    <!--                        <artifactId>nothing</artifactId>-->  
+                    <!--                      </include>-->  
+                    <!--                    </includes>--> 
+                </configuration> 
             </plugin>  
             <plugin> 
                 <groupId>com.spotify</groupId>  

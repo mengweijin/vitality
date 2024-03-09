@@ -28,7 +28,7 @@ class ChangePomVersion {
             Const.PROJECT_PATH + "vitality-layui/pom.xml",
     };
 
-    private static final String NEW_VERSION = "1.4.0";
+    private static final String NEW_VERSION = "1.4.1-SNAPSHOT";
 
     @SneakyThrows
     public static void main(String[] args) {

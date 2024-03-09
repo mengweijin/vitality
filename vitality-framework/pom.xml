@@ -5,13 +5,13 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>vitality-parent</artifactId>  
-        <version>1.4.0</version>  
+        <version>1.4.1-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>vitality-framework</artifactId>  
     <packaging>jar</packaging>  
     <name>vitality-framework</name>  
-    <properties></properties>  
+    <properties/>  
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  

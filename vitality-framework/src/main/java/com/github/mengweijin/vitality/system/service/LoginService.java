@@ -66,7 +66,7 @@ public class LoginService {
 
     public String getCaptcha() {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
-        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 4, 20);
+        CircleCaptcha captcha = CaptchaUtil.ofCircleCaptcha(200, 100, 4, 20);
         captcha.createCode();
         String sessionId = ServletUtils.getSession().getId();
         Cache<Object, Object> cache = cacheManager.getCache(CacheConst.NAME_1_MINUTES);

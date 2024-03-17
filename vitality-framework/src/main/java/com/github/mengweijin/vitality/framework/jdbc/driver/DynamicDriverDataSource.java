@@ -5,7 +5,8 @@ import lombok.Getter;
 import org.dromara.hutool.core.classloader.JarClassLoader;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.lang.Assert;
-import org.dromara.hutool.db.dialect.DialectFactory;
+import org.dromara.hutool.db.driver.DriverIdentifier;
+
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.PrintWriter;
@@ -103,7 +104,7 @@ public class DynamicDriverDataSource implements DataSource {
     }
 
     public DriverShim registerDriverByUrl(String jdbcUrl) {
-        return this.registerDriver(DialectFactory.identifyDriver(jdbcUrl, this.classLoader));
+        return this.registerDriver(new DriverIdentifier(this.classLoader).identifyDriver(jdbcUrl));
     }
 
     /**

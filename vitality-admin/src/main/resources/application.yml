@@ -2,13 +2,8 @@ server:
   port: 8080
   servlet:
     context-path: /
-#日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
 logging:
-  file:
-    name: logs/application.log
-  level:
-    root: info
-    com.github.mengweijin: @logging.level@
+  config: classpath:logback-spring.xml
 spring:
   application:
     name: @project.artifactId@

@@ -102,6 +102,6 @@
             </plugin> 
         </plugins>  
         <!-- 最终打出来的Jar的名称 -->  
-        <!-- <finalName>${project.artifactId}</finalName> --> 
+         <finalName>${project.artifactId}</finalName>
     </build> 
 </project>

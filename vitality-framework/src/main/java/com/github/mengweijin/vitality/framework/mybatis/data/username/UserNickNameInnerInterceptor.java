@@ -11,34 +11,44 @@ import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.AllTableColumns;
 import net.sf.jsqlparser.statement.select.Join;
+import net.sf.jsqlparser.statement.select.ParenthesedSelect;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectBody;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
-import net.sf.jsqlparser.statement.select.SelectItem;
 import net.sf.jsqlparser.statement.select.SetOperationList;
-import net.sf.jsqlparser.statement.select.SubSelect;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Not useful.
- * {@link QueryUserName}
+ * {@link QueryUserNickName}
  * {@link JsqlParserSupport} <a href="https://github.com/JSQLParser/JSqlParser">JSqlParser</a>
  * @author mengweijin
  * @date 2023/4/16
  */
 @Deprecated
 @Slf4j
-public class SysUserNameInnerInterceptor extends JsqlParserSupport implements InnerInterceptor {
+public class UserNickNameInnerInterceptor extends JsqlParserSupport implements InnerInterceptor {
+
+    private static final String VTL_USER = "VTL_USER";
+    private static final String CREATE_BY_LEFT_JOIN_VTL_USER_ALIAS = "CREATE_BY_VTL_USER_";
+    private static final String UPDATE_BY_LEFT_JOIN_VTL_USER_ALIAS = "UPDATE_BY_VTL_USER_";
+
+    private static final String NICK_NAME = "NICK_NAME";
+    private static final String ID = "ID";
+    private static final String CREATE_BY = "CREATE_BY";
+    private static final String UPDATE_BY = "UPDATE_BY";
+
+    private static final String CREATE_BY_COLUMN_QUERY_ALIAS = "CREATE_BY_NAME";
+    private static final String UPDATE_BY_COLUMN_QUERY_ALIAS = "UPDATE_BY_NAME";
+
+    private static final String ORIGINAL_QUERY_ALIAS = "ORIGINAL_QUERY_ALIAS_";
+
 
     @Override
     public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
@@ -48,11 +58,10 @@ public class SysUserNameInnerInterceptor extends JsqlParserSupport implements In
 
     @Override
     protected void processSelect(Select select, int index, String sql, Object obj) {
-        SelectBody selectBody = select.getSelectBody();
-        if (selectBody instanceof PlainSelect) {
-            this.wrapLeftJoinSysUser((PlainSelect) selectBody, (String) obj);
-        } else if (selectBody instanceof SetOperationList setOperationList) {
-            List<SelectBody> selectBodyList = setOperationList.getSelects();
+        if (select instanceof PlainSelect selectBody) {
+            this.wrapLeftJoinSysUser(selectBody, (String) obj);
+        } else if (select instanceof SetOperationList setOperationList) {
+            List<Select> selectBodyList = setOperationList.getSelects();
             selectBodyList.forEach(s -> this.wrapLeftJoinSysUser((PlainSelect) s, (String) obj));
         }
     }
@@ -69,58 +78,49 @@ public class SysUserNameInnerInterceptor extends JsqlParserSupport implements In
 
         MapperUtils.processMethodExpression(
                 mappedStatementId,
-                QueryUserName.class,
-                queryUserName -> this.sysUserNameSqlWrapper(plainSelect));
+                QueryUserNickName.class,
+                queryUserNickName -> this.sysUserNameSqlWrapper(plainSelect));
     }
 
     private PlainSelect sysUserNameSqlWrapper(PlainSelect plainSelect) {
-        String createByLeftJoinTableAlias = "createBy_alias_";
-        String updateByLeftJoinTableAlias = "updateBy_alias_";
+        PlainSelect resultSelect = new PlainSelect();
+        AllTableColumns columns = new AllTableColumns(new Table(ORIGINAL_QUERY_ALIAS));
+        resultSelect.addSelectItem(columns);
 
-        String originalQueryTableAlias = "original_query_alias_";
-
-        PlainSelect all = new PlainSelect();
-        ArrayList<SelectItem> list = new ArrayList<>();
-        AllTableColumns columns = new AllTableColumns(new Table(originalQueryTableAlias));
         // createByName
-        SelectExpressionItem createByNameItem = new SelectExpressionItem(new Column(new Table(createByLeftJoinTableAlias), "NICK_NAME"));
-        createByNameItem.setAlias(new Alias("createByName"));
-        // updateByName
-        SelectExpressionItem updateByItem = new SelectExpressionItem(new Column(new Table(updateByLeftJoinTableAlias), "NICK_NAME"));
-        updateByItem.setAlias(new Alias("updateByName"));
-        list.add(columns);
-        list.add(createByNameItem);
-        list.add(updateByItem);
-        all.addSelectItems(list);
+        Column createByNameColumn = new Column(new Table(CREATE_BY_LEFT_JOIN_VTL_USER_ALIAS), NICK_NAME);
+        resultSelect.addSelectItems(createByNameColumn);
 
-        SubSelect subSelect = new SubSelect();
-        subSelect.setSelectBody(plainSelect);
-        subSelect.setAlias(new Alias(originalQueryTableAlias));
-        all.setFromItem(subSelect);
+        // updateByName
+        Column updateByNameColumn = new Column(new Table(UPDATE_BY_LEFT_JOIN_VTL_USER_ALIAS), NICK_NAME);
+        resultSelect.addSelectItems(updateByNameColumn);
+
+        // set sub-select
+        ParenthesedSelect subSelect = new ParenthesedSelect().withSelect(plainSelect).withAlias(new Alias(ORIGINAL_QUERY_ALIAS));
+        resultSelect.setFromItem(subSelect);
 
         // left Join ---- createBy
         Join createByJoin = new Join();
         createByJoin.setLeft(true);
-        Table createByJoinTable = new Table("VTL_USER");
-        createByJoinTable.setAlias(new Alias(createByLeftJoinTableAlias));
+        Table createByJoinTable = new Table(VTL_USER);
+        createByJoinTable.setAlias(new Alias(CREATE_BY_LEFT_JOIN_VTL_USER_ALIAS));
         createByJoin.setRightItem(createByJoinTable);
-        Column createByLeftColumn = new Column(new Table(createByLeftJoinTableAlias), "ID");
-        Column createByRightColumn = new Column(new Table(originalQueryTableAlias), "CREATE_BY");
+        Column createByLeftColumn = new Column(new Table(CREATE_BY_LEFT_JOIN_VTL_USER_ALIAS), ID);
+        Column createByRightColumn = new Column(new Table(ORIGINAL_QUERY_ALIAS), CREATE_BY);
         createByJoin.setOnExpressions(Collections.singletonList(new EqualsTo(createByLeftColumn, createByRightColumn)));
-        all.addJoins(createByJoin);
+        resultSelect.addJoins(createByJoin);
 
         // left Join ---- updateBy
         Join updateByJoin = new Join();
         updateByJoin.setLeft(true);
-        Table updateByJoinTable = new Table("VTL_USER");
-        updateByJoinTable.setAlias(new Alias(updateByLeftJoinTableAlias));
+        Table updateByJoinTable = new Table(VTL_USER);
+        updateByJoinTable.setAlias(new Alias(UPDATE_BY_LEFT_JOIN_VTL_USER_ALIAS));
         updateByJoin.setRightItem(updateByJoinTable);
-        Column updateByLeftColumn = new Column(new Table(updateByLeftJoinTableAlias), "ID");
-        Column updateByRightColumn = new Column(new Table(originalQueryTableAlias), "UPDATE_BY");
+        Column updateByLeftColumn = new Column(new Table(UPDATE_BY_LEFT_JOIN_VTL_USER_ALIAS), ID);
+        Column updateByRightColumn = new Column(new Table(ORIGINAL_QUERY_ALIAS), UPDATE_BY);
         updateByJoin.setOnExpressions(Collections.singletonList(new EqualsTo(updateByLeftColumn, updateByRightColumn)));
-        all.addJoins(updateByJoin);
+        resultSelect.addJoins(updateByJoin);
 
-        plainSelect = all;
-        return plainSelect;
+        return resultSelect;
     }
 }

@@ -1,6 +1,6 @@
 #!/bin/sh
-# ./app.sh start 启动 stop 停止 restart 重启 status 状态
-AppName=app.jar
+# ./vitality.sh start 启动 stop 停止 restart 重启 status 状态
+AppName=vitality-admin.jar
 
 # JVM参数
 JVM_OPTS="-Dname=$AppName -Dserver.port=8080 -Duser.timezone=Asia/Shanghai -Xms128m -Xmx512m"

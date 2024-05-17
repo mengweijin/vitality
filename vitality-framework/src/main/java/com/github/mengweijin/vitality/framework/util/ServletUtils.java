@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpSession;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.dromara.hutool.extra.spring.SpringUtil;
-import org.dromara.hutool.http.server.servlet.JakartaServletUtil;
+import org.dromara.hutool.http.server.servlet.ServletUtil;
 import org.dromara.hutool.http.useragent.UserAgent;
 import org.dromara.hutool.http.useragent.UserAgentUtil;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -22,7 +23,7 @@ import java.util.Enumeration;
  * @author
  * Servlet工具类
  **/
-public class ServletUtils extends JakartaServletUtil {
+public class ServletUtils extends ServletUtil {
 
     /**
      * 获取UserAgent

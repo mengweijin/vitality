@@ -1,10 +1,10 @@
 FROM openjdk:17.0.2-oraclelinux8
 LABEL authors="mengweijin"
 
-RUN mkdir -p /app/vitality/logs \
-    /app/vitality/temp
+RUN mkdir -p /opt/vitality/logs \
+    /opt/vitality/temp
 
-WORKDIR /app/vitality
+WORKDIR /opt/vitality
 
 ENV SERVER_PORT=8080 LANG=C.UTF-8 LC_ALL=C.UTF-8
 

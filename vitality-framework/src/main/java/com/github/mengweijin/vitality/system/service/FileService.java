@@ -27,7 +27,6 @@ public class FileService extends ServiceImpl<FileMapper, FileDO> {
 
     private final String FORMAT = File.separatorChar + "yyyy" + File.separatorChar + "MM" + File.separatorChar + "dd" + File.separatorChar;
 
-
     @Autowired
     private FileMapper fileMapper;
 
@@ -43,7 +42,7 @@ public class FileService extends ServiceImpl<FileMapper, FileDO> {
         List<FileDO> fileList = UploadUtils.upload(request, multipartFile -> {
             String fileName = multipartFile.getOriginalFilename();
             String suffix = FileNameUtil.getSuffix(fileName);
-            String path = Const.PROJECT_PATH + "file" + TimeUtil.format(LocalDate.now(), FORMAT) + IdUtil.simpleUUID() + Const.DOT + suffix;
+            String path = Const.PROJECT_PATH + "uploads" + TimeUtil.format(LocalDate.now(), FORMAT) + IdUtil.simpleUUID() + Const.DOT + suffix;
             UploadUtils.storageFile(multipartFile, path);
             FileDO file = new FileDO();
             file.setFileName(fileName);

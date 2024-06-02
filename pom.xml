@@ -17,9 +17,9 @@
     <url>https://gitee.com/mengweijin/vitality</url>  
     <modules> 
         <module>vitality-admin</module>  
-        <module>vitality-framework</module>  
+        <module>vitality-framework</module>
         <module>vitality-layui</module>  
-        <module>vitality-generator</module> 
+        <module>vitality-generator</module>
     </modules>  
     <properties> 
         <vitality.version>1.4.1-SNAPSHOT</vitality.version>  
@@ -42,7 +42,6 @@
         <ip2region.version>2.7.0</ip2region.version>  
         <p6spy-spring-boot-starter.version>1.9.1</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
-        <testable.version>0.7.9</testable.version>
     </properties>  
     <profiles> 
         <profile> 
@@ -163,12 +162,6 @@
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>  
                 <version>${knife4j.version}</version> 
             </dependency>
-            <dependency>
-                <groupId>com.alibaba.testable</groupId>
-                <artifactId>testable-all</artifactId>
-                <version>${testable.version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies> 
     </dependencyManagement>  
     <!-- 开源许可证 -->  
@@ -196,13 +189,9 @@
     </issueManagement>  
     <build> 
         <plugins>
-            <!-- https://alibaba.github.io/testable-mock -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>-javaagent:${settings.localRepository}/com/alibaba/testable/testable-agent/${testable.version}/testable-agent-${testable.version}.jar</argLine>
-                </configuration>
             </plugin>
             <!-- Source -->  
             <plugin> 
@@ -265,7 +254,19 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>  
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
-            </plugin> 
+            </plugin>
+            <plugin>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>code-generator-maven-plugin</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+                <configuration>
+                    <config>
+                        <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
+                        <templateDir>generator</templateDir>
+                        <tablePrefix>vtl_</tablePrefix>
+                    </config>
+                </configuration>
+            </plugin>
         </plugins> 
     </build>  
     <!--  提交到资料库的地址  -->  

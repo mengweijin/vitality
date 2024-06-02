@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework.mybatis.data.username;
 
-import com.alibaba.testable.core.tool.PrivateAccessor;
 import lombok.SneakyThrows;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Alias;
@@ -20,6 +19,7 @@ import net.sf.jsqlparser.statement.select.ParenthesedSelect;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectItem;
+import org.dromara.hutool.core.reflect.method.MethodUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -201,7 +201,7 @@ public class UserNickNameInnerInterceptorTest {
         Statement statement = CCJSqlParserUtil.parse(sql);
         PlainSelect plainSelect = (PlainSelect) statement;
 
-        PlainSelect select = (PlainSelect) PrivateAccessor.invoke(interceptor, "sysUserNameSqlWrapper", plainSelect);
+        PlainSelect select = MethodUtil.invoke(interceptor, "sysUserNameSqlWrapper", plainSelect);
 
         String resultSql = """
             SELECT ORIGINAL_QUERY_ALIAS_.*, CREATE_BY_VTL_USER_.NICK_NAME, UPDATE_BY_VTL_USER_.NICK_NAME FROM 

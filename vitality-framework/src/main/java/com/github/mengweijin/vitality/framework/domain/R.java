@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class R implements Serializable {
+public class R<T> implements Serializable {
 
     /**
      * 状态码
@@ -32,32 +32,32 @@ public class R implements Serializable {
     private R() {
     }
 
-    public static R success() {
+    public static <T> R<T> success() {
         return success(null);
     }
 
-    public static R success(Object data) {
+    public static <T> R<T> success(Object data) {
         return success(HttpStatus.OK.value(), data);
     }
 
-    public static R success(int code, Object data) {
+    public static <T> R<T> success(int code, Object data) {
         return info(code, Const.SUCCESS, data);
     }
 
-    public static R error() {
+    public static <T> R<T> error() {
         return error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
-    public static R error(String message) {
+    public static <T> R<T> error(String message) {
         return info(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 
-    public static R error(int code, String message) {
+    public static <T> R<T> error(int code, String message) {
         return info(code, message, null);
     }
 
-    public static R info(int code, String msg, Object data) {
-        R r = new R();
+    public static <T> R<T> info(int code, String msg, Object data) {
+        R<T> r = new R<>();
         r.setCode(code);
         r.setMessage(msg);
         r.setData(data);
@@ -65,8 +65,12 @@ public class R implements Serializable {
         return r;
     }
 
-    public static R bool(boolean flag) {
+    public static <T> R<T> bool(boolean flag) {
         return flag ? R.success() : R.error(HttpStatus.NO_CONTENT.value(), HttpStatus.NO_CONTENT.getReasonPhrase() + " or Business Failed.");
+    }
+
+    public static <T> R<T> ajax(int i) {
+        return R.bool(i > 0);
     }
 
     /**

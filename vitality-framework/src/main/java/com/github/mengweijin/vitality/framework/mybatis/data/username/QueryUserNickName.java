@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * Not useful.
- * Can only be used in *Mapper.java. More detail refer to {@link SysUserNameInnerInterceptor}
+ * Can only be used in *Mapper.java. More detail refer to {@link UserNickNameInnerInterceptor}
  * @author mengweijin
  * @date 2022/11/20
  */
@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface QueryUserName {
+public @interface QueryUserNickName {
 
 }

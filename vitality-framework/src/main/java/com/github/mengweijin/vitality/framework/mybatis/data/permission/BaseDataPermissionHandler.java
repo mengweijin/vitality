@@ -8,7 +8,6 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
-import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.schema.Column;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -65,7 +64,7 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
                     InExpression deptInExpression = new InExpression();
                     deptInExpression.setLeftExpression(buildColumn(dataScope));
                     List<Expression> deptExpressionList = loginUserDeptIdList.stream().map(StringValue::new).collect(Collectors.toList());
-                    deptInExpression.setRightItemsList(new ExpressionList(deptExpressionList));
+                    // deptInExpression.setRightItemsList(new ExpressionList(deptExpressionList));
                     expression = deptInExpression;
                 }
             }
@@ -75,7 +74,7 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
                     InExpression roleInExpression = new InExpression();
                     roleInExpression.setLeftExpression(buildColumn(dataScope));
                     List<Expression> roleExpressionList = loginUserRoleIdList.stream().map(StringValue::new).collect(Collectors.toList());
-                    roleInExpression.setRightItemsList(new ExpressionList(roleExpressionList));
+                    // roleInExpression.setRightItemsList(new ExpressionList(roleExpressionList));
                     expression = roleInExpression;
                 }
             }

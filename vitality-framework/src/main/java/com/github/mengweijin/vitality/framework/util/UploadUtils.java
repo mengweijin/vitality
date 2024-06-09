@@ -55,11 +55,10 @@ public class UploadUtils {
 
     public static void storageFile(MultipartFile multipartFile, String path){
         try {
-            FileUtil.writeFromStream(multipartFile.getInputStream(), path);
+            FileUtil.copy(multipartFile.getInputStream(), FileUtil.file(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 }

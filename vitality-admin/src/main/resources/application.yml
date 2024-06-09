@@ -2,13 +2,12 @@ server:
   port: 8080
   servlet:
     context-path: /
-#日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml,image/png,image/gif,image/svg+xml,font/woff2
 logging:
-  file:
-    name: logs/application.log
-  level:
-    root: info
-    com.github.mengweijin: @logging.level@
+  config: classpath:logback-spring.xml
 spring:
   application:
     name: @project.artifactId@

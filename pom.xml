@@ -5,7 +5,7 @@
     <parent> 
         <groupId>org.springframework.boot</groupId>  
         <artifactId>spring-boot-starter-parent</artifactId>  
-        <version>3.2.3</version>
+        <version>3.2.5</version>
         <relativePath/> 
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
@@ -17,9 +17,9 @@
     <url>https://gitee.com/mengweijin/vitality</url>  
     <modules> 
         <module>vitality-admin</module>  
-        <module>vitality-framework</module>  
+        <module>vitality-framework</module>
         <module>vitality-layui</module>  
-        <module>vitality-generator</module> 
+        <module>vitality-generator</module>
     </modules>  
     <properties> 
         <vitality.version>1.4.1-SNAPSHOT</vitality.version>  
@@ -32,13 +32,13 @@
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
-        <hutool.version>6.0.0-M11</hutool.version>
-        <sa-token.version>1.37.0</sa-token.version>
-        <oshi.version>6.5.0</oshi.version>
+        <mybatis-plus.version>3.5.6</mybatis-plus.version>
+        <hutool.version>6.0.0-M12</hutool.version>
+        <sa-token.version>1.38.0</sa-token.version>
+        <oshi.version>6.6.0</oshi.version>
         <zxing.version>3.5.3</zxing.version>
         <easyexcel.version>3.3.4</easyexcel.version>
-        <minio.version>8.5.9</minio.version>
+        <minio.version>8.5.10</minio.version>
         <ip2region.version>2.7.0</ip2region.version>  
         <p6spy-spring-boot-starter.version>1.9.1</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
@@ -63,15 +63,7 @@
                 <!-- 默认环境 -->  
                 <activeByDefault>true</activeByDefault> 
             </activation> 
-        </profile>  
-        <profile> 
-            <id>gen</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>gen</profiles.active>  
-                <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
+        </profile>
         <profile> 
             <id>mysql</id>  
             <properties> 
@@ -92,7 +84,7 @@
             <id>prod</id>  
             <properties> 
                 <profiles.active>prod</profiles.active>  
-                <logging.level>warn</logging.level> 
+                <logging.level>info</logging.level>
             </properties> 
         </profile> 
     </profiles>  
@@ -169,7 +161,7 @@
                 <groupId>com.github.xiaoymin</groupId>  
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>  
                 <version>${knife4j.version}</version> 
-            </dependency> 
+            </dependency>
         </dependencies> 
     </dependencyManagement>  
     <!-- 开源许可证 -->  
@@ -196,7 +188,11 @@
         <url>https://gitee.com/mengweijin/vitality/issues</url> 
     </issueManagement>  
     <build> 
-        <plugins> 
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
             <!-- Source -->  
             <plugin> 
                 <groupId>org.apache.maven.plugins</groupId>  
@@ -258,7 +254,19 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>  
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
-            </plugin> 
+            </plugin>
+            <plugin>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>code-generator-maven-plugin</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+                <configuration>
+                    <config>
+                        <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
+                        <templateDir>generator/jpa</templateDir>
+                        <tablePrefix>vtl_</tablePrefix>
+                    </config>
+                </configuration>
+            </plugin>
         </plugins> 
     </build>  
     <!--  提交到资料库的地址  -->  

@@ -10,8 +10,7 @@
     </parent>  
     <artifactId>vitality-framework</artifactId>  
     <packaging>jar</packaging>  
-    <name>vitality-framework</name>  
-    <properties/>  
+    <name>vitality-framework</name>
     <dependencies> 
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
@@ -110,6 +109,6 @@
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-test</artifactId>  
             <scope>test</scope> 
-        </dependency> 
+        </dependency>
     </dependencies> 
 </project>

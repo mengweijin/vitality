@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.framework.filter.xss;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.dromara.hutool.http.html.HTMLFilter;
+import org.dromara.hutool.http.html.HtmlFilter;
 
 /**
  * XSS过滤处理
@@ -25,7 +25,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             int length = values.length;
             String[] escapeValues = new String[length];
             for (int i = 0; i < length; i++) {
-                escapeValues[i] = HTMLFilter.htmlSpecialChars(values[i]);
+                escapeValues[i] = HtmlFilter.htmlSpecialChars(values[i]);
             }
             return escapeValues;
         }

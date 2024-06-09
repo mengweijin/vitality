@@ -14,7 +14,7 @@ import java.util.Locale;
 public class CamelCaseMapRowMapper extends ColumnMapRowMapper {
 
     /**
-     * column name under line to camel
+     * column name underline to camel
      *
      * @param columnName columnName
      * @return columnName

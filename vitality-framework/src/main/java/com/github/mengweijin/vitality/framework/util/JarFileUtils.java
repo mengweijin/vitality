@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.framework.util;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.io.file.FileUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,7 +76,7 @@ public class JarFileUtils {
                         && !jarEntryName.endsWith(Const.SLASH)) {
                     inputStream = classLoader.getResource(jarEntryName).openConnection().getInputStream();
                     fileTargetDir = FileUtil.file(targetDir + File.separator + jarEntryName);
-                    FileUtil.writeFromStream(inputStream, fileTargetDir);
+                    FileUtil.copy(inputStream, fileTargetDir);
                     if (inputStream != null) {
                         inputStream.close();
                     }

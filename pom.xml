@@ -262,7 +262,7 @@
                 <configuration>
                     <config>
                         <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
-                        <templateDir>generator</templateDir>
+                        <templateDir>generator/jpa</templateDir>
                         <tablePrefix>vtl_</tablePrefix>
                     </config>
                 </configuration>

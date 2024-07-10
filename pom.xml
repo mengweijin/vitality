@@ -5,7 +5,7 @@
     <parent> 
         <groupId>org.springframework.boot</groupId>  
         <artifactId>spring-boot-starter-parent</artifactId>  
-        <version>3.2.5</version>
+        <version>3.3.0</version>
         <relativePath/> 
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
@@ -32,8 +32,8 @@
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <mybatis-plus.version>3.5.6</mybatis-plus.version>
-        <hutool.version>6.0.0-M12</hutool.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <hutool.version>6.0.0-M13</hutool.version>
         <sa-token.version>1.38.0</sa-token.version>
         <oshi.version>6.6.0</oshi.version>
         <zxing.version>3.5.3</zxing.version>
@@ -262,8 +262,8 @@
                 <configuration>
                     <config>
                         <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
-                        <templateDir>generator/jpa</templateDir>
                         <tablePrefix>vtl_</tablePrefix>
+                        <templateDir>generator</templateDir>
                     </config>
                 </configuration>
             </plugin>

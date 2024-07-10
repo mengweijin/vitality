@@ -14,9 +14,9 @@ public class VitalityAdminApplication {
 	public static void main(String[] args) {
 		try {
 			SpringApplication.run(VitalityAdminApplication.class, args);
-			log.info("SYSTEM STARTUP SUCCESS");
+			log.info("SYSTEM_STARTUP_SUCCESS");
 		} catch (Exception e) {
-			log.info("SYSTEM STARTUP FAILED");
+			log.info("SYSTEM_STARTUP_FAILED");
 		}
 	}
 }

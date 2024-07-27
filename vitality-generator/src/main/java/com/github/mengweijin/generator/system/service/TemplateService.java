@@ -1,24 +1,18 @@
 package com.github.mengweijin.generator.system.service;
 
 import com.github.mengweijin.generator.system.dto.TemplateDTO;
-import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeDTO;
-import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeNode;
-import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author mengweijin
- * @date 2022/8/14
+ * @since 2022/8/14
  */
 @Service
 public class TemplateService {
@@ -42,7 +36,7 @@ public class TemplateService {
                     dto.setContent(FileUtil.readUtf8String(file));
                     return dto;
                 })
-                .collect(Collectors.toList());
+                .toList();
         TPL_LIST.addAll(list);
         return TPL_LIST;
     }
@@ -51,42 +45,6 @@ public class TemplateService {
         List<TemplateDTO> templateList = this.findTemplate();
         Optional<TemplateDTO> first = templateList.stream().filter(tpl -> tpl.getId().equals(id)).findFirst();
         return first.orElse(null);
-    }
-
-    public DTreeDTO tree() {
-        List<TemplateDTO> templateList = this.findTemplate();
-
-        Map<String, List<TemplateDTO>> map = templateList.stream().collect(Collectors.groupingBy(TemplateDTO::getCategory));
-
-        List<DTreeNode> treeNodeList = new ArrayList<>();
-        map.forEach((k, v) -> {
-            DTreeNode node = new DTreeNode();
-            node.setId(k);
-            node.setTitle(k);
-            node.setLast(false);
-            node.setParentId(null);
-            node.setChildren(this.toDTreeNodeList(k, v));
-            treeNodeList.add(node);
-        });
-
-        DTreeDTO treeDTO = new DTreeDTO();
-        treeDTO.setData(treeNodeList);
-        return treeDTO;
-    }
-
-    private List<DTreeNode> toDTreeNodeList(String parentId, List<TemplateDTO> templateList) {
-        if(CollUtil.isEmpty(templateList)) {
-            return new ArrayList<>();
-        }
-        return templateList.stream().map(tpl -> {
-            DTreeNode node = new DTreeNode();
-            node.setId(tpl.getId());
-            node.setTitle(tpl.getName());
-            node.setLast(true);
-            node.setParentId(parentId);
-            node.setChildren(null);
-            return node;
-        }).collect(Collectors.toList());
     }
 
 }

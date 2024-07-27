@@ -26,7 +26,11 @@ public class ${entityName}Service extends ServiceImpl<${entityName}Mapper, ${ent
      * @return IPage
      */
     public IPage<${entityName}> page(IPage<${entityName}> page, ${entityName} ${entityPropertyName}){
-        return this.getBaseMapper().page(page, ${entityPropertyName});
+        LambdaQueryWrapper<Notice> query = new LambdaQueryWrapper<>();
+                query
+                        .like(StrUtil.isNotBlank(notice.getName()), Notice::getName, notice.getName())
+                        .like(StrUtil.isNotBlank(notice.getDescription()), Notice::getDescription, notice.getDescription());
+                return this.page(page, query);
     }
 }
 

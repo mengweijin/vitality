@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.DictTypeMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.DictTypeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.DictTypeDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.DictTypeDO">
         <result column="ID" property="id" />
         <result column="NAME" property="name" />
         <result column="TYPE_CODE" property="typeCode" />
@@ -86,7 +86,7 @@
             </where>
         </sql>
 
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.DictTypeDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.DictTypeDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,

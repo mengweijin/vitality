@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.ConfigMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.ConfigMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.ConfigDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.ConfigDO">
         <result column="ID" property="id" />
         <result column="TITLE" property="title" />
         <result column="CODE" property="code" />
@@ -94,7 +94,7 @@
             </where>
         </sql>
 
-    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.ConfigDTO">
+    <select id="detailById" resultType="com.github.mengweijin.system.dto.ConfigDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -105,7 +105,7 @@
         where t.ID = #{id}
     </select>
 
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.ConfigDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.ConfigDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,

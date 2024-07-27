@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.UserMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.UserDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.UserDO">
         <result column="ID" property="id" />
         <result column="USERNAME" property="username" />
         <result column="PASSWORD" property="password" />
@@ -126,7 +126,7 @@
     </sql>
 
     <!-- 不查询密码  -->
-    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.UserDetailDTO">
+    <select id="detailById" resultType="com.github.mengweijin.system.dto.UserDetailDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -140,7 +140,7 @@
     </select>
 
     <!-- 不查询密码  -->
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.UserDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.UserDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -165,7 +165,7 @@
     </select>
 
     <!-- 不查询密码  -->
-    <select id="pageByRole" resultType="com.github.mengweijin.vitality.system.dto.UserDTO">
+    <select id="pageByRole" resultType="com.github.mengweijin.system.dto.UserDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name
@@ -179,7 +179,7 @@
         order by vurr.CREATE_TIME desc
     </select>
 
-    <select id="pageByDept" resultType="com.github.mengweijin.vitality.system.dto.UserDTO">
+    <select id="pageByDept" resultType="com.github.mengweijin.system.dto.UserDTO">
         select
         <include refid="BaseColumn"/>,
         cu.NICKNAME as create_by_name
@@ -193,7 +193,7 @@
         order by vudr.CREATE_TIME desc
     </select>
 
-    <select id="pageByPost" resultType="com.github.mengweijin.vitality.system.dto.UserDTO">
+    <select id="pageByPost" resultType="com.github.mengweijin.system.dto.UserDTO">
         select
         <include refid="BaseColumn"/>,
         cu.NICKNAME as create_by_name

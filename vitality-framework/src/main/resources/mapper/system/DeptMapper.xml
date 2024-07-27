@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.DeptMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.DeptMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.DeptDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.DeptDO">
         <result column="ID" property="id" />
         <result column="PARENT_ID" property="parentId" />
         <result column="ANCESTORS" property="ancestors" />
@@ -114,7 +114,7 @@
         </if>
     </sql>
 
-    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.DeptDTO">
+    <select id="detailById" resultType="com.github.mengweijin.system.dto.DeptDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -125,7 +125,7 @@
         where t.ID = #{id}
     </select>
 
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.DeptDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.DeptDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -139,7 +139,7 @@
         order by t.CREATE_TIME desc
     </select>
 
-    <select id="treeTableDataList" resultType="com.github.mengweijin.vitality.system.dto.DeptDTO">
+    <select id="treeTableDataList" resultType="com.github.mengweijin.system.dto.DeptDTO">
         select
         <include refid="BaseColumn"/>,
         (select count(*) from VTL_USER_DEPT_RLT vudr where vudr.DEPT_ID = t.ID) as user_count,
@@ -154,7 +154,7 @@
         order by t.SEQ asc
     </select>
 
-    <select id="getByUserId" resultType="com.github.mengweijin.vitality.system.dto.DeptDTO">
+    <select id="getByUserId" resultType="com.github.mengweijin.system.dto.DeptDTO">
         select
             <include refid="BaseColumn"/>
         from VTL_DEPT t

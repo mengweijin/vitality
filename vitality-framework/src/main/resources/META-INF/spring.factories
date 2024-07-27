@@ -1,8 +1,0 @@
-# Environment Post Processors
-org.springframework.boot.env.EnvironmentPostProcessor=\
-com.github.mengweijin.vitality.framework.SafetyEncryptEnvironmentPostProcessor
-
-
-
-
-

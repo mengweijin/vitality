@@ -2,11 +2,8 @@ package com.github.mengweijin.generator.system.controller;
 
 import com.github.mengweijin.generator.system.dto.GenerateArgsDTO;
 import com.github.mengweijin.generator.system.dto.GenerateConfigDTO;
-import com.github.mengweijin.generator.system.dto.TableInfoDTO;
 import com.github.mengweijin.generator.system.service.GeneratorService;
 import com.github.mengweijin.generator.system.service.TemplateService;
-import com.github.mengweijin.vitality.framework.frontend.dtree.DTreeDTO;
-import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTable;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.io.File;
 import java.util.List;
 
 /**
  * @author mengweijin
- * @date 2022/11/27
+ * @since 2022/11/27
  */
 @RestController
 @RequestMapping(GeneratorController.PREFIX)
@@ -33,19 +31,9 @@ public class GeneratorController {
     @Autowired
     private TemplateService templateService;
 
-    @GetMapping("/table/list")
-    public LayuiTable<TableInfoDTO> list(String name) {
-        return new LayuiTable<>(generatorService.selectTable(name));
-    }
-
     @GetMapping("/config/default/{tableName}")
     public GenerateConfigDTO getDefaultConfig(@PathVariable String tableName) {
         return generatorService.getDefaultConfig(tableName);
-    }
-
-    @GetMapping("/template/tree")
-    public DTreeDTO tree() {
-        return templateService.tree();
     }
 
     @PostMapping("/execute/{tableName}")

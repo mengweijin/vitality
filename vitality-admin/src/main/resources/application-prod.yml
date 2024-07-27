@@ -10,8 +10,6 @@ spring:
       path: /h2
       settings:
         web-allow-others: true
-  thymeleaf:
-    cache: true
 decorator:
   datasource:
     enabled: false

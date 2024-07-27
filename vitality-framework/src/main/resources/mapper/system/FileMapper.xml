@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.FileMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.FileMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.FileDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.FileDO">
         <result column="ID" property="id" />
         <result column="FILE_NAME" property="fileName" />
         <result column="FILE_PATH" property="filePath" />
@@ -86,7 +86,7 @@
         </where>
     </sql>
 
-    <select id="detailById" resultType="com.github.mengweijin.vitality.system.dto.FileDTO">
+    <select id="detailById" resultType="com.github.mengweijin.system.dto.FileDTO">
         select
         <include refid="BaseColumn"/>,
         cu.NICKNAME as create_by_name,
@@ -97,7 +97,7 @@
         where t.ID = #{id}
     </select>
 
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.FileDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.FileDTO">
         select
         <include refid="BaseColumn"/>,
         cu.NICKNAME as create_by_name,

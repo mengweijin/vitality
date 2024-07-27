@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.mengweijin</groupId>  
         <artifactId>vitality-parent</artifactId>  
-        <version>1.4.1-SNAPSHOT</version>  
+        <version>1.5.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>  
     <artifactId>vitality-framework</artifactId>  
@@ -16,10 +16,10 @@
             <groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-starter-web</artifactId> 
         </dependency>  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-thymeleaf</artifactId> 
-        </dependency>  
+<!--        <dependency> -->
+<!--            <groupId>org.springframework.boot</groupId>  -->
+<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId> -->
+<!--        </dependency>  -->
         <!-- spring boot 2.3.0 以后，spring-boot-starter-web中不再包含validation starter -->  
         <dependency> 
             <groupId>org.springframework.boot</groupId>  
@@ -57,19 +57,23 @@
         <dependency> 
             <groupId>com.github.gavlyukovskiy</groupId>  
             <artifactId>p6spy-spring-boot-starter</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.flywaydb</groupId>  
-            <artifactId>flyway-core</artifactId> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
         <dependency> 
             <groupId>cn.dev33</groupId>  
             <artifactId>sa-token-spring-boot3-starter</artifactId> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
+        </dependency>
         <dependency> 
             <groupId>org.dromara.hutool</groupId>  
             <artifactId>hutool-all</artifactId> 
-        </dependency>  
+        </dependency>
         <dependency> 
             <groupId>com.github.oshi</groupId>  
             <artifactId>oshi-core</artifactId> 

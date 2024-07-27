@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.vitality.system.mapper.MenuMapper">
+<mapper namespace="com.github.mengweijin.system.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.entity.MenuDO">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.MenuDO">
         <result column="ID" property="id" />
         <result column="PARENT_ID" property="parentId" />
         <result column="TITLE" property="title" />
@@ -150,7 +150,7 @@
         </where>
     </sql>
 
-    <select id="page" resultType="com.github.mengweijin.vitality.system.dto.MenuDTO">
+    <select id="page" resultType="com.github.mengweijin.system.dto.MenuDTO">
         select
             <include refid="BaseColumn"/>,
             cu.NICKNAME as create_by_name,
@@ -162,7 +162,7 @@
         order by t.CREATE_TIME desc
     </select>
 
-    <select id="treeTableDataList" resultType="com.github.mengweijin.vitality.system.dto.MenuDTO">
+    <select id="treeTableDataList" resultType="com.github.mengweijin.system.dto.MenuDTO">
         select
         <include refid="BaseColumn"/>,
         cu.NICKNAME as create_by_name,

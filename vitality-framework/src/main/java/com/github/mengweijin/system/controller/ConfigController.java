@@ -1,85 +1,123 @@
 package com.github.mengweijin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.mvc.BaseController;
-import com.github.mengweijin.system.dto.ConfigDTO;
-import com.github.mengweijin.system.entity.ConfigDO;
+import com.github.mengweijin.system.domain.entity.Config;
 import com.github.mengweijin.system.service.ConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
- * 配置管理表 控制器
+ * <p>
+ *  Config Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-04
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
+@Validated
 @RestController
-@RequestMapping("/vtl-config")
-public class ConfigController extends BaseController {
+@RequestMapping("/system/config")
+public class ConfigController {
 
-    @Autowired
     private ConfigService configService;
 
-    @SaCheckPermission("system:config:add")
-    @PostMapping
-    public R add(ConfigDO configDO) {
-        boolean bool = configService.save(configDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get Config page by Config
+     * </p>
+     * @param page page
+     * @param config {@link Config}
+     * @return Page<Config>
+     */
+    @SaCheckPermission("system:config:query")
+    @GetMapping("/page")
+    public IPage<Config> page(Page<Config> page, Config config) {
+        return configService.page(page, config);
     }
 
-    @SaCheckPermission("system:config:edit")
-    @PutMapping
-    public R edit(ConfigDO configDO) {
-        boolean bool = configService.updateById(configDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get Config list by Config
+     * </p>
+     * @param config {@link Config}
+     * @return List<Config>
+     */
+    @SaCheckPermission("system:config:query")
+    @GetMapping("/list")
+    public List<Config> list(Config config) {
+        return configService.list(new QueryWrapper<>(config));
     }
 
-    @SaCheckPermission("system:config:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = configService.removeById(id);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:config:delete")
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = configService.removeBatchByIds(Arrays.asList(ids));
-        return R.ajax(bool);
-    }
-
+    /**
+     * <p>
+     * Get Config by id
+     * </p>
+     * @param id id
+     * @return Config
+     */
+    @SaCheckPermission("system:config:query")
     @GetMapping("/{id}")
-    public ConfigDO getById(@PathVariable("id") Long id) {
+    public Config getById(@PathVariable("id") Long id) {
         return configService.getById(id);
     }
 
-    @SaCheckPermission("system:config:detail")
-    @GetMapping("/detail/{id}")
-    public ConfigDTO detailById(@PathVariable("id") Long id) {
-        return configService.detailById(id);
+    /**
+     * <p>
+     * Add Config
+     * </p>
+     * @param config {@link Config}
+     */
+    @SaCheckPermission("system:config:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody Config config) {
+        boolean bool = configService.save(config);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:config:list")
-    @GetMapping("/page")
-    public IPage<ConfigDTO> page(Page<ConfigDTO> page, ConfigDTO dto) {
-        return configService.page(page, dto);
+    /**
+     * <p>
+     * Update Config
+     * </p>
+     * @param config {@link Config}
+     */
+    @SaCheckPermission("system:config:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody Config config) {
+        boolean bool = configService.updateById(config);
+        return R.ajax(bool);
     }
 
-    @GetMapping("/byCode/{code}")
-    public ConfigDO byCode(@PathVariable("code") String code) {
-        return configService.getByCode(code);
+    /**
+     * <p>
+     * Delete Config by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:config:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = configService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
     }
 
 }
+

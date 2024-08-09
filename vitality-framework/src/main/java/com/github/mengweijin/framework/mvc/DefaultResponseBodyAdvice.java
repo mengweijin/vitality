@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.framework.VitalityProperties;
 import com.github.mengweijin.framework.domain.R;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -27,12 +28,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Slf4j
 @Deprecated
 @RestControllerAdvice
+@AllArgsConstructor
 public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-    @Autowired
-    private VitalityProperties vitalityProperties;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     /**

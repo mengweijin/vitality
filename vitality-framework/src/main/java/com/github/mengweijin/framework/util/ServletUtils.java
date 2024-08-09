@@ -122,7 +122,7 @@ public class ServletUtils extends ServletUtil {
         ObjectMapper objectMapper = SpringUtil.getBean(ObjectMapper.class);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        if(object instanceof R r) {
+        if(object instanceof R<?> r) {
             response.setStatus(r.getCode());
         }
         response.getWriter().print(objectMapper.writeValueAsString(object));

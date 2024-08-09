@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 /**
  * @author mengweijin
- * @date 2023/5/13
+ * @since 2023/5/13
  */
 @Slf4j
 public class Ip2regionUtils {

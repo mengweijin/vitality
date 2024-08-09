@@ -1,7 +1,8 @@
 package com.github.mengweijin.framework.mvc;
 
 import com.github.mengweijin.framework.VitalityProperties;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
@@ -18,9 +19,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Meng Wei Jin
  **/
 @Configuration
+@AllArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
     private VitalityProperties vitalityProperties;
 
     /**

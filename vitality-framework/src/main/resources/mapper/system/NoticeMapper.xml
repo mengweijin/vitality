@@ -3,13 +3,12 @@
 <mapper namespace="com.github.mengweijin.system.mapper.NoticeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.NoticeDO">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.Notice">
+        <id column="ID" property="id" />
         <result column="AVATAR" property="avatar" />
-        <result column="TITLE" property="title" />
+        <result column="NAME" property="name" />
         <result column="DESCRIPTION" property="description" />
         <result column="RELEASED" property="released" />
-        <result column="RECEIVED_BY" property="receivedBy" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -17,116 +16,49 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="BaseColumn">
-        t.ID,
-        t.AVATAR,
-        t.TITLE,
-        t.DESCRIPTION,
-        t.RELEASED,
-        t.RECEIVED_BY,
-        t.CREATE_BY,
-        t.CREATE_TIME,
-        t.UPDATE_BY,
-        t.UPDATE_TIME
+    <sql id="BaseColumnList">
+        AVATAR,
+        NAME,
+        DESCRIPTION,
+        RELEASED,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
     </sql>
 
-    <!-- 通用 Where 条件列 -->
-    <sql id="BaseWhere">
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
         <where>
-            <if test="p.id != null" >
-                and t.ID = #{p.id}
+            <if test="avatar != null and avatar != ''">
+                AND AVATAR = #{avatar}
             </if>
-            <if test="p.avatar != null and p.avatar != '' ">
-                and t.AVATAR = #{p.avatar}
+            <if test="name != null and name != ''">
+                AND NAME = #{name}
             </if>
-            <if test="p.title != null and p.title != '' ">
-                and t.TITLE = #{p.title}
+            <if test="description != null and description != ''">
+                AND DESCRIPTION = #{description}
             </if>
-            <if test="p.description != null and p.description != '' ">
-                and t.DESCRIPTION = #{p.description}
+            <if test="released != null and released != ''">
+                AND RELEASED = #{released}
             </if>
-            <if test="p.released != null" >
-                and t.RELEASED = #{p.released}
+            <if test="id != null">
+                AND ID = #{id}
             </if>
-            <if test="p.receivedBy != null" >
-                and t.RECEIVED_BY = #{p.receivedBy}
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
             </if>
-            <if test="p.createBy != null" >
-                and t.CREATE_BY = #{p.createBy}
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
             </if>
-            <if test="p.createTime != null" >
-                and t.CREATE_TIME = #{p.createTime}
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
             </if>
-            <if test="p.updateBy != null" >
-                and t.UPDATE_BY = #{p.updateBy}
-            </if>
-            <if test="p.updateTime != null" >
-                and t.UPDATE_TIME = #{p.updateTime}
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
             </if>
         </where>
     </sql>
-
-        <!-- 通用 Where Like 条件列 -->
-        <sql id="BaseWhereLike">
-            <where>
-                <if test="p.id != null" >
-                    and t.ID = #{p.id}
-                </if>
-                <if test="p.avatar != null and p.avatar != '' ">
-                    and t.AVATAR like concat(concat('%', #{p.avatar}), '%')
-                </if>
-                <if test="p.title != null and p.title != '' ">
-                    and t.TITLE like concat(concat('%', #{p.title}), '%')
-                </if>
-                <if test="p.description != null and p.description != '' ">
-                    and t.DESCRIPTION like concat(concat('%', #{p.description}), '%')
-                </if>
-                <if test="p.released != null" >
-                    and t.RELEASED = #{p.released}
-                </if>
-                <if test="p.receivedBy != null" >
-                    and t.RECEIVED_BY = #{p.receivedBy}
-                </if>
-                <if test="p.createBy != null" >
-                    and t.CREATE_BY = #{p.createBy}
-                </if>
-                <if test="p.createTime != null" >
-                    and t.CREATE_TIME = #{p.createTime}
-                </if>
-                <if test="p.updateBy != null" >
-                    and t.UPDATE_BY = #{p.updateBy}
-                </if>
-                <if test="p.updateTime != null" >
-                    and t.UPDATE_TIME = #{p.updateTime}
-                </if>
-            </where>
-        </sql>
-
-    <select id="detailById" resultType="com.github.mengweijin.system.dto.NoticeDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name,
-            ru.NICKNAME as received_by_name
-        from VTL_NOTICE t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        left join VTL_USER ru on ru.ID = t.RECEIVED_BY
-        where t.ID = #{id}
-    </select>
-
-    <select id="page" resultType="com.github.mengweijin.system.dto.NoticeDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name,
-            ru.NICKNAME as received_by_name
-        from VTL_NOTICE t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        left join VTL_USER ru on ru.ID = t.RECEIVED_BY
-        <include refid="BaseWhereLike"/>
-        order by t.UPDATE_TIME desc
-    </select>
 
 </mapper>

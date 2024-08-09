@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * {@link DataScope} Can only be used in *Mapper.java.
  * @author mengweijin
- * @date 2022/11/20
+ * @since 2022/11/20
  */
 @Slf4j
 public abstract class BaseDataPermissionHandler implements DataPermissionHandler {

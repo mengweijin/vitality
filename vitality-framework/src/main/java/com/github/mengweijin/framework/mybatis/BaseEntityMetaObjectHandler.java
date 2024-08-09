@@ -37,7 +37,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             this.strictInsertFill(metaObject, CREATE_TIME, LocalDateTime.class, localDateTime);
             this.strictInsertFill(metaObject, UPDATE_TIME, LocalDateTime.class, localDateTime);
 
-            // session LOGIN_USER
+            // session LOGIN USER
             Long userId = this.getUserId();
             if(userId != null) {
                 this.strictInsertFill(metaObject, CREATE_BY, Long.class, userId);

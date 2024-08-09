@@ -11,9 +11,10 @@ import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
-import com.github.mengweijin.system.entity.LogErrorDO;
+import com.github.mengweijin.system.domain.entity.LogError;
 import com.github.mengweijin.system.service.LogErrorService;
 import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.reflect.ClassUtil;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,11 @@ import java.util.concurrent.CompletableFuture;
  */
 @Slf4j
 @Component
+@AllArgsConstructor
 public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
     private static final Class<?>[] EXCLUDE_CLASS = { NotLoginException.class };
 
-    @Autowired
     private LogErrorService logErrorService;
 
     /**
@@ -65,7 +66,7 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
                 LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
                 IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-                LogErrorDO logErrorDO = new LogErrorDO();
+                LogError logErrorDO = new LogError();
                 if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
                     StackTraceElement element = loggingEvent.getCallerData()[0];
                     logErrorDO.setClassName(element.getClassName());

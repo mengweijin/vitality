@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
 import com.github.mengweijin.framework.mybatis.data.permission.DefaultDataPermissionHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -26,12 +27,12 @@ import javax.sql.DataSource;
 /**
  * @author Meng Wei Jin
  **/
+@AllArgsConstructor
 @Configuration
 @ConditionalOnBean(DataSource.class)
 @AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class MybatisPlusConfig {
 
-    @Autowired
     private DataSourceProperties dataSourceProperties;
 
     /**

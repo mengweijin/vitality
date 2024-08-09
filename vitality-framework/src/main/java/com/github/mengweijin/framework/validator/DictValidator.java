@@ -1,7 +1,7 @@
 package com.github.mengweijin.framework.validator;
 
 import com.github.mengweijin.framework.validator.annotation.Dict;
-import com.github.mengweijin.system.entity.DictDataDO;
+import com.github.mengweijin.system.domain.entity.DictData;
 import com.github.mengweijin.system.service.DictDataService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -39,16 +39,16 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
         context.disableDefaultConstraintViolation();
 
         DictDataService dictDataService = SpringUtil.getBean(DictDataService.class);
-        List<DictDataDO> dictDataList = dictDataService.getByTypeCode(typeCode);
+        List<DictData> dictDataList = dictDataService.getByTypeCode(typeCode);
         if(CollUtil.isEmpty(dictDataList)) {
             //自定义返回消息
             context.buildConstraintViolationWithTemplate("No dict data was found by dict typeCode=" + typeCode).addConstraintViolation();
             return false;
         }
 
-        boolean anyMatch = dictDataList.stream().map(DictDataDO::getDataCode).anyMatch(item -> item.equals(value.toString()));
+        boolean anyMatch = dictDataList.stream().map(DictData::getDataCode).anyMatch(item -> item.equals(value.toString()));
         if(!anyMatch) {
-            String correctDictDataCode = dictDataList.stream().map(DictDataDO::getDataCode).collect(Collectors.joining());
+            String correctDictDataCode = dictDataList.stream().map(DictData::getDataCode).collect(Collectors.joining());
             String message = StrUtil.format("The dict typeCode[{}] of dataCode[{}] is incorrect! The correct dataCode should be in [{}]", typeCode, value, correctDictDataCode);
             context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;

@@ -3,8 +3,8 @@
 <mapper namespace="com.github.mengweijin.system.mapper.LogErrorMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.LogErrorDO">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.LogError">
+        <id column="ID" property="id" />
         <result column="CLASS_NAME" property="className" />
         <result column="METHOD_NAME" property="methodName" />
         <result column="EXCEPTION_NAME" property="exceptionName" />
@@ -17,112 +17,53 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="BaseColumn">
-        t.ID,
-        t.CLASS_NAME,
-        t.METHOD_NAME,
-        t.EXCEPTION_NAME,
-        t.ERROR_MSG,
-        t.STACK_TRACE,
-        t.CREATE_BY,
-        t.CREATE_TIME,
-        t.UPDATE_BY,
-        t.UPDATE_TIME
+    <sql id="BaseColumnList">
+        CLASS_NAME,
+        METHOD_NAME,
+        EXCEPTION_NAME,
+        ERROR_MSG,
+        STACK_TRACE,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
     </sql>
 
-    <!-- 通用 Where 条件列 -->
-    <sql id="BaseWhere">
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
         <where>
-            <if test="p.id != null" >
-                and t.ID = #{p.id}
+            <if test="className != null and className != ''">
+                AND CLASS_NAME = #{className}
             </if>
-            <if test="p.className != null and p.className != '' ">
-                and t.CLASS_NAME = #{p.className}
+            <if test="methodName != null and methodName != ''">
+                AND METHOD_NAME = #{methodName}
             </if>
-            <if test="p.methodName != null and p.methodName != '' ">
-                and t.METHOD_NAME = #{p.methodName}
+            <if test="exceptionName != null and exceptionName != ''">
+                AND EXCEPTION_NAME = #{exceptionName}
             </if>
-            <if test="p.exceptionName != null and p.exceptionName != '' ">
-                and t.EXCEPTION_NAME = #{p.exceptionName}
+            <if test="errorMsg != null and errorMsg != ''">
+                AND ERROR_MSG = #{errorMsg}
             </if>
-            <if test="p.errorMsg != null and p.errorMsg != '' ">
-                and t.ERROR_MSG = #{p.errorMsg}
+            <if test="stackTrace != null and stackTrace != ''">
+                AND STACK_TRACE = #{stackTrace}
             </if>
-            <if test="p.stackTrace != null and p.stackTrace != '' ">
-                and t.STACK_TRACE = #{p.stackTrace}
+            <if test="id != null">
+                AND ID = #{id}
             </if>
-            <if test="p.createBy != null" >
-                and t.CREATE_BY = #{p.createBy}
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
             </if>
-            <if test="p.createTime != null" >
-                and t.CREATE_TIME = #{p.createTime}
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
             </if>
-            <if test="p.updateBy != null" >
-                and t.UPDATE_BY = #{p.updateBy}
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
             </if>
-            <if test="p.updateTime != null" >
-                and t.UPDATE_TIME = #{p.updateTime}
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
             </if>
         </where>
     </sql>
-
-        <!-- 通用 Where Like 条件列 -->
-        <sql id="BaseWhereLike">
-            <where>
-                <if test="p.id != null" >
-                    and t.ID = #{p.id}
-                </if>
-                <if test="p.className != null and p.className != '' ">
-                    and t.CLASS_NAME like concat(concat('%', #{p.className}), '%')
-                </if>
-                <if test="p.methodName != null and p.methodName != '' ">
-                    and t.METHOD_NAME like concat(concat('%', #{p.methodName}), '%')
-                </if>
-                <if test="p.exceptionName != null and p.exceptionName != '' ">
-                    and t.EXCEPTION_NAME like concat(concat('%', #{p.exceptionName}), '%')
-                </if>
-                <if test="p.errorMsg != null and p.errorMsg != '' ">
-                    and t.ERROR_MSG like concat(concat('%', #{p.errorMsg}), '%')
-                </if>
-                <if test="p.stackTrace != null and p.stackTrace != '' ">
-                    and t.STACK_TRACE like concat(concat('%', #{p.stackTrace}), '%')
-                </if>
-                <if test="p.createBy != null" >
-                    and t.CREATE_BY = #{p.createBy}
-                </if>
-                <if test="p.createTime != null" >
-                    and t.CREATE_TIME = #{p.createTime}
-                </if>
-                <if test="p.updateBy != null" >
-                    and t.UPDATE_BY = #{p.updateBy}
-                </if>
-                <if test="p.updateTime != null" >
-                    and t.UPDATE_TIME = #{p.updateTime}
-                </if>
-            </where>
-        </sql>
-
-    <select id="detailById" resultType="com.github.mengweijin.system.dto.LogErrorDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_LOG_ERROR t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        where t.ID = #{id}
-    </select>
-
-    <select id="page" resultType="com.github.mengweijin.system.dto.LogErrorDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_LOG_ERROR t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        <include refid="BaseWhereLike"/>
-        order by t.CREATE_TIME desc
-    </select>
 
 </mapper>

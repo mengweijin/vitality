@@ -138,10 +138,9 @@
 				admin.message(function(id, title, context, form) {});
 
 				window.userDetail = function() {
-					$.get('/login/userId', function(result){
-						let id = result;
-						top.layui.admin.jump('vtl-user-' + id, '用户详情', 'views/system/user/detail.html?id=' + id)
-					})
+					let user = layui.data('vitality').user;
+					let id = user.id;
+					top.layui.admin.jump('vtl-user-' + id, '用户详情', 'views/system/user/detail.html?id=' + id)
 				}
 
 				$("#footerNowYear").text(new Date().getFullYear());

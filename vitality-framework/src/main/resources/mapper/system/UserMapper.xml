@@ -3,17 +3,16 @@
 <mapper namespace="com.github.mengweijin.system.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.UserDO">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.User">
+        <id column="ID" property="id" />
         <result column="USERNAME" property="username" />
-        <result column="PASSWORD" property="password" />
-        <result column="PWD_SALT" property="pwdSalt" />
         <result column="NICKNAME" property="nickname" />
-        <result column="ID_CARD_NUMBER" property="idCardNumber" />
+        <result column="PASSWORD" property="password" />
+        <result column="ID_CARD" property="idCard" />
         <result column="GENDER" property="gender" />
         <result column="EMAIL" property="email" />
-        <result column="MOBILE_PHONE" property="mobilePhone" />
-        <result column="SECRET_KEY_2FA" property="secretKey2fa" />
+        <result column="MOBILE" property="mobile" />
+        <result column="SECRET_KEY" property="secretKey" />
         <result column="DISABLED" property="disabled" />
         <result column="DELETED" property="deleted" />
         <result column="CREATE_BY" property="createBy" />
@@ -22,189 +21,74 @@
         <result column="UPDATE_TIME" property="updateTime" />
     </resultMap>
 
-    <!-- 通用查询结果列。不查询密码相关字段 -->
-    <sql id="BaseColumn">
-        t.ID,
-        t.USERNAME,
-        t.NICKNAME,
-        t.ID_CARD_NUMBER,
-        t.GENDER,
-        t.EMAIL,
-        t.MOBILE_PHONE,
-        t.DISABLED,
-        t.DELETED,
-        t.CREATE_BY,
-        t.CREATE_TIME,
-        t.UPDATE_BY,
-        t.UPDATE_TIME
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        USERNAME,
+        NICKNAME,
+        PASSWORD,
+        ID_CARD,
+        GENDER,
+        EMAIL,
+        MOBILE,
+        SECRET_KEY,
+        DISABLED,
+        DELETED,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
     </sql>
 
-    <!-- 通用 Equal 查询条件列 -->
-    <sql id="BaseQueryConditionEqual">
-        <if test="p.id != null" >
-            and t.ID = #{p.id}
-        </if>
-        <if test="p.username != null and p.username != '' ">
-            and t.USERNAME = #{p.username}
-        </if>
-        <if test="p.nickname != null and p.nickname != '' ">
-            and t.NICKNAME = #{p.nickname}
-        </if>
-        <if test="p.idCardNumber != null and p.idCardNumber != '' ">
-            and t.ID_CARD_NUMBER = #{p.idCardNumber}
-        </if>
-        <if test="p.gender != null and p.gender != '' ">
-            and t.GENDER = #{p.gender}
-        </if>
-        <if test="p.email != null and p.email != '' ">
-            and t.EMAIL = #{p.email}
-        </if>
-        <if test="p.mobilePhone != null and p.mobilePhone != '' ">
-            and t.MOBILE_PHONE = #{p.mobilePhone}
-        </if>
-        <if test="p.disabled != null" >
-            and t.DISABLED = #{p.disabled}
-        </if>
-        <if test="p.deleted != null" >
-            and t.DELETED = #{p.deleted}
-        </if>
-        <if test="p.createBy != null" >
-            and t.CREATE_BY = #{p.createBy}
-        </if>
-        <if test="p.createTime != null" >
-            and t.CREATE_TIME = #{p.createTime}
-        </if>
-        <if test="p.updateBy != null" >
-            and t.UPDATE_BY = #{p.updateBy}
-        </if>
-        <if test="p.updateTime != null" >
-            and t.UPDATE_TIME = #{p.updateTime}
-        </if>
-    </sql>
-
-    <!-- 通用 Like 查询条件列 -->
-    <sql id="BaseQueryConditionLike">
-        <if test="p.id != null" >
-            and t.ID = #{p.id}
-        </if>
-        <if test="p.username != null and p.username != '' ">
-            and t.USERNAME like concat(concat('%', #{p.username}), '%')
-        </if>
-        <if test="p.nickname != null and p.nickname != '' ">
-            and t.NICKNAME like concat(concat('%', #{p.nickname}), '%')
-        </if>
-        <if test="p.idCardNumber != null and p.idCardNumber != '' ">
-            and t.ID_CARD_NUMBER like concat(concat('%', #{p.idCardNumber}), '%')
-        </if>
-        <if test="p.gender != null and p.gender != '' ">
-            and t.GENDER like concat(concat('%', #{p.gender}), '%')
-        </if>
-        <if test="p.email != null and p.email != '' ">
-            and t.EMAIL like concat(concat('%', #{p.email}), '%')
-        </if>
-        <if test="p.mobilePhone != null and p.mobilePhone != '' ">
-            and t.MOBILE_PHONE like concat(concat('%', #{p.mobilePhone}), '%')
-        </if>
-        <if test="p.disabled != null" >
-            and t.DISABLED = #{p.disabled}
-        </if>
-        <if test="p.deleted != null" >
-            and t.DELETED = #{p.deleted}
-        </if>
-        <if test="p.createBy != null" >
-            and t.CREATE_BY = #{p.createBy}
-        </if>
-        <if test="p.createTime != null" >
-            and t.CREATE_TIME = #{p.createTime}
-        </if>
-        <if test="p.updateBy != null" >
-            and t.UPDATE_BY = #{p.updateBy}
-        </if>
-        <if test="p.updateTime != null" >
-            and t.UPDATE_TIME = #{p.updateTime}
-        </if>
-    </sql>
-
-    <!-- 不查询密码  -->
-    <select id="detailById" resultType="com.github.mengweijin.system.dto.UserDetailDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name,
-            up.PROFILE_PICTURE
-        from VTL_USER t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        left join VTL_USER_PROFILE up on up.ID = t.ID
-        where t.ID = #{id}
-    </select>
-
-    <!-- 不查询密码  -->
-    <select id="page" resultType="com.github.mengweijin.system.dto.UserDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_USER t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        <if test="deptIdList != null and deptIdList.size() > 0" >
-            right join VTL_USER_DEPT_RLT vudr on vudr.USER_ID = t.ID
-        </if>
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
         <where>
-            <if test="deptIdList != null and deptIdList.size() > 0" >
-                and vudr.DEPT_ID in
-                <foreach item="deptId" collection="deptIdList" open="(" separator="," close=")">
-                    #{deptId}
-                </foreach>
+            <if test="username != null and username != ''">
+                AND USERNAME = #{username}
             </if>
-            <include refid="BaseQueryConditionLike"/>
+            <if test="nickname != null and nickname != ''">
+                AND NICKNAME = #{nickname}
+            </if>
+            <if test="password != null and password != ''">
+                AND PASSWORD = #{password}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                AND ID_CARD = #{idCard}
+            </if>
+            <if test="gender != null and gender != ''">
+                AND GENDER = #{gender}
+            </if>
+            <if test="email != null and email != ''">
+                AND EMAIL = #{email}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND MOBILE = #{mobile}
+            </if>
+            <if test="secretKey != null and secretKey != ''">
+                AND SECRET_KEY = #{secretKey}
+            </if>
+            <if test="disabled != null and disabled != ''">
+                AND DISABLED = #{disabled}
+            </if>
+            <if test="deleted != null and deleted != ''">
+                AND DELETED = #{deleted}
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
         </where>
-        group by t.ID
-        order by t.CREATE_TIME desc
-    </select>
-
-    <!-- 不查询密码  -->
-    <select id="pageByRole" resultType="com.github.mengweijin.system.dto.UserDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name
-        from VTL_USER t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        right join VTL_USER_ROLE_RLT vurr on vurr.USER_ID = t.ID
-        <where>
-            vurr.ROLE_ID = #{roleId}
-            <include refid="BaseQueryConditionLike"/>
-        </where>
-        order by vurr.CREATE_TIME desc
-    </select>
-
-    <select id="pageByDept" resultType="com.github.mengweijin.system.dto.UserDTO">
-        select
-        <include refid="BaseColumn"/>,
-        cu.NICKNAME as create_by_name
-        from VTL_USER t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        right join VTL_USER_DEPT_RLT vudr on vudr.USER_ID = t.ID
-        <where>
-            vudr.DEPT_ID = #{deptId}
-            <include refid="BaseQueryConditionLike"/>
-        </where>
-        order by vudr.CREATE_TIME desc
-    </select>
-
-    <select id="pageByPost" resultType="com.github.mengweijin.system.dto.UserDTO">
-        select
-        <include refid="BaseColumn"/>,
-        cu.NICKNAME as create_by_name
-        from VTL_USER t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        right join VTL_USER_POST_RLT vupr on vupr.USER_ID = t.ID
-        <where>
-            vupr.POST_ID = #{postId}
-            <include refid="BaseQueryConditionLike"/>
-        </where>
-        order by vupr.CREATE_TIME desc
-    </select>
+    </sql>
 
 </mapper>

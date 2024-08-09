@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.system.mapper.MessageReceiverMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.MessageReceiver">
+        <id column="ID" property="id" />
+        <result column="MESSAGE_ID" property="messageId" />
+        <result column="RECEIVER_USER" property="receiverUser" />
+        <result column="RECEIVER_ROLE" property="receiverRole" />
+        <result column="RECEIVER_DEPT" property="receiverDept" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        MESSAGE_ID,
+        RECEIVER_USER,
+        RECEIVER_ROLE,
+        RECEIVER_DEPT,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
+    </sql>
+
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
+        <where>
+            <if test="messageId != null">
+                AND MESSAGE_ID = #{messageId}
+            </if>
+            <if test="receiverUser != null and receiverUser != ''">
+                AND RECEIVER_USER = #{receiverUser}
+            </if>
+            <if test="receiverRole != null and receiverRole != ''">
+                AND RECEIVER_ROLE = #{receiverRole}
+            </if>
+            <if test="receiverDept != null and receiverDept != ''">
+                AND RECEIVER_DEPT = #{receiverDept}
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

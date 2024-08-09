@@ -1,108 +1,123 @@
 package com.github.mengweijin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.mvc.BaseController;
-import com.github.mengweijin.system.dto.DeptDTO;
-import com.github.mengweijin.system.entity.DeptDO;
+import com.github.mengweijin.system.domain.entity.Dept;
 import com.github.mengweijin.system.service.DeptService;
-import org.dromara.hutool.core.collection.ListUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 部门管理表 控制器
+ * <p>
+ *  Dept Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-18
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
+@Validated
 @RestController
-@RequestMapping("/vtl-dept")
-public class DeptController extends BaseController {
+@RequestMapping("/system/dept")
+public class DeptController {
 
-    @Autowired
     private DeptService deptService;
 
-    @SaCheckPermission("system:dept:add")
-    @PostMapping
-    public R<Void> add(DeptDO deptDO) {
-        boolean bool = deptService.save(deptDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get Dept page by Dept
+     * </p>
+     * @param page page
+     * @param dept {@link Dept}
+     * @return Page<Dept>
+     */
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/page")
+    public IPage<Dept> page(Page<Dept> page, Dept dept) {
+        return deptService.page(page, dept);
     }
 
-    @SaCheckPermission("system:dept:edit")
-    @PutMapping
-    public R<Void> edit(DeptDO deptDO) {
-        boolean bool = deptService.updateById(deptDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get Dept list by Dept
+     * </p>
+     * @param dept {@link Dept}
+     * @return List<Dept>
+     */
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/list")
+    public List<Dept> list(Dept dept) {
+        return deptService.list(new QueryWrapper<>(dept));
     }
 
-    @SaCheckPermission("system:dept:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R<Void> setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = deptService.setDisabledValue(id, disabled);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:dept:delete")
-    @DeleteMapping("/{id}")
-    public R<Void> delete(@PathVariable("id") Long id) {
-        boolean bool = deptService.removeById(id);
-        return R.ajax(bool);
-    }
-
+    /**
+     * <p>
+     * Get Dept by id
+     * </p>
+     * @param id id
+     * @return Dept
+     */
+    @SaCheckPermission("system:dept:query")
     @GetMapping("/{id}")
-    public DeptDO getById(@PathVariable("id") Long id) {
+    public Dept getById(@PathVariable("id") Long id) {
         return deptService.getById(id);
     }
 
-    @SaCheckPermission("system:dept:detail")
-    @GetMapping("/detail/{id}")
-    public DeptDTO detailById(@PathVariable("id") Long id) {
-        return deptService.detailById(id);
+    /**
+     * <p>
+     * Add Dept
+     * </p>
+     * @param dept {@link Dept}
+     */
+    @SaCheckPermission("system:dept:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody Dept dept) {
+        boolean bool = deptService.save(dept);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dept:list")
-    @GetMapping("/page")
-    public IPage<DeptDTO> page(Page<DeptDTO> page, DeptDTO dto) {
-        return deptService.page(page, dto);
+    /**
+     * <p>
+     * Update Dept
+     * </p>
+     * @param dept {@link Dept}
+     */
+    @SaCheckPermission("system:dept:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody Dept dept) {
+        boolean bool = deptService.updateById(dept);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dept:list")
-    @GetMapping("/treeTableDataList")
-    public List<DeptDTO> treeTableDataList(DeptDTO dto) {
-        return deptService.treeTableDataList(dto);
+    /**
+     * <p>
+     * Delete Dept by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:dept:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = deptService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
     }
 
-    @SaCheckPermission("system:dept:assignUser")
-    @PostMapping("/addUser/{id}")
-    public R<Void> addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        deptService.addUsers(id, ListUtil.of(userIdList));
-        return R.success();
-    }
-
-    @DeleteMapping("/removeUser/{id}")
-    public R<Void> removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        deptService.removeUsers(id, Arrays.asList(userIdList));
-        return R.success();
-    }
-
-    @SaCheckPermission("system:dept:authorization")
-    @PostMapping("/setMenu/{id}")
-    public R<Void> setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
-        deptService.setMenu(id, ListUtil.of(menuIdList));
-        return R.success();
-    }
 }
+

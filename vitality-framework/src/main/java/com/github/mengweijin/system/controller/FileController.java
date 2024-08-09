@@ -1,67 +1,123 @@
 package com.github.mengweijin.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.util.DownLoadUtils;
-import com.github.mengweijin.system.dto.FileDTO;
-import com.github.mengweijin.system.entity.FileDO;
+import com.github.mengweijin.system.domain.entity.File;
 import com.github.mengweijin.system.service.FileService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
+ * <p>
+ *  File Controller
+ * </p>
+ *
  * @author mengweijin
- * @since 2022/10/30
+ * @since 2023-06-03
  */
-@RestController
-@RequestMapping("/vtl-file")
+@Slf4j
+@AllArgsConstructor
 @Validated
+@RestController
+@RequestMapping("/system/file")
 public class FileController {
 
-    @Autowired
     private FileService fileService;
 
-    @PostMapping("/upload")
-    public List<FileDO> upload(HttpServletRequest request) {
-        return fileService.upload(request);
+    /**
+     * <p>
+     * Get File page by File
+     * </p>
+     * @param page page
+     * @param file {@link File}
+     * @return Page<File>
+     */
+    @SaCheckPermission("system:file:query")
+    @GetMapping("/page")
+    public IPage<File> page(Page<File> page, File file) {
+        return fileService.page(page, file);
     }
 
     /**
-     * @param fileId uuid in table VTL_FILE
+     * <p>
+     * Get File list by File
+     * </p>
+     * @param file {@link File}
+     * @return List<File>
      */
-    @GetMapping("/download/{fileId}")
-    public R<Void> download(@PathVariable("fileId") Long fileId, HttpServletRequest request, HttpServletResponse response) {
-        FileDO fileDO = fileService.getById(fileId);
-        if(fileDO == null) {
-            return R.failure("No file was found in database! fileId=" + fileId);
-        }
-        try(FileInputStream in = new FileInputStream(fileDO.getFilePath())) {
-            DownLoadUtils.download(in, fileDO.getFileName(), request, response);
-            return R.success();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @SaCheckPermission("system:file:query")
+    @GetMapping("/list")
+    public List<File> list(File file) {
+        return fileService.list(new QueryWrapper<>(file));
     }
 
-    @GetMapping("/detail/{id}")
-    public FileDTO detailById(@PathVariable("id") Long id) {
-        return fileService.detailById(id);
+    /**
+     * <p>
+     * Get File by id
+     * </p>
+     * @param id id
+     * @return File
+     */
+    @SaCheckPermission("system:file:query")
+    @GetMapping("/{id}")
+    public File getById(@PathVariable("id") Long id) {
+        return fileService.getById(id);
     }
 
-    @GetMapping("/page")
-    public IPage<FileDTO> page(Page<FileDTO> page, FileDTO dto) {
-        return fileService.page(page, dto);
+    /**
+     * <p>
+     * Add File
+     * </p>
+     * @param file {@link File}
+     */
+    @SaCheckPermission("system:file:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody File file) {
+        boolean bool = fileService.save(file);
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * Update File
+     * </p>
+     * @param file {@link File}
+     */
+    @SaCheckPermission("system:file:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody File file) {
+        boolean bool = fileService.updateById(file);
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * Delete File by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:file:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = fileService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
     }
 
 }
+

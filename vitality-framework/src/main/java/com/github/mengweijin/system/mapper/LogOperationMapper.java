@@ -1,33 +1,19 @@
 package com.github.mengweijin.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.system.dto.LogOperationDTO;
-import com.github.mengweijin.system.entity.LogOperationDO;
+import com.github.mengweijin.system.domain.entity.LogOperation;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
- * 系统操作日志表 Mapper 接口
+ * <p>
+ *  LogOperation Mapper
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-06
+ * @since 2023-06-03
  */
 @Mapper
-public interface LogOperationMapper extends BaseMapper<LogOperationDO> {
-
-    /**
-     * Get VtlLogOperation detail by id
-     * @param id id
-     */
-    LogOperationDTO detailById(Long id);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlLogOperationDTO
-     * @return IPage
-     */
-    IPage<LogOperationDTO> page(IPage<LogOperationDTO> page, @Param("p") LogOperationDTO dto);
+public interface LogOperationMapper extends BaseMapper<LogOperation> {
 
 }
+

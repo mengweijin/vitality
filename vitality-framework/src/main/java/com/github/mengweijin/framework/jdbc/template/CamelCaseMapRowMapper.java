@@ -1,8 +1,9 @@
 package com.github.mengweijin.framework.jdbc.template;
 
+import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.core.text.CharSequenceUtil;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
+
 import java.util.Locale;
 
 /**

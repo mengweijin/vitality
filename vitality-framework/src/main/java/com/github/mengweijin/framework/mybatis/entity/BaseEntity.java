@@ -4,15 +4,11 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -39,31 +35,5 @@ public abstract class BaseEntity implements Serializable {
 
     @TableField(value = "UPDATE_BY", fill = FieldFill.UPDATE)
     protected Long updateBy;
-
-    /**
-     * 创建者昵称
-     */
-    @TableField(exist = false)
-    private String createByName;
-
-    /**
-     * 更新者昵称
-     */
-    @TableField(exist = false)
-    private String updateByName;
-
-    /**
-     * 搜索值
-     */
-    @JsonIgnore
-    @TableField(exist = false)
-    private String searchValue;
-
-    /**
-     * 请求参数
-     */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @TableField(exist = false)
-    private Map<String, Object> params = new HashMap<>();
 
 }

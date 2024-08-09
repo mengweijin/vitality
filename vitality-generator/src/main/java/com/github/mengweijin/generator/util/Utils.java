@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @author mengweijin
- * @date 2022/12/24
+ * @since 2022/12/24
  */
 public class Utils {
     public static Class<?> getSpringBootApplicationClass() {

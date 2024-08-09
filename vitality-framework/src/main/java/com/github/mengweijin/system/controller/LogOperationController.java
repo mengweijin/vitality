@@ -1,76 +1,123 @@
 package com.github.mengweijin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.mvc.BaseController;
-import com.github.mengweijin.system.dto.LogOperationDTO;
-import com.github.mengweijin.system.entity.LogOperationDO;
+import com.github.mengweijin.system.domain.entity.LogOperation;
 import com.github.mengweijin.system.service.LogOperationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
- * 系统操作日志表 控制器
+ * <p>
+ *  LogOperation Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
+@Validated
 @RestController
-@RequestMapping("/vtl-log-operation")
-public class LogOperationController extends BaseController {
+@RequestMapping("/system/log-operation")
+public class LogOperationController {
 
-    @Autowired
     private LogOperationService logOperationService;
 
-    @PostMapping
-    public R add(LogOperationDO logOperationDO) {
-        boolean bool = logOperationService.save(logOperationDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get LogOperation page by LogOperation
+     * </p>
+     * @param page page
+     * @param logOperation {@link LogOperation}
+     * @return Page<LogOperation>
+     */
+    @SaCheckPermission("system:logOperation:query")
+    @GetMapping("/page")
+    public IPage<LogOperation> page(Page<LogOperation> page, LogOperation logOperation) {
+        return logOperationService.page(page, logOperation);
     }
 
-    @PutMapping
-    public R edit(LogOperationDO logOperationDO) {
-        boolean bool = logOperationService.updateById(logOperationDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get LogOperation list by LogOperation
+     * </p>
+     * @param logOperation {@link LogOperation}
+     * @return List<LogOperation>
+     */
+    @SaCheckPermission("system:logOperation:query")
+    @GetMapping("/list")
+    public List<LogOperation> list(LogOperation logOperation) {
+        return logOperationService.list(new QueryWrapper<>(logOperation));
     }
 
-    @SaCheckPermission("system:operationLog:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = logOperationService.removeById(id);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:operationLog:delete")
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = logOperationService.removeBatchByIds(Arrays.asList(ids));
-        return R.ajax(bool);
-    }
-
+    /**
+     * <p>
+     * Get LogOperation by id
+     * </p>
+     * @param id id
+     * @return LogOperation
+     */
+    @SaCheckPermission("system:logOperation:query")
     @GetMapping("/{id}")
-    public LogOperationDO getById(@PathVariable("id") Long id) {
+    public LogOperation getById(@PathVariable("id") Long id) {
         return logOperationService.getById(id);
     }
 
-    @SaCheckPermission("system:operationLog:detail")
-    @GetMapping("/detail/{id}")
-    public LogOperationDTO detailById(@PathVariable("id") Long id) {
-        return logOperationService.detailById(id);
+    /**
+     * <p>
+     * Add LogOperation
+     * </p>
+     * @param logOperation {@link LogOperation}
+     */
+    @SaCheckPermission("system:logOperation:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody LogOperation logOperation) {
+        boolean bool = logOperationService.save(logOperation);
+        return R.ajax(bool);
     }
 
-    @GetMapping("/page")
-    public IPage<LogOperationDTO> page(Page<LogOperationDTO> page, LogOperationDTO dto) {
-        return logOperationService.page(page, dto);
+    /**
+     * <p>
+     * Update LogOperation
+     * </p>
+     * @param logOperation {@link LogOperation}
+     */
+    @SaCheckPermission("system:logOperation:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody LogOperation logOperation) {
+        boolean bool = logOperationService.updateById(logOperation);
+        return R.ajax(bool);
     }
+
+    /**
+     * <p>
+     * Delete LogOperation by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:logOperation:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = logOperationService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
+    }
+
 }
+

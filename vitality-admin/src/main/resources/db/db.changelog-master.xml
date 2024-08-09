@@ -7,5 +7,6 @@
         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
 
     <include file="./202301_ddl.sql" relativeToChangelogFile="true"/>
+    <include file="./202302_data.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

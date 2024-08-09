@@ -1,16 +1,19 @@
 package com.github.mengweijin.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.mengweijin.system.entity.UserProfileDO;
+import com.github.mengweijin.system.domain.entity.UserProfile;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 用户头像存储表 Mapper 接口
+ * <p>
+ *  UserProfile Mapper
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-06
+ * @since 2023-06-03
  */
 @Mapper
-public interface UserProfileMapper extends BaseMapper<UserProfileDO> {
+public interface UserProfileMapper extends BaseMapper<UserProfile> {
 
 }
+

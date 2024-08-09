@@ -1,9 +1,7 @@
 package ${package};
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,14 +13,6 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
-
-    /**
-     * Custom paging query
-     * @param page page
-     * @param ${entityPropertyName} {@link ${entityName}}
-     * @return IPage
-     */
-    IPage<${entityName}> page(IPage<${entityName}> page, @Param("p") ${entityName} ${entityPropertyName});
 
 }
 

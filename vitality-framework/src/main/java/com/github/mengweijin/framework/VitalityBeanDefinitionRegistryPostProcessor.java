@@ -1,9 +1,9 @@
 package com.github.mengweijin.framework;
 
 import com.github.mengweijin.framework.constant.Const;
+import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.core.reflect.ClassUtil;
 import org.dromara.hutool.core.text.StrUtil;
-import org.jetbrains.annotations.NotNull;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  * @author mengweijin
- * @date 2023/4/16
+ * @since 2023/4/16
  */
 class TOTPUtilTest {
     /**

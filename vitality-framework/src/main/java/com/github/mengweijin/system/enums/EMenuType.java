@@ -1,20 +1,25 @@
 package com.github.mengweijin.system.enums;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author mengweijin
- * @date 2023/5/20
+ * @since 2023/5/20
  */
-public enum EMenuType {
+@Getter
+@AllArgsConstructor
+public enum EMenuType implements IEnum<String> {
 
-    DIR(0), MENU(1), BTN(2), OTHER(3);
+    DIR("DIR"),
 
-    private final Integer value;
+    MENU("MENU"),
 
-    EMenuType(Integer value) {
-        this.value = value;
-    }
+    BTN("BTN"),
 
-    public Integer getValue() {
-        return this.value;
-    }
+    API("API");
+
+    private final String value;
+
 }

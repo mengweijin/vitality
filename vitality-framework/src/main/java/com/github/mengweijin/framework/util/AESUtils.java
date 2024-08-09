@@ -17,7 +17,7 @@ import java.security.SecureRandom;
 
 /**
  * @author mengweijin
- * @date 2021/12/24
+ * @since 2021/12/24
  */
 @Slf4j
 public class AESUtils {

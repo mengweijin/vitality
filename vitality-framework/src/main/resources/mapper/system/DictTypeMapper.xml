@@ -3,8 +3,8 @@
 <mapper namespace="com.github.mengweijin.system.mapper.DictTypeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.DictTypeDO">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.DictType">
+        <id column="ID" property="id" />
         <result column="NAME" property="name" />
         <result column="TYPE_CODE" property="typeCode" />
         <result column="REMARK" property="remark" />
@@ -15,87 +15,45 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="BaseColumn">
-        t.ID,
-        t.NAME,
-        t.TYPE_CODE,
-        t.REMARK,
-        t.CREATE_BY,
-        t.CREATE_TIME,
-        t.UPDATE_BY,
-        t.UPDATE_TIME
+    <sql id="BaseColumnList">
+        NAME,
+        TYPE_CODE,
+        REMARK,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
     </sql>
 
-    <!-- 通用 Where 条件列 -->
-    <sql id="BaseWhere">
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
         <where>
-            <if test="p.id != null" >
-                and t.ID = #{p.id}
+            <if test="name != null and name != ''">
+                AND NAME = #{name}
             </if>
-            <if test="p.name != null and p.name != '' ">
-                and t.NAME = #{p.name}
+            <if test="typeCode != null and typeCode != ''">
+                AND TYPE_CODE = #{typeCode}
             </if>
-            <if test="p.typeCode != null and p.typeCode != '' ">
-                and t.TYPE_CODE = #{p.typeCode}
+            <if test="remark != null and remark != ''">
+                AND REMARK = #{remark}
             </if>
-            <if test="p.remark != null and p.remark != '' ">
-                and t.REMARK = #{p.remark}
+            <if test="id != null">
+                AND ID = #{id}
             </if>
-            <if test="p.createBy != null" >
-                and t.CREATE_BY = #{p.createBy}
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
             </if>
-            <if test="p.createTime != null" >
-                and t.CREATE_TIME = #{p.createTime}
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
             </if>
-            <if test="p.updateBy != null" >
-                and t.UPDATE_BY = #{p.updateBy}
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
             </if>
-            <if test="p.updateTime != null" >
-                and t.UPDATE_TIME = #{p.updateTime}
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
             </if>
         </where>
     </sql>
-
-        <!-- 通用 Where Like 条件列 -->
-        <sql id="BaseWhereLike">
-            <where>
-                <if test="p.id != null" >
-                    and t.ID = #{p.id}
-                </if>
-                <if test="p.name != null and p.name != '' ">
-                    and t.NAME like concat(concat('%', #{p.name}), '%')
-                </if>
-                <if test="p.typeCode != null and p.typeCode != '' ">
-                    and t.TYPE_CODE like concat(concat('%', #{p.typeCode}), '%')
-                </if>
-                <if test="p.remark != null and p.remark != '' ">
-                    and t.REMARK like concat(concat('%', #{p.remark}), '%')
-                </if>
-                <if test="p.createBy != null" >
-                    and t.CREATE_BY = #{p.createBy}
-                </if>
-                <if test="p.createTime != null" >
-                    and t.CREATE_TIME = #{p.createTime}
-                </if>
-                <if test="p.updateBy != null" >
-                    and t.UPDATE_BY = #{p.updateBy}
-                </if>
-                <if test="p.updateTime != null" >
-                    and t.UPDATE_TIME = #{p.updateTime}
-                </if>
-            </where>
-        </sql>
-
-    <select id="page" resultType="com.github.mengweijin.system.dto.DictTypeDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_DICT_TYPE t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        <include refid="BaseWhereLike"/>
-        order by t.CREATE_TIME desc
-    </select>
 
 </mapper>

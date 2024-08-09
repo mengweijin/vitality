@@ -2,7 +2,7 @@ package com.github.mengweijin.framework.mybatis.consts;
 
 /**
  * @author mengweijin
- * @date 2023/4/16
+ * @since 2023/4/16
  */
 public interface ColumnConst {
 

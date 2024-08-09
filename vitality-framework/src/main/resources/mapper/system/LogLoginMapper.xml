@@ -3,17 +3,17 @@
 <mapper namespace="com.github.mengweijin.system.mapper.LogLoginMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.entity.LogLoginDO">
-        <result column="ID" property="id" />
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.LogLogin">
+        <id column="ID" property="id" />
         <result column="USERNAME" property="username" />
         <result column="LOGIN_TYPE" property="loginType" />
         <result column="IP" property="ip" />
         <result column="IP_LOCATION" property="ipLocation" />
         <result column="BROWSER" property="browser" />
         <result column="PLATFORM" property="platform" />
-        <result column="OPERATING_SYSTEM" property="operatingSystem" />
-        <result column="SUCCEEDED" property="succeeded" />
-        <result column="ERROR_INFO" property="errorInfo" />
+        <result column="OS" property="os" />
+        <result column="SUCCESS" property="success" />
+        <result column="ERROR_MSG" property="errorMsg" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -21,138 +21,69 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="BaseColumn">
-        t.ID,
-        t.USERNAME,
-        t.LOGIN_TYPE,
-        t.IP,
-        t.IP_LOCATION,
-        t.BROWSER,
-        t.PLATFORM,
-        t.OPERATING_SYSTEM,
-        t.SUCCEEDED,
-        t.ERROR_INFO,
-        t.CREATE_BY,
-        t.CREATE_TIME,
-        t.UPDATE_BY,
-        t.UPDATE_TIME
+    <sql id="BaseColumnList">
+        USERNAME,
+        LOGIN_TYPE,
+        IP,
+        IP_LOCATION,
+        BROWSER,
+        PLATFORM,
+        OS,
+        SUCCESS,
+        ERROR_MSG,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
     </sql>
 
-    <!-- 通用 Equal 查询条件列 -->
-    <sql id="BaseQueryConditionEqual">
-            <if test="p.id != null" >
-                and t.ID = #{p.id}
-            </if>
-            <if test="p.username != null and p.username != '' ">
-                and t.USERNAME = #{p.username}
-            </if>
-            <if test="p.loginType != null ">
-                and t.LOGIN_TYPE = #{p.loginType}
-            </if>
-            <if test="p.ip != null and p.ip != '' ">
-                and t.IP = #{p.ip}
-            </if>
-            <if test="p.ipLocation != null and p.ipLocation != '' ">
-                and t.IP_LOCATION = #{p.ipLocation}
-            </if>
-            <if test="p.browser != null and p.browser != '' ">
-                and t.BROWSER = #{p.browser}
-            </if>
-            <if test="p.platform != null and p.platform != '' ">
-                and t.PLATFORM = #{p.platform}
-            </if>
-            <if test="p.operatingSystem != null and p.operatingSystem != '' ">
-                and t.OPERATING_SYSTEM = #{p.operatingSystem}
-            </if>
-            <if test="p.succeeded != null" >
-                and t.SUCCEEDED = #{p.succeeded}
-            </if>
-            <if test="p.errorInfo != null and p.errorInfo != '' ">
-                and t.ERROR_INFO = #{p.errorInfo}
-            </if>
-            <if test="p.createBy != null" >
-                and t.CREATE_BY = #{p.createBy}
-            </if>
-            <if test="p.createTime != null" >
-                and t.CREATE_TIME = #{p.createTime}
-            </if>
-            <if test="p.updateBy != null" >
-                and t.UPDATE_BY = #{p.updateBy}
-            </if>
-            <if test="p.updateTime != null" >
-                and t.UPDATE_TIME = #{p.updateTime}
-            </if>
-    </sql>
-
-        <!-- 通用 Like 查询条件列 -->
-        <sql id="BaseQueryConditionLike">
-                <if test="p.id != null" >
-                    and t.ID = #{p.id}
-                </if>
-                <if test="p.username != null and p.username != '' ">
-                    and t.USERNAME like concat(concat('%', #{p.username}), '%')
-                </if>
-                <if test="p.loginType != null ">
-                    and t.LOGIN_TYPE = #{p.loginType}
-                </if>
-                <if test="p.ip != null and p.ip != '' ">
-                    and t.IP like concat(concat('%', #{p.ip}), '%')
-                </if>
-                <if test="p.ipLocation != null and p.ipLocation != '' ">
-                    and t.IP_LOCATION like concat(concat('%', #{p.ipLocation}), '%')
-                </if>
-                <if test="p.browser != null and p.browser != '' ">
-                    and t.BROWSER like concat(concat('%', #{p.browser}), '%')
-                </if>
-                <if test="p.platform != null and p.platform != '' ">
-                    and t.PLATFORM like concat(concat('%', #{p.platform}), '%')
-                </if>
-                <if test="p.operatingSystem != null and p.operatingSystem != '' ">
-                    and t.OPERATING_SYSTEM like concat(concat('%', #{p.operatingSystem}), '%')
-                </if>
-                <if test="p.succeeded != null" >
-                    and t.SUCCEEDED = #{p.succeeded}
-                </if>
-                <if test="p.errorInfo != null and p.errorInfo != '' ">
-                    and t.ERROR_INFO like concat(concat('%', #{p.errorInfo}), '%')
-                </if>
-                <if test="p.createBy != null" >
-                    and t.CREATE_BY = #{p.createBy}
-                </if>
-                <if test="p.createTime != null" >
-                    and t.CREATE_TIME = #{p.createTime}
-                </if>
-                <if test="p.updateBy != null" >
-                    and t.UPDATE_BY = #{p.updateBy}
-                </if>
-                <if test="p.updateTime != null" >
-                    and t.UPDATE_TIME = #{p.updateTime}
-                </if>
-        </sql>
-
-    <select id="detailById" resultType="com.github.mengweijin.system.dto.LogLoginDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_LOG_LOGIN t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
-        where t.ID = #{id}
-    </select>
-
-    <select id="page" resultType="com.github.mengweijin.system.dto.LogLoginDTO">
-        select
-            <include refid="BaseColumn"/>,
-            cu.NICKNAME as create_by_name,
-            uu.NICKNAME as update_by_name
-        from VTL_LOG_LOGIN t
-        left join VTL_USER cu on cu.ID = t.CREATE_BY
-        left join VTL_USER uu on uu.ID = t.UPDATE_BY
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
         <where>
-            <include refid="BaseQueryConditionLike"/>
+            <if test="username != null and username != ''">
+                AND USERNAME = #{username}
+            </if>
+            <if test="loginType != null and loginType != ''">
+                AND LOGIN_TYPE = #{loginType}
+            </if>
+            <if test="ip != null and ip != ''">
+                AND IP = #{ip}
+            </if>
+            <if test="ipLocation != null and ipLocation != ''">
+                AND IP_LOCATION = #{ipLocation}
+            </if>
+            <if test="browser != null and browser != ''">
+                AND BROWSER = #{browser}
+            </if>
+            <if test="platform != null and platform != ''">
+                AND PLATFORM = #{platform}
+            </if>
+            <if test="os != null and os != ''">
+                AND OS = #{os}
+            </if>
+            <if test="success != null and success != ''">
+                AND SUCCESS = #{success}
+            </if>
+            <if test="errorMsg != null and errorMsg != ''">
+                AND ERROR_MSG = #{errorMsg}
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
         </where>
-        order by t.CREATE_TIME desc
-    </select>
+    </sql>
 
 </mapper>

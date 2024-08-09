@@ -1,33 +1,19 @@
 package com.github.mengweijin.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.system.dto.ConfigDTO;
-import com.github.mengweijin.system.entity.ConfigDO;
+import com.github.mengweijin.system.domain.entity.Config;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
- * 配置管理表 Mapper 接口
+ * <p>
+ *  Config Mapper
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-04
+ * @since 2023-06-03
  */
 @Mapper
-public interface ConfigMapper extends BaseMapper<ConfigDO> {
-
-    /**
-     * Get VtlConfig detail by id
-     * @param id id
-     */
-    ConfigDTO detailById(Long id);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlConfigDTO
-     * @return IPage
-     */
-    IPage<ConfigDTO> page(IPage<ConfigDTO> page, @Param("p") ConfigDTO dto);
+public interface ConfigMapper extends BaseMapper<Config> {
 
 }
+

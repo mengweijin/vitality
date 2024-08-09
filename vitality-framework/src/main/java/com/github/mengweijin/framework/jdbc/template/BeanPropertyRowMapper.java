@@ -1,7 +1,7 @@
 package com.github.mengweijin.framework.jdbc.template;
 
+import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.core.text.StrUtil;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author mengweijin

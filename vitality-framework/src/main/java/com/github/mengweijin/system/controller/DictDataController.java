@@ -1,19 +1,22 @@
 package com.github.mengweijin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.mvc.BaseController;
-import com.github.mengweijin.system.dto.DictDataDTO;
-import com.github.mengweijin.system.entity.DictDataDO;
+import com.github.mengweijin.system.domain.entity.DictData;
 import com.github.mengweijin.system.service.DictDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,73 +24,100 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 字典数据表 控制器
+ * <p>
+ *  DictData Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-02
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
+@Validated
 @RestController
-@RequestMapping("/vtl-dict-data")
-public class DictDataController extends BaseController {
+@RequestMapping("/system/dict-data")
+public class DictDataController {
 
-    @Autowired
     private DictDataService dictDataService;
 
-    @SaCheckPermission("system:dict:data:add")
-    @PostMapping
-    public R add(DictDataDO dictDataDO) {
-        boolean bool = dictDataService.save(dictDataDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get DictData page by DictData
+     * </p>
+     * @param page page
+     * @param dictData {@link DictData}
+     * @return Page<DictData>
+     */
+    @SaCheckPermission("system:dictData:query")
+    @GetMapping("/page")
+    public IPage<DictData> page(Page<DictData> page, DictData dictData) {
+        return dictDataService.page(page, dictData);
     }
 
-    @SaCheckPermission("system:dict:data:edit")
-    @PutMapping
-    public R edit(DictDataDO dictDataDO) {
-        boolean bool = dictDataService.updateById(dictDataDO);
-        return R.ajax(bool);
+    /**
+     * <p>
+     * Get DictData list by DictData
+     * </p>
+     * @param dictData {@link DictData}
+     * @return List<DictData>
+     */
+    @SaCheckPermission("system:dictData:query")
+    @GetMapping("/list")
+    public List<DictData> list(DictData dictData) {
+        return dictDataService.list(new QueryWrapper<>(dictData));
     }
 
-    @SaCheckPermission("system:dict:data:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = dictDataService.removeById(id);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:dict:data:delete")
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = dictDataService.removeBatchByIds(Arrays.asList(ids));
-        return R.ajax(bool);
-    }
-
+    /**
+     * <p>
+     * Get DictData by id
+     * </p>
+     * @param id id
+     * @return DictData
+     */
+    @SaCheckPermission("system:dictData:query")
     @GetMapping("/{id}")
-    public DictDataDO getById(@PathVariable("id") Long id) {
+    public DictData getById(@PathVariable("id") Long id) {
         return dictDataService.getById(id);
     }
 
-    @SaCheckPermission("system:dict:data:list")
-    @GetMapping("/page")
-    public IPage<DictDataDTO> page(Page<DictDataDTO> page, DictDataDTO dto) {
-        return dictDataService.page(page, dto);
-    }
-
-    @GetMapping("/list/all")
-    public List<DictDataDO> listAll() {
-        return dictDataService.lambdaQuery().list();
-    }
-
-    @SaCheckPermission("system:dict:data:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = dictDataService.setDisabledValue(id, disabled);
+    /**
+     * <p>
+     * Add DictData
+     * </p>
+     * @param dictData {@link DictData}
+     */
+    @SaCheckPermission("system:dictData:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody DictData dictData) {
+        boolean bool = dictDataService.save(dictData);
         return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dict:data:setDefault")
-    @PostMapping("/setDefaultSelected/{id}")
-    public R setDefaultSelected(@PathVariable("id") Long id) {
-        boolean bool = dictDataService.setDefaultSelected(id);
+    /**
+     * <p>
+     * Update DictData
+     * </p>
+     * @param dictData {@link DictData}
+     */
+    @SaCheckPermission("system:dictData:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody DictData dictData) {
+        boolean bool = dictDataService.updateById(dictData);
         return R.ajax(bool);
     }
+
+    /**
+     * <p>
+     * Delete DictData by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:dictData:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = dictDataService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
+    }
+
 }
+

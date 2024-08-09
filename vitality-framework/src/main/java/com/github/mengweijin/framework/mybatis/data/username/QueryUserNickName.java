@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * Not useful.
  * Can only be used in *Mapper.java. More detail refer to {@link UserNickNameInnerInterceptor}
  * @author mengweijin
- * @date 2022/11/20
+ * @since 2022/11/20
  */
 @Deprecated
 @Documented

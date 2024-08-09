@@ -1,141 +1,128 @@
 package com.github.mengweijin.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.framework.domain.R;
-import com.github.mengweijin.framework.mvc.BaseController;
-import com.github.mengweijin.system.constant.ConfigConst;
-import com.github.mengweijin.system.dto.UserChangePasswordDTO;
-import com.github.mengweijin.system.dto.UserDTO;
-import com.github.mengweijin.system.dto.UserDetailDTO;
-import com.github.mengweijin.system.dto.UserEditDTO;
-import com.github.mengweijin.system.entity.ConfigDO;
-import com.github.mengweijin.system.service.ConfigService;
-import com.github.mengweijin.system.service.UserProfileService;
+import com.github.mengweijin.framework.util.BeanUtils;
+import com.github.mengweijin.system.domain.entity.User;
+import com.github.mengweijin.system.domain.vo.UserVO;
 import com.github.mengweijin.system.service.UserService;
 import jakarta.validation.Valid;
-import org.dromara.hutool.core.collection.ListUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
- * 用户表 控制器
+ * <p>
+ *  User Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
+@Validated
 @RestController
-@RequestMapping("/vtl-user")
-public class UserController extends BaseController {
+@RequestMapping("/system/user")
+public class UserController {
 
-    @Autowired
     private UserService userService;
-    @Autowired
-    private UserProfileService userProfileService;
-    @Autowired
-    private ConfigService configService;
 
-    @SaCheckPermission("system:user:add")
-    @PostMapping
-    public R add(UserEditDTO vtlUser) {
-        boolean bool = userService.save(vtlUser);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:user:edit")
-    @PutMapping
-    public R edit(UserEditDTO vtlUser) {
-        boolean bool = userService.updateById(vtlUser);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:user:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = userService.removeById(id);
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:user:delete")
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = userService.removeBatchByIds(Arrays.asList(ids));
-        return R.ajax(bool);
-    }
-
-    @GetMapping("/{id}")
-    public UserDTO getById(@PathVariable("id") Long id) {
-        return userService.detailById(id);
-    }
-
-    @SaCheckPermission("system:user:detail")
-    @GetMapping("/detail/{id}")
-    public UserDetailDTO detailById(@PathVariable("id") Long id) {
-        return userService.detailById(id);
-    }
-
-    @SaCheckPermission("system:user:list")
+    /**
+     * <p>
+     * Get User page by User
+     * </p>
+     * @param page page
+     * @param user {@link User}
+     * @return Page<User>
+     */
+    @SaCheckPermission("system:user:query")
     @GetMapping("/page")
-    public IPage<UserDTO> page(Page<UserDTO> page, UserDTO dto, Long deptId) {
-        return userService.page(page, dto, deptId);
+    public IPage<UserVO> page(Page<User> page, User user) {
+        IPage<User> userPage = userService.page(page, user);
+        return BeanUtils.copyPage(userPage, UserVO.class);
     }
 
-    @GetMapping("/page/byRole/{roleId}")
-    public IPage<UserDTO> pageByRole(@PathVariable("roleId") Long roleId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByRole(page, roleId, dto);
+    /**
+     * <p>
+     * Get User list by User
+     * </p>
+     * @param user {@link User}
+     * @return List<User>
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/list")
+    public List<UserVO> list(User user) {
+        List<User> userList = userService.list(new QueryWrapper<>(user));
+        return BeanUtils.copyList(userList, UserVO.class);
     }
 
-    @GetMapping("/page/byDept/{deptId}")
-    public IPage<UserDTO> pageByDept(@PathVariable("deptId") Long deptId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByDept(page, deptId, dto);
+    /**
+     * <p>
+     * Get User by id
+     * </p>
+     * @param id id
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/{id}")
+    public UserVO getById(@PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        return BeanUtils.copyBean(user, UserVO.class);
     }
 
-    @GetMapping("/page/byPost/{postId}")
-    public IPage<UserDTO> pageByPost(@PathVariable("postId") Long postId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByPost(page, postId, dto);
-    }
-
-    @SaCheckPermission("system:user:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = userService.setDisabledValue(id, disabled);
+    /**
+     * <p>
+     * Add User
+     * </p>
+     * @param user {@link User}
+     */
+    @SaCheckPermission("system:user:create")
+    @PostMapping
+    public R<Void> add(@Valid @RequestBody User user) {
+        boolean bool = userService.save(user);
         return R.ajax(bool);
     }
 
-    @PostMapping("/updateProfile/{id}")
-    public R updateProfile(@PathVariable("id") Long id, String profilePicture) {
-        boolean bool = userProfileService.updateProfileById(id, profilePicture);
+    /**
+     * <p>
+     * Update User
+     * </p>
+     * @param user {@link User}
+     */
+    @SaCheckPermission("system:user:update")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody User user) {
+        boolean bool = userService.updateById(user);
         return R.ajax(bool);
     }
 
-    @PostMapping("/changePassword")
-    public R changePassword(@Valid UserChangePasswordDTO dto) {
-        return R.ajax(userService.changePassword(dto));
-    }
-
-    @SaCheckPermission("system:user:resetPassword")
-    @PostMapping("/resetPassword/{id}")
-    public R resetPassword(@PathVariable("id") Long id) {
-        ConfigDO config = configService.getByCode(ConfigConst.CODE_USER_INIT_PASSWORD);
-        boolean bool = userService.updatePassword(id, config.getVal());
-        return R.ajax(bool);
-    }
-
-    @SaCheckPermission("system:user:authorization")
-    @PostMapping("/setMenu/{id}")
-    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
-        userService.setMenu(id, ListUtil.of(menuIdList));
-        return R.success();
+    /**
+     * <p>
+     * Delete User by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @SaCheckPermission("system:user:delete")
+    @DeleteMapping("/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        int i = userService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        return R.ajax(i);
     }
 
 }
+

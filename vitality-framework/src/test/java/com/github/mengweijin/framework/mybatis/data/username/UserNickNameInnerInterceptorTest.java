@@ -29,7 +29,7 @@ import java.util.LinkedList;
 
 /**
  * @author mengweijin
- * @date 2023/4/16
+ * @since 2023/4/16
  */
 public class UserNickNameInnerInterceptorTest {
 

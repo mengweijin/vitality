@@ -1,63 +1,45 @@
 package com.github.mengweijin.system.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.framework.constant.Const;
-import com.github.mengweijin.framework.util.UploadUtils;
-import com.github.mengweijin.system.dto.FileDTO;
-import com.github.mengweijin.system.entity.FileDO;
+import com.github.mengweijin.system.domain.entity.File;
 import com.github.mengweijin.system.mapper.FileMapper;
-import jakarta.servlet.http.HttpServletRequest;
-import org.dromara.hutool.core.data.id.IdUtil;
-import org.dromara.hutool.core.date.DatePattern;
-import org.dromara.hutool.core.date.TimeUtil;
-import org.dromara.hutool.core.io.file.FileNameUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
 /**
+ * <p>
+ *  File Service
+ *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * </p>
+ *
  * @author mengweijin
- * @date 2023/4/1
+ * @since 2023-06-03
  */
+@Slf4j
 @Service
-public class FileService extends ServiceImpl<FileMapper, FileDO> {
+public class FileService extends ServiceImpl<FileMapper, File> {
 
-    public static final String UPLOAD_DIR = Const.PROJECT_DIR + "uploads";
-
-    private final String FORMAT = StrUtil.replace(DatePattern.NORM_DATE_PATTERN, Const.DASH, File.separator);
-
-    @Autowired
-    private FileMapper fileMapper;
-
-    public FileDTO detailById(Long id) {
-        return fileMapper.detailById(id);
+    /**
+     * Custom paging query
+     * @param page page
+     * @param file {@link File}
+     * @return IPage
+     */
+    public IPage<File> page(IPage<File> page, File file){
+        LambdaQueryWrapper<File> query = new LambdaQueryWrapper<>();
+        query
+                .eq(StrUtil.isNotBlank(file.getName()), File::getName, file.getName())
+                .eq(StrUtil.isNotBlank(file.getSuffix()), File::getSuffix, file.getSuffix())
+                .eq(StrUtil.isNotBlank(file.getStoragePath()), File::getStoragePath, file.getStoragePath())
+                .eq(!Objects.isNull(file.getId()), File::getId, file.getId())
+                .eq(!Objects.isNull(file.getCreateBy()), File::getCreateBy, file.getCreateBy())
+                .eq(!Objects.isNull(file.getCreateTime()), File::getCreateTime, file.getCreateTime())
+                .eq(!Objects.isNull(file.getUpdateBy()), File::getUpdateBy, file.getUpdateBy())
+                .eq(!Objects.isNull(file.getUpdateTime()), File::getUpdateTime, file.getUpdateTime());
+        return this.page(page, query);
     }
-
-    public IPage<FileDTO> page(IPage<FileDTO> page, FileDTO dto){
-        return fileMapper.page(page, dto);
-    }
-
-    public List<FileDO> upload(HttpServletRequest request) {
-        List<FileDO> fileList = UploadUtils.upload(request, multipartFile -> {
-            String fileName = multipartFile.getOriginalFilename();
-            String suffix = FileNameUtil.getSuffix(fileName);
-            String path = UPLOAD_DIR + TimeUtil.format(LocalDate.now(), FORMAT) + File.separator + IdUtil.simpleUUID() + Const.DOT + suffix;
-            UploadUtils.storageFile(multipartFile, path);
-
-            FileDO file = new FileDO();
-            file.setFileName(fileName);
-            file.setFileSuffix(suffix);
-            file.setFilePath(path);
-            file.setBucket(null);
-            return file;
-        });
-        this.saveBatch(fileList);
-        return fileList;
-    }
-
 }

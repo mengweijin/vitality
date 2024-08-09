@@ -36,11 +36,4 @@
         </where>
     </sql>
 
-    <select id="page" resultType="${package}.${entityName}">
-        SELECT
-        <include refid="BaseColumnList"/>
-        FROM ${table.name}
-        <include refid="WhereCondition"/>
-    </select>
-
 </mapper>

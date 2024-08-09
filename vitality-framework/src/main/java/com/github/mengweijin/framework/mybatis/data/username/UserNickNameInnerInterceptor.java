@@ -29,7 +29,7 @@ import java.util.List;
  * {@link QueryUserNickName}
  * {@link JsqlParserSupport} <a href="https://github.com/JSQLParser/JSqlParser">JSqlParser</a>
  * @author mengweijin
- * @date 2023/4/16
+ * @since 2023/4/16
  */
 @Deprecated
 @Slf4j

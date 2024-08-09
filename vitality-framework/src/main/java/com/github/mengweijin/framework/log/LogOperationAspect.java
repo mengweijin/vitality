@@ -2,11 +2,12 @@ package com.github.mengweijin.framework.log;
 
 import com.github.mengweijin.framework.domain.P;
 import com.github.mengweijin.framework.filter.repeatable.RepeatedlyRequestWrapper;
-import com.github.mengweijin.framework.util.Ip2regionUtils;
 import com.github.mengweijin.framework.util.ServletUtils;
-import com.github.mengweijin.system.entity.LogOperationDO;
+import com.github.mengweijin.system.domain.entity.LogOperation;
+import com.github.mengweijin.system.enums.EYesNo;
 import com.github.mengweijin.system.service.LogOperationService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -37,19 +38,19 @@ import java.util.function.Consumer;
  **/
 @Slf4j
 @Aspect
+@AllArgsConstructor
 public class LogOperationAspect {
 
-    private final ThreadLocal<LogOperationDO> threadLocal = new ThreadLocal<>();
+    private final ThreadLocal<LogOperation> threadLocal = new ThreadLocal<>();
 
-    @Autowired
     private LogOperationService operationLogService;
 
     /**
      * 钩子函数。
      */
-    private final Consumer<LogOperationDO> consumer;
+    private final Consumer<LogOperation> consumer;
 
-    public LogOperationAspect(Consumer<LogOperationDO> consumer){
+    public LogOperationAspect(Consumer<LogOperation> consumer){
         this.consumer = consumer;
     }
 
@@ -64,7 +65,7 @@ public class LogOperationAspect {
             String requestMethod = request.getMethod();
             String uri = request.getRequestURI();
             if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
-                LogOperationDO operationLog = new LogOperationDO();
+                LogOperation operationLog = new LogOperation();
                 operationLog.setUrl(uri);
 
                 // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
@@ -84,12 +85,8 @@ public class LogOperationAspect {
 
                 operationLog.setHttpMethod(requestMethod);
                 operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
-                operationLog.setBrowser(userAgent.getBrowser().getName());
-                operationLog.setOperatingSystem(userAgent.getOs().getName());
-                operationLog.setPlatform(userAgent.getPlatform().getName());
-                operationLog.setIp(ServletUtils.getClientIP(request));
-                operationLog.setIpLocation(Ip2regionUtils.search(operationLog.getIp()));
-                operationLog.setSucceeded(1);
+
+                operationLog.setSuccess(EYesNo.Y.getValue());
 
                 threadLocal.set(operationLog);
             }
@@ -123,15 +120,15 @@ public class LogOperationAspect {
      * @param e 异常
      */
     private void recordLog(final Exception e) {
-        LogOperationDO operationLog = threadLocal.get();
+        LogOperation operationLog = threadLocal.get();
         if(operationLog == null) {
             return;
         }
 
         try {
-            operationLog.setSucceeded(e == null ? 1 : 0);
+            operationLog.setSuccess(e == null ? EYesNo.Y.getValue() : EYesNo.N.getValue());
             if(e != null) {
-                operationLog.setErrorInfo(StrUtil.subByLength(e.getMessage(), 0, 500));
+                operationLog.setErrorMsg(StrUtil.subByLength(e.getMessage(), 0, 500));
             }
             consumer.accept(operationLog);
             operationLogService.save(operationLog);

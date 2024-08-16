@@ -6,7 +6,6 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import com.github.mengweijin.framework.util.ServletUtils;
 import com.github.mengweijin.system.enums.ELoginType;
 import com.github.mengweijin.system.service.LogLoginService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -30,21 +29,18 @@ public class SaTokenListenerImpl implements SaTokenListener {
     /** 每次注销时触发 */
     @Override
     public void doLogout(String loginType, Object loginId, String tokenValue) {
-        HttpServletRequest request = ServletUtils.getRequest();
         logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGOUT, null, ServletUtils.getRequest());
     }
 
     /** 每次被踢下线时触发 */
     @Override
     public void doKickout(String loginType, Object loginId, String tokenValue) {
-        HttpServletRequest request = ServletUtils.getRequest();
         logLoginService.addLoginLogAsync((String) loginId, ELoginType.KICK_OUT, null, ServletUtils.getRequest());
     }
 
     /** 每次被顶下线时触发 */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
-        HttpServletRequest request = ServletUtils.getRequest();
         logLoginService.addLoginLogAsync((String) loginId, ELoginType.REPLACED, null, ServletUtils.getRequest());
     }
 

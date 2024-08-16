@@ -5,13 +5,15 @@ package com.github.mengweijin.framework.cache;
  */
 public interface CacheName {
 
-    String DICT_DATA = "DICT_DATA";
+    String DICT_LIST = "DICT_LIST";
 
-    String DEPT_NAME = "DEPT_NAME";
+    String DICT_DATA_LABEL = "DICT_DATA_LABEL";
 
-    String USERNAME = "USERNAME";
+    String DEPT_ID_NAME = "DEPT_ID_NAME";
 
-    String USER_NICKNAME = "USER_NICKNAME";
+    String USER_ID_USERNAME = "USER_ID_USERNAME";
+
+    String USER_ID_NICKNAME = "USER_ID_NICKNAME";
 
     String CAPTCHA = "CAPTCHA";
 

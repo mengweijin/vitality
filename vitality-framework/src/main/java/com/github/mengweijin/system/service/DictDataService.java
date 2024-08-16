@@ -3,10 +3,14 @@ package com.github.mengweijin.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.framework.cache.CacheConst;
+import com.github.mengweijin.framework.cache.CacheName;
 import com.github.mengweijin.system.domain.entity.DictData;
+import com.github.mengweijin.system.enums.EYesNo;
 import com.github.mengweijin.system.mapper.DictDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +42,6 @@ public class DictDataService extends ServiceImpl<DictDataMapper, DictData> {
                 .eq(StrUtil.isNotBlank(dictData.getDataCode()), DictData::getDataCode, dictData.getDataCode())
                 .eq(StrUtil.isNotBlank(dictData.getLabel()), DictData::getLabel, dictData.getLabel())
                 .eq(!Objects.isNull(dictData.getSeq()), DictData::getSeq, dictData.getSeq())
-                .eq(StrUtil.isNotBlank(dictData.getSelected()), DictData::getSelected, dictData.getSelected())
                 .eq(StrUtil.isNotBlank(dictData.getDisabled()), DictData::getDisabled, dictData.getDisabled())
                 .eq(StrUtil.isNotBlank(dictData.getRemark()), DictData::getRemark, dictData.getRemark())
                 .eq(!Objects.isNull(dictData.getId()), DictData::getId, dictData.getId())
@@ -52,4 +55,25 @@ public class DictDataService extends ServiceImpl<DictDataMapper, DictData> {
     public List<DictData> getByTypeCode(String typeCode) {
         return this.lambdaQuery().eq(DictData::getTypeCode, typeCode).list();
     }
+
+    @Cacheable(value = CacheName.DICT_DATA_LABEL, key = "#dictTypeCode + ':' + #dictDataCode", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getLabelByDictTypeCodeAndDictDataCode(String dictTypeCode, String dictDataCode) {
+        return this.lambdaQuery()
+                .select(DictData::getLabel)
+                .eq(DictData::getTypeCode, dictTypeCode)
+                .eq(DictData::getDataCode, dictDataCode)
+                .oneOpt()
+                .map(DictData::getLabel)
+                .orElse(null);
+    }
+
+    @Cacheable(value = CacheName.DICT_LIST, key = "#typeCode", unless = CacheConst.UNLESS_LIST_EMPTY)
+    public List<DictData> listByTypeCode(String typeCode) {
+        return this.lambdaQuery()
+                .eq(DictData::getTypeCode, typeCode)
+                .eq(DictData::getDisabled, EYesNo.N.getValue())
+                .orderByAsc(DictData::getSeq)
+                .list();
+    }
+
 }

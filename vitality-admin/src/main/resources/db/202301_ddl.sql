@@ -87,7 +87,6 @@ create TABLE VTL_DICT_DATA (
   DATA_CODE 		            varchar(50) NOT NULL comment '字典数据编码。',
   LABEL 		                varchar(50) NOT NULL comment '字典数据标签名称',
   SEQ 		                    int DEFAULT 1 comment '展示顺序',
-  SELECTED                      char(1) DEFAULT 'N' NOT NULL comment '是否设置为默认选择项。[Y, N]',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否已禁用。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
@@ -153,8 +152,8 @@ create TABLE VTL_LOG_LOGIN (
 );
 
 
-drop table IF EXISTS VTL_FILE;
-create TABLE VTL_FILE (
+drop table IF EXISTS VTL_OSS;
+create TABLE VTL_OSS (
   ID                            bigint NOT NULL comment '主键ID',
   NAME                          varchar(255) NOT NULL comment '原始文件名称',
   SUFFIX                        varchar(10) comment '文件后缀',
@@ -177,6 +176,7 @@ create TABLE VTL_MENU (
   SEQ 		                    int DEFAULT 0 comment '展示顺序',
   ICON 				            varchar(64) comment '菜单图标',
   URL 				            varchar(256) comment '菜单请求链接地址。当 type 为 MENU 时生效。',
+  OPEN_TYPE                     varchar(10) DEFAULT NULL comment '打开类型。[ _iframe：正常打开；_blank：新建浏览器标签页 ]',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',

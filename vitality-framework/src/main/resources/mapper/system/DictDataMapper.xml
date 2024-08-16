@@ -9,7 +9,6 @@
         <result column="DATA_CODE" property="dataCode" />
         <result column="LABEL" property="label" />
         <result column="SEQ" property="seq" />
-        <result column="SELECTED" property="selected" />
         <result column="DISABLED" property="disabled" />
         <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
@@ -24,7 +23,6 @@
         DATA_CODE,
         LABEL,
         SEQ,
-        SELECTED,
         DISABLED,
         REMARK,
         ID,
@@ -48,9 +46,6 @@
             </if>
             <if test="seq != null">
                 AND SEQ = #{seq}
-            </if>
-            <if test="selected != null and selected != ''">
-                AND SELECTED = #{selected}
             </if>
             <if test="disabled != null and disabled != ''">
                 AND DISABLED = #{disabled}

@@ -27,7 +27,7 @@ public class UploadUtils {
      * 上传文件。根据文件后缀名自动分文件夹存放。
      *
      * @param request  MultipartHttpServletRequest
-     * @param function
+     * @param function function
      * @return FileInfo list in server
      */
     public static <R> List<R> upload(HttpServletRequest request, Function<MultipartFile, R> function) {

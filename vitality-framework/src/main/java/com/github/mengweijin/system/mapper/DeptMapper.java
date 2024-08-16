@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.mengweijin.system.domain.entity.Dept;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Dept Mapper
@@ -14,6 +16,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
+
+    List<Dept> selectWithParentByChildrenId(Long childrenId);
+
+    List<Dept> selectChildrenByParentId(Long parentId);
 
 }
 

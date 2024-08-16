@@ -5,15 +5,24 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.framework.cache.CacheConst;
+import com.github.mengweijin.framework.cache.CacheName;
+import com.github.mengweijin.framework.constant.Const;
 import com.github.mengweijin.system.constant.UserConst;
 import com.github.mengweijin.system.domain.entity.User;
 import com.github.mengweijin.system.domain.vo.UserSessionVO;
 import com.github.mengweijin.system.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -77,4 +86,40 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     public boolean checkPassword(String plaintext, String hashed) {
         return BCrypt.checkpw(plaintext, hashed);
     }
+
+    public String getUsernameByIds(String ids) {
+        List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
+        return idList.stream().map(this::getUsernameById).collect(Collectors.joining());
+    }
+
+    public String getUserNicknameByIds(String ids) {
+        List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
+        return idList.stream().map(this::getUserNicknameById).collect(Collectors.joining());
+    }
+
+    @Cacheable(value = CacheName.USER_ID_USERNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getUsernameById(Long id) {
+        return this.lambdaQuery()
+                .select(User::getUsername)
+                .eq(User::getId, id)
+                .oneOpt()
+                .map(User::getUsername)
+                .orElse(null);
+    }
+
+    @Cacheable(value = CacheName.USER_ID_NICKNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getUserNicknameById(Long id) {
+        return this.lambdaQuery()
+                .select(User::getNickname)
+                .eq(User::getId, id)
+                .oneOpt()
+                .map(User::getNickname)
+                .orElse(null);
+    }
+
+    @CacheEvict(value = CacheName.USER_ID_USERNAME, key = "#id")
+    public void removeCacheOfUsername(Long id) {}
+
+    @CacheEvict(value = CacheName.USER_ID_NICKNAME, key = "#id")
+    public void removeCacheOfNickname(Long id) {}
 }

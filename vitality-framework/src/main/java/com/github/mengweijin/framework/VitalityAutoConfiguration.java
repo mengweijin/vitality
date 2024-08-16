@@ -30,8 +30,4 @@ public class VitalityAutoConfiguration {
         return restTemplateBuilder.build();
     }
 
-    @Bean
-    public static VitalityBeanDefinitionRegistryPostProcessor vitalityBeanDefinitionRegistryPostProcessor() {
-        return new VitalityBeanDefinitionRegistryPostProcessor();
-    }
 }

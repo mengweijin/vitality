@@ -41,11 +41,6 @@ public class DictData extends BaseEntity {
     private Integer seq;
 
     /**
-    * 是否设置为默认选择项。[Y, N]
-    */
-    private String selected;
-
-    /**
     * 是否已禁用。[Y, N]
     */
     private String disabled;

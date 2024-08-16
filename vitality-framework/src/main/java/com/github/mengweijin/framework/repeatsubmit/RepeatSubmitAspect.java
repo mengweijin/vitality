@@ -54,7 +54,6 @@ public class RepeatSubmitAspect {
             String key = String.join(Const.COLON, sessionId, url, SecureUtil.md5(args));
 
             Cache<String, Long> cache = CacheFactory.getRepeatSubmitCache();
-
             Long cachedTimeMillis = cache.get(key);
 
             // 缓存中不存在，继续执行方法，然后加入缓存。或者缓存中存在，但超过了时间间隔，则这个 url 不为重复提交。

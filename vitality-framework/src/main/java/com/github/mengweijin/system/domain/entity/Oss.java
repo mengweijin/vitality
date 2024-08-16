@@ -17,8 +17,8 @@ import com.github.mengweijin.framework.mybatis.entity.BaseEntity;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("VTL_FILE")
-public class File extends BaseEntity {
+@TableName("VTL_OSS")
+public class Oss extends BaseEntity {
 
     /**
     * 原始文件名称

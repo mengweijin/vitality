@@ -72,7 +72,7 @@ public class DownLoadUtils {
      */
     public static void chunkDownload(File file, HttpServletRequest request, HttpServletResponse response) {
         String range = request.getHeader(HttpHeaders.RANGE);
-        log.debug("current request rang:" + range);
+        log.debug("current request rang:{}", range);
         //开始下载位置
         long startByte = 0;
         //结束下载位置

@@ -1,6 +1,7 @@
 package com.github.mengweijin.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -33,11 +34,13 @@ public class User extends BaseEntity {
     /**
     * 登录密码
     */
+    @JsonIgnore
     private String password;
 
     /**
     * 身份证号
     */
+    @JsonIgnore
     private String idCard;
 
     /**
@@ -58,6 +61,7 @@ public class User extends BaseEntity {
     /**
     * 2FA（two-factor authentication）双重身份验证密钥
     */
+    @JsonIgnore
     private String secretKey;
 
     /**

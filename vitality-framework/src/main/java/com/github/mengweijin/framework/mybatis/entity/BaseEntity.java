@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.github.mengweijin.framework.jackson.translation.ETranslateType;
+import com.github.mengweijin.framework.jackson.translation.Translation;
 import lombok.Data;
 
 import java.io.Serial;
@@ -35,5 +37,13 @@ public abstract class BaseEntity implements Serializable {
 
     @TableField(value = "UPDATE_BY", fill = FieldFill.UPDATE)
     protected Long updateBy;
+
+    @TableField(exist = false)
+    @Translation(translateType = ETranslateType.USER_ID_TO_NICKNAME, field = "createBy")
+    private String createByName;
+
+    @TableField(exist = false)
+    @Translation(translateType = ETranslateType.USER_ID_TO_NICKNAME, field = "updateBy")
+    private String updateByName;
 
 }

@@ -58,7 +58,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
     public List<String> getMenuPermissionListByLoginUsername(String username) {
         if(UserConst.ADMIN_LOGIN_NAME.equals(username)) {
-            return this.lambdaQuery().select(Menu::getPermission).list().stream().map(Menu::getPermission).toList();
+            return this.lambdaQuery().select(Menu::getPermission).list().stream().map(Menu::getPermission).distinct().toList();
         }
         return this.getBaseMapper().selectPermissionListByUsername(username);
     }

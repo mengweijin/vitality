@@ -3,11 +3,15 @@ package com.github.mengweijin.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.framework.cache.CacheConst;
+import com.github.mengweijin.framework.cache.CacheName;
 import com.github.mengweijin.system.domain.entity.Dept;
 import com.github.mengweijin.system.mapper.DeptMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
 /**
@@ -44,5 +48,19 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
                 .eq(!Objects.isNull(dept.getUpdateBy()), Dept::getUpdateBy, dept.getUpdateBy())
                 .eq(!Objects.isNull(dept.getUpdateTime()), Dept::getUpdateTime, dept.getUpdateTime());
         return this.page(page, query);
+    }
+
+    public boolean setDisabled(Long id, String disabled) {
+        return this.lambdaUpdate().set(Dept::getDisabled, disabled).eq(Dept::getId, id).update();
+    }
+
+    @Cacheable(value = CacheName.DEPT_ID_NAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getNameById(Long id) {
+        return this.lambdaQuery()
+                .select(Dept::getName)
+                .eq(Dept::getId, id)
+                .oneOpt()
+                .map(Dept::getName)
+                .orElse(null);
     }
 }

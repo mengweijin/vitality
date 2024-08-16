@@ -67,6 +67,18 @@ public class DeptController {
         return deptService.list(new QueryWrapper<>(dept));
     }
 
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/listWithParent/{childrenId}")
+    public List<Dept> listWithParent(@PathVariable("childrenId") Long childrenId) {
+        return deptService.getBaseMapper().selectWithParentByChildrenId(childrenId);
+    }
+
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/listChildren/{parentId}")
+    public List<Dept> listChildren(@PathVariable("parentId") Long parentId) {
+        return deptService.getBaseMapper().selectChildrenByParentId(parentId);
+    }
+
     /**
      * <p>
      * Get Dept by id
@@ -103,6 +115,13 @@ public class DeptController {
     @PutMapping
     public R<Void> update(@Valid @RequestBody Dept dept) {
         boolean bool = deptService.updateById(dept);
+        return R.ajax(bool);
+    }
+
+    @SaCheckPermission("system:dept:update")
+    @PostMapping("/setDisabled/{id}/{disabled}")
+    public R<Void> setDisabledValue(@PathVariable("id") Long id, @PathVariable("disabled") String disabled) {
+        boolean bool = deptService.setDisabled(id, disabled);
         return R.ajax(bool);
     }
 

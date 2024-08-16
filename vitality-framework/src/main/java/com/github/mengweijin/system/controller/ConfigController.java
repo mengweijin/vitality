@@ -82,6 +82,18 @@ public class ConfigController {
 
     /**
      * <p>
+     * Get Config by code
+     * </p>
+     * @param code code
+     * @return Config
+     */
+    @SaCheckPermission("system:config:query")
+    @GetMapping("/code/{code}")
+    public Config getByCode(@PathVariable("code") String code) {
+        return configService.getByCode(code);
+    }
+    /**
+     * <p>
      * Add Config
      * </p>
      * @param config {@link Config}

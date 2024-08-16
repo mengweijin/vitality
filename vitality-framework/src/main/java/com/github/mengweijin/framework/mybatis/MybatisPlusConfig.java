@@ -14,7 +14,8 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
 import com.github.mengweijin.framework.mybatis.data.permission.DefaultDataPermissionHandler;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ibatis.mapping.DatabaseIdProvider;
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @author Meng Wei Jin
@@ -113,6 +115,24 @@ public class MybatisPlusConfig {
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
         return new BaseEntityMetaObjectHandler();
+    }
+
+    /**
+     * Properties:
+     *     key: DatabaseProductName
+     *     value: databaseId
+     * @return DatabaseIdProvider
+     */
+    @Bean
+    public DatabaseIdProvider getDatabaseIdProvider() {
+        DatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
+        Properties properties = new Properties();
+        properties.setProperty("H2", "h2");
+        properties.setProperty("MySQL", "mysql");
+        properties.setProperty("Oracle", "oracle");
+        properties.setProperty("DM DBMS", "dm");
+        databaseIdProvider.setProperties(properties);
+        return databaseIdProvider;
     }
 
 }

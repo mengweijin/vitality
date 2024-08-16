@@ -44,4 +44,8 @@ public class ConfigService extends ServiceImpl<ConfigMapper, Config> {
                 .eq(!Objects.isNull(config.getUpdateTime()), Config::getUpdateTime, config.getUpdateTime());
         return this.page(page, query);
     }
+
+    public Config getByCode(String code) {
+        return this.lambdaQuery().eq(Config::getCode, code).one();
+    }
 }

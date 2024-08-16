@@ -10,6 +10,6 @@ public interface CacheConst {
     String KEY_CLASS_METHOD = "#root.targetClass.name + ':' + #root.methodName";
     String KEY_ARGS_0_VALUE = " #root.args[0]";
 
-    String UNLESS_LIST = "#result?.size() == 0";
-    String UNLESS_OBJECT = "#result == null";
+    String UNLESS_LIST_EMPTY = "#result?.size() == 0";
+    String UNLESS_OBJECT_NULL = "#result == null";
 }

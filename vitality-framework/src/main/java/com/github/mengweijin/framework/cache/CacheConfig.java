@@ -5,6 +5,7 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheEventListenerConfigurationBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
+import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.core.events.CacheEventListenerConfiguration;
 import org.ehcache.event.EventType;
 import org.ehcache.jsr107.Eh107Configuration;
@@ -48,34 +49,34 @@ public class CacheConfig {
     @Bean
     public JCacheManagerCustomizer jCacheManagerCustomizer() {
         return cacheManager -> {
-            // 创建一个缓存名为 CacheName.DICT 的缓存(核心是Eh107Configuration.fromEhcacheCacheConfiguration)
-            cacheManager.createCache(CacheName.DICT_DATA, this.config(Duration.ofDays(30L), String.class, List.class));
-            cacheManager.createCache(CacheName.DEPT_NAME, this.config(Duration.ofDays(30L), String.class, String.class));
-            cacheManager.createCache(CacheName.USERNAME, this.config(Duration.ofDays(30L), Long.class, String.class));
-            cacheManager.createCache(CacheName.USER_NICKNAME, this.config(Duration.ofDays(30L), Long.class, String.class));
-            cacheManager.createCache(CacheName.CAPTCHA, this.config(Duration.ofMinutes(1L), String.class, ICaptcha.class));
-            cacheManager.createCache(CacheName.REPEAT_SUBMIT, this.config(Duration.ofSeconds(10L), String.class, Long.class));
+            // 创建一个缓存名为 CacheName.DICT_LIST 的缓存(核心是Eh107Configuration.fromEhcacheCacheConfiguration)
+            cacheManager.createCache(CacheName.DICT_LIST, config(Duration.ofDays(30L), String.class, List.class));
+            cacheManager.createCache(CacheName.DICT_DATA_LABEL, config(Duration.ofDays(30L), String.class, String.class));
+            cacheManager.createCache(CacheName.DEPT_ID_NAME, config(Duration.ofDays(30L), Long.class, String.class));
+            cacheManager.createCache(CacheName.USER_ID_USERNAME, config(Duration.ofDays(30L), Long.class, String.class));
+            cacheManager.createCache(CacheName.USER_ID_NICKNAME, config(Duration.ofDays(30L), Long.class, String.class));
+            cacheManager.createCache(CacheName.CAPTCHA, config(Duration.ofMinutes(1L), String.class, ICaptcha.class));
+            cacheManager.createCache(CacheName.REPEAT_SUBMIT, config(Duration.ofSeconds(10L), String.class, Long.class));
         };
     }
 
     /**
      * 默认缓存配置属性
      */
-    private <K, V> javax.cache.configuration.Configuration<K, V> config(Duration duration, Class<K> keyType, Class<V> valueType) {
+    public static <K, V> javax.cache.configuration.Configuration<K, V> config(Duration duration, Class<K> keyType, Class<V> valueType) {
         CacheConfigurationBuilder<K, V> builder = CacheConfigurationBuilder.newCacheConfigurationBuilder(
                 // 缓存数据K和V的数值类型，在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
                 keyType,
                 valueType,
-                ResourcePoolsBuilder
+                ResourcePoolsBuilder.newResourcePoolsBuilder()
                     // 设置缓存堆容纳元素个数(JVM内存空间)超出个数后会存到 offheap 中
+                    //.heap(30, MemoryUnit.MB) // 基于堆大小的缓存需要打开：--add-opens=java.base/java.util=ALL-UNNAMED
                     .heap(1000L)
-                    // 设置堆外内存大小(直接内存) 超出 offheap 的大小会淘汰规则被淘汰，数值大小必须小于磁盘配置的大小
+                    // 设置堆外内存大小(直接内存) 超出 offheap 的大小会根据淘汰规则被淘汰，数值大小必须小于磁盘大小
                     //.offheap(10, MemoryUnit.MB)
-                    // 配置磁盘持久化储存大小(硬盘存储)，用来持久化到磁盘, 这里设置为false不启用
-                    //.disk(100, MemoryUnit.MB, false)
         )
         // 缓存监听器
-        .withService(this.cacheEventListener());
+        .withService(cacheEventListener());
 
         if(duration != null) {
             // 数据最大存活时间 TTL
@@ -84,7 +85,7 @@ public class CacheConfig {
         return Eh107Configuration.fromEhcacheCacheConfiguration(builder.build());
     }
 
-    private CacheEventListenerConfiguration<?> cacheEventListener() {
+    private static CacheEventListenerConfiguration<?> cacheEventListener() {
         return CacheEventListenerConfigurationBuilder
                 .newEventListenerConfiguration(
                         new CustomCacheEventListener(), EventType.EVICTED, EventType.EXPIRED, EventType.REMOVED, EventType.CREATED, EventType.UPDATED)

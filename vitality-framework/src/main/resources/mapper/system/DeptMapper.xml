@@ -71,4 +71,22 @@
         </where>
     </sql>
 
+    <select id="selectWithParentByChildrenId" resultType="com.github.mengweijin.system.domain.entity.Dept" databaseId="h2">
+        WITH LINK(ID, PARENT_ID) AS (
+            SELECT t1.ID, t1.PARENT_ID, t1.NAME, t1.CODE, t1.SEQ, t1.DISABLED, t1.REMARK, t1.CREATE_BY, t1.CREATE_TIME, t1.UPDATE_BY, t1.UPDATE_TIME FROM VTL_DEPT t1 WHERE t1.ID = #{childrenId} AND t1.DISABLED = 'N'
+            UNION ALL
+            SELECT t2.ID, t2.PARENT_ID, t2.NAME, t2.CODE, t2.SEQ, t2.DISABLED, t2.REMARK, t2.CREATE_BY, t2.CREATE_TIME, t2.UPDATE_BY, t2.UPDATE_TIME FROM LINK link INNER JOIN VTL_DEPT t2 ON link.PARENT_ID = t2.ID
+        )
+        SELECT * FROM LINK ORDER BY ID
+    </select>
+
+    <select id="selectChildrenByParentId" resultType="com.github.mengweijin.system.domain.entity.Dept" databaseId="h2">
+        WITH LINK(ID, PARENT_ID) AS (
+            SELECT t1.ID, t1.PARENT_ID, t1.NAME, t1.CODE, t1.SEQ, t1.DISABLED, t1.REMARK, t1.CREATE_BY, t1.CREATE_TIME, t1.UPDATE_BY, t1.UPDATE_TIME FROM VTL_DEPT t1 WHERE t1.PARENT_ID = #{parentId} AND t1.DISABLED = 'N'
+            UNION ALL
+            SELECT t2.ID, t2.PARENT_ID, t2.NAME, t2.CODE, t2.SEQ, t2.DISABLED, t2.REMARK, t2.CREATE_BY, t2.CREATE_TIME, t2.UPDATE_BY, t2.UPDATE_TIME FROM LINK link INNER JOIN VTL_DEPT t2 ON link.ID = t2.PARENT_ID
+        )
+        SELECT * FROM LINK ORDER BY ID
+    </select>
+
 </mapper>

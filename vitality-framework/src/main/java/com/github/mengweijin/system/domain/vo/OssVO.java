@@ -1,6 +1,6 @@
 package com.github.mengweijin.system.domain.vo;
 
-import com.github.mengweijin.system.domain.entity.File;
+import com.github.mengweijin.system.domain.entity.Oss;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,6 +16,6 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class FileVO extends File {
+public class OssVO extends Oss {
 
 }

@@ -18,7 +18,7 @@ public class LoginHelper {
      * 设置登录用户缓存
      */
     public static void setLoginUser(LoginUser loginUser) {
-        StpUtil.getTokenSession().set(UserConst.LOGIN_USER, loginUser);
+        StpUtil.getTokenSession().set(UserConst.SESSION_LOGIN_USER, loginUser);
     }
 
     /**
@@ -39,7 +39,7 @@ public class LoginHelper {
         if (session == null) {
             return null;
         }
-        return (LoginUser) session.get(UserConst.LOGIN_USER);
+        return (LoginUser) session.get(UserConst.SESSION_LOGIN_USER);
     }
 
 

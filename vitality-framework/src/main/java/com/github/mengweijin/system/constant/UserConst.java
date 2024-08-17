@@ -10,6 +10,6 @@ public interface UserConst {
 
     String ADMIN_USERNAME = "admin";
 
-    String LOGIN_USER = "loginUser";
+    String SESSION_LOGIN_USER = "loginUser";
 
 }

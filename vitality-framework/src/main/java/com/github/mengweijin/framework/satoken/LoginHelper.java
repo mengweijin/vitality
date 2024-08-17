@@ -7,6 +7,8 @@ import com.github.mengweijin.system.domain.bo.LoginUser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  *
  * @author mengweijin
@@ -42,6 +44,13 @@ public class LoginHelper {
         return (LoginUser) session.get(UserConst.SESSION_LOGIN_USER);
     }
 
+    public static List<String> getPermissionList() {
+        return StpUtil.getPermissionList();
+    }
+
+    public static List<String> getRoleList() {
+        return StpUtil.getRoleList();
+    }
 
     /**
      * 是否为管理员

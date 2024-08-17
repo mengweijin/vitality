@@ -6,8 +6,10 @@ package com.github.mengweijin.system.constant;
  */
 public interface UserConst {
 
-    String ADMIN_LOGIN_NAME = "admin";
+    long ADMIN_USER_ID = 1L;
 
-    String SESSION_USER = "SESSION_USER";
+    String ADMIN_USERNAME = "admin";
+
+    String LOGIN_USER = "loginUser";
 
 }

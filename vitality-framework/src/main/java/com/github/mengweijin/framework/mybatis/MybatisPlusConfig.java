@@ -1,9 +1,10 @@
 package com.github.mengweijin.framework.mybatis;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
@@ -11,11 +12,11 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
 import com.github.mengweijin.framework.mybatis.data.permission.DefaultDataPermissionHandler;
 import lombok.AllArgsConstructor;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
+import org.dromara.hutool.core.net.NetUtil;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -88,8 +89,9 @@ public class MybatisPlusConfig {
     @Bean
     @ConditionalOnMissingBean
     public PaginationInnerInterceptor paginationInnerInterceptor() {
-        DbType dbType = JdbcUtils.getDbType(dataSourceProperties.getUrl());
-        return new PaginationInnerInterceptor(dbType);
+        PaginationInnerInterceptor interceptor = new PaginationInnerInterceptor();
+        interceptor.setOverflow(true);
+        return interceptor;
     }
 
     @Bean
@@ -115,6 +117,14 @@ public class MybatisPlusConfig {
     @ConditionalOnMissingBean
     public MetaObjectHandler metaObjectHandler() {
         return new BaseEntityMetaObjectHandler();
+    }
+
+    /**
+     * 雪花算法绑定网卡防止集群环境下可能重复
+     */
+    @Bean
+    public IdentifierGenerator idGenerator() {
+        return new DefaultIdentifierGenerator(NetUtil.getLocalhostV4());
     }
 
     /**

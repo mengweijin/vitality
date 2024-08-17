@@ -136,6 +136,7 @@ drop table IF EXISTS VTL_LOG_LOGIN;
 create TABLE VTL_LOG_LOGIN (
   ID                            bigint NOT NULL comment '主键ID',
   USERNAME                      varchar(50) DEFAULT NULL comment '登录账号',
+  TOKEN                         varchar(100) DEFAULT NULL comment '登录 token',
   LOGIN_TYPE                    varchar(50) DEFAULT NULL comment '登录类型。枚举类 ELoginType.java',
   IP                            varchar(46) DEFAULT NULL comment '登录IP地址',
   IP_LOCATION                   varchar(128) DEFAULT NULL comment 'IP所属位置',

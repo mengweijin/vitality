@@ -5,14 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.system.constant.UserConst;
 import com.github.mengweijin.system.domain.entity.Menu;
+import com.github.mengweijin.system.enums.EYesNo;
 import com.github.mengweijin.system.mapper.MenuMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -56,9 +58,9 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return this.page(page, query);
     }
 
-    public List<String> getMenuPermissionListByLoginUsername(String username) {
-        if(UserConst.ADMIN_LOGIN_NAME.equals(username)) {
-            return this.lambdaQuery().select(Menu::getPermission).list().stream().map(Menu::getPermission).distinct().toList();
+    public Set<String> getMenuPermissionListByLoginUsername(String username) {
+        if(UserConst.ADMIN_USERNAME.equals(username)) {
+            return this.lambdaQuery().select(Menu::getPermission).eq(Menu::getDisabled, EYesNo.N.getValue()).list().stream().map(Menu::getPermission).collect(Collectors.toSet());
         }
         return this.getBaseMapper().selectPermissionListByUsername(username);
     }

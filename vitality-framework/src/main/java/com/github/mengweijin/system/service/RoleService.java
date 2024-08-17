@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * <p>
@@ -51,7 +52,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         return this.getBaseMapper().getByUserId(userId);
     }
 
-    public List<String> getRoleCodeByUsername(String username) {
+    public Set<String> getRoleCodeByUsername(String username) {
         return this.getBaseMapper().getRoleCodeByUsername(username);
     }
 }

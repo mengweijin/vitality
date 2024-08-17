@@ -1,16 +1,13 @@
 package com.github.mengweijin.system.service;
 
 import cn.dev33.satoken.secure.BCrypt;
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.framework.cache.CacheConst;
 import com.github.mengweijin.framework.cache.CacheName;
 import com.github.mengweijin.framework.constant.Const;
-import com.github.mengweijin.system.constant.UserConst;
 import com.github.mengweijin.system.domain.entity.User;
-import com.github.mengweijin.system.domain.vo.UserSessionVO;
 import com.github.mengweijin.system.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.math.NumberUtil;
@@ -69,14 +66,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
                 .eq(!Objects.isNull(user.getUpdateBy()), User::getUpdateBy, user.getUpdateBy())
                 .eq(!Objects.isNull(user.getUpdateTime()), User::getUpdateTime, user.getUpdateTime());
         return this.page(page, query);
-    }
-
-    public void setSessionUser(UserSessionVO userSessionVO) {
-        StpUtil.getSession().set(UserConst.SESSION_USER, userSessionVO);
-    }
-
-    public UserSessionVO getSessionUser() {
-        return (UserSessionVO) StpUtil.getSession().get(UserConst.SESSION_USER);
     }
 
     public User getByUsername(String username) {

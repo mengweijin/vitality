@@ -4,11 +4,11 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.framework.cache.CacheFactory;
 import com.github.mengweijin.framework.exception.LoginFailedException;
-import com.github.mengweijin.framework.util.BeanUtils;
+import com.github.mengweijin.framework.satoken.LoginHelper;
 import com.github.mengweijin.framework.util.ServletUtils;
 import com.github.mengweijin.system.domain.bo.LoginBody;
+import com.github.mengweijin.system.domain.bo.LoginUser;
 import com.github.mengweijin.system.domain.entity.User;
-import com.github.mengweijin.system.domain.vo.UserSessionVO;
 import com.github.mengweijin.system.enums.ELoginType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -35,6 +35,12 @@ public class LoginService {
 
     private UserService userService;
 
+    private DeptService deptService;
+
+    private RoleService roleService;
+
+    private MenuService menuService;
+
     private LogLoginService logLoginService;
 
     public String login(LoginBody loginBody) {
@@ -45,24 +51,22 @@ public class LoginService {
             this.verifyCaptcha(loginBody.getCaptcha());
 
             User user = userService.getByUsername(loginBody.getUsername());
-            if(user == null) {
+            if (user == null) {
                 throw new LoginFailedException("The username or password incorrect!");
             }
 
             // 校验指定账号是否已被封禁，如果被封禁则抛出异常 `DisableServiceException`
             StpUtil.checkDisable(user.getId());
 
-            if(!userService.checkPassword(loginBody.getPassword(), user.getPassword())) {
+            if (!userService.checkPassword(loginBody.getPassword(), user.getPassword())) {
                 throw new LoginFailedException("The username or password incorrect!");
             }
 
             StpUtil.login(loginBody.getUsername(), new SaLoginModel().setIsLastingCookie(loginBody.isRememberMe()).setDevice(platformName));
-
-            UserSessionVO userSessionVO = BeanUtils.copyBean(user, UserSessionVO.class);
-            userService.setSessionUser(userSessionVO);
+            LoginHelper.setLoginUser(this.buildLoginUser(user));
             return StpUtil.getTokenValue();
         } catch (RuntimeException e) {
-            logLoginService.addLoginLogAsync(loginBody.getUsername(), ELoginType.LOGIN, e.getMessage(), request);
+            logLoginService.addLoginLogAsync(loginBody.getUsername(), null, ELoginType.LOGIN, e.getMessage(), request);
             throw new LoginFailedException(e);
         }
     }
@@ -78,14 +82,23 @@ public class LoginService {
     }
 
     public void verifyCaptcha(String captchaCode) {
-        if(StrUtil.isNotBlank(captchaCode)) {
+        if (StrUtil.isNotBlank(captchaCode)) {
             Cache<String, ICaptcha> cache = CacheFactory.getCaptchaCache();
             String sessionId = ServletUtils.getSession().getId();
             ICaptcha captcha = cache.get(sessionId);
-            if(captcha == null || !captcha.verify(captchaCode)) {
+            if (captcha == null || !captcha.verify(captchaCode)) {
                 throw new LoginFailedException("Captcha code verify failed! " + captchaCode);
             }
         }
+    }
+
+    private LoginUser buildLoginUser(User user) {
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUserId(user.getId());
+        loginUser.setUsername(user.getUsername());
+        loginUser.setNickname(user.getNickname());
+        loginUser.setToken(StpUtil.getTokenValue());
+        return loginUser;
     }
 
 }

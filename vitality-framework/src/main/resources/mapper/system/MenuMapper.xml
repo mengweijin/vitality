@@ -88,9 +88,15 @@
 
     <select id="selectPermissionListByUsername" resultType="java.lang.String">
         select distinct m.PERMISSION from VTL_MENU m
-        inner join VTL_ROLE_MENU rm on rm.MENU_ID = m.ID
-        inner join VTL_USER u on u.ID = rm.USER_ID
-        where rm.USER_NAME = #{username}
+        INNER JOIN VTL_ROLE_MENU rm on rm.MENU_ID = m.ID
+        WHERE m.DISABLED = 'N'
+        AND rm.ROLE_ID IN (
+            SELECT ur.ROLE_ID FROM VTL_USER_ROLE ur
+            INNER JOIN VTL_USER u ON u.ID = ur.USER_ID
+            INNER JOIN VTL_ROLE r ON r.ID = ur.ROLE_ID
+            WHERE r.DISABLED = 'N'
+            AND u.USERNAME = #{username}
+        )
     </select>
 
 </mapper>

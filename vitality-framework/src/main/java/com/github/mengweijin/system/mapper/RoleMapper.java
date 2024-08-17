@@ -5,6 +5,7 @@ import com.github.mengweijin.system.domain.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -19,6 +20,6 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     List<Role> getByUserId(Long userId);
 
-    List<String> getRoleCodeByUsername(String username);
+    Set<String> getRoleCodeByUsername(String username);
 }
 

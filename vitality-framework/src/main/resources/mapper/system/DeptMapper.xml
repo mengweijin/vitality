@@ -89,4 +89,22 @@
         SELECT * FROM LINK ORDER BY ID
     </select>
 
+    <select id="selectByUserId" resultType="com.github.mengweijin.system.domain.entity.Dept">
+        SELECT
+            d.PARENT_ID,
+            d.NAME,
+            d.CODE,
+            d.SEQ,
+            d.DISABLED,
+            d.REMARK,
+            d.ID,
+            d.CREATE_BY,
+            d.CREATE_TIME,
+            d.UPDATE_BY,
+            d.UPDATE_TIME
+        FROM VTL_DEPT d
+        INNER JOIN VTL_USER_DEPT ud ON ud.DEPT_ID = d.ID
+        WHERE ud.USER_ID = #{userId}
+    </select>
+
 </mapper>

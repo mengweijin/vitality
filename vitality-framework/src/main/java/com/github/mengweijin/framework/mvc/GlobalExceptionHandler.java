@@ -2,6 +2,7 @@ package com.github.mengweijin.framework.mvc;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import com.github.mengweijin.framework.domain.R;
 import com.github.mengweijin.framework.exception.BusinessException;
 import com.github.mengweijin.framework.exception.ClientException;
@@ -9,6 +10,7 @@ import com.github.mengweijin.framework.exception.LoginFailedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -56,6 +58,24 @@ public class GlobalExceptionHandler extends BaseResponseEntityExceptionHandler {
     ResponseEntity<R<Void>> handleNotLoginException(NotPermissionException e, HttpServletRequest request) {
         R<Void> r = R.failure(HttpStatus.FORBIDDEN.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(r);
+    }
+
+    @ExceptionHandler({ NotRoleException.class })
+    @ResponseBody
+    ResponseEntity<R<Void>> handleNotRoleException(NotRoleException e, HttpServletRequest request) {
+        R<Void> r = R.failure(HttpStatus.FORBIDDEN.value(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(r);
+    }
+
+    /**
+     * 主键或 UNIQUE 唯一索引数据重复异常
+     */
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<R<Void>> handleDuplicateKeyException(DuplicateKeyException e, HttpServletRequest request) {
+        log.error("Request-URI: '{}', Records already exist in the database: '{}'", request.getRequestURI(), e.getMessage());
+        String message = "The record already exists in the database, contact the administrator for confirmation.";
+        R<Void> r = R.failure(HttpStatus.BAD_REQUEST.value(), message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }
 
     @ExceptionHandler({BusinessException.class, RuntimeException.class, Exception.class})

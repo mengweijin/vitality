@@ -26,7 +26,7 @@ public class R<T> implements Serializable {
     /**
      * Error message
      */
-    private String message;
+    private String msg;
 
     private LocalDateTime time;
 
@@ -64,7 +64,7 @@ public class R<T> implements Serializable {
     public static <T> R<T> ajax(int code, String msg, Object data) {
         R<T> r = new R<>();
         r.setCode(code);
-        r.setMessage(msg);
+        r.setMsg(msg);
         r.setData(data);
         r.setTime(LocalDateTime.now());
         return r;
@@ -84,6 +84,6 @@ public class R<T> implements Serializable {
      * @param message message
      */
     public void appendMessage(String message) {
-        this.message = this.message == null ? message : (this.message +  " | " + message);
+        this.msg = this.msg == null ? message : (this.msg +  " | " + message);
     }
 }

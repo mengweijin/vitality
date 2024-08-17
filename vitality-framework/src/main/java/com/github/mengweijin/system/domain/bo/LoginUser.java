@@ -1,4 +1,4 @@
-package com.github.mengweijin.system.domain.vo;
+package com.github.mengweijin.system.domain.bo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * User session VO
+ * Login User
  * </p>
  *
  * @author mengweijin
@@ -15,9 +15,9 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class UserSessionVO implements Serializable {
+public class LoginUser implements Serializable {
 
-    private Long id;
+    private Long userId;
 
     /**
      * 用户登录名（字母数字下划线）
@@ -28,5 +28,10 @@ public class UserSessionVO implements Serializable {
      * 用户昵称
      */
     private String nickname;
+
+    /**
+     * 用户 token
+     */
+    private String token;
 
 }

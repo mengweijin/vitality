@@ -6,7 +6,9 @@ import com.github.mengweijin.system.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 自定义权限验证接口扩展
@@ -22,11 +24,12 @@ public class StpInterfaceImpl implements StpInterface {
     private RoleService roleService;
 
     /**
-     * 返回一个账号所拥有的权限码集合
+     * 返回一个账号所拥有的权限码集合。这里的 loginId 即为用户登录名 username
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return menuService.getMenuPermissionListByLoginUsername((String) loginId);
+        Set<String> permissionSet = menuService.getMenuPermissionListByLoginUsername((String) loginId);
+        return new ArrayList<>(permissionSet);
     }
 
     /**
@@ -34,7 +37,8 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return roleService.getRoleCodeByUsername((String) loginId);
+        Set<String> roleSet = roleService.getRoleCodeByUsername((String) loginId);
+        return new ArrayList<>(roleSet);
     }
 
 }

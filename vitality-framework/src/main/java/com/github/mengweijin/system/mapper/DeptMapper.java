@@ -21,5 +21,6 @@ public interface DeptMapper extends BaseMapper<Dept> {
 
     List<Dept> selectChildrenByParentId(Long parentId);
 
+    Dept selectByUserId(Long userId);
 }
 

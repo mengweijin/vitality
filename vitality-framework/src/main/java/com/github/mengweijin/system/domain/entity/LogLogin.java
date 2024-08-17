@@ -1,6 +1,7 @@
 package com.github.mengweijin.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.mengweijin.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,12 @@ public class LogLogin extends BaseEntity {
     * 登录账号
     */
     private String username;
+
+    /**
+     * 登录 token
+     */
+    @JsonIgnore
+    private String token;
 
     /**
     * 登录类型。枚举类 ELoginType.java

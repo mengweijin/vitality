@@ -59,12 +59,13 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
         return this.page(page, query);
     }
 
-    public void addLoginLogAsync(String username, ELoginType loginType, String errorMsg, HttpServletRequest request){
+    public void addLoginLogAsync(String username, String token, ELoginType loginType, String errorMsg, HttpServletRequest request){
         CompletableFuture.runAsync(() -> {
             UserAgent userAgent = ServletUtils.getUserAgent(request);
             String ip = ServletUtils.getClientIP(request);
             LogLogin logLogin = new LogLogin();
             logLogin.setUsername(username);
+            logLogin.setToken(token);
             logLogin.setLoginType(loginType.getValue());
             logLogin.setIp(ip);
             logLogin.setIpLocation(Ip2regionUtils.search(ip));

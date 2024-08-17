@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.mengweijin.system.domain.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -17,6 +17,6 @@ import java.util.List;
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
-    List<String> selectPermissionListByUsername(String username);
+    Set<String> selectPermissionListByUsername(String username);
 }
 

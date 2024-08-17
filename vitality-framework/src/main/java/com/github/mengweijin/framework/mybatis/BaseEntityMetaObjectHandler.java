@@ -2,13 +2,14 @@ package com.github.mengweijin.framework.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.framework.mybatis.entity.BaseEntity;
-import com.github.mengweijin.system.service.UserService;
+import com.github.mengweijin.framework.satoken.LoginHelper;
+import com.github.mengweijin.system.domain.bo.LoginUser;
 import org.apache.ibatis.reflection.MetaObject;
 import org.dromara.hutool.core.func.LambdaUtil;
 import org.dromara.hutool.core.func.SerFunction;
-import org.dromara.hutool.extra.spring.SpringUtil;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * 自动填充。
@@ -72,11 +73,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     // }
 
     protected Long getUserId() {
-        try {
-            return SpringUtil.getBean(UserService.class).getSessionUser().getId();
-        } catch (RuntimeException e) {
-            return null;
-        }
+        return Optional.ofNullable(LoginHelper.getLoginUser()).map(LoginUser::getUserId).orElse(null);
     }
 
 }

@@ -63,4 +63,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
                 .map(Dept::getName)
                 .orElse(null);
     }
+
+    public Dept getByUserId(Long userId) {
+        return this.getBaseMapper().selectByUserId(userId);
+    }
 }

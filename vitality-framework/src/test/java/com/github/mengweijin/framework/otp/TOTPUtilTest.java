@@ -1,12 +1,13 @@
 package com.github.mengweijin.framework.otp;
 
-import com.github.mengweijin.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import org.dromara.hutool.core.codec.binary.Base32;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.crypto.digest.otp.TOTP;
 import org.dromara.hutool.extra.qrcode.QrCodeUtil;
 import org.junit.jupiter.api.Test;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Scanner;

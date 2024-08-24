@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.system.mapper.MenuMapper">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.Menu">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Menu">
         <id column="ID" property="id" />
         <result column="PARENT_ID" property="parentId" />
         <result column="TITLE" property="title" />

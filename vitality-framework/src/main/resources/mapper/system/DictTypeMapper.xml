@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.system.mapper.DictTypeMapper">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.DictTypeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.DictType">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.DictType">
         <id column="ID" property="id" />
         <result column="NAME" property="name" />
-        <result column="TYPE_CODE" property="typeCode" />
+        <result column="CODE" property="code"/>
         <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
@@ -17,7 +17,7 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         NAME,
-        TYPE_CODE,
+        CODE,
         REMARK,
         ID,
         CREATE_BY,
@@ -32,8 +32,8 @@
             <if test="name != null and name != ''">
                 AND NAME = #{name}
             </if>
-            <if test="typeCode != null and typeCode != ''">
-                AND TYPE_CODE = #{typeCode}
+            <if test="code != null and code != ''">
+                AND CODE = #{code}
             </if>
             <if test="remark != null and remark != ''">
                 AND REMARK = #{remark}

@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality;
 
-import com.github.mengweijin.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.SneakyThrows;
 import org.dom4j.Document;
 import org.dom4j.Element;

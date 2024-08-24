@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.system.mapper.DeptMapper">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.DeptMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.Dept">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Dept">
         <id column="ID" property="id" />
         <result column="PARENT_ID" property="parentId" />
         <result column="NAME" property="name" />
@@ -71,7 +71,8 @@
         </where>
     </sql>
 
-    <select id="selectWithParentByChildrenId" resultType="com.github.mengweijin.system.domain.entity.Dept" databaseId="h2">
+    <select id="selectWithParentByChildrenId" resultType="com.github.mengweijin.vitality.system.domain.entity.Dept"
+            databaseId="h2">
         WITH LINK(ID, PARENT_ID) AS (
             SELECT t1.ID, t1.PARENT_ID, t1.NAME, t1.CODE, t1.SEQ, t1.DISABLED, t1.REMARK, t1.CREATE_BY, t1.CREATE_TIME, t1.UPDATE_BY, t1.UPDATE_TIME FROM VTL_DEPT t1 WHERE t1.ID = #{childrenId} AND t1.DISABLED = 'N'
             UNION ALL
@@ -80,7 +81,8 @@
         SELECT * FROM LINK ORDER BY ID
     </select>
 
-    <select id="selectChildrenByParentId" resultType="com.github.mengweijin.system.domain.entity.Dept" databaseId="h2">
+    <select id="selectChildrenByParentId" resultType="com.github.mengweijin.vitality.system.domain.entity.Dept"
+            databaseId="h2">
         WITH LINK(ID, PARENT_ID) AS (
             SELECT t1.ID, t1.PARENT_ID, t1.NAME, t1.CODE, t1.SEQ, t1.DISABLED, t1.REMARK, t1.CREATE_BY, t1.CREATE_TIME, t1.UPDATE_BY, t1.UPDATE_TIME FROM VTL_DEPT t1 WHERE t1.PARENT_ID = #{parentId} AND t1.DISABLED = 'N'
             UNION ALL
@@ -89,7 +91,7 @@
         SELECT * FROM LINK ORDER BY ID
     </select>
 
-    <select id="selectByUserId" resultType="com.github.mengweijin.system.domain.entity.Dept">
+    <select id="selectByUserId" resultType="com.github.mengweijin.vitality.system.domain.entity.Dept">
         SELECT
             d.PARENT_ID,
             d.NAME,

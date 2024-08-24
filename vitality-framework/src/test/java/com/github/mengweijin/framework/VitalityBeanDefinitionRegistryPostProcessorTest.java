@@ -1,7 +1,7 @@
 package com.github.mengweijin.framework;
 
-import com.github.mengweijin.framework.VitalityBeanDefinitionRegistryPostProcessor;
-import com.github.mengweijin.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.VitalityBeanDefinitionRegistryPostProcessor;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import org.dromara.hutool.core.reflect.ClassUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.junit.jupiter.api.Assertions;

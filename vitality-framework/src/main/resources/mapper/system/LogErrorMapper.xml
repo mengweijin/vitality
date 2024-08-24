@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mengweijin.system.mapper.LogErrorMapper">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.LogErrorMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.github.mengweijin.system.domain.entity.LogError">
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.LogError">
         <id column="ID" property="id" />
         <result column="CLASS_NAME" property="className" />
         <result column="METHOD_NAME" property="methodName" />

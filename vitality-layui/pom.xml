@@ -11,8 +11,8 @@
     <artifactId>vitality-layui</artifactId>  
     <packaging>jar</packaging>  
     <name>vitality-layui</name>  
-    <url>https://gitee.com/mengweijin/vitality</url>  
-    <dependencies> 
+    <url>https://gitee.com/mengweijin/vitality</url>
+    <dependencies>
         <dependency> 
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  

@@ -101,12 +101,12 @@
                 <groupId>com.github.mengweijin</groupId>  
                 <artifactId>vitality-framework</artifactId>  
                 <version>${vitality.version}</version> 
-            </dependency>  
-<!--            <dependency> -->
-<!--                <groupId>com.github.mengweijin</groupId>  -->
-<!--                <artifactId>vitality-layui</artifactId>  -->
-<!--                <version>${vitality.version}</version> -->
-<!--            </dependency>  -->
+            </dependency>
+            <dependency>
+                <groupId>com.github.mengweijin</groupId>
+                <artifactId>vitality-layui</artifactId>
+                <version>${vitality.version}</version>
+            </dependency>
 <!--            <dependency> -->
 <!--                <groupId>com.github.mengweijin</groupId>  -->
 <!--                <artifactId>vitality-generator</artifactId>  -->

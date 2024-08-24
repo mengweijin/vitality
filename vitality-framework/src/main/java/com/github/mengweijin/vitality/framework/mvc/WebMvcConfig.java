@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -47,6 +48,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
             ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
             factory.addErrorPages(errorPage404);
         });
+    }
+
+    /**
+     * 重定向：registry.addViewController("/").setViewName("/vitality/index.html");
+     * 转发：registry.addRedirectViewController("/", "/vitality/index.html");
+     *
+     * @param registry ViewControllerRegistry
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/vitality/index.html");
     }
 
     /**

@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./h2/vitality;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:./h2/vitality;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
     username: sa
-    password:
+    password: 1qaz2wsx
   h2:
     console:
       enabled: true
       path: /h2
       settings:
-        web-allow-others: true
+        web-allow-others: false
 decorator:
   datasource:
     enabled: false

@@ -3,12 +3,15 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
 import com.github.mengweijin.vitality.system.mapper.RoleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -53,6 +56,9 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public Set<String> getRoleCodeByUsername(String username) {
+        if (UserConst.ADMIN_USERNAME.equals(username)) {
+            return Collections.singleton(Const.STAR);
+        }
         return this.getBaseMapper().getRoleCodeByUsername(username);
     }
 }

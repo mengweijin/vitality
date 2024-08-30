@@ -3,8 +3,12 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.system.constant.MenuConst;
 import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
+import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
+import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.mapper.MenuMapper;
 import lombok.AllArgsConstructor;
@@ -12,14 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * <p>
- *  Menu Service
- *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * Menu Service
+ * Add @Transactional(rollbackFor = Exception.class) if you need.
  * </p>
  *
  * @author mengweijin
@@ -30,24 +35,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
-    private RoleService roleService;
-
     /**
      * Custom paging query
+     *
      * @param page page
      * @param menu {@link Menu}
      * @return IPage
      */
-    public IPage<Menu> page(IPage<Menu> page, Menu menu){
+    public IPage<Menu> page(IPage<Menu> page, Menu menu) {
         LambdaQueryWrapper<Menu> query = new LambdaQueryWrapper<>();
         query
                 .eq(!Objects.isNull(menu.getParentId()), Menu::getParentId, menu.getParentId())
-                .eq(StrUtil.isNotBlank(menu.getTitle()), Menu::getTitle, menu.getTitle())
                 .eq(StrUtil.isNotBlank(menu.getType()), Menu::getType, menu.getType())
+                .eq(StrUtil.isNotBlank(menu.getTitle()), Menu::getTitle, menu.getTitle())
+                .eq(StrUtil.isNotBlank(menu.getIcon()), Menu::getIcon, menu.getIcon())
+                .eq(StrUtil.isNotBlank(menu.getShowLink()), Menu::getShowLink, menu.getShowLink())
                 .eq(StrUtil.isNotBlank(menu.getPermission()), Menu::getPermission, menu.getPermission())
                 .eq(!Objects.isNull(menu.getSeq()), Menu::getSeq, menu.getSeq())
-                .eq(StrUtil.isNotBlank(menu.getIcon()), Menu::getIcon, menu.getIcon())
-                .eq(StrUtil.isNotBlank(menu.getUrl()), Menu::getUrl, menu.getUrl())
+                .eq(StrUtil.isNotBlank(menu.getRouterName()), Menu::getRouterName, menu.getRouterName())
+                .eq(StrUtil.isNotBlank(menu.getRouterPath()), Menu::getRouterPath, menu.getRouterPath())
+                .eq(StrUtil.isNotBlank(menu.getIframe()), Menu::getIframe, menu.getIframe())
                 .eq(StrUtil.isNotBlank(menu.getDisabled()), Menu::getDisabled, menu.getDisabled())
                 .eq(StrUtil.isNotBlank(menu.getRemark()), Menu::getRemark, menu.getRemark())
                 .eq(!Objects.isNull(menu.getId()), Menu::getId, menu.getId())
@@ -59,9 +66,17 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     }
 
     public Set<String> getMenuPermissionListByLoginUsername(String username) {
-        if(UserConst.ADMIN_USERNAME.equals(username)) {
-            return this.lambdaQuery().select(Menu::getPermission).eq(Menu::getDisabled, EYesNo.N.getValue()).list().stream().map(Menu::getPermission).collect(Collectors.toSet());
+        if (UserConst.ADMIN_USERNAME.equals(username)) {
+            return Collections.singleton(Const.STAR);
         }
         return this.getBaseMapper().selectPermissionListByUsername(username);
+    }
+
+    public PureAsyncRoutes getAsyncRoutes() {
+        List<Menu> list = this.lambdaQuery()
+                .eq(Menu::getDisabled, EYesNo.N.getValue())
+                .and(wrapper -> wrapper.eq(Menu::getType, EMenuType.DIR.getValue()).or().eq(Menu::getType, EMenuType.MENU.getValue()))
+                .list();
+        return PureAsyncRoutes.tree(list, MenuConst.ROOT_ID);
     }
 }

@@ -6,12 +6,15 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Menu">
         <id column="ID" property="id" />
         <result column="PARENT_ID" property="parentId" />
+        <result column="TYPE" property="type"/>
         <result column="TITLE" property="title" />
-        <result column="TYPE" property="type" />
+        <result column="ICON" property="icon"/>
+        <result column="SHOW_LINK" property="showLink"/>
         <result column="PERMISSION" property="permission" />
         <result column="SEQ" property="seq" />
-        <result column="ICON" property="icon" />
-        <result column="URL" property="url" />
+        <result column="ROUTER_NAME" property="routerName"/>
+        <result column="ROUTER_PATH" property="routerPath"/>
+        <result column="IFRAME" property="iframe"/>
         <result column="DISABLED" property="disabled" />
         <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
@@ -23,12 +26,15 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         PARENT_ID,
-        TITLE,
         TYPE,
+        TITLE,
+        ICON,
+        SHOW_LINK,
         PERMISSION,
         SEQ,
-        ICON,
-        URL,
+        ROUTER_NAME,
+        ROUTER_PATH,
+        IFRAME,
         DISABLED,
         REMARK,
         ID,
@@ -44,11 +50,17 @@
             <if test="parentId != null">
                 AND PARENT_ID = #{parentId}
             </if>
+            <if test="type != null and type != ''">
+                AND TYPE = #{type}
+            </if>
             <if test="title != null and title != ''">
                 AND TITLE = #{title}
             </if>
-            <if test="type != null and type != ''">
-                AND TYPE = #{type}
+            <if test="icon != null and icon != ''">
+                AND ICON = #{icon}
+            </if>
+            <if test="showLink != null and showLink != ''">
+                AND SHOW_LINK = #{showLink}
             </if>
             <if test="permission != null and permission != ''">
                 AND PERMISSION = #{permission}
@@ -56,11 +68,14 @@
             <if test="seq != null">
                 AND SEQ = #{seq}
             </if>
-            <if test="icon != null and icon != ''">
-                AND ICON = #{icon}
+            <if test="routerName != null and routerName != ''">
+                AND ROUTER_NAME = #{routerName}
             </if>
-            <if test="url != null and url != ''">
-                AND URL = #{url}
+            <if test="routerPath != null and routerPath != ''">
+                AND ROUTER_PATH = #{routerPath}
+            </if>
+            <if test="iframe != null and iframe != ''">
+                AND IFRAME = #{iframe}
             </if>
             <if test="disabled != null and disabled != ''">
                 AND DISABLED = #{disabled}

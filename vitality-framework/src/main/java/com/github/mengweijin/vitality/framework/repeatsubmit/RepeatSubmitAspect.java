@@ -40,7 +40,7 @@ public class RepeatSubmitAspect {
     }
 
     @Around("pointCut(repeatSubmit)")
-    public Object around(ProceedingJoinPoint joinPoint, RepeatSubmit repeatSubmit) {
+    public Object around(ProceedingJoinPoint joinPoint, RepeatSubmit repeatSubmit) throws Throwable {
         try {
             long interval = repeatSubmit.interval();
             if (interval < 1000 || interval > 10000) {
@@ -71,7 +71,7 @@ public class RepeatSubmitAspect {
             }
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException("Unknown exception occurred while verifying repeat submit!");
+            throw e;
         }
     }
 

@@ -19,12 +19,8 @@
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-layui</artifactId>
+            <artifactId>vitality-generator</artifactId>
         </dependency>
-<!--        <dependency> -->
-<!--            <groupId>com.github.mengweijin</groupId>  -->
-<!--            <artifactId>vitality-generator</artifactId> -->
-<!--        </dependency>  -->
         <dependency> 
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  

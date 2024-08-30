@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <p>
@@ -28,6 +29,21 @@ public class LoginUser implements Serializable {
      * 用户昵称
      */
     private String nickname;
+
+    /**
+     * 用户图像
+     */
+    private String profile;
+
+    /**
+     * 用户角色
+     */
+    private Set<String> roles;
+
+    /**
+     * 用户权限
+     */
+    private Set<String> permissions;
 
     /**
      * 用户 token

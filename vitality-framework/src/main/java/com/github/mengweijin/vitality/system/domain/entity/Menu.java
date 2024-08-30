@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author mengweijin
@@ -21,47 +21,62 @@ import lombok.experimental.Accessors;
 public class Menu extends BaseEntity {
 
     /**
-    * 父菜单ID
-    */
+     * 父菜单ID
+     */
     private Long parentId;
 
     /**
-    * 菜单标题
-    */
-    private String title;
-
-    /**
-    * 菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮 }
-    */
+     * 菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮 }
+     */
     private String type;
 
     /**
-    * 权限标识
-    */
-    private String permission;
+     * 标题
+     */
+    private String title;
 
     /**
-    * 展示顺序
-    */
-    private Integer seq;
-
-    /**
-    * 菜单图标
-    */
+     * 图标
+     */
     private String icon;
 
     /**
-    * 菜单请求链接地址。当 type 为 MENU 时生效。
-    */
-    private String url;
+     * 是否在菜单中显示。[Y, N]
+     */
+    private String showLink;
 
     /**
-    * 是否禁用。[Y, N]
-    */
+     * 权限
+     */
+    private String permission;
+
+    /**
+     * 排序
+     */
+    private Integer seq;
+
+    /**
+     * 路由名称，必须唯一。如：UserListIndex
+     */
+    private String routerName;
+
+    /**
+     * 路由地址。如：/system/user/index
+     */
+    private String routerPath;
+
+    /**
+     * 配置内嵌页面的 iframe 地址，设置后会在当前页面内嵌对应的页面。
+     */
+    private String iframe;
+
+    /**
+     * 是否禁用。[Y, N]
+     */
     private String disabled;
 
     /**
-    * 备注
-    */
+     * 备注
+     */
     private String remark;
 }

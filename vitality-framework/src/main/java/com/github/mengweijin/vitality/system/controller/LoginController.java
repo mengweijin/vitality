@@ -4,7 +4,9 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.repeatsubmit.RepeatSubmit;
+import com.github.mengweijin.vitality.system.domain.LoginUser;
 import com.github.mengweijin.vitality.system.domain.bo.LoginBO;
+import com.github.mengweijin.vitality.system.domain.pure.PureLoginUser;
 import com.github.mengweijin.vitality.system.service.LoginService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -13,9 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author mengweijin
@@ -37,11 +36,18 @@ public class LoginController {
     @SaIgnore
     @RepeatSubmit
     @PostMapping("/login")
-    public R<Map<String, String>> login(@Valid @RequestBody LoginBO loginBO) {
-        String token = loginService.login(loginBO);
-        Map<String, String> map = new HashMap<>(1);
-        map.put("token", token);
-        return R.success(map);
+    public PureLoginUser login(@Valid @RequestBody LoginBO loginBO) {
+        LoginUser loginUser = loginService.login(loginBO);
+        return PureLoginUser.success(loginUser);
+    }
+
+    @Deprecated
+    @SaIgnore
+    @RepeatSubmit
+    @PostMapping("/loginR")
+    public R<LoginUser> loginR(@Valid @RequestBody LoginBO loginBO) {
+        LoginUser loginUser = loginService.login(loginBO);
+        return R.success(loginUser);
     }
 
     @PostMapping("/logout")

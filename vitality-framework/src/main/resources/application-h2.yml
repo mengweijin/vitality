@@ -1,4 +1,11 @@
 spring:
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-store: true
+  liquibase:
+    contexts: test
   datasource:
     driver-class-name: org.h2.Driver
     # 以本地文件存储数据的方式使用H2数据库。

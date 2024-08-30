@@ -12,22 +12,16 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * enable response body advice.
- * //@Bean
- * //@ConditionalOnMissingBean
- * public DefaultResponseBodyAdvice responseBodyAdvice() {
- *     return new DefaultResponseBodyAdvice();
- * }
  * @author mengweijin
  * @since 2022/5/17
  */
 @Slf4j
 @Deprecated
-@RestControllerAdvice
+//@RestControllerAdvice
 @AllArgsConstructor
 public class DefaultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 

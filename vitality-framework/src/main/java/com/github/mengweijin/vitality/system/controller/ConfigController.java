@@ -48,7 +48,7 @@ public class ConfigController {
      * @param config {@link Config}
      * @return Page<Config>
      */
-    @SaCheckPermission("system:config:query")
+    @SaCheckPermission("system_config_query")
     @GetMapping("/page")
     public IPage<Config> page(Page<Config> page, Config config) {
         return configService.page(page, config);
@@ -61,7 +61,7 @@ public class ConfigController {
      * @param config {@link Config}
      * @return List<Config>
      */
-    @SaCheckPermission("system:config:query")
+    @SaCheckPermission("system_config_query")
     @GetMapping("/list")
     public List<Config> list(Config config) {
         return configService.list(new QueryWrapper<>(config));
@@ -74,7 +74,7 @@ public class ConfigController {
      * @param id id
      * @return Config
      */
-    @SaCheckPermission("system:config:query")
+    @SaCheckPermission("system_config_query")
     @GetMapping("/{id}")
     public Config getById(@PathVariable("id") Long id) {
         return configService.getById(id);
@@ -87,7 +87,7 @@ public class ConfigController {
      * @param code code
      * @return Config
      */
-    @SaCheckPermission("system:config:query")
+    @SaCheckPermission("system_config_query")
     @GetMapping("/code/{code}")
     public Config getByCode(@PathVariable("code") String code) {
         return configService.getByCode(code);
@@ -98,7 +98,7 @@ public class ConfigController {
      * </p>
      * @param config {@link Config}
      */
-    @SaCheckPermission("system:config:create")
+    @SaCheckPermission("system_config_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Config config) {
         boolean bool = configService.save(config);
@@ -111,7 +111,7 @@ public class ConfigController {
      * </p>
      * @param config {@link Config}
      */
-    @SaCheckPermission("system:config:update")
+    @SaCheckPermission("system_config_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Config config) {
         boolean bool = configService.updateById(config);
@@ -124,7 +124,7 @@ public class ConfigController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:config:delete")
+    @SaCheckPermission("system_config_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = configService.getBaseMapper().deleteByIds(Arrays.asList(ids));

@@ -48,7 +48,7 @@ public class DictDataController {
      * @param dictData {@link DictData}
      * @return Page<DictData>
      */
-    @SaCheckPermission("system:dictData:query")
+    @SaCheckPermission("system_dictData_query")
     @GetMapping("/page")
     public IPage<DictData> page(Page<DictData> page, DictData dictData) {
         return dictDataService.page(page, dictData);
@@ -61,7 +61,7 @@ public class DictDataController {
      * @param dictData {@link DictData}
      * @return List<DictData>
      */
-    @SaCheckPermission("system:dictData:query")
+    @SaCheckPermission("system_dictData_query")
     @GetMapping("/list")
     public List<DictData> list(DictData dictData) {
         return dictDataService.list(new QueryWrapper<>(dictData));
@@ -74,7 +74,7 @@ public class DictDataController {
      * @param id id
      * @return DictData
      */
-    @SaCheckPermission("system:dictData:query")
+    @SaCheckPermission("system_dictData_query")
     @GetMapping("/{id}")
     public DictData getById(@PathVariable("id") Long id) {
         return dictDataService.getById(id);
@@ -86,7 +86,7 @@ public class DictDataController {
      * </p>
      * @param dictData {@link DictData}
      */
-    @SaCheckPermission("system:dictData:create")
+    @SaCheckPermission("system_dictData_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody DictData dictData) {
         boolean bool = dictDataService.save(dictData);
@@ -99,7 +99,7 @@ public class DictDataController {
      * </p>
      * @param dictData {@link DictData}
      */
-    @SaCheckPermission("system:dictData:update")
+    @SaCheckPermission("system_dictData_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody DictData dictData) {
         boolean bool = dictDataService.updateById(dictData);
@@ -112,7 +112,7 @@ public class DictDataController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:dictData:delete")
+    @SaCheckPermission("system_dictData_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = dictDataService.getBaseMapper().deleteByIds(Arrays.asList(ids));

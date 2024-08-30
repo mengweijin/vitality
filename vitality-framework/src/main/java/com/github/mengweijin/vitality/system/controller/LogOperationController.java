@@ -48,7 +48,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      * @return Page<LogOperation>
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("system_logOperation_query")
     @GetMapping("/page")
     public IPage<LogOperation> page(Page<LogOperation> page, LogOperation logOperation) {
         return logOperationService.page(page, logOperation);
@@ -61,7 +61,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      * @return List<LogOperation>
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("system_logOperation_query")
     @GetMapping("/list")
     public List<LogOperation> list(LogOperation logOperation) {
         return logOperationService.list(new QueryWrapper<>(logOperation));
@@ -74,7 +74,7 @@ public class LogOperationController {
      * @param id id
      * @return LogOperation
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("system_logOperation_query")
     @GetMapping("/{id}")
     public LogOperation getById(@PathVariable("id") Long id) {
         return logOperationService.getById(id);
@@ -86,7 +86,7 @@ public class LogOperationController {
      * </p>
      * @param logOperation {@link LogOperation}
      */
-    @SaCheckPermission("system:logOperation:create")
+    @SaCheckPermission("system_logOperation_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody LogOperation logOperation) {
         boolean bool = logOperationService.save(logOperation);
@@ -99,7 +99,7 @@ public class LogOperationController {
      * </p>
      * @param logOperation {@link LogOperation}
      */
-    @SaCheckPermission("system:logOperation:update")
+    @SaCheckPermission("system_logOperation_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody LogOperation logOperation) {
         boolean bool = logOperationService.updateById(logOperation);
@@ -112,7 +112,7 @@ public class LogOperationController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:logOperation:delete")
+    @SaCheckPermission("system_logOperation_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logOperationService.getBaseMapper().deleteByIds(Arrays.asList(ids));

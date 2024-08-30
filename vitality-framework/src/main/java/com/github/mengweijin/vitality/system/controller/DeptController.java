@@ -48,7 +48,7 @@ public class DeptController {
      * @param dept {@link Dept}
      * @return Page<Dept>
      */
-    @SaCheckPermission("system:dept:query")
+    @SaCheckPermission("system_dept_query")
     @GetMapping("/page")
     public IPage<Dept> page(Page<Dept> page, Dept dept) {
         return deptService.page(page, dept);
@@ -61,19 +61,19 @@ public class DeptController {
      * @param dept {@link Dept}
      * @return List<Dept>
      */
-    @SaCheckPermission("system:dept:query")
+    @SaCheckPermission("system_dept_query")
     @GetMapping("/list")
     public List<Dept> list(Dept dept) {
         return deptService.list(new QueryWrapper<>(dept));
     }
 
-    @SaCheckPermission("system:dept:query")
+    @SaCheckPermission("system_dept_query")
     @GetMapping("/listWithParent/{childrenId}")
     public List<Dept> listWithParent(@PathVariable("childrenId") Long childrenId) {
         return deptService.getBaseMapper().selectWithParentByChildrenId(childrenId);
     }
 
-    @SaCheckPermission("system:dept:query")
+    @SaCheckPermission("system_dept_query")
     @GetMapping("/listChildren/{parentId}")
     public List<Dept> listChildren(@PathVariable("parentId") Long parentId) {
         return deptService.getBaseMapper().selectChildrenByParentId(parentId);
@@ -86,7 +86,7 @@ public class DeptController {
      * @param id id
      * @return Dept
      */
-    @SaCheckPermission("system:dept:query")
+    @SaCheckPermission("system_dept_query")
     @GetMapping("/{id}")
     public Dept getById(@PathVariable("id") Long id) {
         return deptService.getById(id);
@@ -98,7 +98,7 @@ public class DeptController {
      * </p>
      * @param dept {@link Dept}
      */
-    @SaCheckPermission("system:dept:create")
+    @SaCheckPermission("system_dept_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Dept dept) {
         boolean bool = deptService.save(dept);
@@ -111,14 +111,14 @@ public class DeptController {
      * </p>
      * @param dept {@link Dept}
      */
-    @SaCheckPermission("system:dept:update")
+    @SaCheckPermission("system_dept_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Dept dept) {
         boolean bool = deptService.updateById(dept);
         return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dept:update")
+    @SaCheckPermission("system_dept_update")
     @PostMapping("/setDisabled/{id}/{disabled}")
     public R<Void> setDisabledValue(@PathVariable("id") Long id, @PathVariable("disabled") String disabled) {
         boolean bool = deptService.setDisabled(id, disabled);
@@ -131,7 +131,7 @@ public class DeptController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:dept:delete")
+    @SaCheckPermission("system_dept_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = deptService.getBaseMapper().deleteByIds(Arrays.asList(ids));

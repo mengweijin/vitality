@@ -35,11 +35,11 @@ public class BusinessCheckValidator implements ConstraintValidator<BusinessCheck
         context.disableDefaultConstraintViolation();
         try {
             for (Class<? extends BusinessCheckRule> cls : clazz) {
-                BusinessCheckRule businessCheck = cls.getDeclaredConstructor().newInstance();
-                boolean valid = businessCheck.isValid(value);
+                BusinessCheckRule businessCheckRule = cls.getDeclaredConstructor().newInstance();
+                boolean valid = businessCheckRule.isValid(value);
                 if (!valid) {
                     //自定义返回消息
-                    context.buildConstraintViolationWithTemplate(businessCheck.message()).addConstraintViolation();
+                    context.buildConstraintViolationWithTemplate(businessCheckRule.message()).addConstraintViolation();
                     return false;
                 }
             }

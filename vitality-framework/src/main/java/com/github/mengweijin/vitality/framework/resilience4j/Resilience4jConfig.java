@@ -9,6 +9,8 @@ import java.time.Duration;
 /**
  * 方法上使用：@RateLimiter(name = Resilience4jConfig.RATE_LIMITER_DEFAULT)
  *
+ * {@link io.github.resilience4j.ratelimiter.annotation.RateLimiter}
+ *
  * @author mengweijin
  */
 @SuppressWarnings({"unused"})

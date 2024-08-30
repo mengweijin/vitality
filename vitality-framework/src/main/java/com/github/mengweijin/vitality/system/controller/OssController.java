@@ -75,7 +75,7 @@ public class OssController {
      * @param oss {@link Oss}
      * @return Page<File>
      */
-    @SaCheckPermission("system:oss:query")
+    @SaCheckPermission("system_oss_query")
     @GetMapping("/page")
     public IPage<Oss> page(Page<Oss> page, Oss oss) {
         return ossService.page(page, oss);
@@ -88,7 +88,7 @@ public class OssController {
      * @param oss {@link Oss}
      * @return List<File>
      */
-    @SaCheckPermission("system:oss:query")
+    @SaCheckPermission("system_oss_query")
     @GetMapping("/list")
     public List<Oss> list(Oss oss) {
         return ossService.list(new QueryWrapper<>(oss));
@@ -101,7 +101,7 @@ public class OssController {
      * @param id id
      * @return File
      */
-    @SaCheckPermission("system:oss:query")
+    @SaCheckPermission("system_oss_query")
     @GetMapping("/{id}")
     public Oss getById(@PathVariable("id") Long id) {
         return ossService.getById(id);
@@ -113,7 +113,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
-    @SaCheckPermission("system:oss:create")
+    @SaCheckPermission("system_oss_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Oss oss) {
         boolean bool = ossService.save(oss);
@@ -126,7 +126,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
-    @SaCheckPermission("system:oss:update")
+    @SaCheckPermission("system_oss_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Oss oss) {
         boolean bool = ossService.updateById(oss);
@@ -139,7 +139,7 @@ public class OssController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:oss:delete")
+    @SaCheckPermission("system_oss_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = ossService.getBaseMapper().deleteByIds(Arrays.asList(ids));

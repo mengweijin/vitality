@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
+import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.service.MenuService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -48,7 +49,7 @@ public class MenuController {
      * @param menu {@link Menu}
      * @return Page<Menu>
      */
-    @SaCheckPermission("system:menu:query")
+    @SaCheckPermission("system_menu_query")
     @GetMapping("/page")
     public IPage<Menu> page(Page<Menu> page, Menu menu) {
         return menuService.page(page, menu);
@@ -61,7 +62,7 @@ public class MenuController {
      * @param menu {@link Menu}
      * @return List<Menu>
      */
-    @SaCheckPermission("system:menu:query")
+    @SaCheckPermission("system_menu_query")
     @GetMapping("/list")
     public List<Menu> list(Menu menu) {
         return menuService.list(new QueryWrapper<>(menu));
@@ -74,10 +75,15 @@ public class MenuController {
      * @param id id
      * @return Menu
      */
-    @SaCheckPermission("system:menu:query")
+    @SaCheckPermission("system_menu_query")
     @GetMapping("/{id}")
     public Menu getById(@PathVariable("id") Long id) {
         return menuService.getById(id);
+    }
+
+    @GetMapping("/get-async-routes")
+    public PureAsyncRoutes getAsyncRoutes() {
+        return menuService.getAsyncRoutes();
     }
 
     /**
@@ -86,7 +92,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
-    @SaCheckPermission("system:menu:create")
+    @SaCheckPermission("system_menu_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Menu menu) {
         boolean bool = menuService.save(menu);
@@ -99,7 +105,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
-    @SaCheckPermission("system:menu:update")
+    @SaCheckPermission("system_menu_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Menu menu) {
         boolean bool = menuService.updateById(menu);
@@ -112,7 +118,7 @@ public class MenuController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:menu:delete")
+    @SaCheckPermission("system_menu_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = menuService.getBaseMapper().deleteByIds(Arrays.asList(ids));

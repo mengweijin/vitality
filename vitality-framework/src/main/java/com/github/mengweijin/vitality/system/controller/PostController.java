@@ -48,7 +48,7 @@ public class PostController {
      * @param post {@link Post}
      * @return Page<Post>
      */
-    @SaCheckPermission("system:post:query")
+    @SaCheckPermission("system_post_query")
     @GetMapping("/page")
     public IPage<Post> page(Page<Post> page, Post post) {
         return postService.page(page, post);
@@ -61,7 +61,7 @@ public class PostController {
      * @param post {@link Post}
      * @return List<Post>
      */
-    @SaCheckPermission("system:post:query")
+    @SaCheckPermission("system_post_query")
     @GetMapping("/list")
     public List<Post> list(Post post) {
         return postService.list(new QueryWrapper<>(post));
@@ -74,7 +74,7 @@ public class PostController {
      * @param id id
      * @return Post
      */
-    @SaCheckPermission("system:post:query")
+    @SaCheckPermission("system_post_query")
     @GetMapping("/{id}")
     public Post getById(@PathVariable("id") Long id) {
         return postService.getById(id);
@@ -86,7 +86,7 @@ public class PostController {
      * </p>
      * @param post {@link Post}
      */
-    @SaCheckPermission("system:post:create")
+    @SaCheckPermission("system_post_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Post post) {
         boolean bool = postService.save(post);
@@ -99,7 +99,7 @@ public class PostController {
      * </p>
      * @param post {@link Post}
      */
-    @SaCheckPermission("system:post:update")
+    @SaCheckPermission("system_post_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Post post) {
         boolean bool = postService.updateById(post);
@@ -112,7 +112,7 @@ public class PostController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:post:delete")
+    @SaCheckPermission("system_post_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = postService.getBaseMapper().deleteByIds(Arrays.asList(ids));

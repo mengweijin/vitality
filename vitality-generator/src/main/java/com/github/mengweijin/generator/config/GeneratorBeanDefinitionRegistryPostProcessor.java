@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 
 /**
  * @author mengweijin
- * @date 2022/7/27
+ * @since 2022/7/27
  */
 //@Component
 public class GeneratorBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
@@ -18,8 +18,8 @@ public class GeneratorBeanDefinitionRegistryPostProcessor implements BeanDefinit
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        String quickBootPackage = ClassUtil.getPackage(GeneratorAutoConfiguration.class);
-        scanner.scan(quickBootPackage);
+        String pkg = ClassUtil.getPackage(GeneratorAutoConfiguration.class);
+        scanner.scan(pkg);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class LogErrorController {
      * @param logError {@link LogError}
      * @return Page<LogError>
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system_logError_query")
     @GetMapping("/page")
     public IPage<LogError> page(Page<LogError> page, LogError logError) {
         return logErrorService.page(page, logError);
@@ -61,7 +61,7 @@ public class LogErrorController {
      * @param logError {@link LogError}
      * @return List<LogError>
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system_logError_query")
     @GetMapping("/list")
     public List<LogError> list(LogError logError) {
         return logErrorService.list(new QueryWrapper<>(logError));
@@ -74,7 +74,7 @@ public class LogErrorController {
      * @param id id
      * @return LogError
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system_logError_query")
     @GetMapping("/{id}")
     public LogError getById(@PathVariable("id") Long id) {
         return logErrorService.getById(id);
@@ -86,7 +86,7 @@ public class LogErrorController {
      * </p>
      * @param logError {@link LogError}
      */
-    @SaCheckPermission("system:logError:create")
+    @SaCheckPermission("system_logError_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody LogError logError) {
         boolean bool = logErrorService.save(logError);
@@ -99,7 +99,7 @@ public class LogErrorController {
      * </p>
      * @param logError {@link LogError}
      */
-    @SaCheckPermission("system:logError:update")
+    @SaCheckPermission("system_logError_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody LogError logError) {
         boolean bool = logErrorService.updateById(logError);
@@ -112,7 +112,7 @@ public class LogErrorController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:logError:delete")
+    @SaCheckPermission("system_logError_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logErrorService.getBaseMapper().deleteByIds(Arrays.asList(ids));

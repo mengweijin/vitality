@@ -7,8 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
+import com.github.mengweijin.vitality.system.domain.entity.UserProfile;
 import com.github.mengweijin.vitality.system.mapper.UserMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.StrUtil;
@@ -32,7 +36,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class UserService extends ServiceImpl<UserMapper, User> {
+
+    private UserProfileService userProfileService;
 
     @Override
     public boolean save(User user) {
@@ -71,10 +78,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return this.lambdaQuery().eq(User::getUsername, username).one();
     }
 
-    public boolean checkPassword(String plaintext, String hashed) {
-        return BCrypt.checkpw(plaintext, hashed);
-    }
-
     public String getUsernameByIds(String ids) {
         List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
         return idList.stream().map(this::getUsernameById).collect(Collectors.joining());
@@ -110,4 +113,31 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     @CacheEvict(value = CacheName.USER_ID_TO_NICKNAME, key = "#id")
     public void removeCacheOfNickname(Long id) {}
+
+    public String getProfileById(Long id) {
+        return userProfileService.lambdaQuery()
+                .eq(UserProfile::getUserId, id)
+                .oneOpt()
+                .map(UserProfile::getProfile)
+                .orElse(null);
+    }
+
+
+    public boolean checkPassword(String plaintext, String hashed) {
+        return BCrypt.checkpw(plaintext, hashed);
+    }
+
+    public boolean changePassword(ChangePasswordBO bo) {
+        User user = this.getByUsername(bo.getUsername());
+        boolean checked = this.checkPassword(bo.getPassword(), user.getPassword());
+        if (!checked) {
+            throw new ClientException("User or password check failed!");
+        }
+        return this.updatePassword(bo.getUsername(), bo.getNewPassword());
+    }
+
+    public boolean updatePassword(String username, String password) {
+        String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt());
+        return this.lambdaUpdate().set(User::getPassword, hashedPwd).eq(User::getUsername, username).update();
+    }
 }

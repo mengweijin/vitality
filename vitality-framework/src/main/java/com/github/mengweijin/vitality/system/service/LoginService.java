@@ -43,7 +43,7 @@ public class LoginService {
 
     private LogLoginService logLoginService;
 
-    public String login(LoginBO loginBO) {
+    public LoginUser login(LoginBO loginBO) {
         HttpServletRequest request = ServletUtils.getRequest();
         UserAgent userAgent = ServletUtils.getUserAgent(request);
         String platformName = Optional.ofNullable(userAgent).map(UserAgent::getPlatform).map(Platform::getName).orElse(null);
@@ -63,8 +63,10 @@ public class LoginService {
             }
 
             StpUtil.login(loginBO.getUsername(), new SaLoginModel().setIsLastingCookie(loginBO.isRememberMe()).setDevice(platformName));
-            LoginHelper.setLoginUser(this.buildLoginUser(user));
-            return StpUtil.getTokenValue();
+
+            LoginUser loginUser = this.buildLoginUser(user);
+            LoginHelper.setLoginUser(loginUser);
+            return loginUser;
         } catch (RuntimeException e) {
             logLoginService.addLoginLogAsync(loginBO.getUsername(), null, ELoginType.LOGIN, e.getMessage(), request);
             throw new LoginFailedException(e);
@@ -97,6 +99,9 @@ public class LoginService {
         loginUser.setUserId(user.getId());
         loginUser.setUsername(user.getUsername());
         loginUser.setNickname(user.getNickname());
+        loginUser.setProfile(userService.getProfileById(user.getId()));
+        loginUser.setRoles(roleService.getRoleCodeByUsername(user.getUsername()));
+        loginUser.setPermissions(menuService.getMenuPermissionListByLoginUsername(user.getUsername()));
         loginUser.setToken(StpUtil.getTokenValue());
         return loginUser;
     }

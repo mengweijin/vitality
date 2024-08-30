@@ -1,13 +1,12 @@
 package com.github.mengweijin.vitality.framework.log;
 
 import com.github.mengweijin.vitality.framework.domain.P;
-import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatedlyRequestWrapper;
+import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.system.domain.entity.LogOperation;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.service.LogOperationService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -18,6 +17,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.io.IoUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.http.useragent.UserAgent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
 import java.nio.charset.StandardCharsets;
@@ -37,12 +37,12 @@ import java.util.function.Consumer;
  **/
 @Slf4j
 @Aspect
-@AllArgsConstructor
 @SuppressWarnings({"unused"})
 public class LogOperationAspect {
 
     private final ThreadLocal<LogOperation> threadLocal = new ThreadLocal<>();
 
+    @Autowired
     private LogOperationService operationLogService;
 
     /**

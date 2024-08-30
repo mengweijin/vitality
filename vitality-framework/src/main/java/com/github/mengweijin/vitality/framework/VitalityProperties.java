@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.filter.xss.XssProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
@@ -19,10 +18,6 @@ import org.springframework.validation.annotation.Validated;
 @Data
 @Validated
 public class VitalityProperties {
-
-    private XssProperties xss = new XssProperties();
-
-    private boolean cors = false;
 
     private boolean debug = false;
 

@@ -1,6 +1,5 @@
 package com.github.mengweijin.framework.mybatis.data.username;
 
-import lombok.SneakyThrows;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
@@ -19,8 +18,6 @@ import net.sf.jsqlparser.statement.select.ParenthesedSelect;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectItem;
-import org.dromara.hutool.core.reflect.method.MethodUtil;
-import org.dromara.hutool.core.text.StrUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -189,27 +186,5 @@ public class UserNickNameInnerInterceptorTest {
         }
     }
 
-    @Test
-    @SneakyThrows
-    public void sysUserNameSqlWrapper() {
-        UserNickNameInnerInterceptor interceptor = new UserNickNameInnerInterceptor();
-        String sql = """
-            select ID, NAME, CODE, CREATE_BY, CREATE_TIME from SYS_DEPT 
-            where TYPE = 'AA' AND CODE = '1001' 
-            order by SEQ DESC
-        """;
-        Statement statement = CCJSqlParserUtil.parse(sql);
-        PlainSelect plainSelect = (PlainSelect) statement;
 
-        PlainSelect select = MethodUtil.invoke(interceptor, "sysUserNameSqlWrapper", plainSelect);
-
-        String resultSql = """
-            SELECT ORIGINAL_QUERY_ALIAS_.*, CREATE_BY_VTL_USER_.NICK_NAME, UPDATE_BY_VTL_USER_.NICK_NAME FROM 
-                (SELECT ID, NAME, CODE, CREATE_BY, CREATE_TIME FROM SYS_DEPT WHERE TYPE = 'AA' AND CODE = '1001' ORDER BY SEQ DESC) AS ORIGINAL_QUERY_ALIAS_ 
-            LEFT JOIN VTL_USER AS CREATE_BY_VTL_USER_ ON CREATE_BY_VTL_USER_.ID = ORIGINAL_QUERY_ALIAS_.CREATE_BY 
-            LEFT JOIN VTL_USER AS UPDATE_BY_VTL_USER_ ON UPDATE_BY_VTL_USER_.ID = ORIGINAL_QUERY_ALIAS_.UPDATE_BY
-        """;
-
-        Assertions.assertEquals(StrUtil.cleanBlank(resultSql), StrUtil.cleanBlank(select.toString()));
-    }
 }

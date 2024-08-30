@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends BaseResponseEntityExceptionHandler {
 
     @ExceptionHandler({ LoginFailedException.class })
     @ResponseBody
-    ResponseEntity<R<Void>> handleNotLoginException(LoginFailedException e, HttpServletRequest request) {
+    ResponseEntity<R<Void>> handleLoginFailedException(LoginFailedException e, HttpServletRequest request) {
         R<Void> r = R.failure(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r);
     }

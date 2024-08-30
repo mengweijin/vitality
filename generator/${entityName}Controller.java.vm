@@ -45,7 +45,7 @@ public class ${entityName}Controller {
      * @param ${entityPropertyName} {@link ${entityName}}
      * @return Page<${entityName}>
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:query")
+    @SaCheckPermission("${module}_${entityPropertyName}_query")
     @GetMapping("/page")
     public IPage<${entityName}> page(Page<${entityName}> page, ${entityName} ${entityPropertyName}) {
         return ${entityPropertyName}Service.page(page, ${entityPropertyName});
@@ -58,7 +58,7 @@ public class ${entityName}Controller {
      * @param ${entityPropertyName} {@link ${entityName}}
      * @return List<${entityName}>
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:query")
+    @SaCheckPermission("${module}_${entityPropertyName}_query")
     @GetMapping("/list")
     public List<${entityName}> list(${entityName} ${entityPropertyName}) {
         return ${entityPropertyName}Service.list(new QueryWrapper<>(${entityPropertyName}));
@@ -71,7 +71,7 @@ public class ${entityName}Controller {
      * @param id id
      * @return ${entityName}
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:query")
+    @SaCheckPermission("${module}_${entityPropertyName}_query")
     @GetMapping("/{id}")
     public ${entityName} getById(@PathVariable("id") ${idField.columnType.type} id) {
         return ${entityPropertyName}Service.getById(id);
@@ -83,7 +83,7 @@ public class ${entityName}Controller {
      * </p>
      * @param ${entityPropertyName} {@link ${entityName}}
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:create")
+    @SaCheckPermission("${module}_${entityPropertyName}_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody ${entityName} ${entityPropertyName}) {
         boolean bool = ${entityPropertyName}Service.save(${entityPropertyName});
@@ -96,7 +96,7 @@ public class ${entityName}Controller {
      * </p>
      * @param ${entityPropertyName} {@link ${entityName}}
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:update")
+    @SaCheckPermission("${module}_${entityPropertyName}_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody ${entityName} ${entityPropertyName}) {
         boolean bool = ${entityPropertyName}Service.updateById(${entityPropertyName});
@@ -109,7 +109,7 @@ public class ${entityName}Controller {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("${module}:${entityPropertyName}:delete")
+    @SaCheckPermission("${module}_${entityPropertyName}_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") ${idField.columnType.type}[] ids) {
         int i = ${entityPropertyName}Service.getBaseMapper().deleteByIds(Arrays.asList(ids));

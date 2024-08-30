@@ -48,7 +48,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      * @return Page<LogLogin>
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("system_logLogin_query")
     @GetMapping("/page")
     public IPage<LogLogin> page(Page<LogLogin> page, LogLogin logLogin) {
         return logLoginService.page(page, logLogin);
@@ -61,7 +61,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      * @return List<LogLogin>
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("system_logLogin_query")
     @GetMapping("/list")
     public List<LogLogin> list(LogLogin logLogin) {
         return logLoginService.list(new QueryWrapper<>(logLogin));
@@ -74,7 +74,7 @@ public class LogLoginController {
      * @param id id
      * @return LogLogin
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("system_logLogin_query")
     @GetMapping("/{id}")
     public LogLogin getById(@PathVariable("id") Long id) {
         return logLoginService.getById(id);
@@ -86,7 +86,7 @@ public class LogLoginController {
      * </p>
      * @param logLogin {@link LogLogin}
      */
-    @SaCheckPermission("system:logLogin:create")
+    @SaCheckPermission("system_logLogin_create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody LogLogin logLogin) {
         boolean bool = logLoginService.save(logLogin);
@@ -99,7 +99,7 @@ public class LogLoginController {
      * </p>
      * @param logLogin {@link LogLogin}
      */
-    @SaCheckPermission("system:logLogin:update")
+    @SaCheckPermission("system_logLogin_update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody LogLogin logLogin) {
         boolean bool = logLoginService.updateById(logLogin);
@@ -112,7 +112,7 @@ public class LogLoginController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system:logLogin:delete")
+    @SaCheckPermission("system_logLogin_delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logLoginService.getBaseMapper().deleteByIds(Arrays.asList(ids));

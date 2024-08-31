@@ -51,7 +51,7 @@ public class OssController {
     }
 
     /**
-     * @param id id in table VTL:FILE
+     * @param id id in table VTL_OSS
      */
     @GetMapping("/download/{id}")
     public R<Void> download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {

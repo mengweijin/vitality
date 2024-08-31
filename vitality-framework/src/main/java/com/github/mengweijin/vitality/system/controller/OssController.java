@@ -51,7 +51,7 @@ public class OssController {
     }
 
     /**
-     * @param id id in table VTL_FILE
+     * @param id id in table VTL:FILE
      */
     @GetMapping("/download/{id}")
     public R<Void> download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
@@ -75,7 +75,7 @@ public class OssController {
      * @param oss {@link Oss}
      * @return Page<File>
      */
-    @SaCheckPermission("system_oss_query")
+    @SaCheckPermission("system:oss:query")
     @GetMapping("/page")
     public IPage<Oss> page(Page<Oss> page, Oss oss) {
         return ossService.page(page, oss);
@@ -88,7 +88,7 @@ public class OssController {
      * @param oss {@link Oss}
      * @return List<File>
      */
-    @SaCheckPermission("system_oss_query")
+    @SaCheckPermission("system:oss:query")
     @GetMapping("/list")
     public List<Oss> list(Oss oss) {
         return ossService.list(new QueryWrapper<>(oss));
@@ -101,7 +101,7 @@ public class OssController {
      * @param id id
      * @return File
      */
-    @SaCheckPermission("system_oss_query")
+    @SaCheckPermission("system:oss:query")
     @GetMapping("/{id}")
     public Oss getById(@PathVariable("id") Long id) {
         return ossService.getById(id);
@@ -113,7 +113,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
-    @SaCheckPermission("system_oss_create")
+    @SaCheckPermission("system:oss:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Oss oss) {
         boolean bool = ossService.save(oss);
@@ -126,7 +126,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
-    @SaCheckPermission("system_oss_update")
+    @SaCheckPermission("system:oss:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Oss oss) {
         boolean bool = ossService.updateById(oss);
@@ -139,7 +139,7 @@ public class OssController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_oss_delete")
+    @SaCheckPermission("system:oss:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = ossService.getBaseMapper().deleteByIds(Arrays.asList(ids));

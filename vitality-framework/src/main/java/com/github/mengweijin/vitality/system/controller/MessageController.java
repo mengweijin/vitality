@@ -48,7 +48,7 @@ public class MessageController {
      * @param message {@link Message}
      * @return Page<Message>
      */
-    @SaCheckPermission("system_message_query")
+    @SaCheckPermission("system:message:query")
     @GetMapping("/page")
     public IPage<Message> page(Page<Message> page, Message message) {
         return messageService.page(page, message);
@@ -61,7 +61,7 @@ public class MessageController {
      * @param message {@link Message}
      * @return List<Message>
      */
-    @SaCheckPermission("system_message_query")
+    @SaCheckPermission("system:message:query")
     @GetMapping("/list")
     public List<Message> list(Message message) {
         return messageService.list(new QueryWrapper<>(message));
@@ -74,7 +74,7 @@ public class MessageController {
      * @param id id
      * @return Message
      */
-    @SaCheckPermission("system_message_query")
+    @SaCheckPermission("system:message:query")
     @GetMapping("/{id}")
     public Message getById(@PathVariable("id") Long id) {
         return messageService.getById(id);
@@ -86,7 +86,7 @@ public class MessageController {
      * </p>
      * @param message {@link Message}
      */
-    @SaCheckPermission("system_message_create")
+    @SaCheckPermission("system:message:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Message message) {
         boolean bool = messageService.save(message);
@@ -99,7 +99,7 @@ public class MessageController {
      * </p>
      * @param message {@link Message}
      */
-    @SaCheckPermission("system_message_update")
+    @SaCheckPermission("system:message:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Message message) {
         boolean bool = messageService.updateById(message);
@@ -112,7 +112,7 @@ public class MessageController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_message_delete")
+    @SaCheckPermission("system:message:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = messageService.getBaseMapper().deleteByIds(Arrays.asList(ids));

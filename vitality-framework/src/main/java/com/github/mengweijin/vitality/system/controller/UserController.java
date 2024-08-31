@@ -51,7 +51,7 @@ public class UserController {
      * @param user {@link User}
      * @return Page<User>
      */
-    @SaCheckPermission("system_user_query")
+    @SaCheckPermission("system:user:query")
     @GetMapping("/page")
     public IPage<UserVO> page(Page<User> page, User user) {
         IPage<User> userPage = userService.page(page, user);
@@ -65,7 +65,7 @@ public class UserController {
      * @param user {@link User}
      * @return List<User>
      */
-    @SaCheckPermission("system_user_query")
+    @SaCheckPermission("system:user:query")
     @GetMapping("/list")
     public List<UserVO> list(User user) {
         List<User> userList = userService.list(new QueryWrapper<>(user));
@@ -79,7 +79,7 @@ public class UserController {
      * @param id id
      * @return User
      */
-    @SaCheckPermission("system_user_query")
+    @SaCheckPermission("system:user:query")
     @GetMapping("/{id}")
     public UserVO getById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
@@ -92,7 +92,7 @@ public class UserController {
      * </p>
      * @param user {@link User}
      */
-    @SaCheckPermission("system_user_create")
+    @SaCheckPermission("system:user:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody User user) {
         boolean bool = userService.save(user);
@@ -105,7 +105,7 @@ public class UserController {
      * </p>
      * @param user {@link User}
      */
-    @SaCheckPermission("system_user_update")
+    @SaCheckPermission("system:user:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody User user) {
         boolean bool = userService.updateById(user);
@@ -118,7 +118,7 @@ public class UserController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_user_delete")
+    @SaCheckPermission("system:user:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = userService.getBaseMapper().deleteByIds(Arrays.asList(ids));
@@ -133,7 +133,7 @@ public class UserController {
      *
      * @param bo {@link ChangePasswordBO}
      */
-    @SaCheckPermission("system_user_update")
+    @SaCheckPermission("system:user:update")
     @PostMapping("/changePassword")
     public R<Void> changePassword(@Valid @RequestBody ChangePasswordBO bo) {
         boolean bool = userService.changePassword(bo);

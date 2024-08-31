@@ -61,17 +61,19 @@ public class MonitorController {
         return session.getTokenSignList();
     }
 
-    @SaCheckPermission("system_onlineUser_delete")
+    @SaCheckPermission("system:onlineUser:delete")
     @DeleteMapping("/online/user/kickoff/loginId/{loginId}")
     public R<Void> kickoffByLoginId(@PathVariable("loginId") String loginId) {
-        StpUtil.logout(loginId);  // 强制指定账号注销下线
+        // 强制指定账号注销下线
+        StpUtil.logout(loginId);
         return R.success();
     }
 
-    @SaCheckPermission("system_onlineUser_delete")
+    @SaCheckPermission("system:onlineUser:delete")
     @DeleteMapping("/online/user/kickoff/token/{token}")
     public R<Void> kickoffByToken(@PathVariable("token") String token) {
-        StpUtil.logoutByTokenValue(token);  // 强制指定 Token 注销下线
+        // 强制指定 Token 注销下线
+        StpUtil.logoutByTokenValue(token);
         return R.success();
     }
 

@@ -49,7 +49,7 @@ public class MenuController {
      * @param menu {@link Menu}
      * @return Page<Menu>
      */
-    @SaCheckPermission("system_menu_query")
+    @SaCheckPermission("system:menu:query")
     @GetMapping("/page")
     public IPage<Menu> page(Page<Menu> page, Menu menu) {
         return menuService.page(page, menu);
@@ -62,7 +62,7 @@ public class MenuController {
      * @param menu {@link Menu}
      * @return List<Menu>
      */
-    @SaCheckPermission("system_menu_query")
+    @SaCheckPermission("system:menu:query")
     @GetMapping("/list")
     public List<Menu> list(Menu menu) {
         return menuService.list(new QueryWrapper<>(menu));
@@ -75,7 +75,7 @@ public class MenuController {
      * @param id id
      * @return Menu
      */
-    @SaCheckPermission("system_menu_query")
+    @SaCheckPermission("system:menu:query")
     @GetMapping("/{id}")
     public Menu getById(@PathVariable("id") Long id) {
         return menuService.getById(id);
@@ -92,7 +92,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
-    @SaCheckPermission("system_menu_create")
+    @SaCheckPermission("system:menu:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Menu menu) {
         boolean bool = menuService.save(menu);
@@ -105,7 +105,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
-    @SaCheckPermission("system_menu_update")
+    @SaCheckPermission("system:menu:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Menu menu) {
         boolean bool = menuService.updateById(menu);
@@ -118,7 +118,7 @@ public class MenuController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_menu_delete")
+    @SaCheckPermission("system:menu:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = menuService.getBaseMapper().deleteByIds(Arrays.asList(ids));

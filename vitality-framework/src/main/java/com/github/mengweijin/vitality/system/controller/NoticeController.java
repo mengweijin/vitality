@@ -49,7 +49,7 @@ public class NoticeController {
      * @param notice {@link Notice}
      * @return Page<Notice>
      */
-    @SaCheckPermission("system_notice_query")
+    @SaCheckPermission("system:notice:query")
     @GetMapping("/page")
     public IPage<Notice> page(Page<Notice> page, Notice notice) {
         return noticeService.page(page, notice);
@@ -62,7 +62,7 @@ public class NoticeController {
      * @param notice {@link Notice}
      * @return List<Notice>
      */
-    @SaCheckPermission("system_notice_query")
+    @SaCheckPermission("system:notice:query")
     @GetMapping("/list")
     public List<Notice> list(Notice notice) {
         return noticeService.list(new QueryWrapper<>(notice));
@@ -75,7 +75,7 @@ public class NoticeController {
      * @param id id
      * @return Notice
      */
-    @SaCheckPermission("system_notice_query")
+    @SaCheckPermission("system:notice:query")
     @GetMapping("/{id}")
     public Notice getById(@PathVariable("id") Long id) {
         return noticeService.getById(id);
@@ -87,7 +87,7 @@ public class NoticeController {
      * </p>
      * @param notice {@link Notice}
      */
-    @SaCheckPermission("system_notice_create")
+    @SaCheckPermission("system:notice:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Notice notice) {
         boolean bool = noticeService.save(notice);
@@ -100,7 +100,7 @@ public class NoticeController {
      * </p>
      * @param notice {@link Notice}
      */
-    @SaCheckPermission("system_notice_update")
+    @SaCheckPermission("system:notice:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Notice notice) {
         boolean bool = noticeService.updateById(notice);
@@ -113,21 +113,21 @@ public class NoticeController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_notice_delete")
+    @SaCheckPermission("system:notice:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = noticeService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);
     }
 
-    @SaCheckPermission("system_notice_release")
+    @SaCheckPermission("system:notice:release")
     @PostMapping("/release/{id}")
     public R<Void> release(@PathVariable("id") Long id) {
         boolean bool = noticeService.lambdaUpdate().set(Notice::getReleased, EYesNo.Y.getValue()).eq(Notice::getId, id).update();
         return R.ajax(bool);
     }
 
-    @SaCheckPermission("system_notice_revocation")
+    @SaCheckPermission("system:notice:revocation")
     @PostMapping("/revocation/{id}")
     public R<Void> revocation(@PathVariable("id") Long id) {
         boolean bool = noticeService.lambdaUpdate().set(Notice::getReleased, EYesNo.N.getValue()).eq(Notice::getId, id).update();

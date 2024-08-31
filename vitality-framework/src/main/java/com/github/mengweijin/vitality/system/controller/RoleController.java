@@ -48,7 +48,7 @@ public class RoleController {
      * @param role {@link Role}
      * @return Page<Role>
      */
-    @SaCheckPermission("system_role_query")
+    @SaCheckPermission("system:role:query")
     @GetMapping("/page")
     public IPage<Role> page(Page<Role> page, Role role) {
         return roleService.page(page, role);
@@ -61,7 +61,7 @@ public class RoleController {
      * @param role {@link Role}
      * @return List<Role>
      */
-    @SaCheckPermission("system_role_query")
+    @SaCheckPermission("system:role:query")
     @GetMapping("/list")
     public List<Role> list(Role role) {
         return roleService.list(new QueryWrapper<>(role));
@@ -74,7 +74,7 @@ public class RoleController {
      * @param id id
      * @return Role
      */
-    @SaCheckPermission("system_role_query")
+    @SaCheckPermission("system:role:query")
     @GetMapping("/{id}")
     public Role getById(@PathVariable("id") Long id) {
         return roleService.getById(id);
@@ -86,7 +86,7 @@ public class RoleController {
      * </p>
      * @param role {@link Role}
      */
-    @SaCheckPermission("system_role_create")
+    @SaCheckPermission("system:role:create")
     @PostMapping
     public R<Void> add(@Valid @RequestBody Role role) {
         boolean bool = roleService.save(role);
@@ -99,7 +99,7 @@ public class RoleController {
      * </p>
      * @param role {@link Role}
      */
-    @SaCheckPermission("system_role_update")
+    @SaCheckPermission("system:role:update")
     @PutMapping
     public R<Void> update(@Valid @RequestBody Role role) {
         boolean bool = roleService.updateById(role);
@@ -112,7 +112,7 @@ public class RoleController {
      * </p>
      * @param ids id
      */
-    @SaCheckPermission("system_role_delete")
+    @SaCheckPermission("system:role:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = roleService.getBaseMapper().deleteByIds(Arrays.asList(ids));

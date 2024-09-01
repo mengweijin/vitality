@@ -3,7 +3,7 @@
 
 -- 与 MySQL 区别
 -- 1、h2 中，创建表最后面不能添加 COMMENT = '表注释'；
--- 2、int/bigint 类型不能限制位数，比如：int(4) 会报错，需要去掉；
+-- 2、h2 中，int/bigint 类型不能限制位数，比如：int(4) 会报错，需要去掉；
 
 drop table IF EXISTS VTL_NOTICE;
 create TABLE VTL_NOTICE (

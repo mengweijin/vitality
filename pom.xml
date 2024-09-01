@@ -32,14 +32,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
-        <hutool.version>6.0.0-M15</hutool.version>
+        <hutool.version>6.0.0-M16</hutool.version>
         <resilience4j.version>2.2.0</resilience4j.version>
-        <sa-token.version>1.38.0</sa-token.version>
-        <oshi.version>6.6.2</oshi.version>
+        <sa-token.version>1.39.0</sa-token.version>
+        <oshi.version>6.6.3</oshi.version>
         <zxing.version>3.5.3</zxing.version>
         <easyexcel.version>4.0.2</easyexcel.version>
-        <ip2region.version>2.7.0</ip2region.version>  
-        <p6spy-spring-boot-starter.version>1.9.1</p6spy-spring-boot-starter.version>
+        <ip2region.version>2.7.0</ip2region.version>
+        <p6spy-spring-boot-starter.version>1.9.2</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
     </properties>  
     <profiles> 

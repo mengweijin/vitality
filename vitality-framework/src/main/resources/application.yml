@@ -137,5 +137,3 @@ decorator:
     enabled: false
 vitality:
   debug: false
-  # 是否允许跨域
-  cors: true

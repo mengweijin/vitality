@@ -38,7 +38,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
         query
                 .eq(!Objects.isNull(dept.getParentId()), Dept::getParentId, dept.getParentId())
                 .eq(StrUtil.isNotBlank(dept.getName()), Dept::getName, dept.getName())
-                .eq(StrUtil.isNotBlank(dept.getCode()), Dept::getCode, dept.getCode())
                 .eq(!Objects.isNull(dept.getSeq()), Dept::getSeq, dept.getSeq())
                 .eq(StrUtil.isNotBlank(dept.getDisabled()), Dept::getDisabled, dept.getDisabled())
                 .eq(StrUtil.isNotBlank(dept.getRemark()), Dept::getRemark, dept.getRemark())

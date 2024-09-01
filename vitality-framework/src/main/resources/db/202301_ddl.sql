@@ -195,9 +195,9 @@ create TABLE VTL_DEPT (
   ID                            bigint NOT NULL comment '主键ID',
   PARENT_ID              		bigint DEFAULT 0 comment '父部门ID',
   NAME 		                    varchar(50) NOT NULL comment '部门名称',
-  CODE 		                    varchar(50) NOT NULL comment '部门编码',
   SEQ 		                    int DEFAULT 1 comment '展示顺序',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
+  DELETED                       char(1) DEFAULT 'N' NOT NULL comment '逻辑删除。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
@@ -205,7 +205,6 @@ create TABLE VTL_DEPT (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id)
 );
-create unique index UNIQUE_INDEX_VTL_DEPT_1 on VTL_DEPT(CODE);
 
 
 drop table IF EXISTS VTL_ROLE;

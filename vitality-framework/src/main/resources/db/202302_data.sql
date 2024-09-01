@@ -11,16 +11,16 @@ insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_T
 insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (3, '游客', 'guest', 3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 
 -- 部门
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1,           0,        'VTL科技',    'vitality',                 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001,        1,        '西安分部',   'xi_an',                     1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001001,     1001,     '财务部',     'xi_an_finance',             1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002,     1001,     '研发中心',   'xi_an_development_center',  2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002001,  1001002,  '研发一部',   'xi_an_development1',        1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002002,  1001002,  '研发二部',   'xi_an_development2',        2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001003,     1001,     '销售部',     'xi_an_sales',               3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002,        1,        '北京分部',   'bei_jing',                  2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002002,     1002,     '研发一部',   'bei_jing_development1',      1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002003,     1002,     '销售部',     'bei_jing_sales',            2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1,           0,        'VTL科技',   1, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001,        1,        '西安分部',   1, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001001,     1001,     '财务部',     1, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002,     1001,     '研发中心',   2, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002001,  1001002,  '研发一部',   1, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002002,  1001002,  '研发二部',   2, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001003,     1001,     '销售部',     3, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002,        1,        '北京分部',   2, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002002,     1002,     '研发一部',    1, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, DELETED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002003,     1002,     '销售部',     2, 'N', 'N', null, 1, current_timestamp(), 1, current_timestamp());
 
 -- 岗位
 insert into VTL_POST (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '董事长', 'ceo', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());

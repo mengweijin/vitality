@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.system.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
@@ -31,11 +32,6 @@ public class Dept extends BaseEntity {
     private String name;
 
     /**
-    * 部门编码
-    */
-    private String code;
-
-    /**
     * 展示顺序
     */
     private Integer seq;
@@ -44,6 +40,12 @@ public class Dept extends BaseEntity {
     * 是否禁用。[Y, N]
     */
     private String disabled;
+
+    /**
+     * 逻辑删除。[Y, N]
+     */
+    @TableLogic
+    private String deleted;
 
     /**
     * 备注

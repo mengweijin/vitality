@@ -33,7 +33,6 @@ public class NoticeService extends ServiceImpl<NoticeMapper, Notice> {
     public IPage<Notice> page(IPage<Notice> page, Notice notice){
         LambdaQueryWrapper<Notice> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(notice.getAvatar()), Notice::getAvatar, notice.getAvatar())
                 .eq(StrUtil.isNotBlank(notice.getName()), Notice::getName, notice.getName())
                 .eq(StrUtil.isNotBlank(notice.getDescription()), Notice::getDescription, notice.getDescription())
                 .eq(StrUtil.isNotBlank(notice.getReleased()), Notice::getReleased, notice.getReleased())

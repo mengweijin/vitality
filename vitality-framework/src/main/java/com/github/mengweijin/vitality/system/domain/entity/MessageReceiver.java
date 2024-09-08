@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 
@@ -26,17 +28,17 @@ public class MessageReceiver extends BaseEntity {
     private Long messageId;
 
     /**
-    * 消息接收用户（登录名）
+     * 消息接收者用户ID
     */
-    private String receiverUser;
+    private String receiverId;
 
     /**
-    * 消息接收角色（编码）
+     * 是否已查看。[Y, N]
     */
-    private String receiverRole;
+    private String viewed;
 
     /**
-    * 消息接收部门（编码）
+     * 查看时间
     */
-    private String receiverDept;
+    private LocalDateTime viewedTime;
 }

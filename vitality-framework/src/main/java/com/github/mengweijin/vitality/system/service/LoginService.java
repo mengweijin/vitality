@@ -15,9 +15,9 @@ import lombok.AllArgsConstructor;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.http.useragent.Platform;
 import org.dromara.hutool.http.useragent.UserAgent;
+import org.dromara.hutool.swing.captcha.AbstractCaptcha;
 import org.dromara.hutool.swing.captcha.CaptchaUtil;
 import org.dromara.hutool.swing.captcha.ICaptcha;
-import org.dromara.hutool.swing.captcha.LineCaptcha;
 import org.springframework.stereotype.Service;
 
 import javax.cache.Cache;
@@ -75,7 +75,8 @@ public class LoginService {
 
     public String createCaptcha() {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
-        LineCaptcha captcha = CaptchaUtil.ofLineCaptcha(200, 100, 4, 400);
+        AbstractCaptcha captcha = CaptchaUtil.ofLineCaptcha(200, 60, 4, 200);
+        // AbstractCaptcha captcha = CaptchaUtil.ofShearCaptcha(200, 60, 4, 5);
         captcha.createCode();
         String sessionId = ServletUtils.getSession().getId();
         Cache<String, ICaptcha> cache = CacheManagerFactory.getCaptchaCache();

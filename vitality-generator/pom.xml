@@ -12,31 +12,39 @@
     <packaging>jar</packaging>  
     <name>vitality-generator</name>  
     <url>https://gitee.com/mengweijin/vitality</url>  
-    <properties> 
-        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version> 
-    </properties>  
-    <dependencies> 
-        <dependency> 
-            <groupId>com.github.mengweijin</groupId>  
-            <artifactId>vitality-framework</artifactId> 
-        </dependency>  
+    <properties>
+        <mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
+        <velocity.version>2.3</velocity.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.mengweijin</groupId>
+            <artifactId>vitality-framework</artifactId>
+        </dependency>
         <dependency> 
             <groupId>com.baomidou</groupId>  
             <artifactId>mybatis-plus-generator</artifactId>  
-            <version>${mybatis-plus-generator.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.dromara.hutool</groupId>  
-            <artifactId>hutool-all</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.freemarker</groupId>  
-            <artifactId>freemarker</artifactId> 
+            <version>${mybatis-plus-generator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity.version}</version>
         </dependency>  
         <dependency> 
             <groupId>org.projectlombok</groupId>  
             <artifactId>lombok</artifactId>  
-            <scope>provided</scope> 
-        </dependency> 
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies> 
 </project>

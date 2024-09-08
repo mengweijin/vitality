@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Post">
         <id column="ID" property="id" />
         <result column="NAME" property="name" />
-        <result column="CODE" property="code" />
         <result column="SEQ" property="seq" />
         <result column="DISABLED" property="disabled" />
         <result column="REMARK" property="remark" />
@@ -19,7 +18,6 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         NAME,
-        CODE,
         SEQ,
         DISABLED,
         REMARK,
@@ -35,9 +33,6 @@
         <where>
             <if test="name != null and name != ''">
                 AND NAME = #{name}
-            </if>
-            <if test="code != null and code != ''">
-                AND CODE = #{code}
             </if>
             <if test="seq != null">
                 AND SEQ = #{seq}

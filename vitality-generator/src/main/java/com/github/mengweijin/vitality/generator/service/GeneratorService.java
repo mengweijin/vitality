@@ -1,14 +1,14 @@
-package com.github.mengweijin.generator.service;
+package com.github.mengweijin.vitality.generator.service;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.generator.engine.FreemarkerTemplateEngine;
 import com.github.mengweijin.generator.dto.GenerateConfigDTO;
 import com.github.mengweijin.generator.dto.TableFieldDTO;
 import com.github.mengweijin.generator.dto.TableInfoDTO;
 import com.github.mengweijin.generator.dto.TemplateDTO;
+import com.github.mengweijin.generator.engine.FreemarkerTemplateEngine;
 import com.github.mengweijin.generator.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -111,7 +111,8 @@ public class GeneratorService extends AutoGenerator {
         config.initTableInfo(tableInfoDTO);
         log.debug(Utils.writeValueAsString(config));
 
-        TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        // TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        TemplateDTO templateDTO = null;
         return FreemarkerTemplateEngine.process(templateDTO.getName(), templateDTO.getContent(), config);
     }
 
@@ -132,7 +133,8 @@ public class GeneratorService extends AutoGenerator {
 
     public void generateAndWriteToFile(String tableName, String templateId, GenerateConfigDTO config, String basePath) {
         String content = this.generate(tableName, templateId, config);
-        TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        // TemplateDTO templateDTO = templateService.findTemplateById(templateId);
+        TemplateDTO templateDTO = null;
         String targetPath = basePath + StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
 
         String[] split = templateDTO.getName().split("\\.");

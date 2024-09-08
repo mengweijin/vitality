@@ -34,7 +34,7 @@ public class Ip2regionUtils {
             searcher = Searcher.newWithBuffer(IoUtil.readBytes(in));
             return searcher.search(ip);
         } catch (Exception e) {
-            log.error("Search ip to region error! ip=" + ip);
+            log.error("Search ip to region error! ip={}", ip);
             return null;
         } finally {
             if(searcher != null) {
@@ -52,7 +52,6 @@ public class Ip2regionUtils {
         if(regionString == null) {
             return null;
         }
-
         try {
             String[] split = regionString.split("\\|");
             IpRegion region = new IpRegion();
@@ -63,7 +62,7 @@ public class Ip2regionUtils {
             region.setIsp(split[4]);
             return region;
         } catch (RuntimeException e) {
-            log.error("Split ip region string error! regionString=" + regionString);
+            log.error("Split ip region string error! regionString={}", regionString);
         }
 
         return null;

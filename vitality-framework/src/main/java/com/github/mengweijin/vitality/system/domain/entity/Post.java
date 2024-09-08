@@ -26,11 +26,6 @@ public class Post extends BaseEntity {
     private String name;
 
     /**
-    * 岗位编码
-    */
-    private String code;
-
-    /**
     * 展示顺序
     */
     private Integer seq;

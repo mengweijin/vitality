@@ -42,7 +42,7 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <!-- java.sql.SQLException: 不支持的字符集: ZHS16GBK -->
+            <!-- 解决 java.sql.SQLException: 不支持的字符集: ZHS16GBK -->
             <groupId>com.oracle.database.nls</groupId>
             <artifactId>orai18n</artifactId>
             <scope>runtime</scope>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.dameng</groupId>
             <artifactId>DmJdbcDriver18</artifactId>
-            <version>8.1.2.192</version>
+            <version>8.1.3.140</version>
             <scope>runtime</scope>
         </dependency>
         <dependency> 

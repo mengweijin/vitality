@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Notice">
         <id column="ID" property="id" />
-        <result column="AVATAR" property="avatar" />
         <result column="NAME" property="name" />
         <result column="DESCRIPTION" property="description" />
         <result column="RELEASED" property="released" />
@@ -17,7 +16,6 @@
 
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
-        AVATAR,
         NAME,
         DESCRIPTION,
         RELEASED,
@@ -31,9 +29,6 @@
     <!-- 通用查询条件 -->
     <sql id="WhereCondition">
         <where>
-            <if test="avatar != null and avatar != ''">
-                AND AVATAR = #{avatar}
-            </if>
             <if test="name != null and name != ''">
                 AND NAME = #{name}
             </if>

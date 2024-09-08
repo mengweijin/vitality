@@ -34,7 +34,6 @@ public class PostService extends ServiceImpl<PostMapper, Post> {
         LambdaQueryWrapper<Post> query = new LambdaQueryWrapper<>();
         query
                 .eq(StrUtil.isNotBlank(post.getName()), Post::getName, post.getName())
-                .eq(StrUtil.isNotBlank(post.getCode()), Post::getCode, post.getCode())
                 .eq(!Objects.isNull(post.getSeq()), Post::getSeq, post.getSeq())
                 .eq(StrUtil.isNotBlank(post.getDisabled()), Post::getDisabled, post.getDisabled())
                 .eq(StrUtil.isNotBlank(post.getRemark()), Post::getRemark, post.getRemark())

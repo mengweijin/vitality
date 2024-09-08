@@ -8,7 +8,6 @@
 drop table IF EXISTS VTL_NOTICE;
 create TABLE VTL_NOTICE (
   ID                            bigint NOT NULL comment '主键ID',
-  AVATAR                        varchar(255) DEFAULT NULL comment '图像链接url',
   NAME                          varchar(255) DEFAULT NULL comment '名称',
   DESCRIPTION                   text DEFAULT NULL comment '内容',
   RELEASED                      char(1) DEFAULT 'N' comment '是否已发布。[Y, N]',
@@ -37,9 +36,9 @@ drop table IF EXISTS VTL_MESSAGE_RECEIVER;
 create TABLE VTL_MESSAGE_RECEIVER (
   ID                            bigint NOT NULL comment '主键ID',
   MESSAGE_ID                    bigint NOT NULL comment '消息ID',
-  RECEIVER_USER                 bigint DEFAULT NULL comment '消息接收用户ID',
-  RECEIVER_ROLE                 varchar(64) DEFAULT NULL comment '消息接收角色（编码）',
-  RECEIVER_DEPT                 varchar(64) DEFAULT NULL comment '消息接收部门（编码）',
+  RECEIVER_ID                   bigint DEFAULT NULL comment '消息接收者用户ID',
+  VIEWED                        char(1) DEFAULT 'N' NOT NULL comment '是否已查看。[Y, N]',
+  VIEWED_TIME                   datetime NULL comment '查看时间',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
@@ -228,7 +227,6 @@ drop table IF EXISTS VTL_POST;
 create TABLE VTL_POST (
   ID                            bigint NOT NULL comment '主键ID',
   NAME 		                    varchar(50) NOT NULL comment '岗位名称',
-  CODE 		                    varchar(50) NOT NULL comment '岗位编码',
   SEQ 		                    int DEFAULT 0 comment '展示顺序',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
@@ -238,7 +236,6 @@ create TABLE VTL_POST (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id)
 );
-create unique index UNIQUE_INDEX_VTL_POST_1 on VTL_POST(CODE);
 
 
 drop table IF EXISTS VTL_USER;
@@ -267,7 +264,7 @@ drop table IF EXISTS VTL_USER_PROFILE;
 create TABLE VTL_USER_PROFILE (
   ID                            bigint NOT NULL comment '主键ID',
   USER_ID                       bigint NOT NULL comment '用户ID',
-  PROFILE                       longtext DEFAULT NULL comment '用户头像，以 Base64 文本存储的大字段。',
+  PROFILE                       clob DEFAULT NULL comment '用户头像，以 Base64 文本存储的大字段。',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',

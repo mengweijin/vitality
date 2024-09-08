@@ -11,10 +11,10 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 18rem;
-  padding: 0 2rem;
+  padding: 0 2rem; */
 }
 
 .img {
@@ -31,7 +31,9 @@
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: center;
   overflow: hidden;
+  height: 100%;
 }
 
 .login-form {

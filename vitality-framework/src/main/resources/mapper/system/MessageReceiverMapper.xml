@@ -6,9 +6,9 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.MessageReceiver">
         <id column="ID" property="id" />
         <result column="MESSAGE_ID" property="messageId" />
-        <result column="RECEIVER_USER" property="receiverUser" />
-        <result column="RECEIVER_ROLE" property="receiverRole" />
-        <result column="RECEIVER_DEPT" property="receiverDept" />
+        <result column="RECEIVER_ID" property="receiverId"/>
+        <result column="VIEWED" property="viewed"/>
+        <result column="VIEWED_TIME" property="viewedTime"/>
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -18,9 +18,9 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         MESSAGE_ID,
-        RECEIVER_USER,
-        RECEIVER_ROLE,
-        RECEIVER_DEPT,
+        RECEIVER_ID,
+        VIEWED,
+        VIEWED_TIME,
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -34,14 +34,14 @@
             <if test="messageId != null">
                 AND MESSAGE_ID = #{messageId}
             </if>
-            <if test="receiverUser != null and receiverUser != ''">
-                AND RECEIVER_USER = #{receiverUser}
+            <if test="receiverId != null">
+                AND RECEIVER_ID = #{receiverId}
             </if>
-            <if test="receiverRole != null and receiverRole != ''">
-                AND RECEIVER_ROLE = #{receiverRole}
+            <if test="viewed != null and viewed != ''">
+                AND VIEWED = #{viewed}
             </if>
-            <if test="receiverDept != null and receiverDept != ''">
-                AND RECEIVER_DEPT = #{receiverDept}
+            <if test="viewedTime != null">
+                AND VIEWED_TIME = #{viewedTime}
             </if>
             <if test="id != null">
                 AND ID = #{id}

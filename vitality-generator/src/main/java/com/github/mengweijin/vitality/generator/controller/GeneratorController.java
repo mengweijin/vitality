@@ -1,11 +1,13 @@
-package com.github.mengweijin.generator.controller;
+package com.github.mengweijin.vitality.generator.controller;
 
 import com.github.mengweijin.generator.dto.GenerateArgsDTO;
 import com.github.mengweijin.generator.dto.GenerateConfigDTO;
-import com.github.mengweijin.generator.service.GeneratorService;
+import com.github.mengweijin.vitality.generator.service.GeneratorService;
+import com.github.mengweijin.vitality.generator.service.TemplateService;
+import com.github.mengweijin.vitality.generator.vo.TemplateVO;
+import lombok.AllArgsConstructor;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +23,18 @@ import java.util.List;
  * @since 2022/11/27
  */
 @RestController
+@AllArgsConstructor
 @RequestMapping("/generator")
 public class GeneratorController {
 
-    @Autowired
+    private TemplateService templateService;
+
     private GeneratorService generatorService;
+
+    @GetMapping("/template/tree")
+    public List<TemplateVO> loadTemplateTree() {
+        return templateService.loadTemplateTree();
+    }
 
     @GetMapping("/config/default/{tableName}")
     public GenerateConfigDTO getDefaultConfig(@PathVariable String tableName) {

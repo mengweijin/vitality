@@ -82,10 +82,11 @@ export function useNav() {
 
   /** 退出登录 */
   function logout() {
-    // 前端登出
-    useUserStoreHook().logOut();
     // 后端登出
-    logoutUser();
+    logoutUser().then(() => {
+      // 前端登出
+      useUserStoreHook().logOut();
+    });
   }
 
   function backTopMenu() {

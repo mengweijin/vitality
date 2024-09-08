@@ -21,11 +21,6 @@ import lombok.experimental.Accessors;
 public class Notice extends BaseEntity {
 
     /**
-    * 图像链接url
-    */
-    private String avatar;
-
-    /**
     * 名称
     */
     private String name;

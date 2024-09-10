@@ -7,6 +7,8 @@ import org.dromara.hutool.extra.spring.SpringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +33,11 @@ public class Utils {
         if(sourceList != null) {
             try {
                 for (Object obj : sourceList) {
-                    E instance = cls.newInstance();
+                    E instance = cls.getDeclaredConstructor().newInstance();
                     BeanUtils.copyProperties(obj, instance);
                     list.add(instance);
                 }
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
         }

@@ -44,6 +44,10 @@ public abstract class VelocityTemplateEngine {
         this.velocityEngine.init();
     }
 
+    public Pair<String, String> writeString(String fileName, String templateContent, GeneratorArgs args, TableInfo tableInfo) {
+        return evaluate(fileName, templateContent, getObjectMap(args, tableInfo));
+    }
+
     protected Pair<String, String> evaluate(String fileName, String templateContent, Map<String, Object> args) {
         try (StringWriter writer = new StringWriter()) {
             VelocityContext context = new VelocityContext(args);
@@ -55,9 +59,9 @@ public abstract class VelocityTemplateEngine {
         }
     }
 
-    private Map<String, Object> getObjectMap(GeneratorArgs generatorArgs, TableInfo tableInfo) {
-        List<String> baseEntityColumns = GeneratorUtils.resolveBaseEntityColumns(generatorArgs);
-        String entityName = GeneratorUtils.resolveEntityName(tableInfo.getName(), generatorArgs);
+    private Map<String, Object> getObjectMap(GeneratorArgs args, TableInfo tableInfo) {
+        List<String> baseEntityColumns = GeneratorUtils.resolveBaseEntityColumns(args);
+        String entityName = GeneratorUtils.resolveEntityName(tableInfo.getName(), args);
         List<TableField> entityFields = GeneratorUtils.resolveEntityFields(tableInfo, baseEntityColumns);
         List<TableField> commonFields = GeneratorUtils.resolveCommonFields(tableInfo, baseEntityColumns);
 
@@ -65,18 +69,18 @@ public abstract class VelocityTemplateEngine {
         List<String> commonColumns = GeneratorUtils.resolveCommonColumns(commonFields);
 
         String requestMapping = "/" + StrUtil.toSymbolCase(entityName, '-');
-        if (StrUtil.isNotBlank(generatorArgs.getModuleName())) {
-            requestMapping = StrUtil.addPrefixIfNot(generatorArgs.getModuleName(), "/") + requestMapping;
+        if (StrUtil.isNotBlank(args.getModuleName())) {
+            requestMapping = StrUtil.addPrefixIfNot(args.getModuleName(), "/") + requestMapping;
         }
 
         Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("module", generatorArgs.getModuleName());
-        objectMap.put("package", generatorArgs.getPackages());
-        objectMap.put("author", generatorArgs.getAuthor());
+        objectMap.put("module", args.getModuleName());
+        objectMap.put("package", args.getPackages());
+        objectMap.put("author", args.getAuthor());
         objectMap.put("date", DateUtil.format(LocalDateTime.now(), DatePattern.NORM_DATE_PATTERN));
-        objectMap.put("baseEntity", generatorArgs.getBaseEntity());
-        objectMap.put("baseEntityPackage", StrUtil.subBefore(generatorArgs.getBaseEntity(), ".", true));
-        objectMap.put("baseEntityName", StrUtil.subAfter(generatorArgs.getBaseEntity(), ".", true));
+        objectMap.put("baseEntity", args.getBaseEntity());
+        objectMap.put("baseEntityPackage", StrUtil.subBefore(args.getBaseEntity(), ".", true));
+        objectMap.put("baseEntityName", StrUtil.subAfter(args.getBaseEntity(), ".", true));
         objectMap.put("baseEntityColumns", baseEntityColumns);
         objectMap.put("table", tableInfo);
         objectMap.put("idField", GeneratorUtils.getIdField(tableInfo));

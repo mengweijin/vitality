@@ -3,7 +3,7 @@
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-parent%22">
 		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-parent" />
 	</a>
-	<a target="_blank" href="https://github.com/mengweijin/quickboot/blob/master/LICENSE">
+	<a target="_blank" href="https://github.com/mengweijin/vitality/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
@@ -78,21 +78,7 @@ java -jar vitality-admin.jar
 | ![img.png](docs/readme/images/dev_tool_code_generator.png) | ![代码生成器](docs/readme/images/dev_tool_code_generator_detail.png) | 
 
 
-## ⭐Star Vitality
+## ⭐Star Vitality on GitHub
 
 [![Stargazers over time](https://starchart.cc/mengweijin/vitality.svg)](https://starchart.cc/mengweijin/vitality)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

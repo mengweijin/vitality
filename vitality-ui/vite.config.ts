@@ -22,7 +22,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
     server: {
       // 端口号
       port: VITE_PORT,
-      host: "localhost",
+      host: "0.0.0.0",
       // 本地跨域代理 https://cn.vitejs.dev/config/server-options.html#server-proxy
       proxy: {
         "/api": {

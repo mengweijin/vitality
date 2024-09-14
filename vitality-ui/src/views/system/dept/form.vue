@@ -3,20 +3,24 @@ import { ref } from "vue";
 import ReCol from "@/components/ReCol";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { usePublicHooks } from "../hooks";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     higherDeptOptions: [],
-    id: null,
-    parentId: "0",
+    parentId: 0,
     name: "",
-    seq: 0,
-    disabled: "N",
+    principal: "",
+    phone: "",
+    email: "",
+    sort: 0,
+    status: 1,
     remark: ""
   })
 });
 
 const ruleFormRef = ref();
+const { switchStyle } = usePublicHooks();
 const newFormInline = ref(props.formInline);
 
 function getRef() {
@@ -67,11 +71,39 @@ defineExpose({ getRef });
           />
         </el-form-item>
       </re-col>
+      <re-col :value="12" :xs="24" :sm="24">
+        <el-form-item label="部门负责人">
+          <el-input
+            v-model="newFormInline.principal"
+            clearable
+            placeholder="请输入部门负责人"
+          />
+        </el-form-item>
+      </re-col>
+
+      <re-col :value="12" :xs="24" :sm="24">
+        <el-form-item label="手机号" prop="phone">
+          <el-input
+            v-model="newFormInline.phone"
+            clearable
+            placeholder="请输入手机号"
+          />
+        </el-form-item>
+      </re-col>
+      <re-col :value="12" :xs="24" :sm="24">
+        <el-form-item label="邮箱" prop="email">
+          <el-input
+            v-model="newFormInline.email"
+            clearable
+            placeholder="请输入邮箱"
+          />
+        </el-form-item>
+      </re-col>
 
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="排序">
           <el-input-number
-            v-model="newFormInline.seq"
+            v-model="newFormInline.sort"
             class="!w-full"
             :min="0"
             :max="9999"
@@ -82,12 +114,13 @@ defineExpose({ getRef });
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="部门状态">
           <el-switch
-            v-model="newFormInline.disabled"
+            v-model="newFormInline.status"
             inline-prompt
-            :active-value="'N'"
-            :inactive-value="'Y'"
+            :active-value="1"
+            :inactive-value="0"
             active-text="启用"
             inactive-text="停用"
+            :style="switchStyle"
           />
         </el-form-item>
       </re-col>

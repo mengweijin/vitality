@@ -10,6 +10,10 @@ const TITLE = getConfig("Title");
   <footer
     class="layout-footer text-[rgba(0,0,0,0.6)] dark:text-[rgba(220,220,242,0.8)]"
   >
+    <a class="a" href="https://vitality.aday.fun" target="_blank">{{
+      TITLE
+    }}</a>
+    &nbsp;|&nbsp;
     <a class="a" href="https://home.aday.fun" target="_blank"
       >https://home.aday.fun</a
     >
@@ -21,10 +25,6 @@ const TITLE = getConfig("Title");
       >陕ICP备2022013125号</a
     >
     &nbsp;| Copyright © 2018 ~ {{ fullYear }} | Meng Wei Jin | MIT LICENSED
-    |&nbsp;
-    <a class="a" href="https://vitality.aday.fun" target="_blank">{{
-      TITLE
-    }}</a>
   </footer>
 </template>
 

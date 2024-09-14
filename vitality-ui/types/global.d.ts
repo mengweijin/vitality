@@ -109,6 +109,14 @@ declare global {
     TooltipEffect?: Effect;
     ResponsiveStorageNameSpace?: string;
     MenuSearchHistory?: number;
+    MapConfigure?: {
+      amapKey?: string;
+      options: {
+        resizeEnable?: boolean;
+        center?: number[];
+        zoom?: number;
+      };
+    };
   }
 
   /**
@@ -137,6 +145,14 @@ declare global {
     showLogo?: boolean;
     showModel?: string;
     menuSearchHistory?: number;
+    mapConfigure?: {
+      amapKey?: string;
+      options: {
+        resizeEnable?: boolean;
+        center?: number[];
+        zoom?: number;
+      };
+    };
     username?: string;
   }
 
@@ -190,5 +206,15 @@ declare global {
       circle?: boolean;
       touched?: boolean;
     };
+  }
+
+  /**
+   * 后端 R.java
+   */
+  interface R {
+    code?: number;
+    data?: any;
+    msg?: string;
+    time?: string;
   }
 }

@@ -12,6 +12,7 @@ import removeNoMatch from "vite-plugin-router-warn";
 import { visualizer } from "rollup-plugin-visualizer";
 import removeConsole from "vite-plugin-remove-console";
 import { themePreprocessorPlugin } from "@pureadmin/theme";
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import { genScssMultipleScopeVars } from "../src/layout/theme";
 // import { vitePluginFakeServer } from "vite-plugin-fake-server";
 
@@ -24,6 +25,10 @@ export function getPluginsList(
     vue(),
     // jsx、tsx语法支持
     vueJsx(),
+    VueI18nPlugin({
+      jitCompilation: false,
+      include: [pathResolve("../locales/**")]
+    }),
     checker({
       typescript: true,
       vueTsc: true,
@@ -44,14 +49,12 @@ export function getPluginsList(
      */
     removeNoMatch(),
     // mock支持
-    /**
-    vitePluginFakeServer({
-      logger: false,
-      include: "mock",
-      infixName: false,
-      enableProd: true
-    }),
-     */
+    // vitePluginFakeServer({
+    //   logger: false,
+    //   include: "mock",
+    //   infixName: false,
+    //   enableProd: true
+    // }),
     // 自定义主题
     themePreprocessorPlugin({
       scss: {

@@ -44,15 +44,15 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="状态：" prop="disabled">
+      <el-form-item label="状态：" prop="status">
         <el-select
-          v-model="form.disabled"
+          v-model="form.status"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="启用" :value="'N'" />
-          <el-option label="停用" :value="'Y'" />
+          <el-option label="启用" :value="1" />
+          <el-option label="停用" :value="0" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -71,7 +71,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="部门管理"
+      title="部门管理（仅演示，操作后不生效）"
       :columns="columns"
       :tableRef="tableRef?.getTableRef()"
       @refresh="onSearch"
@@ -127,8 +127,7 @@ const {
               新增
             </el-button>
             <el-popconfirm
-              :width="500"
-              :title="`是否确认【删除】部门名称为【${row.name}】的数据？`"
+              :title="`是否确认删除部门名称为${row.name}的这条数据`"
               @confirm="handleDelete(row)"
             >
               <template #reference>

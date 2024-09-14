@@ -9,6 +9,7 @@ import {
 } from "vue";
 import type { tagsViewsType } from "../types";
 import { useRoute, useRouter } from "vue-router";
+import { transformI18n, $t } from "@/plugins/i18n";
 import { responsiveStorageNameSpace } from "@/config";
 import { useSettingStoreHook } from "@/store/modules/settings";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
@@ -63,49 +64,49 @@ export function useTags() {
   const tagsViews = reactive<Array<tagsViewsType>>([
     {
       icon: RefreshRight,
-      text: "重新加载",
+      text: $t("buttons.pureReload"),
       divided: false,
       disabled: false,
       show: true
     },
     {
       icon: Close,
-      text: "关闭当前标签页",
+      text: $t("buttons.pureCloseCurrentTab"),
       divided: false,
       disabled: multiTags.value.length > 1 ? false : true,
       show: true
     },
     {
       icon: CloseLeftTags,
-      text: "关闭左侧标签页",
+      text: $t("buttons.pureCloseLeftTabs"),
       divided: true,
       disabled: multiTags.value.length > 1 ? false : true,
       show: true
     },
     {
       icon: CloseRightTags,
-      text: "关闭右侧标签页",
+      text: $t("buttons.pureCloseRightTabs"),
       divided: false,
       disabled: multiTags.value.length > 1 ? false : true,
       show: true
     },
     {
       icon: CloseOtherTags,
-      text: "关闭其他标签页",
+      text: $t("buttons.pureCloseOtherTabs"),
       divided: true,
       disabled: multiTags.value.length > 2 ? false : true,
       show: true
     },
     {
       icon: CloseAllTags,
-      text: "关闭全部标签页",
+      text: $t("buttons.pureCloseAllTabs"),
       divided: false,
       disabled: multiTags.value.length > 1 ? false : true,
       show: true
     },
     {
       icon: Fullscreen,
-      text: "内容区全屏",
+      text: $t("buttons.pureContentFullScreen"),
       divided: true,
       disabled: false,
       show: true
@@ -236,10 +237,12 @@ export function useTags() {
     currentSelect,
     scheduleIsActive,
     getContextMenuStyle,
+    $t,
     closeMenu,
     onMounted,
     onMouseenter,
     onMouseleave,
+    transformI18n,
     onContentFullScreen
   };
 }

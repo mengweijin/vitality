@@ -13,7 +13,8 @@ import { stringify } from "qs";
 import NProgress from "../progress";
 import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
-import { router } from "@/router";
+import { message } from "@/utils/message";
+import { $t, transformI18n } from "@/plugins/i18n";
 
 const { VITE_BASE_API } = import.meta.env;
 
@@ -120,14 +121,29 @@ class PureHttp {
         $error.isCancelRequest = Axios.isCancel($error);
         // 关闭进度条动画
         NProgress.done();
-        if (error.response.status === 401) {
-          useUserStoreHook().logOut();
-        } else if (error.response.status === 403) {
-          router.push("/error/403");
-        } else if (error.response.status === 404) {
-          router.push("/error/404");
-        } else if (error.response.status === 500) {
-          router.push("/error/500");
+        const status = $error.response.status;
+        const r: R = error.response.data;
+        switch (status) {
+          case 400:
+            message(r?.msg, { type: "error", showClose: true, duration: 8000 });
+            break;
+          case 401:
+            useUserStoreHook().logOut();
+            break;
+          case 403:
+            message(transformI18n($t("http.pureNoPermission")), {
+              type: "warning"
+            });
+            break;
+          case 404:
+            message(transformI18n($t("http.pureNotFound")), {
+              type: "error"
+            });
+          default:
+            message(transformI18n($t("http.pureUnknownError")), {
+              type: "error"
+            });
+            break;
         }
         // 所有的响应异常 区分来源为取消请求/非取消请求
         return Promise.reject($error);

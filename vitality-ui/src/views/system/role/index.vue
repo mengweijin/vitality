@@ -70,6 +70,7 @@ const {
   handleSave,
   handleDelete,
   filterMethod,
+  transformI18n,
   onQueryChanged,
   // handleDatabase,
   handleSizeChange,
@@ -318,7 +319,7 @@ onMounted(() => {
           :filter-method="filterMethod"
         >
           <template #default="{ node }">
-            <span>{{ node.label }}</span>
+            <span>{{ transformI18n(node.label) }}</span>
           </template>
         </el-tree-v2>
       </div>

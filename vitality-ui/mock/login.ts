@@ -3,7 +3,7 @@ import { defineFakeRoute } from "vite-plugin-fake-server/client";
 
 export default defineFakeRoute([
   {
-    url: "/login2222222",
+    url: "/login",
     method: "post",
     response: ({ body }) => {
       if (body.username === "admin") {

@@ -2,12 +2,8 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import {
-  getDeptList,
-  createDept,
-  updateDept,
-  deleteDept
-} from "@/api/system/dept";
+import { getDeptList } from "@/api/system";
+import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
 import type { FormItemProps } from "../utils/types";
@@ -16,76 +12,47 @@ import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
 export function useDept() {
   const form = reactive({
     name: "",
-    disabled: null
+    status: null
   });
 
   const formRef = ref();
   const dataList = ref([]);
   const loading = ref(true);
+  const { tagStyle } = usePublicHooks();
 
   const columns: TableColumnList = [
     {
       label: "部门名称",
       prop: "name",
-      width: 260,
+      width: 180,
       align: "left"
     },
     {
-      label: "ID",
-      prop: "id",
-      width: 180,
-      align: "left",
-      hide: true
-    },
-    {
       label: "排序",
-      prop: "seq",
-      minWidth: 70,
-      align: "left",
-      hide: false
+      prop: "sort",
+      minWidth: 70
     },
     {
       label: "状态",
-      prop: "disabled",
-      minWidth: 70,
+      prop: "status",
+      minWidth: 100,
       cellRenderer: ({ row, props }) => (
-        <el-tag
-          size={props.size}
-          type={row.disabled === "Y" ? "danger" : "success"}
-        >
-          {row.disabled === "Y" ? "停用" : "启用"}
+        <el-tag size={props.size} style={tagStyle.value(row.status)}>
+          {row.status === 1 ? "启用" : "停用"}
         </el-tag>
       )
     },
     {
-      label: "创建者",
-      minWidth: 100,
-      prop: "createByName"
-    },
-    {
       label: "创建时间",
-      minWidth: 160,
+      minWidth: 200,
       prop: "createTime",
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
-      label: "更新者",
-      minWidth: 100,
-      prop: "updateByName"
-    },
-    {
-      label: "更新时间",
-      minWidth: 160,
-      prop: "updateTime",
-      formatter: ({ updateTime }) =>
-        dayjs(updateTime).format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
       label: "备注",
       prop: "remark",
-      minWidth: 200,
-      hide: true
+      minWidth: 320
     },
     {
       label: "操作",
@@ -107,14 +74,15 @@ export function useDept() {
 
   async function onSearch() {
     loading.value = true;
-    let newData = await getDeptList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
+    const { data } = await getDeptList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
+    let newData = data;
     if (!isAllEmpty(form.name)) {
       // 前端搜索部门名称
       newData = newData.filter(item => item.name.includes(form.name));
     }
-    if (!isAllEmpty(form.disabled)) {
+    if (!isAllEmpty(form.status)) {
       // 前端搜索状态
-      newData = newData.filter(item => item.disabled === form.disabled);
+      newData = newData.filter(item => item.status === form.status);
     }
     dataList.value = handleTree(newData); // 处理成树结构
     setTimeout(() => {
@@ -127,7 +95,7 @@ export function useDept() {
     if (!treeList || !treeList.length) return;
     const newTreeList = [];
     for (let i = 0; i < treeList.length; i++) {
-      treeList[i].disabled = treeList[i].disabled === "Y" ? true : false;
+      treeList[i].disabled = treeList[i].status === 0 ? true : false;
       formatHigherDeptOptions(treeList[i].children);
       newTreeList.push(treeList[i]);
     }
@@ -140,11 +108,13 @@ export function useDept() {
       props: {
         formInline: {
           higherDeptOptions: formatHigherDeptOptions(cloneDeep(dataList.value)),
-          id: row?.id ?? null,
-          parentId: row?.parentId ?? "0",
+          parentId: row?.parentId ?? 0,
           name: row?.name ?? "",
-          seq: row?.seq ?? 0,
-          disabled: row?.disabled ?? "N",
+          principal: row?.principal ?? "",
+          phone: row?.phone ?? "",
+          email: row?.email ?? "",
+          sort: row?.sort ?? 0,
+          status: row?.status ?? 1,
           remark: row?.remark ?? ""
         }
       },
@@ -158,7 +128,7 @@ export function useDept() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您【${title}】了部门名称为【${curData.name}】的数据。`, {
+          message(`您${title}了部门名称为${curData.name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -166,24 +136,14 @@ export function useDept() {
         }
         FormRef.validate(valid => {
           if (valid) {
-            const submitData = cloneDeep(curData);
-            delete submitData.higherDeptOptions;
-            console.log("submitData", submitData);
+            console.log("curData", curData);
             // 表单规则校验通过
-            if (curData.id) {
-              updateDept(submitData).then(res => {
-                if (res.code === 200) {
-                  // 实际开发先调用修改接口，再进行下面操作
-                  chores();
-                }
-              });
+            if (title === "新增") {
+              // 实际开发先调用新增接口，再进行下面操作
+              chores();
             } else {
-              createDept(submitData).then(res => {
-                if (res.code === 200) {
-                  // 实际开发先调用新增接口，再进行下面操作
-                  chores();
-                }
-              });
+              // 实际开发先调用修改接口，再进行下面操作
+              chores();
             }
           }
         });
@@ -192,14 +152,8 @@ export function useDept() {
   }
 
   function handleDelete(row) {
-    deleteDept(row.id).then(res => {
-      if (res.code === 200) {
-        message(`您【删除】了部门名称为【${row.name}】的数据。`, {
-          type: "success"
-        });
-        onSearch();
-      }
-    });
+    message(`您删除了部门名称为${row.name}的这条数据`, { type: "success" });
+    onSearch();
   }
 
   onMounted(() => {

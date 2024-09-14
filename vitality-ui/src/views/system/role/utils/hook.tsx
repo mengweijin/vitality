@@ -3,11 +3,13 @@ import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
 import { ElMessageBox } from "element-plus";
+import { usePublicHooks } from "../../hooks";
+import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import type { FormItemProps } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
-import { getRoleList, getRoleMenu, getRoleMenuIds } from "@/api/system/role";
+import { getRoleList, getRoleMenu, getRoleMenuIds } from "@/api/system";
 import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 
 export function useRole(treeRef: Ref) {
@@ -28,6 +30,7 @@ export function useRole(treeRef: Ref) {
   const switchLoadMap = ref({});
   const isExpandAll = ref(false);
   const isSelectAll = ref(false);
+  const { switchStyle } = usePublicHooks();
   const treeProps = {
     value: "id",
     label: "title",
@@ -64,6 +67,7 @@ export function useRole(treeRef: Ref) {
           active-text="已启用"
           inactive-text="已停用"
           inline-prompt
+          style={switchStyle.value}
           onChange={() => onChange(scope as any)}
         />
       ),
@@ -259,7 +263,7 @@ export function useRole(treeRef: Ref) {
   };
 
   const filterMethod = (query: string, node) => {
-    return node.title.includes(query);
+    return transformI18n(node.title)!.includes(query);
   };
 
   onMounted(async () => {
@@ -304,6 +308,7 @@ export function useRole(treeRef: Ref) {
     handleSave,
     handleDelete,
     filterMethod,
+    transformI18n,
     onQueryChanged,
     // handleDatabase,
     handleSizeChange,

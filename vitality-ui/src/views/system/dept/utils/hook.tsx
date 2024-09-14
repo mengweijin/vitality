@@ -2,7 +2,12 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getDeptList } from "@/api/system/dept";
+import {
+  getDeptList,
+  createDept,
+  updateDept,
+  deleteDept
+} from "@/api/system/dept";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
 import type { FormItemProps } from "../utils/types";
@@ -135,13 +140,11 @@ export function useDept() {
       props: {
         formInline: {
           higherDeptOptions: formatHigherDeptOptions(cloneDeep(dataList.value)),
-          parentId: row?.parentId ?? 0,
+          id: row?.id ?? null,
+          parentId: row?.parentId ?? "0",
           name: row?.name ?? "",
-          principal: row?.principal ?? "",
-          phone: row?.phone ?? "",
-          email: row?.email ?? "",
-          sort: row?.sort ?? 0,
-          status: row?.status ?? 1,
+          seq: row?.seq ?? 0,
+          disabled: row?.disabled ?? "N",
           remark: row?.remark ?? ""
         }
       },
@@ -155,7 +158,7 @@ export function useDept() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了部门名称为${curData.name}的这条数据`, {
+          message(`您【${title}】了部门名称为【${curData.name}】的数据。`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -163,14 +166,24 @@ export function useDept() {
         }
         FormRef.validate(valid => {
           if (valid) {
-            console.log("curData", curData);
+            const submitData = cloneDeep(curData);
+            delete submitData.higherDeptOptions;
+            console.log("submitData", submitData);
             // 表单规则校验通过
-            if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              chores();
+            if (curData.id) {
+              updateDept(submitData).then(res => {
+                if (res.code === 200) {
+                  // 实际开发先调用修改接口，再进行下面操作
+                  chores();
+                }
+              });
             } else {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
+              createDept(submitData).then(res => {
+                if (res.code === 200) {
+                  // 实际开发先调用新增接口，再进行下面操作
+                  chores();
+                }
+              });
             }
           }
         });
@@ -179,8 +192,14 @@ export function useDept() {
   }
 
   function handleDelete(row) {
-    message(`您删除了部门名称为${row.name}的这条数据`, { type: "success" });
-    onSearch();
+    deleteDept(row.id).then(res => {
+      if (res.code === 200) {
+        message(`您【删除】了部门名称为【${row.name}】的数据。`, {
+          type: "success"
+        });
+        onSearch();
+      }
+    });
   }
 
   onMounted(() => {

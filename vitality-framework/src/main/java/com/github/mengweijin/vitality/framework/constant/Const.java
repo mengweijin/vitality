@@ -135,4 +135,9 @@ public interface Const {
      */
     String JAVA_TMP_DIR = System.getProperty("java.io.tmpdir");
 
+    /**
+     * 前端权限格式
+     */
+    String ALL_PERMISSIONS = "*:*:*";
+
 }

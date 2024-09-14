@@ -2,9 +2,8 @@ package com.github.mengweijin.vitality.generator.engine;
 
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.vitality.generator.dto.GeneratorArgs;
+import com.github.mengweijin.vitality.generator.domain.dto.GeneratorArgs;
 import com.github.mengweijin.vitality.generator.util.GeneratorUtils;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -13,6 +12,7 @@ import org.dromara.hutool.core.date.DatePattern;
 import org.dromara.hutool.core.date.DateUtil;
 import org.dromara.hutool.core.lang.tuple.Pair;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,18 +26,10 @@ import java.util.Map;
  * @author mengweijin
  */
 @Slf4j
-@Getter
-public abstract class VelocityTemplateEngine {
+@Component
+public class VelocityTemplateEngine {
 
     private final VelocityEngine velocityEngine;
-
-    private GeneratorArgs generatorArgs;
-
-    private TableInfo tableInfo;
-
-    protected abstract VelocityEngine getVelocityEngine(String templateDir);
-
-    protected abstract List<String> getTemplates();
 
     public VelocityTemplateEngine() {
         this.velocityEngine = new VelocityEngine();
@@ -61,7 +53,7 @@ public abstract class VelocityTemplateEngine {
 
     private Map<String, Object> getObjectMap(GeneratorArgs args, TableInfo tableInfo) {
         List<String> baseEntityColumns = GeneratorUtils.resolveBaseEntityColumns(args);
-        String entityName = GeneratorUtils.resolveEntityName(tableInfo.getName(), args);
+        String entityName = GeneratorUtils.resolveEntityName(tableInfo.getName(), args.getTablePrefix());
         List<TableField> entityFields = GeneratorUtils.resolveEntityFields(tableInfo, baseEntityColumns);
         List<TableField> commonFields = GeneratorUtils.resolveCommonFields(tableInfo, baseEntityColumns);
 

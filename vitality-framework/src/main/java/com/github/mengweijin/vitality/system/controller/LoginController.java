@@ -44,7 +44,7 @@ public class LoginController {
     @Deprecated
     @SaIgnore
     @RepeatSubmit
-    @PostMapping("/loginR")
+    @PostMapping("/login-token")
     public R<LoginUser> loginR(@Valid @RequestBody LoginBO loginBO) {
         LoginUser loginUser = loginService.login(loginBO);
         return R.success(loginUser);

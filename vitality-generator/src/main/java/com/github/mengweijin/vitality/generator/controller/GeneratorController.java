@@ -1,21 +1,18 @@
 package com.github.mengweijin.vitality.generator.controller;
 
-import com.github.mengweijin.generator.dto.GenerateArgsDTO;
-import com.github.mengweijin.generator.dto.GenerateConfigDTO;
+import com.github.mengweijin.vitality.generator.domain.bo.GeneratorArgsBO;
+import com.github.mengweijin.vitality.generator.domain.vo.TableInfoVO;
+import com.github.mengweijin.vitality.generator.domain.vo.TemplateVO;
 import com.github.mengweijin.vitality.generator.service.GeneratorService;
 import com.github.mengweijin.vitality.generator.service.TemplateService;
-import com.github.mengweijin.vitality.generator.vo.TemplateVO;
 import lombok.AllArgsConstructor;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.dromara.hutool.core.io.file.FileUtil;
+import org.dromara.hutool.core.lang.tuple.Pair;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -33,36 +30,22 @@ public class GeneratorController {
 
     @GetMapping("/template/tree")
     public List<TemplateVO> loadTemplateTree() {
-        return templateService.loadTemplateTree();
+        return templateService.buildTemplateTree();
     }
 
-    @GetMapping("/config/default/{tableName}")
-    public GenerateConfigDTO getDefaultConfig(@PathVariable String tableName) {
-        return generatorService.getDefaultConfig(tableName);
+    @GetMapping("/config/default")
+    public GeneratorArgsBO getDefaultConfig() {
+        return new GeneratorArgsBO();
     }
 
-    @PostMapping("/execute/{tableName}")
-    public String execute(
-                          @PathVariable("tableName") String tableName,
-                          @RequestBody GenerateArgsDTO dto) {
-        if(CollUtil.isEmpty(dto.getTemplateIdList())) {
-            return null;
-        }
-        return generatorService.generate(tableName, dto.getTemplateIdList().get(0), dto.getConfig());
+    @GetMapping("/table")
+    public List<TableInfoVO> tableList() {
+        return generatorService.getAllTableInfoVOList();
     }
 
-    @PostMapping("/executeBatch/{tableName}")
-    public String executeBatchToFile(
-                                        @PathVariable("tableName") String tableName,
-                                        @RequestBody GenerateArgsDTO dto) {
-        String basePath = System.getProperty("user.dir")  + File.separatorChar + "target/generator/";
-        FileUtil.del(FileUtil.file(basePath));
-        List<String> templateIdList = dto.getTemplateIdList();
-        if(CollUtil.isNotEmpty(templateIdList)) {
-            templateIdList.forEach(templateId -> {
-                generatorService.generateAndWriteToFile(tableName, templateId, dto.getConfig(), basePath);
-            });
-        }
-        return basePath;
+    @PostMapping("/run")
+    public Pair<String, String> execute(@RequestBody GeneratorArgsBO bo) {
+        return generatorService.generate(bo);
     }
+
 }

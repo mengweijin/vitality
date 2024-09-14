@@ -67,7 +67,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
     public Set<String> getMenuPermissionListByLoginUsername(String username) {
         if (UserConst.ADMIN_USERNAME.equals(username)) {
-            return Collections.singleton(Const.STAR);
+            return Collections.singleton(Const.ALL_PERMISSIONS);
         }
         return this.getBaseMapper().selectPermissionListByUsername(username);
     }

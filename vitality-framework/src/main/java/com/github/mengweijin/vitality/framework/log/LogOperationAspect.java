@@ -3,9 +3,9 @@ package com.github.mengweijin.vitality.framework.log;
 import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
-import com.github.mengweijin.vitality.system.domain.entity.LogOperation;
+import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
+import com.github.mengweijin.vitality.monitor.service.LogOperationService;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
-import com.github.mengweijin.vitality.system.service.LogOperationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -70,7 +70,7 @@ public class LogOperationAspect {
 
                 // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
                 Map<String, String[]> parameterMap = request.getParameterMap();
-                if(parameterMap != null) {
+                if (parameterMap != null && !parameterMap.isEmpty()) {
                     operationLog.setRequestArgs(P.writeValueAsString(parameterMap));
                 }
 

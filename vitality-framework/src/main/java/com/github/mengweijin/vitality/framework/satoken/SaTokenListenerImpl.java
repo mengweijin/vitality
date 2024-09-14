@@ -4,8 +4,8 @@ import cn.dev33.satoken.listener.SaTokenListener;
 import cn.dev33.satoken.listener.SaTokenListenerForLog;
 import cn.dev33.satoken.stp.SaLoginModel;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
+import com.github.mengweijin.vitality.monitor.service.LogLoginService;
 import com.github.mengweijin.vitality.system.enums.ELoginType;
-import com.github.mengweijin.vitality.system.service.LogLoginService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

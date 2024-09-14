@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -11,11 +11,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,19 +62,19 @@ public class DeptController {
     @SaCheckPermission("system:dept:query")
     @GetMapping("/list")
     public List<Dept> list(Dept dept) {
-        return deptService.list(new QueryWrapper<>(dept));
+        return deptService.list(new LambdaQueryWrapper<>(dept).orderByAsc(Dept::getSeq));
     }
 
     @SaCheckPermission("system:dept:query")
-    @GetMapping("/listWithParent/{childrenId}")
-    public List<Dept> listWithParent(@PathVariable("childrenId") Long childrenId) {
-        return deptService.getBaseMapper().selectWithParentByChildrenId(childrenId);
+    @GetMapping("/listParent/{id}")
+    public List<Long> listParent(@PathVariable("id") Long id) {
+        return deptService.getBaseMapper().selectParentIdsWithById(id);
     }
 
     @SaCheckPermission("system:dept:query")
-    @GetMapping("/listChildren/{parentId}")
-    public List<Dept> listChildren(@PathVariable("parentId") Long parentId) {
-        return deptService.getBaseMapper().selectChildrenByParentId(parentId);
+    @GetMapping("/listChildren/{id}")
+    public List<Long> listChildren(@PathVariable("id") Long id) {
+        return deptService.getDeptChildrenIdsWithCurrentById(id);
     }
 
     /**
@@ -99,8 +97,8 @@ public class DeptController {
      * @param dept {@link Dept}
      */
     @SaCheckPermission("system:dept:create")
-    @PostMapping
-    public R<Void> add(@Valid @RequestBody Dept dept) {
+    @PostMapping("/create")
+    public R<Void> create(@Valid @RequestBody Dept dept) {
         boolean bool = deptService.save(dept);
         return R.ajax(bool);
     }
@@ -112,7 +110,7 @@ public class DeptController {
      * @param dept {@link Dept}
      */
     @SaCheckPermission("system:dept:update")
-    @PutMapping
+    @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Dept dept) {
         boolean bool = deptService.updateById(dept);
         return R.ajax(bool);
@@ -132,7 +130,7 @@ public class DeptController {
      * @param ids id
      */
     @SaCheckPermission("system:dept:delete")
-    @DeleteMapping("/{ids}")
+    @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = deptService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);

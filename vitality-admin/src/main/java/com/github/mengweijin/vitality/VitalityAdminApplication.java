@@ -13,10 +13,17 @@ public class VitalityAdminApplication {
 
 	public static void main(String[] args) {
 		try {
+            long start = System.currentTimeMillis();
 			SpringApplication.run(VitalityAdminApplication.class, args);
-			log.info("Vitality startup success!");
+            long end = System.currentTimeMillis();
+            log.info("-----------------------------------------------------------------------");
+            log.info("----------- Vitality Admin startup success!");
+            log.info("----------- Started Vitality Admin in {} seconds", (end - start) / 1000D);
+            log.info("-----------------------------------------------------------------------");
 		} catch (Exception e) {
-			log.info("Vitality startup failed!");
+            log.error("----------------------------------------------------------------------");
+            log.error("----------- Vitality Admin startup failed!");
+            log.error("----------------------------------------------------------------------");
 		}
 	}
 }

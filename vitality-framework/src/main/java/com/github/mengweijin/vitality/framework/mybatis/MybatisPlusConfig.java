@@ -71,8 +71,6 @@ public class MybatisPlusConfig {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 数据权限插件
         interceptor.addInnerInterceptor(dataPermissionInterceptor());
-        // Left join SYS_USER 查询用户昵称插件（自定义）
-        // interceptor.addInnerInterceptor(new SysUserNameInnerInterceptor());
         // 分页插件, 一缓和二缓遵循mybatis的规则
         interceptor.addInnerInterceptor(paginationInnerInterceptor());
         // 乐观锁插件。注解实体字段 @Version

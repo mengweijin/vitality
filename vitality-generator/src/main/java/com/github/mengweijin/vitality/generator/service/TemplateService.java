@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.generator.service;
 
-import com.github.mengweijin.vitality.generator.vo.TemplateVO;
+import com.github.mengweijin.vitality.generator.domain.vo.TemplateVO;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.io.resource.ResourceUtil;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -26,14 +27,27 @@ public class TemplateService {
 
     public static final File TEMPLATE_FILES = FileUtil.file(ResourceUtil.getResource(TEMPLATE_DIR).getUrl());
 
-    public static List<TemplateVO> TEMPLATE_CACHE = new ArrayList<>();
+    private List<TemplateVO> templateCacheList = new CopyOnWriteArrayList<>();
 
-    public List<TemplateVO> loadTemplateTree() {
-        List<File> templateList = FileUtil.loopFiles(TEMPLATE_FILES, item -> item.isDirectory() || (item.isFile() && item.getName().toLowerCase().endsWith(TEMPLATE_SUFFIX)));
-        if (CollUtil.isEmpty(TEMPLATE_CACHE)) {
-            TEMPLATE_CACHE = this.buildTemplateList(templateList);
+    public TemplateVO findById(String templateId) {
+        if (templateCacheList.isEmpty()) {
+            this.loadTemplateCacheList();
         }
-        return this.treeTemplateVO(TEMPLATE_CACHE, TEMPLATE_FILES.getPath());
+        return templateCacheList.stream().filter(tpl -> tpl.getId().equals(templateId)).findFirst().orElse(null);
+    }
+
+    public List<TemplateVO> buildTemplateTree() {
+        if (templateCacheList.isEmpty()) {
+            this.loadTemplateCacheList();
+        }
+        return this.treeTemplateVO(templateCacheList, TEMPLATE_FILES.getPath());
+    }
+
+    public void loadTemplateCacheList() {
+        List<File> templateList = FileUtil.loopFiles(TEMPLATE_FILES, item -> item.isDirectory() || (item.isFile() && item.getName().toLowerCase().endsWith(TEMPLATE_SUFFIX)));
+        if (CollUtil.isEmpty(templateCacheList)) {
+            templateCacheList = this.buildTemplateList(templateList);
+        }
     }
 
     private List<TemplateVO> buildTemplateList(List<File> templateList) {

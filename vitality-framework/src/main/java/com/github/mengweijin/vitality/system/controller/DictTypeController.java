@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -11,11 +11,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,7 +62,7 @@ public class DictTypeController {
     @SaCheckPermission("system:dictType:query")
     @GetMapping("/list")
     public List<DictType> list(DictType dictType) {
-        return dictTypeService.list(new QueryWrapper<>(dictType));
+        return dictTypeService.list(new LambdaQueryWrapper<>(dictType));
     }
 
     /**
@@ -87,8 +85,8 @@ public class DictTypeController {
      * @param dictType {@link DictType}
      */
     @SaCheckPermission("system:dictType:create")
-    @PostMapping
-    public R<Void> add(@Valid @RequestBody DictType dictType) {
+    @PostMapping("/create")
+    public R<Void> create(@Valid @RequestBody DictType dictType) {
         boolean bool = dictTypeService.save(dictType);
         return R.ajax(bool);
     }
@@ -100,7 +98,7 @@ public class DictTypeController {
      * @param dictType {@link DictType}
      */
     @SaCheckPermission("system:dictType:update")
-    @PutMapping
+    @PostMapping("update")
     public R<Void> update(@Valid @RequestBody DictType dictType) {
         boolean bool = dictTypeService.updateById(dictType);
         return R.ajax(bool);
@@ -113,7 +111,7 @@ public class DictTypeController {
      * @param ids id
      */
     @SaCheckPermission("system:dictType:delete")
-    @DeleteMapping("/{ids}")
+    @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = dictTypeService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);

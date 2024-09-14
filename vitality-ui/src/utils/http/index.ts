@@ -13,9 +13,7 @@ import { stringify } from "qs";
 import NProgress from "../progress";
 import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
+import { router } from "@/router";
 
 const { VITE_BASE_API } = import.meta.env;
 

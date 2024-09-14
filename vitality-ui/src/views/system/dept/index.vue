@@ -127,7 +127,8 @@ const {
               新增
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除部门名称为${row.name}的这条数据`"
+              :width="500"
+              :title="`是否确认【删除】部门名称为【${row.name}】的数据？`"
               @confirm="handleDelete(row)"
             >
               <template #reference>

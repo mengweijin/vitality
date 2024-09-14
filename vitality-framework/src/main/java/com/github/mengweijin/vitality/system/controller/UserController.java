@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -14,11 +14,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,7 +66,7 @@ public class UserController {
     @SaCheckPermission("system:user:query")
     @GetMapping("/list")
     public List<UserVO> list(User user) {
-        List<User> userList = userService.list(new QueryWrapper<>(user));
+        List<User> userList = userService.list(new LambdaQueryWrapper<>(user));
         return BeanUtils.copyList(userList, UserVO.class);
     }
 
@@ -93,8 +91,8 @@ public class UserController {
      * @param user {@link User}
      */
     @SaCheckPermission("system:user:create")
-    @PostMapping
-    public R<Void> add(@Valid @RequestBody User user) {
+    @PostMapping("/create")
+    public R<Void> create(@Valid @RequestBody User user) {
         boolean bool = userService.save(user);
         return R.ajax(bool);
     }
@@ -106,7 +104,7 @@ public class UserController {
      * @param user {@link User}
      */
     @SaCheckPermission("system:user:update")
-    @PutMapping
+    @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody User user) {
         boolean bool = userService.updateById(user);
         return R.ajax(bool);
@@ -119,7 +117,7 @@ public class UserController {
      * @param ids id
      */
     @SaCheckPermission("system:user:delete")
-    @DeleteMapping("/{ids}")
+    @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = userService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);
@@ -134,7 +132,7 @@ public class UserController {
      * @param bo {@link ChangePasswordBO}
      */
     @SaCheckPermission("system:user:update")
-    @PostMapping("/changePassword")
+    @PostMapping("/change-password")
     public R<Void> changePassword(@Valid @RequestBody ChangePasswordBO bo) {
         boolean bool = userService.changePassword(bo);
         return R.ajax(bool);

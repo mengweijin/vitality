@@ -1,33 +1,30 @@
 package com.github.mengweijin.vitality.generator.service;
 
-import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.generator.dto.GenerateConfigDTO;
-import com.github.mengweijin.generator.dto.TableFieldDTO;
-import com.github.mengweijin.generator.dto.TableInfoDTO;
-import com.github.mengweijin.generator.dto.TemplateDTO;
-import com.github.mengweijin.generator.engine.FreemarkerTemplateEngine;
-import com.github.mengweijin.generator.util.Utils;
+import com.github.mengweijin.vitality.framework.util.BeanUtils;
+import com.github.mengweijin.vitality.generator.domain.bo.GeneratorArgsBO;
+import com.github.mengweijin.vitality.generator.domain.dto.GeneratorArgs;
+import com.github.mengweijin.vitality.generator.domain.vo.TableFieldVO;
+import com.github.mengweijin.vitality.generator.domain.vo.TableInfoVO;
+import com.github.mengweijin.vitality.generator.domain.vo.TemplateVO;
+import com.github.mengweijin.vitality.generator.engine.VelocityTemplateEngine;
+import com.github.mengweijin.vitality.generator.util.GeneratorUtils;
+import jakarta.annotation.Nullable;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.dromara.hutool.core.date.DatePattern;
-import org.dromara.hutool.core.date.DateUtil;
-import org.dromara.hutool.core.io.file.FileUtil;
+import org.dromara.hutool.core.lang.tuple.Pair;
 import org.dromara.hutool.core.text.StrUtil;
-import org.dromara.hutool.core.util.SystemUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
@@ -36,47 +33,56 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class GeneratorService extends AutoGenerator {
+@AllArgsConstructor
+public class GeneratorService {
 
-    @Autowired
+    private DataSource dataSource;
+
     private TemplateService templateService;
 
-    public GeneratorService(@Autowired DataSource dataSource) {
-        super(new DataSourceConfig.Builder(dataSource).build());
+    private VelocityTemplateEngine velocityTemplateEngine;
+
+    public Pair<String, String> generate(GeneratorArgsBO args) {
+        TemplateVO template = templateService.findById(args.getTemplateId());
+        String fileName = this.parseFileName(template, args);
+        TableInfo tableInfo = this.findTableInfoByName(args.getTableName());
+        return velocityTemplateEngine.writeString(fileName, template.getContent(), new GeneratorArgs(args), tableInfo);
     }
 
-    @Override
-    public ConfigBuilder getConfig() {
-        return new ConfigBuilder(this.getPackageInfo(), this.getDataSource(), this.getStrategy(), this.getTemplate(), this.getGlobalConfig(), this.injection);
+    private String parseFileName(TemplateVO template, GeneratorArgsBO args) {
+        String entityName = GeneratorUtils.resolveEntityName(args.getTableName(), args.getTablePrefix().toArray(new String[0]));
+        Properties props = new Properties();
+        props.setProperty("EntityName", StrUtil.toStringOrNull(entityName));
+
+        PropertyPlaceholderHelper placeholderHelper = new PropertyPlaceholderHelper("${", "}");
+        String fileName = placeholderHelper.replacePlaceholders(template.getName(), props);
+        return StrUtil.subBefore(fileName, ".", true);
     }
 
-    public List<TableInfoDTO> selectTable(@Nullable String tableName) {
-        List<TableInfoDTO> list = this.getTableList();
+    /**
+     * Using front-end filtering
+     *
+     * @param tableName tableName
+     * @return List<TableInfoVO>
+     */
+    @Deprecated
+    public List<TableInfoVO> selectTableInfo(@Nullable String tableName) {
+        List<TableInfoVO> list = this.getAllTableInfoVOList();
         if(StrUtil.isNotBlank(tableName)) {
-            list = list.stream()
-                    .filter(table -> StrUtil.containsIgnoreCase(table.getName(), tableName))
-                    .collect(Collectors.toList());
+            list = list.stream().filter(table -> StrUtil.containsIgnoreCase(table.getName(), tableName)).toList();
         }
-        list = list.stream().sorted(Comparator.comparing(TableInfoDTO::getName)).collect(Collectors.toList());
-        return list;
+        return list.stream().sorted(Comparator.comparing(TableInfoVO::getName)).collect(Collectors.toList());
     }
 
-    public TableInfoDTO selectFirstTable(String tableName) {
-        List<TableInfoDTO> tableList = this.selectTable(tableName);
-        return CollUtil.isEmpty(tableList)? null : tableList.get(0);
-    }
-
-    public List<TableInfoDTO> getTableList() {
-        ConfigBuilder config = this.getConfig();
-        List<TableInfo> tableInfoList = config.getTableInfoList();
+    public List<TableInfoVO> getAllTableInfoVOList() {
+        List<TableInfo> tableInfoList = this.selectTableInfoList(null);
         return tableInfoList.stream().map(table -> {
-            TableInfoDTO dto = new TableInfoDTO();
+            TableInfoVO dto = new TableInfoVO();
             dto.setName(table.getName());
             dto.setHavePrimaryKey(table.isHavePrimaryKey());
             dto.setFieldNames(table.getFieldNames());
             dto.setComment(table.getComment());
-            dto.setFields(Utils.copyList(table.getFields(), TableFieldDTO.class));
-
+            dto.setFields(BeanUtils.copyList(table.getFields(), TableFieldVO.class));
             dto.getFields().forEach(field -> {
                 field.setPropertyType(field.getColumnType().getType());
                 field.setPropertyTypePackage(field.getColumnType().getPkg());
@@ -85,64 +91,22 @@ public class GeneratorService extends AutoGenerator {
         }).collect(Collectors.toList());
     }
 
-    public GenerateConfigDTO getDefaultConfig(String tableName) {
-        GenerateConfigDTO config = new GenerateConfigDTO();
-        config.setIgnoredColumns("ID, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME");
-        config.setEntityName(StrUtil.upperFirst(StrUtil.toCamelCase(tableName)));
-        config.setPackagePath(Utils.getSpringBootApplicationClassPackage());
-        config.setAuthor(SystemUtil.get("user.name", false));
-        config.setDate(DateUtil.format(LocalDateTime.now(), DatePattern.NORM_DATE_PATTERN));
+    private List<TableInfo> selectTableInfoList(@Nullable String tableName) {
+        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(dataSource).build();
 
-        TableInfoDTO tableInfoDTO = this.selectFirstTable(tableName);
-        if(tableInfoDTO != null) {
-            config.initTableInfo(tableInfoDTO);
+        StrategyConfig.Builder strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
+        if (StrUtil.isNotBlank(tableName)) {
+            strategyConfigBuilder.addInclude(tableName);
         }
 
-        return config;
+        // ConfigBuilder 类不能扩展，会报错。
+        ConfigBuilder configBuilder = new ConfigBuilder(null, dataSourceConfig, strategyConfigBuilder.build(), null, null, null);
+        return configBuilder.getTableInfoList();
     }
 
-    public String generate(String tableName, String templateId, GenerateConfigDTO config) {
-        TableInfoDTO tableInfoDTO = this.selectFirstTable(tableName);
-        if(tableInfoDTO == null) {
-            return null;
-        }
-
-        this.processIgnoredColumns(tableInfoDTO, config.getIgnoredColumns());
-        config.initTableInfo(tableInfoDTO);
-        log.debug(Utils.writeValueAsString(config));
-
-        // TemplateDTO templateDTO = templateService.findTemplateById(templateId);
-        TemplateDTO templateDTO = null;
-        return FreemarkerTemplateEngine.process(templateDTO.getName(), templateDTO.getContent(), config);
+    private TableInfo findTableInfoByName(String tableName) {
+        List<TableInfo> list = this.selectTableInfoList(tableName);
+        return list.stream().findFirst().orElse(null);
     }
 
-    private void processIgnoredColumns(TableInfoDTO tableInfoDTO, String ignoredColumns) {
-        List<String> ignoredColumnList = new ArrayList<>();
-        if(StrUtil.isNotBlank(ignoredColumns)) {
-            ignoredColumns = StrUtil.replaceChars(ignoredColumns, new char[]{',', '，', '、', ';'}, ",").toUpperCase();
-            ignoredColumnList = Arrays.stream(ignoredColumns.split(","))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
-        }
-        for (TableFieldDTO field: tableInfoDTO.getFields()) {
-            if(ignoredColumnList.contains(field.getColumnName().toUpperCase())) {
-                field.setEntityIgnored(true);
-            }
-        }
-    }
-
-    public void generateAndWriteToFile(String tableName, String templateId, GenerateConfigDTO config, String basePath) {
-        String content = this.generate(tableName, templateId, config);
-        // TemplateDTO templateDTO = templateService.findTemplateById(templateId);
-        TemplateDTO templateDTO = null;
-        String targetPath = basePath + StrUtil.replace(config.getPackagePath(), ".", "/") + File.separator;
-
-        String[] split = templateDTO.getName().split("\\.");
-        targetPath += StrUtil.replace(split[0], "{EntityName}", config.getEntityName());
-        targetPath += "." + split[1];
-
-        File file = FileUtil.file(targetPath);
-        FileUtil.mkParentDirs(file);
-        FileUtil.writeUtf8String(content, file);
-    }
 }

@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -11,11 +11,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,7 +62,7 @@ public class MessageController {
     @SaCheckPermission("system:message:query")
     @GetMapping("/list")
     public List<Message> list(Message message) {
-        return messageService.list(new QueryWrapper<>(message));
+        return messageService.list(new LambdaQueryWrapper<>(message));
     }
 
     /**
@@ -87,8 +85,8 @@ public class MessageController {
      * @param message {@link Message}
      */
     @SaCheckPermission("system:message:create")
-    @PostMapping
-    public R<Void> add(@Valid @RequestBody Message message) {
+    @PostMapping("/create")
+    public R<Void> create(@Valid @RequestBody Message message) {
         boolean bool = messageService.save(message);
         return R.ajax(bool);
     }
@@ -100,7 +98,7 @@ public class MessageController {
      * @param message {@link Message}
      */
     @SaCheckPermission("system:message:update")
-    @PutMapping
+    @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Message message) {
         boolean bool = messageService.updateById(message);
         return R.ajax(bool);
@@ -113,7 +111,7 @@ public class MessageController {
      * @param ids id
      */
     @SaCheckPermission("system:message:delete")
-    @DeleteMapping("/{ids}")
+    @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = messageService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);

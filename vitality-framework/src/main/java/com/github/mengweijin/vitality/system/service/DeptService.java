@@ -12,6 +12,7 @@ import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -65,5 +66,11 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
 
     public Dept getByUserId(Long userId) {
         return this.getBaseMapper().selectByUserId(userId);
+    }
+
+    public List<Long> getDeptChildrenIdsWithCurrentById(long id) {
+        List<Long> ids = this.getBaseMapper().selectChildrenIdsById(id);
+        ids.add(0, id);
+        return ids;
     }
 }

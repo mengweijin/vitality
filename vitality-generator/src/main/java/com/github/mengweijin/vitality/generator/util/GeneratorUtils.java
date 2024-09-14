@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.generator.util;
 
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.github.mengweijin.vitality.generator.dto.GeneratorArgs;
+import com.github.mengweijin.vitality.generator.domain.dto.GeneratorArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.reflect.FieldUtil;
 import org.dromara.hutool.core.text.StrUtil;
@@ -52,12 +52,12 @@ public class GeneratorUtils {
         return Arrays.stream(items).map(String::trim).toArray(String[]::new);
     }
 
-    public static String resolveEntityName(String tableName, GeneratorArgs generatorArgs) {
+    public static String resolveEntityName(String tableName, String[] tablePrefix) {
         String val = tableName;
-        if (generatorArgs.getTablePrefix() != null) {
-            for (String tablePrefix : generatorArgs.getTablePrefix()) {
-                if (tableName.toLowerCase().startsWith(tablePrefix.toLowerCase())) {
-                    val = tableName.substring(tablePrefix.length());
+        if (tablePrefix != null) {
+            for (String prefix : tablePrefix) {
+                if (tableName.toLowerCase().startsWith(prefix.toLowerCase())) {
+                    val = tableName.substring(prefix.length());
                     break;
                 }
             }

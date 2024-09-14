@@ -1,5 +1,7 @@
 package com.github.mengweijin.vitality.framework.mybatis.data.permission;
 
+import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
+
 import java.util.List;
 
 /**
@@ -9,12 +11,12 @@ import java.util.List;
 public class DefaultDataPermissionHandler extends BaseDataPermissionHandler {
     @Override
     protected String getLoginUserId() {
-        return null;
+        return String.valueOf(LoginHelper.getLoginUser().getUserId());
     }
 
     @Override
-    protected boolean isAdminForLoginUserId() {
-        return false;
+    protected boolean isAdmin() {
+        return LoginHelper.isAdmin();
     }
 
     @Override

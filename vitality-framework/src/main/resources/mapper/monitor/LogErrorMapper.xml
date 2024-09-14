@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.monitor.mapper.LogErrorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.monitor.domain.entity.LogError">
+        <id column="ID" property="id" />
+        <result column="CLASS_NAME" property="className" />
+        <result column="METHOD_NAME" property="methodName" />
+        <result column="EXCEPTION_NAME" property="exceptionName" />
+        <result column="ERROR_MSG" property="errorMsg" />
+        <result column="STACK_TRACE" property="stackTrace" />
+        <result column="CREATE_BY" property="createBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_BY" property="updateBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        CLASS_NAME,
+        METHOD_NAME,
+        EXCEPTION_NAME,
+        ERROR_MSG,
+        STACK_TRACE,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
+    </sql>
+
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
+        <where>
+            <if test="className != null and className != ''">
+                AND CLASS_NAME = #{className}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                AND METHOD_NAME = #{methodName}
+            </if>
+            <if test="exceptionName != null and exceptionName != ''">
+                AND EXCEPTION_NAME = #{exceptionName}
+            </if>
+            <if test="errorMsg != null and errorMsg != ''">
+                AND ERROR_MSG = #{errorMsg}
+            </if>
+            <if test="stackTrace != null and stackTrace != ''">
+                AND STACK_TRACE = #{stackTrace}
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

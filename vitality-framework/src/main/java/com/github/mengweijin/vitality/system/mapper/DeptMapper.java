@@ -17,9 +17,21 @@ import java.util.List;
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
 
-    List<Dept> selectWithParentByChildrenId(Long childrenId);
+    /**
+     * select parent ids with current id
+     *
+     * @param id current id
+     * @return parent ids with current id
+     */
+    List<Long> selectParentIdsWithById(Long id);
 
-    List<Dept> selectChildrenByParentId(Long parentId);
+    /**
+     * select children ids
+     *
+     * @param id current id
+     * @return children ids
+     */
+    List<Long> selectChildrenIdsById(Long id);
 
     Dept selectByUserId(Long userId);
 }

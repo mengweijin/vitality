@@ -1,5 +1,5 @@
 import { http } from "@/utils/http";
-import type { FormItemProps } from "@/views/system/dept/utils/types";
+import type { FormItemProps } from "@/views/vitality/system/dept/utils/types";
 
 /** 查询 */
 export const getDeptList = () => {

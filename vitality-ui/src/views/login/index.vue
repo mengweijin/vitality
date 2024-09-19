@@ -219,7 +219,7 @@ watch(loginDay, value => {
               </el-form-item>
             </Motion>
 
-            <Motion :delay="200">
+            <Motion v-if="false" :delay="200">
               <el-form-item prop="verifyCode">
                 <el-input
                   v-model="ruleForm.verifyCode"

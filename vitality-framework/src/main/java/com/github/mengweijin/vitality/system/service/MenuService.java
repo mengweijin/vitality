@@ -75,7 +75,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     public PureAsyncRoutes getAsyncRoutes() {
         List<Menu> list = this.lambdaQuery()
                 .eq(Menu::getDisabled, EYesNo.N.getValue())
-                .and(wrapper -> wrapper.eq(Menu::getType, EMenuType.DIR.getValue()).or().eq(Menu::getType, EMenuType.MENU.getValue()))
+                .ne(Menu::getType, EMenuType.BTN.getValue())
                 .list();
         return PureAsyncRoutes.tree(list, MenuConst.ROOT_ID);
     }

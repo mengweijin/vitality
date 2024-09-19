@@ -9,6 +9,7 @@
         <result column="TYPE" property="type"/>
         <result column="TITLE" property="title" />
         <result column="ICON" property="icon"/>
+        <result column="EXTRA_ICON" property="extraIcon"/>
         <result column="SHOW_LINK" property="showLink"/>
         <result column="PERMISSION" property="permission" />
         <result column="SEQ" property="seq" />
@@ -29,6 +30,7 @@
         TYPE,
         TITLE,
         ICON,
+        EXTRA_ICON,
         SHOW_LINK,
         PERMISSION,
         SEQ,
@@ -58,6 +60,9 @@
             </if>
             <if test="icon != null and icon != ''">
                 AND ICON = #{icon}
+            </if>
+            <if test="extraIcon != null and extraIcon != ''">
+                AND EXTRA_ICON = #{extraIcon}
             </if>
             <if test="showLink != null and showLink != ''">
                 AND SHOW_LINK = #{showLink}

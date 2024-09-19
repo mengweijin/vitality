@@ -33,7 +33,9 @@ public class PureAsyncRoutes implements Serializable {
             PureAsyncRoutesMeta meta = new PureAsyncRoutesMeta();
             meta.setTitle(menu.getTitle());
             meta.setIcon(menu.getIcon());
+            meta.setExtraIcon(menu.getExtraIcon());
             meta.setShowLink(EYesNo.Y.getValue().equals(menu.getShowLink()));
+            meta.setShowParent(Boolean.TRUE);
             meta.setRoles(null);
             meta.setAuths(Collections.singletonList(menu.getPermission()));
             meta.setFrameSrc(menu.getIframe());
@@ -93,7 +95,11 @@ public class PureAsyncRoutes implements Serializable {
 
         private String icon;
 
+        private String extraIcon;
+
         private Boolean showLink;
+
+        private Boolean showParent;
 
         private List<String> roles;
 

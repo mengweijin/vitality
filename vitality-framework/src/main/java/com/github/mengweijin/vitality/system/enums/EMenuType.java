@@ -18,7 +18,9 @@ public enum EMenuType implements IEnum<String> {
 
     BTN("BTN"),
 
-    API("API");
+    IFRAME("IFRAME"),
+
+    URL("URL");
 
     private final String value;
 

@@ -26,7 +26,7 @@ public class Menu extends BaseEntity {
     private Long parentId;
 
     /**
-     * 菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮 }
+     * 菜单类型。{ DIR=目录; MENU=菜单; BTN=按钮; IFRAME=内嵌页面；URL=外链页面；}
      */
     private String type;
 
@@ -39,6 +39,11 @@ public class Menu extends BaseEntity {
      * 图标
      */
     private String icon;
+
+    /**
+     * 菜单名称右侧的额外图标
+     */
+    private String extraIcon;
 
     /**
      * 是否在菜单中显示。[Y, N]
@@ -61,7 +66,7 @@ public class Menu extends BaseEntity {
     private String routerName;
 
     /**
-     * 路由地址。如：/system/user/index
+     * 路由地址。如：/vitality/system/user/index
      */
     private String routerPath;
 

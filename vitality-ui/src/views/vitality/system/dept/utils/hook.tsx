@@ -52,10 +52,17 @@ export function useDept() {
         <el-tag
           size={props.size}
           type={row.disabled === "Y" ? "danger" : "success"}
+          effect="dark"
         >
           {row.disabled === "Y" ? "停用" : "启用"}
         </el-tag>
       )
+    },
+    {
+      label: "备注",
+      prop: "remark",
+      minWidth: 200,
+      hide: true
     },
     {
       label: "创建者",
@@ -80,12 +87,6 @@ export function useDept() {
       prop: "updateTime",
       formatter: ({ updateTime }) =>
         dayjs(updateTime).format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-      label: "备注",
-      prop: "remark",
-      minWidth: 200,
-      hide: true
     },
     {
       label: "操作",

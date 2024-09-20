@@ -21,16 +21,14 @@ export function useMenu() {
 
   const getMenuType = (type, text = false) => {
     switch (type) {
-      case "DIR":
-        return text ? "目录" : "primary";
       case "MENU":
         return text ? "菜单" : "success";
-      case "BTN":
-        return text ? "按钮" : "info";
       case "IFRAME":
-        return text ? "内嵌页面" : "warning";
+        return text ? "内嵌页" : "warning";
       case "URL":
         return text ? "外链" : "danger";
+      case "BTN":
+        return text ? "按钮" : "info";
     }
   };
 
@@ -186,23 +184,23 @@ export function useMenu() {
       title: `${title}菜单`,
       props: {
         formInline: {
-          menuType: row?.menuType ?? 0,
+          type: row?.type ?? "MENU",
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
           parentId: row?.parentId ?? 0,
           title: row?.title ?? "",
-          name: row?.name ?? "",
-          path: row?.path ?? "",
-          component: row?.component ?? "",
-          rank: row?.rank ?? 99,
+          routerName: row?.routerName ?? "",
+          routerPath: row?.routerPath ?? "",
+          componentPath: row?.componentPath ?? "",
+          seq: row?.seq ?? 99,
           redirect: row?.redirect ?? "",
           icon: row?.icon ?? "",
           extraIcon: row?.extraIcon ?? "",
           enterTransition: row?.enterTransition ?? "",
           leaveTransition: row?.leaveTransition ?? "",
           activePath: row?.activePath ?? "",
-          auths: row?.auths ?? "",
-          frameSrc: row?.frameSrc ?? "",
-          frameLoading: row?.frameLoading ?? true,
+          permission: row?.permission ?? "",
+          iframeSrc: row?.iframeSrc ?? "",
+          iframeLoading: row?.iframeLoading ?? true,
           keepAlive: row?.keepAlive ?? false,
           hiddenTag: row?.hiddenTag ?? false,
           fixedTag: row?.fixedTag ?? false,

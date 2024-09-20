@@ -12,8 +12,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EMenuType implements IEnum<String> {
 
-    DIR("DIR"),
-
     MENU("MENU"),
 
     BTN("BTN"),

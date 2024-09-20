@@ -8,16 +8,25 @@
         <result column="PARENT_ID" property="parentId" />
         <result column="TYPE" property="type"/>
         <result column="TITLE" property="title" />
-        <result column="ICON" property="icon"/>
-        <result column="EXTRA_ICON" property="extraIcon"/>
-        <result column="SHOW_LINK" property="showLink"/>
-        <result column="PERMISSION" property="permission" />
-        <result column="SEQ" property="seq" />
         <result column="ROUTER_NAME" property="routerName"/>
         <result column="ROUTER_PATH" property="routerPath"/>
-        <result column="IFRAME" property="iframe"/>
+        <result column="COMPONENT_PATH" property="componentPath"/>
+        <result column="SEQ" property="seq"/>
+        <result column="REDIRECT" property="redirect"/>
+        <result column="ICON" property="icon"/>
+        <result column="EXTRA_ICON" property="extraIcon"/>
+        <result column="ENTER_TRANSITION" property="enterTransition"/>
+        <result column="LEAVE_TRANSITION" property="leaveTransition"/>
+        <result column="ACTIVE_PATH" property="activePath"/>
+        <result column="PERMISSION" property="permission" />
+        <result column="IFRAME_SRC" property="iframeSrc"/>
+        <result column="IFRAME_LOADING" property="iframeLoading"/>
+        <result column="KEEP_ALIVE" property="keepAlive"/>
+        <result column="HIDDEN_TAG" property="hiddenTag"/>
+        <result column="FIXED_TAG" property="fixedTag"/>
+        <result column="SHOW_LINK" property="showLink"/>
+        <result column="SHOW_PARENT" property="showParent"/>
         <result column="DISABLED" property="disabled" />
-        <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -29,16 +38,25 @@
         PARENT_ID,
         TYPE,
         TITLE,
-        ICON,
-        EXTRA_ICON,
-        SHOW_LINK,
-        PERMISSION,
-        SEQ,
         ROUTER_NAME,
         ROUTER_PATH,
-        IFRAME,
+        COMPONENT_PATH,
+        SEQ,
+        REDIRECT,
+        ICON,
+        EXTRA_ICON,
+        ENTER_TRANSITION,
+        LEAVE_TRANSITION,
+        ACTIVE_PATH,
+        PERMISSION,
+        IFRAME_SRC,
+        IFRAME_LOADING,
+        KEEP_ALIVE,
+        HIDDEN_TAG,
+        FIXED_TAG,
+        SHOW_LINK,
+        SHOW_PARENT,
         DISABLED,
-        REMARK,
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -58,35 +76,62 @@
             <if test="title != null and title != ''">
                 AND TITLE = #{title}
             </if>
-            <if test="icon != null and icon != ''">
-                AND ICON = #{icon}
-            </if>
-            <if test="extraIcon != null and extraIcon != ''">
-                AND EXTRA_ICON = #{extraIcon}
-            </if>
-            <if test="showLink != null and showLink != ''">
-                AND SHOW_LINK = #{showLink}
-            </if>
-            <if test="permission != null and permission != ''">
-                AND PERMISSION = #{permission}
-            </if>
-            <if test="seq != null">
-                AND SEQ = #{seq}
-            </if>
             <if test="routerName != null and routerName != ''">
                 AND ROUTER_NAME = #{routerName}
             </if>
             <if test="routerPath != null and routerPath != ''">
                 AND ROUTER_PATH = #{routerPath}
             </if>
-            <if test="iframe != null and iframe != ''">
-                AND IFRAME = #{iframe}
+            <if test="componentPath != null and componentPath != ''">
+                AND COMPONENT_PATH = #{componentPath}
+            </if>
+            <if test="seq != null">
+                AND SEQ = #{seq}
+            </if>
+            <if test="redirect != null and redirect != ''">
+                AND REDIRECT = #{redirect}
+            </if>
+            <if test="icon != null and icon != ''">
+                AND ICON = #{icon}
+            </if>
+            <if test="extraIcon != null and extraIcon != ''">
+                AND EXTRA_ICON = #{extraIcon}
+            </if>
+            <if test="enterTransition != null and enterTransition != ''">
+                AND ENTER_TRANSITION = #{enterTransition}
+            </if>
+            <if test="leaveTransition != null and leaveTransition != ''">
+                AND LEAVE_TRANSITION = #{leaveTransition}
+            </if>
+            <if test="activePath != null and activePath != ''">
+                AND ACTIVE_PATH = #{activePath}
+            </if>
+            <if test="permission != null and permission != ''">
+                AND PERMISSION = #{permission}
+            </if>
+            <if test="iframeSrc != null and iframeSrc != ''">
+                AND IFRAME_SRC = #{iframeSrc}
+            </if>
+            <if test="iframeLoading != null and iframeLoading != ''">
+                AND IFRAME_LOADING = #{iframeLoading}
+            </if>
+            <if test="keepAlive != null and keepAlive != ''">
+                AND KEEP_ALIVE = #{keepAlive}
+            </if>
+            <if test="hiddenTag != null and hiddenTag != ''">
+                AND HIDDEN_TAG = #{hiddenTag}
+            </if>
+            <if test="fixedTag != null and fixedTag != ''">
+                AND FIXED_TAG = #{fixedTag}
+            </if>
+            <if test="showLink != null and showLink != ''">
+                AND SHOW_LINK = #{showLink}
+            </if>
+            <if test="showParent != null and showParent != ''">
+                AND SHOW_PARENT = #{showParent}
             </if>
             <if test="disabled != null and disabled != ''">
                 AND DISABLED = #{disabled}
-            </if>
-            <if test="remark != null and remark != ''">
-                AND REMARK = #{remark}
             </if>
             <if test="id != null">
                 AND ID = #{id}

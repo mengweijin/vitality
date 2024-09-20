@@ -1,22 +1,22 @@
 interface FormItemProps {
   /** 菜单类型（0代表菜单、1代表iframe、2代表外链、3代表按钮）*/
-  menuType: number;
+  type: string;
   higherMenuOptions: Record<string, unknown>[];
   parentId: number;
   title: string;
-  name: string;
-  path: string;
-  component: string;
-  rank: number;
+  routerName: string;
+  routerPath: string;
+  componentPath: string;
+  seq: number;
   redirect: string;
   icon: string;
   extraIcon: string;
   enterTransition: string;
   leaveTransition: string;
   activePath: string;
-  auths: string;
-  frameSrc: string;
-  frameLoading: boolean;
+  permission: string;
+  iframeSrc: string;
+  iframeLoading: boolean;
   keepAlive: boolean;
   hiddenTag: boolean;
   fixedTag: boolean;

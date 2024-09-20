@@ -130,7 +130,7 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-    swagger-model-name: 实体类列表
+    swagger-model-name: 模型列表
     enable-footer: false
   production: false
 decorator:

@@ -31,20 +31,6 @@ export function useDept() {
       align: "left"
     },
     {
-      label: "ID",
-      prop: "id",
-      width: 180,
-      align: "left",
-      hide: true
-    },
-    {
-      label: "排序",
-      prop: "seq",
-      minWidth: 70,
-      align: "left",
-      hide: false
-    },
-    {
       label: "状态",
       prop: "disabled",
       minWidth: 70,
@@ -59,9 +45,22 @@ export function useDept() {
       )
     },
     {
+      label: "排序",
+      prop: "seq",
+      minWidth: 70,
+      hide: false
+    },
+    {
       label: "备注",
       prop: "remark",
       minWidth: 200,
+      hide: true
+    },
+    {
+      label: "ID",
+      prop: "id",
+      width: 180,
+      align: "left",
       hide: true
     },
     {

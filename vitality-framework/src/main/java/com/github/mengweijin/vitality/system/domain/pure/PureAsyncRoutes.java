@@ -26,40 +26,60 @@ public class PureAsyncRoutes implements Serializable {
 
     private Boolean success;
 
-    private List<PureAsyncRoutesData> data;
+    private List<RoutesData> data;
 
     public static PureAsyncRoutes tree(List<Menu> list, Long parentId) {
-        List<PureAsyncRoutesData> collect = list.stream().map(menu -> {
-            PureAsyncRoutesMeta meta = new PureAsyncRoutesMeta();
-            meta.setTitle(menu.getTitle());
-            meta.setIcon(menu.getIcon());
-            meta.setExtraIcon(menu.getExtraIcon());
-            meta.setShowLink(EYesNo.Y.getValue().equals(menu.getShowLink()));
-            meta.setShowParent(Boolean.TRUE);
-            meta.setRoles(null);
-            meta.setAuths(Collections.singletonList(menu.getPermission()));
-            meta.setFrameSrc(menu.getIframe());
-
-            PureAsyncRoutesData data = new PureAsyncRoutesData();
+        List<RoutesData> collect = list.stream().map(menu -> {
+            RoutesData data = new RoutesData();
             data.setId(menu.getId());
             data.setParentId(menu.getParentId());
             data.setSeq(menu.getSeq());
-            data.setPath(menu.getRouterPath());
             data.setName(menu.getRouterName());
-            data.setMeta(meta);
+            data.setPath(menu.getRouterPath());
+            data.setComponent(menu.getComponentPath());
+            data.setRedirect(menu.getRedirect());
+            data.setMeta(getMeta(menu));
             data.setChildren(null);
             return data;
         }).toList();
-        List<PureAsyncRoutesData> pureAsyncRoutesDataList = treePureAsyncRoutesData(collect, parentId);
-        return new PureAsyncRoutes(true, Optional.ofNullable(pureAsyncRoutesDataList).orElse(new ArrayList<>()));
+        List<RoutesData> routesDataList = treePureAsyncRoutesData(collect, parentId);
+        return new PureAsyncRoutes(true, Optional.ofNullable(routesDataList).orElse(new ArrayList<>()));
     }
 
-    public static List<PureAsyncRoutesData> treePureAsyncRoutesData(List<PureAsyncRoutesData> list, Long parentId) {
-        Map<Long, List<PureAsyncRoutesData>> collect = list.stream().collect(Collectors.groupingBy(PureAsyncRoutesData::getParentId));
-        for (PureAsyncRoutesData node : list) {
-            List<PureAsyncRoutesData> children = collect.get(node.getId());
+    private static RoutesMeta getMeta(Menu menu) {
+        RoutesMeta meta = new RoutesMeta();
+        meta.setTitle(menu.getTitle());
+        meta.setIcon(menu.getIcon());
+        meta.setExtraIcon(menu.getExtraIcon());
+        meta.setShowLink(EYesNo.Y.getValue().equals(menu.getShowLink()));
+        meta.setShowParent(EYesNo.Y.getValue().equals(menu.getShowParent()));
+        meta.setRoles(null);
+        meta.setAuths(Collections.singletonList(menu.getPermission()));
+        meta.setKeepAlive(EYesNo.Y.getValue().equals(menu.getKeepAlive()));
+        meta.setFrameSrc(menu.getIframeSrc());
+        meta.setFrameLoading(EYesNo.Y.getValue().equals(menu.getIframeLoading()));
+        meta.setTransition(getTransition(menu));
+        meta.setHiddenTag(EYesNo.Y.getValue().equals(menu.getHiddenTag()));
+        meta.setFixedTag(EYesNo.Y.getValue().equals(menu.getFixedTag()));
+        meta.setDynamicLevel(null);
+        meta.setActivePath(menu.getActivePath());
+        return meta;
+    }
+
+    private static Transition getTransition(Menu menu) {
+        Transition transition = new Transition();
+        transition.setName(null);
+        transition.setEnterTransition(menu.getEnterTransition());
+        transition.setLeaveTransition(menu.getLeaveTransition());
+        return transition;
+    }
+
+    public static List<RoutesData> treePureAsyncRoutesData(List<RoutesData> list, Long parentId) {
+        Map<Long, List<RoutesData>> collect = list.stream().collect(Collectors.groupingBy(RoutesData::getParentId));
+        for (RoutesData node : list) {
+            List<RoutesData> children = collect.get(node.getId());
             if (CollUtil.isNotEmpty(children)) {
-                children.sort(Comparator.comparingInt(PureAsyncRoutesData::getSeq));
+                children.sort(Comparator.comparingInt(RoutesData::getSeq));
                 node.setChildren(children);
             }
         }
@@ -68,7 +88,7 @@ public class PureAsyncRoutes implements Serializable {
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class PureAsyncRoutesData {
+    public static class RoutesData {
 
         private Long id;
 
@@ -82,14 +102,18 @@ public class PureAsyncRoutes implements Serializable {
         // 路由名称（必须保持唯一）
         private String name;
 
-        private PureAsyncRoutesMeta meta;
+        private String component;
 
-        private List<PureAsyncRoutesData> children;
+        private String redirect;
+
+        private RoutesMeta meta;
+
+        private List<RoutesData> children;
     }
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class PureAsyncRoutesMeta {
+    public static class RoutesMeta {
 
         private String title;
 
@@ -105,6 +129,33 @@ public class PureAsyncRoutes implements Serializable {
 
         private List<String> auths;
 
+        private Boolean keepAlive;
+
         private String frameSrc;
+
+        private Boolean frameLoading;
+
+        private Transition transition;
+
+        private Boolean hiddenTag;
+
+        private Boolean fixedTag;
+
+        private Integer dynamicLevel;
+
+        private String activePath;
+    }
+
+
+    @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class Transition {
+
+        private String name;
+
+        private String enterTransition;
+
+        private String leaveTransition;
+
     }
 }

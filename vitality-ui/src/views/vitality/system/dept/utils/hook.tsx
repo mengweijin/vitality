@@ -27,7 +27,7 @@ export function useDept() {
     {
       label: "部门名称",
       prop: "name",
-      width: 260,
+      minWidth: 260,
       align: "left"
     },
     {
@@ -53,13 +53,13 @@ export function useDept() {
     {
       label: "备注",
       prop: "remark",
-      minWidth: 200,
+      minWidth: 160,
       hide: true
     },
     {
       label: "ID",
       prop: "id",
-      width: 180,
+      minWidth: 180,
       align: "left",
       hide: true
     },

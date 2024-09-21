@@ -47,12 +47,12 @@ export function useMenu() {
           <span>{transformI18n(row.title)}</span>
         </>
       ),
-      width: 240
+      minWidth: 200
     },
     {
       label: "菜单类型",
       prop: "type",
-      width: 100,
+      minWidth: 100,
       cellRenderer: ({ row, props }) => (
         <el-tag size={props.size} type={getMenuType(row.type)} effect="dark">
           {getMenuType(row.type, true)}
@@ -60,9 +60,10 @@ export function useMenu() {
       )
     },
     {
-      label: "路由（组件）路径",
+      label: "路由路径",
       prop: "routerPath",
-      align: "left"
+      align: "left",
+      minWidth: 160
     },
     // {
     //   label: "组件路径",
@@ -74,13 +75,13 @@ export function useMenu() {
       label: "权限标识",
       prop: "permission",
       align: "left",
-      width: 200
+      minWidth: 200
     },
     {
       label: "隐藏",
       prop: "showLink",
       formatter: ({ showLink }) => (showLink === "Y" ? "否" : "是"),
-      width: 60
+      minWidth: 60
     },
     {
       label: "状态",
@@ -99,13 +100,7 @@ export function useMenu() {
     {
       label: "排序",
       prop: "seq",
-      width: 60
-    },
-    {
-      label: "备注",
-      prop: "remark",
-      minWidth: 200,
-      hide: true
+      minWidth: 60
     },
     {
       label: "创建者",
@@ -208,7 +203,7 @@ export function useMenu() {
           showParent: row?.showParent ?? false
         }
       },
-      width: "45%",
+      width: "55%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,

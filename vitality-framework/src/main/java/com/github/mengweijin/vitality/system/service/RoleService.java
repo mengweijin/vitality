@@ -37,10 +37,10 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public IPage<Role> page(IPage<Role> page, Role role){
         LambdaQueryWrapper<Role> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(role.getName()), Role::getName, role.getName())
                 .eq(StrUtil.isNotBlank(role.getCode()), Role::getCode, role.getCode())
                 .eq(!Objects.isNull(role.getSeq()), Role::getSeq, role.getSeq())
                 .eq(StrUtil.isNotBlank(role.getDisabled()), Role::getDisabled, role.getDisabled())
+                .like(StrUtil.isNotBlank(role.getName()), Role::getName, role.getName())
                 .eq(StrUtil.isNotBlank(role.getRemark()), Role::getRemark, role.getRemark())
                 .eq(!Objects.isNull(role.getId()), Role::getId, role.getId())
                 .eq(!Objects.isNull(role.getCreateBy()), Role::getCreateBy, role.getCreateBy())

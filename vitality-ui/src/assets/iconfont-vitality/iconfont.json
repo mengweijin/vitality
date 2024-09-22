@@ -1,0 +1,72 @@
+{
+  "id": "4691238",
+  "name": "vitality",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-vitality-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "9464458",
+      "name": "gitee",
+      "font_class": "gitee",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "6360070",
+      "name": "支付平台-支付宝",
+      "font_class": "alipay",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "7158878",
+      "name": "微信门店",
+      "font_class": "wechart",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "9186714",
+      "name": "QQ",
+      "font_class": "qq",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "12088891",
+      "name": "Mail",
+      "font_class": "mail",
+      "unicode": "e999",
+      "unicode_decimal": 59801
+    },
+    {
+      "icon_id": "19097249",
+      "name": "csdn",
+      "font_class": "csdn",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "40578055",
+      "name": "gitee-copy",
+      "font_class": "gitee-color",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "12508518",
+      "name": "fire",
+      "font_class": "fire",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "20419552",
+      "name": "new",
+      "font_class": "new",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    }
+  ]
+}

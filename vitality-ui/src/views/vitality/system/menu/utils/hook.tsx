@@ -60,22 +60,38 @@ export function useMenu() {
       )
     },
     {
+      label: "路由名称",
+      prop: "routerName",
+      align: "left",
+      minWidth: 180
+    },
+    {
       label: "路由路径",
       prop: "routerPath",
       align: "left",
-      minWidth: 160
+      minWidth: 180
     },
-    // {
-    //   label: "组件路径",
-    //   prop: "component",
-    //   formatter: ({ path, component }) =>
-    //     isAllEmpty(component) ? path : component
-    // },
+    {
+      label: "组件路径",
+      prop: "componentPath",
+      formatter: ({ routerPath, componentPath }) => {
+        return isAllEmpty(componentPath) ? routerPath : componentPath;
+      },
+      minWidth: 180,
+      hide: true
+    },
     {
       label: "权限标识",
       prop: "permission",
       align: "left",
       minWidth: 200
+    },
+    {
+      label: "内嵌页面地址",
+      prop: "iframeSrc",
+      align: "left",
+      minWidth: 180,
+      hide: true
     },
     {
       label: "隐藏",

@@ -23,6 +23,8 @@ import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
+import "./assets/iconfont-vitality/iconfont.js";
+import "./assets/iconfont-vitality/iconfont.css";
 
 const app = createApp(App);
 

@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     hiddenTag: false,
     fixedTag: false,
     showLink: true,
-    showParent: false
+    showParent: true
   })
 });
 

@@ -3,7 +3,6 @@ package com.github.mengweijin.vitality.monitor.domain.vo;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -15,7 +14,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 public class LogOperationVO extends LogOperation {
 
 }

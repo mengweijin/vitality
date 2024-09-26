@@ -18,30 +18,8 @@ import {
 } from "./utils/enums";
 
 const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    type: "MENU",
-    higherMenuOptions: [],
-    parentId: 0,
-    title: "",
-    routerName: "",
-    routerPath: "",
-    componentPath: "",
-    seq: 99,
-    redirect: "",
-    icon: "",
-    extraIcon: "",
-    enterTransition: "",
-    leaveTransition: "",
-    activePath: "",
-    permission: "",
-    iframeSrc: "",
-    iframeLoading: true,
-    keepAlive: false,
-    hiddenTag: false,
-    fixedTag: false,
-    showLink: true,
-    showParent: true
-  })
+  formInline: () => ({}),
+  higherMenuOptions: () => []
 });
 
 const ruleFormRef = ref();
@@ -78,7 +56,7 @@ defineExpose({ getRef });
           <el-cascader
             v-model="newFormInline.parentId"
             class="w-full"
-            :options="newFormInline.higherMenuOptions"
+            :options="higherMenuOptions"
             :props="{
               value: 'id',
               label: 'title',
@@ -87,8 +65,7 @@ defineExpose({ getRef });
             }"
             clearable
             filterable
-            disabled
-            placeholder=" "
+            placeholder="请选择上级菜单"
           >
             <template #default="{ node, data }">
               <span>{{ transformI18n(data.title) }}</span>

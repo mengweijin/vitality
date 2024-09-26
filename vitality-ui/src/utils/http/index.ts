@@ -114,6 +114,14 @@ class PureHttp {
           PureHttp.initConfig.beforeResponseCallback(response);
           return response.data;
         }
+        if (
+          response.config.method === "post" &&
+          response.config.url !== "/login"
+        ) {
+          message(transformI18n($t("http.pureSuccess")), {
+            type: "success"
+          });
+        }
         return response.data;
       },
       (error: PureHttpError) => {
@@ -125,21 +133,25 @@ class PureHttp {
         const r: R = error.response.data;
         switch (status) {
           case 400:
+            console.error(r);
             message(r?.msg, { type: "error", showClose: true, duration: 8000 });
             break;
           case 401:
             useUserStoreHook().logOut();
             break;
           case 403:
+            console.error(r);
             message(transformI18n($t("http.pureNoPermission")), {
               type: "warning"
             });
             break;
           case 404:
+            console.error(r);
             message(transformI18n($t("http.pureNotFound")), {
               type: "error"
             });
           default:
+            console.error(r);
             message(transformI18n($t("http.pureUnknownError")), {
               type: "error"
             });

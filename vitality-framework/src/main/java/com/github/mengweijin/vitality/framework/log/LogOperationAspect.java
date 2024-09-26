@@ -2,6 +2,8 @@ package com.github.mengweijin.vitality.framework.log;
 
 import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
+import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
+import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
 import com.github.mengweijin.vitality.monitor.service.LogOperationService;
@@ -21,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 /**
@@ -40,7 +44,11 @@ import java.util.function.Consumer;
 @SuppressWarnings({"unused"})
 public class LogOperationAspect {
 
-    private final ThreadLocal<LogOperation> threadLocal = new ThreadLocal<>();
+    private final ThreadLocal<HttpServletRequest> threadLocal = new ThreadLocal<>();
+
+    private static final String[] WHITE_URL = new String[] { "/login", "/logout" };
+
+    private static final String[] SENSITIVE_KEY = new String[] { "password", "oldPassword", "newPassword", "confirmPassword" };
 
     @Autowired
     private LogOperationService operationLogService;
@@ -59,40 +67,8 @@ public class LogOperationAspect {
 
     @Before("pointCut()")
     public void before(JoinPoint joinPoint){
-        try {
-            HttpServletRequest request = ServletUtils.getRequest();
-            UserAgent userAgent = ServletUtils.getUserAgent(request);
-            String requestMethod = request.getMethod();
-            String uri = request.getRequestURI();
-            if(!HttpMethod.GET.name().equals(requestMethod) && !"/login".equals(uri) && !"/logout".equals(uri)) {
-                LogOperation operationLog = new LogOperation();
-                operationLog.setUrl(uri);
-
-                // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
-                Map<String, String[]> parameterMap = request.getParameterMap();
-                if (parameterMap != null && !parameterMap.isEmpty()) {
-                    operationLog.setRequestArgs(P.writeValueAsString(parameterMap));
-                }
-
-                // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
-                // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
-                // 此时就造成日志这里因为读取不到流数据而报错。
-                // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
-                if (request instanceof RepeatedlyRequestWrapper repeatedlyRequest) {
-                    String body = IoUtil.read(repeatedlyRequest.getInputStream(), StandardCharsets.UTF_8);
-                    operationLog.setRequestBody(body);
-                }
-
-                operationLog.setHttpMethod(requestMethod);
-                operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
-
-                operationLog.setSuccess(EYesNo.Y.getValue());
-
-                threadLocal.set(operationLog);
-            }
-        } catch (Exception e){
-            log.error("An exception has occurred to record the Controller logs in the LogAspect!", e);
-        }
+        HttpServletRequest request = ServletUtils.getRequest();
+        threadLocal.set(request);
     }
 
     /**
@@ -101,7 +77,7 @@ public class LogOperationAspect {
      */
     @AfterReturning(pointcut = "pointCut()", returning = "object")
     public void afterReturning(JoinPoint joinPoint, Object object) {
-        recordLog(null);
+        asyncRecordLog(threadLocal.get(), LoginHelper.getLoginUserIdQuietly(), joinPoint, null);
     }
 
     /**
@@ -112,27 +88,59 @@ public class LogOperationAspect {
      */
     @AfterThrowing(value = "pointCut()", throwing = "e")
     public void afterThrowing(JoinPoint joinPoint, Exception e) {
-        recordLog(e);
+        asyncRecordLog(threadLocal.get(), LoginHelper.getLoginUserIdQuietly(), joinPoint, e);
+    }
+
+    private void asyncRecordLog(HttpServletRequest request, Long loginUserId, JoinPoint joinPoint, final Exception e) {
+        CompletableFuture.runAsync(() -> this.recordLog(request, loginUserId, joinPoint, e), ThreadPools.OPERATION_LOG_EXECUTOR_SERVICE);
     }
 
     /**
      * 记录日志
      * @param e 异常
      */
-    private void recordLog(final Exception e) {
-        LogOperation operationLog = threadLocal.get();
-        if(operationLog == null) {
-            return;
-        }
-
+    private void recordLog(HttpServletRequest request, Long loginUserId, JoinPoint joinPoint, final Exception e) {
         try {
+            UserAgent userAgent = ServletUtils.getUserAgent(request);
+            String requestMethod = request.getMethod();
+            String uri = request.getRequestURI();
+            if(HttpMethod.GET.name().equals(requestMethod)) {
+                return;
+            }
+            if(Arrays.asList(WHITE_URL).contains(uri)) {
+                return;
+            }
+
+            LogOperation operationLog = new LogOperation();
+            operationLog.setUrl(uri);
+
+            // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            if (parameterMap != null && !parameterMap.isEmpty()) {
+                operationLog.setRequestArgs(P.writeValueAsString(parameterMap));
+            }
+
+            // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
+            // 在 SpringMVC 中，会先解析 @RequestBody 注释的参数，而触发 requestBody 数据的流读取。
+            // 此时就造成日志这里因为读取不到流数据而报错。
+            // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
+            if (request instanceof RepeatedlyRequestWrapper repeatedlyRequest) {
+                String body = IoUtil.read(repeatedlyRequest.getInputStream(), StandardCharsets.UTF_8);
+                operationLog.setRequestBody(body);
+            }
+
+            operationLog.setHttpMethod(requestMethod);
+            operationLog.setMethodName(joinPoint.getTarget().getClass().getName() + ":" + joinPoint.getSignature().getName());
+
             operationLog.setSuccess(e == null ? EYesNo.Y.getValue() : EYesNo.N.getValue());
             if(e != null) {
                 operationLog.setErrorMsg(StrUtil.subByLength(e.getMessage(), 0, 500));
             }
+            operationLog.setCreateBy(loginUserId);
+            operationLog.setUpdateBy(loginUserId);
             consumer.accept(operationLog);
             operationLogService.save(operationLog);
-        } catch (Exception ex) {
+        } catch (Exception ex){
             log.error("An exception has occurred to record the Controller logs in the LogAspect!", ex);
         } finally {
             threadLocal.remove();

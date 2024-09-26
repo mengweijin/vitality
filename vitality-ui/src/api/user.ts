@@ -1,4 +1,6 @@
 import { http } from "@/utils/http";
+import { message } from "@/utils/message";
+import { $t, transformI18n } from "@/plugins/i18n";
 
 export type UserResult = {
   success: boolean;
@@ -75,7 +77,13 @@ export const getLogin = (data?: object) => {
 
 /** 后端登出 */
 export const logout = () => {
-  return http.request<any>("post", "/logout");
+  return http.request<any>("post", "/logout", null, {
+    beforeResponseCallback: () => {
+      message(transformI18n($t("http.pureLogoutSuccess")), {
+        type: "success"
+      });
+    }
+  });
 };
 
 /** 刷新`token` */

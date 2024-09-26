@@ -140,4 +140,8 @@ public interface Const {
      */
     String ALL_PERMISSIONS = "*:*:*";
 
+    /**
+     * Java虚拟机可用的CPU处理器个数
+     */
+    int PROCESSORS = Runtime.getRuntime().availableProcessors();
 }

@@ -3,7 +3,7 @@ import type { FormItemProps } from "@/views/vitality/system/role/utils/types";
 
 /** 查询 */
 export const getRolePage = (data: any) => {
-  return http.get<any, any>("/system/role/page", { params: data });
+  return http.get<Page, any>("/system/role/page", { params: data });
 };
 
 export const getRoleMenu = () => {

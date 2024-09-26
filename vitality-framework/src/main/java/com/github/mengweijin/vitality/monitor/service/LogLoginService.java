@@ -3,15 +3,20 @@ package com.github.mengweijin.vitality.monitor.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import com.github.mengweijin.vitality.framework.util.Ip2regionUtils;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogLogin;
 import com.github.mengweijin.vitality.monitor.mapper.LogLoginMapper;
+import com.github.mengweijin.vitality.system.domain.entity.User;
 import com.github.mengweijin.vitality.system.enums.ELoginType;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
+import com.github.mengweijin.vitality.system.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.extra.spring.SpringUtil;
 import org.dromara.hutool.http.useragent.UserAgent;
 import org.dromara.hutool.http.useragent.UserAgentInfo;
 import org.springframework.stereotype.Service;
@@ -31,7 +36,10 @@ import java.util.concurrent.CompletableFuture;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
+
+    private UserService userService;
 
     /**
      * Custom paging query
@@ -61,20 +69,32 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
 
     public void addLoginLogAsync(String username, String token, ELoginType loginType, String errorMsg, HttpServletRequest request){
         CompletableFuture.runAsync(() -> {
-            UserAgent userAgent = ServletUtils.getUserAgent(request);
-            String ip = ServletUtils.getClientIP(request);
             LogLogin logLogin = new LogLogin();
+            if(request != null) {
+                UserAgent userAgent = ServletUtils.getUserAgent(request);
+                String ip = ServletUtils.getClientIP(request);
+                logLogin.setIp(ip);
+                logLogin.setIpLocation(Ip2regionUtils.search(ip));
+                logLogin.setBrowser(Optional.ofNullable(userAgent).map(UserAgent::getBrowser).map(UserAgentInfo::getName).orElse(null));
+                logLogin.setPlatform(Optional.ofNullable(userAgent).map(UserAgent::getPlatform).map(UserAgentInfo::getName).orElse(null));
+                logLogin.setOs(Optional.ofNullable(userAgent).map(UserAgent::getOs).map(UserAgentInfo::getName).orElse(null));
+            }
             logLogin.setUsername(username);
             logLogin.setToken(token);
             logLogin.setLoginType(loginType.getValue());
-            logLogin.setIp(ip);
-            logLogin.setIpLocation(Ip2regionUtils.search(ip));
-            logLogin.setBrowser(Optional.ofNullable(userAgent).map(UserAgent::getBrowser).map(UserAgentInfo::getName).orElse(null));
-            logLogin.setPlatform(Optional.ofNullable(userAgent).map(UserAgent::getPlatform).map(UserAgentInfo::getName).orElse(null));
-            logLogin.setOs(Optional.ofNullable(userAgent).map(UserAgent::getOs).map(UserAgentInfo::getName).orElse(null));
             logLogin.setSuccess(StrUtil.isBlank(errorMsg) ? EYesNo.Y.getValue() : EYesNo.N.getValue());
             logLogin.setErrorMsg(errorMsg);
-            this.save(logLogin);
+
+            User user = userService.getByUsername(username);
+            Long userId = Optional.ofNullable(user).map(User::getId).orElse(null);
+            logLogin.setCreateBy(userId);
+            logLogin.setUpdateBy(userId);
+
+            SpringUtil.getBean(LogLoginService.class).save(logLogin);
+        }, ThreadPools.LOGIN_LOG_EXECUTOR_SERVICE)
+        .exceptionally(e -> {
+            log.error(e.getMessage(), e);
+            return null;
         });
     }
 }

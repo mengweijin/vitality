@@ -26,7 +26,6 @@
         <result column="FIXED_TAG" property="fixedTag"/>
         <result column="SHOW_LINK" property="showLink"/>
         <result column="SHOW_PARENT" property="showParent"/>
-        <result column="DISABLED" property="disabled" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -56,7 +55,6 @@
         FIXED_TAG,
         SHOW_LINK,
         SHOW_PARENT,
-        DISABLED,
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -130,9 +128,6 @@
             <if test="showParent != null and showParent != ''">
                 AND SHOW_PARENT = #{showParent}
             </if>
-            <if test="disabled != null and disabled != ''">
-                AND DISABLED = #{disabled}
-            </if>
             <if test="id != null">
                 AND ID = #{id}
             </if>
@@ -154,7 +149,6 @@
     <select id="selectPermissionListByUsername" resultType="java.lang.String">
         select distinct m.PERMISSION from VTL_MENU m
         INNER JOIN VTL_ROLE_MENU rm on rm.MENU_ID = m.ID
-        WHERE m.DISABLED = 'N'
         AND rm.ROLE_ID IN (
             SELECT ur.ROLE_ID FROM VTL_USER_ROLE ur
             INNER JOIN VTL_USER u ON u.ID = ur.USER_ID

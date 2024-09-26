@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.cache.CacheManagerFactory;
+import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class SseService {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e);
             }
-        });
+        }, ThreadPools.SSE_EXECUTOR_SERVICE);
     }
 
     /**

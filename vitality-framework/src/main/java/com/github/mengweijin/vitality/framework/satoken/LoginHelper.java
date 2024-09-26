@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -29,6 +30,18 @@ public class LoginHelper {
      */
     public static LoginUser getLoginUser() {
         return getLoginUser(StpUtil.getTokenSession());
+    }
+
+    public static LoginUser getLoginUserQuietly() {
+        try {
+            return getLoginUser();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Long getLoginUserIdQuietly() {
+        return Optional.ofNullable(getLoginUserQuietly()).map(LoginUser::getUserId).orElse(null);
     }
 
     /**

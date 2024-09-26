@@ -3,10 +3,11 @@ package com.github.mengweijin.vitality.system.domain.entity;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.mengweijin.vitality.framework.jackson.sensitive.ESensitiveStrategy;
+import com.github.mengweijin.vitality.framework.jackson.sensitive.Sensitive;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,7 +19,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 @TableName("VTL_USER")
 public class User extends BaseEntity {
 
@@ -41,7 +41,7 @@ public class User extends BaseEntity {
     /**
     * 身份证号
     */
-    @JsonIgnore
+    @Sensitive(strategy = ESensitiveStrategy.ID_CARD)
     private String idCard;
 
     /**
@@ -52,11 +52,13 @@ public class User extends BaseEntity {
     /**
     * 电子邮箱
     */
+    @Sensitive(strategy = ESensitiveStrategy.EMAIL)
     private String email;
 
     /**
     * 移动电话
     */
+    @Sensitive(strategy = ESensitiveStrategy.MOBILE_PHONE)
     private String mobile;
 
     /**

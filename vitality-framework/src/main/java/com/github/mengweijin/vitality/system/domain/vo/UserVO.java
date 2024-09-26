@@ -3,7 +3,6 @@ package com.github.mengweijin.vitality.system.domain.vo;
 import com.github.mengweijin.vitality.system.domain.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -15,7 +14,6 @@ import lombok.experimental.Accessors;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Accessors(chain = true)
 public class UserVO extends User {
 
 }

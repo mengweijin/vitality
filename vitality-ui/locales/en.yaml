@@ -235,6 +235,8 @@ login:
   purePassWordDifferentReg: The two passwords do not match!
   purePassWordUpdateReg: Password has been updated
 http: 
+  pureSuccess: operate successfully！
+  pureLogoutSuccess: Logout success!
   pureNoPermission: No permission to access current api!
   pureNotFound: Could not find the address to access the current api!
   pureUnknownError: An unknown exception has occurred, please feedback to the system administrator!

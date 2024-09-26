@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
-import { message } from "@/utils/message";
 import {
   getDeptList,
   createDept,
@@ -14,10 +13,7 @@ import type { FormItemProps } from "../utils/types";
 import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
 
 export function useDept() {
-  const form = reactive({
-    name: "",
-    disabled: null
-  });
+  const form = reactive<FormItemProps>({});
 
   const formRef = ref();
   const dataList = ref([]);
@@ -107,16 +103,16 @@ export function useDept() {
 
   async function onSearch() {
     loading.value = true;
-    let newData = await getDeptList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
+    let deptList = await getDeptList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
     if (!isAllEmpty(form.name)) {
       // 前端搜索部门名称
-      newData = newData.filter(item => item.name.includes(form.name));
+      deptList = deptList.filter(item => item.name.includes(form.name));
     }
     if (!isAllEmpty(form.disabled)) {
       // 前端搜索状态
-      newData = newData.filter(item => item.disabled === form.disabled);
+      deptList = deptList.filter(item => item.disabled === form.disabled);
     }
-    dataList.value = handleTree(newData); // 处理成树结构
+    dataList.value = handleTree(deptList); // 处理成树结构
     setTimeout(() => {
       loading.value = false;
     }, 500);
@@ -139,48 +135,45 @@ export function useDept() {
       title: `${title}部门`,
       props: {
         formInline: {
-          higherDeptOptions: formatHigherDeptOptions(cloneDeep(dataList.value)),
           id: row?.id ?? null,
           parentId: row?.parentId ?? "0",
           name: row?.name ?? "",
           seq: row?.seq ?? 0,
           disabled: row?.disabled ?? "N",
           remark: row?.remark ?? ""
-        }
+        },
+        higherDeptOptions: formatHigherDeptOptions(cloneDeep(dataList.value))
       },
       width: "40%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef }),
+      contentRenderer: () =>
+        h(editForm, {
+          ref: formRef,
+          formInline: null,
+          higherDeptOptions: null
+        }),
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您【${title}】了部门名称为【${curData.name}】的数据。`, {
-            type: "success"
-          });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
         FormRef.validate(valid => {
           if (valid) {
-            const submitData = cloneDeep(curData);
-            delete submitData.higherDeptOptions;
-            console.log("submitData", submitData);
             // 表单规则校验通过
             if (curData.id) {
-              updateDept(submitData).then(res => {
-                if (res.code === 200) {
-                  // 实际开发先调用修改接口，再进行下面操作
+              updateDept(curData).then(r => {
+                if (r.code === 200) {
                   chores();
                 }
               });
             } else {
-              createDept(submitData).then(res => {
-                if (res.code === 200) {
-                  // 实际开发先调用新增接口，再进行下面操作
+              createDept(curData).then(r => {
+                if (r.code === 200) {
                   chores();
                 }
               });
@@ -191,12 +184,9 @@ export function useDept() {
     });
   }
 
-  function handleDelete(row) {
-    deleteDept(row.id).then(res => {
-      if (res.code === 200) {
-        message(`您【删除】了部门名称为【${row.name}】的数据。`, {
-          type: "success"
-        });
+  function handleDelete(row: { id: String }) {
+    deleteDept(row.id).then(r => {
+      if (r.code === 200) {
         onSearch();
       }
     });

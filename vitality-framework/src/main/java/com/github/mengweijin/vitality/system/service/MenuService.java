@@ -9,7 +9,6 @@ import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
 import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.enums.EMenuType;
-import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.mapper.MenuMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +65,6 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
                 .eq(StrUtil.isNotBlank(menu.getFixedTag()), Menu::getFixedTag, menu.getFixedTag())
                 .eq(StrUtil.isNotBlank(menu.getShowLink()), Menu::getShowLink, menu.getShowLink())
                 .eq(StrUtil.isNotBlank(menu.getShowParent()), Menu::getShowParent, menu.getShowParent())
-                .eq(StrUtil.isNotBlank(menu.getDisabled()), Menu::getDisabled, menu.getDisabled())
                 .eq(!Objects.isNull(menu.getId()), Menu::getId, menu.getId())
                 .eq(!Objects.isNull(menu.getCreateBy()), Menu::getCreateBy, menu.getCreateBy())
                 .eq(!Objects.isNull(menu.getCreateTime()), Menu::getCreateTime, menu.getCreateTime())
@@ -84,7 +82,6 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
     public PureAsyncRoutes getAsyncRoutes() {
         List<Menu> list = this.lambdaQuery()
-                .eq(Menu::getDisabled, EYesNo.N.getValue())
                 .ne(Menu::getType, EMenuType.BTN.getValue())
                 .list();
         return PureAsyncRoutes.tree(list, MenuConst.ROOT_ID);

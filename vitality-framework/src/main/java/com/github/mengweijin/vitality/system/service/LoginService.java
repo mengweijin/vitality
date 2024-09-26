@@ -36,8 +36,6 @@ public class LoginService {
 
     private UserService userService;
 
-    private DeptService deptService;
-
     private RoleService roleService;
 
     private MenuService menuService;

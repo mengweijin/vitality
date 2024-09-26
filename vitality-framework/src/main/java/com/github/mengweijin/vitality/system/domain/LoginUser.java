@@ -1,7 +1,6 @@
 package com.github.mengweijin.vitality.system.domain;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -15,7 +14,6 @@ import java.util.Set;
  * @since 2023-06-03
  */
 @Data
-@Accessors(chain = true)
 public class LoginUser implements Serializable {
 
     private Long userId;

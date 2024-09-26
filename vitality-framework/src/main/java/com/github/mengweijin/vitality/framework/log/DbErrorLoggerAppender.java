@@ -11,12 +11,16 @@ import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
+import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
+import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogError;
 import com.github.mengweijin.vitality.monitor.service.LogErrorService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.reflect.ClassUtil;
+import org.dromara.hutool.core.text.StrUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +41,9 @@ import java.util.concurrent.CompletableFuture;
 public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
     private static final Class<?>[] EXCLUDE_CLASS = { NotLoginException.class };
+
+    private static final String TAB = StrUtil.fillAfter(Const.EMPTY, ' ', 4);
+
 
     private LogErrorService logErrorService;
 
@@ -61,34 +68,38 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
 
     @Override
     protected void append(ILoggingEvent loggingEvent) {
+        Long loginUserId = LoginHelper.getLoginUserIdQuietly();
         CompletableFuture.runAsync(() -> {
             try {
                 LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
                 IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-                LogError logErrorDO = new LogError();
+                LogError logError = new LogError();
                 if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
                     StackTraceElement element = loggingEvent.getCallerData()[0];
-                    logErrorDO.setClassName(element.getClassName());
-                    logErrorDO.setMethodName(element.getMethodName());
+                    logError.setClassName(element.getClassName());
+                    logError.setMethodName(element.getMethodName());
                 }
 
                 if (throwableProxy != null) {
-                    logErrorDO.setExceptionName(throwableProxy.getClassName());
-                    logErrorDO.setStackTrace(this.getStackTraceMsg(throwableProxy));
+                    logError.setExceptionName(throwableProxy.getClassName());
+                    logError.setStackTrace(this.getStackTraceMsg(throwableProxy));
                 }
-                logErrorDO.setErrorMsg(loggingEvent.getMessage());
-                logErrorDO.setCreateTime(createTime);
+                logError.setErrorMsg(loggingEvent.getMessage());
+                logError.setCreateBy(loginUserId);
+                logError.setUpdateBy(loginUserId);
+                logError.setCreateTime(createTime);
+                logError.setUpdateTime(createTime);
 
-                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(logErrorDO.getExceptionName()));
+                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(logError.getExceptionName()));
                 if(noneMatch) {
                     // 错误日志实体类写入数据库
-                    logErrorService.save(logErrorDO);
+                    logErrorService.save(logError);
                 }
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());
             }
-        });
+        }, ThreadPools.ERROR_LOG_EXECUTOR_SERVICE);
     }
 
     /**
@@ -116,14 +127,14 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
 
         for (int i = 0; i < stepArray.length - commonFrames; ++i) {
             StackTraceElementProxy step = stepArray[i];
-            stringBuilder.append("<br/>&nbsp;&nbsp;&nbsp;&nbsp;");
+            stringBuilder.append(TAB);
             stringBuilder.append(Transform.escapeTags(step.toString()));
             stringBuilder.append(CoreConstants.LINE_SEPARATOR);
         }
 
         if (commonFrames > 0) {
-            stringBuilder.append("<br/>&nbsp;&nbsp;&nbsp;&nbsp;");
-            stringBuilder.append("\t... ").append(commonFrames).append(" common frames omitted").append(CoreConstants.LINE_SEPARATOR);
+            stringBuilder.append(TAB);
+            stringBuilder.append("... ").append(commonFrames).append(" common frames omitted").append(CoreConstants.LINE_SEPARATOR);
         }
 
     }
@@ -134,9 +145,8 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
     public void printFirstLine(StringBuilder sb, IThrowableProxy tp) {
         int commonFrames = tp.getCommonFrames();
         if (commonFrames > 0) {
-            sb.append("<br/>").append("Caused by: ");
+            sb.append(CoreConstants.LINE_SEPARATOR).append("Caused by: ");
         }
-
         sb.append(tp.getClassName()).append(": ").append(Transform.escapeTags(tp.getMessage()));
         sb.append(CoreConstants.LINE_SEPARATOR);
     }

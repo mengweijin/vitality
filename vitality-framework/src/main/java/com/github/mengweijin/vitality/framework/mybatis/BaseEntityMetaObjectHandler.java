@@ -3,13 +3,11 @@ package com.github.mengweijin.vitality.framework.mybatis;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
-import com.github.mengweijin.vitality.system.domain.LoginUser;
 import org.apache.ibatis.reflection.MetaObject;
 import org.dromara.hutool.core.func.LambdaUtil;
 import org.dromara.hutool.core.func.SerFunction;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * 自动填充。
@@ -39,7 +37,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             this.strictInsertFill(metaObject, UPDATE_TIME, LocalDateTime.class, localDateTime);
 
             // session LOGIN USER
-            Long userId = this.getUserId();
+            Long userId = LoginHelper.getLoginUserIdQuietly();
             if(userId != null) {
                 this.strictInsertFill(metaObject, CREATE_BY, Long.class, userId);
                 this.strictInsertFill(metaObject, UPDATE_BY, Long.class, userId);
@@ -54,7 +52,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
             LocalDateTime localDateTime = LocalDateTime.now();
             this.strictUpdateFill(metaObject, UPDATE_TIME, LocalDateTime.class, localDateTime);
 
-            Long userId = this.getUserId();
+            Long userId = LoginHelper.getLoginUserIdQuietly();
             if(userId != null) {
                 this.strictUpdateFill(metaObject, UPDATE_BY, Long.class, userId);
             }
@@ -71,9 +69,5 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     //     metaObject.setValue(fieldName, fieldVal.get());
     //     return this;
     // }
-
-    protected Long getUserId() {
-        return Optional.ofNullable(LoginHelper.getLoginUser()).map(LoginUser::getUserId).orElse(null);
-    }
 
 }

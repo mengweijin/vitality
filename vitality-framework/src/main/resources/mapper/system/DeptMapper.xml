@@ -9,7 +9,6 @@
         <result column="NAME" property="name" />
         <result column="SEQ" property="seq" />
         <result column="DISABLED" property="disabled" />
-        <result column="DELETED" property="deleted"/>
         <result column="REMARK" property="remark" />
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
@@ -23,7 +22,6 @@
         NAME,
         SEQ,
         DISABLED,
-        DELETED,
         REMARK,
         ID,
         CREATE_BY,
@@ -46,9 +44,6 @@
             </if>
             <if test="disabled != null and disabled != ''">
                 AND DISABLED = #{disabled}
-            </if>
-            <if test="deleted != null and deleted != ''">
-                AND DELETED = #{deleted}
             </if>
             <if test="remark != null and remark != ''">
                 AND REMARK = #{remark}
@@ -77,7 +72,6 @@
             d.NAME,
             d.SEQ,
             d.DISABLED,
-        d.DELETED,
             d.REMARK,
             d.ID,
             d.CREATE_BY,

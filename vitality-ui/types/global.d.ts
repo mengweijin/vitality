@@ -217,4 +217,26 @@ declare global {
     msg?: string;
     time?: string;
   }
+
+  /**
+   * 后端 BaseEntity.java
+   */
+  interface BaseEntity {
+    createBy?: string;
+    updateBy?: string;
+    createTime?: string;
+    updateTime?: string;
+    createByName?: string;
+    updateByName?: string;
+  }
+
+  /**
+   * 后端 Page.java
+   */
+  interface Page {
+    total?: number;
+    records?: any;
+    size?: number;
+    current?: number;
+  }
 }

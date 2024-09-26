@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author mengweijin
  */
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(exposeProxy = true)
 @EnableAsync(proxyTargetClass = true)
 @EnableScheduling
 @Configuration

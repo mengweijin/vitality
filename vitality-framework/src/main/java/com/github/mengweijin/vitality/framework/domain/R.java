@@ -2,9 +2,7 @@ package com.github.mengweijin.vitality.framework.domain;
 
 import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.Data;
-import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -12,7 +10,6 @@ import java.time.LocalDateTime;
  * @author mengweijin
  */
 @Data
-@Accessors(chain = true)
 @SuppressWarnings({"unused"})
 public class R<T> implements Serializable {
 

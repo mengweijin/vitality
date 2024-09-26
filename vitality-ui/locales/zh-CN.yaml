@@ -235,6 +235,8 @@ login:
   purePassWordDifferentReg: 两次密码不一致!
   purePassWordUpdateReg: 修改密码成功
 http: 
+  pureSuccess: 操作成功！
+  pureLogoutSuccess: 登出成功！
   pureNoPermission: 没有访问当前 api 的权限!
   pureNotFound: 找不到访问当前 api 的地址！
   pureUnknownError: 发生了未知异常，请反馈给系统管理员！

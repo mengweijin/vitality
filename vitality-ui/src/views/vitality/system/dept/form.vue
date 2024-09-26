@@ -6,15 +6,8 @@ import { FormProps } from "./utils/types";
 import { usePublicHooks } from "../hooks";
 
 const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    higherDeptOptions: [],
-    id: null,
-    parentId: "0",
-    name: "",
-    seq: 0,
-    disabled: "N",
-    remark: ""
-  })
+  formInline: () => ({}),
+  higherDeptOptions: () => []
 });
 
 const ruleFormRef = ref();
@@ -41,7 +34,7 @@ defineExpose({ getRef });
           <el-cascader
             v-model="newFormInline.parentId"
             class="w-full"
-            :options="newFormInline.higherDeptOptions"
+            :options="higherDeptOptions"
             :props="{
               value: 'id',
               label: 'name',

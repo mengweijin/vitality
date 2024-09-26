@@ -1,6 +1,5 @@
 package com.github.mengweijin.vitality.framework.jackson.translation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mengweijin.vitality.framework.jackson.translation.strategy.ITranslationStrategy;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
@@ -17,9 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class TranslationFactory {
-
-    private ObjectMapper objectMapper;
+public class TranslationStrategyFactory {
 
     private List<ITranslationStrategy<?>> translationList;
 
@@ -34,12 +31,9 @@ public class TranslationFactory {
             }
             TRANSLATION_STRATEGY_MAP.put(strategy.translateType(), strategy);
         }
-
-        // 设置 Bean 序列化修改器
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new TranslationBeanSerializerModifier()));
     }
 
-    public static ITranslationStrategy<?> getTranslation(ETranslateType translateType) {
+    public static ITranslationStrategy<?> getTranslationStrategy(ETranslateType translateType) {
         return TRANSLATION_STRATEGY_MAP.get(translateType);
     }
 }

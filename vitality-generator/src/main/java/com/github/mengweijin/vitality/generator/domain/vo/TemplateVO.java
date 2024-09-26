@@ -1,8 +1,6 @@
 package com.github.mengweijin.vitality.generator.domain.vo;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
  * @since 2022/10/30
  */
 @Data
-@Accessors(chain = true)
 public class TemplateVO implements Serializable {
 
     private String id;

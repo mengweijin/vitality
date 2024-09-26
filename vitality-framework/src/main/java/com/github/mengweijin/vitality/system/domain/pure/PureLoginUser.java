@@ -3,8 +3,6 @@ package com.github.mengweijin.vitality.system.domain.pure;
 import com.github.mengweijin.vitality.system.domain.LoginUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
-
 import java.io.Serializable;
 import java.util.Set;
 
@@ -17,7 +15,6 @@ import java.util.Set;
  * @since 2023-06-03
  */
 @Data
-@Accessors(chain = true)
 @AllArgsConstructor
 public class PureLoginUser implements Serializable {
 

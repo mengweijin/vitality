@@ -11,7 +11,7 @@ public final class AopUtils {
 
     /**
      * 获取 aop 代理对象。
-     * E.g.: UserService userService = SpringUtils.getAopProxy(this);
+     * E.g.: UserService userService = AopUtils.getAopProxy(this);
      *
      * @param invoker invoker object
      * @return proxy object

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,8 +15,7 @@ import lombok.experimental.Accessors;
  * @since 2023-06-03
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 @TableName("VTL_LOG_LOGIN")
 public class LogLogin extends BaseEntity {
 
@@ -71,4 +69,5 @@ public class LogLogin extends BaseEntity {
     * 失败信息
     */
     private String errorMsg;
+
 }

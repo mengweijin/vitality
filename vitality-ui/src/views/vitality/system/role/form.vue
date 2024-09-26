@@ -5,8 +5,11 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
+    id: "",
     name: "",
     code: "",
+    seq: 99,
+    disabled: "N",
     remark: ""
   })
 });

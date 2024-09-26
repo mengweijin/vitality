@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,7 +15,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 @TableName("VTL_MENU")
 public class Menu extends BaseEntity {
 
@@ -125,8 +123,4 @@ public class Menu extends BaseEntity {
      */
     private String showParent;
 
-    /**
-     * 是否禁用。[Y, N]
-     */
-    private String disabled;
 }

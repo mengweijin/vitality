@@ -6,18 +6,19 @@ import { ElMessageBox } from "element-plus";
 import { usePublicHooks } from "../../hooks";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
-import type { FormItemProps } from "../utils/types";
+import type { FormItemProps, RoleVO } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
-import { getRolePage, getRoleMenu, getRoleMenuIds } from "@/api/system/role";
+import {
+  getRolePage,
+  updateRole,
+  getRoleMenu,
+  getRoleMenuIds
+} from "@/api/system/role";
 import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 
 export function useRole(treeRef: Ref) {
-  const form = reactive({
-    name: "",
-    code: "",
-    status: ""
-  });
+  const form = reactive<RoleVO>({});
   const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
@@ -67,32 +68,32 @@ export function useRole(treeRef: Ref) {
         <el-switch
           size={scope.props.size === "small" ? "small" : "default"}
           loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.status}
-          active-value={1}
-          inactive-value={0}
+          v-model={scope.row.disabled}
+          active-value={"N"}
+          inactive-value={"Y"}
           active-text="已启用"
           inactive-text="已停用"
           inline-prompt
           style={switchStyle.value}
-          onChange={() => onChange(scope as any)}
+          before-change={() => beforeDisabledChange(scope as any)}
         />
       ),
       minWidth: 90
     },
-    {
-      label: "状态",
-      prop: "disabled",
-      minWidth: 70,
-      cellRenderer: ({ row, props }) => (
-        <el-tag
-          size={props.size}
-          type={row.disabled === "Y" ? "danger" : "success"}
-          effect="dark"
-        >
-          {row.disabled === "Y" ? "停用" : "启用"}
-        </el-tag>
-      )
-    },
+    // {
+    //   label: "状态",
+    //   prop: "disabled",
+    //   minWidth: 70,
+    //   cellRenderer: ({ row, props }) => (
+    //     <el-tag
+    //       size={props.size}
+    //       type={row.disabled === "Y" ? "danger" : "success"}
+    //       effect="dark"
+    //     >
+    //       {row.disabled === "Y" ? "停用" : "启用"}
+    //     </el-tag>
+    //   )
+    // },
     {
       label: "排序",
       prop: "seq",
@@ -150,13 +151,13 @@ export function useRole(treeRef: Ref) {
   //   ];
   // });
 
-  function onChange({ row, index }) {
+  function beforeDisabledChange({ row, index }) {
     ElMessageBox.confirm(
-      `确认要<strong>${
-        row.status === 0 ? "停用" : "启用"
-      }</strong><strong style='color:var(--el-color-primary)'>${
+      `确认要<strong>【${
+        row.disabled === "Y" ? "启用" : "停用"
+      }】</strong><strong style='color:var(--el-color-primary)'>${
         row.name
-      }</strong>吗?`,
+      } </strong>吗?`,
       "系统提示",
       {
         confirmButtonText: "确定",
@@ -174,22 +175,25 @@ export function useRole(treeRef: Ref) {
             loading: true
           }
         );
-        setTimeout(() => {
-          switchLoadMap.value[index] = Object.assign(
-            {},
-            switchLoadMap.value[index],
-            {
-              loading: false
-            }
-          );
-          message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-            type: "success"
-          });
-        }, 300);
       })
-      .catch(() => {
-        row.status === 0 ? (row.status = 1) : (row.status = 0);
+      .then(() =>
+        updateRole({
+          id: row.id,
+          disabled: row.disabled === "Y" ? "N" : "Y"
+        } as FormItemProps).then(() => {
+          row.disabled = row.disabled === "Y" ? "N" : "Y";
+        })
+      )
+      .finally(() => {
+        switchLoadMap.value[index] = Object.assign(
+          {},
+          switchLoadMap.value[index],
+          {
+            loading: false
+          }
+        );
       });
+    return false;
   }
 
   function handleDelete(row) {
@@ -212,11 +216,9 @@ export function useRole(treeRef: Ref) {
   async function onSearch() {
     loading.value = true;
 
-    let args: any = toRaw(form);
-    args.size = pagination.pageSize;
-    args.current = pagination.currentPage;
-
-    const page = await getRolePage(args);
+    form.current = pagination.currentPage;
+    form.size = pagination.pageSize;
+    const page = await getRolePage(toRaw(form));
 
     dataList.value = page.records;
     pagination.pageSize = page.size;
@@ -249,14 +251,11 @@ export function useRole(treeRef: Ref) {
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef }),
+      contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.name}的这条数据`, {
-            type: "success"
-          });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }

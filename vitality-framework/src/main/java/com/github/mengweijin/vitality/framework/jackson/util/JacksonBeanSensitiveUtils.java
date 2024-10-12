@@ -1,14 +1,14 @@
-package com.github.mengweijin.vitality.framework.domain;
+package com.github.mengweijin.vitality.framework.jackson.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.github.mengweijin.vitality.framework.jackson.JacksonConfig;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.hutool.extra.spring.SpringUtil;
 
 import java.text.SimpleDateFormat;
 
@@ -17,12 +17,15 @@ import java.text.SimpleDateFormat;
  * @since 2022/5/17
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class P {
+public final class JacksonBeanSensitiveUtils {
 
-    public static ObjectMapper objectMapper;
+    static final String[] SENSITIVE_KEY = new String[]{"password"};
+
+    static final String HIDE_VALUE = "****************";
+
+    public static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        objectMapper = new ObjectMapper();
         //只序列化对象值不为 null 的属性
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //反序列化的时候如果多了其他属性,不抛出异常
@@ -34,13 +37,13 @@ public final class P {
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
         objectMapper.registerModule(JacksonConfig.javaTimeModule());
+
+        // 重新设置 Jackson 的 Bean 序列化修改器
+        SerializerFactory serializerFactory = objectMapper.getSerializerFactory().withSerializerModifier(new SensitiveFieldBeanSerializerModifier());
+        objectMapper.setSerializerFactory(serializerFactory);
     }
 
-    public static ObjectMapper objectMapper() {
-        return SpringUtil.getBean(ObjectMapper.class);
-    }
-
-    public static String writeValueAsStringWithoutNull(Object value) {
+    public static String writeValueAsString(Object value) {
         try {
             return objectMapper.writeValueAsString(value);
         } catch (JsonProcessingException e) {
@@ -48,11 +51,4 @@ public final class P {
         }
     }
 
-    public static String writeValueAsString(Object value) {
-        try {
-            return objectMapper().writeValueAsString(value);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

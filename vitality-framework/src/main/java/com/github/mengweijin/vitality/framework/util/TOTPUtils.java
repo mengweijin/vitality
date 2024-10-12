@@ -15,9 +15,9 @@ import java.time.Instant;
  * @author mengweijin
  * @since 2023/4/16
  */
-public final class TOTPUtil {
+public final class TOTPUtils {
 
-    private TOTPUtil() {
+    private TOTPUtils() {
     }
 
     private static final QrConfig QR_CONFIG = new QrConfig();

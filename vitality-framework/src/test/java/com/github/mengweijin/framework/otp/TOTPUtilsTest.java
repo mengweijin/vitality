@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author mengweijin
  * @since 2023/4/16
  */
-class TOTPUtilTest {
+class TOTPUtilsTest {
     /**
      * 这里仅作测试。生产环境可以取用户登录名。或者系统名称+用户登录名。
      *

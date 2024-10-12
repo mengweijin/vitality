@@ -63,7 +63,7 @@ public class MenuController {
     @SaCheckPermission("system:menu:query")
     @GetMapping("/list")
     public List<Menu> list(Menu menu) {
-        return menuService.list(new LambdaQueryWrapper<>(menu));
+        return menuService.list(new LambdaQueryWrapper<>(menu).orderByAsc(Menu::getSeq));
     }
 
     /**
@@ -77,6 +77,12 @@ public class MenuController {
     @GetMapping("/{id}")
     public Menu getById(@PathVariable("id") Long id) {
         return menuService.getById(id);
+    }
+
+    @SaCheckPermission("system:menu:query")
+    @GetMapping("/get-menu-id-by-role/{roleId}")
+    public List<Long> getMenuIdsByRoleId(@PathVariable("roleId") Long roleId) {
+        return menuService.getMenuIdsByRoleId(roleId);
     }
 
     @GetMapping("/get-async-routes")

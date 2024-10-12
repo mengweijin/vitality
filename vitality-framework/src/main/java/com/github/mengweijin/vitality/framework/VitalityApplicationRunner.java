@@ -32,7 +32,7 @@ public class VitalityApplicationRunner implements ApplicationRunner {
         log.info("-----> Product name of the database is: {}", databaseProductName);
 
         configService.list();
-        log.info("-----> Load config cache list success.");
+        log.info("-----> Load config data success.");
     }
 
     private String getDatabaseProductName() throws SQLException {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
 import com.github.mengweijin.vitality.system.service.RoleService;
 import jakarta.validation.Valid;
@@ -101,6 +102,13 @@ public class RoleController {
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Role role) {
         boolean bool = roleService.updateById(role);
+        return R.ajax(bool);
+    }
+
+    @SaCheckPermission("system:role:update")
+    @PostMapping("/set-permission")
+    public R<Void> setPermission(@Valid @RequestBody RolePermissionBO rolePermissionBO) {
+        boolean bool = roleService.setMenuPermission(rolePermissionBO);
         return R.ajax(bool);
     }
 

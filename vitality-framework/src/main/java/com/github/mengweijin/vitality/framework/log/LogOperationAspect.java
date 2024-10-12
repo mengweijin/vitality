@@ -48,8 +48,6 @@ public class LogOperationAspect {
 
     private static final String[] WHITE_URL = new String[] { "/login", "/logout" };
 
-    private static final String[] SENSITIVE_KEY = new String[] { "password", "oldPassword", "newPassword", "confirmPassword" };
-
     @Autowired
     private LogOperationService operationLogService;
 

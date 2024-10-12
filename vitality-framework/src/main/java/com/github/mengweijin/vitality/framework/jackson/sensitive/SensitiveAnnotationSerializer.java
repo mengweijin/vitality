@@ -18,7 +18,7 @@ import java.util.Objects;
  * @author mengweijin
  */
 @Slf4j
-public class SensitiveSerializer extends JsonSerializer<String> implements ContextualSerializer {
+public class SensitiveAnnotationSerializer extends JsonSerializer<String> implements ContextualSerializer {
 
     private Sensitive sensitive;
 

@@ -51,4 +51,8 @@
         </where>
     </sql>
 
+    <select id="selectMenuIdsByRoleId" resultType="java.lang.Long">
+        SELECT MENU_ID FROM VTL_ROLE_MENU WHERE ROLE_ID = #{roleId}
+    </select>
+
 </mapper>

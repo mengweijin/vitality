@@ -10,6 +10,8 @@ import com.github.mengweijin.vitality.system.domain.entity.Menu;
 import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.enums.EMenuType;
 import com.github.mengweijin.vitality.system.mapper.MenuMapper;
+import com.github.mengweijin.vitality.system.mapper.RoleMapper;
+import com.github.mengweijin.vitality.system.mapper.RoleMenuMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
@@ -33,6 +35,10 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class MenuService extends ServiceImpl<MenuMapper, Menu> {
+
+    private RoleMapper roleMapper;
+
+    private RoleMenuMapper roleMenuMapper;
 
     /**
      * Custom paging query
@@ -83,7 +89,13 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     public PureAsyncRoutes getAsyncRoutes() {
         List<Menu> list = this.lambdaQuery()
                 .ne(Menu::getType, EMenuType.BTN.getValue())
+                .orderByAsc(Menu::getSeq)
                 .list();
         return PureAsyncRoutes.tree(list, MenuConst.ROOT_ID);
     }
+
+    public List<Long> getMenuIdsByRoleId(Long roleId) {
+        return roleMenuMapper.selectMenuIdsByRoleId(roleId);
+    }
+
 }

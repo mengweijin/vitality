@@ -18,5 +18,6 @@ import java.util.Set;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     Set<String> selectPermissionListByUsername(String username);
+
 }
 

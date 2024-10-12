@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @JacksonAnnotationsInside
-@JsonSerialize(using = SensitiveSerializer.class)
+@JsonSerialize(using = SensitiveAnnotationSerializer.class)
 public @interface Sensitive {
 
     ESensitiveStrategy strategy();

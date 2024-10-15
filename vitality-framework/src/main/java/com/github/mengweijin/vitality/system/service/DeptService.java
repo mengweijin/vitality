@@ -5,13 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
+import com.github.mengweijin.vitality.framework.util.AopUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.mapper.DeptMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +30,18 @@ import java.util.Objects;
 @Slf4j
 @Service
 public class DeptService extends ServiceImpl<DeptMapper, Dept> {
+
+    @Override
+    public boolean updateById(Dept entity) {
+        AopUtils.getAopProxy(this).removeCacheOfDeptName(entity.getId());
+        return super.updateById(entity);
+    }
+
+    @Override
+    public boolean removeBatchByIds(Collection<?> list) {
+        list.forEach(id -> AopUtils.getAopProxy(this).removeCacheOfDeptName((Long) id));
+        return super.removeBatchByIds(list);
+    }
 
     /**
      * Custom paging query
@@ -62,6 +77,10 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
                 .oneOpt()
                 .map(Dept::getName)
                 .orElse(null);
+    }
+
+    @CacheEvict(value = CacheName.DEPT_ID_TO_NAME, key = "#id")
+    public void removeCacheOfDeptName(Long id) {
     }
 
     public Dept getByUserId(Long userId) {

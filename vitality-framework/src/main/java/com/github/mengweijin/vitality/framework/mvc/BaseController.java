@@ -2,14 +2,12 @@ package com.github.mengweijin.vitality.framework.mvc;
 
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 /**
  * @author Meng Wei Jin
  **/
 @Slf4j
-@Validated
 @SuppressWarnings({"unused"})
 public abstract class BaseController {
 

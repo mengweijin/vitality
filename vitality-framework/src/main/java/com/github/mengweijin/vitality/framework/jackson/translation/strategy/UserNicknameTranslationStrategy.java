@@ -26,7 +26,7 @@ public class UserNicknameTranslationStrategy implements ITranslationStrategy<Str
     @Override
     public String translation(Object value, Translation translation) {
         if (value instanceof Long id) {
-            return userService.getUserNicknameById(id);
+            return userService.getNicknameById(id);
         } else if(value instanceof String ids && StrUtil.isNotBlank(ids)) {
             return userService.getUserNicknameByIds(ids);
         }

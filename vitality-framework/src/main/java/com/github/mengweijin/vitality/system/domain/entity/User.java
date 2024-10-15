@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.mengweijin.vitality.framework.jackson.sensitive.ESensitiveStrategy;
 import com.github.mengweijin.vitality.framework.jackson.sensitive.Sensitive;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.framework.validator.annotation.BusinessCheck;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.validator.UsernameDuplicateBusinessCheckRule;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,8 +26,14 @@ import lombok.EqualsAndHashCode;
 public class User extends BaseEntity {
 
     /**
+     * 部门ID
+     */
+    private Long deptId;
+
+    /**
     * 用户登录名（字母数字下划线）
     */
+    @BusinessCheck(clazz = UsernameDuplicateBusinessCheckRule.class, groups = {Group.Create.class})
     private String username;
 
     /**
@@ -77,4 +86,9 @@ public class User extends BaseEntity {
     */
     @TableLogic
     private String deleted;
+
+    /**
+     * 备注
+     */
+    private String remark;
 }

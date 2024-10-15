@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_USER_DEPT")
-public class UserDept extends BaseEntity {
+@TableName("VTL_USER_AVATAR")
+public class UserAvatar extends BaseEntity {
 
     /**
     * 用户ID
@@ -24,7 +24,7 @@ public class UserDept extends BaseEntity {
     private Long userId;
 
     /**
-    * 部门ID
+    * 用户头像，以 Base64 文本存储的大字段。
     */
-    private Long deptId;
+    private String avatar;
 }

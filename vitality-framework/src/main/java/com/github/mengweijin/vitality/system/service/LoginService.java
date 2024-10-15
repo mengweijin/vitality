@@ -99,7 +99,7 @@ public class LoginService {
         loginUser.setUserId(user.getId());
         loginUser.setUsername(user.getUsername());
         loginUser.setNickname(user.getNickname());
-        loginUser.setProfile(userService.getProfileById(user.getId()));
+        loginUser.setAvatar(userService.getAvatarById(user.getId()));
         loginUser.setRoles(roleService.getRoleCodeByUsername(user.getUsername()));
         loginUser.setPermissions(menuService.getMenuPermissionListByLoginUsername(user.getUsername()));
         loginUser.setToken(StpUtil.getTokenValue());

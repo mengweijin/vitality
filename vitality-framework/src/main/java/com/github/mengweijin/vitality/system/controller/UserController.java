@@ -6,11 +6,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.util.BeanUtils;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
 import com.github.mengweijin.vitality.system.domain.vo.UserVO;
 import com.github.mengweijin.vitality.system.service.UserService;
-import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +35,6 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/user")
 public class UserController {
@@ -92,7 +92,7 @@ public class UserController {
      */
     @SaCheckPermission("system:user:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody User user) {
+    public R<Void> create(@Validated({Default.class, Group.Create.class}) @RequestBody User user) {
         boolean bool = userService.save(user);
         return R.ajax(bool);
     }
@@ -105,7 +105,7 @@ public class UserController {
      */
     @SaCheckPermission("system:user:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody User user) {
+    public R<Void> update(@Validated({Default.class, Group.Update.class}) @RequestBody User user) {
         boolean bool = userService.updateById(user);
         return R.ajax(bool);
     }
@@ -119,8 +119,7 @@ public class UserController {
     @SaCheckPermission("system:user:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = userService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(userService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 
@@ -133,7 +132,7 @@ public class UserController {
      */
     @SaCheckPermission("system:user:update")
     @PostMapping("/change-password")
-    public R<Void> changePassword(@Valid @RequestBody ChangePasswordBO bo) {
+    public R<Void> changePassword(@Validated @RequestBody ChangePasswordBO bo) {
         boolean bool = userService.changePassword(bo);
         return R.ajax(bool);
     }

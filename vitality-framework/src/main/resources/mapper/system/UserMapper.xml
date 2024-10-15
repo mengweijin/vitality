@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.User">
         <id column="ID" property="id" />
+        <result column="DEPT_ID" property="deptId"/>
         <result column="USERNAME" property="username" />
         <result column="NICKNAME" property="nickname" />
         <result column="PASSWORD" property="password" />
@@ -15,6 +16,7 @@
         <result column="SECRET_KEY" property="secretKey" />
         <result column="DISABLED" property="disabled" />
         <result column="DELETED" property="deleted" />
+        <result column="REMARK" property="remark"/>
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -23,6 +25,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
+        DEPT_ID,
         USERNAME,
         NICKNAME,
         PASSWORD,
@@ -33,6 +36,7 @@
         SECRET_KEY,
         DISABLED,
         DELETED,
+        REMARK,
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -43,6 +47,9 @@
     <!-- 通用查询条件 -->
     <sql id="WhereCondition">
         <where>
+            <if test="deptId != null and deptId != ''">
+                AND DEPT_ID = #{deptId}
+            </if>
             <if test="username != null and username != ''">
                 AND USERNAME = #{username}
             </if>
@@ -72,6 +79,9 @@
             </if>
             <if test="deleted != null and deleted != ''">
                 AND DELETED = #{deleted}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND REMARK = #{remark}
             </if>
             <if test="id != null">
                 AND ID = #{id}

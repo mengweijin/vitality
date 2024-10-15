@@ -1,12 +1,12 @@
 package com.github.mengweijin.vitality.system.domain.vo;
 
-import com.github.mengweijin.vitality.system.domain.entity.UserDept;
+import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * UserDept VO
+ * UserProfile VO
  * </p>
  *
  * @author mengweijin
@@ -14,6 +14,6 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserDeptVO extends UserDept {
+public class UserAvatarVO extends UserAvatar {
 
 }

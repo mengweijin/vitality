@@ -2,9 +2,9 @@
 --changeset admin:2 splitStatements:true
 
 -- 用户
-insert into VTL_USER (ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,null,'mwjwork@qq.com','18700000000',null,'N','N',1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,null,'mwjwork@qq.com','18700000000',null,'N','N',1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,null,'mwjwork@qq.com','18700000000',null,'N','N',1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'female','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,1004,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,1005,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
 
 -- 角色
 insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '管理员', 'admin', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
@@ -13,15 +13,11 @@ insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_T
 
 -- 部门
 insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1,           0,        'VTL科技',   1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001,        1,        '西安分部',   1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001001,     1001,     '财务部',     1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002,     1001,     '研发中心',   2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002001,  1001002,  '研发一部',   1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001002002,  1001002,  '研发二部',   2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001003,     1001,     '销售部',     3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002,        1,        '北京分部',   2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002002,     1002,     '研发一部',    1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002003,     1002,     '销售部',     2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1001,     1,     '财务部',     1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1002,     1,     '研发部',   2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1003,     1,     '销售部',     3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1004,     1,     'IT 运维部',   4, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DEPT (ID, PARENT_ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1005,     1,     '游击队',   5, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 
 -- 岗位
 insert into VTL_POST (ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '董事长', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());

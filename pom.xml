@@ -30,9 +30,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <mybatis-plus.version>3.5.7</mybatis-plus.version>
-        <hutool.version>6.0.0-M16</hutool.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mybatis-plus.version>3.5.8</mybatis-plus.version>
+        <hutool.version>6.0.0-M17</hutool.version>
         <resilience4j.version>2.2.0</resilience4j.version>
         <sa-token.version>1.39.0</sa-token.version>
         <oshi.version>6.6.3</oshi.version>

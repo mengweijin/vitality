@@ -31,7 +31,7 @@ public class LoginUser implements Serializable {
     /**
      * 用户图像
      */
-    private String profile;
+    private String avatar;
 
     /**
      * 用户角色

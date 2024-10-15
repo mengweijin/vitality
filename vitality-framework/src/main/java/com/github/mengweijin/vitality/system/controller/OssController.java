@@ -140,8 +140,7 @@ public class OssController {
     @SaCheckPermission("system:oss:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = ossService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(ossService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

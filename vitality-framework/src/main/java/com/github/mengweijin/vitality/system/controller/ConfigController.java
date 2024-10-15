@@ -125,8 +125,7 @@ public class ConfigController {
     @SaCheckPermission("system:config:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = configService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(configService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

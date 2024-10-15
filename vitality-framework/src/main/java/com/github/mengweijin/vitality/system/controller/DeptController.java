@@ -132,8 +132,7 @@ public class DeptController {
     @SaCheckPermission("system:dept:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = deptService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(deptService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

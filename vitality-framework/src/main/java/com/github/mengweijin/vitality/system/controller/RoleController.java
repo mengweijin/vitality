@@ -121,8 +121,7 @@ public class RoleController {
     @SaCheckPermission("system:role:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = roleService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(roleService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

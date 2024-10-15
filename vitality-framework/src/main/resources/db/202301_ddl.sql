@@ -249,6 +249,7 @@ create TABLE VTL_POST (
 drop table IF EXISTS VTL_USER;
 create TABLE VTL_USER (
   ID                            bigint NOT NULL comment '主键ID',
+  DEPT_ID                       bigint NOT NULL comment '部门ID',
   USERNAME                      varchar(64) NOT NULL comment '用户登录名（字母数字下划线）',
   NICKNAME                      varchar(64) NOT NULL comment '用户昵称',
   PASSWORD                      varchar(64) NOT NULL comment '登录密码',
@@ -256,9 +257,10 @@ create TABLE VTL_USER (
   GENDER                        varchar(6) DEFAULT NULL comment '性别。关联数据字典：user_gender',
   EMAIL                         varchar(128) DEFAULT NULL comment '电子邮箱',
   MOBILE                        varchar(15) DEFAULT NULL comment '移动电话',
-  SECRET_KEY                    varchar(16) DEFAULT NULL comment '2FA（two-factor authentication）双重身份验证密钥',
+  SECRET_KEY                    varchar(16) DEFAULT NULL comment '双重身份验证密钥（two-factor authentication）',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
   DELETED                       char(1) DEFAULT 'N' NOT NULL comment '逻辑删除。[Y, N]',
+  REMARK 	                    varchar(500) comment '备注',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
@@ -268,32 +270,18 @@ create TABLE VTL_USER (
 create unique index UNIQUE_INDEX_VTL_USER_1 on VTL_USER(USERNAME);
 
 
-drop table IF EXISTS VTL_USER_PROFILE;
-create TABLE VTL_USER_PROFILE (
+drop table IF EXISTS VTL_USER_AVATAR;
+create TABLE VTL_USER_AVATAR (
   ID                            bigint NOT NULL comment '主键ID',
   USER_ID                       bigint NOT NULL comment '用户ID',
-  PROFILE                       clob DEFAULT NULL comment '用户头像，以 Base64 文本存储的大字段。',
+  AVATAR                        clob DEFAULT NULL comment '用户头像，以 Base64 文本存储的大字段。',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (id)
 );
-create unique index UNIQUE_INDEX_VTL_USER_PROFILE_1 on VTL_USER_PROFILE(USER_ID);
-
-
-drop table IF EXISTS VTL_USER_DEPT;
-create TABLE VTL_USER_DEPT (
-  ID                            bigint NOT NULL comment '主键ID',
-  USER_ID                       bigint NOT NULL comment '用户ID',
-  DEPT_ID                       bigint NOT NULL comment '部门ID',
-  CREATE_BY                     bigint DEFAULT NULL comment '创建者',
-  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
-  UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
-  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
-);
-create unique index UNIQUE_INDEX_VTL_USER_DEPT_1 on VTL_USER_DEPT(USER_ID, DEPT_ID);
+create unique index UNIQUE_INDEX_VTL_USER_AVATAR_1 on VTL_USER_AVATAR(USER_ID);
 
 
 drop table IF EXISTS VTL_USER_POST;

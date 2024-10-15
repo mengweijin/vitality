@@ -114,8 +114,7 @@ public class NoticeController {
     @SaCheckPermission("system:notice:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = noticeService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(noticeService.removeBatchByIds(Arrays.asList(ids)));
     }
 
     @SaCheckPermission("system:notice:release")

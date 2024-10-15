@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.domain.pure;
 import com.github.mengweijin.vitality.system.domain.LoginUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class PureLoginUser implements Serializable {
 
     public static PureLoginUser success(LoginUser loginUser) {
         PureLoginUserData data = new PureLoginUserData();
-        data.setAvatar(loginUser.getProfile());
+        data.setAvatar(loginUser.getAvatar());
         data.setUsername(loginUser.getUsername());
         data.setNickname(loginUser.getNickname());
         data.setRoles(loginUser.getRoles());

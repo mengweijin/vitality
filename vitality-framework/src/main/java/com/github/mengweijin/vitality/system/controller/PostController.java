@@ -113,8 +113,7 @@ public class PostController {
     @SaCheckPermission("system:post:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = postService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(postService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

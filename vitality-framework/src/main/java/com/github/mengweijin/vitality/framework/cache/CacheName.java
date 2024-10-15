@@ -15,6 +15,8 @@ public interface CacheName {
 
     String USER_ID_TO_NICKNAME = "USER_ID_TO_NICKNAME";
 
+    String USER_ID_TO_AVATAR = "USER_ID_TO_AVATAR";
+
     String CAPTCHA = "CAPTCHA";
 
     String REPEAT_SUBMIT = "REPEAT_SUBMIT";

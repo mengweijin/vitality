@@ -125,8 +125,7 @@ public class MenuController {
     @SaCheckPermission("system:menu:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = menuService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(menuService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

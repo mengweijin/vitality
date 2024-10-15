@@ -113,8 +113,7 @@ public class MessageController {
     @SaCheckPermission("system:message:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = messageService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(messageService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

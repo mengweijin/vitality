@@ -8,9 +8,10 @@ import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.framework.util.AopUtils;
 import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
-import com.github.mengweijin.vitality.system.domain.entity.UserProfile;
+import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
 import com.github.mengweijin.vitality.system.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -39,13 +41,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService extends ServiceImpl<UserMapper, User> {
 
-    private UserProfileService userProfileService;
+    private UserAvatarService userAvatarService;
+
+    private DeptService deptService;
 
     @Override
     public boolean save(User user) {
         String hashedPwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPwd);
         return super.save(user);
+    }
+
+    @Override
+    public boolean updateById(User entity) {
+        AopUtils.getAopProxy(this).removeCacheOfUsername(entity.getId());
+        AopUtils.getAopProxy(this).removeCacheOfNickname(entity.getId());
+        AopUtils.getAopProxy(this).removeCacheOfAvatar(entity.getId());
+        return super.updateById(entity);
     }
 
     /**
@@ -55,22 +67,28 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @return IPage
      */
     public IPage<User> page(IPage<User> page, User user){
+        List<Long> deptIds = new ArrayList<>();
+        if (!Objects.isNull(user.getDeptId())) {
+            deptIds = deptService.getDeptChildrenIdsWithCurrentById(user.getDeptId());
+        }
         LambdaQueryWrapper<User> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(user.getUsername()), User::getUsername, user.getUsername())
-                .eq(StrUtil.isNotBlank(user.getNickname()), User::getNickname, user.getNickname())
                 .eq(StrUtil.isNotBlank(user.getPassword()), User::getPassword, user.getPassword())
                 .eq(StrUtil.isNotBlank(user.getIdCard()), User::getIdCard, user.getIdCard())
                 .eq(StrUtil.isNotBlank(user.getGender()), User::getGender, user.getGender())
                 .eq(StrUtil.isNotBlank(user.getEmail()), User::getEmail, user.getEmail())
-                .eq(StrUtil.isNotBlank(user.getMobile()), User::getMobile, user.getMobile())
                 .eq(StrUtil.isNotBlank(user.getSecretKey()), User::getSecretKey, user.getSecretKey())
                 .eq(StrUtil.isNotBlank(user.getDisabled()), User::getDisabled, user.getDisabled())
+                .eq(StrUtil.isNotBlank(user.getRemark()), User::getRemark, user.getRemark())
                 .eq(!Objects.isNull(user.getId()), User::getId, user.getId())
                 .eq(!Objects.isNull(user.getCreateBy()), User::getCreateBy, user.getCreateBy())
                 .eq(!Objects.isNull(user.getCreateTime()), User::getCreateTime, user.getCreateTime())
                 .eq(!Objects.isNull(user.getUpdateBy()), User::getUpdateBy, user.getUpdateBy())
-                .eq(!Objects.isNull(user.getUpdateTime()), User::getUpdateTime, user.getUpdateTime());
+                .eq(!Objects.isNull(user.getUpdateTime()), User::getUpdateTime, user.getUpdateTime())
+                .in(!Objects.isNull(user.getDeptId()), User::getDeptId, deptIds)
+                .like(StrUtil.isNotBlank(user.getUsername()), User::getUsername, user.getUsername())
+                .like(StrUtil.isNotBlank(user.getNickname()), User::getNickname, user.getNickname())
+                .like(StrUtil.isNotBlank(user.getMobile()), User::getMobile, user.getMobile());
         return this.page(page, query);
     }
 
@@ -85,7 +103,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     public String getUserNicknameByIds(String ids) {
         List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
-        return idList.stream().map(this::getUserNicknameById).collect(Collectors.joining());
+        return idList.stream().map(this::getNicknameById).collect(Collectors.joining());
     }
 
     @Cacheable(value = CacheName.USER_ID_TO_USERNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
@@ -99,7 +117,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     @Cacheable(value = CacheName.USER_ID_TO_NICKNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
-    public String getUserNicknameById(Long id) {
+    public String getNicknameById(Long id) {
         return this.lambdaQuery()
                 .select(User::getNickname)
                 .eq(User::getId, id)
@@ -108,18 +126,20 @@ public class UserService extends ServiceImpl<UserMapper, User> {
                 .orElse(null);
     }
 
+    @Cacheable(value = CacheName.USER_ID_TO_AVATAR, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getAvatarById(Long id) {
+        return userAvatarService.lambdaQuery().eq(UserAvatar::getUserId, id).oneOpt()
+                .map(UserAvatar::getAvatar).orElse(null);
+    }
+
     @CacheEvict(value = CacheName.USER_ID_TO_USERNAME, key = "#id")
     public void removeCacheOfUsername(Long id) {}
 
     @CacheEvict(value = CacheName.USER_ID_TO_NICKNAME, key = "#id")
     public void removeCacheOfNickname(Long id) {}
 
-    public String getProfileById(Long id) {
-        return userProfileService.lambdaQuery()
-                .eq(UserProfile::getUserId, id)
-                .oneOpt()
-                .map(UserProfile::getProfile)
-                .orElse(null);
+    @CacheEvict(value = CacheName.USER_ID_TO_AVATAR, key = "#id")
+    public void removeCacheOfAvatar(Long id) {
     }
 
 

@@ -113,8 +113,7 @@ public class DictTypeController {
     @SaCheckPermission("system:dictType:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = dictTypeService.getBaseMapper().deleteByIds(Arrays.asList(ids));
-        return R.ajax(i);
+        return R.ajax(dictTypeService.removeBatchByIds(Arrays.asList(ids)));
     }
 
 }

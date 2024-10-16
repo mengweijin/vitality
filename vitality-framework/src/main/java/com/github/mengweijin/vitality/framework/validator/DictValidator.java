@@ -27,7 +27,7 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
 
     @Override
     public void initialize(Dict parameters) {
-        code = parameters.typeCode();
+        code = parameters.code();
         validateParameters();
     }
 
@@ -36,12 +36,12 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
         if (value == null) {
             return true;
         }
-        //禁止默认消息返回
-        context.disableDefaultConstraintViolation();
 
         DictDataService dictDataService = SpringUtil.getBean(DictDataService.class);
         List<DictData> dictDataList = dictDataService.getByCode(code);
         if(CollUtil.isEmpty(dictDataList)) {
+            //禁止默认消息返回
+            context.disableDefaultConstraintViolation();
             //自定义返回消息
             context.buildConstraintViolationWithTemplate("No dict data was found by dict code=" + code).addConstraintViolation();
             return false;
@@ -49,8 +49,10 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
 
         boolean anyMatch = dictDataList.stream().map(DictData::getVal).anyMatch(item -> item.equals(value.toString()));
         if(!anyMatch) {
+            //禁止默认消息返回
+            context.disableDefaultConstraintViolation();
             String correctDictDataCode = dictDataList.stream().map(DictData::getVal).collect(Collectors.joining());
-            String message = StrUtil.format("The dict typeCode[{}] of dataCode[{}] is incorrect! The correct dataCode should be in [{}]", code, value, correctDictDataCode);
+            String message = StrUtil.format("The dict_data_code[{}] of dict_type_code[{}] is incorrect! The correct dict_data_code should be in [{}]", value, code, correctDictDataCode);
             context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;
         }
@@ -60,7 +62,7 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
 
     private void validateParameters() {
         if (StrUtil.isBlankOrUndefined(code)) {
-            throw LOG.getAnnotationDoesNotContainAParameterException(Dict.class, "typeCode");
+            throw LOG.getAnnotationDoesNotContainAParameterException(Dict.class, "code");
         }
     }
 

@@ -5,6 +5,9 @@ package com.github.mengweijin.vitality.framework.validator.group;
  */
 public interface Group {
 
+    interface Default extends jakarta.validation.groups.Default {
+    }
+
     interface Select {
     }
 

@@ -18,9 +18,9 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {DictValidator.class})
 public @interface Dict {
 
-    String message() default "Dict data Check failed!";
+    String code() default "";
 
-    String typeCode() default "";
+    String message() default "Dict data Check failed!";
 
     Class<?>[] groups() default {};
 

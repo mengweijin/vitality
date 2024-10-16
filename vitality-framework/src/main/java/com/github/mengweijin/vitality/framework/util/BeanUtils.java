@@ -14,6 +14,14 @@ public final class BeanUtils extends org.springframework.beans.BeanUtils {
 
     private BeanUtils() {}
 
+    public static <T> T copyBean(Object source, T target) {
+        if (source == null) {
+            return null;
+        }
+        copyProperties(source, target);
+        return target;
+    }
+
     public static <T> T copyBean(Object source, Class<T> cls) {
         if (source == null) {
             return null;

@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
+import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.service.RoleService;
+import com.github.mengweijin.vitality.system.service.UserRoleService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -38,6 +41,8 @@ import java.util.List;
 public class RoleController {
 
     private RoleService roleService;
+
+    private UserRoleService userRoleService;
 
     /**
      * <p>
@@ -63,7 +68,21 @@ public class RoleController {
     @SaCheckPermission("system:role:query")
     @GetMapping("/list")
     public List<Role> list(Role role) {
-        return roleService.list(new LambdaQueryWrapper<>(role));
+        return roleService.list(new LambdaQueryWrapper<>(role).eq(Role::getDisabled, EYesNo.N.getValue()));
+    }
+
+    /**
+     * <p>
+     * Get Role ids by id
+     * </p>
+     *
+     * @param userId userId
+     * @return Role
+     */
+    @SaCheckPermission("system:role:query")
+    @GetMapping("/list-role-ids-by-user-id/{userId}")
+    public Set<Long> getRoleIdsByUserId(@PathVariable("userId") Long userId) {
+        return userRoleService.getRoleIdsByUserId(userId);
     }
 
     /**

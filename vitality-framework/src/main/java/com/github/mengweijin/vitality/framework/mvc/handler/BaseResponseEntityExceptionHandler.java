@@ -56,10 +56,9 @@ public abstract class BaseResponseEntityExceptionHandler extends ResponseEntityE
         final List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         R<Void> r = R.failure(statusCode.value(), null);
         for (FieldError error : fieldErrors) {
-            r.appendMessage(error.getField() + ": " + error.getDefaultMessage() + "!");
+            r.appendMessage(error.getField() + ": " + error.getDefaultMessage());
         }
-        log.error("Error info: {}", r);
-        log.error(e.getMessage(), e);
+        log.warn("Warn info: {}", r);
         return ResponseEntity.status(statusCode).body(r);
     }
 

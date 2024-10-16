@@ -18,11 +18,11 @@ public class BusinessCheckValidator implements ConstraintValidator<BusinessCheck
 
     private static final Log LOG = LoggerFactory.make(MethodHandles.lookup());
 
-    private Class<? extends BusinessCheckValidator.BusinessCheckRule>[] clazz;
+    private Class<? extends CheckRule>[] checkRule;
 
     @Override
     public void initialize(BusinessCheck parameters) {
-        clazz = parameters.clazz();
+        checkRule = parameters.checkRule();
         validateParameters();
     }
 
@@ -31,34 +31,35 @@ public class BusinessCheckValidator implements ConstraintValidator<BusinessCheck
         if (value == null) {
             return true;
         }
-        //禁止默认消息返回
-        context.disableDefaultConstraintViolation();
+
         try {
-            for (Class<? extends BusinessCheckRule> cls : clazz) {
-                BusinessCheckRule businessCheckRule = cls.getDeclaredConstructor().newInstance();
-                boolean valid = businessCheckRule.isValid(value);
+            for (Class<? extends CheckRule> cls : checkRule) {
+                CheckRule checkRule = cls.getDeclaredConstructor().newInstance();
+                boolean valid = checkRule.isValid(value);
                 if (!valid) {
+                    //禁止默认消息返回
+                    context.disableDefaultConstraintViolation();
                     //自定义返回消息
-                    context.buildConstraintViolationWithTemplate(businessCheckRule.message()).addConstraintViolation();
+                    context.buildConstraintViolationWithTemplate(checkRule.message(value)).addConstraintViolation();
                     return false;
                 }
             }
-            return false;
+            return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     private void validateParameters() {
-        if (clazz == null || clazz.length == 0) {
-            throw LOG.getAnnotationDoesNotContainAParameterException(BusinessCheck.class, "clazz");
+        if (checkRule == null || checkRule.length == 0) {
+            throw LOG.getAnnotationDoesNotContainAParameterException(BusinessCheck.class, "checkRule");
         }
     }
 
-    public interface BusinessCheckRule {
+    public interface CheckRule {
 
         boolean isValid(CharSequence value);
 
-        String message();
+        String message(CharSequence value);
     }
 }

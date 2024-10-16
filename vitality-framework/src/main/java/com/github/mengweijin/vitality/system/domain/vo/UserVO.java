@@ -1,5 +1,7 @@
 package com.github.mengweijin.vitality.system.domain.vo;
 
+import com.github.mengweijin.vitality.framework.jackson.sensitive.ESensitiveStrategy;
+import com.github.mengweijin.vitality.framework.jackson.sensitive.Sensitive;
 import com.github.mengweijin.vitality.framework.jackson.translation.ETranslateType;
 import com.github.mengweijin.vitality.framework.jackson.translation.Translation;
 import com.github.mengweijin.vitality.system.domain.entity.User;
@@ -18,6 +20,27 @@ import lombok.EqualsAndHashCode;
 @Data
 public class UserVO extends User {
 
+    /**
+     * 身份证号
+     */
+    @Sensitive(strategy = ESensitiveStrategy.ID_CARD)
+    private String idCard;
+
+    /**
+     * 电子邮箱
+     */
+    @Sensitive(strategy = ESensitiveStrategy.EMAIL)
+    private String email;
+
+    /**
+     * 移动电话
+     */
+    @Sensitive(strategy = ESensitiveStrategy.MOBILE_PHONE)
+    private String mobile;
+
     @Translation(translateType = ETranslateType.DEPT_ID_TO_NAME, field = "deptId")
     private String deptName;
+
+    @Translation(translateType = ETranslateType.USER_ID_TO_AVATAR, field = "id")
+    private String avatar;
 }

@@ -46,7 +46,7 @@ public class LogOperationAspect {
 
     private final ThreadLocal<HttpServletRequest> threadLocal = new ThreadLocal<>();
 
-    private static final String[] WHITE_URL = new String[] { "/login", "/logout" };
+    private static final String[] WHITE_URL = new String[]{"/login", "/logout", "/system/user/set-avatar"};
 
     @Autowired
     private LogOperationService operationLogService;

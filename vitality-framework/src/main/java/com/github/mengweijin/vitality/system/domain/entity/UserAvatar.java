@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,6 +22,7 @@ public class UserAvatar extends BaseEntity {
     /**
     * 用户ID
     */
+    @NotNull
     private Long userId;
 
     /**

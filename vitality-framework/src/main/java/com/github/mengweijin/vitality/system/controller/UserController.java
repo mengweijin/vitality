@@ -5,15 +5,23 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.framework.util.BeanUtils;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
+import com.github.mengweijin.vitality.system.domain.bo.UserBO;
+import com.github.mengweijin.vitality.system.domain.bo.UserRolesBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
+import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
 import com.github.mengweijin.vitality.system.domain.vo.UserVO;
+import com.github.mengweijin.vitality.system.service.UserAvatarService;
+import com.github.mengweijin.vitality.system.service.UserRoleService;
 import com.github.mengweijin.vitality.system.service.UserService;
-import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.math.NumberUtil;
+import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +35,7 @@ import java.util.List;
 
 /**
  * <p>
- *  User Controller
+ * User Controller
  * </p>
  *
  * @author mengweijin
@@ -41,10 +49,16 @@ public class UserController {
 
     private UserService userService;
 
+    private UserAvatarService userAvatarService;
+
+    private UserRoleService userRoleService;
+
+
     /**
      * <p>
      * Get User page by User
      * </p>
+     *
      * @param page page
      * @param user {@link User}
      * @return Page<User>
@@ -60,6 +74,7 @@ public class UserController {
      * <p>
      * Get User list by User
      * </p>
+     *
      * @param user {@link User}
      * @return List<User>
      */
@@ -74,6 +89,7 @@ public class UserController {
      * <p>
      * Get User by id
      * </p>
+     *
      * @param id id
      * @return User
      */
@@ -84,16 +100,32 @@ public class UserController {
         return BeanUtils.copyBean(user, UserVO.class);
     }
 
+
+    /**
+     * <p>
+     * Get Sensitive User by id
+     * </p>
+     *
+     * @param id id
+     * @return User
+     */
+    @SaCheckPermission("system:user:querySensitive")
+    @GetMapping("/sensitive/{id}")
+    public User getSensitiveById(@PathVariable("id") Long id) {
+        return userService.getById(id);
+    }
+
     /**
      * <p>
      * Add User
      * </p>
+     *
      * @param user {@link User}
      */
     @SaCheckPermission("system:user:create")
     @PostMapping("/create")
-    public R<Void> create(@Validated({Default.class, Group.Create.class}) @RequestBody User user) {
-        boolean bool = userService.save(user);
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody UserBO user) {
+        boolean bool = userService.save(BeanUtils.copyBean(user, new User()));
         return R.ajax(bool);
     }
 
@@ -101,12 +133,13 @@ public class UserController {
      * <p>
      * Update User
      * </p>
+     *
      * @param user {@link User}
      */
     @SaCheckPermission("system:user:update")
     @PostMapping("/update")
-    public R<Void> update(@Validated({Default.class, Group.Update.class}) @RequestBody User user) {
-        boolean bool = userService.updateById(user);
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody UserBO user) {
+        boolean bool = userService.updateById(BeanUtils.copyBean(user, new User()));
         return R.ajax(bool);
     }
 
@@ -114,14 +147,19 @@ public class UserController {
      * <p>
      * Delete User by id(s), Multiple ids can be separated by commas ",".
      * </p>
+     *
      * @param ids id
      */
     @SaCheckPermission("system:user:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(userService.removeBatchByIds(Arrays.asList(ids)));
+        List<Long> list = Arrays.asList(ids);
+        boolean isAdmin = list.stream().anyMatch(id -> UserConst.ADMIN_USER_ID == NumberUtil.parseLong(StrUtil.toString(id)));
+        if (isAdmin) {
+            throw new ClientException("Can't delete admin account!");
+        }
+        return R.ajax(userService.removeBatchByIds(list));
     }
-
 
     /**
      * <p>
@@ -130,12 +168,53 @@ public class UserController {
      *
      * @param bo {@link ChangePasswordBO}
      */
-    @SaCheckPermission("system:user:update")
+    @SaCheckPermission("system:user:changePassword")
     @PostMapping("/change-password")
     public R<Void> changePassword(@Validated @RequestBody ChangePasswordBO bo) {
         boolean bool = userService.changePassword(bo);
         return R.ajax(bool);
     }
 
+    /**
+     * <p>
+     * change user password
+     * </p>
+     *
+     * @param bo {@link ChangePasswordBO}
+     */
+    @SaCheckPermission("system:user:resetPassword")
+    @PostMapping("/reset-password")
+    public R<Void> resetPassword(@Validated @RequestBody ChangePasswordBO bo) {
+        boolean bool = userService.updatePassword(bo.getUsername(), bo.getNewPassword());
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * set user avatar
+     * </p>
+     *
+     * @param userAvatar {@link UserAvatar}
+     */
+    @SaCheckPermission("system:user:setAvatar")
+    @PostMapping("/set-avatar")
+    public R<Void> setAvatar(@Validated @RequestBody UserAvatar userAvatar) {
+        boolean bool = userAvatarService.setAvatar(userAvatar);
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * set user Roles
+     * </p>
+     *
+     * @param bo {@link UserRolesBO}
+     */
+    @SaCheckPermission("system:user:setRoles")
+    @PostMapping("/set-roles")
+    public R<Void> setRoles(@Validated @RequestBody UserRolesBO bo) {
+        boolean bool = userRoleService.setUserRoles(bo);
+        return R.ajax(bool);
+    }
 }
 

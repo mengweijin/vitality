@@ -142,7 +142,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     public void removeCacheOfAvatar(Long id) {
     }
 
-
     public boolean checkPassword(String plaintext, String hashed) {
         return BCrypt.checkpw(plaintext, hashed);
     }
@@ -160,4 +159,5 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt());
         return this.lambdaUpdate().set(User::getPassword, hashedPwd).eq(User::getUsername, username).update();
     }
+
 }

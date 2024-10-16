@@ -17,6 +17,8 @@ public enum ETranslateType implements IEnum<String> {
 
     USER_ID_TO_NICKNAME("USER_ID_TO_NICKNAME"),
 
+    USER_ID_TO_AVATAR("USER_ID_TO_AVATAR"),
+
     DEPT_ID_TO_NAME("DEPT_ID_TO_NAME"),
 
     DICT_DATA_TO_LABEL("DICT_DATA_TO_LABEL");

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.util.BeanUtils;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.constant.UserConst;
@@ -14,6 +15,7 @@ import com.github.mengweijin.vitality.system.domain.bo.UserBO;
 import com.github.mengweijin.vitality.system.domain.bo.UserRolesBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
 import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
+import com.github.mengweijin.vitality.system.domain.vo.UserSensitiveVO;
 import com.github.mengweijin.vitality.system.domain.vo.UserVO;
 import com.github.mengweijin.vitality.system.service.UserAvatarService;
 import com.github.mengweijin.vitality.system.service.UserRoleService;
@@ -100,7 +102,6 @@ public class UserController {
         return BeanUtils.copyBean(user, UserVO.class);
     }
 
-
     /**
      * <p>
      * Get Sensitive User by id
@@ -109,10 +110,24 @@ public class UserController {
      * @param id id
      * @return User
      */
-    @SaCheckPermission("system:user:querySensitive")
+    @SaCheckPermission("system:user:query")
     @GetMapping("/sensitive/{id}")
     public User getSensitiveById(@PathVariable("id") Long id) {
         return userService.getById(id);
+    }
+
+    /**
+     * <p>
+     * Get mine User by id
+     * </p>
+     *
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/mine")
+    public UserSensitiveVO getMine() {
+        User user = userService.getById(LoginHelper.getLoginUser().getUserId());
+        return BeanUtils.copyBean(user, new UserSensitiveVO());
     }
 
     /**

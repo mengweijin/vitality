@@ -62,7 +62,7 @@ public class DictDataController {
     @SaCheckPermission("system:dictData:query")
     @GetMapping("/list")
     public List<DictData> list(DictData dictData) {
-        return dictDataService.list(new LambdaQueryWrapper<>(dictData));
+        return dictDataService.list(new LambdaQueryWrapper<>(dictData).orderByAsc(DictData::getSeq));
     }
 
     /**
@@ -76,6 +76,12 @@ public class DictDataController {
     @GetMapping("/{id}")
     public DictData getById(@PathVariable("id") Long id) {
         return dictDataService.getById(id);
+    }
+
+    @SaCheckPermission("system:dictData:query")
+    @GetMapping("/get-by-code/{code}")
+    public List<DictData> getByCode(@PathVariable("code") String code) {
+        return dictDataService.getByCode(code);
     }
 
     /**

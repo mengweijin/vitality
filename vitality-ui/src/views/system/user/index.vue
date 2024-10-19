@@ -4,9 +4,10 @@ import tree from "./tree.vue";
 import { useUser } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 import Upload from "@iconify-icons/ri/upload-line";
-import Role from "@iconify-icons/ri/admin-line";
+import Role from "@iconify-icons/fa-solid/users";
 import Password from "@iconify-icons/ri/lock-password-line";
 import More from "@iconify-icons/ep/more-filled";
 import Delete from "@iconify-icons/ep/delete";
@@ -35,7 +36,7 @@ const {
   deviceDetection,
   onSearch,
   resetForm,
-  onbatchDel,
+  onBatchDel,
   openDialog,
   onTreeSelect,
   handleUpdate,
@@ -68,31 +69,70 @@ const {
         :model="form"
         class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto"
       >
-        <el-form-item label="用户名称：" prop="username">
+        <el-form-item label="用户昵称：" prop="nickname">
           <el-input
-            v-model="form.username"
-            placeholder="请输入用户名称"
+            v-model="form.nickname"
+            placeholder="请输入用户昵称"
             clearable
             class="!w-[180px]"
           />
         </el-form-item>
-        <el-form-item label="手机号码：" prop="phone">
+        <el-form-item label="用户账号：" prop="username">
           <el-input
-            v-model="form.phone"
+            v-model="form.username"
+            placeholder="请输入用户账号"
+            clearable
+            class="!w-[180px]"
+          />
+        </el-form-item>
+        <el-form-item label="手机号码：" prop="mobile">
+          <el-input
+            v-model="form.mobile"
             placeholder="请输入手机号码"
             clearable
             class="!w-[180px]"
           />
         </el-form-item>
-        <el-form-item label="状态：" prop="status">
+        <el-form-item label="邮箱：" prop="email">
+          <el-input
+            v-model="form.email"
+            placeholder="请输入电子邮箱"
+            clearable
+            class="!w-[180px]"
+          />
+        </el-form-item>
+        <el-form-item label="性别：" prop="gender">
           <el-select
-            v-model="form.status"
+            v-model="form.gender"
             placeholder="请选择"
             clearable
             class="!w-[180px]"
           >
-            <el-option label="已开启" value="1" />
-            <el-option label="已关闭" value="0" />
+            <el-option
+              v-for="(item, index) in useDictStoreHook().getDicts(
+                'vtl_user_gender'
+              )"
+              :key="index"
+              :label="item.label"
+              :value="item.val"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="状态：" prop="disabled">
+          <el-select
+            v-model="form.disabled"
+            placeholder="请选择"
+            clearable
+            class="!w-[180px]"
+          >
+            <el-option
+              v-for="(item, index) in useDictStoreHook().getDicts(
+                'vtl_disabled'
+              )"
+              :key="index"
+              :label="item.label"
+              :value="item.val"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -110,11 +150,7 @@ const {
         </el-form-item>
       </el-form>
 
-      <PureTableBar
-        title="用户管理（仅演示，操作后不生效）"
-        :columns="columns"
-        @refresh="onSearch"
-      >
+      <PureTableBar title="用户管理" :columns="columns" @refresh="onSearch">
         <template #buttons>
           <el-button
             type="primary"
@@ -141,7 +177,11 @@ const {
                 取消选择
               </el-button>
             </div>
-            <el-popconfirm title="是否确认删除?" @confirm="onbatchDel">
+            <el-popconfirm
+              :width="500"
+              title="是否确认删除?"
+              @confirm="onBatchDel"
+            >
               <template #reference>
                 <el-button type="danger" text class="mr-1">
                   批量删除
@@ -171,6 +211,7 @@ const {
           >
             <template #operation="{ row }">
               <el-button
+                v-if="row.username != 'admin'"
                 class="reset-margin"
                 link
                 type="primary"
@@ -181,7 +222,9 @@ const {
                 修改
               </el-button>
               <el-popconfirm
-                :title="`是否确认删除用户编号为${row.id}的这条数据`"
+                v-if="row.username != 'admin'"
+                :width="500"
+                :title="`是否确认【删除】用户【${row.nickname} - ${row.username}】？`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>
@@ -196,7 +239,7 @@ const {
                   </el-button>
                 </template>
               </el-popconfirm>
-              <el-dropdown>
+              <el-dropdown v-if="row.username != 'admin'">
                 <el-button
                   class="ml-3 mt-[2px]"
                   link

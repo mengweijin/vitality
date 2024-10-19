@@ -1,36 +1,57 @@
 interface FormItemProps {
-  id?: number;
-  /** 用于判断是`新增`还是`修改` */
-  title: string;
-  higherDeptOptions: Record<string, unknown>[];
-  parentId: number;
-  nickname: string;
-  username: string;
-  password: string;
-  phone: string | number;
-  email: string;
-  sex: string | number;
-  status: number;
-  dept?: {
-    id?: number;
-    name?: string;
-  };
-  remark: string;
+  id?: string;
+  deptId?: string;
+  title?: string;
+  parentId?: number;
+  nickname?: string;
+  username?: string;
+  password?: string;
+  mobile?: string;
+  email?: string;
+  gender?: string;
+  disabled?: string;
+  remark?: string;
 }
 interface FormProps {
   formInline: FormItemProps;
+  higherDeptOptions?: Record<string, unknown>[];
+}
+
+interface UserVO extends FormItemProps, BaseEntity, Page {
+  deptName?: string;
+  avatar?: string;
+}
+
+interface ChangePasswordBO {
+  username?: string;
+  password?: string;
+  newPassword?: string;
+}
+
+interface UserAvatarBO {
+  userId?: string;
+  avatar?: string;
 }
 
 interface RoleFormItemProps {
-  username: string;
-  nickname: string;
-  /** 角色列表 */
-  roleOptions: any[];
+  userId?: string;
+  nickname?: string;
   /** 选中的角色列表 */
-  ids: Record<number, unknown>[];
-}
-interface RoleFormProps {
-  formInline: RoleFormItemProps;
+  roleIds?: Record<string, unknown>[];
 }
 
-export type { FormItemProps, FormProps, RoleFormItemProps, RoleFormProps };
+interface RoleFormProps {
+  formInline: RoleFormItemProps;
+  /** 角色列表 */
+  roleOptions: any[];
+}
+
+export type {
+  FormItemProps,
+  FormProps,
+  RoleFormItemProps,
+  RoleFormProps,
+  UserVO,
+  ChangePasswordBO,
+  UserAvatarBO
+};

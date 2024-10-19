@@ -83,6 +83,7 @@ menus:
   pureFive: "500"
   pureComponents: 组件
   pureDialog: 函数式弹框
+  pureDrawer: 函数式抽屉
   pureMessage: 消息提示
   pureVideo: 视频
   pureSegmented: 分段控制器
@@ -234,7 +235,7 @@ login:
   purePassWordSureReg: 请输入确认密码
   purePassWordDifferentReg: 两次密码不一致!
   purePassWordUpdateReg: 修改密码成功
-http: 
+http:
   pureSuccess: 操作成功！
   pureLogoutSuccess: 登出成功！
   pureNoPermission: 没有访问当前 api 的权限!

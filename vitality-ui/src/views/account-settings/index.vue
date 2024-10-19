@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getMine } from "@/api/user";
+import { getMine } from "@/api/system/user";
 import { useRouter } from "vue-router";
 import { ref, onBeforeMount } from "vue";
 import { ReText } from "@/components/ReText";
@@ -16,6 +16,9 @@ import ProfileIcon from "@iconify-icons/ri/user-3-line";
 import PreferencesIcon from "@iconify-icons/ri/settings-3-line";
 import SecurityLogIcon from "@iconify-icons/ri/window-line";
 import AccountManagementIcon from "@iconify-icons/ri/profile-line";
+import { UserVO } from "../system/user/utils/types";
+import { useNav } from "@/layout/hooks/useNav";
+const { userAvatar } = useNav();
 
 defineOptions({
   name: "AccountSettings"
@@ -28,11 +31,7 @@ onBeforeMount(() => {
   useDataThemeChange().dataThemeChange($storage.layout?.overallStyle);
 });
 
-const userInfo = ref({
-  avatar: "",
-  username: "",
-  nickname: ""
-});
+const userInfo = ref<UserVO>({});
 const panes = [
   {
     key: "profile",
@@ -61,8 +60,8 @@ const panes = [
 ];
 const witchPane = ref("profile");
 
-getMine().then(res => {
-  userInfo.value = res.data;
+getMine().then((res: UserVO) => {
+  userInfo.value = res;
 });
 </script>
 
@@ -84,7 +83,7 @@ getMine().then(res => {
           </div>
         </el-menu-item>
         <div class="flex items-center ml-8 mt-4 mb-4">
-          <el-avatar :size="48" :src="userInfo.avatar" />
+          <el-avatar :size="48" :src="userAvatar" />
           <div class="ml-4 flex flex-col max-w-[130px]">
             <ReText class="font-bold !self-baseline">
               {{ userInfo.nickname }}

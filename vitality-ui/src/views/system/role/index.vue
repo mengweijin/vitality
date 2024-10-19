@@ -9,6 +9,7 @@ import {
   deviceDetection,
   useResizeObserver
 } from "@pureadmin/utils";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
@@ -114,15 +115,19 @@ onMounted(() => {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="状态：" prop="status">
+      <el-form-item label="状态：" prop="disabled">
         <el-select
-          v-model="form.status"
+          v-model="form.disabled"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="已启用" value="1" />
-          <el-option label="已停用" value="0" />
+          <el-option
+            v-for="(item, index) in useDictStoreHook().getDicts('vtl_disabled')"
+            :key="index"
+            :label="item.label"
+            :value="item.val"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -147,7 +152,7 @@ onMounted(() => {
       <PureTableBar
         :class="[isShow && !deviceDetection() ? '!w-[60vw]' : 'w-full']"
         style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-        title="角色管理（仅演示，操作后不生效）"
+        title="角色管理"
         :columns="columns"
         @refresh="onSearch"
       >
@@ -194,7 +199,8 @@ onMounted(() => {
                 修改
               </el-button>
               <el-popconfirm
-                :title="`是否确认删除角色名称为${row.name}的这条数据`"
+                :width="500"
+                :title="`是否确认【删除】角色名称为【${row.name}】的数据？`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>
@@ -219,43 +225,45 @@ onMounted(() => {
               >
                 权限
               </el-button>
-              <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
+              <!-- 
+              <el-dropdown>
+                <el-button
+                  class="ml-3 mt-[2px]"
+                  link
+                  type="primary"
+                  :size="size"
+                  :icon="useRenderIcon(More)"
+                />
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item>
+                      <el-button
+                        :class="buttonClass"
+                        link
+                        type="primary"
+                        :size="size"
+                        :icon="useRenderIcon(Menu)"
+                        @click="handleMenu"
+                      >
+                        菜单权限
+                      </el-button>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <el-button
+                        :class="buttonClass"
+                        link
+                        type="primary"
+                        :size="size"
+                        :icon="useRenderIcon(Database)"
+                        @click="handleDatabase"
+                      >
+                        数据权限
+                      </el-button>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown> 
+              -->
             </template>
           </pure-table>
         </template>
@@ -311,6 +319,7 @@ onMounted(() => {
         </div>
         <el-tree-v2
           ref="treeRef"
+          node-key="id"
           show-checkbox
           :data="treeData"
           :props="treeProps"

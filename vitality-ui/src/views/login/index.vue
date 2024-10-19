@@ -34,6 +34,7 @@ import Lock from "@iconify-icons/ri/lock-fill";
 import Check from "@iconify-icons/ep/check";
 import User from "@iconify-icons/ri/user-3-fill";
 import Info from "@iconify-icons/ri/information-line";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 defineOptions({
   name: "Login"
@@ -72,6 +73,10 @@ const onLogin = async (formEl: FormInstance | undefined) => {
       useUserStoreHook()
         // .loginByUsername({ username: ruleForm.username, password: "aday.fun" })
         .loginByUsername(ruleForm)
+        .then(res => {
+          useDictStoreHook().INIT_DICTS();
+          return res;
+        })
         .then(res => {
           if (res.success) {
             // 获取后端路由

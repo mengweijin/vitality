@@ -1,8 +1,5 @@
 import { http } from "@/utils/http";
-import type {
-  FormItemProps,
-  MenuVO
-} from "@/views/vitality/system/menu/utils/types";
+import type { FormItemProps, MenuVO } from "@/views/system/menu/utils/types";
 
 /** 查询 */
 export const getMenuList = (params?: MenuVO) => {
@@ -12,6 +9,10 @@ export const getMenuList = (params?: MenuVO) => {
 /** 查询 */
 export const getMenuById = (id: String) => {
   return http.get<MenuVO, any>("/system/menu/" + id);
+};
+
+export const getMenuIdsByRoleId = (roleId: String) => {
+  return http.get<String[], any>("/system/menu/get-menu-id-by-role/" + roleId);
 };
 
 /** 创建 */

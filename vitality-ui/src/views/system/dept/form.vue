@@ -3,20 +3,11 @@ import { ref } from "vue";
 import ReCol from "@/components/ReCol";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import { usePublicHooks } from "../hooks";
+import { usePublicHooks } from "../../system/hooks";
 
 const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    higherDeptOptions: [],
-    parentId: 0,
-    name: "",
-    principal: "",
-    phone: "",
-    email: "",
-    sort: 0,
-    status: 1,
-    remark: ""
-  })
+  formInline: () => ({}),
+  higherDeptOptions: () => []
 });
 
 const ruleFormRef = ref();
@@ -43,7 +34,7 @@ defineExpose({ getRef });
           <el-cascader
             v-model="newFormInline.parentId"
             class="w-full"
-            :options="newFormInline.higherDeptOptions"
+            :options="higherDeptOptions"
             :props="{
               value: 'id',
               label: 'name',
@@ -71,39 +62,11 @@ defineExpose({ getRef });
           />
         </el-form-item>
       </re-col>
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="部门负责人">
-          <el-input
-            v-model="newFormInline.principal"
-            clearable
-            placeholder="请输入部门负责人"
-          />
-        </el-form-item>
-      </re-col>
-
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="手机号" prop="phone">
-          <el-input
-            v-model="newFormInline.phone"
-            clearable
-            placeholder="请输入手机号"
-          />
-        </el-form-item>
-      </re-col>
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="邮箱" prop="email">
-          <el-input
-            v-model="newFormInline.email"
-            clearable
-            placeholder="请输入邮箱"
-          />
-        </el-form-item>
-      </re-col>
 
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="排序">
           <el-input-number
-            v-model="newFormInline.sort"
+            v-model="newFormInline.seq"
             class="!w-full"
             :min="0"
             :max="9999"
@@ -114,10 +77,10 @@ defineExpose({ getRef });
       <re-col :value="12" :xs="24" :sm="24">
         <el-form-item label="部门状态">
           <el-switch
-            v-model="newFormInline.status"
+            v-model="newFormInline.disabled"
             inline-prompt
-            :active-value="1"
-            :inactive-value="0"
+            :active-value="'N'"
+            :inactive-value="'Y'"
             active-text="启用"
             inactive-text="停用"
             :style="switchStyle"

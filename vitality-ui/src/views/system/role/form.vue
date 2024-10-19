@@ -4,11 +4,7 @@ import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    name: "",
-    code: "",
-    remark: ""
-  })
+  formInline: () => ({})
 });
 
 const ruleFormRef = ref();
@@ -41,6 +37,16 @@ defineExpose({ getRef });
         v-model="newFormInline.code"
         clearable
         placeholder="请输入角色标识"
+      />
+    </el-form-item>
+
+    <el-form-item label="排序">
+      <el-input-number
+        v-model="newFormInline.seq"
+        class="!w-full"
+        :min="0"
+        :max="9999"
+        controls-position="right"
       />
     </el-form-item>
 

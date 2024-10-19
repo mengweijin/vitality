@@ -37,9 +37,11 @@ const TITLE = getConfig("Title");
   padding: 0 0 8px;
   font-size: 14px;
 }
+
 .a {
   text-decoration: underline;
 }
+
 .a:hover {
   color: red;
 }

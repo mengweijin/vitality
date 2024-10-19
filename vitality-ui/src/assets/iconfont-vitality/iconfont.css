@@ -1,9 +1,10 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4691238 */
-  src: url('iconfont.woff2?t=1726977227063') format('woff2'),
-       url('iconfont.woff?t=1726977227063') format('woff'),
-       url('iconfont.ttf?t=1726977227063') format('truetype'),
-       url('iconfont.svg?t=1726977227063#iconfont') format('svg');
+  src:
+    url("iconfont.woff2?t=1726977227063") format("woff2"),
+    url("iconfont.woff?t=1726977227063") format("woff"),
+    url("iconfont.ttf?t=1726977227063") format("truetype"),
+    url("iconfont.svg?t=1726977227063#iconfont") format("svg");
 }
 
 .iconfont {
@@ -49,4 +50,3 @@
 .icon-vitality-new:before {
   content: "\e686";
 }
-

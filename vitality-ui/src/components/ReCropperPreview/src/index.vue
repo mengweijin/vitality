@@ -50,7 +50,7 @@ defineExpose({ hidePopover });
             @readied="showPopover = true"
           />
           <p v-show="showPopover" class="mt-1 text-center">
-            温馨提示：右键上方裁剪区可开启功能菜单
+            提示：【右键】裁剪区可开启功能菜单
           </p>
         </div>
       </template>

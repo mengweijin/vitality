@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="UTF-8"/>
@@ -192,7 +192,10 @@
     border: 2px solid #fff;
     border-top: none;
     border-right: none;
-    transition: opacity 0.5s, top 0.5s, right 0.5s;
+    transition:
+      opacity 0.5s,
+      top 0.5s,
+      right 0.5s;
     transform: rotate(-140deg);
   }
 
@@ -203,7 +206,10 @@
 
   .js:hover span:after,
   .js:active span:after {
-    transition: opacity 0.5s, top 0.5s, right 0.5s;
+    transition:
+      opacity 0.5s,
+      top 0.5s,
+      right 0.5s;
     opacity: 1;
     border-color: #0c5;
     right: 0;
@@ -513,7 +519,8 @@
 
   .kotlin-1:hover {
     animation: halftone 1s forwards;
-    background: radial-gradient(circle, #9c89f7 0.2em, transparent 0.25em) 0 0/1.25em
+    background:
+      radial-gradient(circle, #9c89f7 0.2em, transparent 0.25em) 0 0/1.25em
         1.25em,
       radial-gradient(circle, #9c89f7 0.2em, transparent 0.25em) 6.25em 6.25em/1.25em
         1.25em;
@@ -522,7 +529,9 @@
 
   @keyframes halftone {
     100% {
-      background-size: 2.375em 2.375em, 0.1em 0.1em;
+      background-size:
+        2.375em 2.375em,
+        0.1em 0.1em;
     }
   }
 
@@ -554,8 +563,8 @@
 
   .kotlin-3:hover {
     animation: sawtooth 0.35s infinite linear;
-    background: linear-gradient(45deg, #d3f169 0.5em, transparent 0.5em) 0 0/1em
-        1em,
+    background:
+      linear-gradient(45deg, #d3f169 0.5em, transparent 0.5em) 0 0/1em 1em,
       linear-gradient(-45deg, #d3f169 0.5em, transparent 0.5em) 0 0/1em 1em;
     color: #8769f1;
   }
@@ -572,7 +581,8 @@
 
   .kotlin-4:hover {
     animation: zigzag 1s linear infinite;
-    background: linear-gradient(
+    background:
+      linear-gradient(
           135deg,
           rgba(238, 161, 99, 0.25) 0.25em,
           transparent 0.25em
@@ -600,7 +610,11 @@
 
   @keyframes zigzag {
     100% {
-      background-position: 1em 0, 1em 0, -0.75em 0, -0.75em 0;
+      background-position:
+        1em 0,
+        1em 0,
+        -0.75em 0,
+        -0.75em 0;
     }
   }
 
@@ -610,11 +624,8 @@
 
   .kotlin-5:hover {
     animation: pulse 1s ease-in infinite;
-    background: radial-gradient(
-          circle,
-          rgba(249, 135, 155, 0.25) 43%,
-          transparent 50%
-        )
+    background:
+      radial-gradient(circle, rgba(249, 135, 155, 0.25) 43%, transparent 50%)
         0 0/1em 1em,
       radial-gradient(circle, rgba(249, 135, 155, 0.25) 43%, transparent 50%)
         0.5em 0.5em/2em 2em;
@@ -623,12 +634,18 @@
 
   @keyframes pulse {
     50% {
-      background-position: 0.66em 0.66em, -0.33em -0.33em;
+      background-position:
+        0.66em 0.66em,
+        -0.33em -0.33em;
     }
 
     100% {
-      background-size: 2em 2em, 1em 1em;
-      background-position: -1.5em -1.5em, -1em -1em;
+      background-size:
+        2em 2em,
+        1em 1em;
+      background-position:
+        -1.5em -1.5em,
+        -1em -1em;
     }
   }
 
@@ -668,7 +685,9 @@
     background: #fa5555;
     border-radius: 50%;
     border: 4px solid #fa5555;
-    box-shadow: 0 0 0.7em #fff, 0 0 2em #fa5555;
+    box-shadow:
+      0 0 0.7em #fff,
+      0 0 2em #fa5555;
   }
 
   .vb:hover .dot,

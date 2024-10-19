@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useDept } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
@@ -44,15 +45,19 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="状态：" prop="status">
+      <el-form-item label="状态：" prop="disabled">
         <el-select
-          v-model="form.status"
+          v-model="form.disabled"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="启用" :value="1" />
-          <el-option label="停用" :value="0" />
+          <el-option
+            v-for="(item, index) in useDictStoreHook().getDicts('vtl_disabled')"
+            :key="index"
+            :label="item.label"
+            :value="item.val"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -71,7 +76,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="部门管理（仅演示，操作后不生效）"
+      title="部门管理"
       :columns="columns"
       :tableRef="tableRef?.getTableRef()"
       @refresh="onSearch"
@@ -127,7 +132,8 @@ const {
               新增
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除部门名称为${row.name}的这条数据`"
+              :width="500"
+              :title="`是否确认【删除】部门名称为【${row.name}】的数据？`"
               @confirm="handleDelete(row)"
             >
               <template #reference>

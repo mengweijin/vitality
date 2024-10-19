@@ -204,6 +204,7 @@ Thank you very much for your in-depth understanding of the source code and your 
 |     [QFifteen](https://github.com/QFifteen)     |   [code](https://github.com/pure-admin/vue-pure-admin/commits?author=QFifteen)   |
 |      [edgexie](https://github.com/edgexie)      |   [code](https://github.com/pure-admin/vue-pure-admin/commits?author=edgexie)    |
 |       [way-jm](https://github.com/way-jm)       |    [code](https://github.com/pure-admin/vue-pure-admin/commits?author=way-jm)    |
+|   [simple-hui](https://github.com/simple-hui)   |  [code](https://github.com/pure-admin/vue-pure-admin/commits?author=simple-hui)  |
 
 ## Git Contribution submission specification
 

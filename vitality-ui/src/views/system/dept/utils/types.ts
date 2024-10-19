@@ -1,16 +1,16 @@
 interface FormItemProps {
-  higherDeptOptions: Record<string, unknown>[];
-  parentId: number;
-  name: string;
-  principal: string;
-  phone: string | number;
-  email: string;
-  sort: number;
-  status: number;
-  remark: string;
+  id?: string;
+  parentId?: string;
+  name?: string;
+  seq?: number;
+  disabled?: string;
+  remark?: string;
 }
 interface FormProps {
   formInline: FormItemProps;
+  higherDeptOptions: Record<string, unknown>[];
 }
 
-export type { FormItemProps, FormProps };
+interface DeptVO extends FormItemProps, BaseEntity, Page {}
+
+export type { FormItemProps, FormProps, DeptVO };

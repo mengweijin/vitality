@@ -1,31 +1,29 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { formUpload } from "@/api/mock";
 import { message } from "@/utils/message";
-import { type UserInfo, getMine } from "@/api/user";
+import { type UserInfo } from "@/api/user";
+import userAvatar from "@/assets/user.jpg";
+import { getMine, setUserAvatar } from "@/api/system/user";
 import type { FormInstance, FormRules } from "element-plus";
 import ReCropperPreview from "@/components/ReCropperPreview";
 import { createFormData, deviceDetection } from "@pureadmin/utils";
 import uploadLine from "@iconify-icons/ri/upload-line";
+import { UserAvatarBO, UserVO } from "@/views/system/user/utils/types";
+import { useUserStoreHook } from "@/store/modules/user";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 defineOptions({
   name: "Profile"
 });
 
 const imgSrc = ref("");
-const cropperBlob = ref();
+const avatarInfo = ref();
 const cropRef = ref();
 const uploadRef = ref();
 const isShow = ref(false);
 const userInfoFormRef = ref<FormInstance>();
 
-const userInfos = reactive({
-  avatar: "",
-  nickname: "",
-  email: "",
-  phone: "",
-  description: ""
-});
+const userInfos = reactive<UserVO>({});
 
 const rules = reactive<FormRules<UserInfo>>({
   nickname: [{ required: true, message: "昵称必填", trigger: "blur" }]
@@ -34,6 +32,9 @@ const rules = reactive<FormRules<UserInfo>>({
 function queryEmail(queryString, callback) {
   const emailList = [
     { value: "@qq.com" },
+    { value: "@foxmail.com" },
+    { value: "@gmail.com" },
+    { value: "@aliyun.com" },
     { value: "@126.com" },
     { value: "@163.com" }
   ];
@@ -66,24 +67,24 @@ const handleClose = () => {
   isShow.value = false;
 };
 
-const onCropper = ({ blob }) => (cropperBlob.value = blob);
+// const onCropper = ({ blob }) => (avatarBlob.value = blob);
+const onCropper = (info: any) => (avatarInfo.value = info);
 
 const handleSubmitImage = () => {
-  const formData = createFormData({
-    files: new File([cropperBlob.value], "avatar")
+  // const formData = createFormData({
+  //   files: new File([cropperBlob.value], "avatar")
+  // });
+  const userAvatarBO = {
+    userId: userInfos.id,
+    avatar: avatarInfo.value.base64
+  } as UserAvatarBO;
+  setUserAvatar(userAvatarBO).then((r: R) => {
+    if (r.code == 200) {
+      userInfos.avatar = userAvatarBO.avatar;
+      useUserStoreHook().SET_AVATAR(userAvatarBO.avatar);
+      handleClose();
+    }
   });
-  formUpload(formData)
-    .then(({ success, data }) => {
-      if (success) {
-        message("更新头像成功", { type: "success" });
-        handleClose();
-      } else {
-        message("更新头像失败");
-      }
-    })
-    .catch(error => {
-      message(`提交异常 ${error}`, { type: "error" });
-    });
 };
 
 // 更新信息
@@ -99,7 +100,7 @@ const onSubmit = async (formEl: FormInstance) => {
 };
 
 getMine().then(res => {
-  Object.assign(userInfos, res.data);
+  Object.assign(userInfos, res);
 });
 </script>
 
@@ -118,7 +119,7 @@ getMine().then(res => {
       :model="userInfos"
     >
       <el-form-item label="头像">
-        <el-avatar :size="80" :src="userInfos.avatar" />
+        <el-avatar :size="80" :src="userInfos.avatar || userAvatar" />
         <el-upload
           ref="uploadRef"
           accept="image/*"
@@ -137,6 +138,24 @@ getMine().then(res => {
       <el-form-item label="昵称" prop="nickname">
         <el-input v-model="userInfos.nickname" placeholder="请输入昵称" />
       </el-form-item>
+      <el-form-item label="性别" prop="gender">
+        <el-select
+          v-model="userInfos.gender"
+          placeholder="请选择性别"
+          clearable
+          class="!w-[180px]"
+          style="width: 100% !important"
+        >
+          <el-option
+            v-for="(item, index) in useDictStoreHook().getDicts(
+              'vtl_user_gender'
+            )"
+            :key="index"
+            :label="item.label"
+            :value="item.val"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-autocomplete
           v-model="userInfos.email"
@@ -149,14 +168,14 @@ getMine().then(res => {
       </el-form-item>
       <el-form-item label="联系电话">
         <el-input
-          v-model="userInfos.phone"
+          v-model="userInfos.mobile"
           placeholder="请输入联系电话"
           clearable
         />
       </el-form-item>
       <el-form-item label="简介">
         <el-input
-          v-model="userInfos.description"
+          v-model="userInfos.remark"
           placeholder="请输入简介"
           type="textarea"
           :autosize="{ minRows: 6, maxRows: 8 }"

@@ -2,9 +2,9 @@
 --changeset admin:2 splitStatements:true
 
 -- 用户
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'female','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,1004,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,ID_CARD,GENDER,EMAIL,MOBILE,SECRET_KEY,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,1005,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'female','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,1004,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,1005,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
 
 -- 角色
 insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '管理员', 'admin', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
@@ -28,10 +28,10 @@ insert into VTL_POST (ID, NAME, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, U
 insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '停用/启用', 'vtl_disabled', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (2, '是/否', 'vtl_yes_no', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (3, '菜单类型', 'vtl_menu_type', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (4, '菜单打开方式', 'vtl_menu_open_type', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (5, '用户性别', 'vtl_user_gender', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (6, '成功/失败', 'vtl_succeeded', null, 1, current_timestamp(), 1, current_timestamp());
-insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (7, '登录类型', 'vtl_login_type', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (4, '用户性别', 'vtl_user_gender', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (5, '成功/失败', 'vtl_succeeded', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (6, '登录类型', 'vtl_login_type', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_TYPE (ID, NAME, CODE, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (7, '密码强度', 'vtl_password_level', null, 1, current_timestamp(), 1, current_timestamp());
 
 -- 字典：停用/启用
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (10001, 'vtl_disabled', 'N', '启用', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
@@ -55,6 +55,12 @@ insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_B
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (60002, 'vtl_menu_type', 'BTN', '按钮', 2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (60003, 'vtl_menu_type', 'IFRAME', '内嵌页面', 3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (60004, 'vtl_menu_type', 'URL', '外链', 4, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+-- 字典：密码强度
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (70001, 'vtl_password_level', 'EASY', '简单', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (70002, 'vtl_password_level', 'MEDIUM', '中', 2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (70003, 'vtl_password_level', 'STRONG', '强', 3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (70004, 'vtl_password_level', 'VERY_STRONG', '很强', 4, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (70005, 'vtl_password_level', 'EXTREMELY_STRONG', '非常强', 5, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 
 -- 配置
 insert into VTL_CONFIG (ID, NAME, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '用户管理-初始密码', 'vtl_user_init_password', 'aday.fun', null, 1, current_timestamp(), 1, current_timestamp());

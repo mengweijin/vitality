@@ -9,11 +9,12 @@
         <result column="USERNAME" property="username" />
         <result column="NICKNAME" property="nickname" />
         <result column="PASSWORD" property="password" />
+        <result column="PASSWORD_LEVEL" property="passwordLevel"/>
         <result column="ID_CARD" property="idCard" />
         <result column="GENDER" property="gender" />
         <result column="EMAIL" property="email" />
         <result column="MOBILE" property="mobile" />
-        <result column="SECRET_KEY" property="secretKey" />
+        <result column="TOTP" property="totp"/>
         <result column="DISABLED" property="disabled" />
         <result column="DELETED" property="deleted" />
         <result column="REMARK" property="remark"/>
@@ -29,11 +30,12 @@
         USERNAME,
         NICKNAME,
         PASSWORD,
+        PASSWORD_LEVEL,
         ID_CARD,
         GENDER,
         EMAIL,
         MOBILE,
-        SECRET_KEY,
+        TOTP,
         DISABLED,
         DELETED,
         REMARK,
@@ -56,9 +58,6 @@
             <if test="nickname != null and nickname != ''">
                 AND NICKNAME = #{nickname}
             </if>
-            <if test="password != null and password != ''">
-                AND PASSWORD = #{password}
-            </if>
             <if test="idCard != null and idCard != ''">
                 AND ID_CARD = #{idCard}
             </if>
@@ -70,9 +69,6 @@
             </if>
             <if test="mobile != null and mobile != ''">
                 AND MOBILE = #{mobile}
-            </if>
-            <if test="secretKey != null and secretKey != ''">
-                AND SECRET_KEY = #{secretKey}
             </if>
             <if test="disabled != null and disabled != ''">
                 AND DISABLED = #{disabled}

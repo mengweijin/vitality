@@ -58,7 +58,7 @@ create TABLE VTL_CONFIG (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_CONFIG_1 on VTL_CONFIG(CODE);
 create unique index UNIQUE_INDEX_VTL_CONFIG_2 on VTL_CONFIG(NAME);
@@ -74,7 +74,7 @@ create TABLE VTL_DICT_TYPE (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_DICT_TYPE_1 on VTL_DICT_TYPE(CODE);
 
@@ -92,7 +92,7 @@ create TABLE VTL_DICT_DATA (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_DICT_DATA_1 on VTL_DICT_DATA(CODE, VAL);
 
@@ -109,7 +109,7 @@ create TABLE VTL_LOG_ERROR (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -127,7 +127,7 @@ create TABLE VTL_LOG_OPERATION (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -148,7 +148,7 @@ create TABLE VTL_LOG_LOGIN (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -162,7 +162,7 @@ create TABLE VTL_OSS (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -194,7 +194,7 @@ create TABLE VTL_MENU (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -210,7 +210,7 @@ create TABLE VTL_DEPT (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -226,7 +226,7 @@ create TABLE VTL_ROLE (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_ROLE_1 on VTL_ROLE(CODE);
 
@@ -242,7 +242,7 @@ create TABLE VTL_POST (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 
 
@@ -253,11 +253,12 @@ create TABLE VTL_USER (
   USERNAME                      varchar(64) NOT NULL comment '用户登录名（字母数字下划线）',
   NICKNAME                      varchar(64) NOT NULL comment '用户昵称',
   PASSWORD                      varchar(64) NOT NULL comment '登录密码',
+  PASSWORD_LEVEL                varchar(30) DEFAULT 'MEDIUM' NOT NULL comment '密码强度。PasswdStrength.java',
   ID_CARD                       varchar(20) DEFAULT NULL comment '身份证号',
   GENDER                        varchar(6) DEFAULT NULL comment '性别。关联数据字典：user_gender',
   EMAIL                         varchar(128) DEFAULT NULL comment '电子邮箱',
   MOBILE                        varchar(15) DEFAULT NULL comment '移动电话',
-  SECRET_KEY                    varchar(16) DEFAULT NULL comment '双重身份验证密钥（two-factor authentication）',
+  TOTP                           varchar(16) DEFAULT NULL comment 'TOTP 动态口令验证密钥',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
   DELETED                       char(1) DEFAULT 'N' NOT NULL comment '逻辑删除。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
@@ -265,7 +266,7 @@ create TABLE VTL_USER (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_USER_1 on VTL_USER(USERNAME);
 
@@ -279,9 +280,25 @@ create TABLE VTL_USER_AVATAR (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_USER_AVATAR_1 on VTL_USER_AVATAR(USER_ID);
+
+
+drop table IF EXISTS VTL_USER_PREFERENCE;
+create TABLE VTL_USER_PREFERENCE (
+  ID                            bigint NOT NULL comment '主键ID',
+  USER_ID                       bigint NOT NULL comment '用户ID',
+  USER_MESSAGE                  char(1) DEFAULT 'Y' NOT NULL comment '其他用户的消息是否将以站内信的形式通知。[Y, N]',
+  SYSTEM_MESSAGE                char(1) DEFAULT 'Y' NOT NULL comment '系统消息是否将以站内信的形式通知。[Y, N]',
+  TODO_TASK                     char(1) DEFAULT 'Y' NOT NULL comment '待办任务是否将以站内信的形式通知。[Y, N]',
+  CREATE_BY                     bigint DEFAULT NULL comment '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (ID)
+);
+create unique index UNIQUE_INDEX_VTL_USER_PREFERENCE_1 on VTL_USER_PREFERENCE(USER_ID);
 
 
 drop table IF EXISTS VTL_USER_POST;
@@ -293,7 +310,7 @@ create TABLE VTL_USER_POST (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_USER_POST_1 on VTL_USER_POST(USER_ID, POST_ID);
 
@@ -307,7 +324,7 @@ create TABLE VTL_USER_ROLE (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_USER_ROLE_1 on VTL_USER_ROLE(USER_ID, ROLE_ID);
 
@@ -321,7 +338,7 @@ create TABLE VTL_ROLE_MENU (
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
-  PRIMARY KEY (id)
+  PRIMARY KEY (ID)
 );
 create unique index UNIQUE_INDEX_VTL_ROLE_MENU_1 on VTL_ROLE_MENU(ROLE_ID, MENU_ID);
 

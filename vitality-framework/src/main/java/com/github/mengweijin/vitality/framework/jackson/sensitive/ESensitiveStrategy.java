@@ -15,6 +15,11 @@ import java.util.function.Function;
 public enum ESensitiveStrategy {
 
     /**
+     * 默认
+     */
+    DEFAULT(s -> "********"),
+
+    /**
      * 中文名
      */
     CHINESE_NAME(MaskingUtil::chineseName),

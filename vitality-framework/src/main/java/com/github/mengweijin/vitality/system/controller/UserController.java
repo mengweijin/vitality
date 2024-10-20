@@ -118,6 +118,20 @@ public class UserController {
 
     /**
      * <p>
+     * Get Sensitive Login User
+     * </p>
+     *
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/sensitive-mine")
+    public UserVO getSensitive() {
+        User user = userService.getById(LoginHelper.getLoginUser().getUserId());
+        return BeanUtils.copyBean(user, new UserVO());
+    }
+
+    /**
+     * <p>
      * Get mine User by id
      * </p>
      *

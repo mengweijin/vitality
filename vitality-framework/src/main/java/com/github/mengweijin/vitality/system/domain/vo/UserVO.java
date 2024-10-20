@@ -38,6 +38,12 @@ public class UserVO extends User {
     @Sensitive(strategy = ESensitiveStrategy.MOBILE_PHONE)
     private String mobile;
 
+    /**
+     * TOTP 动态口令
+     */
+    @Sensitive(strategy = ESensitiveStrategy.DEFAULT)
+    private String totp;
+
     @Translation(translateType = ETranslateType.DEPT_ID_TO_NAME, field = "deptId")
     private String deptName;
 

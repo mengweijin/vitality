@@ -42,6 +42,11 @@ public class User extends BaseEntity {
     private String password;
 
     /**
+     * 密码强度
+     */
+    private String passwordLevel;
+
+    /**
     * 身份证号
     */
     private String idCard;
@@ -62,10 +67,10 @@ public class User extends BaseEntity {
     private String mobile;
 
     /**
-    * 2FA（two-factor authentication）双重身份验证密钥
+     * TOTP 动态口令验证密钥
     */
     @JsonIgnore
-    private String secretKey;
+    private String totp;
 
     /**
     * 是否禁用。[Y, N]

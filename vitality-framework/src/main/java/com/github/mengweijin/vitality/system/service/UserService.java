@@ -15,6 +15,7 @@ import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
 import com.github.mengweijin.vitality.system.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.data.PasswdStrength;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.cache.annotation.CacheEvict;
@@ -29,8 +30,8 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  User Service
- *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * User Service
+ * Add @Transactional(rollbackFor = Exception.class) if you need.
  * </p>
  *
  * @author mengweijin
@@ -47,6 +48,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     @Override
     public boolean save(User user) {
+        user.setPasswordLevel(PasswdStrength.getLevel(user.getPassword()).name());
         String hashedPwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPwd);
         return super.save(user);
@@ -62,22 +64,21 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     /**
      * Custom paging query
+     *
      * @param page page
      * @param user {@link User}
      * @return IPage
      */
-    public IPage<User> page(IPage<User> page, User user){
+    public IPage<User> page(IPage<User> page, User user) {
         List<Long> deptIds = new ArrayList<>();
         if (!Objects.isNull(user.getDeptId())) {
             deptIds = deptService.getDeptChildrenIdsWithCurrentById(user.getDeptId());
         }
         LambdaQueryWrapper<User> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(user.getPassword()), User::getPassword, user.getPassword())
+                .eq(StrUtil.isNotBlank(user.getPasswordLevel()), User::getPassword, user.getPasswordLevel())
                 .eq(StrUtil.isNotBlank(user.getIdCard()), User::getIdCard, user.getIdCard())
                 .eq(StrUtil.isNotBlank(user.getGender()), User::getGender, user.getGender())
-                .eq(StrUtil.isNotBlank(user.getEmail()), User::getEmail, user.getEmail())
-                .eq(StrUtil.isNotBlank(user.getSecretKey()), User::getSecretKey, user.getSecretKey())
                 .eq(StrUtil.isNotBlank(user.getDisabled()), User::getDisabled, user.getDisabled())
                 .eq(StrUtil.isNotBlank(user.getRemark()), User::getRemark, user.getRemark())
                 .eq(!Objects.isNull(user.getId()), User::getId, user.getId())
@@ -88,7 +89,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
                 .in(!Objects.isNull(user.getDeptId()), User::getDeptId, deptIds)
                 .like(StrUtil.isNotBlank(user.getUsername()), User::getUsername, user.getUsername())
                 .like(StrUtil.isNotBlank(user.getNickname()), User::getNickname, user.getNickname())
-                .like(StrUtil.isNotBlank(user.getMobile()), User::getMobile, user.getMobile());
+                .like(StrUtil.isNotBlank(user.getMobile()), User::getMobile, user.getMobile())
+                .like(StrUtil.isNotBlank(user.getEmail()), User::getEmail, user.getEmail());
         return this.page(page, query);
     }
 
@@ -133,10 +135,12 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     @CacheEvict(value = CacheName.USER_ID_TO_USERNAME, key = "#id")
-    public void removeCacheOfUsername(Long id) {}
+    public void removeCacheOfUsername(Long id) {
+    }
 
     @CacheEvict(value = CacheName.USER_ID_TO_NICKNAME, key = "#id")
-    public void removeCacheOfNickname(Long id) {}
+    public void removeCacheOfNickname(Long id) {
+    }
 
     @CacheEvict(value = CacheName.USER_ID_TO_AVATAR, key = "#id")
     public void removeCacheOfAvatar(Long id) {
@@ -156,8 +160,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public boolean updatePassword(String username, String password) {
+        String passwordLevel = PasswdStrength.getLevel(password).name();
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt());
-        return this.lambdaUpdate().set(User::getPassword, hashedPwd).eq(User::getUsername, username).update();
+        return this.lambdaUpdate().set(User::getPassword, hashedPwd).set(User::getPasswordLevel, passwordLevel).eq(User::getUsername, username).update();
     }
 
 }

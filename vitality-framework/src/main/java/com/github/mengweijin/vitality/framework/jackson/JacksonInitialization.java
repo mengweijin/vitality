@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.framework.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
-import com.github.mengweijin.vitality.framework.jackson.translation.TranslationBeanSerializerModifier;
+import com.github.mengweijin.vitality.framework.jackson.translation.modifier.TranslationBeanSerializerModifier;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

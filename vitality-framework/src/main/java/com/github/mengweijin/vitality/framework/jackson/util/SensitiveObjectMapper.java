@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.github.mengweijin.vitality.framework.jackson.JacksonConfig;
+import com.github.mengweijin.vitality.framework.jackson.util.modifier.SensitiveBeanSerializerModifier;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.dromara.hutool.core.lang.Singleton;
 
 import java.text.SimpleDateFormat;
 
@@ -17,15 +19,27 @@ import java.text.SimpleDateFormat;
  * @since 2022/5/17
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class JacksonBeanSensitiveUtils {
+public final class SensitiveObjectMapper {
 
-    static final String[] SENSITIVE_KEY = new String[]{"password"};
+    public static final String[] SENSITIVE_KEY = new String[]{"password", "pwd"};
 
-    static final String HIDE_VALUE = "****************";
+    public static final String HIDE_VALUE = "********";
 
-    public static ObjectMapper objectMapper = new ObjectMapper();
+    private volatile static ObjectMapper objectMapper;
 
-    static {
+    public static ObjectMapper getObjectMapper() {
+        if (objectMapper == null) {
+            synchronized (Singleton.class) {
+                if (objectMapper == null) {
+                    objectMapper = new ObjectMapper();
+                    init(objectMapper);
+                }
+            }
+        }
+        return objectMapper;
+    }
+
+    private static void init(ObjectMapper objectMapper) {
         //只序列化对象值不为 null 的属性
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //反序列化的时候如果多了其他属性,不抛出异常
@@ -39,13 +53,13 @@ public final class JacksonBeanSensitiveUtils {
         objectMapper.registerModule(JacksonConfig.javaTimeModule());
 
         // 重新设置 Jackson 的 Bean 序列化修改器
-        SerializerFactory serializerFactory = objectMapper.getSerializerFactory().withSerializerModifier(new SensitiveFieldBeanSerializerModifier());
+        SerializerFactory serializerFactory = objectMapper.getSerializerFactory().withSerializerModifier(new SensitiveBeanSerializerModifier());
         objectMapper.setSerializerFactory(serializerFactory);
     }
 
     public static String writeValueAsString(Object value) {
         try {
-            return objectMapper.writeValueAsString(value);
+            return getObjectMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

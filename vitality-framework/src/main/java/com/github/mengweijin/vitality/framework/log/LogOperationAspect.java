@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.framework.log;
 
-import com.github.mengweijin.vitality.framework.domain.P;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.vitality.framework.jackson.util.SensitiveObjectMapper;
 import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.thread.ThreadPools;
@@ -19,11 +20,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.io.IoUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.http.useragent.UserAgent;
+import org.dromara.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -115,7 +118,7 @@ public class LogOperationAspect {
             // request.getParameterMap()也会发生下面注释中说到的流不能重复读取的问题，造成获取不到数据。
             Map<String, String[]> parameterMap = request.getParameterMap();
             if (parameterMap != null && !parameterMap.isEmpty()) {
-                operationLog.setRequestArgs(P.writeValueAsString(parameterMap));
+                operationLog.setRequestArgs(SensitiveObjectMapper.writeValueAsString(parameterMap));
             }
 
             // 这里会从 request 中通过流的方式读取 requestBody，而默认，流只能读取一次，第二次就读不到数据了。
@@ -124,7 +127,17 @@ public class LogOperationAspect {
             // 解决方法：添加可重复读取流的过滤器，详情参见 RepeatableFilter
             if (request instanceof RepeatedlyRequestWrapper repeatedlyRequest) {
                 String body = IoUtil.read(repeatedlyRequest.getInputStream(), StandardCharsets.UTF_8);
-                operationLog.setRequestBody(body);
+                if (StrUtil.isNotBlank(body)) {
+                    ObjectMapper objectMapper = SensitiveObjectMapper.getObjectMapper();
+                    if (JSONUtil.isTypeJSONArray(body)) {
+                        List<?> list = objectMapper.readValue(body, List.class);
+                        body = objectMapper.writeValueAsString(list);
+                    } else if (JSONUtil.isTypeJSONObject(body)) {
+                        Map<?, ?> map = objectMapper.readValue(body, Map.class);
+                        body = objectMapper.writeValueAsString(map);
+                    }
+                    operationLog.setRequestBody(body);
+                }
             }
 
             operationLog.setHttpMethod(requestMethod);

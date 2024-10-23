@@ -1,10 +1,12 @@
-package com.github.mengweijin.vitality.framework.jackson.translation;
+package com.github.mengweijin.vitality.framework.jackson.translation.modifier;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.std.NullSerializer;
+import com.github.mengweijin.vitality.framework.jackson.translation.Translation;
+import com.github.mengweijin.vitality.framework.jackson.translation.serializer.TranslationSerializer;
 
 import java.util.List;
 

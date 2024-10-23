@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.framework.jackson.translation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.mengweijin.vitality.framework.jackson.translation.serializer.TranslationSerializer;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

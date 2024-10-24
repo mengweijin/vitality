@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.Notice;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.service.NoticeService;
@@ -85,6 +87,7 @@ public class NoticeController {
      * </p>
      * @param notice {@link Notice}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:notice:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Notice notice) {
@@ -98,6 +101,7 @@ public class NoticeController {
      * </p>
      * @param notice {@link Notice}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:notice:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Notice notice) {
@@ -111,12 +115,14 @@ public class NoticeController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:notice:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(noticeService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(noticeService.removeByIds(Arrays.asList(ids)));
     }
 
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:notice:release")
     @PostMapping("/release/{id}")
     public R<Void> release(@PathVariable("id") Long id) {
@@ -124,6 +130,7 @@ public class NoticeController {
         return R.ajax(bool);
     }
 
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:notice:revocation")
     @PostMapping("/revoke/{id}")
     public R<Void> revoke(@PathVariable("id") Long id) {

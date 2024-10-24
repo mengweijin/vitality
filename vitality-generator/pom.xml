@@ -3,13 +3,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
     <modelVersion>4.0.0</modelVersion>  
     <parent> 
-        <groupId>com.github.mengweijin</groupId>  
-        <artifactId>vitality-parent</artifactId>  
-        <version>1.5.0-SNAPSHOT</version>
+        <groupId>com.github.mengweijin</groupId>
+        <artifactId>vitality-parent</artifactId>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> 
-    </parent>  
-    <artifactId>vitality-generator</artifactId>  
-    <packaging>jar</packaging>  
+    </parent>
+    <artifactId>vitality-generator</artifactId>
+    <version>${revision}</version>
+
+    <packaging>jar</packaging>
     <name>vitality-generator</name>  
     <url>https://gitee.com/mengweijin/vitality</url>  
     <properties>
@@ -18,13 +20,9 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.github.mengweijin</groupId>
             <artifactId>vitality-framework</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency> 
             <groupId>com.baomidou</groupId>  

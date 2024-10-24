@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.system.domain.entity.DictData;
@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class DictDataService extends ServiceImpl<DictDataMapper, DictData> {
+public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
 
     /**
      * Custom paging query

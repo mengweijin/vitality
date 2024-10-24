@@ -9,8 +9,8 @@
         <relativePath/> 
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
-    <artifactId>vitality-parent</artifactId>  
-    <version>1.5.0-SNAPSHOT</version>
+    <artifactId>vitality-parent</artifactId>
+    <version>${revision}</version>
     <packaging>pom</packaging>  
     <name>vitality-parent</name>  
     <description>vitality-parent</description>  
@@ -19,11 +19,12 @@
         <module>vitality-admin</module>  
         <module>vitality-framework</module>
         <module>vitality-generator</module>
-    </modules>  
-    <properties> 
-        <vitality.version>1.5.0-SNAPSHOT</vitality.version>
-        <!--    <gpg.skip>true</gpg.skip>-->  
-        <!--    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->  
+    </modules>
+    <properties>
+        <!-- 全局版本控制，如果要修改版本号，修改此处即可-->
+        <revision>2.0.0-SNAPSHOT</revision>
+        <!--<gpg.skip>true</gpg.skip>-->
+        <!--<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
         <skipTests>true</skipTests>  
         <java.version>17</java.version>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
@@ -31,13 +32,13 @@
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatis-plus.version>3.5.8</mybatis-plus.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <hutool.version>6.0.0-M17</hutool.version>
         <resilience4j.version>2.2.0</resilience4j.version>
         <sa-token.version>1.39.0</sa-token.version>
         <oshi.version>6.6.3</oshi.version>
         <zxing.version>3.5.3</zxing.version>
-        <easyexcel.version>4.0.2</easyexcel.version>
+        <easyexcel.version>4.0.3</easyexcel.version>
         <ip2region.version>2.7.0</ip2region.version>
         <p6spy-spring-boot-starter.version>1.9.2</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
@@ -94,23 +95,18 @@
             <!--    <artifactId>spring-boot-dependencies</artifactId>-->  
             <!--    <version>${spring.boot.version}</version>-->  
             <!--    <type>pom</type>-->  
-            <!--    <scope>import</scope>-->  
-            <!--</dependency>-->  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>vitality-framework</artifactId>  
-                <version>${vitality.version}</version> 
+            <!--    <scope>import</scope>-->
+            <!--</dependency>-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>vitality-generator</artifactId>
-                <version>${vitality.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
-            <dependency> 
-                <groupId>com.baomidou</groupId>  
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>  
-                <version>${mybatis-plus.version}</version> 
-            </dependency>  
             <dependency> 
                 <groupId>com.github.gavlyukovskiy</groupId>  
                 <artifactId>p6spy-spring-boot-starter</artifactId>  

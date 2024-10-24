@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.domain.entity.Notice;
 import com.github.mengweijin.vitality.system.mapper.NoticeMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class NoticeService extends ServiceImpl<NoticeMapper, Notice> {
+public class NoticeService extends CrudRepository<NoticeMapper, Notice> {
 
     /**
      * Custom paging query

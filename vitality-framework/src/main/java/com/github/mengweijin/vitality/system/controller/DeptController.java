@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.service.DeptService;
 import jakarta.validation.Valid;
@@ -96,6 +98,7 @@ public class DeptController {
      * </p>
      * @param dept {@link Dept}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:dept:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Dept dept) {
@@ -109,6 +112,7 @@ public class DeptController {
      * </p>
      * @param dept {@link Dept}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:dept:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Dept dept) {
@@ -116,6 +120,7 @@ public class DeptController {
         return R.ajax(bool);
     }
 
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:dept:update")
     @PostMapping("/setDisabled/{id}/{disabled}")
     public R<Void> setDisabledValue(@PathVariable("id") Long id, @PathVariable("disabled") String disabled) {
@@ -129,10 +134,11 @@ public class DeptController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:dept:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(deptService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(deptService.removeByIds(Arrays.asList(ids)));
     }
 
 }

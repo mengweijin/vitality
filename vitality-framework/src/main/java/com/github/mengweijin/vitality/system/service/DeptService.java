@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.framework.util.AopUtils;
@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class DeptService extends ServiceImpl<DeptMapper, Dept> {
+public class DeptService extends CrudRepository<DeptMapper, Dept> {
 
     @Override
     public boolean updateById(Dept entity) {
@@ -38,9 +38,9 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     }
 
     @Override
-    public boolean removeBatchByIds(Collection<?> list) {
+    public boolean removeByIds(Collection<?> list) {
         list.forEach(id -> AopUtils.getAopProxy(this).removeCacheOfDeptName((Long) id));
-        return super.removeBatchByIds(list);
+        return super.removeByIds(list);
     }
 
     /**

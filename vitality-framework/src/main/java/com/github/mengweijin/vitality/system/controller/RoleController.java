@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
@@ -104,6 +106,7 @@ public class RoleController {
      * </p>
      * @param role {@link Role}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:role:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Role role) {
@@ -117,6 +120,7 @@ public class RoleController {
      * </p>
      * @param role {@link Role}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:role:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Role role) {
@@ -124,6 +128,7 @@ public class RoleController {
         return R.ajax(bool);
     }
 
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:role:update")
     @PostMapping("/set-permission")
     public R<Void> setPermission(@Valid @RequestBody RolePermissionBO rolePermissionBO) {
@@ -137,10 +142,11 @@ public class RoleController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:role:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(roleService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(roleService.removeByIds(Arrays.asList(ids)));
     }
 
 }

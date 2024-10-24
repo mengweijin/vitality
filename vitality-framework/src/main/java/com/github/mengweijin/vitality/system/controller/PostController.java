@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.Post;
 import com.github.mengweijin.vitality.system.service.PostService;
 import jakarta.validation.Valid;
@@ -84,6 +86,7 @@ public class PostController {
      * </p>
      * @param post {@link Post}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:post:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Post post) {
@@ -97,6 +100,7 @@ public class PostController {
      * </p>
      * @param post {@link Post}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:post:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Post post) {
@@ -110,10 +114,11 @@ public class PostController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:post:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(postService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(postService.removeByIds(Arrays.asList(ids)));
     }
 
 }

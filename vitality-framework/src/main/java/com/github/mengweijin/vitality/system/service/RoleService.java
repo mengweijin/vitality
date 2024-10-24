@@ -2,7 +2,8 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.constant.UserConst;
 import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class RoleService extends ServiceImpl<RoleMapper, Role> {
+public class RoleService extends CrudRepository<RoleMapper, Role> {
 
     private RoleMenuService roleMenuService;
 
@@ -79,7 +80,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
             return roleMenu;
         }).collect(Collectors.toList());
         if(!collect.isEmpty()) {
-            return roleMenuService.saveBatch(collect);
+            return roleMenuService.saveBatch(collect, Constants.DEFAULT_BATCH_SIZE);
         }
         return true;
     }

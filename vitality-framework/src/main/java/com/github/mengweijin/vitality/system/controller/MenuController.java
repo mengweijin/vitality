@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
 import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.service.MenuService;
@@ -96,6 +98,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:menu:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Menu menu) {
@@ -109,6 +112,7 @@ public class MenuController {
      * </p>
      * @param menu {@link Menu}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:menu:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Menu menu) {
@@ -122,10 +126,11 @@ public class MenuController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:menu:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(menuService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(menuService.removeByIds(Arrays.asList(ids)));
     }
 
 }

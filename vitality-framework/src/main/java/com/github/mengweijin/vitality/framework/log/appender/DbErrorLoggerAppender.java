@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.log;
+package com.github.mengweijin.vitality.framework.log.appender;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

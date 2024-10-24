@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.framework.util.DownLoadUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Oss;
 import com.github.mengweijin.vitality.system.service.OssService;
@@ -137,10 +139,11 @@ public class OssController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:oss:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(ossService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(ossService.removeByIds(Arrays.asList(ids)));
     }
 
 }

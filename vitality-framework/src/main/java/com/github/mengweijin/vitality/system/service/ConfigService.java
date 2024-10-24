@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.system.domain.entity.Config;
@@ -26,10 +26,10 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class ConfigService extends ServiceImpl<ConfigMapper, Config> {
+public class ConfigService extends CrudRepository<ConfigMapper, Config> {
 
     @Override
-    @Cacheable(value = CacheName.DICT_DATA_LIST, key = CacheConst.KEY_ALL, unless = CacheConst.UNLESS_LIST_EMPTY)
+    @Cacheable(value = CacheName.CONFIG_LIST, key = CacheConst.KEY_ALL, unless = CacheConst.UNLESS_LIST_EMPTY)
     public List<Config> list() {
         return super.list();
     }

@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SensitiveObjectMapper {
 
-    public static final String[] SENSITIVE_KEY = new String[]{"password", "pwd"};
+    public static final String[] SENSITIVE_KEY = new String[]{"password", "pwd", "token"};
 
     public static final String HIDE_VALUE = "********";
 
@@ -65,4 +65,11 @@ public final class SensitiveObjectMapper {
         }
     }
 
+    public static <T> T readValue(String content, Class<T> valueType) {
+        try {
+            return getObjectMapper().readValue(content, valueType);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

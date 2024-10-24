@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.UserPreference;
 import com.github.mengweijin.vitality.system.service.UserPreferenceService;
@@ -103,6 +105,7 @@ public class UserPreferenceController {
      *
      * @param userPreference {@link UserPreference}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:userPreference:create")
     @PostMapping
     public R<Void> add(@Validated({Group.Default.class, Group.Create.class}) @RequestBody UserPreference userPreference) {
@@ -117,6 +120,7 @@ public class UserPreferenceController {
      *
      * @param userPreference {@link UserPreference}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:userPreference:update")
     @PutMapping
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody UserPreference userPreference) {
@@ -131,6 +135,7 @@ public class UserPreferenceController {
      *
      * @param userPreference {@link UserPreference}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission(value = {"system:userPreference:create", "system:userPreference:update"}, mode = SaMode.OR)
     @PostMapping("/save")
     public R<Void> saveOrUpdate(@Validated @RequestBody UserPreference userPreference) {
@@ -145,10 +150,11 @@ public class UserPreferenceController {
      *
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:userPreference:delete")
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        boolean bool = userPreferenceService.removeBatchByIds(Arrays.asList(ids));
+        boolean bool = userPreferenceService.removeByIds(Arrays.asList(ids));
         return R.ajax(bool);
     }
 

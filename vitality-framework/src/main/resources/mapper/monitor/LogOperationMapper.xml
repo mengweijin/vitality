@@ -5,11 +5,13 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.monitor.domain.entity.LogOperation">
         <id column="ID" property="id" />
-        <result column="URL" property="url" />
-        <result column="REQUEST_ARGS" property="requestArgs" />
-        <result column="REQUEST_BODY" property="requestBody" />
+        <result column="TITLE" property="title"/>
+        <result column="OPERATION_TYPE" property="operationType"/>
         <result column="HTTP_METHOD" property="httpMethod" />
+        <result column="URL" property="url"/>
         <result column="METHOD_NAME" property="methodName" />
+        <result column="REQUEST_DATA" property="requestData"/>
+        <result column="RESPONSE_DATA" property="responseData"/>
         <result column="SUCCESS" property="success" />
         <result column="ERROR_MSG" property="errorMsg" />
         <result column="CREATE_BY" property="createBy" />
@@ -20,11 +22,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
-        URL,
-        REQUEST_ARGS,
-        REQUEST_BODY,
+        TITLE,
+        OPERATION_TYPE,
         HTTP_METHOD,
+        URL,
         METHOD_NAME,
+        REQUEST_DATA,
+        RESPONSE_DATA,
         SUCCESS,
         ERROR_MSG,
         ID,
@@ -40,12 +44,6 @@
             <if test="url != null and url != ''">
                 AND URL = #{url}
             </if>
-            <if test="requestArgs != null and requestArgs != ''">
-                AND REQUEST_ARGS = #{requestArgs}
-            </if>
-            <if test="requestBody != null and requestBody != ''">
-                AND REQUEST_BODY = #{requestBody}
-            </if>
             <if test="httpMethod != null and httpMethod != ''">
                 AND HTTP_METHOD = #{httpMethod}
             </if>
@@ -54,9 +52,6 @@
             </if>
             <if test="success != null and success != ''">
                 AND SUCCESS = #{success}
-            </if>
-            <if test="errorMsg != null and errorMsg != ''">
-                AND ERROR_MSG = #{errorMsg}
             </if>
             <if test="id != null">
                 AND ID = #{id}

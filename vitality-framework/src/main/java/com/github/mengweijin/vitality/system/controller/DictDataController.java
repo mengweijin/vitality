@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.service.DictDataService;
 import jakarta.validation.Valid;
@@ -90,6 +92,7 @@ public class DictDataController {
      * </p>
      * @param dictData {@link DictData}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:dictData:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody DictData dictData) {
@@ -103,6 +106,7 @@ public class DictDataController {
      * </p>
      * @param dictData {@link DictData}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:dictData:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody DictData dictData) {
@@ -116,10 +120,11 @@ public class DictDataController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:dictData:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(dictDataService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(dictDataService.removeByIds(Arrays.asList(ids)));
     }
 
 }

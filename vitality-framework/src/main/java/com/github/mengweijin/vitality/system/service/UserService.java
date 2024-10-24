@@ -3,7 +3,7 @@ package com.github.mengweijin.vitality.system.service;
 import cn.dev33.satoken.secure.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheName;
 import com.github.mengweijin.vitality.framework.constant.Const;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class UserService extends ServiceImpl<UserMapper, User> {
+public class UserService extends CrudRepository<UserMapper, User> {
 
     private UserAvatarService userAvatarService;
 

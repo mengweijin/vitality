@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.system.constant.MenuConst;
 import com.github.mengweijin.vitality.system.constant.UserConst;
@@ -34,7 +34,7 @@ import java.util.Set;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class MenuService extends ServiceImpl<MenuMapper, Menu> {
+public class MenuService extends CrudRepository<MenuMapper, Menu> {
 
     private RoleMapper roleMapper;
 

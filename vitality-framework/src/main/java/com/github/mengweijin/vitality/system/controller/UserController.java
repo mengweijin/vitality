@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.util.BeanUtils;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
@@ -151,6 +153,7 @@ public class UserController {
      *
      * @param user {@link User}
      */
+    @Log(operationType = EOperationType.INSERT, saveRequestData = false)
     @SaCheckPermission("system:user:create")
     @PostMapping("/create")
     public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody UserBO user) {
@@ -165,6 +168,7 @@ public class UserController {
      *
      * @param user {@link User}
      */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
     @SaCheckPermission("system:user:update")
     @PostMapping("/update")
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody UserBO user) {
@@ -179,6 +183,7 @@ public class UserController {
      *
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:user:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
@@ -187,7 +192,7 @@ public class UserController {
         if (isAdmin) {
             throw new ClientException("Can't delete admin account!");
         }
-        return R.ajax(userService.removeBatchByIds(list));
+        return R.ajax(userService.removeByIds(list));
     }
 
     /**
@@ -197,6 +202,7 @@ public class UserController {
      *
      * @param bo {@link ChangePasswordBO}
      */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
     @SaCheckPermission("system:user:changePassword")
     @PostMapping("/change-password")
     public R<Void> changePassword(@Validated @RequestBody ChangePasswordBO bo) {
@@ -211,6 +217,7 @@ public class UserController {
      *
      * @param bo {@link ChangePasswordBO}
      */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
     @SaCheckPermission("system:user:resetPassword")
     @PostMapping("/reset-password")
     public R<Void> resetPassword(@Validated @RequestBody ChangePasswordBO bo) {
@@ -239,6 +246,7 @@ public class UserController {
      *
      * @param bo {@link UserRolesBO}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:user:setRoles")
     @PostMapping("/set-roles")
     public R<Void> setRoles(@Validated @RequestBody UserRolesBO bo) {

@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.system.domain.entity.UserPreference;
 import com.github.mengweijin.vitality.system.mapper.UserPreferenceMapper;
@@ -23,7 +23,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class UserPreferenceService extends ServiceImpl<UserPreferenceMapper, UserPreference> {
+public class UserPreferenceService extends CrudRepository<UserPreferenceMapper, UserPreference> {
 
     /**
      * Custom paging query

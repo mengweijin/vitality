@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.system.service;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.domain.bo.UserRolesBO;
 import com.github.mengweijin.vitality.system.domain.entity.UserRole;
 import com.github.mengweijin.vitality.system.mapper.UserRoleMapper;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class UserRoleService extends ServiceImpl<UserRoleMapper, UserRole> {
+public class UserRoleService extends CrudRepository<UserRoleMapper, UserRole> {
 
     public Set<Long> getRoleIdsByUserId(Long userId) {
         List<UserRole> list = this.lambdaQuery().select(UserRole::getRoleId).eq(UserRole::getUserId, userId).list();
@@ -41,6 +42,6 @@ public class UserRoleService extends ServiceImpl<UserRoleMapper, UserRole> {
             return userRole;
         }).toList();
 
-        return this.saveBatch(list);
+        return this.saveBatch(list, Constants.DEFAULT_BATCH_SIZE);
     }
 }

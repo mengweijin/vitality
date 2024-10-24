@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.domain.entity.RoleMenu;
 import com.github.mengweijin.vitality.system.mapper.RoleMenuMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class RoleMenuService extends ServiceImpl<RoleMenuMapper, RoleMenu> {
+public class RoleMenuService extends CrudRepository<RoleMenuMapper, RoleMenu> {
 
     public void removeByRoleId(Long roleId) {
         LambdaQueryWrapper<RoleMenu> wrapper = new LambdaQueryWrapper<>();

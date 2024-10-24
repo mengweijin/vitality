@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.framework.log;
 
+import com.github.mengweijin.vitality.framework.log.aspect.LogOperationAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class LogConfig {
 
     @Bean
-    public LogOperationAspect logAspect() {
-        return new LogOperationAspect(aopLog -> {});
+    public LogOperationAspect logOperationAspect() {
+        return new LogOperationAspect();
     }
 
 }

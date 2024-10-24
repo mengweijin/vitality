@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.system.domain.entity.Config;
 import com.github.mengweijin.vitality.system.service.ConfigService;
 import jakarta.validation.Valid;
@@ -96,6 +98,7 @@ public class ConfigController {
      * </p>
      * @param config {@link Config}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:config:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody Config config) {
@@ -109,6 +112,7 @@ public class ConfigController {
      * </p>
      * @param config {@link Config}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:config:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody Config config) {
@@ -122,10 +126,11 @@ public class ConfigController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:config:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        return R.ajax(configService.removeBatchByIds(Arrays.asList(ids)));
+        return R.ajax(configService.removeByIds(Arrays.asList(ids)));
     }
 
 }

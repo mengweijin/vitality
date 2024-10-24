@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
 import com.github.mengweijin.vitality.monitor.mapper.LogOperationMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -24,6 +26,12 @@ import java.util.Objects;
 @Service
 public class LogOperationService extends ServiceImpl<LogOperationMapper, LogOperation> {
 
+    @Async
+    @EventListener
+    public void saveAsync(LogOperation entity) {
+        this.save(entity);
+    }
+
     /**
      * Custom paging query
      * @param page page
@@ -33,18 +41,18 @@ public class LogOperationService extends ServiceImpl<LogOperationMapper, LogOper
     public IPage<LogOperation> page(IPage<LogOperation> page, LogOperation logOperation){
         LambdaQueryWrapper<LogOperation> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(logOperation.getUrl()), LogOperation::getUrl, logOperation.getUrl())
-                .eq(StrUtil.isNotBlank(logOperation.getRequestArgs()), LogOperation::getRequestArgs, logOperation.getRequestArgs())
-                .eq(StrUtil.isNotBlank(logOperation.getRequestBody()), LogOperation::getRequestBody, logOperation.getRequestBody())
+                .eq(StrUtil.isNotBlank(logOperation.getOperationType()), LogOperation::getOperationType, logOperation.getOperationType())
                 .eq(StrUtil.isNotBlank(logOperation.getHttpMethod()), LogOperation::getHttpMethod, logOperation.getHttpMethod())
-                .eq(StrUtil.isNotBlank(logOperation.getMethodName()), LogOperation::getMethodName, logOperation.getMethodName())
                 .eq(StrUtil.isNotBlank(logOperation.getSuccess()), LogOperation::getSuccess, logOperation.getSuccess())
                 .eq(StrUtil.isNotBlank(logOperation.getErrorMsg()), LogOperation::getErrorMsg, logOperation.getErrorMsg())
                 .eq(!Objects.isNull(logOperation.getId()), LogOperation::getId, logOperation.getId())
                 .eq(!Objects.isNull(logOperation.getCreateBy()), LogOperation::getCreateBy, logOperation.getCreateBy())
                 .eq(!Objects.isNull(logOperation.getCreateTime()), LogOperation::getCreateTime, logOperation.getCreateTime())
                 .eq(!Objects.isNull(logOperation.getUpdateBy()), LogOperation::getUpdateBy, logOperation.getUpdateBy())
-                .eq(!Objects.isNull(logOperation.getUpdateTime()), LogOperation::getUpdateTime, logOperation.getUpdateTime());
+                .eq(!Objects.isNull(logOperation.getUpdateTime()), LogOperation::getUpdateTime, logOperation.getUpdateTime())
+                .like(StrUtil.isNotBlank(logOperation.getTitle()), LogOperation::getTitle, logOperation.getTitle())
+                .like(StrUtil.isNotBlank(logOperation.getUrl()), LogOperation::getUrl, logOperation.getUrl())
+                .like(StrUtil.isNotBlank(logOperation.getMethodName()), LogOperation::getMethodName, logOperation.getMethodName());
         return this.page(page, query);
     }
 }

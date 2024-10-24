@@ -2,7 +2,8 @@ package com.github.mengweijin.vitality.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.util.UploadUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Oss;
@@ -32,7 +33,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class OssService extends ServiceImpl<OssMapper, Oss> {
+public class OssService extends CrudRepository<OssMapper, Oss> {
 
     public static final String STORAGE_DIR = Const.PROJECT_DIR + "oss" + File.separatorChar;
 
@@ -70,7 +71,7 @@ public class OssService extends ServiceImpl<OssMapper, Oss> {
             oss.setStoragePath(path);
             return oss;
         });
-        this.saveBatch(list);
+        this.saveBatch(list, Constants.DEFAULT_BATCH_SIZE);
         return list;
     }
 }

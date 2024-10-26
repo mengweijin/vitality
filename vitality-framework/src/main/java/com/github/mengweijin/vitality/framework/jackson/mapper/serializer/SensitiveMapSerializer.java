@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.jackson.util.serializer;
+package com.github.mengweijin.vitality.framework.jackson.mapper.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.MapSerializer;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.github.mengweijin.vitality.framework.jackson.util.SensitiveObjectMapper;
+import com.github.mengweijin.vitality.framework.jackson.mapper.SensitiveObjectMapper;
 import org.dromara.hutool.core.text.StrUtil;
 
 import java.io.IOException;

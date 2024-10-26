@@ -22,6 +22,8 @@ import com.github.mengweijin.vitality.system.domain.vo.UserVO;
 import com.github.mengweijin.vitality.system.service.UserAvatarService;
 import com.github.mengweijin.vitality.system.service.UserRoleService;
 import com.github.mengweijin.vitality.system.service.UserService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.math.NumberUtil;
@@ -173,6 +175,14 @@ public class UserController {
     @PostMapping("/update")
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody UserBO user) {
         boolean bool = userService.updateById(BeanUtils.copyBean(user, new User()));
+        return R.ajax(bool);
+    }
+
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:user:update")
+    @PostMapping("/set-disabled")
+    public R<Void> setDisabled(@NotNull Long id, @NotBlank String disabled) {
+        boolean bool = userService.setDisabled(id, disabled);
         return R.ajax(bool);
     }
 

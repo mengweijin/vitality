@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.jackson.util.serializer;
+package com.github.mengweijin.vitality.framework.jackson.mapper.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import com.github.mengweijin.vitality.framework.jackson.util.SensitiveObjectMapper;
+import com.github.mengweijin.vitality.framework.jackson.mapper.SensitiveObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
 

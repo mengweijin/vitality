@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.system.controller;
 
-import com.github.mengweijin.vitality.system.service.SseService;
+import com.github.mengweijin.vitality.framework.sse.SseConnector;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RequestMapping("/sse")
 public class SseController {
 
-    private SseService sseService;
+    private SseConnector sseConnector;
 
     /**
      * @param token token
@@ -27,7 +27,7 @@ public class SseController {
      */
     @GetMapping("/connect")
     public SseEmitter connect(String token) {
-        return sseService.connect(token);
+        return sseConnector.connect(token);
     }
 
 }

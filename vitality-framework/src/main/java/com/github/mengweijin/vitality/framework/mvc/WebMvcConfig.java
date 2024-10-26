@@ -24,6 +24,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private VitalityProperties vitalityProperties;
 
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+        return (factory -> {
+            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
+            factory.addErrorPages(errorPage404);
+        });
+    }
+
     /**
      * 允许跨域
      *
@@ -32,14 +40,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/**");
-    }
-
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
-        return (factory -> {
-            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
-            factory.addErrorPages(errorPage404);
-        });
     }
 
     /**

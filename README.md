@@ -21,13 +21,11 @@
 
 基于 SpringBoot 3、sa-token、vue 3、element-plus等 **前后端分离**开发的轻量级管理系统。
 
-有时候我们就想做一个简单的东西，却要依赖一大堆 redis、文件服务、配置中心等服务，两个字：真的太麻烦了！
+有时候我们就想做一个简单的东西，却要依赖一大堆 redis、文件服务、配置中心等服务，两个字：**真的太麻烦了！**
 
 于是，就自己搞一个麻雀虽小，五脏俱全的项目，不依赖任何其他三方服务，适合于一个人既是一个团队的小伙伴们。
 
-普通人，哪有那么多高并发！小公司内部小部分人用的系统，根本不需要高并发！
-
-前端使用 pure-admin 模板平台开发。
+小团队，哪有那么多高并发！
 
 #### 最简单的启动
 
@@ -77,8 +75,12 @@ java -jar vitality-admin.jar
 |      ![操作日志](docs/readme/images/monitor_log_operation.png) | ![错误日志](docs/readme/images/monitor_log_error.png)               | 
 | ![img.png](docs/readme/images/dev_tool_code_generator.png) | ![代码生成器](docs/readme/images/dev_tool_code_generator_detail.png) | 
 
+## 主要技术栈
+
+后端：Spring Boot 3、sa-token、mybatis-plus、hutool 等。
+
+前端：vue 3、element-plus、pinia、pure-admin 模板等。
 
 ## ⭐Star Vitality on GitHub
 
 [![Stargazers over time](https://starchart.cc/mengweijin/vitality.svg)](https://starchart.cc/mengweijin/vitality)
-

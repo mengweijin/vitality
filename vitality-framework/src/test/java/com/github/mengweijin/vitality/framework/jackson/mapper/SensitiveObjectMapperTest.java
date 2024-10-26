@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.jackson.util;
+package com.github.mengweijin.vitality.framework.jackson.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

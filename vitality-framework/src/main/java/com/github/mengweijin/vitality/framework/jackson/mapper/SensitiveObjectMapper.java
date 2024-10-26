@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.jackson.util;
+package com.github.mengweijin.vitality.framework.jackson.mapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,10 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.github.mengweijin.vitality.framework.jackson.JacksonConfig;
-import com.github.mengweijin.vitality.framework.jackson.util.modifier.SensitiveBeanSerializerModifier;
+import com.github.mengweijin.vitality.framework.jackson.mapper.modifier.SensitiveBeanSerializerModifier;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.dromara.hutool.core.lang.Singleton;
 
 import java.text.SimpleDateFormat;
 
@@ -29,7 +28,7 @@ public final class SensitiveObjectMapper {
 
     public static ObjectMapper getObjectMapper() {
         if (objectMapper == null) {
-            synchronized (Singleton.class) {
+            synchronized (SensitiveObjectMapper.class) {
                 if (objectMapper == null) {
                     objectMapper = new ObjectMapper();
                     init(objectMapper);

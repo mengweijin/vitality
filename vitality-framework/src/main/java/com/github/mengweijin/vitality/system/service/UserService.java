@@ -165,4 +165,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return this.lambdaUpdate().set(User::getPassword, hashedPwd).set(User::getPasswordLevel, passwordLevel).eq(User::getUsername, username).update();
     }
 
+    public boolean setDisabled(Long id, String disabled) {
+        return this.lambdaUpdate().set(User::getDisabled, disabled).eq(User::getId, id).update();
+    }
 }

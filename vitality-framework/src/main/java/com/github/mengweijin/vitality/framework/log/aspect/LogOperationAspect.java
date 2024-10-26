@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.log.aspect;
 
-import com.github.mengweijin.vitality.framework.jackson.util.SensitiveObjectMapper;
+import com.github.mengweijin.vitality.framework.jackson.mapper.SensitiveObjectMapper;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;

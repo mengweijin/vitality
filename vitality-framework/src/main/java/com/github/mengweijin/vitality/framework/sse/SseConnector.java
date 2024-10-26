@@ -1,10 +1,11 @@
-package com.github.mengweijin.vitality.system.service;
+package com.github.mengweijin.vitality.framework.sse;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.cache.CacheManagerFactory;
-import com.github.mengweijin.vitality.framework.thread.ThreadPools;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.array.ArrayUtil;
+import org.dromara.hutool.core.thread.ThreadUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -12,11 +13,12 @@ import javax.cache.Cache;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
 
 /**
  * <p>
- * SSE Service
+ * SSE Connector
  * </p>
  *
  * @author mengweijin
@@ -24,9 +26,11 @@ import java.util.function.Consumer;
  */
 @Slf4j
 @Service
-public class SseService {
+public class SseConnector {
 
     private static final Cache<String, SseEmitter> CACHE = CacheManagerFactory.getSseEmitterMessageCache();
+
+    private static final ExecutorService SSE_EXECUTOR_SERVICE = ThreadUtil.newFixedExecutor(Const.PROCESSORS, "thread-pool-sse-", true);
 
     public void sendMessageToUsersAsync(String content, String... usernames) {
         if (ArrayUtil.isEmpty(usernames)) {
@@ -47,7 +51,7 @@ public class SseService {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e);
             }
-        }, ThreadPools.SSE_EXECUTOR_SERVICE);
+        }, SSE_EXECUTOR_SERVICE);
     }
 
     /**
@@ -76,7 +80,7 @@ public class SseService {
     private Consumer<Throwable> onError(String token) {
         return throwable -> {
             CACHE.remove(token);
-            log.warn(throwable.getMessage(), throwable);
+            log.error(throwable.getMessage(), throwable);
         };
     }
 }

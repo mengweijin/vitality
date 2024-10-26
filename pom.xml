@@ -42,7 +42,7 @@
         <ip2region.version>2.7.0</ip2region.version>
         <p6spy-spring-boot-starter.version>1.9.2</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
-    </properties>  
+    </properties>
     <profiles> 
         <profile> 
             <id>local</id>  

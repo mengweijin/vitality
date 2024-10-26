@@ -13,7 +13,6 @@ import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
-import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogError;
 import com.github.mengweijin.vitality.monitor.service.LogErrorService;
 import jakarta.annotation.PostConstruct;
@@ -43,7 +42,6 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
     private static final Class<?>[] EXCLUDE_CLASS = { NotLoginException.class };
 
     private static final String TAB = StrUtil.fillAfter(Const.EMPTY, ' ', 4);
-
 
     private LogErrorService logErrorService;
 
@@ -99,7 +97,7 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());
             }
-        }, ThreadPools.ERROR_LOG_EXECUTOR_SERVICE);
+        });
     }
 
     /**

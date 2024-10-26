@@ -3,7 +3,6 @@ package com.github.mengweijin.vitality.monitor.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.framework.thread.ThreadPools;
 import com.github.mengweijin.vitality.framework.util.Ip2regionUtils;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogLogin;
@@ -91,7 +90,7 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
             logLogin.setUpdateBy(userId);
 
             SpringUtil.getBean(LogLoginService.class).save(logLogin);
-        }, ThreadPools.LOGIN_LOG_EXECUTOR_SERVICE)
+                })
         .exceptionally(e -> {
             log.error(e.getMessage(), e);
             return null;

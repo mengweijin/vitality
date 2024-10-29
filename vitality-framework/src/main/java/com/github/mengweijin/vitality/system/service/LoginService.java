@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.system.service;
 
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import com.github.mengweijin.vitality.framework.cache.CacheManagerFactory;
+import com.github.mengweijin.vitality.framework.cache.CacheFactory;
 import com.github.mengweijin.vitality.framework.exception.LoginFailedException;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
@@ -78,14 +78,14 @@ public class LoginService {
         // AbstractCaptcha captcha = CaptchaUtil.ofShearCaptcha(200, 60, 4, 5);
         captcha.createCode();
         String sessionId = ServletUtils.getSession().getId();
-        Cache<String, ICaptcha> cache = CacheManagerFactory.getCaptchaCache();
+        Cache<String, ICaptcha> cache = CacheFactory.getCaptchaCache();
         cache.put(sessionId, captcha);
         return captcha.getImageBase64Data();
     }
 
     public void verifyCaptcha(String captchaCode) {
         if (StrUtil.isNotBlank(captchaCode)) {
-            Cache<String, ICaptcha> cache = CacheManagerFactory.getCaptchaCache();
+            Cache<String, ICaptcha> cache = CacheFactory.getCaptchaCache();
             String sessionId = ServletUtils.getSession().getId();
             ICaptcha captcha = cache.get(sessionId);
             if (captcha == null || !captcha.verify(captchaCode)) {

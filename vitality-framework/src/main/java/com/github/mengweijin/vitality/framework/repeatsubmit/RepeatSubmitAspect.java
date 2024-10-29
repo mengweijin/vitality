@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.repeatsubmit;
 
-import com.github.mengweijin.vitality.framework.cache.CacheManagerFactory;
+import com.github.mengweijin.vitality.framework.cache.CacheFactory;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.domain.R;
@@ -55,7 +55,7 @@ public class RepeatSubmitAspect {
             // 唯一标识（指定key + url + args MD5）
             String key = String.join(Const.COLON, sessionId, url, SecureUtil.md5(args));
 
-            Cache<String, Long> cache = CacheManagerFactory.getRepeatSubmitCache();
+            Cache<String, Long> cache = CacheFactory.getRepeatSubmitCache();
             Long cachedTimeMillis = cache.get(key);
 
             // 缓存中不存在，继续执行方法，然后加入缓存。或者缓存中存在，但超过了时间间隔，则这个 url 不为重复提交。

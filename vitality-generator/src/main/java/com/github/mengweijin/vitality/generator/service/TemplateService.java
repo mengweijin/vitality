@@ -1,9 +1,11 @@
 package com.github.mengweijin.vitality.generator.service;
 
 import com.github.mengweijin.vitality.generator.domain.vo.TemplateVO;
+import com.github.mengweijin.vitality.generator.enums.EFileType;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.io.resource.ResourceUtil;
+import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -36,6 +38,13 @@ public class TemplateService {
         return templateCacheList.stream().filter(tpl -> tpl.getId().equals(templateId)).findFirst().orElse(null);
     }
 
+    public List<TemplateVO> getTemplateList() {
+        if (templateCacheList.isEmpty()) {
+            this.loadTemplateCacheList();
+        }
+        return templateCacheList;
+    }
+
     public List<TemplateVO> buildTemplateTree() {
         if (templateCacheList.isEmpty()) {
             this.loadTemplateCacheList();
@@ -56,9 +65,13 @@ public class TemplateService {
             TemplateVO vo = new TemplateVO();
             vo.setId(file.getPath());
             vo.setParentId(file.getParentFile().getPath());
-            vo.setName(file.getName());
             if (file.isFile()) {
+                vo.setName(StrUtil.subBefore(file.getName(), ".", true));
+                vo.setType(EFileType.FILE.name());
                 vo.setContent(FileUtil.readUtf8String(file));
+            } else {
+                vo.setName(file.getName());
+                vo.setType(EFileType.DIR.name());
             }
             list.add(vo);
 

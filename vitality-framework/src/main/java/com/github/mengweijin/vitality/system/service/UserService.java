@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
-import com.github.mengweijin.vitality.framework.cache.CacheName;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.framework.util.AopUtils;
@@ -108,7 +108,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return idList.stream().map(this::getNicknameById).collect(Collectors.joining());
     }
 
-    @Cacheable(value = CacheName.USER_ID_TO_USERNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_USERNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getUsernameById(Long id) {
         return this.lambdaQuery()
                 .select(User::getUsername)
@@ -118,7 +118,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheName.USER_ID_TO_NICKNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getNicknameById(Long id) {
         return this.lambdaQuery()
                 .select(User::getNickname)
@@ -128,21 +128,21 @@ public class UserService extends CrudRepository<UserMapper, User> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheName.USER_ID_TO_AVATAR, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_AVATAR, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getAvatarById(Long id) {
         return userAvatarService.lambdaQuery().eq(UserAvatar::getUserId, id).oneOpt()
                 .map(UserAvatar::getAvatar).orElse(null);
     }
 
-    @CacheEvict(value = CacheName.USER_ID_TO_USERNAME, key = "#id")
+    @CacheEvict(value = CacheNames.USER_ID_TO_USERNAME, key = "#id")
     public void removeCacheOfUsername(Long id) {
     }
 
-    @CacheEvict(value = CacheName.USER_ID_TO_NICKNAME, key = "#id")
+    @CacheEvict(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id")
     public void removeCacheOfNickname(Long id) {
     }
 
-    @CacheEvict(value = CacheName.USER_ID_TO_AVATAR, key = "#id")
+    @CacheEvict(value = CacheNames.USER_ID_TO_AVATAR, key = "#id")
     public void removeCacheOfAvatar(Long id) {
     }
 

@@ -1,6 +1,7 @@
 package com.github.mengweijin.vitality.framework.cache;
 
 /**
+ * UNLESS 默认不加的好处是，也缓存为空的结果，来避免缓存穿透。
  * @author mengweijin
  * @since 2022/9/3
  */

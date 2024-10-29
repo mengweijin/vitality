@@ -28,9 +28,9 @@ public class GeneratorController {
 
     private GeneratorService generatorService;
 
-    @GetMapping("/template/tree")
-    public List<TemplateVO> loadTemplateTree() {
-        return templateService.buildTemplateTree();
+    @GetMapping("/template/list")
+    public List<TemplateVO> getTemplateList() {
+        return templateService.getTemplateList();
     }
 
     @GetMapping("/config/default")
@@ -38,8 +38,8 @@ public class GeneratorController {
         return new GeneratorArgsBO();
     }
 
-    @GetMapping("/table")
-    public List<TableInfoVO> tableList() {
+    @GetMapping("/table/list")
+    public List<TableInfoVO> getTableList() {
         return generatorService.getAllTableInfoVOList();
     }
 

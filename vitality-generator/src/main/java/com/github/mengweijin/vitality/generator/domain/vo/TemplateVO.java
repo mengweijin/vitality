@@ -1,6 +1,8 @@
 package com.github.mengweijin.vitality.generator.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,9 +19,12 @@ public class TemplateVO implements Serializable {
 
     private String name;
 
+    @JsonIgnore
     private String content;
 
     private int seq;
+
+    private String type;
 
     private List<TemplateVO> children;
 

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
-import com.github.mengweijin.vitality.framework.cache.CacheName;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.system.domain.entity.Config;
 import com.github.mengweijin.vitality.system.mapper.ConfigMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import java.util.Objects;
 public class ConfigService extends CrudRepository<ConfigMapper, Config> {
 
     @Override
-    @Cacheable(value = CacheName.CONFIG_LIST, key = CacheConst.KEY_ALL, unless = CacheConst.UNLESS_LIST_EMPTY)
+    @Cacheable(value = CacheNames.CONFIG_LIST, key = CacheConst.KEY_ALL, unless = CacheConst.UNLESS_LIST_EMPTY)
     public List<Config> list() {
         return super.list();
     }

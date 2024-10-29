@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
-import com.github.mengweijin.vitality.framework.cache.CacheName;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.mapper.DictDataMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +51,7 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
         return this.page(page, query);
     }
 
-    @Cacheable(value = CacheName.DICT_DATA_VAL_TO_LABEL, key = "#code + ':' + #val", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.DICT_DATA_VAL_TO_LABEL, key = "#code + ':' + #val", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getLabelByCodeAndVal(String code, String val) {
         return this.lambdaQuery()
                 .select(DictData::getLabel)
@@ -62,7 +62,7 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheName.DICT_DATA_LIST, key = "#code", unless = CacheConst.UNLESS_LIST_EMPTY)
+    @Cacheable(value = CacheNames.DICT_DATA_LIST, key = "#code", unless = CacheConst.UNLESS_LIST_EMPTY)
     public List<DictData> getByCode(String code) {
         return this.lambdaQuery()
                 .eq(DictData::getCode, code)

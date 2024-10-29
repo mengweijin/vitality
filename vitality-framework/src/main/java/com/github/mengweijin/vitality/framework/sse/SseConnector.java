@@ -1,11 +1,12 @@
 package com.github.mengweijin.vitality.framework.sse;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.github.mengweijin.vitality.framework.cache.CacheManagerFactory;
+import com.github.mengweijin.vitality.framework.cache.CacheFactory;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.core.thread.ThreadUtil;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -26,11 +27,17 @@ import java.util.function.Consumer;
  */
 @Slf4j
 @Service
-public class SseConnector {
+public class SseConnector implements InitializingBean {
 
-    private static final Cache<String, SseEmitter> CACHE = CacheManagerFactory.getSseEmitterMessageCache();
+    private Cache<String, SseEmitter> cache;
 
-    private static final ExecutorService SSE_EXECUTOR_SERVICE = ThreadUtil.newFixedExecutor(Const.PROCESSORS, "thread-pool-sse-", true);
+    private ExecutorService executorService;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        cache = CacheFactory.getSseEmitterMessageCache();
+        executorService = ThreadUtil.newFixedExecutor(Const.PROCESSORS, "thread-pool-sse-", true);
+    }
 
     public void sendMessageToUsersAsync(String content, String... usernames) {
         if (ArrayUtil.isEmpty(usernames)) {
@@ -41,7 +48,7 @@ public class SseConnector {
                 for (String username : usernames) {
                     List<String> tokenList = StpUtil.getTokenValueListByLoginId(username);
                     for (String token : tokenList) {
-                        SseEmitter sseEmitter = CACHE.get(token);
+                        SseEmitter sseEmitter = cache.get(token);
                         if (sseEmitter != null) {
                             sseEmitter.send(content);
                         }
@@ -51,7 +58,7 @@ public class SseConnector {
                 log.error(e.getMessage(), e);
                 throw new RuntimeException(e);
             }
-        }, SSE_EXECUTOR_SERVICE);
+        }, executorService);
     }
 
     /**
@@ -66,21 +73,22 @@ public class SseConnector {
         SseEmitter sseEmitter = new SseEmitter(0L);
         sseEmitter.onError(onError(token));
         sseEmitter.onTimeout(onTimeout(token));
-        CACHE.put(token, sseEmitter);
+        cache.put(token, sseEmitter);
         return sseEmitter;
     }
 
     private Runnable onTimeout(String token) {
         return () -> {
-            CACHE.remove(token);
+            cache.remove(token);
             log.warn("SseEmitter timeout!");
         };
     }
 
     private Consumer<Throwable> onError(String token) {
         return throwable -> {
-            CACHE.remove(token);
+            cache.remove(token);
             log.error(throwable.getMessage(), throwable);
         };
     }
+
 }

@@ -3,7 +3,11 @@ package com.github.mengweijin.vitality.framework.cache;
 /**
  * @author mengweijin
  */
-public interface CacheName {
+public interface CacheNames {
+
+    String CAPTCHA = "CAPTCHA";
+
+    String CONFIG_LIST = "CONFIG_LIST";
 
     String DICT_DATA_LIST = "DICT_DATA_LIST";
 
@@ -17,11 +21,7 @@ public interface CacheName {
 
     String USER_ID_TO_AVATAR = "USER_ID_TO_AVATAR";
 
-    String CAPTCHA = "CAPTCHA";
-
     String REPEAT_SUBMIT = "REPEAT_SUBMIT";
-
-    String CONFIG_LIST = "CONFIG_LIST";
 
     String SSE_EMITTER_MESSAGE = "SSE_EMITTER_MESSAGE";
 

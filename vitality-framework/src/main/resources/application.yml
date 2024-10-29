@@ -44,6 +44,11 @@ spring:
     #date-format: yyyy-MM-dd HH:mm:ss
     # 序列化所有实体类的字段，包括值为null的
     default-property-inclusion: ALWAYS
+  # CacheProperties.java
+  cache:
+    type: JCACHE
+    jcache:
+      config: classpath:ehcache.xml
   task:
     # @Async Spring异步任务
     execution:

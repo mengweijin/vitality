@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.framework.cache;
+package com.github.mengweijin.vitality.framework.cache.listener;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +13,9 @@ import org.ehcache.event.CacheEventListener;
 @AllArgsConstructor
 public class DefaultCacheEventListener implements CacheEventListener<Object, Object> {
 
-    private String cacheName;
-
     @Override
     public void onEvent(CacheEvent<?, ?> event) {
-        log.debug("Cache_name = {}, Cache_event = {}, Key = {},  Old_value = {}, New_value = {}",
-                this.cacheName, event.getType(), event.getKey(), event.getOldValue(), event.getNewValue());
+        log.debug("cache_event = {}, key = {},  old_value = {}, new_value = {}",
+                event.getType(), event.getKey(), event.getOldValue(), event.getNewValue());
     }
 }

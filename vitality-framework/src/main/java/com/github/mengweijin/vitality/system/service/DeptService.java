@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
-import com.github.mengweijin.vitality.framework.cache.CacheName;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.framework.util.AopUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.mapper.DeptMapper;
@@ -69,7 +69,7 @@ public class DeptService extends CrudRepository<DeptMapper, Dept> {
         return this.lambdaUpdate().set(Dept::getDisabled, disabled).eq(Dept::getId, id).update();
     }
 
-    @Cacheable(value = CacheName.DEPT_ID_TO_NAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.DEPT_ID_TO_NAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getNameById(Long id) {
         return this.lambdaQuery()
                 .select(Dept::getName)
@@ -79,7 +79,7 @@ public class DeptService extends CrudRepository<DeptMapper, Dept> {
                 .orElse(null);
     }
 
-    @CacheEvict(value = CacheName.DEPT_ID_TO_NAME, key = "#id")
+    @CacheEvict(value = CacheNames.DEPT_ID_TO_NAME, key = "#id")
     public void removeCacheOfDeptName(Long id) {
     }
 

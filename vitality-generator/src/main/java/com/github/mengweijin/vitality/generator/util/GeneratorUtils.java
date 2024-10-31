@@ -52,6 +52,13 @@ public class GeneratorUtils {
         return Arrays.stream(items).map(String::trim).toArray(String[]::new);
     }
 
+    public static String[] parseTablePrefix(String str) {
+        if (StrUtil.isBlank(str)) {
+            return new String[]{};
+        }
+        return trimItems(str.split("[,，;； ]"));
+    }
+
     public static String resolveEntityName(String tableName, String[] tablePrefix) {
         String val = tableName;
         if (tablePrefix != null) {

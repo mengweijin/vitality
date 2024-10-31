@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
  * ${entityName} BO
- * </p>
  *
  * @author ${author}
  * @since ${date}

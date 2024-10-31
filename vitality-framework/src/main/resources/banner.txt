@@ -62,7 +62,7 @@ ${AnsiColor.BRIGHT_GREEN}
                 Server Port:  ${server.port}
      Spring Profiles Active:  ${spring.profiles.active}
 Server Servlet Content-Path:  ${server.servlet.context-path}
-         Application Author:  ${application.author}
+                     Author:  ${application.author}
                       Email:  ${application.email}
               Vitality Link:  ${application.vitality}
                   Home Link:  ${application.home}

@@ -29,7 +29,7 @@ import java.util.Objects;
 public class ConfigService extends CrudRepository<ConfigMapper, Config> {
 
     @Override
-    @Cacheable(value = CacheNames.CONFIG_LIST, key = CacheConst.KEY_ALL, unless = CacheConst.UNLESS_LIST_EMPTY)
+    @Cacheable(value = CacheNames.CONFIG_LIST, key = CacheConst.KEY_ALL)
     public List<Config> list() {
         return super.list();
     }

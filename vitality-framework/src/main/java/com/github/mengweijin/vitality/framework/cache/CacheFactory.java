@@ -54,4 +54,5 @@ public final class CacheFactory {
     public static Cache<String, SseEmitter> getSseEmitterMessageCache() {
         return CACHE_MANAGER.getCache(CacheNames.SSE_EMITTER_MESSAGE, String.class, SseEmitter.class);
     }
+
 }

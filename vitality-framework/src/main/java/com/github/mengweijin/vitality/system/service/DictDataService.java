@@ -62,7 +62,7 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheNames.DICT_DATA_LIST, key = "#code", unless = CacheConst.UNLESS_LIST_EMPTY)
+    @Cacheable(value = CacheNames.DICT_DATA_LIST, key = "#code", unless = CacheConst.UNLESS_OBJECT_NULL)
     public List<DictData> getByCode(String code) {
         return this.lambdaQuery()
                 .eq(DictData::getCode, code)

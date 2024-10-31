@@ -1,12 +1,13 @@
 package com.github.mengweijin.vitality.generator.controller;
 
+import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.generator.domain.bo.GeneratorArgsBO;
+import com.github.mengweijin.vitality.generator.domain.vo.ContentVO;
 import com.github.mengweijin.vitality.generator.domain.vo.TableInfoVO;
 import com.github.mengweijin.vitality.generator.domain.vo.TemplateVO;
 import com.github.mengweijin.vitality.generator.service.GeneratorService;
 import com.github.mengweijin.vitality.generator.service.TemplateService;
 import lombok.AllArgsConstructor;
-import org.dromara.hutool.core.lang.tuple.Pair;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,24 +29,25 @@ public class GeneratorController {
 
     private GeneratorService generatorService;
 
+    @GetMapping("/table/list")
+    public List<TableInfoVO> getTableList(String name) {
+        return generatorService.selectTableList(name);
+    }
+
     @GetMapping("/template/list")
     public List<TemplateVO> getTemplateList() {
         return templateService.getTemplateList();
     }
 
-    @GetMapping("/config/default")
-    public GeneratorArgsBO getDefaultConfig() {
+    @GetMapping("/args/default")
+    public GeneratorArgsBO getDefaultArgs() {
         return new GeneratorArgsBO();
     }
 
-    @GetMapping("/table/list")
-    public List<TableInfoVO> getTableList() {
-        return generatorService.getAllTableInfoVOList();
-    }
-
-    @PostMapping("/run")
-    public Pair<String, String> execute(@RequestBody GeneratorArgsBO bo) {
-        return generatorService.generate(bo);
+    @PostMapping("/execute")
+    public R<ContentVO> execute(@RequestBody GeneratorArgsBO bo) {
+        ContentVO contentVO = generatorService.generate(bo);
+        return R.success(contentVO);
     }
 
 }

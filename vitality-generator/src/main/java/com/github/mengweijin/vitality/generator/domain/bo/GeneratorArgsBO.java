@@ -1,11 +1,8 @@
 package com.github.mengweijin.vitality.generator.domain.bo;
 
 import com.github.mengweijin.vitality.framework.util.SpringBootMainClassUtils;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.dromara.hutool.core.util.SystemUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author mengweijin
@@ -14,15 +11,23 @@ import java.util.List;
 @Data
 public class GeneratorArgsBO {
 
+    @NotBlank
     private String templateId;
 
+    @NotBlank
+    private String templateName;
+
+    @NotBlank
+    private String templateContent;
+
+    @NotBlank
     private String tableName;
 
-    private List<String> tablePrefix = new ArrayList<>(List.of("VTL_", "SYS_"));
+    private String tablePrefix = String.join(",", "VTL_", "SYS_");
 
     private String packages = SpringBootMainClassUtils.getSpringBootApplicationClassPackage();
 
-    private String module = "system";
+    private String module;
 
-    private String author = SystemUtil.get("user.name", false);
+    private String author = "mengweijin";
 }

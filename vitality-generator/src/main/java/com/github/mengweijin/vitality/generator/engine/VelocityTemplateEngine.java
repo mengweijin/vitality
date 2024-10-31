@@ -10,7 +10,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.date.DatePattern;
 import org.dromara.hutool.core.date.DateUtil;
-import org.dromara.hutool.core.lang.tuple.Pair;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Component;
 
@@ -36,15 +35,12 @@ public class VelocityTemplateEngine {
         this.velocityEngine.init();
     }
 
-    public Pair<String, String> writeString(String fileName, String templateContent, GeneratorArgs args, TableInfo tableInfo) {
-        return evaluate(fileName, templateContent, getObjectMap(args, tableInfo));
-    }
-
-    protected Pair<String, String> evaluate(String fileName, String templateContent, Map<String, Object> args) {
+    public String writeString(String fileName, String templateContent, GeneratorArgs args, TableInfo tableInfo) {
+        Map<String, Object> objectMap = getObjectMap(args, tableInfo);
         try (StringWriter writer = new StringWriter()) {
-            VelocityContext context = new VelocityContext(args);
+            VelocityContext context = new VelocityContext(objectMap);
             velocityEngine.evaluate(context, writer, fileName, templateContent);
-            return Pair.of(fileName, writer.toString());
+            return writer.toString();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException(e);

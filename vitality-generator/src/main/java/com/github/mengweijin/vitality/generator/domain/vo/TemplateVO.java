@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.generator.domain.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.mengweijin.vitality.framework.util.JarFileUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,15 +17,19 @@ public class TemplateVO implements Serializable {
 
     private String parentId;
 
+    private boolean directory;
+
     private String name;
 
-    @JsonIgnore
     private String content;
-
-    private int seq;
-
-    private String type;
 
     private List<TemplateVO> children;
 
+    public TemplateVO(JarFileUtils.ContentInfo contentInfo) {
+        this.id = contentInfo.getId();
+        this.parentId = contentInfo.getParentId();
+        this.directory = contentInfo.isDirectory();
+        this.name = contentInfo.getName();
+        this.content = contentInfo.getContent();
+    }
 }

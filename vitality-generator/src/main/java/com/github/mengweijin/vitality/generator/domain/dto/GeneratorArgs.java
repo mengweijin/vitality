@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.generator.domain.dto;
 
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import com.github.mengweijin.vitality.generator.domain.bo.GeneratorArgsBO;
+import com.github.mengweijin.vitality.generator.util.GeneratorUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +35,7 @@ public class GeneratorArgs {
 
 
     public GeneratorArgs(GeneratorArgsBO bo) {
-        this.tablePrefix = bo.getTablePrefix().toArray(new String[0]);
+        this.tablePrefix = GeneratorUtils.parseTablePrefix(bo.getTablePrefix());
         this.packages = bo.getPackages();
         this.moduleName = bo.getModule();
         this.author = bo.getAuthor();

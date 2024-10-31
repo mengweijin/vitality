@@ -245,18 +245,6 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
             </plugin>
-            <plugin>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>code-generator-maven-plugin</artifactId>
-                <version>1.1.1-SNAPSHOT</version>
-                <configuration>
-                    <config>
-                        <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
-                        <tablePrefix>vtl_</tablePrefix>
-                        <templateDir>generator</templateDir>
-                    </config>
-                </configuration>
-            </plugin>
         </plugins> 
     </build>  
     <!--  提交到资料库的地址  -->  

@@ -26,11 +26,19 @@
             </listener>
         </listeners>
         <resources>
-            <!-- 单位默认为entries当用entries作单位时,可以不填-->
+            <!-- 内存中存放的条目个数。单位默认为entries当用entries作单位时,可以不填-->
             <heap unit="entries">100</heap>
+            <!-- 堆外内存大小-->
             <offheap unit="MB">5</offheap>
-            <!-- persistent 默认为 false，可以不填-->
-            <disk unit="MB" persistent="true">1024</disk>
+            <!--
+                persistent 默认为 false，可以不填。
+                用于定义缓存数据在应用重启后是否需要恢复。
+                当diskPersistent设置为true时，缓存数据会被写入磁盘中，并在应用重启后自动加载到内存中，以便恢复缓存数据。
+                当diskPersistent设置为false时，缓存数据只保存在内存中，应用重启后会丢失所有缓存数据。
+                需要注意的是，开启diskPersistent会增加磁盘IO的开销，并且在磁盘故障等异常情况下，可能会导致缓存数据的丢失。
+                因此，在使用diskPersistent时需要根据实际情况进行权衡和配置，以保证数据的安全性和可靠性。
+            -->
+            <disk unit="MB" persistent="false">1024</disk>
         </resources>
     </cache-template>
 
@@ -91,4 +99,11 @@
         <value-type>java.lang.String</value-type>
     </cache>
 
+    <cache alias="GENERATOR_TEMPLATE_LIST" uses-template="DEFAULT_TEMPLATE">
+        <key-type>java.lang.String</key-type>
+        <value-type>java.util.List</value-type>
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+    </cache>
 </config>

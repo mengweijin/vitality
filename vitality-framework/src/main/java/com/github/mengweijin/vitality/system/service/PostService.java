@@ -33,7 +33,6 @@ public class PostService extends CrudRepository<PostMapper, Post> {
     public IPage<Post> page(IPage<Post> page, Post post){
         LambdaQueryWrapper<Post> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(post.getName()), Post::getName, post.getName())
                 .eq(!Objects.isNull(post.getSeq()), Post::getSeq, post.getSeq())
                 .eq(StrUtil.isNotBlank(post.getDisabled()), Post::getDisabled, post.getDisabled())
                 .eq(StrUtil.isNotBlank(post.getRemark()), Post::getRemark, post.getRemark())
@@ -41,7 +40,8 @@ public class PostService extends CrudRepository<PostMapper, Post> {
                 .eq(!Objects.isNull(post.getCreateBy()), Post::getCreateBy, post.getCreateBy())
                 .eq(!Objects.isNull(post.getCreateTime()), Post::getCreateTime, post.getCreateTime())
                 .eq(!Objects.isNull(post.getUpdateBy()), Post::getUpdateBy, post.getUpdateBy())
-                .eq(!Objects.isNull(post.getUpdateTime()), Post::getUpdateTime, post.getUpdateTime());
+                .eq(!Objects.isNull(post.getUpdateTime()), Post::getUpdateTime, post.getUpdateTime())
+                .like(StrUtil.isNotBlank(post.getName()), Post::getName, post.getName());
         return this.page(page, query);
     }
 }

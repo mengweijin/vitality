@@ -63,7 +63,7 @@ public class VelocityTemplateEngine {
 
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("module", args.getModuleName());
-        objectMap.put("package", args.getPackages());
+        objectMap.put("package", GeneratorUtils.getPackages(args.getPackages(), args.getModuleName()));
         objectMap.put("author", args.getAuthor());
         objectMap.put("date", DateUtil.format(LocalDateTime.now(), DatePattern.NORM_DATE_PATTERN));
         objectMap.put("baseEntity", args.getBaseEntity());

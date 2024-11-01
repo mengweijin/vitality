@@ -5,16 +5,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheNames;
-import com.github.mengweijin.vitality.framework.util.AopUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.mapper.DeptMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,18 +27,6 @@ import java.util.Objects;
 @Slf4j
 @Service
 public class DeptService extends CrudRepository<DeptMapper, Dept> {
-
-    @Override
-    public boolean updateById(Dept entity) {
-        AopUtils.getAopProxy(this).removeCacheOfDeptName(entity.getId());
-        return super.updateById(entity);
-    }
-
-    @Override
-    public boolean removeByIds(Collection<?> list) {
-        list.forEach(id -> AopUtils.getAopProxy(this).removeCacheOfDeptName((Long) id));
-        return super.removeByIds(list);
-    }
 
     /**
      * Custom paging query
@@ -79,15 +64,11 @@ public class DeptService extends CrudRepository<DeptMapper, Dept> {
                 .orElse(null);
     }
 
-    @CacheEvict(value = CacheNames.DEPT_ID_TO_NAME, key = "#id")
-    public void removeCacheOfDeptName(Long id) {
-    }
-
     public Dept getByUserId(Long userId) {
         return this.getBaseMapper().selectByUserId(userId);
     }
 
-    public List<Long> getDeptChildrenIdsWithCurrentById(long id) {
+    public List<Long> getChildrenIdsWithCurrentById(long id) {
         List<Long> ids = this.getBaseMapper().selectChildrenIdsById(id);
         ids.add(0, id);
         return ids;

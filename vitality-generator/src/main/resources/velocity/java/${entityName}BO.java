@@ -1,7 +1,8 @@
-package ${package};
+package ${package}.domain.bo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ${package}.domain.entity.${entityName};
 
 /**
  * ${entityName} BO

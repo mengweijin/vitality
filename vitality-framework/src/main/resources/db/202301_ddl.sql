@@ -64,11 +64,29 @@ create unique index UNIQUE_INDEX_VTL_CONFIG_1 on VTL_CONFIG(CODE);
 create unique index UNIQUE_INDEX_VTL_CONFIG_2 on VTL_CONFIG(NAME);
 
 
+drop table IF EXISTS VTL_CATEGORY;
+create TABLE VTL_CATEGORY (
+  ID                            bigint NOT NULL comment '主键ID',
+  PARENT_ID                     bigint NOT NULL DEFAULT 0 comment 'PARENT ID',
+  CODE                          varchar(500) NOT NULL comment '编码',
+  NAME                          varchar(255) NOT NULL comment '名称',
+  REMARK 	                    varchar(500) comment '备注',
+  SEQ 		                    int DEFAULT 1 comment '展示顺序',
+  DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否已禁用。[Y, N]',
+  CREATE_BY                     bigint DEFAULT NULL comment '创建者',
+  CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
+  UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (ID)
+);
+create unique index UNIQUE_INDEX_VTL_CATEGORY_1 on VTL_CATEGORY(CODE);
+
+
 drop table IF EXISTS VTL_DICT_TYPE;
 create TABLE VTL_DICT_TYPE (
   ID                            bigint NOT NULL comment '主键ID',
   NAME 		                    varchar(100) NOT NULL comment '字典名称',
-  CODE 		                    varchar(100) NOT NULL comment '字典类型编码。',
+  CODE 		                    varchar(100) NOT NULL comment '字典类型编码',
   REMARK 	                    varchar(500) comment '备注',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
@@ -82,7 +100,7 @@ create unique index UNIQUE_INDEX_VTL_DICT_TYPE_1 on VTL_DICT_TYPE(CODE);
 drop table IF EXISTS VTL_DICT_DATA;
 create TABLE VTL_DICT_DATA (
   ID                            bigint NOT NULL comment '主键ID',
-  CODE                          varchar(100) NOT NULL comment '字典类型编码。',
+  CODE 		                    varchar(100) NOT NULL comment '字典类型编码',
   VAL 		                    varchar(100) NOT NULL comment '字典数据值',
   LABEL 		                varchar(100) NOT NULL comment '字典数据标签名称',
   SEQ 		                    int DEFAULT 1 comment '展示顺序',

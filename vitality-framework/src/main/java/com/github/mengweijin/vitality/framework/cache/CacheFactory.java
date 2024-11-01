@@ -51,6 +51,10 @@ public final class CacheFactory {
         return CACHE_MANAGER.getCache(CacheNames.CONFIG_LIST, String.class, List.class);
     }
 
+    public static Cache<String, List> getCategoryListCache() {
+        return CACHE_MANAGER.getCache(CacheNames.CATEGORY_LIST, String.class, List.class);
+    }
+
     public static Cache<String, SseEmitter> getSseEmitterMessageCache() {
         return CACHE_MANAGER.getCache(CacheNames.SSE_EMITTER_MESSAGE, String.class, SseEmitter.class);
     }

@@ -6,12 +6,14 @@ import com.github.mengweijin.vitality.generator.domain.dto.GeneratorArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.reflect.FieldUtil;
 import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class GeneratorUtils {
+
+    public static final PropertyPlaceholderHelper PLACEHOLDER_HELPER = new PropertyPlaceholderHelper("${", "}");
 
     /**
      * If the user configured superEntityColumns, the configuration will prevail;
@@ -90,6 +94,25 @@ public class GeneratorUtils {
 
     public static TableField getIdField(TableInfo tableInfo) {
         return tableInfo.getFields().stream().filter(TableField::isKeyFlag).findFirst().orElse(null);
+    }
+
+    public static String getPackages(String packages, String moduleName) {
+        if (StrUtil.isBlank(moduleName)) {
+            return packages;
+        }
+        return String.join(".", packages, moduleName);
+    }
+
+    public static String replacePlaceHolders(String str, String key, String value) {
+        Properties props = new Properties();
+        props.setProperty(key, value);
+        return PLACEHOLDER_HELPER.replacePlaceholders(str, props);
+    }
+
+    public static String replaceFileNamePlaceHolders(String fileName, String entityName) {
+        Properties props = new Properties();
+        props.setProperty("entityName", entityName);
+        return PLACEHOLDER_HELPER.replacePlaceholders(fileName, props);
     }
 
     public static String renderString(String content, Map<String, Object> map) {

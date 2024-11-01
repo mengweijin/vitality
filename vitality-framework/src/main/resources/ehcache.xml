@@ -11,7 +11,7 @@
         <value-type>java.lang.String</value-type>
         <expiry>
             <!-- 单位默认为秒当用秒作单位时,可以不填-->
-            <ttl unit="days">7</ttl>
+            <ttl unit="hours">12</ttl>
         </expiry>
         <listeners>
             <listener>
@@ -49,6 +49,11 @@
         <expiry>
             <ttl unit="minutes">1</ttl>
         </expiry>
+    </cache>
+
+    <cache alias="CATEGORY_LIST" uses-template="DEFAULT_TEMPLATE">
+        <key-type>java.lang.String</key-type>
+        <value-type>java.util.List</value-type>
     </cache>
 
     <cache alias="CONFIG_LIST" uses-template="DEFAULT_TEMPLATE">

@@ -11,13 +11,10 @@ import lombok.Data;
 @Data
 public class GeneratorArgsBO {
 
-    @NotBlank
     private String templateId;
 
-    @NotBlank
     private String templateName;
 
-    @NotBlank
     private String templateContent;
 
     @NotBlank
@@ -27,7 +24,7 @@ public class GeneratorArgsBO {
 
     private String packages = SpringBootMainClassUtils.getSpringBootApplicationClassPackage();
 
-    private String module;
+    private String module = "system";
 
     private String author = "mengweijin";
 }

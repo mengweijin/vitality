@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
 import com.github.mengweijin.vitality.system.mapper.UserAvatarMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.hutool.extra.spring.SpringUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,8 +22,6 @@ import java.util.Optional;
 public class UserAvatarService extends CrudRepository<UserAvatarMapper, UserAvatar> {
 
     public boolean setAvatar(UserAvatar userAvatar) {
-        SpringUtil.getBean(UserService.class).removeCacheOfAvatar(userAvatar.getUserId());
-
         Optional<UserAvatar> optional = this.lambdaQuery().eq(UserAvatar::getUserId, userAvatar.getUserId()).oneOpt();
         optional.ifPresent(avatar -> userAvatar.setId(avatar.getId()));
         return this.saveOrUpdate(userAvatar);

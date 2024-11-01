@@ -20,8 +20,6 @@ public class TemplateService {
 
     public static final String TEMPLATE_DIR = "velocity";
 
-    public static final String TEMPLATE_SUFFIX = ".vm";
-
     public List<TemplateVO> getTemplateList() {
         List<JarFileUtils.ContentInfo> list = JarFileUtils.loadContentInfo(TEMPLATE_DIR);
 
@@ -30,7 +28,6 @@ public class TemplateService {
         });
 
         List<TemplateVO> templateVOList = list.stream()
-                .filter(f -> f.isDirectory() || f.getName().toLowerCase().endsWith(TEMPLATE_SUFFIX))
                 .map(TemplateVO::new)
                 .toList();
 

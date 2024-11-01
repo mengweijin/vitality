@@ -7,6 +7,8 @@ public interface CacheNames {
 
     String CAPTCHA = "CAPTCHA";
 
+    String CATEGORY_LIST = "CATEGORY_LIST";
+
     String CONFIG_LIST = "CONFIG_LIST";
 
     String DICT_DATA_LIST = "DICT_DATA_LIST";

@@ -1,4 +1,4 @@
-package ${package};
+package ${package}.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;

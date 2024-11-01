@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.system.mapper.CategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Category">
+        <id column="ID" property="id"/>
+        <result column="PARENT_ID" property="parentId"/>
+        <result column="CODE" property="code"/>
+        <result column="NAME" property="name"/>
+        <result column="REMARK" property="remark"/>
+        <result column="SEQ" property="seq"/>
+        <result column="DISABLED" property="disabled"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        PARENT_ID,
+        CODE,
+        NAME,
+        REMARK,
+        SEQ,
+        DISABLED,
+        ID,
+        CREATE_BY,
+        CREATE_TIME,
+        UPDATE_BY,
+        UPDATE_TIME
+    </sql>
+
+    <!-- 通用查询条件 -->
+    <sql id="WhereCondition">
+        <where>
+            <if test="parentId != null">
+                AND PARENT_ID = #{parentId}
+            </if>
+            <if test="code != null and code != ''">
+                AND CODE = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                AND NAME = #{name}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND REMARK = #{remark}
+            </if>
+            <if test="seq != null">
+                AND SEQ = #{seq}
+            </if>
+            <if test="disabled != null and disabled != ''">
+                AND DISABLED = #{disabled}
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="createBy != null">
+                AND CREATE_BY = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND CREATE_TIME = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                AND UPDATE_BY = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                AND UPDATE_TIME = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectChildrenIdsById" resultType="java.lang.Long" databaseId="h2">
+        WITH LINK(ID, PARENT_ID) AS (
+        SELECT t1.ID, t1.PARENT_ID FROM VTL_CATEGORY t1 WHERE t1.PARENT_ID = #{id} AND t1.DISABLED = 'N'
+        UNION ALL
+        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VTL_CATEGORY t2 ON link.ID = t2.PARENT_ID
+        )
+        SELECT ID FROM LINK ORDER BY ID
+    </select>
+</mapper>

@@ -76,7 +76,7 @@ public class DeptController {
     @SaCheckPermission("system:dept:query")
     @GetMapping("/listChildren/{id}")
     public List<Long> listChildren(@PathVariable("id") Long id) {
-        return deptService.getDeptChildrenIdsWithCurrentById(id);
+        return deptService.getChildrenIdsWithCurrentById(id);
     }
 
     /**

@@ -8,7 +8,6 @@ import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
-import com.github.mengweijin.vitality.framework.util.AopUtils;
 import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;
 import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.PasswdStrength;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -54,14 +52,6 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return super.save(user);
     }
 
-    @Override
-    public boolean updateById(User entity) {
-        AopUtils.getAopProxy(this).removeCacheOfUsername(entity.getId());
-        AopUtils.getAopProxy(this).removeCacheOfNickname(entity.getId());
-        AopUtils.getAopProxy(this).removeCacheOfAvatar(entity.getId());
-        return super.updateById(entity);
-    }
-
     /**
      * Custom paging query
      *
@@ -72,7 +62,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
     public IPage<User> page(IPage<User> page, User user) {
         List<Long> deptIds = new ArrayList<>();
         if (!Objects.isNull(user.getDeptId())) {
-            deptIds = deptService.getDeptChildrenIdsWithCurrentById(user.getDeptId());
+            deptIds = deptService.getChildrenIdsWithCurrentById(user.getDeptId());
         }
         LambdaQueryWrapper<User> query = new LambdaQueryWrapper<>();
         query
@@ -132,18 +122,6 @@ public class UserService extends CrudRepository<UserMapper, User> {
     public String getAvatarById(Long id) {
         return userAvatarService.lambdaQuery().eq(UserAvatar::getUserId, id).oneOpt()
                 .map(UserAvatar::getAvatar).orElse(null);
-    }
-
-    @CacheEvict(value = CacheNames.USER_ID_TO_USERNAME, key = "#id")
-    public void removeCacheOfUsername(Long id) {
-    }
-
-    @CacheEvict(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id")
-    public void removeCacheOfNickname(Long id) {
-    }
-
-    @CacheEvict(value = CacheNames.USER_ID_TO_AVATAR, key = "#id")
-    public void removeCacheOfAvatar(Long id) {
     }
 
     public boolean checkPassword(String plaintext, String hashed) {

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
@@ -37,7 +38,6 @@ import java.util.Set;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/role")
 public class RoleController {
@@ -109,7 +109,7 @@ public class RoleController {
     @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:role:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody Role role) {
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Role role) {
         boolean bool = roleService.save(role);
         return R.ajax(bool);
     }
@@ -123,7 +123,7 @@ public class RoleController {
     @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:role:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody Role role) {
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Role role) {
         boolean bool = roleService.updateById(role);
         return R.ajax(bool);
     }

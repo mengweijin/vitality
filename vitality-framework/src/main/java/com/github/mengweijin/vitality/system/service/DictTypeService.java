@@ -33,14 +33,18 @@ public class DictTypeService extends CrudRepository<DictTypeMapper, DictType> {
     public IPage<DictType> page(IPage<DictType> page, DictType dictType){
         LambdaQueryWrapper<DictType> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(dictType.getName()), DictType::getName, dictType.getName())
-                .eq(StrUtil.isNotBlank(dictType.getCode()), DictType::getCode, dictType.getCode())
                 .eq(StrUtil.isNotBlank(dictType.getRemark()), DictType::getRemark, dictType.getRemark())
                 .eq(!Objects.isNull(dictType.getId()), DictType::getId, dictType.getId())
                 .eq(!Objects.isNull(dictType.getCreateBy()), DictType::getCreateBy, dictType.getCreateBy())
                 .eq(!Objects.isNull(dictType.getCreateTime()), DictType::getCreateTime, dictType.getCreateTime())
                 .eq(!Objects.isNull(dictType.getUpdateBy()), DictType::getUpdateBy, dictType.getUpdateBy())
-                .eq(!Objects.isNull(dictType.getUpdateTime()), DictType::getUpdateTime, dictType.getUpdateTime());
+                .eq(!Objects.isNull(dictType.getUpdateTime()), DictType::getUpdateTime, dictType.getUpdateTime())
+                .like(StrUtil.isNotBlank(dictType.getName()), DictType::getName, dictType.getName())
+                .like(StrUtil.isNotBlank(dictType.getCode()), DictType::getCode, dictType.getCode());
         return this.page(page, query);
+    }
+
+    public DictType getByCode(String code) {
+        return this.lambdaQuery().eq(DictType::getCode, code).one();
     }
 }

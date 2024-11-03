@@ -13,5 +13,6 @@ target/
 logs
 /h2
 /ehcache
+/uploads
 
 application-local.yml

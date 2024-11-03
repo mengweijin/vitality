@@ -2,19 +2,19 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { ElMessageBox } from "element-plus";
 import { addDialog } from "@/components/ReDialog";
-import type { FormItemProps, PostVO } from "../utils/types";
+import type { FormItemProps, ${entityName}VO } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
 import { deviceDetection, getKeyList } from "@pureadmin/utils";
 import {
-  getPostPage,
-  createPost,
-  updatePost,
-  deletePost
-} from "@/api/system/post";
+  get${entityName}Page,
+  create${entityName},
+  update${entityName},
+  delete${entityName}
+} from "@/api/system/${vueApiName}";
 import { reactive, ref, onMounted, h, toRaw, type Ref } from "vue";
 
-export function usePost(tableRef: Ref) {
-  const form = reactive<PostVO>({});
+export function use${entityName}(tableRef: Ref) {
+  const form = reactive<${entityName}VO>({});
   const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
@@ -144,7 +144,7 @@ export function usePost(tableRef: Ref) {
       })
       .then(() => {
         let disabled: string = row.disabled === "Y" ? "N" : "Y";
-        updatePost({ id: row.id, disabled: disabled } as FormItemProps).then(
+        update${entityName}({ id: row.id, disabled: disabled } as FormItemProps).then(
           () => {
             row.disabled = disabled;
           }
@@ -163,7 +163,7 @@ export function usePost(tableRef: Ref) {
   }
 
   function handleDelete(row) {
-    deletePost(row.id).then(r => {
+    delete${entityName}(row.id).then(r => {
       if (r.code === 200) {
         onSearch();
       }
@@ -175,7 +175,7 @@ export function usePost(tableRef: Ref) {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
     const ids = getKeyList(curSelected, "id").join();
-    deletePost(ids).then(r => {
+    delete${entityName}(ids).then(r => {
       if (r.code === 200) {
         tableRef.value.getTableRef().clearSelection();
         onSearch();
@@ -212,7 +212,7 @@ export function usePost(tableRef: Ref) {
 
     form.current = pagination.currentPage;
     form.size = pagination.pageSize;
-    const page = await getPostPage(toRaw(form));
+    const page = await get${entityName}Page(toRaw(form));
 
     dataList.value = page.records;
     pagination.pageSize = page.size;
@@ -259,13 +259,13 @@ export function usePost(tableRef: Ref) {
             console.log("curData", curData);
             // 表单规则校验通过
             if (curData.id) {
-              updatePost(curData).then(r => {
+              update${entityName}(curData).then(r => {
                 if (r.code === 200) {
                   chores();
                 }
               });
             } else {
-              createPost(curData).then(r => {
+              create${entityName}(curData).then(r => {
                 if (r.code === 200) {
                   chores();
                 }

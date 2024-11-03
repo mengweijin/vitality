@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.service.DeptService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,6 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/dept")
 public class DeptController {
@@ -101,7 +100,7 @@ public class DeptController {
     @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:dept:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody Dept dept) {
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Dept dept) {
         boolean bool = deptService.save(dept);
         return R.ajax(bool);
     }
@@ -115,7 +114,7 @@ public class DeptController {
     @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:dept:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody Dept dept) {
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Dept dept) {
         boolean bool = deptService.updateById(dept);
         return R.ajax(bool);
     }

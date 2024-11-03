@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheNames;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.mapper.DictDataMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * <p>
@@ -39,7 +41,6 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
         query
                 .eq(StrUtil.isNotBlank(dictData.getCode()), DictData::getCode, dictData.getCode())
                 .eq(StrUtil.isNotBlank(dictData.getVal()), DictData::getVal, dictData.getVal())
-                .eq(StrUtil.isNotBlank(dictData.getLabel()), DictData::getLabel, dictData.getLabel())
                 .eq(!Objects.isNull(dictData.getSeq()), DictData::getSeq, dictData.getSeq())
                 .eq(StrUtil.isNotBlank(dictData.getDisabled()), DictData::getDisabled, dictData.getDisabled())
                 .eq(StrUtil.isNotBlank(dictData.getRemark()), DictData::getRemark, dictData.getRemark())
@@ -47,7 +48,9 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
                 .eq(!Objects.isNull(dictData.getCreateBy()), DictData::getCreateBy, dictData.getCreateBy())
                 .eq(!Objects.isNull(dictData.getCreateTime()), DictData::getCreateTime, dictData.getCreateTime())
                 .eq(!Objects.isNull(dictData.getUpdateBy()), DictData::getUpdateBy, dictData.getUpdateBy())
-                .eq(!Objects.isNull(dictData.getUpdateTime()), DictData::getUpdateTime, dictData.getUpdateTime());
+                .eq(!Objects.isNull(dictData.getUpdateTime()), DictData::getUpdateTime, dictData.getUpdateTime())
+                .like(StrUtil.isNotBlank(dictData.getLabel()), DictData::getLabel, dictData.getLabel());
+        query.orderByAsc(DictData::getSeq);
         return this.page(page, query);
     }
 
@@ -70,4 +73,10 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
                 .list();
     }
 
+    public void checkValDuplicate(String code, String val) {
+        Optional<DictData> optional = this.lambdaQuery().eq(DictData::getCode, code).eq(DictData::getVal, val).oneOpt();
+        if (optional.isPresent()) {
+            throw new ClientException(StrUtil.format("The dict type code[{}] and value[{}] already exists!", code, val));
+        }
+    }
 }

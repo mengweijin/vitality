@@ -14,11 +14,13 @@ import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.date.DatePattern;
 import org.dromara.hutool.core.date.TimeUtil;
 import org.dromara.hutool.core.io.file.FileNameUtil;
+import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,9 +37,20 @@ import java.util.Objects;
 @Service
 public class OssService extends CrudRepository<OssMapper, Oss> {
 
-    public static final String STORAGE_DIR = Const.PROJECT_DIR + "oss" + File.separatorChar;
+    public static final String STORAGE_DIR = Const.PROJECT_DIR + "uploads" + File.separatorChar;
 
     private static final String FORMAT = DatePattern.NORM_DATE_PATTERN.replaceAll(Const.DASH, Const.SLASH);
+
+    @Override
+    public boolean removeByIds(Collection<?> list) {
+        // 注意顺序，先查出来
+        List<Oss> ossList = this.lambdaQuery().in(Oss::getId, list).list();
+        boolean removed = super.removeByIds(list);
+        if (removed) {
+            ossList.forEach(oss -> FileUtil.del(oss.getStoragePath()));
+        }
+        return removed;
+    }
 
     /**
      * Custom paging query
@@ -48,14 +61,14 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
     public IPage<Oss> page(IPage<Oss> page, Oss oss){
         LambdaQueryWrapper<Oss> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(oss.getName()), Oss::getName, oss.getName())
                 .eq(StrUtil.isNotBlank(oss.getSuffix()), Oss::getSuffix, oss.getSuffix())
                 .eq(StrUtil.isNotBlank(oss.getStoragePath()), Oss::getStoragePath, oss.getStoragePath())
                 .eq(!Objects.isNull(oss.getId()), Oss::getId, oss.getId())
                 .eq(!Objects.isNull(oss.getCreateBy()), Oss::getCreateBy, oss.getCreateBy())
                 .eq(!Objects.isNull(oss.getCreateTime()), Oss::getCreateTime, oss.getCreateTime())
                 .eq(!Objects.isNull(oss.getUpdateBy()), Oss::getUpdateBy, oss.getUpdateBy())
-                .eq(!Objects.isNull(oss.getUpdateTime()), Oss::getUpdateTime, oss.getUpdateTime());
+                .eq(!Objects.isNull(oss.getUpdateTime()), Oss::getUpdateTime, oss.getUpdateTime())
+                .like(StrUtil.isNotBlank(oss.getName()), Oss::getName, oss.getName());
         return this.page(page, query);
     }
 

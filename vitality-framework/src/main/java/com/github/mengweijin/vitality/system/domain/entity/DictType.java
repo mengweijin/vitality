@@ -2,6 +2,10 @@ package com.github.mengweijin.vitality.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.framework.validator.annotation.BusinessCheck;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.validator.rule.DictTypeCodeDuplicateCheckRule;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,11 +25,14 @@ public class DictType extends BaseEntity {
     /**
     * 字典名称
     */
+    @NotBlank
     private String name;
 
     /**
     * 字典类型编码。
     */
+    @NotBlank(groups = Group.Create.class)
+    @BusinessCheck(groups = Group.Create.class, checkRule = DictTypeCodeDuplicateCheckRule.class)
     private String code;
 
     /**

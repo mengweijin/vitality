@@ -47,7 +47,7 @@ public class VelocityTemplateEngine {
         }
     }
 
-    private Map<String, Object> getObjectMap(GeneratorArgs args, TableInfo tableInfo) {
+    public static Map<String, Object> getObjectMap(GeneratorArgs args, TableInfo tableInfo) {
         List<String> baseEntityColumns = GeneratorUtils.resolveBaseEntityColumns(args);
         String entityName = GeneratorUtils.resolveEntityName(tableInfo.getName(), args.getTablePrefix());
         List<TableField> entityFields = GeneratorUtils.resolveEntityFields(tableInfo, baseEntityColumns);
@@ -81,6 +81,8 @@ public class VelocityTemplateEngine {
         objectMap.put("commonColumns", commonColumns);
         objectMap.put("allColumns", CollUtil.addAll(new ArrayList<>(entityColumns), new ArrayList<>(commonColumns)));
         objectMap.put("requestMapping", requestMapping);
+
+        objectMap.put("vueApiName", StrUtil.toSymbolCase(entityName, '-'));
 
         objectMap.put("hutoolStrUtil", StrUtil.class);
         return objectMap;

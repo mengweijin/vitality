@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Notice;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.service.NoticeService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +34,6 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/notice")
 public class NoticeController {
@@ -90,7 +89,7 @@ public class NoticeController {
     @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:notice:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody Notice notice) {
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Notice notice) {
         boolean bool = noticeService.save(notice);
         return R.ajax(bool);
     }
@@ -104,7 +103,7 @@ public class NoticeController {
     @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:notice:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody Notice notice) {
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Notice notice) {
         boolean bool = noticeService.updateById(notice);
         return R.ajax(bool);
     }

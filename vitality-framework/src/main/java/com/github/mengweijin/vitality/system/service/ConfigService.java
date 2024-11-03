@@ -43,15 +43,15 @@ public class ConfigService extends CrudRepository<ConfigMapper, Config> {
     public IPage<Config> page(IPage<Config> page, Config config){
         LambdaQueryWrapper<Config> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(config.getName()), Config::getName, config.getName())
-                .eq(StrUtil.isNotBlank(config.getCode()), Config::getCode, config.getCode())
                 .eq(StrUtil.isNotBlank(config.getVal()), Config::getVal, config.getVal())
                 .eq(StrUtil.isNotBlank(config.getRemark()), Config::getRemark, config.getRemark())
                 .eq(!Objects.isNull(config.getId()), Config::getId, config.getId())
                 .eq(!Objects.isNull(config.getCreateBy()), Config::getCreateBy, config.getCreateBy())
                 .eq(!Objects.isNull(config.getCreateTime()), Config::getCreateTime, config.getCreateTime())
                 .eq(!Objects.isNull(config.getUpdateBy()), Config::getUpdateBy, config.getUpdateBy())
-                .eq(!Objects.isNull(config.getUpdateTime()), Config::getUpdateTime, config.getUpdateTime());
+                .eq(!Objects.isNull(config.getUpdateTime()), Config::getUpdateTime, config.getUpdateTime())
+                .like(StrUtil.isNotBlank(config.getName()), Config::getName, config.getName())
+                .like(StrUtil.isNotBlank(config.getCode()), Config::getCode, config.getCode());
         return this.page(page, query);
     }
 

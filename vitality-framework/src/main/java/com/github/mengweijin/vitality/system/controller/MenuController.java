@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
 import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.service.MenuService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +34,6 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/menu")
 public class MenuController {
@@ -101,7 +100,7 @@ public class MenuController {
     @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:menu:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody Menu menu) {
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Menu menu) {
         boolean bool = menuService.save(menu);
         return R.ajax(bool);
     }
@@ -115,7 +114,7 @@ public class MenuController {
     @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:menu:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody Menu menu) {
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Menu menu) {
         boolean bool = menuService.updateById(menu);
         return R.ajax(bool);
     }

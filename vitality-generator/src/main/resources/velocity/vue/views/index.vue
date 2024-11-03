@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePost } from "./utils/hook";
+import { use${entityName} } from "./utils/hook";
 import { ref, onMounted } from "vue";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -11,7 +11,7 @@ import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "SystemPost"
+  name: "System${entityName}"
 });
 
 const formRef = ref();
@@ -34,7 +34,7 @@ const {
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
-} = usePost(tableRef);
+} = use${entityName}(tableRef);
 
 onMounted(() => {});
 </script>
@@ -85,7 +85,7 @@ onMounted(() => {});
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="岗位管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="数据管理" :columns="columns" @refresh="onSearch">
       <template #buttons>
         <el-button
           type="primary"

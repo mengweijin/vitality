@@ -109,10 +109,10 @@ public class GeneratorUtils {
         return PLACEHOLDER_HELPER.replacePlaceholders(str, props);
     }
 
-    public static String replaceFileNamePlaceHolders(String fileName, String entityName) {
+    public static String replaceTemplateString(String templateString, Map<String, Object> objectMap) {
         Properties props = new Properties();
-        props.setProperty("entityName", entityName);
-        return PLACEHOLDER_HELPER.replacePlaceholders(fileName, props);
+        objectMap.forEach((k, v) -> props.setProperty(k, StrUtil.toString(v)));
+        return PLACEHOLDER_HELPER.replacePlaceholders(templateString, props);
     }
 
     public static String renderString(String content, Map<String, Object> map) {

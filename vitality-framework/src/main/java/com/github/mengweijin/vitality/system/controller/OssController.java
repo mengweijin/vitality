@@ -8,13 +8,14 @@ import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.framework.util.DownLoadUtils;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Oss;
 import com.github.mengweijin.vitality.system.service.OssService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.io.file.FileUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +37,6 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-@Validated
 @RestController
 @RequestMapping("/system/oss")
 public class OssController {
@@ -57,14 +55,10 @@ public class OssController {
     public R<Void> download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
         Oss oss = ossService.getById(id);
         if(oss == null) {
-            return R.failure("No file was found in database! id=" + id);
+            return R.failure("No file was found!");
         }
-        try(FileInputStream in = new FileInputStream(oss.getStoragePath())) {
-            DownLoadUtils.download(in, oss.getName(), request, response);
-            return R.success();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        DownLoadUtils.download(FileUtil.getInputStream(oss.getStoragePath()), oss.getName(), request, response);
+        return R.success();
     }
 
     /**
@@ -115,7 +109,7 @@ public class OssController {
      */
     @SaCheckPermission("system:oss:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody Oss oss) {
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Oss oss) {
         boolean bool = ossService.save(oss);
         return R.ajax(bool);
     }
@@ -128,7 +122,7 @@ public class OssController {
      */
     @SaCheckPermission("system:oss:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody Oss oss) {
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Oss oss) {
         boolean bool = ossService.updateById(oss);
         return R.ajax(bool);
     }

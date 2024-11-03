@@ -11,6 +11,8 @@ import java.io.Serializable;
 @Data
 public class ContentVO implements Serializable {
 
+    private String templateName;
+
     private String fileName;
 
     private String content;

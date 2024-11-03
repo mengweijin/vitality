@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -48,17 +49,19 @@ public class GeneratorService {
     private VelocityTemplateEngine velocityTemplateEngine;
 
     public ContentVO generate(GeneratorArgsBO args) {
-        String fileName = this.parseFileName(args.getTemplateName(), args.getTableName(), args.getTablePrefix());
+        GeneratorArgs generatorArgs = new GeneratorArgs(args);
         TableInfo tableInfo = this.findTableInfoByName(args.getTableName());
-        String content = velocityTemplateEngine.writeString(fileName, args.getTemplateContent(), new GeneratorArgs(args), tableInfo);
+        String fileName = replaceFileName(args.getTemplateName(), generatorArgs, tableInfo);
+        String content = velocityTemplateEngine.writeString(fileName, args.getTemplateContent(), generatorArgs, tableInfo);
 
         ContentVO contentVO = new ContentVO();
+        contentVO.setTemplateName(args.getTemplateName());
         contentVO.setFileName(fileName);
         contentVO.setContent(content);
         return contentVO;
     }
 
-    private String parseFileName(String fileName, String tableName, String prefix) {
+    private String parseFileName2(String fileName, String tableName, String prefix) {
         String[] tablePrefix = GeneratorUtils.parseTablePrefix(prefix);
         String entityName = GeneratorUtils.resolveEntityName(tableName, tablePrefix);
         return GeneratorUtils.replacePlaceHolders(fileName, "entityName", StrUtil.toStringOrNull(entityName));
@@ -118,7 +121,7 @@ public class GeneratorService {
 
                 ContentVO contentVO = this.generate(bo);
                 String filePath = StrUtil.subAfter(tpl.getId(), TemplateService.TEMPLATE_DIR, false);
-                filePath = parseFileName(filePath, bo.getTableName(), bo.getTablePrefix());
+                filePath = StrUtil.replace(filePath, contentVO.getTemplateName(), contentVO.getFileName());
                 String fullPath = String.join(File.separator, currentBasePath, filePath);
                 File file = FileUtil.file(fullPath);
                 FileUtil.mkParentDirs(file);
@@ -130,5 +133,10 @@ public class GeneratorService {
         FileUtil.del(currentBasePath);
         log.debug("Generated zip file path = {}", zip.getAbsolutePath());
         return zip;
+    }
+
+    private String replaceFileName(String fileName, GeneratorArgs args, TableInfo tableInfo) {
+        Map<String, Object> objectMap = VelocityTemplateEngine.getObjectMap(args, tableInfo);
+        return GeneratorUtils.replaceTemplateString(fileName, objectMap);
     }
 }

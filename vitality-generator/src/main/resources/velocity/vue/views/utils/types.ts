@@ -13,6 +13,6 @@ interface FormProps {
   formInline: FormItemProps;
 }
 
-interface PostVO extends FormItemProps, BaseEntity, Page {}
+interface ${entityName}VO extends FormItemProps, BaseEntity, Page {}
 
-export type { FormItemProps, FormProps, PostVO };
+export type { FormItemProps, FormProps, ${entityName}VO };

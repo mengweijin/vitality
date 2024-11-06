@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.monitor.domain.entity.LogLogin">
         <id column="ID" property="id" />
         <result column="USERNAME" property="username" />
-        <result column="TOKEN" property="token" />
         <result column="LOGIN_TYPE" property="loginType" />
         <result column="IP" property="ip" />
         <result column="IP_LOCATION" property="ipLocation" />
@@ -24,7 +23,6 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         USERNAME,
-        TOKEN,
         LOGIN_TYPE,
         IP,
         IP_LOCATION,
@@ -45,9 +43,6 @@
         <where>
             <if test="username != null and username != ''">
                 AND USERNAME = #{username}
-            </if>
-            <if test="token != null and token != ''">
-                AND TOKEN = #{token}
             </if>
             <if test="loginType != null and loginType != ''">
                 AND LOGIN_TYPE = #{loginType}

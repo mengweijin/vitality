@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.dromara.hutool.core.collection.CollUtil;
-import org.dromara.hutool.core.date.DatePattern;
+import org.dromara.hutool.core.date.DateFormatPool;
 import org.dromara.hutool.core.date.DateUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Component;
@@ -65,7 +65,7 @@ public class VelocityTemplateEngine {
         objectMap.put("module", args.getModuleName());
         objectMap.put("package", GeneratorUtils.getPackages(args.getPackages(), args.getModuleName()));
         objectMap.put("author", args.getAuthor());
-        objectMap.put("date", DateUtil.format(LocalDateTime.now(), DatePattern.NORM_DATE_PATTERN));
+        objectMap.put("date", DateUtil.format(LocalDateTime.now(), DateFormatPool.NORM_DATE_PATTERN));
         objectMap.put("baseEntity", args.getBaseEntity());
         objectMap.put("baseEntityPackage", StrUtil.subBefore(args.getBaseEntity(), ".", true));
         objectMap.put("baseEntityName", StrUtil.subAfter(args.getBaseEntity(), ".", true));

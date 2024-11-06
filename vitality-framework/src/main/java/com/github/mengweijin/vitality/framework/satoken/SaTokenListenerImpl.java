@@ -25,25 +25,25 @@ public class SaTokenListenerImpl implements SaTokenListener {
      */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
-        logLoginService.addLoginLogAsync((String) loginId, tokenValue, ELoginType.LOGIN, null, ServletUtils.getRequest());
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGIN, null, ServletUtils.getRequest());
     }
 
     /** 每次注销时触发 */
     @Override
     public void doLogout(String loginType, Object loginId, String tokenValue) {
-        logLoginService.addLoginLogAsync((String) loginId, tokenValue, ELoginType.LOGOUT, null, ServletUtils.getRequest());
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGOUT, null, ServletUtils.getRequest());
     }
 
     /** 每次被踢下线时触发 */
     @Override
     public void doKickout(String loginType, Object loginId, String tokenValue) {
-        logLoginService.addLoginLogAsync((String) loginId, tokenValue, ELoginType.KICK_OUT, null, ServletUtils.getRequest());
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.KICK_OUT, null, ServletUtils.getRequest());
     }
 
     /** 每次被顶下线时触发 */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
-        logLoginService.addLoginLogAsync((String) loginId, tokenValue, ELoginType.REPLACED, null, ServletUtils.getRequest());
+        logLoginService.addLoginLogAsync((String) loginId, ELoginType.REPLACED, null, ServletUtils.getRequest());
     }
 
     /** 每次被封禁时触发 */

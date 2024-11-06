@@ -43,6 +43,7 @@ public class OssController {
 
     private OssService ossService;
 
+    @Log(operationType = EOperationType.UPLOAD)
     @PostMapping("/upload")
     public List<Oss> upload(HttpServletRequest request) {
         return ossService.upload(request);
@@ -51,6 +52,7 @@ public class OssController {
     /**
      * @param id id in table VTL_OSS
      */
+    @Log(operationType = EOperationType.DOWNLOAD)
     @GetMapping("/download/{id}")
     public R<Void> download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
         Oss oss = ossService.getById(id);
@@ -107,6 +109,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:oss:create")
     @PostMapping("/create")
     public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Oss oss) {
@@ -120,6 +123,7 @@ public class OssController {
      * </p>
      * @param oss {@link Oss}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:oss:update")
     @PostMapping("/update")
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Oss oss) {
@@ -133,6 +137,7 @@ public class OssController {
      * </p>
      * @param ids id
      */
+
     @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:oss:delete")
     @PostMapping("/delete/{ids}")

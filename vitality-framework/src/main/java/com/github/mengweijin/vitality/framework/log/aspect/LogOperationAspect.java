@@ -100,7 +100,7 @@ public class LogOperationAspect {
             if (logAnnotation.saveRequestData()) {
                 setRequestData(request, logOperation);
             }
-            if (logAnnotation.saveResponseData()) {
+            if (logAnnotation.saveResponseData() && object != null) {
                 String responseData = SensitiveObjectMapper.writeValueAsString(object);
                 logOperation.setResponseData(StrUtil.subByLength(responseData, 0, 2000));
             }

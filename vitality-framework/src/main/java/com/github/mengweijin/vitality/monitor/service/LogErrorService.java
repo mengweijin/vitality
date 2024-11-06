@@ -35,14 +35,14 @@ public class LogErrorService extends ServiceImpl<LogErrorMapper, LogError> {
         query
                 .eq(StrUtil.isNotBlank(logError.getClassName()), LogError::getClassName, logError.getClassName())
                 .eq(StrUtil.isNotBlank(logError.getMethodName()), LogError::getMethodName, logError.getMethodName())
-                .eq(StrUtil.isNotBlank(logError.getExceptionName()), LogError::getExceptionName, logError.getExceptionName())
                 .eq(StrUtil.isNotBlank(logError.getErrorMsg()), LogError::getErrorMsg, logError.getErrorMsg())
                 .eq(StrUtil.isNotBlank(logError.getStackTrace()), LogError::getStackTrace, logError.getStackTrace())
                 .eq(!Objects.isNull(logError.getId()), LogError::getId, logError.getId())
                 .eq(!Objects.isNull(logError.getCreateBy()), LogError::getCreateBy, logError.getCreateBy())
                 .eq(!Objects.isNull(logError.getCreateTime()), LogError::getCreateTime, logError.getCreateTime())
                 .eq(!Objects.isNull(logError.getUpdateBy()), LogError::getUpdateBy, logError.getUpdateBy())
-                .eq(!Objects.isNull(logError.getUpdateTime()), LogError::getUpdateTime, logError.getUpdateTime());
+                .eq(!Objects.isNull(logError.getUpdateTime()), LogError::getUpdateTime, logError.getUpdateTime())
+                .like(StrUtil.isNotBlank(logError.getExceptionName()), LogError::getExceptionName, logError.getExceptionName());
         return this.page(page, query);
     }
 }

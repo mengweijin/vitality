@@ -36,6 +36,15 @@ public enum EOperationType {
     EXPORT,
 
     /**
+     * 上传
+     */
+    UPLOAD,
+
+    /**
+     * 下载
+     */
+    DOWNLOAD,
+    /**
      * 其他
      */
     OTHER,

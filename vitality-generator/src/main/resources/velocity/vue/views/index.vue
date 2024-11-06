@@ -192,4 +192,11 @@ onMounted(() => {});
     margin-bottom: 12px;
   }
 }
+
+:deep(
+    .el-table__body-wrapper .el-table-column--selection > .cell,
+    .el-table__header-wrapper .el-table-column--selection > .cell
+  ) {
+  display: flex !important;
+}
 </style>

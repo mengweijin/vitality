@@ -8,6 +8,7 @@
         <result column="NAME" property="name" />
         <result column="SUFFIX" property="suffix" />
         <result column="STORAGE_PATH" property="storagePath" />
+        <result column="MD5" property="md5"/>
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -19,6 +20,7 @@
         NAME,
         SUFFIX,
         STORAGE_PATH,
+        MD5
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -37,6 +39,9 @@
             </if>
             <if test="storagePath != null and storagePath != ''">
                 AND STORAGE_PATH = #{storagePath}
+            </if>
+            <if test="md5 != null and md5 != ''">
+                AND MD5 = #{md5}
             </if>
             <if test="id != null">
                 AND ID = #{id}

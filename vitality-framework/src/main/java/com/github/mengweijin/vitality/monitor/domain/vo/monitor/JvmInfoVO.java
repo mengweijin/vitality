@@ -2,7 +2,7 @@ package com.github.mengweijin.vitality.monitor.domain.vo.monitor;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.dromara.hutool.core.date.DatePattern;
+import org.dromara.hutool.core.date.DateFormatPool;
 import org.dromara.hutool.core.date.TimeUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.extra.management.JavaRuntimeInfo;
@@ -28,7 +28,7 @@ public class JvmInfoVO {
     /**
      * JVM的启动时间
      */
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @JsonFormat(pattern = DateFormatPool.NORM_DATETIME_PATTERN)
     private LocalDateTime startTime;
     /**
      * JVM的运行时间（单位：秒）

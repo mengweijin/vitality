@@ -60,8 +60,8 @@ create TABLE VTL_CONFIG (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_CONFIG_1 on VTL_CONFIG(CODE);
-create unique index UNIQUE_INDEX_VTL_CONFIG_2 on VTL_CONFIG(NAME);
+create unique index UIDX_VTL_CONFIG_CODE on VTL_CONFIG(CODE);
+create unique index UIDX_VTL_CONFIG_NAME on VTL_CONFIG(NAME);
 
 
 drop table IF EXISTS VTL_CATEGORY;
@@ -79,7 +79,7 @@ create TABLE VTL_CATEGORY (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_CATEGORY_1 on VTL_CATEGORY(CODE);
+create unique index UIDX_VTL_CATEGORY_CODE on VTL_CATEGORY(CODE);
 
 
 drop table IF EXISTS VTL_DICT_TYPE;
@@ -94,7 +94,7 @@ create TABLE VTL_DICT_TYPE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_DICT_TYPE_1 on VTL_DICT_TYPE(CODE);
+create unique index UIDX_VTL_DICT_TYPE_CODE on VTL_DICT_TYPE(CODE);
 
 
 drop table IF EXISTS VTL_DICT_DATA;
@@ -112,7 +112,7 @@ create TABLE VTL_DICT_DATA (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_DICT_DATA_1 on VTL_DICT_DATA(CODE, VAL);
+create unique index UIDX_VTL_DICT_DATA_CODE_VAL on VTL_DICT_DATA(CODE, VAL);
 
 
 drop table IF EXISTS VTL_LOG_ERROR;
@@ -156,7 +156,6 @@ drop table IF EXISTS VTL_LOG_LOGIN;
 create TABLE VTL_LOG_LOGIN (
   ID                            bigint NOT NULL comment '主键ID',
   USERNAME                      varchar(50) DEFAULT NULL comment '登录账号',
-  TOKEN                         varchar(256) DEFAULT NULL comment '登录 token',
   LOGIN_TYPE                    varchar(50) DEFAULT NULL comment '登录类型。枚举类 ELoginType.java',
   IP                            varchar(46) DEFAULT NULL comment '登录IP地址',
   IP_LOCATION                   varchar(128) DEFAULT NULL comment 'IP所属位置',
@@ -179,13 +178,14 @@ create TABLE VTL_OSS (
   NAME                          varchar(255) NOT NULL comment '原始文件名称',
   SUFFIX                        varchar(10) comment '文件后缀',
   STORAGE_PATH                  varchar(500) NOT NULL comment '文件存储路径',
+  MD5                           varchar(128) NOT NULL comment 'MD5 码',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-
+create index IDX_VTL_OSS_MD5 on VTL_OSS(MD5);
 
 drop table IF EXISTS VTL_MENU;
 create TABLE VTL_MENU (
@@ -249,7 +249,7 @@ create TABLE VTL_ROLE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_ROLE_1 on VTL_ROLE(CODE);
+create unique index UIDX_VTL_ROLE_CODE on VTL_ROLE(CODE);
 
 
 drop table IF EXISTS VTL_POST;
@@ -289,7 +289,7 @@ create TABLE VTL_USER (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_USER_1 on VTL_USER(USERNAME);
+create unique index UIDX_VTL_USER_USERNAME on VTL_USER(USERNAME);
 
 
 drop table IF EXISTS VTL_USER_AVATAR;
@@ -303,7 +303,7 @@ create TABLE VTL_USER_AVATAR (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_USER_AVATAR_1 on VTL_USER_AVATAR(USER_ID);
+create unique index UIDX_VTL_USER_AVATAR_UID on VTL_USER_AVATAR(USER_ID);
 
 
 drop table IF EXISTS VTL_USER_PREFERENCE;
@@ -319,7 +319,7 @@ create TABLE VTL_USER_PREFERENCE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_USER_PREFERENCE_1 on VTL_USER_PREFERENCE(USER_ID);
+create unique index UIDX_VTL_USER_PREFERENCE_UID on VTL_USER_PREFERENCE(USER_ID);
 
 
 drop table IF EXISTS VTL_USER_POST;
@@ -333,7 +333,7 @@ create TABLE VTL_USER_POST (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_USER_POST_1 on VTL_USER_POST(USER_ID, POST_ID);
+create unique index UIDX_VTL_USER_POST_UPID on VTL_USER_POST(USER_ID, POST_ID);
 
 
 drop table IF EXISTS VTL_USER_ROLE;
@@ -347,7 +347,7 @@ create TABLE VTL_USER_ROLE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_USER_ROLE_1 on VTL_USER_ROLE(USER_ID, ROLE_ID);
+create unique index UIDX_VTL_USER_ROLE_URID on VTL_USER_ROLE(USER_ID, ROLE_ID);
 
 
 drop table IF EXISTS VTL_ROLE_MENU;
@@ -361,5 +361,5 @@ create TABLE VTL_ROLE_MENU (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UNIQUE_INDEX_VTL_ROLE_MENU_1 on VTL_ROLE_MENU(ROLE_ID, MENU_ID);
+create unique index UIDX_VTL_ROLE_MENU_RMID on VTL_ROLE_MENU(ROLE_ID, MENU_ID);
 

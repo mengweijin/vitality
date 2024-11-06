@@ -32,4 +32,9 @@ public class Oss extends BaseEntity {
     * 文件存储路径
     */
     private String storagePath;
+
+    /**
+     * MD5 码
+     */
+    private String md5;
 }

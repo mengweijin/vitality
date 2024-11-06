@@ -66,7 +66,7 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
         return this.page(page, query);
     }
 
-    public void addLoginLogAsync(String username, String token, ELoginType loginType, String errorMsg, HttpServletRequest request){
+    public void addLoginLogAsync(String username, ELoginType loginType, String errorMsg, HttpServletRequest request) {
         CompletableFuture.runAsync(() -> {
             LogLogin logLogin = new LogLogin();
             if(request != null) {
@@ -79,7 +79,6 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
                 logLogin.setOs(Optional.ofNullable(userAgent).map(UserAgent::getOs).map(UserAgentInfo::getName).orElse(null));
             }
             logLogin.setUsername(username);
-            logLogin.setToken(token);
             logLogin.setLoginType(loginType.getValue());
             logLogin.setSuccess(StrUtil.isBlank(errorMsg) ? EYesNo.Y.getValue() : EYesNo.N.getValue());
             logLogin.setErrorMsg(errorMsg);

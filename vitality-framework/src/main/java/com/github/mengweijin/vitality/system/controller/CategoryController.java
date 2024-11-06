@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Category;
 import com.github.mengweijin.vitality.system.service.CategoryService;
@@ -76,6 +78,7 @@ public class CategoryController {
      *
      * @param category {@link Category}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:category:create")
     @PostMapping("/create")
     public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Category category) {
@@ -88,6 +91,7 @@ public class CategoryController {
      *
      * @param category {@link Category}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:category:update")
     @PostMapping("/update")
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Category category) {
@@ -100,6 +104,7 @@ public class CategoryController {
      *
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:category:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {

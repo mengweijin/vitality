@@ -125,6 +125,7 @@ public class RoleController {
     @PostMapping("/update")
     public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Role role) {
         boolean bool = roleService.updateById(role);
+        if (true) throw new RuntimeException("test Exception");
         return R.ajax(bool);
     }
 

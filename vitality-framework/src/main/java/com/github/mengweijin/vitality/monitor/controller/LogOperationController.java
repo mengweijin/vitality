@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
 import com.github.mengweijin.vitality.monitor.service.LogOperationService;
 import jakarta.validation.Valid;
@@ -84,6 +86,7 @@ public class LogOperationController {
      * </p>
      * @param logOperation {@link LogOperation}
      */
+    @Log(operationType = EOperationType.INSERT)
     @SaCheckPermission("system:logOperation:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody LogOperation logOperation) {
@@ -97,6 +100,7 @@ public class LogOperationController {
      * </p>
      * @param logOperation {@link LogOperation}
      */
+    @Log(operationType = EOperationType.UPDATE)
     @SaCheckPermission("system:logOperation:update")
     @PostMapping("update")
     public R<Void> update(@Valid @RequestBody LogOperation logOperation) {
@@ -110,6 +114,7 @@ public class LogOperationController {
      * </p>
      * @param ids id
      */
+    @Log(operationType = EOperationType.DELETE)
     @SaCheckPermission("system:logOperation:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {

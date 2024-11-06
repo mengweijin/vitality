@@ -128,7 +128,7 @@ public interface Const {
     /**
      * java项目根路径
      */
-    String PROJECT_DIR = System.getProperty("user.dir") + File.separatorChar;
+    String PROJECT_DIR = System.getProperty("user.dir") + File.separator;
 
     /**
      * 操作系统的临时目录 Temp\  已经携带 File.separatorChar 字符

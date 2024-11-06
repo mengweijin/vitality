@@ -67,7 +67,7 @@ public class LoginService {
             LoginHelper.setLoginUser(loginUser);
             return loginUser;
         } catch (RuntimeException e) {
-            logLoginService.addLoginLogAsync(loginBO.getUsername(), null, ELoginType.LOGIN, e.getMessage(), request);
+            logLoginService.addLoginLogAsync(loginBO.getUsername(), ELoginType.LOGIN, e.getMessage(), request);
             throw new LoginFailedException(e);
         }
     }

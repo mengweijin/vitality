@@ -1,4 +1,4 @@
-interface FormItemProps {
+interface FormProps {
   id?: string;
   /** 名称 */
   name?: string;
@@ -9,10 +9,11 @@ interface FormItemProps {
   /** 备注 */
   remark?: string;
 }
-interface FormProps {
-  formInline: FormItemProps;
+
+interface ${entityName}VO extends FormProps, BaseEntity, Page {}
+
+interface Props {
+  data: ${entityName}VO;
 }
 
-interface ${entityName}VO extends FormItemProps, BaseEntity, Page {}
-
-export type { FormItemProps, FormProps, ${entityName}VO };
+export type { FormProps, Props, ${entityName}VO };

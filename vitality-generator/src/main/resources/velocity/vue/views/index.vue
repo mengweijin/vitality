@@ -5,6 +5,7 @@ import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { useDictStoreHook } from "@/store/modules/dict";
 
+import View from "@iconify-icons/ep/view";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Refresh from "@iconify-icons/ep/refresh";
@@ -27,10 +28,11 @@ const {
   pagination,
   onSearch,
   resetForm,
-  openDialog,
+  openEditDialog,
+  openDetailDialog,
   handleDelete,
-  onBatchDel,
-  onSelectionCancel,
+  handleBatchDelete,
+  handleSelectionCancel,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -90,7 +92,7 @@ onMounted(() => {});
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openEditDialog()"
         >
           新增
         </el-button>
@@ -108,14 +110,14 @@ onMounted(() => {});
             >
               已选 {{ selectedNum }} 项
             </span>
-            <el-button type="primary" text @click="onSelectionCancel">
+            <el-button type="primary" text @click="handleSelectionCancel">
               取消选择
             </el-button>
           </div>
           <el-popconfirm
             :width="500"
             title="是否确认删除?"
-            @confirm="onBatchDel"
+            @confirm="handleBatchDelete"
           >
             <template #reference>
               <el-button type="danger" text class="mr-1"> 批量删除 </el-button>
@@ -149,8 +151,18 @@ onMounted(() => {});
               link
               type="primary"
               :size="size"
+              :icon="useRenderIcon(View)"
+              @click="openDetailDialog('详情', row)"
+            >
+              详情
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="openDialog('修改', row)"
+              @click="openEditDialog('修改', row)"
             >
               修改
             </el-button>

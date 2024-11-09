@@ -1,26 +1,29 @@
+import { reactive, ref, onMounted, h, toRaw, type Ref } from "vue";
 import dayjs from "dayjs";
-import editForm from "../form.vue";
+import { deviceDetection, getKeyList } from "@pureadmin/utils";
 import { ElMessageBox } from "element-plus";
 import { addDialog } from "@/components/ReDialog";
-import type { FormItemProps, ${entityName}VO } from "../utils/types";
+import EditPage from "../edit.vue";
+import DetailPage from "../detail.vue";
+import type { FormProps, ${entityName}VO } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
-import { deviceDetection, getKeyList } from "@pureadmin/utils";
+
 import {
   get${entityName}Page,
   create${entityName},
   update${entityName},
   delete${entityName}
 } from "@/api/system/${vueApiName}";
-import { reactive, ref, onMounted, h, toRaw, type Ref } from "vue";
 
 export function use${entityName}(tableRef: Ref) {
   const form = reactive<${entityName}VO>({});
-  const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
+  const selectedNum = ref(0);
+  const curRow = ref();
   const loading = ref(true);
   const switchLoadMap = ref({});
-  const selectedNum = ref(0);
+
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -112,7 +115,7 @@ export function use${entityName}(tableRef: Ref) {
     {
       label: "操作",
       fixed: "right",
-      width: 160,
+      width: 200,
       slot: "operation"
     }
   ];
@@ -144,10 +147,7 @@ export function use${entityName}(tableRef: Ref) {
       })
       .then(() => {
         let disabled: string = row.disabled === "Y" ? "N" : "Y";
-        updateLogLogin({
-          id: row.id,
-          disabled: disabled
-        } as FormItemProps).then(() => {
+        update${entityName}({ id: row.id, disabled: disabled } as FormProps).then(() => {
           row.disabled = disabled;
         });
       })
@@ -164,23 +164,19 @@ export function use${entityName}(tableRef: Ref) {
   }
 
   function handleDelete(row) {
-    delete${entityName}(row.id).then(r => {
-      if (r.code === 200) {
-        onSearch();
-      }
+    delete${entityName}(row.id).then(() => {
+      onSearch();
     });
   }
 
   /** 批量删除 */
-  function onBatchDel() {
+  function handleBatchDelete() {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
     const ids = getKeyList(curSelected, "id").join();
-    delete${entityName}(ids).then(r => {
-      if (r.code === 200) {
-        tableRef.value.getTableRef().clearSelection();
-        onSearch();
-      }
+    delete${entityName}(ids).then(() => {
+      tableRef.value.getTableRef().clearSelection();
+      onSearch();
     });
   }
 
@@ -192,7 +188,7 @@ export function use${entityName}(tableRef: Ref) {
   }
 
   /** 取消选择 */
-  function onSelectionCancel() {
+  function handleSelectionCancel() {
     selectedNum.value = 0;
     // 用于多选表格，清空用户的选择
     tableRef.value.getTableRef().clearSelection();
@@ -210,16 +206,13 @@ export function use${entityName}(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-
     form.current = pagination.currentPage;
     form.size = pagination.pageSize;
     const page = await get${entityName}Page(toRaw(form));
-
     dataList.value = page.records;
+    pagination.total = page.total;
     pagination.pageSize = page.size;
     pagination.currentPage = page.current;
-    pagination.total = page.total;
-
     setTimeout(() => {
       loading.value = false;
     }, 500);
@@ -231,11 +224,11 @@ export function use${entityName}(tableRef: Ref) {
     onSearch();
   };
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openEditDialog(title = "新增", row?: ${entityName}VO) {
     addDialog({
       title: `${title}`,
       props: {
-        formInline: {
+        data: {
           id: row?.id ?? null,
           name: row?.name ?? "",
           seq: row?.seq ?? 0,
@@ -247,34 +240,44 @@ export function use${entityName}(tableRef: Ref) {
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
+      contentRenderer: () => h(EditPage, { ref: formRef, data: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
+        const curData = options.props.data as FormProps;
         function chores() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        FormRef.validate(valid => {
+        formRef.value.getRef().validate(valid => {
           if (valid) {
-            console.log("curData", curData);
             // 表单规则校验通过
             if (curData.id) {
-              update${entityName}(curData).then(r => {
-                if (r.code === 200) {
-                  chores();
-                }
+              update${entityName}(curData).then(() => {
+                chores();
               });
             } else {
-              create${entityName}(curData).then(r => {
-                if (r.code === 200) {
-                  chores();
-                }
+              create${entityName}(curData).then(() => {
+                chores();
               });
             }
           }
         });
       }
+    });
+  }
+
+  function openDetailDialog(title = "详情", row?: ${entityName}VO) {
+    addDialog({
+      title: `${title}`,
+      props: {
+        data: row
+      },
+      width: "80%",
+      draggable: true,
+      fullscreen: deviceDetection(),
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      hideFooter: true,
+      contentRenderer: () => h(DetailPage, { data: null })
     });
   }
 
@@ -292,10 +295,11 @@ export function use${entityName}(tableRef: Ref) {
     pagination,
     onSearch,
     resetForm,
-    openDialog,
+    openEditDialog,
+    openDetailDialog,
     handleDelete,
-    onBatchDel,
-    onSelectionCancel,
+    handleBatchDelete,
+    handleSelectionCancel,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

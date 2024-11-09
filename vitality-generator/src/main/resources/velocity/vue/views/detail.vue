@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, withDefaults, defineProps, defineExpose } from "vue";
+import { ref, computed } from "vue";
 import { useDetailColumns } from "./utils/detail-columns";
 import "vue-json-pretty/lib/styles.css";
 import VueJsonPretty from "vue-json-pretty";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, withDefaults, defineProps, defineExpose } from "vue";
+import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps, Props } from "./utils/types";
 

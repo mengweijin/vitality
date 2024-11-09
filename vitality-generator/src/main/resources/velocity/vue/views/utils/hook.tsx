@@ -7,6 +7,7 @@ import EditPage from "../edit.vue";
 import DetailPage from "../detail.vue";
 import type { FormProps, ${entityName}VO } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
+import ReDictTag from "@/components/ReDictTag";
 
 import {
   get${entityName}Page,
@@ -50,6 +51,18 @@ export function use${entityName}(tableRef: Ref) {
       label: "名称",
       prop: "name",
       minWidth: 180
+    },
+    {
+      label: "状态",
+      prop: "disabled",
+      minWidth: 90,
+      cellRenderer: scope => (
+        <ReDictTag
+          code="vtl_disabled"
+          size="small"
+          value={scope.row.disabled}
+        ></ReDictTag>
+      )
     },
     {
       label: "状态",
@@ -147,10 +160,12 @@ export function use${entityName}(tableRef: Ref) {
       })
       .then(() => {
         let disabled: string = row.disabled === "Y" ? "N" : "Y";
-        update${entityName}({ id: row.id, disabled: disabled } as FormProps).then(() => {
-          row.disabled = disabled;
-        });
-      })
+            update${entityName}({ id: row.id, disabled: disabled } as FormProps).then(
+              () => {
+                row.disabled = disabled;
+              }
+            );
+        })
       .finally(() => {
         switchLoadMap.value[index] = Object.assign(
           {},

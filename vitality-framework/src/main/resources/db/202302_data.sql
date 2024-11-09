@@ -48,7 +48,7 @@ insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_B
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (40001, 'vtl_user_gender', 'male', '男', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (40002, 'vtl_user_gender', 'female', '女', 2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 -- 字典：登录类型
-insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (50001, 'vtl_login_type', 'LOGIN', '登录', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (50001, 'vtl_login_type', 'LOGIN', '登入', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (50002, 'vtl_login_type', 'LOGOUT', '注销', 2, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (50003, 'vtl_login_type', 'KICK_OUT', '被踢下线', 3, 'N', null, 1, current_timestamp(), 1, current_timestamp());
 insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (50004, 'vtl_login_type', 'REPLACED', '被顶下线', 4, 'N', null, 1, current_timestamp(), 1, current_timestamp());

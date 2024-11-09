@@ -49,7 +49,6 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
     public IPage<LogLogin> page(IPage<LogLogin> page, LogLogin logLogin){
         LambdaQueryWrapper<LogLogin> query = new LambdaQueryWrapper<>();
         query
-                .eq(StrUtil.isNotBlank(logLogin.getUsername()), LogLogin::getUsername, logLogin.getUsername())
                 .eq(StrUtil.isNotBlank(logLogin.getLoginType()), LogLogin::getLoginType, logLogin.getLoginType())
                 .eq(StrUtil.isNotBlank(logLogin.getIp()), LogLogin::getIp, logLogin.getIp())
                 .eq(StrUtil.isNotBlank(logLogin.getIpLocation()), LogLogin::getIpLocation, logLogin.getIpLocation())
@@ -62,7 +61,9 @@ public class LogLoginService extends ServiceImpl<LogLoginMapper, LogLogin> {
                 .eq(!Objects.isNull(logLogin.getCreateBy()), LogLogin::getCreateBy, logLogin.getCreateBy())
                 .eq(!Objects.isNull(logLogin.getCreateTime()), LogLogin::getCreateTime, logLogin.getCreateTime())
                 .eq(!Objects.isNull(logLogin.getUpdateBy()), LogLogin::getUpdateBy, logLogin.getUpdateBy())
-                .eq(!Objects.isNull(logLogin.getUpdateTime()), LogLogin::getUpdateTime, logLogin.getUpdateTime());
+                .eq(!Objects.isNull(logLogin.getUpdateTime()), LogLogin::getUpdateTime, logLogin.getUpdateTime())
+                .like(StrUtil.isNotBlank(logLogin.getUsername()), LogLogin::getUsername, logLogin.getUsername());
+        query.orderByDesc(LogLogin::getCreateTime);
         return this.page(page, query);
     }
 

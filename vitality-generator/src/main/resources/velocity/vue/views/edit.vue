@@ -19,6 +19,10 @@ defineExpose({ getRef });
 
 <template>
   <el-form ref="formRef" :model="row" :rules="formRules" label-width="82px">
+  <el-form-item v-if="false" label="ID" prop="id">
+    <el-input v-model="row.id" clearable disabled />
+  </el-form-item>
+
     <el-form-item label="名称" prop="name">
       <el-input v-model="row.name" clearable placeholder="请输入名称" />
     </el-form-item>

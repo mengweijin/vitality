@@ -17,7 +17,7 @@ const dataList = ref([
   {
     title: "备注",
     name: "remark",
-    json: true,
+    json: false,
     data: row.value.remark
   }
 ]);

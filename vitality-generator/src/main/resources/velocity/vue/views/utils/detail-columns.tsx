@@ -41,19 +41,23 @@ export function useDetailColumns() {
     },
     {
       label: "创建者",
-      prop: "createByName"
+      prop: "createByName",
+      hide: () => false
     },
     {
       label: "创建时间",
-      prop: "createTime"
+      prop: "createTime",
+      hide: () => false
     },
     {
       label: "更新者",
-      prop: "updateByName"
+      prop: "updateByName",
+      hide: () => false
     },
     {
       label: "更新时间",
-      prop: "updateTime"
+      prop: "updateTime",
+      hide: () => false
     }
   ];
 

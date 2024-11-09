@@ -1,6 +1,6 @@
 import { http } from "@/utils/http";
 import type {
-  FormItemProps,
+  FormProps,
   ${entityName}VO
 } from "@/views/vitality/system/${vueApiName}/utils/types";
 
@@ -10,13 +10,13 @@ export const get${entityName}Page = (params?: ${entityName}VO) => {
 };
 
 /** 创建 */
-export const create${entityName} = (data: FormItemProps) => {
-  return http.post<R, FormItemProps>("${requestMapping}/create", { data });
+export const create${entityName} = (data: FormProps) => {
+  return http.post<R, FormProps>("${requestMapping}/create", { data });
 };
 
 /** 修改 */
-export const update${entityName} = (data: FormItemProps) => {
-  return http.post<R, FormItemProps>("${requestMapping}/update", { data });
+export const update${entityName} = (data: FormProps) => {
+  return http.post<R, FormProps>("${requestMapping}/update", { data });
 };
 
 /** 删除 */

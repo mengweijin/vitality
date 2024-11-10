@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.util.BeanUtils;
+import com.github.mengweijin.vitality.monitor.domain.LogLoginVO;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogLogin;
 import com.github.mengweijin.vitality.monitor.service.LogLoginService;
 import jakarta.validation.Valid;
@@ -50,8 +52,9 @@ public class LogLoginController {
      */
     @SaCheckPermission("system:logLogin:query")
     @GetMapping("/page")
-    public IPage<LogLogin> page(Page<LogLogin> page, LogLogin logLogin) {
-        return logLoginService.page(page, logLogin);
+    public IPage<LogLoginVO> page(Page<LogLogin> page, LogLogin logLogin) {
+        IPage<LogLogin> paged = logLoginService.page(page, logLogin);
+        return BeanUtils.copyPage(paged, LogLoginVO.class);
     }
 
     /**

@@ -2,6 +2,9 @@ package com.github.mengweijin.vitality.framework.jackson.sensitive;
 
 import lombok.AllArgsConstructor;
 import org.dromara.hutool.core.data.MaskingUtil;
+import org.dromara.hutool.core.data.masking.MaskingManager;
+import org.dromara.hutool.core.lang.Validator;
+import org.dromara.hutool.core.text.StrUtil;
 
 import java.util.function.Function;
 
@@ -18,6 +21,11 @@ public enum ESensitiveStrategy {
      * 默认
      */
     DEFAULT(s -> "********"),
+
+    /**
+     * TOKEN
+     */
+    TOKEN(s -> StrUtil.replaceByCodePoint(s, 4, 28, MaskingManager.DEFAULT_MASK_CHAR)),
 
     /**
      * 中文名
@@ -48,6 +56,8 @@ public enum ESensitiveStrategy {
      * 银行卡
      */
     BANK_CARD(MaskingUtil::bankCard),
+
+    IP(s -> Validator.isIpv4(s) ? MaskingUtil.ipv4(s) : MaskingUtil.ipv6(s)),
 
     /**
      * IPv4地址

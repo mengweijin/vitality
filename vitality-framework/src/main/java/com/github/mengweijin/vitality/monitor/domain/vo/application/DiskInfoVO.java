@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.monitor.domain.vo.monitor;
+package com.github.mengweijin.vitality.monitor.domain.vo.application;
 
 import lombok.Data;
 import org.dromara.hutool.core.io.file.FileUtil;

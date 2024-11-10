@@ -1,4 +1,4 @@
-package com.github.mengweijin.vitality.monitor.domain.vo.monitor;
+package com.github.mengweijin.vitality.monitor.domain.vo.application;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

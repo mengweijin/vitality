@@ -54,7 +54,7 @@ public class DeptService extends CrudRepository<DeptMapper, Dept> {
         return this.lambdaUpdate().set(Dept::getDisabled, disabled).eq(Dept::getId, id).update();
     }
 
-    @Cacheable(value = CacheNames.DEPT_ID_TO_NAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.DEPT_ID_TO_NAME, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getNameById(Long id) {
         return this.lambdaQuery()
                 .select(Dept::getName)

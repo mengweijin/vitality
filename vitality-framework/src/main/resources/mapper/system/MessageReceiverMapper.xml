@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.MessageReceiver">
         <id column="ID" property="id" />
         <result column="MESSAGE_ID" property="messageId" />
-        <result column="RECEIVER_ID" property="receiverId"/>
+        <result column="USER_ID" property="userId"/>
         <result column="VIEWED" property="viewed"/>
         <result column="VIEWED_TIME" property="viewedTime"/>
         <result column="CREATE_BY" property="createBy" />
@@ -18,7 +18,7 @@
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
         MESSAGE_ID,
-        RECEIVER_ID,
+        USER_ID,
         VIEWED,
         VIEWED_TIME,
         ID,
@@ -34,8 +34,8 @@
             <if test="messageId != null">
                 AND MESSAGE_ID = #{messageId}
             </if>
-            <if test="receiverId != null">
-                AND RECEIVER_ID = #{receiverId}
+            <if test="userId != null">
+                AND USER_ID = #{userId}
             </if>
             <if test="viewed != null and viewed != ''">
                 AND VIEWED = #{viewed}

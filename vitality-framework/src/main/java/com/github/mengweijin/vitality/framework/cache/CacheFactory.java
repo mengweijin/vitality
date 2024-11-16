@@ -31,12 +31,12 @@ public final class CacheFactory {
         return CACHE_MANAGER.getCache(CacheNames.DEPT_ID_TO_NAME, String.class, String.class);
     }
 
-    public static Cache<Long, String> getUserIdUsernameCache() {
-        return CACHE_MANAGER.getCache(CacheNames.USER_ID_TO_USERNAME, Long.class, String.class);
+    public static Cache<String, String> getUserIdUsernameCache() {
+        return CACHE_MANAGER.getCache(CacheNames.USER_ID_TO_USERNAME, String.class, String.class);
     }
 
-    public static Cache<Long, String> getUserIdNicknameCache() {
-        return CACHE_MANAGER.getCache(CacheNames.USER_ID_TO_NICKNAME, Long.class, String.class);
+    public static Cache<String, String> getUserIdNicknameCache() {
+        return CACHE_MANAGER.getCache(CacheNames.USER_ID_TO_NICKNAME, String.class, String.class);
     }
 
     public static Cache<String, ICaptcha> getCaptchaCache() {

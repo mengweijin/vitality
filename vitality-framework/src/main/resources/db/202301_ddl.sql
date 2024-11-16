@@ -22,8 +22,9 @@ create TABLE VTL_NOTICE (
 drop table IF EXISTS VTL_MESSAGE;
 create TABLE VTL_MESSAGE (
   ID                            bigint NOT NULL comment '主键ID',
-  NAME                          varchar(255) DEFAULT NULL comment '名称',
-  DESCRIPTION                   varchar(2000) DEFAULT NULL comment '内容',
+  CATEGORY                      varchar(50) DEFAULT NULL comment '消息分类。{@link EMessageCategory}',
+  TITLE                         varchar(255) DEFAULT NULL comment '标题',
+  CONTENT                       varchar(4000) DEFAULT NULL comment '内容',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   UPDATE_BY 	                bigint DEFAULT NULL comment '更新者',
@@ -36,7 +37,7 @@ drop table IF EXISTS VTL_MESSAGE_RECEIVER;
 create TABLE VTL_MESSAGE_RECEIVER (
   ID                            bigint NOT NULL comment '主键ID',
   MESSAGE_ID                    bigint NOT NULL comment '消息ID',
-  RECEIVER_ID                   bigint DEFAULT NULL comment '消息接收者用户ID',
+  USER_ID                       bigint DEFAULT NULL comment '消息接收者用户ID',
   VIEWED                        char(1) DEFAULT 'N' NOT NULL comment '是否已查看。[Y, N]',
   VIEWED_TIME                   datetime NULL comment '查看时间',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
@@ -275,6 +276,7 @@ create TABLE VTL_USER (
   NICKNAME                      varchar(64) NOT NULL comment '用户昵称',
   PASSWORD                      varchar(64) NOT NULL comment '登录密码',
   PASSWORD_LEVEL                varchar(30) DEFAULT 'MEDIUM' NOT NULL comment '密码强度。PasswdStrength.java',
+  PASSWORD_CHANGE_TIME          datetime NULL DEFAULT CURRENT_TIMESTAMP comment '密码修改时间',
   ID_CARD                       varchar(20) DEFAULT NULL comment '身份证号',
   GENDER                        varchar(6) DEFAULT NULL comment '性别。关联数据字典：user_gender',
   EMAIL                         varchar(128) DEFAULT NULL comment '电子邮箱',

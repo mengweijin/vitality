@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
+import com.github.mengweijin.vitality.system.enums.EMessageCategory;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,12 +20,17 @@ import lombok.EqualsAndHashCode;
 public class Message extends BaseEntity {
 
     /**
+     * 消息分类。{@link EMessageCategory}
+     */
+    private String category;
+
+    /**
     * 名称
     */
-    private String name;
+    private String title;
 
     /**
     * 内容
     */
-    private String description;
+    private String content;
 }

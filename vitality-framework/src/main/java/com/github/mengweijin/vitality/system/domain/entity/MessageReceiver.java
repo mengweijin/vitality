@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import java.time.LocalDateTime;
 
 /**
@@ -27,7 +28,7 @@ public class MessageReceiver extends BaseEntity {
     /**
      * 消息接收者用户ID
     */
-    private String receiverId;
+    private Long userId;
 
     /**
      * 是否已查看。[Y, N]

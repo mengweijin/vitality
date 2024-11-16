@@ -2,9 +2,9 @@
 --changeset admin:2 splitStatements:true
 
 -- 用户
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'female','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,1004,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
-insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,1005,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,PASSWORD_CHANGE_TIME,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1,1,'admin','管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',current_timestamp(),null,'female','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,PASSWORD_CHANGE_TIME,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (2,1004,'sysAdmin','系统管理员','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',current_timestamp(),null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
+insert into VTL_USER (ID,DEPT_ID,USERNAME,NICKNAME,PASSWORD,PASSWORD_LEVEL,PASSWORD_CHANGE_TIME,ID_CARD,GENDER,EMAIL,MOBILE,TOTP,DISABLED,DELETED,REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (3,1005,'guest','游客','$2a$10$skK/p5CVKEGnrZToZzof9ejJOEynmjf6Gn1egtsa/B.2wFg1sxmx6','MEDIUM',current_timestamp(),null,'male','mwjwork@qq.com','18700000000',null,'N','N',null,1,current_timestamp(),1,current_timestamp());
 
 -- 角色
 insert into VTL_ROLE (ID, NAME, CODE, SEQ, DISABLED, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '管理员', 'admin', 1, 'N', null, 1, current_timestamp(), 1, current_timestamp());
@@ -85,8 +85,10 @@ insert into VTL_DICT_DATA (ID, CODE, VAL, LABEL, SEQ, DISABLED, REMARK, CREATE_B
 
 
 -- 配置
-insert into VTL_CONFIG (ID, NAME, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '用户管理-初始密码', 'vtl_user_init_password', 'aday.fun', null, 1, current_timestamp(), 1, current_timestamp());
---
+insert into VTL_CONFIG (ID, NAME, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (1, '用户初始密码', 'vtl_user_init_password', 'aday.fun', '用户管理-初始密码', 1, current_timestamp(), 1, current_timestamp());
+insert into VTL_CONFIG (ID, NAME, CODE, VAL, REMARK, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME) values (2, '修改密码的时间间隔（天）', 'vtl_user_password_change_interval', '0', '强制用户修改密码的最小时间间隔。单位：天。0 表示没有启用该限制。', 1, current_timestamp(), 1, current_timestamp());
+
+
 ------ TYPE：菜单类型。{ MENU=菜单; BTN=按钮; IFRAME=内嵌页面；URL=外链页面；}。前端对应：（0代表菜单、1代表iframe、2代表外链、3代表按钮）
 insert into VTL_MENU (ID,PARENT_ID,"TYPE",TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1001,0,'MENU','通知公告','SystemNotice','/vitality/system/notice/index',null,1,null,'ep:bell',null,null,null,null,'system:notice:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,"TYPE",TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1001001,1001,'BTN','通知公告-查询',null,null,null,1,null,null,null,null,null,null,'system:notice:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());

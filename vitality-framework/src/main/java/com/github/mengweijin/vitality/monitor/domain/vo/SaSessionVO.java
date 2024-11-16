@@ -1,14 +1,15 @@
 package com.github.mengweijin.vitality.monitor.domain.vo;
 
 import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.session.TokenSign;
 import com.github.mengweijin.vitality.framework.jackson.sensitive.ESensitiveStrategy;
 import com.github.mengweijin.vitality.framework.jackson.sensitive.Sensitive;
-import com.github.mengweijin.vitality.framework.util.BeanUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author mengweijin
@@ -61,6 +62,10 @@ public class SaSessionVO {
         this.loginId = session.getLoginId();
         this.token = session.getToken();
         this.createTime = session.getCreateTime();
-        this.tokenSignList = BeanUtils.copyList(session.getTokenSignList(), TokenSignVO.class);
+        this.tokenSignList = this.copyTokenSignList(session.getTokenSignList());
+    }
+
+    private List<TokenSignVO> copyTokenSignList(List<TokenSign> list) {
+        return list.stream().map(TokenSignVO::new).collect(Collectors.toList());
     }
 }

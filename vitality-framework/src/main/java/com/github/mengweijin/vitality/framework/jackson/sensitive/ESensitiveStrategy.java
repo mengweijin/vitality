@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.framework.jackson.sensitive;
 
+import com.github.mengweijin.vitality.framework.util.AESUtils;
 import lombok.AllArgsConstructor;
 import org.dromara.hutool.core.data.MaskingUtil;
 import org.dromara.hutool.core.data.masking.MaskingManager;
@@ -21,6 +22,11 @@ public enum ESensitiveStrategy {
      * 默认
      */
     DEFAULT(s -> "********"),
+
+    /**
+     * 加密
+     */
+    ENCRYPT(AESUtils::encrypt),
 
     /**
      * TOKEN

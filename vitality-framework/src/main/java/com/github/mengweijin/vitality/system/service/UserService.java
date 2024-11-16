@@ -8,22 +8,31 @@ import com.github.mengweijin.vitality.framework.cache.CacheConst;
 import com.github.mengweijin.vitality.framework.cache.CacheNames;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.constant.ConfigConst;
 import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
+import com.github.mengweijin.vitality.system.domain.entity.Config;
 import com.github.mengweijin.vitality.system.domain.entity.User;
 import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
+import com.github.mengweijin.vitality.system.enums.EMessageCategory;
+import com.github.mengweijin.vitality.system.enums.EMessageTemplate;
 import com.github.mengweijin.vitality.system.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.PasswdStrength;
+import org.dromara.hutool.core.date.TimeUtil;
 import org.dromara.hutool.core.math.NumberUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -44,11 +53,16 @@ public class UserService extends CrudRepository<UserMapper, User> {
 
     private DeptService deptService;
 
+    private MessageService messageService;
+
+    private ConfigService configService;
+
     @Override
     public boolean save(User user) {
         user.setPasswordLevel(PasswdStrength.getLevel(user.getPassword()).name());
         String hashedPwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPwd);
+        user.setPasswordChangeTime(LocalDateTime.now());
         return super.save(user);
     }
 
@@ -88,6 +102,12 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return this.lambdaQuery().eq(User::getUsername, username).one();
     }
 
+    public Set<Long> getUserIdsInDeptId(Long deptId) {
+        List<Long> deptIds = deptService.getChildrenIdsWithCurrentById(deptId);
+        List<User> list = this.lambdaQuery().select(User::getId).in(User::getDeptId, deptIds).list();
+        return list.stream().map(User::getId).collect(Collectors.toSet());
+    }
+
     public String getUsernameByIds(String ids) {
         List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
         return idList.stream().map(this::getUsernameById).collect(Collectors.joining());
@@ -98,7 +118,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return idList.stream().map(this::getNicknameById).collect(Collectors.joining());
     }
 
-    @Cacheable(value = CacheNames.USER_ID_TO_USERNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_USERNAME, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getUsernameById(Long id) {
         return this.lambdaQuery()
                 .select(User::getUsername)
@@ -108,7 +128,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getNicknameById(Long id) {
         return this.lambdaQuery()
                 .select(User::getNickname)
@@ -118,7 +138,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheNames.USER_ID_TO_AVATAR, key = "#id", unless = CacheConst.UNLESS_OBJECT_NULL)
+    @Cacheable(value = CacheNames.USER_ID_TO_AVATAR, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
     public String getAvatarById(Long id) {
         return userAvatarService.lambdaQuery().eq(UserAvatar::getUserId, id).oneOpt()
                 .map(UserAvatar::getAvatar).orElse(null);
@@ -140,10 +160,42 @@ public class UserService extends CrudRepository<UserMapper, User> {
     public boolean updatePassword(String username, String password) {
         String passwordLevel = PasswdStrength.getLevel(password).name();
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt());
-        return this.lambdaUpdate().set(User::getPassword, hashedPwd).set(User::getPasswordLevel, passwordLevel).eq(User::getUsername, username).update();
+        return this.lambdaUpdate()
+                .set(User::getPassword, hashedPwd)
+                .set(User::getPasswordLevel, passwordLevel)
+                .set(User::getPasswordChangeTime, LocalDateTime.now())
+                .eq(User::getUsername, username)
+                .update();
     }
 
     public boolean setDisabled(Long id, String disabled) {
         return this.lambdaUpdate().set(User::getDisabled, disabled).eq(User::getId, id).update();
+    }
+
+    public void checkAndSendPasswordExpireMessageAsync(String username) {
+        CompletableFuture.runAsync(() -> {
+                    Config config = configService.getByCode(ConfigConst.USER_PASSWORD_CHANGE_INTERVAL);
+                    if (config == null) {
+                        return;
+                    }
+                    long daysInterval = NumberUtil.parseLong(config.getVal());
+                    if (daysInterval <= 0) {
+                        return;
+                    }
+
+                    User user = this.getByUsername(username);
+                    Duration duration = TimeUtil.between(user.getPasswordChangeTime(), LocalDateTime.now());
+
+                    long expireDays = daysInterval - duration.toDays();
+                    if (expireDays > 10) {
+                        return;
+                    }
+
+                    messageService.sendMessageToUser(user.getId(), EMessageCategory.SYSTEM, EMessageTemplate.USER_PASSWORD_EXPIRE, expireDays);
+                })
+                .exceptionally(e -> {
+                    log.error(e.getMessage(), e);
+                    return null;
+                });
     }
 }

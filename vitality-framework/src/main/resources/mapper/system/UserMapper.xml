@@ -10,6 +10,7 @@
         <result column="NICKNAME" property="nickname" />
         <result column="PASSWORD" property="password" />
         <result column="PASSWORD_LEVEL" property="passwordLevel"/>
+        <result column=" PASSWORD_CHANGE_TIME" property="passwordChangeTime"/>
         <result column="ID_CARD" property="idCard" />
         <result column="GENDER" property="gender" />
         <result column="EMAIL" property="email" />
@@ -31,6 +32,7 @@
         NICKNAME,
         PASSWORD,
         PASSWORD_LEVEL,
+        PASSWORD_CHANGE_TIME,
         ID_CARD,
         GENDER,
         EMAIL,

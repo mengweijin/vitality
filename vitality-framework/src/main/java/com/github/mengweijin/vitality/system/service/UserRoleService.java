@@ -30,6 +30,11 @@ public class UserRoleService extends CrudRepository<UserRoleMapper, UserRole> {
         return list.stream().map(UserRole::getRoleId).collect(Collectors.toSet());
     }
 
+    public Set<Long> getUserIdsByRoleId(Long roleId) {
+        List<UserRole> list = this.lambdaQuery().select(UserRole::getUserId).eq(UserRole::getRoleId, roleId).list();
+        return list.stream().map(UserRole::getUserId).collect(Collectors.toSet());
+    }
+
     public boolean setUserRoles(UserRolesBO bo) {
         Long userId = bo.getUserId();
         List<Long> roleIds = bo.getRoleIds();

@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 
@@ -45,6 +47,11 @@ public class User extends BaseEntity {
      * 密码强度
      */
     private String passwordLevel;
+
+    /**
+     * 密码修改时间
+     */
+    private LocalDateTime passwordChangeTime;
 
     /**
     * 身份证号

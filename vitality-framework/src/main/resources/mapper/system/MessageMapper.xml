@@ -5,8 +5,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.system.domain.entity.Message">
         <id column="ID" property="id" />
-        <result column="NAME" property="name" />
-        <result column="DESCRIPTION" property="description" />
+        <result column="CATEGORY" property="category"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
         <result column="CREATE_BY" property="createBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATE_BY" property="updateBy" />
@@ -15,8 +16,9 @@
 
     <!-- 通用查询结果列 -->
     <sql id="BaseColumnList">
-        NAME,
-        DESCRIPTION,
+        CATEGORY,
+        TITLE,
+        CONTENT,
         ID,
         CREATE_BY,
         CREATE_TIME,
@@ -27,11 +29,14 @@
     <!-- 通用查询条件 -->
     <sql id="WhereCondition">
         <where>
-            <if test="name != null and name != ''">
-                AND NAME = #{name}
+            <if test="category != null and category != ''">
+                AND CATEGORY = #{category}
             </if>
-            <if test="description != null and description != ''">
-                AND DESCRIPTION = #{description}
+            <if test="title != null and title != ''">
+                AND TITLE = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                AND CONTENT = #{content}
             </if>
             <if test="id != null">
                 AND ID = #{id}

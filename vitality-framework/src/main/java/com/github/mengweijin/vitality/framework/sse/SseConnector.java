@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.core.thread.ThreadUtil;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.cache.Cache;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  * @since 2023-06-03
  */
 @Slf4j
-@Service
+@Component
 public class SseConnector implements InitializingBean {
 
     private Cache<String, SseEmitter> cache;

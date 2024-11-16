@@ -6,6 +6,7 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import com.github.mengweijin.vitality.monitor.service.LogLoginService;
 import com.github.mengweijin.vitality.system.enums.ELoginType;
+import com.github.mengweijin.vitality.system.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +21,15 @@ public class SaTokenListenerImpl implements SaTokenListener {
 
     private LogLoginService logLoginService;
 
+    private UserService userService;
+
     /**
      * 每次登录时触发。 这里的 loginId 即为用户登录名 username
      */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
         logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGIN, null, ServletUtils.getRequest());
+        userService.checkAndSendPasswordExpireMessageAsync((String) loginId);
     }
 
     /** 每次注销时触发 */

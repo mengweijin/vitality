@@ -2,6 +2,7 @@ package com.github.mengweijin.vitality.monitor.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.monitor.domain.vo.CacheVO;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +34,19 @@ public class CacheController {
     @GetMapping("/names")
     public Collection<String> getCacheNames() {
         Iterable<String> iterable = cacheManager.getCacheNames();
-        return CollUtil.toCollection(iterable);
+        return CollUtil.sortByPinyin(CollUtil.toCollection(iterable));
     }
 
     @SaCheckPermission("monitor:cache:query")
     @GetMapping("/query")
-    public List<Cache.Entry<Object, Object>> getCacheByName(@RequestParam("cacheName") String cacheName) {
-        List<Cache.Entry<Object, Object>> list = new ArrayList<>();
+    public List<CacheVO> getCacheByName(@RequestParam("cacheName") String cacheName) {
+        List<CacheVO> list = new ArrayList<>();
         Cache<Object, Object> cache = cacheManager.getCache(cacheName);
-        for (Cache.Entry<Object, Object> next : cache) {
-            list.add(next);
+        if (cache != null) {
+            for (Cache.Entry<Object, Object> next : cache) {
+                String key = StrUtil.toString(next.getKey());
+                list.add(new CacheVO(key, next.getValue()));
+            }
         }
         return list;
     }

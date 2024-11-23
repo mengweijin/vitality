@@ -5,6 +5,5 @@ com.github.mengweijin.vitality.framework.mvc.AsyncConfig
 com.github.mengweijin.vitality.framework.mvc.WebMvcConfig
 com.github.mengweijin.vitality.framework.repeatable.RepeatableConfig
 com.github.mengweijin.vitality.framework.mybatis.MybatisPlusConfig
-com.github.mengweijin.vitality.framework.resilience4j.Resilience4jConfig
 com.github.mengweijin.vitality.framework.satoken.SaTokenConfig
 com.github.mengweijin.vitality.framework.VitalityAutoConfiguration

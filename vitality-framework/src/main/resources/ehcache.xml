@@ -43,13 +43,6 @@
     </cache-template>
 
     <!-- 缓存对象,如果使用了模版会覆盖模版中的内容,使用 uses-template="" 来引用模版 -->
-    <cache alias="CAPTCHA" uses-template="DEFAULT_TEMPLATE">
-        <value-type>org.dromara.hutool.swing.captcha.ICaptcha</value-type>
-        <expiry>
-            <ttl unit="minutes">1</ttl>
-        </expiry>
-    </cache>
-
     <cache alias="CATEGORY_LIST" uses-template="DEFAULT_TEMPLATE">
         <value-type>java.util.List</value-type>
     </cache>
@@ -97,6 +90,13 @@
         <value-type>java.util.List</value-type>
         <expiry>
             <ttl unit="minutes">5</ttl>
+        </expiry>
+    </cache>
+
+    <cache alias="RATE_LIMIT" uses-template="DEFAULT_TEMPLATE">
+        <value-type>java.util.ArrayList</value-type>
+        <expiry>
+            <ttl unit="minutes">30</ttl>
         </expiry>
     </cache>
 </config>

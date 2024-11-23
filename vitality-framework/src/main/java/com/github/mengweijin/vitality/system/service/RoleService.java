@@ -85,4 +85,7 @@ public class RoleService extends CrudRepository<RoleMapper, Role> {
         return true;
     }
 
+    public Role getByCode(String code) {
+        return this.lambdaQuery().eq(Role::getCode, code).one();
+    }
 }

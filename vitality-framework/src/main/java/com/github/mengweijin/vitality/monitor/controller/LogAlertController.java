@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
-import com.github.mengweijin.vitality.monitor.domain.entity.LogError;
-import com.github.mengweijin.vitality.monitor.service.LogErrorService;
+import com.github.mengweijin.vitality.monitor.domain.entity.LogAlert;
+import com.github.mengweijin.vitality.monitor.service.LogAlertService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,90 +35,90 @@ import java.util.List;
 @AllArgsConstructor
 @Validated
 @RestController
-@RequestMapping("/monitor/log-error")
-public class LogErrorController {
+@RequestMapping("/monitor/log-alert")
+public class LogAlertController {
 
-    private LogErrorService logErrorService;
+    private LogAlertService logAlertService;
 
     /**
      * <p>
-     * Get LogError page by LogError
+     * Get LogAlert page by LogAlert
      * </p>
      * @param page page
-     * @param logError {@link LogError}
+     * @param logAlert {@link LogAlert}
      * @return Page<LogError>
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system:logAlert:query")
     @GetMapping("/page")
-    public IPage<LogError> page(Page<LogError> page, LogError logError) {
-        return logErrorService.page(page, logError);
+    public IPage<LogAlert> page(Page<LogAlert> page, LogAlert logAlert) {
+        return logAlertService.page(page, logAlert);
     }
 
     /**
      * <p>
-     * Get LogError list by LogError
+     * Get LogAlert list by LogAlert
      * </p>
-     * @param logError {@link LogError}
+     * @param logAlert {@link LogAlert}
      * @return List<LogError>
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system:logAlert:query")
     @GetMapping("/list")
-    public List<LogError> list(LogError logError) {
-        return logErrorService.list(new LambdaQueryWrapper<>(logError));
+    public List<LogAlert> list(LogAlert logAlert) {
+        return logAlertService.list(new LambdaQueryWrapper<>(logAlert));
     }
 
     /**
      * <p>
-     * Get LogError by id
+     * Get LogAlert by id
      * </p>
      * @param id id
      * @return LogError
      */
-    @SaCheckPermission("system:logError:query")
+    @SaCheckPermission("system:logAlert:query")
     @GetMapping("/{id}")
-    public LogError getById(@PathVariable("id") Long id) {
-        return logErrorService.getById(id);
+    public LogAlert getById(@PathVariable("id") Long id) {
+        return logAlertService.getById(id);
     }
 
     /**
      * <p>
-     * Add LogError
+     * Add LogAlert
      * </p>
-     * @param logError {@link LogError}
+     * @param logAlert {@link LogAlert}
      */
     @Log(operationType = EOperationType.INSERT)
-    @SaCheckPermission("system:logError:create")
+    @SaCheckPermission("system:logAlert:create")
     @PostMapping("/create")
-    public R<Void> create(@Valid @RequestBody LogError logError) {
-        boolean bool = logErrorService.save(logError);
+    public R<Void> create(@Valid @RequestBody LogAlert logAlert) {
+        boolean bool = logAlertService.save(logAlert);
         return R.ajax(bool);
     }
 
     /**
      * <p>
-     * Update LogError
+     * Update LogAlert
      * </p>
-     * @param logError {@link LogError}
+     * @param logAlert {@link LogAlert}
      */
     @Log(operationType = EOperationType.UPDATE)
-    @SaCheckPermission("system:logError:update")
+    @SaCheckPermission("system:logAlert:update")
     @PostMapping("/update")
-    public R<Void> update(@Valid @RequestBody LogError logError) {
-        boolean bool = logErrorService.updateById(logError);
+    public R<Void> update(@Valid @RequestBody LogAlert logAlert) {
+        boolean bool = logAlertService.updateById(logAlert);
         return R.ajax(bool);
     }
 
     /**
      * <p>
-     * Delete LogError by id(s), Multiple ids can be separated by commas ",".
+     * Delete LogAlert by id(s), Multiple ids can be separated by commas ",".
      * </p>
      * @param ids id
      */
     @Log(operationType = EOperationType.DELETE)
-    @SaCheckPermission("system:logError:delete")
+    @SaCheckPermission("system:logAlert:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
-        int i = logErrorService.getBaseMapper().deleteByIds(Arrays.asList(ids));
+        int i = logAlertService.getBaseMapper().deleteByIds(Arrays.asList(ids));
         return R.ajax(i);
     }
 

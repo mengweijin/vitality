@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.monitor.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.mengweijin.vitality.monitor.domain.entity.LogError;
+import com.github.mengweijin.vitality.monitor.domain.entity.LogAlert;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-06-03
  */
 @Mapper
-public interface LogErrorMapper extends BaseMapper<LogError> {
+public interface LogAlertMapper extends BaseMapper<LogAlert> {
 
 }
 

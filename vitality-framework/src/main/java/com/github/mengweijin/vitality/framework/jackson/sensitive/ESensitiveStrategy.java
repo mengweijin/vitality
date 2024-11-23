@@ -21,17 +21,23 @@ public enum ESensitiveStrategy {
     /**
      * 默认
      */
-    DEFAULT(s -> "********"),
+    DEFAULT(s -> {
+        if (s == null || s.length() < 3) {
+            return MaskingUtil.firstMask(s);
+        }
+        int partLength = s.length() / 3;
+        return StrUtil.replaceByCodePoint(s, partLength, partLength * 2, MaskingManager.DEFAULT_MASK_CHAR);
+    }),
+
+    /**
+     * 只显示第一个字符
+     */
+    FIRST_MASK(MaskingUtil::firstMask),
 
     /**
      * 加密
      */
     ENCRYPT(AESUtils::encrypt),
-
-    /**
-     * TOKEN
-     */
-    TOKEN(s -> StrUtil.replaceByCodePoint(s, 4, 28, MaskingManager.DEFAULT_MASK_CHAR)),
 
     /**
      * 中文名
@@ -42,6 +48,11 @@ public enum ESensitiveStrategy {
      * 身份证脱敏
      */
     ID_CARD(s -> MaskingUtil.idCardNum(s, 3, 4)),
+
+    /**
+     * 固定电话脱敏
+     */
+    FIXED_PHONE(MaskingUtil::fixedPhone),
 
     /**
      * 手机号脱敏
@@ -59,21 +70,24 @@ public enum ESensitiveStrategy {
     EMAIL(MaskingUtil::email),
 
     /**
+     * 密码脱敏
+     */
+    PASSWORD(MaskingUtil::password),
+
+    /**
      * 银行卡
      */
     BANK_CARD(MaskingUtil::bankCard),
 
-    IP(s -> Validator.isIpv4(s) ? MaskingUtil.ipv4(s) : MaskingUtil.ipv6(s)),
+    /**
+     * 车牌号
+     */
+    CAR_LICENSE(MaskingUtil::carLicense),
 
     /**
-     * IPv4地址
+     * IP 地址
      */
-    IPV4(MaskingUtil::ipv4),
-
-    /**
-     * IPv6地址
-     */
-    IPV6(MaskingUtil::ipv6);
+    IP(s -> Validator.isIpv4(s) ? MaskingUtil.ipv4(s) : MaskingUtil.ipv6(s));
 
     private final Function<String, String> desensitize;
 

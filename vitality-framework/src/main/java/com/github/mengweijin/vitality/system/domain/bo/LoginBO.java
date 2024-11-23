@@ -22,5 +22,4 @@ public class LoginBO implements Serializable {
 
     private boolean rememberMe;
 
-    private String captcha;
 }

@@ -75,7 +75,4 @@ public class LoginHelper {
         LoginUser loginUser = getLoginUser();
         return UserConst.ADMIN_USER_ID == loginUser.getUserId() && UserConst.ADMIN_USERNAME.equals(loginUser.getUsername());
     }
-
-
-
 }

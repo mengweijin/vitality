@@ -28,7 +28,7 @@ public class SensitiveAnnotationSerializer extends JsonSerializer<String> implem
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         ESensitiveStrategy strategy = sensitive.strategy();
         if(strategy == null) {
-            log.warn("Desensitization strategies don't exist! Default empty value!");
+            log.warn("Desensitization strategies don't exist! Default hide all value!");
             gen.writeString(StrUtil.hide(value, 0, StrUtil.length(value)));
         } else {
             gen.writeString(strategy.desensitize().apply(value));

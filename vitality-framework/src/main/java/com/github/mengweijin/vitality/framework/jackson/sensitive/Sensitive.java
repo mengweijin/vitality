@@ -20,6 +20,6 @@ import java.lang.annotation.Target;
 @JsonSerialize(using = SensitiveAnnotationSerializer.class)
 public @interface Sensitive {
 
-    ESensitiveStrategy strategy();
+    ESensitiveStrategy strategy() default ESensitiveStrategy.DEFAULT;
 
 }

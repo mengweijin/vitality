@@ -5,8 +5,6 @@ package com.github.mengweijin.vitality.framework.cache;
  */
 public interface CacheNames {
 
-    String CAPTCHA = "CAPTCHA";
-
     String CATEGORY_LIST = "CATEGORY_LIST";
 
     String CONFIG_LIST = "CONFIG_LIST";
@@ -26,5 +24,7 @@ public interface CacheNames {
     String REPEAT_SUBMIT = "REPEAT_SUBMIT";
 
     String SSE_EMITTER_MESSAGE = "SSE_EMITTER_MESSAGE";
+
+    String RATE_LIMIT = "RATE_LIMIT";
 
 }

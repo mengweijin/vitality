@@ -32,7 +32,6 @@ public class PureLoginUser implements Serializable {
         data.setPermissions(loginUser.getPermissions());
         data.setAccessToken(loginUser.getToken());
         data.setRefreshToken(null);
-        data.setExpires(null);
         return new PureLoginUser(true, data);
     }
 
@@ -70,9 +69,6 @@ public class PureLoginUser implements Serializable {
 
         @Deprecated
         private String refreshToken;
-
-        @Deprecated
-        private String expires;
 
     }
 }

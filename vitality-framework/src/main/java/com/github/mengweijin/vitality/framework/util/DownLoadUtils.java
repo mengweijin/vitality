@@ -156,10 +156,10 @@ public class DownLoadUtils {
 
             outputStream.flush();
             response.flushBuffer();
-            log.debug("Download completed：" + startByte + "-" + endByte + "：" + transmitted);
+            log.debug("Download completed：{}-{}：{}", startByte, endByte, transmitted);
         } catch (ClientAbortException e) {
             //捕获此异常表示用户停止下载
-            log.warn("User stop download：" + startByte + "-" + endByte + "：" + transmitted);
+            log.warn("User stop download：{}-{}：{}", startByte, endByte, transmitted);
         } catch (IOException e) {
             log.error("User download IO Exception，Message：{}", e.getLocalizedMessage());
         }

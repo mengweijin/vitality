@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.vitality.monitor.mapper.LogAlertMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.mengweijin.vitality.monitor.domain.entity.LogAlert">
+        <id column="ID" property="id"/>
+        <result column="LOG_LEVEL" property="logLevel"/>
+        <result column="MESSAGE" property="message"/>
+        <result column="CLASS_NAME" property="className"/>
+        <result column="METHOD_NAME" property="methodName"/>
+        <result column="EXCEPTION_NAME" property="exceptionName"/>
+        <result column="STACK_TRACE" property="stackTrace"/>
+        <result column="CREATE_BY" property="createBy"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="UPDATE_BY" property="updateBy"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+
+</mapper>

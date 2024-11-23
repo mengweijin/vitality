@@ -1,6 +1,6 @@
 package com.github.mengweijin.framework.util;
 
-import com.github.mengweijin.vitality.framework.util.EncryptUtils;
+import com.github.mengweijin.vitality.framework.util.AESUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.io.IoUtil;
@@ -35,7 +35,7 @@ class EncryptUtilsTest {
     void encrypt() {
         long start = System.currentTimeMillis();
 
-        EncryptUtils.encrypt(IoUtil.toStream(FILE));
+        byte[] encrypt = AESUtils.encrypt(IoUtil.toStream(FILE));
 
         long end = System.currentTimeMillis();
         log.info("加密执行时长：{} 毫秒", (end - start));
@@ -51,7 +51,7 @@ class EncryptUtilsTest {
         long start = System.currentTimeMillis();
 
         try (FileOutputStream out = new FileOutputStream(encryptedFile)) {
-            EncryptUtils.encrypt(IoUtil.toStream(FILE), out);
+            AESUtils.encrypt(IoUtil.toStream(FILE), out);
         }
 
         long end = System.currentTimeMillis();
@@ -72,7 +72,7 @@ class EncryptUtilsTest {
         long start = System.currentTimeMillis();
 
         try (FileOutputStream out = new FileOutputStream(decryptedFile)) {
-            EncryptUtils.decrypt(IoUtil.toStream(FileUtil.file(FILE_PATH_ENCRYPTED)), out);
+            AESUtils.decrypt(IoUtil.toStream(FileUtil.file(FILE_PATH_ENCRYPTED)), out);
         }
 
         long end = System.currentTimeMillis();

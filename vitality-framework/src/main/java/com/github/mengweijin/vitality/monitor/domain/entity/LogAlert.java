@@ -15,8 +15,18 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_LOG_ERROR")
-public class LogError extends BaseEntity {
+@TableName("VTL_LOG_ALERT")
+public class LogAlert extends BaseEntity {
+
+    /**
+     * 日志级别
+     */
+    private String logLevel;
+
+    /**
+     * 日志信息
+     */
+    private String message;
 
     /**
     * 类名称
@@ -32,11 +42,6 @@ public class LogError extends BaseEntity {
     * 异常类型
     */
     private String exceptionName;
-
-    /**
-    * 异常信息
-    */
-    private String errorMsg;
 
     /**
     * 异常堆栈信息

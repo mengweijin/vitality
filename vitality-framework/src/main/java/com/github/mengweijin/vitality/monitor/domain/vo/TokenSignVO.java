@@ -17,7 +17,7 @@ public class TokenSignVO {
     /**
      * Token 值
      */
-    @Sensitive(strategy = ESensitiveStrategy.TOKEN)
+    @Sensitive(strategy = ESensitiveStrategy.DEFAULT)
     private String token;
 
     /**

@@ -42,7 +42,7 @@ public class SaSessionVO {
     /**
      * 所属 Token （当此 SaSession 属于 Token-Session 时，此值有效）
      */
-    @Sensitive(strategy = ESensitiveStrategy.TOKEN)
+    @Sensitive(strategy = ESensitiveStrategy.DEFAULT)
     private String token;
 
     /**

@@ -13,8 +13,8 @@ import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
-import com.github.mengweijin.vitality.monitor.domain.entity.LogError;
-import com.github.mengweijin.vitality.monitor.service.LogErrorService;
+import com.github.mengweijin.vitality.monitor.domain.entity.LogAlert;
+import com.github.mengweijin.vitality.monitor.service.LogAlertService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,19 +31,20 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * No need additional configuration.
+ *
  * @author mengweijin
  * @since 2023/4/1
  */
 @Slf4j
 @Component
 @AllArgsConstructor
-public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+public class DbLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
-    private static final Class<?>[] EXCLUDE_CLASS = { NotLoginException.class };
+    private static final Class<?>[] EXCLUDE_CLASS = {NotLoginException.class};
 
     private static final String TAB = StrUtil.fillAfter(Const.EMPTY, ' ', 4);
 
-    private LogErrorService logErrorService;
+    private LogAlertService logAlertService;
 
     /**
      * DbErrorLogAppender初始化
@@ -54,13 +55,13 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
         ThresholdFilter filter = new ThresholdFilter();
-        filter.setLevel(Level.ERROR.levelStr);
+        filter.setLevel(Level.WARN.levelStr);
         filter.setContext(context);
         filter.start();
         this.addFilter(filter);
         this.setContext(context);
 
-        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(DbErrorLoggerAppender.this);
+        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(DbLoggerAppender.this);
         super.start();
     }
 
@@ -72,27 +73,30 @@ public class DbErrorLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEv
                 LocalDateTime createTime = Instant.ofEpochMilli(loggingEvent.getTimeStamp()).atZone(ZoneId.systemDefault()).toLocalDateTime();
                 IThrowableProxy throwableProxy = loggingEvent.getThrowableProxy();
 
-                LogError logError = new LogError();
+                LogAlert logAlert = new LogAlert();
+                logAlert.setLogLevel(loggingEvent.getLevel().levelStr);
+                logAlert.setMessage(loggingEvent.getMessage());
+
                 if (loggingEvent.getCallerData() != null && loggingEvent.getCallerData().length > 0) {
                     StackTraceElement element = loggingEvent.getCallerData()[0];
-                    logError.setClassName(element.getClassName());
-                    logError.setMethodName(element.getMethodName());
+                    logAlert.setClassName(element.getClassName());
+                    logAlert.setMethodName(element.getMethodName());
                 }
 
                 if (throwableProxy != null) {
-                    logError.setExceptionName(throwableProxy.getClassName());
-                    logError.setStackTrace(this.getStackTraceMsg(throwableProxy));
+                    logAlert.setExceptionName(throwableProxy.getClassName());
+                    logAlert.setStackTrace(this.getStackTraceMsg(throwableProxy));
                 }
-                logError.setErrorMsg(loggingEvent.getMessage());
-                logError.setCreateBy(loginUserId);
-                logError.setUpdateBy(loginUserId);
-                logError.setCreateTime(createTime);
-                logError.setUpdateTime(createTime);
 
-                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(logError.getExceptionName()));
-                if(noneMatch) {
+                logAlert.setCreateBy(loginUserId);
+                logAlert.setUpdateBy(loginUserId);
+                logAlert.setCreateTime(createTime);
+                logAlert.setUpdateTime(createTime);
+
+                boolean noneMatch = Arrays.stream(EXCLUDE_CLASS).noneMatch(cls -> ClassUtil.getClassName(cls, false).equals(logAlert.getExceptionName()));
+                if (noneMatch) {
                     // 错误日志实体类写入数据库
-                    logErrorService.save(logError);
+                    logAlertService.save(logAlert);
                 }
             } catch (RuntimeException e) {
                 this.addError("Record error log to database failed! " + e.getMessage());

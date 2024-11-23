@@ -116,13 +116,14 @@ create TABLE VTL_DICT_DATA (
 create unique index UIDX_VTL_DICT_DATA_CODE_VAL on VTL_DICT_DATA(CODE, VAL);
 
 
-drop table IF EXISTS VTL_LOG_ERROR;
-create TABLE VTL_LOG_ERROR (
+drop table IF EXISTS VTL_LOG_ALERT;
+create TABLE VTL_LOG_ALERT (
   ID                            bigint NOT NULL comment '主键ID',
+  LOG_LEVEL                     varchar(25) DEFAULT NULL comment '日志级别',
+  MESSAGE                       varchar(3000) DEFAULT NULL comment '日志信息',
   CLASS_NAME                    varchar(255) DEFAULT NULL comment '类名称',
   METHOD_NAME                   varchar(255) DEFAULT NULL comment '方法名称',
   EXCEPTION_NAME                varchar(255) DEFAULT NULL comment '异常类型',
-  ERROR_MSG                     varchar(3000) DEFAULT NULL comment '异常信息',
   STACK_TRACE                   text DEFAULT NULL comment '异常堆栈信息',
   CREATE_BY                     bigint DEFAULT NULL comment '创建者',
   CREATE_TIME                   datetime NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',

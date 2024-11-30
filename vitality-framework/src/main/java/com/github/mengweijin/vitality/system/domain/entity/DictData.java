@@ -34,6 +34,11 @@ public class DictData extends BaseEntity {
     private String label;
 
     /**
+     * 字典数据标签样式。["primary", "success", "warning", "danger", "info"]
+     */
+    private String tagStyle;
+
+    /**
     * 展示顺序
     */
     private Integer seq;

@@ -64,13 +64,7 @@ public class DeptService extends CrudRepository<DeptMapper, Dept> {
                 .orElse(null);
     }
 
-    public Dept getByUserId(Long userId) {
-        return this.getBaseMapper().selectByUserId(userId);
-    }
-
-    public List<Long> getChildrenIdsWithCurrentById(long id) {
-        List<Long> ids = this.getBaseMapper().selectChildrenIdsById(id);
-        ids.add(0, id);
-        return ids;
+    public List<Long> selectChildrenIdsWithCurrentIdById(Long id) {
+        return this.getBaseMapper().selectChildrenIdsWithCurrentIdById(id);
     }
 }

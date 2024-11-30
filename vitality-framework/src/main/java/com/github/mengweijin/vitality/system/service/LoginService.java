@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.dromara.hutool.http.useragent.Platform;
 import org.dromara.hutool.http.useragent.UserAgent;
+import org.dromara.hutool.swing.captcha.AbstractCaptcha;
+import org.dromara.hutool.swing.captcha.CaptchaUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -74,6 +76,15 @@ public class LoginService {
         loginUser.setPermissions(menuService.getMenuPermissionListByLoginUsername(user.getUsername()));
         loginUser.setToken(StpUtil.getTokenValue());
         return loginUser;
+    }
+
+    @Deprecated
+    public String createCaptcha() {
+        //定义图形验证码的长、宽、验证码字符数、干扰元素个数
+        AbstractCaptcha captcha = CaptchaUtil.ofLineCaptcha(200, 60, 4, 200);
+        // AbstractCaptcha captcha = CaptchaUtil.ofShearCaptcha(200, 60, 4, 5);
+        captcha.createCode();
+        return captcha.getImageBase64Data();
     }
 
 }

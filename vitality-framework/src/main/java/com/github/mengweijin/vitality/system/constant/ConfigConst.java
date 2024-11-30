@@ -10,4 +10,6 @@ public interface ConfigConst {
 
     String USER_PASSWORD_CHANGE_INTERVAL = "vtl_user_password_change_interval";
 
+    String SYSTEM_ADMIN_ROLE_CODE = "vtl_system_admin_role_code";
+
 }

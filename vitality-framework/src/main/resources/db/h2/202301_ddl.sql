@@ -4,6 +4,7 @@
 -- 与 MySQL 区别
 -- 1、h2 中，创建表最后面不能添加 COMMENT = '表注释'；
 -- 2、h2 中，int/bigint 类型不能限制位数，比如：int(4) 会报错，需要去掉；
+-- 3、h2 中，文本大字段用 clob，mysql 中用 text；
 
 drop table IF EXISTS VTL_NOTICE;
 create TABLE VTL_NOTICE (
@@ -104,6 +105,7 @@ create TABLE VTL_DICT_DATA (
   CODE 		                    varchar(100) NOT NULL comment '字典类型编码',
   VAL 		                    varchar(100) NOT NULL comment '字典数据值',
   LABEL 		                varchar(100) NOT NULL comment '字典数据标签名称',
+  TAG_STYLE                     varchar(10) NOT NULL comment '字典数据标签样式。["primary", "success", "warning", "danger", "info"]',
   SEQ 		                    int DEFAULT 1 comment '展示顺序',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否已禁用。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',
@@ -282,7 +284,7 @@ create TABLE VTL_USER (
   GENDER                        varchar(6) DEFAULT NULL comment '性别。关联数据字典：user_gender',
   EMAIL                         varchar(128) DEFAULT NULL comment '电子邮箱',
   MOBILE                        varchar(15) DEFAULT NULL comment '移动电话',
-  TOTP                           varchar(16) DEFAULT NULL comment 'TOTP 动态口令验证密钥',
+  TOTP                          varchar(16) DEFAULT NULL comment 'TOTP 动态口令验证密钥',
   DISABLED                      char(1) DEFAULT 'N' NOT NULL comment '是否禁用。[Y, N]',
   DELETED                       char(1) DEFAULT 'N' NOT NULL comment '逻辑删除。[Y, N]',
   REMARK 	                    varchar(500) comment '备注',

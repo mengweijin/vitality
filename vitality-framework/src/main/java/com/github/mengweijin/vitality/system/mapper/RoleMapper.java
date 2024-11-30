@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.mengweijin.vitality.system.domain.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,8 +16,6 @@ import java.util.Set;
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
-
-    List<Role> getByUserId(Long userId);
 
     Set<String> getRoleCodeByUsername(String username);
 }

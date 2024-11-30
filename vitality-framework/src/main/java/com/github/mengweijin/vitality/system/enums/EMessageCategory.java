@@ -18,6 +18,16 @@ public enum EMessageCategory implements IEnum<String> {
     SYSTEM("SYSTEM"),
 
     /**
+     * 安全
+     */
+    SECURITY("SECURITY"),
+
+    /**
+     * 告警消息
+     */
+    ALERT("ALERT"),
+
+    /**
      * 来自其它用户的消息
      */
     USER("USER");

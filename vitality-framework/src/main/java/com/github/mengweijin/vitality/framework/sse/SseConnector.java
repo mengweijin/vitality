@@ -36,7 +36,7 @@ public class SseConnector implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         cache = CacheFactory.getSseEmitterMessageCache();
-        executorService = ThreadUtil.newFixedExecutor(Const.PROCESSORS, "thread-pool-sse-", true);
+        executorService = ThreadUtil.newFixedExecutor(Const.PROCESSORS * 2, "thread-pool-sse-", true);
     }
 
     public void sendMessageToUsersAsync(String content, String... usernames) {

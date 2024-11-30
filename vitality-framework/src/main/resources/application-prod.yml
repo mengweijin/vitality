@@ -1,4 +1,6 @@
 spring:
+  liquibase:
+    change-log: classpath:/db/db.changelog-h2.xml
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:file:./h2/vitality;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE

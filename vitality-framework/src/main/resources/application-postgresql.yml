@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    contexts: test
+    change-log: classpath:/db/db.changelog-postgresql.xml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://locahost:5432/postgres
+    username: root
+    password: root
+decorator:
+  datasource:
+    enabled: true
+vitality:
+  debug: true

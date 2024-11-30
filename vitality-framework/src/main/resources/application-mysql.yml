@@ -1,6 +1,7 @@
 spring:
   liquibase:
     contexts: test
+    change-log: classpath:/db/db.changelog-mysql.xml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/vitality?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false

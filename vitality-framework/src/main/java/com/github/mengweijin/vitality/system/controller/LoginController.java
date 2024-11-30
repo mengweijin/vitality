@@ -13,6 +13,7 @@ import com.github.mengweijin.vitality.system.service.LoginService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,15 @@ public class LoginController {
     public R<Void> logout() {
         StpUtil.logout();
         return R.success();
+    }
+
+
+    @SaIgnore
+    @GetMapping("/captcha")
+    @Deprecated
+    @RateLimit(duration = 5, max = 1, strategy = ERateLimitStrategy.IP)
+    public String createCaptcha() {
+        return loginService.createCaptcha();
     }
 
 }

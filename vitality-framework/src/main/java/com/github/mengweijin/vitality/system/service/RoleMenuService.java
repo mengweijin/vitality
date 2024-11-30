@@ -7,6 +7,8 @@ import com.github.mengweijin.vitality.system.mapper.RoleMenuMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  Role Menu Service
@@ -19,6 +21,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class RoleMenuService extends CrudRepository<RoleMenuMapper, RoleMenu> {
+
+    public List<Long> getMenuIdsByRoleId(Long roleId) {
+        List<RoleMenu> roleMenuList = this.lambdaQuery().select(RoleMenu::getMenuId).eq(RoleMenu::getRoleId, roleId).list();
+        return roleMenuList.stream().map(RoleMenu::getMenuId).toList();
+    }
 
     public void removeByRoleId(Long roleId) {
         LambdaQueryWrapper<RoleMenu> wrapper = new LambdaQueryWrapper<>();

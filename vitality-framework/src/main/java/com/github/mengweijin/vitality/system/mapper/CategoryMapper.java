@@ -21,6 +21,22 @@ public interface CategoryMapper extends BaseMapper<Category> {
      * @return children ids
      */
     List<Long> selectChildrenIdsById(Long id);
+
+    /**
+     * select children ids with current id
+     *
+     * @param id current id
+     * @return children ids with current id
+     */
+    List<Long> selectChildrenIdsWithCurrentIdById(Long id);
+
+    /**
+     * select parent ids with current id
+     *
+     * @param id current id
+     * @return parent ids with current id
+     */
+    List<Long> selectParentIdsWithCurrentIdById(Long id);
 }
 
 

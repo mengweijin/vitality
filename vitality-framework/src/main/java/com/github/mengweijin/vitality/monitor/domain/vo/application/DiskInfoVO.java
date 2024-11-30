@@ -17,15 +17,43 @@ import java.util.List;
 @Data
 public class DiskInfoVO {
 
-    private List<FileSystemInfo> dataList = new ArrayList<>();
+    /**
+     * 卷名称。如：C:\
+     */
+    private String mountName;
+    /**
+     * 磁盘格式。如：NTFS
+     */
+    private String diskFormat;
+    /**
+     * 磁盘名称。如：本地磁盘(C:)
+     */
+    private String diskName;
+    /**
+     * 磁盘总容量
+     */
+    private String total;
+    /**
+     * 磁盘剩余容量
+     */
+    private String free;
+    /**
+     * 磁盘已使用容量
+     */
+    private String used;
+    /**
+     * 磁盘使用率。如：30%
+     */
+    private String usageRate;
 
-    public DiskInfoVO() {
+    public static List<DiskInfoVO> init() {
+        List<DiskInfoVO> dataList = new ArrayList<>();
         List<OSFileStore> fileStores = OshiUtil.getOs().getFileSystem().getFileStores();
         fileStores.forEach(fs -> {
             long free = fs.getUsableSpace();
             long total = fs.getTotalSpace();
             long used = total - free;
-            FileSystemInfo info = new FileSystemInfo();
+            DiskInfoVO info = new DiskInfoVO();
             info.setMountName(fs.getMount());
             info.setDiskFormat(fs.getType());
             info.setDiskName(fs.getName());
@@ -36,37 +64,7 @@ public class DiskInfoVO {
             info.setUsageRate(usageRate + "%");
             dataList.add(info);
         });
+        return dataList;
     }
 
-    @Data
-    private static class FileSystemInfo {
-        /**
-         * 卷名称。如：C:\
-         */
-        private String mountName;
-        /**
-         * 磁盘格式。如：NTFS
-         */
-        private String diskFormat;
-        /**
-         * 磁盘名称。如：本地磁盘(C:)
-         */
-        private String diskName;
-        /**
-         * 磁盘总容量
-         */
-        private String total;
-        /**
-         * 磁盘剩余容量
-         */
-        private String free;
-        /**
-         * 磁盘已使用容量
-         */
-        private String used;
-        /**
-         * 磁盘使用率。如：30%
-         */
-        private String usageRate;
-    }
 }

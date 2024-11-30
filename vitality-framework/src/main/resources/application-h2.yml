@@ -6,6 +6,7 @@ spring:
           no-store: true
   liquibase:
     contexts: test
+    change-log: classpath:/db/db.changelog-h2.xml
   datasource:
     driver-class-name: org.h2.Driver
     # 以本地文件存储数据的方式使用H2数据库。./h2/test 在项目根路径下保存数据库文件

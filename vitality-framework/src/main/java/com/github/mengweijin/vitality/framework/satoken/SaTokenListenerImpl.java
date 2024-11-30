@@ -29,7 +29,7 @@ public class SaTokenListenerImpl implements SaTokenListener {
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
         logLoginService.addLoginLogAsync((String) loginId, ELoginType.LOGIN, null, ServletUtils.getRequest());
-        userService.checkAndSendPasswordExpireMessageAsync((String) loginId);
+        userService.checkAndSendPasswordLongTimeNoChangeMessageAsync((String) loginId);
     }
 
     /** 每次注销时触发 */

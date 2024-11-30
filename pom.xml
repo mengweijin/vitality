@@ -49,8 +49,16 @@
                 <!-- 环境标识，需要与配置文件的名称相对应 -->  
                 <profiles.active>local</profiles.active>  
                 <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
         <profile> 
             <id>h2</id>  
             <properties> 
@@ -61,24 +69,32 @@
             <activation> 
                 <!-- 默认环境 -->  
                 <activeByDefault>true</activeByDefault> 
-            </activation> 
+            </activation>
         </profile>
-        <profile> 
-            <id>mysql</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>mysql</profiles.active>  
-                <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
-        <profile> 
-            <id>dev</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>dev</profiles.active>  
-                <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
+        <profile>
+            <id>postgresql</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>postgresql</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>mysql</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>oracle</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
         <profile> 
             <id>prod</id>  
             <properties> 

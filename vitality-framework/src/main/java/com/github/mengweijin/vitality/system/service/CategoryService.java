@@ -68,9 +68,4 @@ public class CategoryService extends CrudRepository<CategoryMapper, Category> {
         return this.getBaseMapper().selectChildrenIdsById(category.getId());
     }
 
-    public List<Long> getChildrenIdsWithCurrentById(long id) {
-        List<Long> ids = this.getBaseMapper().selectChildrenIdsById(id);
-        ids.add(0, id);
-        return ids;
-    }
 }

@@ -4,10 +4,10 @@ application:
   formatted-version: (v@version@)
   author: Meng Wei Jin
   email: mwjwork@qq.com
-  vitality: https://vitality.aday.fun/
-  home: https://home.aday.fun/
-  github: https://github.com/mengweijin/
-  gitee: https://gitee.com/mengweijin/
+  vitality: https://vitality.aday.fun
+  home: https://home.aday.fun
+  github: https://github.com/mengweijin
+  gitee: https://gitee.com/mengweijin
 server:
   port: 8080
   servlet:

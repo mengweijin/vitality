@@ -66,18 +66,6 @@ public class DeptController {
         return deptService.list(new LambdaQueryWrapper<>(dept).orderByAsc(Dept::getSeq));
     }
 
-    @SaCheckPermission("system:dept:query")
-    @GetMapping("/listParent/{id}")
-    public List<Long> listParent(@PathVariable("id") Long id) {
-        return deptService.getBaseMapper().selectParentIdsWithById(id);
-    }
-
-    @SaCheckPermission("system:dept:query")
-    @GetMapping("/listChildren/{id}")
-    public List<Long> listChildren(@PathVariable("id") Long id) {
-        return deptService.getChildrenIdsWithCurrentById(id);
-    }
-
     /**
      * <p>
      * Get Dept by id

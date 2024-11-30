@@ -18,14 +18,6 @@ import java.util.List;
 public interface DeptMapper extends BaseMapper<Dept> {
 
     /**
-     * select parent ids with current id
-     *
-     * @param id current id
-     * @return parent ids with current id
-     */
-    List<Long> selectParentIdsWithById(Long id);
-
-    /**
      * select children ids
      *
      * @param id current id
@@ -33,6 +25,20 @@ public interface DeptMapper extends BaseMapper<Dept> {
      */
     List<Long> selectChildrenIdsById(Long id);
 
-    Dept selectByUserId(Long userId);
+    /**
+     * select children ids with current id
+     *
+     * @param id current id
+     * @return children ids with current id
+     */
+    List<Long> selectChildrenIdsWithCurrentIdById(Long id);
+
+    /**
+     * select parent ids with current id
+     *
+     * @param id current id
+     * @return parent ids with current id
+     */
+    List<Long> selectParentIdsWithCurrentIdById(Long id);
 }
 

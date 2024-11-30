@@ -39,7 +39,7 @@ public class LogAlert extends BaseEntity {
     private String methodName;
 
     /**
-    * 异常类型
+     * 异常名称
     */
     private String exceptionName;
 

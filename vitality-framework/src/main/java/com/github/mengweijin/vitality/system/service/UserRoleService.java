@@ -3,11 +3,15 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.system.domain.bo.UserRolesBO;
+import com.github.mengweijin.vitality.system.domain.entity.Role;
 import com.github.mengweijin.vitality.system.domain.entity.UserRole;
 import com.github.mengweijin.vitality.system.mapper.UserRoleMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.extra.spring.SpringUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,6 +37,19 @@ public class UserRoleService extends CrudRepository<UserRoleMapper, UserRole> {
     public Set<Long> getUserIdsByRoleId(Long roleId) {
         List<UserRole> list = this.lambdaQuery().select(UserRole::getUserId).eq(UserRole::getRoleId, roleId).list();
         return list.stream().map(UserRole::getUserId).collect(Collectors.toSet());
+    }
+
+    public Set<Long> getUserIdsByRoleCode(String roleCode) {
+        Set<Long> set = new HashSet<>();
+        if (StrUtil.isBlank(roleCode)) {
+            return set;
+        }
+        RoleService roleService = SpringUtil.getBean(RoleService.class);
+        Role role = roleService.getByCode(roleCode);
+        if (role == null) {
+            return set;
+        }
+        return this.getUserIdsByRoleId(role.getId());
     }
 
     public boolean setUserRoles(UserRolesBO bo) {

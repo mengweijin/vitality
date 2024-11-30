@@ -59,10 +59,6 @@ public class RoleService extends CrudRepository<RoleMapper, Role> {
         return this.page(page, query);
     }
 
-    public List<Role> getByUserId(Long userId) {
-        return this.getBaseMapper().getByUserId(userId);
-    }
-
     public Set<String> getRoleCodeByUsername(String username) {
         if (UserConst.ADMIN_USERNAME.equals(username)) {
             return this.list().stream().map(Role::getCode).collect(Collectors.toSet());

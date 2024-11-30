@@ -11,6 +11,7 @@ import com.github.mengweijin.vitality.framework.validator.group.Group;
 import com.github.mengweijin.vitality.system.domain.entity.Menu;
 import com.github.mengweijin.vitality.system.domain.pure.PureAsyncRoutes;
 import com.github.mengweijin.vitality.system.service.MenuService;
+import com.github.mengweijin.vitality.system.service.RoleMenuService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -39,6 +40,8 @@ import java.util.List;
 public class MenuController {
 
     private MenuService menuService;
+
+    private RoleMenuService roleMenuService;
 
     /**
      * <p>
@@ -83,7 +86,7 @@ public class MenuController {
     @SaCheckPermission("system:menu:query")
     @GetMapping("/get-menu-id-by-role/{roleId}")
     public List<Long> getMenuIdsByRoleId(@PathVariable("roleId") Long roleId) {
-        return menuService.getMenuIdsByRoleId(roleId);
+        return roleMenuService.getMenuIdsByRoleId(roleId);
     }
 
     @GetMapping("/get-async-routes")

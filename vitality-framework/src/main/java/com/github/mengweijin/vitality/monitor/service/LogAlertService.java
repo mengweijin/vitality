@@ -34,6 +34,7 @@ public class LogAlertService extends ServiceImpl<LogAlertMapper, LogAlert> {
     public IPage<LogAlert> page(IPage<LogAlert> page, LogAlert logAlert) {
         LambdaQueryWrapper<LogAlert> query = new LambdaQueryWrapper<>();
         query
+                .eq(StrUtil.isNotBlank(logAlert.getLogLevel()), LogAlert::getLogLevel, logAlert.getLogLevel())
                 .eq(StrUtil.isNotBlank(logAlert.getClassName()), LogAlert::getClassName, logAlert.getClassName())
                 .eq(StrUtil.isNotBlank(logAlert.getMethodName()), LogAlert::getMethodName, logAlert.getMethodName())
                 .eq(StrUtil.isNotBlank(logAlert.getMessage()), LogAlert::getMessage, logAlert.getMessage())

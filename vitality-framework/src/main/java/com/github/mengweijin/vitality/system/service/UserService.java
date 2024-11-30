@@ -76,7 +76,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
     public IPage<User> page(IPage<User> page, User user) {
         List<Long> deptIds = new ArrayList<>();
         if (!Objects.isNull(user.getDeptId())) {
-            deptIds = deptService.getChildrenIdsWithCurrentById(user.getDeptId());
+            deptIds = deptService.selectChildrenIdsWithCurrentIdById(user.getDeptId());
         }
         LambdaQueryWrapper<User> query = new LambdaQueryWrapper<>();
         query
@@ -103,7 +103,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
     }
 
     public Set<Long> getUserIdsInDeptId(Long deptId) {
-        List<Long> deptIds = deptService.getChildrenIdsWithCurrentById(deptId);
+        List<Long> deptIds = deptService.selectChildrenIdsWithCurrentIdById(deptId);
         List<User> list = this.lambdaQuery().select(User::getId).in(User::getDeptId, deptIds).list();
         return list.stream().map(User::getId).collect(Collectors.toSet());
     }
@@ -172,7 +172,7 @@ public class UserService extends CrudRepository<UserMapper, User> {
         return this.lambdaUpdate().set(User::getDisabled, disabled).eq(User::getId, id).update();
     }
 
-    public void checkAndSendPasswordExpireMessageAsync(String username) {
+    public void checkAndSendPasswordLongTimeNoChangeMessageAsync(String username) {
         CompletableFuture.runAsync(() -> {
                     Config config = configService.getByCode(ConfigConst.USER_PASSWORD_CHANGE_INTERVAL);
                     if (config == null) {
@@ -185,13 +185,11 @@ public class UserService extends CrudRepository<UserMapper, User> {
 
                     User user = this.getByUsername(username);
                     Duration duration = TimeUtil.between(user.getPasswordChangeTime(), LocalDateTime.now());
-
-                    long expireDays = daysInterval - duration.toDays();
-                    if (expireDays > 10) {
+                    if (duration.toDays() < daysInterval) {
                         return;
                     }
 
-                    messageService.sendMessageToUser(user.getId(), EMessageCategory.SYSTEM, EMessageTemplate.USER_PASSWORD_EXPIRE, expireDays);
+                    messageService.sendMessageToUser(user.getId(), EMessageCategory.SECURITY, EMessageTemplate.USER_PASSWORD_LONG_TIME_NO_CHANGE, duration.toDays());
                 })
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);

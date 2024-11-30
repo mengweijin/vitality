@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.monitor.domain.vo.application;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author mengweijin
@@ -19,7 +20,7 @@ public class MonitorVO implements Serializable {
 
     private JvmInfoVO jvm = new JvmInfoVO();
 
-    private DiskInfoVO disk = new DiskInfoVO();
+    private List<DiskInfoVO> disk = DiskInfoVO.init();
 
 }
 

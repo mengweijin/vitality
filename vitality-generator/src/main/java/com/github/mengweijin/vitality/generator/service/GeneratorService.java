@@ -61,12 +61,6 @@ public class GeneratorService {
         return contentVO;
     }
 
-    private String parseFileName2(String fileName, String tableName, String prefix) {
-        String[] tablePrefix = GeneratorUtils.parseTablePrefix(prefix);
-        String entityName = GeneratorUtils.resolveEntityName(tableName, tablePrefix);
-        return GeneratorUtils.replacePlaceHolders(fileName, "entityName", StrUtil.toStringOrNull(entityName));
-    }
-
     public List<TableInfoVO> selectTableList(@Nullable String tableName) {
         List<TableInfoVO> list = this.getAllTableInfoVOList();
         if(StrUtil.isNotBlank(tableName)) {
@@ -139,4 +133,5 @@ public class GeneratorService {
         Map<String, Object> objectMap = VelocityTemplateEngine.getObjectMap(args, tableInfo);
         return GeneratorUtils.replaceTemplateString(fileName, objectMap);
     }
+
 }

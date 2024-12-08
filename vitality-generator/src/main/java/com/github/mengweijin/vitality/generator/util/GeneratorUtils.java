@@ -14,9 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -103,27 +100,10 @@ public class GeneratorUtils {
         return String.join(".", packages, moduleName);
     }
 
-    public static String replacePlaceHolders(String str, String key, String value) {
-        Properties props = new Properties();
-        props.setProperty(key, value);
-        return PLACEHOLDER_HELPER.replacePlaceholders(str, props);
-    }
-
     public static String replaceTemplateString(String templateString, Map<String, Object> objectMap) {
         Properties props = new Properties();
         objectMap.forEach((k, v) -> props.setProperty(k, StrUtil.toString(v)));
         return PLACEHOLDER_HELPER.replacePlaceholders(templateString, props);
-    }
-
-    public static String renderString(String content, Map<String, Object> map) {
-        Set<Map.Entry<String, Object>> sets = map.entrySet();
-        for (Map.Entry<String, Object> entry : sets) {
-            String regex = "\\$\\{" + entry.getKey() + "}";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(content);
-            content = matcher.replaceAll(StrUtil.toString(entry.getValue()));
-        }
-        return content;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.github.mengweijin.vitality.generator.engine;
 
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.github.mengweijin.vitality.generator.domain.dto.GeneratorArgs;
@@ -10,6 +11,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.date.DateFormatPool;
 import org.dromara.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.net.NetUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Component;
 
@@ -83,8 +85,9 @@ public class VelocityTemplateEngine {
         objectMap.put("requestMapping", requestMapping);
 
         objectMap.put("vueApiName", StrUtil.toSymbolCase(entityName, '-'));
-
         objectMap.put("hutoolStrUtil", StrUtil.class);
+        String nextId = new DefaultIdentifierGenerator(NetUtil.getLocalhostV4()).nextId(null).toString();
+        objectMap.put("generatedId", StrUtil.subPre(nextId, nextId.length() - 2));
         return objectMap;
     }
 

@@ -5,7 +5,7 @@ import org.dromara.hutool.extra.management.oshi.OshiUtil;
 import oshi.hardware.GlobalMemory;
 import oshi.hardware.PhysicalMemory;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author mengweijin
@@ -16,14 +16,15 @@ public class MemoryInfoVO {
 
     private String global;
 
-    private List<String> physical;
+    private String physical;
 
     private String virtual;
 
     public MemoryInfoVO() {
         GlobalMemory memory = OshiUtil.getMemory();
         global = memory.toString();
-        physical = memory.getPhysicalMemory().stream().map(PhysicalMemory::toString).toList();
+        physical = memory.getPhysicalMemory().stream().map(PhysicalMemory::toString)
+                .collect(Collectors.joining("\n"));
         virtual = memory.getVirtualMemory().toString();
     }
 }

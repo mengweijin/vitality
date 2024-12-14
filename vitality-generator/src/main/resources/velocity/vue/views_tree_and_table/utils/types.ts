@@ -1,57 +1,22 @@
-interface FormItemProps {
+interface FormProps {
   id?: string;
-  deptId?: string;
-  title?: string;
-  parentId?: number;
-  nickname?: string;
-  username?: string;
-  password?: string;
-  mobile?: string;
-  email?: string;
-  gender?: string;
+  /** 名称 */
+  name?: string;
+  /** 排序 */
+  seq?: number;
+  /** 是否禁用。[Y, N] */
   disabled?: string;
+  /** 备注 */
   remark?: string;
 }
-interface FormProps {
-  formInline: FormItemProps;
-  higherDeptOptions?: Record<string, unknown>[];
+
+interface UserVO extends FormProps, BaseEntity, Page {
+  deptId?: string;
 }
 
-interface UserVO extends FormItemProps, BaseEntity, Page {
-  deptName?: string;
-  avatar?: string;
+interface Props {
+  data: UserVO;
+  higherOptions?: Record<string, unknown>[];
 }
 
-interface ChangePasswordBO {
-  username?: string;
-  password?: string;
-  newPassword?: string;
-}
-
-interface UserAvatarBO {
-  userId?: string;
-  avatar?: string;
-}
-
-interface RoleFormItemProps {
-  userId?: string;
-  nickname?: string;
-  /** 选中的角色列表 */
-  roleIds?: Record<string, unknown>[];
-}
-
-interface RoleFormProps {
-  formInline: RoleFormItemProps;
-  /** 角色列表 */
-  roleOptions: any[];
-}
-
-export type {
-  FormItemProps,
-  FormProps,
-  RoleFormItemProps,
-  RoleFormProps,
-  UserVO,
-  ChangePasswordBO,
-  UserAvatarBO
-};
+export type { FormProps, Props, UserVO };

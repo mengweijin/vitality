@@ -15,7 +15,7 @@
     <name>vitality-generator</name>  
     <url>https://gitee.com/mengweijin/vitality</url>  
     <properties>
-        <mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
+        <mybatis-plus-generator.version>3.5.9</mybatis-plus-generator.version>
         <velocity.version>2.3</velocity.version>
     </properties>
     <dependencies>

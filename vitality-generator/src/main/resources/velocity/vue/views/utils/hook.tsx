@@ -160,12 +160,10 @@ export function use${entityName}(tableRef: Ref) {
       })
       .then(() => {
         let disabled: string = row.disabled === "Y" ? "N" : "Y";
-            update${entityName}({ id: row.id, disabled: disabled } as FormProps).then(
-              () => {
-                row.disabled = disabled;
-              }
-            );
-        })
+        update${entityName}({ id: row.id, disabled: disabled } as FormProps).then(() => {
+          row.disabled = disabled;
+        });
+      })
       .finally(() => {
         switchLoadMap.value[index] = Object.assign(
           {},

@@ -5,12 +5,6 @@ package com.github.mengweijin.vitality.framework.cache;
  */
 public interface CacheNames {
 
-    String CATEGORY_LIST = "CATEGORY_LIST";
-
-    String CONFIG_LIST = "CONFIG_LIST";
-
-    String DICT_DATA_LIST = "DICT_DATA_LIST";
-
     String DICT_DATA_VAL_TO_LABEL = "DICT_DATA_VAL_TO_LABEL";
 
     String DEPT_ID_TO_NAME = "DEPT_ID_TO_NAME";

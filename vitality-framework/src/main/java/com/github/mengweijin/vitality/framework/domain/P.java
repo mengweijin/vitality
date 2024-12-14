@@ -1,16 +1,10 @@
 package com.github.mengweijin.vitality.framework.domain;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.mengweijin.vitality.framework.jackson.JacksonConfig;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.extra.spring.SpringUtil;
-
-import java.text.SimpleDateFormat;
 
 /**
  * @author mengweijin
@@ -19,34 +13,10 @@ import java.text.SimpleDateFormat;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class P {
 
-    public static ObjectMapper objectMapper;
-
-    static {
-        objectMapper = new ObjectMapper();
-        //只序列化对象值不为 null 的属性
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        //反序列化的时候如果多了其他属性,不抛出异常
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //如果是空对象的时候,不抛异常
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        //取消时间的转化格式,默认是时间戳,可以取消,同时需要设置要表现的时间格式
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-
-        objectMapper.registerModule(JacksonConfig.javaTimeModule());
-    }
-
     public static ObjectMapper objectMapper() {
         return SpringUtil.getBean(ObjectMapper.class);
     }
 
-    public static String writeValueAsStringWithoutNull(Object value) {
-        try {
-            return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static String writeValueAsString(Object value) {
         try {

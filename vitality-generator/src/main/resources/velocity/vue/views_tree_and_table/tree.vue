@@ -6,8 +6,8 @@ import Reset from "@iconify-icons/ri/restart-line";
 import More2Fill from "@iconify-icons/ri/more-2-fill";
 import OfficeBuilding from "@iconify-icons/ep/office-building";
 import Dept from "@iconify-icons/ep/school";
-import ExpandIcon from "./svg/expand.svg?component";
-import UnExpandIcon from "./svg/unexpand.svg?component";
+import ExpandIcon from "@/assets/svg/expand.svg?component";
+import UnExpandIcon from "@/assets/svg/unexpand.svg?component";
 
 interface Tree {
   id: number;

@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import com.alibaba.excel.EasyExcel;
+import cn.idev.excel.EasyExcel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * 注解：@ExcelProperty(index = 2) {@link com.alibaba.excel.annotation.ExcelProperty}
+ * 注解：@ExcelProperty(index = 2) {@link cn.idev.excel.annotation.ExcelProperty}
  * @author mengweijin
  * @since 2022/11/20
  */

@@ -36,7 +36,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                     //SaRouter.match("/doc.html", r -> StpUtil.checkPermission("tool:api:view"));
                 }))
                 .addPathPatterns("/**")
-                .excludePathPatterns("/vitality/**", "/doc.html", "/webjars/**", "/v3/api-docs/**");
+                .excludePathPatterns("/", "/vitality/**", "/doc.html", "/webjars/**", "/v3/api-docs/**");
     }
 
 }

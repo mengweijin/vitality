@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * <p>
- *  LogError Controller
+ *  LogAlert Controller
  * </p>
  *
  * @author mengweijin

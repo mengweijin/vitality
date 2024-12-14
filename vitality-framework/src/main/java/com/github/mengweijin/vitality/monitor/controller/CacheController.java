@@ -43,8 +43,10 @@ public class CacheController {
         Cache<Object, Object> cache = cacheManager.getCache(cacheName);
         if (cache != null) {
             for (Cache.Entry<Object, Object> next : cache) {
-                String key = StrUtil.toString(next.getKey());
-                list.add(new CacheVO(key, next.getValue()));
+                if(next != null) {
+                    String key = StrUtil.toString(next.getKey());
+                    list.add(new CacheVO(key, key, next.getValue()));
+                }
             }
         }
         return list;

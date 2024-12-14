@@ -12,6 +12,7 @@ import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import ch.qos.logback.core.helpers.Transform;
 import cn.dev33.satoken.exception.NotLoginException;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.monitor.domain.entity.LogAlert;
 import com.github.mengweijin.vitality.monitor.service.LogAlertService;
@@ -40,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class DbLoggerAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
-    private static final Class<?>[] EXCLUDE_CLASS = {NotLoginException.class};
+    private static final Class<?>[] EXCLUDE_CLASS = {ClientException.class, NotLoginException.class};
 
     private static final String TAB = StrUtil.fillAfter(Const.EMPTY, ' ', 4);
 

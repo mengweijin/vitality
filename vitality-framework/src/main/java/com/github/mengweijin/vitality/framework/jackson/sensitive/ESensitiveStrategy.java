@@ -37,7 +37,7 @@ public enum ESensitiveStrategy {
     /**
      * 加密
      */
-    ENCRYPT(AESUtils::encrypt),
+    ENCRYPT(AESUtils.getAES()::encryptBase64),
 
     /**
      * 中文名

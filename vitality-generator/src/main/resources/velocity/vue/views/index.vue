@@ -20,7 +20,6 @@ const tableRef = ref();
 
 const {
   form,
-  curRow,
   loading,
   columns,
   dataList,

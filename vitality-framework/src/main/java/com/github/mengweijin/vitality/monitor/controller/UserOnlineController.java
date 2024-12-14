@@ -72,7 +72,7 @@ public class UserOnlineController {
     @PostMapping("/kick-out-by-token")
     public R<Void> kickoffByToken(@RequestBody TokenSignVO vo) {
         // 强制指定 Token 注销下线
-        StpUtil.kickoutByTokenValue(AESUtils.decrypt(vo.getValue()));
+        StpUtil.kickoutByTokenValue(AESUtils.getAES().decryptStr(vo.getValue()));
         return R.success();
     }
 

@@ -3,12 +3,18 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.domain.entity.DictType;
 import com.github.mengweijin.vitality.system.mapper.DictTypeMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,7 +28,22 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class DictTypeService extends CrudRepository<DictTypeMapper, DictType> {
+
+    private DictDataService dictDataService;
+
+    @Override
+    public boolean removeByIds(Collection<?> list) {
+        for (Object id : list) {
+            DictType dictType = this.getById((Long) id);
+            List<DictData> dictDataList = dictDataService.getByCode(dictType.getCode());
+            if(CollUtil.isNotEmpty(dictDataList)) {
+                throw new ClientException("Please remove dict data first in dict type [" + dictType.getName() + "].");
+            }
+        }
+        return super.removeByIds(list);
+    }
 
     /**
      * Custom paging query

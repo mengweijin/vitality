@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import tree from "./tree.vue";
 import { useUser } from "./utils/hook";
+import { ref, onMounted } from "vue";
+import tree from "./tree.vue";
+import { deviceDetection } from "@pureadmin/utils";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { useDictStoreHook } from "@/store/modules/dict";
+
+import View from "@iconify-icons/ep/view";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Refresh from "@iconify-icons/ep/refresh";
@@ -27,19 +30,20 @@ const {
   treeLoading,
   selectedNum,
   pagination,
-  buttonClass,
-  deviceDetection,
   onSearch,
-  resetForm,
-  onBatchDel,
-  openDialog,
   onTreeSelect,
+  resetForm,
+  openEditDialog,
+  openDetailDialog,
   handleDelete,
+  handleBatchDelete,
+  handleSelectionCancel,
   handleSizeChange,
-  onSelectionCancel,
   handleCurrentChange,
   handleSelectionChange
 } = useUser(tableRef, treeRef);
+
+onMounted(() => {});
 </script>
 
 <template>
@@ -60,10 +64,10 @@ const {
         :model="form"
         class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px] overflow-auto"
       >
-        <el-form-item label="用户账号：" prop="username">
+        <el-form-item label="名称：" prop="name">
           <el-input
-            v-model="form.username"
-            placeholder="请输入用户账号"
+            v-model="form.name"
+            placeholder="请输入名称"
             clearable
             class="!w-[180px]"
           />
@@ -71,7 +75,7 @@ const {
         <el-form-item label="状态：" prop="disabled">
           <el-select
             v-model="form.disabled"
-            placeholder="请选择"
+            placeholder="请选择状态"
             clearable
             class="!w-[180px]"
           >
@@ -100,14 +104,14 @@ const {
         </el-form-item>
       </el-form>
 
-      <PureTableBar title="用户管理" :columns="columns" @refresh="onSearch">
+      <PureTableBar title="数据管理" :columns="columns" @refresh="onSearch">
         <template #buttons>
           <el-button
             type="primary"
             :icon="useRenderIcon(AddFill)"
-            @click="openDialog()"
+            @click="openEditDialog()"
           >
-            新增用户
+            新增
           </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">
@@ -123,14 +127,14 @@ const {
               >
                 已选 {{ selectedNum }} 项
               </span>
-              <el-button type="primary" text @click="onSelectionCancel">
+              <el-button type="primary" text @click="handleSelectionCancel">
                 取消选择
               </el-button>
             </div>
             <el-popconfirm
               :width="500"
               title="是否确认删除?"
-              @confirm="onBatchDel"
+              @confirm="handleBatchDelete"
             >
               <template #reference>
                 <el-button type="danger" text class="mr-1">
@@ -142,12 +146,13 @@ const {
           <pure-table
             ref="tableRef"
             row-key="id"
-            adaptive
-            :adaptiveConfig="{ offsetBottom: 108 }"
             align-whole="center"
+            showOverflowTooltip
             table-layout="auto"
             :loading="loading"
             :size="size"
+            adaptive
+            :adaptiveConfig="{ offsetBottom: 108 }"
             :data="dataList"
             :columns="dynamicColumns"
             :pagination="{ ...pagination, size }"
@@ -161,20 +166,28 @@ const {
           >
             <template #operation="{ row }">
               <el-button
-                v-if="row.username != 'admin'"
+                class="reset-margin"
+                link
+                type="primary"
+                :size="size"
+                :icon="useRenderIcon(View)"
+                @click="openDetailDialog('详情', row)"
+              >
+                详情
+              </el-button>
+              <el-button
                 class="reset-margin"
                 link
                 type="primary"
                 :size="size"
                 :icon="useRenderIcon(EditPen)"
-                @click="openDialog('修改', row)"
+                @click="openEditDialog('修改', row)"
               >
                 修改
               </el-button>
               <el-popconfirm
-                v-if="row.username != 'admin'"
                 :width="500"
-                :title="`是否确认【删除】用户【${row.nickname} - ${row.username}】？`"
+                :title="`是否确认【删除】名称为【${row.name}】的数据？`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>
@@ -202,10 +215,6 @@ const {
   margin: 0;
 }
 
-:deep(.el-button:focus-visible) {
-  outline: none;
-}
-
 .main-content {
   margin: 24px 24px 0 !important;
 }
@@ -214,5 +223,9 @@ const {
   :deep(.el-form-item) {
     margin-bottom: 12px;
   }
+}
+
+:deep(.el-table__body-wrapper .el-table-column--selection > .cell) {
+  display: flex !important;
 }
 </style>

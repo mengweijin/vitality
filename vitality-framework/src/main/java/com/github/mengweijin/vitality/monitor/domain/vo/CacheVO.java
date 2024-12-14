@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CacheVO {
 
+    private String name;
+
     private String key;
 
     private Object value;

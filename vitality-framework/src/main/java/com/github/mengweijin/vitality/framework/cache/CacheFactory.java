@@ -1,8 +1,5 @@
 package com.github.mengweijin.vitality.framework.cache;
 
-import com.github.mengweijin.vitality.system.domain.entity.Category;
-import com.github.mengweijin.vitality.system.domain.entity.Config;
-import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -37,10 +34,6 @@ public final class CacheFactory {
         return CACHE_MANAGER.getCache(cacheName);
     }
 
-    public static Cache<String, List<DictData>> getDictListCache() {
-        return CACHE_MANAGER.getCache(CacheNames.DICT_DATA_LIST);
-    }
-
     public static Cache<String, String> getDictDataLabelCache() {
         return CACHE_MANAGER.getCache(CacheNames.DICT_DATA_VAL_TO_LABEL);
     }
@@ -59,14 +52,6 @@ public final class CacheFactory {
 
     public static Cache<String, Long> getRepeatSubmitCache() {
         return CACHE_MANAGER.getCache(CacheNames.REPEAT_SUBMIT);
-    }
-
-    public static Cache<String, List<Config>> getConfigListCache() {
-        return CACHE_MANAGER.getCache(CacheNames.CONFIG_LIST);
-    }
-
-    public static Cache<String, List<Category>> getCategoryListCache() {
-        return CACHE_MANAGER.getCache(CacheNames.CATEGORY_LIST);
     }
 
     public static Cache<String, SseEmitter> getSseEmitterMessageCache() {

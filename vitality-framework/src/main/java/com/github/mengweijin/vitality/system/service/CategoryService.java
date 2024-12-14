@@ -54,7 +54,6 @@ public class CategoryService extends CrudRepository<CategoryMapper, Category> {
         return this.lambdaQuery().eq(Category::getCode, code).one();
     }
 
-    @Cacheable(value = CacheNames.CATEGORY_LIST, key = "#code", unless = CacheConst.UNLESS_LIST_EMPTY)
     public List<Category> getChildrenListByCode(String code) {
         List<Long> ids = this.getChildrenIdsByCode(code);
         return this.lambdaQuery().in(Category::getId, ids).list();

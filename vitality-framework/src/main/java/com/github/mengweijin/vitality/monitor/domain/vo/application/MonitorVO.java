@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class MonitorVO implements Serializable {
 
-    private static ServerInfoVO server = new ServerInfoVO();
+    private ServerInfoVO server = new ServerInfoVO();
 
     private CpuInfoVO cpu = new CpuInfoVO();
 

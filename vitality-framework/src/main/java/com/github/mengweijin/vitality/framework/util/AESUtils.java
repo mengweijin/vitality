@@ -1,5 +1,7 @@
 package com.github.mengweijin.vitality.framework.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.crypto.KeyUtil;
@@ -12,7 +14,6 @@ import javax.crypto.SecretKey;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -27,43 +28,15 @@ import java.security.SecureRandom;
  * @since 2021/12/24
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AESUtils {
 
     private static final byte[] DEFAULT = new byte[]{85, -74, -21, 118, 32, -56, 87, 2, 26, -50, 40, 33, 87, 42, 123, 63};
 
     private static final AES INSTANCE = new AES(DEFAULT);
 
-    public static String encrypt(String value) {
-        return INSTANCE.encryptBase64(value);
-    }
-
-    public static String decrypt(String value) {
-        return INSTANCE.decryptStr(value);
-    }
-
-    public static byte[] encrypt(byte[] data) {
-        return INSTANCE.encrypt(data);
-    }
-
-    public static byte[] decrypt(byte[] data) {
-        return INSTANCE.decrypt(data);
-    }
-
-    public static byte[] encrypt(InputStream inputStream) {
-        return INSTANCE.encrypt(inputStream);
-    }
-
-    public static byte[] decrypt(InputStream inputStream) {
-        return INSTANCE.decrypt(inputStream);
-    }
-
-
-    public static void encrypt(InputStream in, OutputStream out) {
-        INSTANCE.encrypt(in, out, true);
-    }
-
-    public static void decrypt(InputStream in, OutputStream out) {
-        INSTANCE.decrypt(in, out, true);
+    public static AES getAES() {
+        return INSTANCE;
     }
 
     public static String encryptByKey(String key, String value) {

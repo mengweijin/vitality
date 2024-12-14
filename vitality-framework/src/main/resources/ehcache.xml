@@ -43,20 +43,8 @@
     </cache-template>
 
     <!-- 缓存对象,如果使用了模版会覆盖模版中的内容,使用 uses-template="" 来引用模版 -->
-    <cache alias="CATEGORY_LIST" uses-template="DEFAULT_TEMPLATE">
-        <value-type>java.util.List</value-type>
-    </cache>
-
-    <cache alias="CONFIG_LIST" uses-template="DEFAULT_TEMPLATE">
-        <value-type>java.util.List</value-type>
-    </cache>
-
     <cache alias="DEPT_ID_TO_NAME" uses-template="DEFAULT_TEMPLATE">
         <value-type>java.lang.String</value-type>
-    </cache>
-
-    <cache alias="DICT_DATA_LIST" uses-template="DEFAULT_TEMPLATE">
-        <value-type>java.util.List</value-type>
     </cache>
 
     <cache alias="DICT_DATA_VAL_TO_LABEL" uses-template="DEFAULT_TEMPLATE">
@@ -86,17 +74,10 @@
         <value-type>java.lang.String</value-type>
     </cache>
 
-    <cache alias="GENERATOR_TEMPLATE_LIST" uses-template="DEFAULT_TEMPLATE">
-        <value-type>java.util.List</value-type>
-        <expiry>
-            <ttl unit="minutes">5</ttl>
-        </expiry>
-    </cache>
-
     <cache alias="RATE_LIMIT" uses-template="DEFAULT_TEMPLATE">
         <value-type>java.util.ArrayList</value-type>
         <expiry>
-            <ttl unit="minutes">30</ttl>
+            <ttl unit="minutes">5</ttl>
         </expiry>
     </cache>
 </config>

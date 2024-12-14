@@ -65,7 +65,6 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
                 .orElse(null);
     }
 
-    @Cacheable(value = CacheNames.DICT_DATA_LIST, key = "#code", unless = CacheConst.UNLESS_OBJECT_NULL)
     public List<DictData> getByCode(String code) {
         return this.lambdaQuery()
                 .eq(DictData::getCode, code)
@@ -79,4 +78,5 @@ public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
             throw new ClientException(StrUtil.format("The dict type code[{}] and value[{}] already exists!", code, val));
         }
     }
+
 }

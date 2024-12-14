@@ -31,7 +31,7 @@ export function useDetailColumns() {
       prop: "seq"
     },
     {
-      label: "是否禁用",
+      label: "状态",
       prop: "disabled",
       cellRenderer: ({ value }) => {
         return (

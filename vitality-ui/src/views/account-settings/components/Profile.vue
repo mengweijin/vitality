@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { message } from "@/utils/message";
-import { type UserInfo } from "@/api/user";
+import { type UserInfo } from "@/api/system/login";
 import userAvatar from "@/assets/user.jpg";
-import { getMine, setUserAvatar } from "@/api/system/user";
+import { getSensitiveMine, setUserAvatar, updateUser } from "@/api/system/user";
 import type { FormInstance, FormRules } from "element-plus";
 import ReCropperPreview from "@/components/ReCropperPreview";
 import { createFormData, deviceDetection } from "@pureadmin/utils";
 import uploadLine from "@iconify-icons/ri/upload-line";
-import { UserAvatarBO, UserVO } from "@/views/system/user/utils/types";
+import { UserAvatarBO, UserVO } from "@/views/vitality/system/user/utils/types";
 import { useUserStoreHook } from "@/store/modules/user";
 import { useDictStoreHook } from "@/store/modules/dict";
 
@@ -92,14 +92,19 @@ const onSubmit = async (formEl: FormInstance) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log(userInfos);
-      message("更新信息成功", { type: "success" });
-    } else {
-      console.log("error submit!", fields);
+
+      const userProfile = {
+        id: userInfos.id,
+        nickname: userInfos.nickname,
+        gender: userInfos.gender ?? "",
+        remark: userInfos.remark ?? ""
+      };
+      updateUser(userProfile);
     }
   });
 };
 
-getMine().then(res => {
+getSensitiveMine().then(res => {
   Object.assign(userInfos, res);
 });
 </script>
@@ -156,21 +161,23 @@ getMine().then(res => {
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="邮箱" prop="email">
+      <el-form-item label="绑定邮箱" prop="email">
         <el-autocomplete
           v-model="userInfos.email"
           :fetch-suggestions="queryEmail"
           :trigger-on-focus="false"
           placeholder="请输入邮箱"
           clearable
+          disabled
           class="w-full"
         />
       </el-form-item>
-      <el-form-item label="联系电话">
+      <el-form-item label="绑定手机">
         <el-input
           v-model="userInfos.mobile"
-          placeholder="请输入联系电话"
+          placeholder="请输入手机号码"
           clearable
+          disabled
         />
       </el-form-item>
       <el-form-item label="简介">

@@ -1,69 +1,54 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-import { getMineLogs } from "@/api/user";
-import { reactive, ref, onMounted } from "vue";
+import { reactive, ref, onMounted, toRaw } from "vue";
 import { deviceDetection } from "@pureadmin/utils";
 import type { PaginationProps } from "@pureadmin/table";
+import { getLogLoginPage } from "@/api/monitor/log-login";
+import { LogLoginVO } from "@/views/vitality/monitor/log-login/utils/types";
+import { useSecurityLogColumns } from "./utils/hook";
 
 defineOptions({
   name: "SecurityLog"
 });
 
 const loading = ref(true);
+const form = reactive<LogLoginVO>({});
+const tableRef = ref();
 const dataList = ref([]);
+
 const pagination = reactive<PaginationProps>({
   total: 0,
   pageSize: 10,
   currentPage: 1,
   background: true,
-  layout: "prev, pager, next"
+  pageSizes: [10, 20, 30, 50]
 });
-const columns: TableColumnList = [
-  {
-    label: "详情",
-    prop: "summary",
-    minWidth: 140
-  },
-  {
-    label: "IP 地址",
-    prop: "ip",
-    minWidth: 100
-  },
-  {
-    label: "地点",
-    prop: "address",
-    minWidth: 140
-  },
-  {
-    label: "操作系统",
-    prop: "system",
-    minWidth: 100
-  },
-  {
-    label: "浏览器类型",
-    prop: "browser",
-    minWidth: 100
-  },
-  {
-    label: "时间",
-    prop: "operatingTime",
-    minWidth: 180,
-    formatter: ({ operatingTime }) =>
-      dayjs(operatingTime).format("YYYY-MM-DD HH:mm:ss")
-  }
-];
+
+const { securityLogColumns } = useSecurityLogColumns();
 
 async function onSearch() {
   loading.value = true;
-  const { data } = await getMineLogs();
-  dataList.value = data.list;
-  pagination.total = data.total;
-  pagination.pageSize = data.pageSize;
-  pagination.currentPage = data.currentPage;
+
+  form.current = pagination.currentPage;
+  form.size = pagination.pageSize;
+  const page = await getLogLoginPage(toRaw(form));
+  dataList.value = page.records;
+  pagination.total = page.total;
+  pagination.pageSize = page.size;
+  pagination.currentPage = page.current;
 
   setTimeout(() => {
     loading.value = false;
   }, 200);
+}
+
+function handleSizeChange(val: number) {
+  pagination.pageSize = val;
+  onSearch();
+}
+
+function handleCurrentChange(val: number) {
+  pagination.currentPage = val;
+  onSearch();
 }
 
 onMounted(() => {
@@ -75,17 +60,27 @@ onMounted(() => {
   <div
     :class="[
       'min-w-[180px]',
-      deviceDetection() ? 'max-w-[100%]' : 'max-w-[70%]'
+      'ml-[50px]',
+      deviceDetection() ? 'max-w-[100%]' : 'max-w-[90%]'
     ]"
   >
     <h3 class="my-8">安全日志</h3>
     <pure-table
+      ref="tableRef"
       row-key="id"
+      align-whole="center"
+      showOverflowTooltip
       table-layout="auto"
       :loading="loading"
       :data="dataList"
-      :columns="columns"
+      :columns="securityLogColumns"
       :pagination="pagination"
+      :header-cell-style="{
+        background: 'var(--el-fill-color-light)',
+        color: 'var(--el-text-color-primary)'
+      }"
+      @page-size-change="handleSizeChange"
+      @page-current-change="handleCurrentChange"
     />
   </div>
 </template>

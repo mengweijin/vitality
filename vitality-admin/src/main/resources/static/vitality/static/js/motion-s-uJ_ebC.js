@@ -1,0 +1,1 @@
+import{w as o,ab as i,F as a,aj as n}from"./index-DcU5f0E9.js";const r=o({name:"Motion",props:{delay:{type:Number,default:50}},render(){const{delay:t}=this,e=i("motion");return a(n("div",{},{default:()=>[this.$slots.default()]}),[[e,{initial:{opacity:0,y:100},enter:{opacity:1,y:0,transition:{delay:t}}}]])}});export{r as M};

@@ -16,7 +16,7 @@ import { useEpThemeStoreHook } from "@/store/modules/epTheme";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import ExitFullscreen from "@iconify-icons/ri/fullscreen-exit-fill";
 import Fullscreen from "@iconify-icons/ri/fullscreen-fill";
-import { logout as logoutUser } from "@/api/user";
+import { logout as logoutUser } from "@/api/system/login";
 
 const errorInfo =
   "The current routing configuration is incorrect, please check the configuration";

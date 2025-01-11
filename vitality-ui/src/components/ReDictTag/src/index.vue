@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import { DictDataVO, getDictDataListByCode } from "@/api/system/dict";
 import { isEmpty } from "@pureadmin/utils";
 import type { EpPropMergeType } from "element-plus/es/utils/vue/props/types";
 import { useDictStoreHook } from "@/store/modules/dict";
+import { DictDataVO } from "@/views/vitality/system/dict-data/utils/types";
 
 interface Props {
   /** 字典类型编码 */
@@ -11,6 +11,11 @@ interface Props {
   /** 当前字典值 */
   value?: string | Array<String>;
   separator?: string;
+  type?: EpPropMergeType<
+    StringConstructor,
+    "success" | "warning" | "info" | "primary" | "danger",
+    unknown
+  >;
   size?: EpPropMergeType<
     StringConstructor,
     "" | "default" | "small" | "large",
@@ -22,12 +27,11 @@ const props = withDefaults(defineProps<Props>(), {
   code: "",
   value: null,
   separator: ",",
+  type: null,
   size: "default"
 });
 
 const options = ref<DictDataVO[]>([]);
-
-const tagType = ["success", "primary", "info", "warning", "danger"];
 
 const values = computed(() => {
   if (!props.value || isEmpty(props.value)) {
@@ -40,23 +44,22 @@ const values = computed(() => {
   }
 });
 
-onMounted(() => {
-  options.value = useDictStoreHook().getDicts(props.code);
-});
-
-function getTagType(index: any) {
-  let defaultType = tagType[2];
-  if (index < tagType.length) {
-    defaultType = tagType[index];
+function getTagStyle(dictData: DictDataVO) {
+  if (props.type) {
+    return props.type;
   }
-  return defaultType as PropType<
+  return dictData.tagStyle as PropType<
     EpPropMergeType<
       StringConstructor,
-      "primary" | "success" | "info" | "warning" | "danger",
+      "success" | "warning" | "info" | "primary" | "danger",
       unknown
     >
   >;
 }
+
+onMounted(() => {
+  options.value = useDictStoreHook().getDicts(props.code);
+});
 </script>
 
 <template>
@@ -68,7 +71,7 @@ function getTagType(index: any) {
           :size="props.size"
           :disable-transitions="true"
           :index="index"
-          :type="getTagType(index)"
+          :type="getTagStyle(item)"
           effect="dark"
         >
           {{ item.label + "" }}

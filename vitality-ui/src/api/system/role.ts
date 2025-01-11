@@ -3,7 +3,7 @@ import type {
   FormItemProps,
   RoleVO,
   RolePermissionBO
-} from "@/views/system/role/utils/types";
+} from "@/views/vitality/system/role/utils/types";
 
 /** 查询 */
 export const getRolePage = (params?: RoleVO) => {

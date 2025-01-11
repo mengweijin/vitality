@@ -1,1 +1,0 @@
-import{aB as e}from"./index-BOgzzpjy.js";const p=t=>e.get("/system/dept/list",{params:t}),r=t=>e.post("/system/dept/create",{data:t}),a=t=>e.post("/system/dept/update",{data:t}),o=t=>e.post("/system/dept/delete/"+t);export{r as c,o as d,p as g,a as u};

@@ -1,5 +1,8 @@
 import { http } from "@/utils/http";
-import type { FormItemProps, DeptVO } from "@/views/system/dept/utils/types";
+import type {
+  FormItemProps,
+  DeptVO
+} from "@/views/vitality/system/dept/utils/types";
 
 /** 查询 */
 export const getDeptList = (params?: DeptVO) => {

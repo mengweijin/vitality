@@ -86,7 +86,7 @@ const { t, locale, translationCh, translationEn } = useTranslationLang();
       <!-- 全屏 -->
       <LaySidebarFullScreen id="full-screen" />
       <!-- 消息通知 -->
-      <LayNotice id="header-notice" />
+      <LayNotice v-show="false" id="header-notice" />
       <!-- 退出登录 -->
       <el-dropdown trigger="hover">
         <span class="el-dropdown-link navbar-bg-hover select-none">

@@ -19,6 +19,10 @@ export const useDictStore = defineStore({
     },
     getDicts(code: string) {
       return this.dicts[code] || [];
+    },
+    getDictByCodeAndVal(code: string, val: string) {
+      let dicts = this.getDicts(code);
+      return dicts.filter(dict => dict.val === val)[0];
     }
   }
 });

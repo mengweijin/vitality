@@ -1,10 +1,29 @@
+# 5.9.0 (2024-12-10)
+
+### ✔️Refactor
+
+- Upgrade `vite` to `v6` version, upgrade `sass` to the latest version, reconstruct the theme writing method, and deprecate [@pureadmin/theme](https://www.npmjs.com/package/@pureadmin/theme) , click to view [Related optimization point details](https://github.com/pure-admin/vue-pure-admin/pull/1188#issue-2630095115). For users who have the [Max version](https://pure-admin.cn/pages/max/), it is strongly recommended to upgrade. Subsequent Max version users will enjoy a more modern, beautiful and highly customized theme color
+- Use [code-inspector-plugin](https://www.npmjs.com/package/code-inspector-plugin) to replace [vite-plugin-vue-inspector](https://www.npmjs.com/package/vite-plugin-vue-inspector)
+
+### 🎫Feat
+
+- Added `ReDrawer` component
+- `pure-table` adds dynamic table header example
+
+### 🐞 Bug fixes
+
+- Fixed an issue where the height of the table does not automatically adapt when the full screen function is enabled or disabled after the table is expanded in the menu and department management
+
+### 🍏Perf
+
+- Optimize the layout of the department tree on the left side of user management
+
 # 5.8.0 (2024-08-19)
 
 ### 🎫 Feat
 
 - Added a second button permission command (judged based on the `permissions` field returned by the login interface)
-- Functional pop-up box `ReDialog` adds whether to enable the `loading` loading animation function after clicking the
-  confirmation button
+- Functional pop-up box `ReDialog` adds whether to enable the `loading` loading animation function after clicking the confirmation button
 - `PureTableBar` component adds full screen and exit full screen functions
 - `VxeTableBar` component adds full screen and exit full screen functions
 - The OK button of the `ReDialog` component provides the close button animation `closeLoading` function
@@ -54,7 +73,7 @@
 
 The addresses of the document site and full version preview site have been changed!
 
-- The latest document site address: https://pure-admin.github.io/pure-admin-doc
+- The latest document site address: https://pure-admin.cn
 - The latest full version preview site address: https://pure-admin.github.io/vue-pure-admin
 
 ### ✔️ Refactor
@@ -82,13 +101,11 @@ The addresses of the document site and full version preview site have been chang
 - Added mind map examples
 - Functional pop-up box `ReDialog` adds `Popconfirm` bubble confirmation box
 - `pure-table` adds `headerSlot` custom header slot usage example
-- The route adds a configurable `fixedTag` attribute, which determines whether the current menu name is fixedly
-  displayed on the tab and cannot be closed.
+- The route adds a configurable `fixedTag` attribute, which determines whether the current menu name is fixedly displayed on the tab and cannot be closed.
 - Added account setting function page and compatible with mobile terminals
 - Upgrade `eslint9` and related compatibility processing
 - Added global configuration `MaxTagsLevel` property to set the maximum number of open tabs
-- Full coverage of the internationalization of the core code of the framework (only the internationalization of the
-  business code needs to be processed)
+- Full coverage of the internationalization of the core code of the framework (only the internationalization of the business code needs to be processed)
 
 ### 🐞 Bug fixes
 
@@ -128,23 +145,20 @@ The addresses of the document site and full version preview site have been chang
 ### 🎫 Feat
 
 - Added `v-ripple` command (water ripple effect)
-- Add global `Stretch` configuration to the content area to customize compact pages and easily find the required
-  information
+- Add global `Stretch` configuration to the content area to customize compact pages and easily find the required information
 - Added roaming guidance based on `ElTour`
 - Improve role management-menu permission function, novel interactive experience
 - Add system monitoring-online users
 - Add system monitoring-login log
 - Add system monitoring-operation log
 - Add system monitoring-system log
-- Add more more convenient `pure-admin-table` editable table examples (overall editing, single row editing, cell
-  editing)
+- Add more more convenient `pure-admin-table` editable table examples (overall editing, single row editing, cell editing)
 - The `ReSegmented` component has a new `block` attribute to make it fit the width of the parent element
 - Add [vue-flow](https://vueflow.dev/) flow chart example
 - Add virtual table example
 - Added Gantt chart example
 - Add graphic verification code example
-- Add form examples, which can be generated through `JSON` format configuration (basic form, pop-up form, drawer form,
-  step-by-step form, search form)
+- Add form examples, which can be generated through `JSON` format configuration (basic form, pop-up form, drawer form, step-by-step form, search form)
 - Add a folding and expanding menu function on the middle right side of the left menu
 
 ### 🐞 Bug fixes
@@ -152,8 +166,7 @@ The addresses of the document site and full version preview site have been chang
 - Fixed the scroll bar issue when clicking on the registration page under `windwos`
 - Fixed the problem of scroll bars appearing in the content area when switching pages under `windows`
 - Fixed the problem of status style disappearing in `pure-table` with status table under dark overall style
-- Fixed the problem of turning on the gray mode and dark overall style in the project configuration and refreshing the
-  overall style of the page.
+- Fixed the problem of turning on the gray mode and dark overall style in the project configuration and refreshing the overall style of the page.
 
 ### 🍏 Perf
 
@@ -168,8 +181,7 @@ The addresses of the document site and full version preview site have been chang
 ### 🎫 Feat
 
 - Added multi-select card example
-- The menu supports all browser behaviors of right-clicking on the `a` tag (opening links in new tabs, new windows,
-  dragging and dropping to open in new tabs, etc.)
+- The menu supports all browser behaviors of right-clicking on the `a` tag (opening links in new tabs, new windows, dragging and dropping to open in new tabs, etc.)
 - Added search history and collection functions to menu search
 
 ### 🐞 Bug fixes
@@ -187,18 +199,14 @@ Totally `ESM` version
 ### ✔️ Refactor
 
 - Upgrade `vite` to `v5` version, specify `node` version `>18.18.0`, `pnpm` version `>=8.6.10`
-- Use [vite-plugin-fake-server](https://www.npmjs.com/package/vite-plugin-fake-server) to
-  replace [vite-plugin-mock](https://www.npmjs.com/package/vite-plugin-mock),
-  use [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) to
-  replace [mockjs](https://www.npmjs.com/package/mockjs)
+- Use [vite-plugin-fake-server](https://www.npmjs.com/package/vite-plugin-fake-server) to replace [vite-plugin-mock](https://www.npmjs.com/package/vite-plugin-mock), use [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) to replace [mockjs](https://www.npmjs.com/package/mockjs)
 - Rename `tailwind.config.js` to `tailwind.config.ts` and update its file to `esm` syntax
 - Updated `.prettierrc.js` file to `esm` syntax
 - Updated `postcss.config.js` file to `esm` syntax
 - Updated `commitlint.config.js` file to `esm` syntax
 - Use `eslint.config.js` to replace `.eslintrc.js` and follow `esm` syntax
 - Upgrade `stylelint` to `16` version and follow `esm` syntax
-- All `search` search icons are uniformly replaced with `@iconify-icons/ri/search-line` which is more commonly used and
-  put into the global offline icon
+- All `search` search icons are uniformly replaced with `@iconify-icons/ri/search-line` which is more commonly used and put into the global offline icon
 - Removed the filter effect of `iframe` in dark mode
 - Bring a more beautiful and refined homepage
 - Cleaner and neater pop-up panel on the right side of project configuration
@@ -213,18 +221,14 @@ Totally `ESM` version
 - Added file upload example
 - Added overall style adaptive operating system light, dark, and automatic theme functions
 - Add footer
-- Supports multi-tab pages to open systems that have already been logged in without logging in again and adds an
-  internal login-free function (users can choose the number of days without login)
+- Supports multi-tab pages to open systems that have already been logged in without logging in again and adds an internal login-free function (users can choose the number of days without login)
 - Terminal command line that brings a high-level feel
 - Add audio visualization function example
-- Added video frame interception - `WebAssembly` version, supports `MP4`, `MOV`, `AVI`, `WebM`, `MKV` and other
-  mainstream formats
-- Added methods to block keyboard `F12`, browser default right-click menu, page element selection, and picture default
-  draggability
+- Added video frame interception - `WebAssembly` version, supports `MP4`, `MOV`, `AVI`, `WebM`, `MKV` and other mainstream formats
+- Added methods to block keyboard `F12`, browser default right-click menu, page element selection, and picture default draggability
 - The secondary package `localforage` supports setting expiration time and provides complete type prompts
 - Add `AnimateCss` selector component `ReAnimateSelector`
-- Added `ReText` component, supports automatic omission and display of `Tooltip` function, supports multi-line omission,
-  high reusability
+- Added `ReText` component, supports automatic omission and display of `Tooltip` function, supports multi-line omission, high reusability
 - Add an art drawing board function, which can be used to draw some design idea architecture diagrams, for example
 - New component - optional button example
 - Add common button examples
@@ -237,22 +241,17 @@ Totally `ESM` version
 - Added accordion panel component example
 - Add progress bar component example
 - Upgrade `Swiper 11`
-- Add [vite-plugin-router-warn](https://www.npmjs.com/package/vite-plugin-router-warn) plug-in to eliminate unnecessary
-  `vue-router` dynamic routing warning`No match found for location with path`
+- Add [vite-plugin-router-warn](https://www.npmjs.com/package/vite-plugin-router-warn) plug-in to eliminate unnecessary `vue-router` dynamic routing warning`No match found for location with path`
 
 ### 🐞 Bug fixes
 
-- Fixed the problem that in `query` routing parameter passing mode, two `router` jumps will be triggered when clicking
-  the tab page to switch operations.
-- Fixed an issue in card tab mode, when passing parameters through the `query` route, the `card-active` attribute still
-  exists after leaving the active tab, resulting in the font color not changing when the mouse `hover`
+- Fixed the problem that in `query` routing parameter passing mode, two `router` jumps will be triggered when clicking the tab page to switch operations.
+- Fixed an issue in card tab mode, when passing parameters through the `query` route, the `card-active` attribute still exists after leaving the active tab, resulting in the font color not changing when the mouse `hover`
 - Fixed the error in reading and parsing the same name in the `src/layout/components/appMain.vue` file
 - Fixed the issue where the height of the embedded page `frameView` does not adapt after hiding the tab page.
 - Fixed the problem of invalid routing `meta.transition.name` configuration
-- Fixed the problem that the right-click tab page panel cannot be closed when clicking on the `iframe` page and the
-  right-click tab page panel is blocked when on the `iframe` page
-- Fixed the problem of missing parameters when clicking on breadcrumbs to jump to the page in routing `query` and
-  `params` modes
+- Fixed the problem that the right-click tab page panel cannot be closed when clicking on the `iframe` page and the right-click tab page panel is blocked when on the `iframe` page
+- Fixed the problem of missing parameters when clicking on breadcrumbs to jump to the page in routing `query` and `params` modes
 
 ### 🍏 Perf
 
@@ -261,12 +260,10 @@ Totally `ESM` version
 - The interface naming rules are unified into `kebab-case` string naming method
 - The `label` of `el-form` is consistent with the global `label` style
 - `VITE_PUBLIC_PATH` defaults to `/`, which is more friendly to `VITE_ROUTER_HISTORY` in `h5` mode
-- Optimize the `transformI18n` function and support unlimited nesting levels for internationalization (of course, the
-  platform still recommends that the fewer nesting levels, the better)
+- Optimize the `transformI18n` function and support unlimited nesting levels for internationalization (of course, the platform still recommends that the fewer nesting levels, the better)
 - When initializing the page, load `pinia` first and then `router`, which is compatible with more usage scenarios.
 - Optimize the judgment logic of request whitelist
-- The navigation style of the left menu has been adjusted to optimize the different display methods on PC and mobile
-  when there is no logo.
+- The navigation style of the left menu has been adjusted to optimize the different display methods on PC and mobile when there is no logo.
 - Upgrade code specification style related libraries to the latest
 - Optimize login page `loading` judgment
 - Optimize the `IconSelect` icon selector component to improve user experience
@@ -280,15 +277,13 @@ Totally `ESM` version
 - The packaged code is changed to the browser that natively supports [ES2015](https://caniuse.com/es6) by default
 - Remove the `stylelint` plug-in dependency that will be automatically installed
 - Enhance the way `useRenderIcon` uses local `svg`
-- Optimize the style of the expand and collapse buttons in the lower left corner of the left menu under the bright white
-  theme color scheme
+- Optimize the style of the expand and collapse buttons in the lower left corner of the left menu under the bright white theme color scheme
 - Optimize all `description` contents of `el-empty`. Add `el-empty` when the icon selector content is empty
 - The `tooltip` theme after the left menu is collapsed is consistent with the overall menu
 - Update `svgo` command to `svgo -f . -r` (compress all `SVG` files in the current directory)
 - Optimize project construction related functions
 - Enhanced `ReTypeit` component to support slots and all `typeit` configuration items
-- Optimize internationalization-related processing logic and add cache during initialization to avoid unnecessary
-  performance consumption
+- Optimize internationalization-related processing logic and add cache during initialization to avoid unnecessary performance consumption
 
 # 4.5.0 (2023-06-26)
 
@@ -298,37 +293,28 @@ Totally `ESM` version
 
 ### 🎫 Feat
 
-- The menu search function supports pinyin search, such as searching for image cropping, input `tp` or `tupian` and
-  other corresponding pinyin
+- The menu search function supports pinyin search, such as searching for image cropping, input `tp` or `tupian` and other corresponding pinyin
 - Add long press command and usage example, the long press command supports continuous callback of custom duration
 - Add an example of sensitive word filtering function
 - Add an example of Chinese Pinyin function
 
 ### 🐞 Bug fixes
 
-- Fixed `V4.4.0` version, the problem that the page does not cache the page for the first time after the `keepAlive`
-  cache is enabled
-- Fixed the issue that the column setting tick option was not correctly initialized according to the `hide` property
-  when the `RePureTableBar` component was initialized
+- Fixed `V4.4.0` version, the problem that the page does not cache the page for the first time after the `keepAlive` cache is enabled
+- Fixed the issue that the column setting tick option was not correctly initialized according to the `hide` property when the `RePureTableBar` component was initialized
 
 ### 🍏 Perf
 
 - Change `VITE_PUBLIC_PATH` to `./` by default to be compatible with more path scenarios,
-- Compatible with the `OSS` scene where `VITE_PUBLIC_PATH` is `url`, need to upgrade `@pureadin/theme` to the latest
-  version
+- Compatible with the `OSS` scene where `VITE_PUBLIC_PATH` is `url`, need to upgrade `@pureadin/theme` to the latest version
 
 # 4.4.0 (2023-06-14)
 
 ### 🎫 Feat
 
-- Route `meta` adds `activePath` attribute, which can activate a menu (mainly used for routes that pass parameters
-  through `query` or `params`, when they are not displayed in the menu after configuring `showLink: false`, they will be
-  There will be no menu highlighting, but you can get highlighting by setting `activePath` to specify the active menu,
-  `activePath` is the `path` of the specified active
-  menu [View details](https://github.com/pure-admin/vue-pure-admin/commit/58cafbc73ffa27253446ee93077e1e382519ce8a#commitcomment-117834411))
+- Route `meta` adds `activePath` attribute, which can activate a menu (mainly used for routes that pass parameters through `query` or `params`, when they are not displayed in the menu after configuring `showLink: false`, they will be There will be no menu highlighting, but you can get highlighting by setting `activePath` to specify the active menu, `activePath` is the `path` of the specified active menu [View details](https://github.com/pure-admin/vue-pure-admin/commit/58cafbc73ffa27253446ee93077e1e382519ce8a#commitcomment-117834411))
 - Example of advanced usage of `pure-admin-table` to add adaptive content area height
-- Add anti-shake, throttling and text copy instructions and standardize the prompts when custom instructions are used
-  incorrectly and add usage examples
+- Add anti-shake, throttling and text copy instructions and standardize the prompts when custom instructions are used incorrectly and add usage examples
 - Add `el-empty` component when the `notice` message prompts the component to have empty data
 - Example code of functional popup window adding subcomponent `prop` as `primitive` type example
 - Add `vscode-docker` plugin
@@ -340,14 +326,10 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Page switching performance optimization, regardless of the network, the speed of page switching logic is almost `3-4`
-  times faster than
-  before [View optimization details](https://github.com/pure-admin/vue-pure-admin/pull/600#issuecomment-1586094078)
+- Page switching performance optimization, regardless of the network, the speed of page switching logic is almost `3-4` times faster than before [View optimization details](https://github.com/pure-admin/vue-pure-admin/pull/600#issuecomment-1586094078)
 - Optimized tab page operation-routing parameter transfer mode usage
-- All tables in the system management are changed to adaptive content area height, need to upgrade `@pureadmin/table` to
-  the latest version
-- Use the `useResizeObserver` function of `vueuse` to replace the `v-resize` custom directive, and the performance will
-  be better from the performance after testing
+- All tables in the system management are changed to adaptive content area height, need to upgrade `@pureadmin/table` to the latest version
+- Use the `useResizeObserver` function of `vueuse` to replace the `v-resize` custom directive, and the performance will be better from the performance after testing
 - For unbound public events, unbind when the page is destroyed
 
 # 4.3.0 (2023-06-04)
@@ -368,8 +350,7 @@ Totally `ESM` version
 - Fixed the problem that the countdown to obtain the verification code will be disabled with a delay of `1s`
 - Fixed the problem that the icon selector did not initialize the preview correctly
 - Fixed dynamic routing redirection causing duplicate content on tabs
-- Fix the problem that the `getTopMenu()` function cannot get `path` and report an error when the page is forced to
-  refresh
+- Fix the problem that the `getTopMenu()` function cannot get `path` and report an error when the page is forced to refresh
 - Fix the problem that the left menu does not display as a whole due to the sudden pull up after the left menu is folded
 - Fixed `RePureTableBar` scrollbar issue in `windows` after turning off column settings
 
@@ -393,8 +374,7 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Standardize the way of writing routes in `template` template, no longer use `$route` and `$router`, this way of
-  writing `vue-tsc` fails to compile
+- Standardize the way of writing routes in `template` template, no longer use `$route` and `$router`, this way of writing `vue-tsc` fails to compile
 
 # 4.1.0 (2023-05-12)
 
@@ -402,8 +382,7 @@ Totally `ESM` version
 
 - Add a `demo` example combined with `Form` for the functional pop-up box component
 - wrapper `el-col` component of `element-plus`
-- Add `beforeCancel` and `beforeSure` callbacks to the functional popup component, which can suspend the closing of the
-  popup
+- Add `beforeCancel` and `beforeSure` callbacks to the functional popup component, which can suspend the closing of the popup
 - Improve `System Management-Department Management` page
 - Optimize `PureTableBar` component, add drag and drop function for column display
 
@@ -423,8 +402,7 @@ Totally `ESM` version
 
 ### ✔️ Refactor
 
-- Use `css` pseudo-class `before` to refactor the activation background of the menu, similar
-  to [ant.design-menu](https://ant.design/components/menu-cn#components-menu-demo-inline-collapsed)
+- Use `css` pseudo-class `before` to refactor the activation background of the menu, similar to [ant.design-menu](https://ant.design/components/menu-cn#components-menu-demo-inline-collapsed)
 
 ### 🎫 Feat
 
@@ -438,25 +416,19 @@ Totally `ESM` version
 
 - Fixed the `echarts` chart on the home page not adapting to the container when the menu is collapsed or expanded
 - Fixed the problem that when there is only one submenu, the search function cannot find the submenu
-- Fix the problem that the global configuration `Theme` is empty cache for `light` and re-login theme configuration does
-  not take effect
-- Fixed the problem that the search boxes were not automatically gathered after the menu search function pop-up box was
-  opened
+- Fix the problem that the global configuration `Theme` is empty cache for `light` and re-login theme configuration does not take effect
+- Fixed the problem that the search boxes were not automatically gathered after the menu search function pop-up box was opened
 - Fixed the problem of toolbar button text display after pressing `ESC` to exit full screen
 - Fix the problem of `tooltip` click penetration in the notification bar of the mobile terminal
-- Fixed the problem that the text is not displayed when switching to `horizontal` navigation mode after the left menu is
-  collapsed
+- Fixed the problem that the text is not displayed when switching to `horizontal` navigation mode after the left menu is collapsed
 - Fixed the problem that the status cannot be reset when closing other tabs when navigating `tab`
 - Fix the page hot update error caused by uninitialized environment variables in the `getHistoryMode` function
-- Fixed too many `tabs` in the navigation, which caused the tabs on the left to be closed and could not be displayed
-  normally
+- Fixed too many `tabs` in the navigation, which caused the tabs on the left to be closed and could not be displayed normally
 - Fixed the problem of full-screen error reporting when clicking on the content area
-- Fixed the problem that the left navigation bar is always loading after opening `showLink:false` page under hybrid
-  navigation and refreshing
+- Fixed the problem that the left navigation bar is always loading after opening `showLink:false` page under hybrid navigation and refreshing
 - Fixed the left navigation memory overflow problem caused by calling `initRouter` function in mixed mode navigation
 - Fixed the problem that the cached page was not destroyed when closing the left, right, other, and all tab operations
-- Fix the problem that the route passes parameters through `query` or `params`, and the cache invalidation problem
-  occurs when the tab page is closed after the cache is enabled
+- Fix the problem that the route passes parameters through `query` or `params`, and the cache invalidation problem occurs when the tab page is closed after the cache is enabled
 - Fixed the problem that the breadcrumbs could not find the parent path in the `params` route parameter passing mode
 
 ### 🍏 Perf
@@ -465,27 +437,21 @@ Totally `ESM` version
 - Optimize navigation style and menu collapse animation
 - Optimize the extra icon on the right side of the menu name to support more icon rendering modes
 - Optimize `logo` image and text layout and unified configuration
-- After the routing information `showLink` is set to `false`, the current routing information will not be added to the
-  tab
+- After the routing information `showLink` is set to `false`, the current routing information will not be added to the tab
 - Export `addPathMatch` function
-- All `getters` in `pinia` are changed to the official recommended way of writing, and `this` is changed to `state` to
-  automatically deduce the type
+- All `getters` in `pinia` are changed to the official recommended way of writing, and `this` is changed to `state` to automatically deduce the type
 - Adapt to the `api` of the latest version of `pure-table`
 - Ignore `deprecation` warnings for `sourcemap-codec` and `stable` dependencies
 - Remove `"incremental": true` from `tsconfig.json` file
 - Update `stylelint` and related configurations to the latest, strengthen style validation
-- Breadcrumbs are removed from the homepage, and are displayed according to the selected menu. The homepage is no longer
-  fixed in the breadcrumbs, and the routing monitoring of the breadcrumbs page is optimized
+- Breadcrumbs are removed from the homepage, and are displayed according to the selected menu. The homepage is no longer fixed in the breadcrumbs, and the routing monitoring of the breadcrumbs page is optimized
 
 # 3.9.7 (2022-12-26)
 
 ### 🍏 Perf
 
-- Use `path.posix.resolve` instead of `path.resolve` to avoid drive letter problems when using `electron` in `windows`
-  environment
-- By default, the `CachingAsyncRoutes` dynamic routing cache is turned off locally, making it easier to debug in the
-  development environment. It is not necessary to clear the local cached dynamic routing every time you modify the
-  dynamic routing. It is recommended to enable it in the production environment
+- Use `path.posix.resolve` instead of `path.resolve` to avoid drive letter problems when using `electron` in `windows` environment
+- By default, the `CachingAsyncRoutes` dynamic routing cache is turned off locally, making it easier to debug in the development environment. It is not necessary to clear the local cached dynamic routing every time you modify the dynamic routing. It is recommended to enable it in the production environment
 
 # 3.9.6 (2022-12-19)
 
@@ -499,10 +465,8 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Update [@pureadmin/theme](https://github.com/pure-admin/pure-admin-theme) to the latest version, bringing more
-  friendly type hints
-- Optimize [PureTableBar](https://github.com/pure-admin/vue-pure-admin/tree/main/src/components/RePureTableBar)
-  component
+- Update [@pureadmin/theme](https://github.com/pure-admin/pure-admin-theme) to the latest version, bringing more friendly type hints
+- Optimize [PureTableBar](https://github.com/pure-admin/vue-pure-admin/tree/main/src/components/RePureTableBar) component
 - Optimize the business code of the system management page to bring better code reference
 
 # 3.9.5 (2022-12-13)
@@ -510,10 +474,7 @@ Totally `ESM` version
 ### ✔️ Refactor
 
 - completely removed `lodash` and its related libraries
-  [Click here to see Why Removed? How to integrate it yourself? ](https://pure-admin.github.io/pure-admin-doc/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-5-%E7
-  %89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-lodash-%E5%92%8C%
-  E5%85%B6%E7%9B%B8%E5%85%B3%E5%BA%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9
-  %99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
+  [Click here to see Why Removed? How to integrate it yourself? ](https://pure-admin.cn/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-5-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-lodash-%E5%92%8C%E5%85%B6%E7%9B%B8%E5%85%B3%E5%BA%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
 
 ### 🎫 Feat
 
@@ -526,16 +487,14 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- optimize the route `rank`, when `rank` does not exist, it will be created automatically according to the order, the
-  home page route will always be the first
+- optimize the route `rank`, when `rank` does not exist, it will be created automatically according to the order, the home page route will always be the first
 
 # 3.9.4 (2022-12-05)
 
 ### ✔️ Refactor
 
-- Completely removed `vxe-table`, after removal, the overall package size of the full version is reduced by `1.82MB`,
-  and the initial startup time is basically the same as the lite version 🐮
-  [Click here to see Why Removed? How to integrate it yourself?](https://pure-admin.github.io/pure-admin-doc/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-4-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-vxe-table-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
+- Completely removed `vxe-table`, after removal, the overall package size of the full version is reduced by `1.82MB`, and the initial startup time is basically the same as the lite version 🐮
+  [Click here to see Why Removed? How to integrate it yourself?](https://pure-admin.cn/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-4-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-vxe-table-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
 
 ### 🎫 Feat
 
@@ -549,8 +508,7 @@ Totally `ESM` version
 
 ### 🐞 Bug fixes
 
-- Fixed the problem that the refresh page would be blank due to changes in dynamic routes stored in local storage after
-  enabling `CachingAsyncRoutes`
+- Fixed the problem that the refresh page would be blank due to changes in dynamic routes stored in local storage after enabling `CachingAsyncRoutes`
 - Fixed `Tooltip` displayed abnormally after the menu is collapsed
 
 ### 🍏 Perf
@@ -563,9 +521,7 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Global coverage of `el-dialog`, `el-drawer`, `el-message-box`, `el-notification` components of `element-plus`The style
-  of the close icon in the upper right corner makes it more
-  vivid [specific modification Code record](https://github.com/pure-admin/vue-pure-admin/commit/c80818d792276666aaea4b18413a0f08777f2ed1)
+- Global coverage of `el-dialog`, `el-drawer`, `el-message-box`, `el-notification` components of `element-plus`The style of the close icon in the upper right corner makes it more vivid [specific modification Code record](https://github.com/pure-admin/vue-pure-admin/commit/c80818d792276666aaea4b18413a0f08777f2ed1)
 - The packaging output information is compatible with different packaging output paths
 - Optimize some animations
 
@@ -574,8 +530,7 @@ Totally `ESM` version
 ### 🎫 Feat
 
 - Add `CachingAsyncRoutes` whether to enable dynamic route cache local global configuration, default `true`
-- Add `TooltipEffect` global configuration, you can configure the `effect` attribute of all `el-tooltip` on the platform
-  body, the default `light`, does not affect the business code
+- Add `TooltipEffect` global configuration, you can configure the `effect` attribute of all `el-tooltip` on the platform body, the default `light`, does not affect the business code
 - Add directory, menu text exceeds display `Tooltip` text prompt demo
 
 ### 🍏 Perf
@@ -592,24 +547,19 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- perf: Great optimization of the first screen loading. Compared with the version before `3.9.0`, the first screen
-  requests are reduced by `71`, and the first screen loading resources are reduced by `4.1 MB`
+- perf: Great optimization of the first screen loading. Compared with the version before `3.9.0`, the first screen requests are reduced by `71`, and the first screen loading resources are reduced by `4.1 MB`
 
 # 3.8.7 (2022-11-28)
 
 ### 🍏 Perf
 
-- perf: Great package optimization, please be sure to upgrade! Use `unplugin-vue-define-options` to replace
-  `unplugin-vue-macros`, the packaging speed is increased several times, use `unplugin-vue-macros` to take `mac` with
-  moderate performance as an example, the packaging time of the full version is` 6` minutes😭, after replacing it with
-  `unplugin-vue-define-options`, the packaging time on the same computer is `50` seconds☺️
+- perf: Great package optimization, please be sure to upgrade! Use `unplugin-vue-define-options` to replace `unplugin-vue-macros`, the packaging speed is increased several times, use `unplugin-vue-macros` to take `mac` with moderate performance as an example, the packaging time of the full version is` 6` minutes😭, after replacing it with `unplugin-vue-define-options`, the packaging time on the same computer is `50` seconds☺️
 
 # 3.8.6 (2022-11-27)
 
 ### 🎫 Feat
 
-- Add `message` message prompt function, compatible with `Element Plus` and `Ant ​​Design` two `Message` style styles,
-  use and package size are extremely low cost and adapt to dark mode, really fragrant 😂
+- Add `message` message prompt function, compatible with `Element Plus` and `Ant ​​Design` two `Message` style styles, use and package size are extremely low cost and adapt to dark mode, really fragrant 😂
 
 ### 🍏 Perf
 
@@ -619,10 +569,7 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Great optimization, remove `@pureadmin/components` and use compatible writing, the package size of the platform is
-  reduced by `0.4` MB before compression is not enabled, and the resource of `2.3` MB is reduced for the first screen
-  request, which is for the [lite version ](https://github.com/pure-admin/pure-admin-thin) is a very big optimization,
-  the streamlined version has synchronized code
+- Great optimization, remove `@pureadmin/components` and use compatible writing, the package size of the platform is reduced by `0.4` MB before compression is not enabled, and the resource of `2.3` MB is reduced for the first screen request, which is for the [lite version ](https://github.com/pure-admin/pure-admin-thin) is a very big optimization, the streamlined version has synchronized code
 
 # 3.8.0 (2022-11-26)
 
@@ -643,8 +590,7 @@ Totally `ESM` version
 
 - The static routing platform automatically imports without manual import
 - Improved global type hints
-- Optimize `vite` to rely on pre-built configurations in the platform, and the loading speed of page switching is
-  significantly accelerated
+- Optimize `vite` to rely on pre-built configurations in the platform, and the loading speed of page switching is significantly accelerated
 
 # 3.7.1 (2022-11-22)
 
@@ -660,15 +606,10 @@ Totally `ESM` version
 
 ### 🎫 Feat
 
-- Add front-end single sign-on, test
-  address https://pure-admin.github.io/vue-pure-admin/#/pure-table/index?username=sso&roles=admin&accessToken=eyJhbGciOiJIUzUxMiJ9.admin
-- Add more examples for [@pureadmin/table](https://github.com/pure-admin/pure-admin-table) and
-  `element-plus` [table](https://element-plus.org /zh-CN/component/table.html) example remains the same
-- Rich watermark function page (supports customizing various colors, shadows, text, additional attributes, setting
-  undeletable watermarks and setting watermarks for specified elements)
-- Optimize the menu, add `MenuArrowIconNoTransition` global configuration, configure it in
-  `public/platform-config.json`, for the left menu mode, the menu expansion can be set `MenuArrowIconNoTransition: true`
-  to solve
+- Add front-end single sign-on, test address https://pure-admin.github.io/vue-pure-admin/#/pure-table/index?username=sso&roles=admin&accessToken=eyJhbGciOiJIUzUxMiJ9.admin
+- Add more examples for [@pureadmin/table](https://github.com/pure-admin/pure-admin-table) and `element-plus` [table](https://element-plus.org /zh-CN/component/table.html) example remains the same
+- Rich watermark function page (supports customizing various colors, shadows, text, additional attributes, setting undeletable watermarks and setting watermarks for specified elements)
+- Optimize the menu, add `MenuArrowIconNoTransition` global configuration, configure it in `public/platform-config.json`, for the left menu mode, the menu expansion can be set `MenuArrowIconNoTransition: true` to solve
 - Replacement form designer component demo
 
 ### 🐞 Bug fixes
@@ -678,8 +619,7 @@ Totally `ESM` version
 ### 🍏 Perf
 
 - Removed deprecated `$baseUrl`
-- Compatible importing a certain library leads to `global is not defined` error, importing
-  `src/utils/globalPolyfills.ts` file into `src/main.ts` can solve the problem
+- Compatible importing a certain library leads to `global is not defined` error, importing `src/utils/globalPolyfills.ts` file into `src/main.ts` can solve the problem
 - Remove `@vitejs/plugin-legacy`, `vue3` cannot make it support `ie` through any tool
 
 # 3.6.4 (2022-11-10)
@@ -694,10 +634,8 @@ Totally `ESM` version
 
 ### 🍏 Perf
 
-- Optimize the routing guard, if you have logged in and there is login information, you cannot jump to the routing
-  whitelist, but continue to stay on the current page
-- Removed `baseURL` and global environment proxy, and can be written directly in `vite.config.ts`, which is convenient
-  and supports multiple proxy addresses
+- Optimize the routing guard, if you have logged in and there is login information, you cannot jump to the routing whitelist, but continue to stay on the current page
+- Removed `baseURL` and global environment proxy, and can be written directly in `vite.config.ts`, which is convenient and supports multiple proxy addresses
 
 # 3.6.3 (2022-11-01)
 
@@ -708,8 +646,7 @@ Totally `ESM` version
 
 ### 🐞 Bug fixes
 
-- Fix the `collapse` property added in the latest version of `tailwindcss` conflicts with the platform `class` class
-  name
+- Fix the `collapse` property added in the latest version of `tailwindcss` conflicts with the platform `class` class name
 - Fix that when the `token` expires, if the page has multiple requests, the `token` will be refreshed repeatedly
 
 # 3.6.2 (2022-10-27)
@@ -722,15 +659,13 @@ Totally `ESM` version
 
 ### 🎫 Feat
 
-- Add whether to start `cdn` for packaging to replace the local library configuration, the default `false` does not
-  start
+- Add whether to start `cdn` for packaging to replace the local library configuration, the default `false` does not start
 - Added optional `gzip` and `brotli` compression modes for packaging builds
 
 ### 🐞 Bug fixes
 
 - Fix `title` too long display style problem
-- Fix the parent `name` in the route should not be repeated with the child `name`, which will cause redirection to jump
-  `404` problem
+- Fix the parent `name` in the route should not be repeated with the child `name`, which will cause redirection to jump `404` problem
 
 ### 🍏 Perf
 
@@ -746,17 +681,13 @@ Totally `ESM` version
 
 ### ✔️ Refactor
 
-- Refactor the permission module, adopt the most commonly used `RBAC` (Role-Based Access List): role-based permission
-  control (User -> Role -> Permission), and update the page permission and button permission `demo` example, button
-  Permissions support three operation modes (judging permissions in component mode, judging permissions in function
-  mode, and judging permissions in instruction mode)
+- Refactor the permission module, adopt the most commonly used `RBAC` (Role-Based Access List): role-based permission control (User -> Role -> Permission), and update the page permission and button permission `demo` example, button Permissions support three operation modes (judging permissions in component mode, judging permissions in function mode, and judging permissions in instruction mode)
 
 ### 🐞 Bug fixes
 
 - Fixed the theme not being emptied when clearing the cache and returning to the login page
 - Fix `menu` display problem in production environment in `horizontal` mode
-- Fixed the problem that the `mix` mixed mode navigation might not be displayed in the left menu of the production
-  environment
+- Fixed the problem that the `mix` mixed mode navigation might not be displayed in the left menu of the production environment
 - After the `token` expires, calling the refresh `token` interface will cause an infinite loop
 
 ### 🍏 Perf
@@ -776,8 +707,7 @@ Totally `ESM` version
 
 ### ✔️ Refactor
 
-- Replace `unocss` with `tailwindcss`, add
-  `tailwindcss` [documentation](https://pure-admin.github.io/pure-admin-doc/pages/tailwindcss/)
+- Replace `unocss` with `tailwindcss`, add `tailwindcss` [documentation](https://pure-admin.cn/pages/tailwindcss/)
 
 ### 🐞 Bug fixes
 
@@ -807,23 +737,16 @@ Totally `ESM` version
 
 - Optimized routing
 - Optimized for mobile compatibility
-- Optimized routing parameters (`query`, `params` way to refresh the page does not need to open the tab page cache, the
-  parameters can be retained on the `url` and `tab page`)
+- Optimized routing parameters (`query`, `params` way to refresh the page does not need to open the tab page cache, the parameters can be retained on the `url` and `tab page`)
 
 # 3.3.5 (2022-8-19)
 
 ### 🎫 Feat
 
-- Secondary encapsulation of `Table` of `element-plus`
-  into [@pureadmin/table](https://github.com/pure-admin/pure-admin-table), providing flexible configuration items and
-  integrating into the platform
-- Secondary encapsulation of `Descriptions` of `element-plus`
-  into [@pureadmin/descriptions](https://github.com/pure-admin/pure-admin-descriptions), providing flexible
-  configuration items and integrating into the platform
-- Centralize most of the tools and hooks of the platform to [@pureadmin/utils](https://pure-admin-utils.netlify.app),
-  and delete the code concentrated in this library to reduce the size of the platform
-- Add [unplugin-vue-define-options](https://www.npmjs.com/package/unplugin-vue-define-options) plugin, the page can
-  directly write `defineOptions({name: custom name})`
+- Secondary encapsulation of `Table` of `element-plus` into [@pureadmin/table](https://github.com/pure-admin/pure-admin-table), providing flexible configuration items and integrating into the platform
+- Secondary encapsulation of `Descriptions` of `element-plus` into [@pureadmin/descriptions](https://github.com/pure-admin/pure-admin-descriptions), providing flexible configuration items and integrating into the platform
+- Centralize most of the tools and hooks of the platform to [@pureadmin/utils](https://pure-admin-utils.netlify.app), and delete the code concentrated in this library to reduce the size of the platform
+- Add [unplugin-vue-define-options](https://www.npmjs.com/package/unplugin-vue-define-options) plugin, the page can directly write `defineOptions({name: custom name})`
 - Add project files, language analysis tool [cloc](https://www.npmjs.com/package/cloc)
 - Added landing page internationalization
 - Add full routing configuration table type declaration
@@ -834,14 +757,12 @@ Totally `ESM` version
 
 ### ✔️ Refactor
 
-- Refactored the theme color to adapt to `element-plus` dark mode (also solved the problem that the same element `css`
-  in `3.3.0` and earlier versions was overwritten many times, resulting in poor style debugging)
+- Refactored the theme color to adapt to `element-plus` dark mode (also solved the problem that the same element `css` in `3.3.0` and earlier versions was overwritten many times, resulting in poor style debugging)
 - Refactored route reset function
 
 ### 🍏 Perf
 
-- The compatible project storage directory is named in Chinese, but we really do not recommend Chinese naming, because a
-  library may not escape the Chinese path, causing the project to crash
+- The compatible project storage directory is named in Chinese, but we really do not recommend Chinese naming, because a library may not escape the Chinese path, causing the project to crash
 - Optimized interface type
 
 ### 🐞 Bug fixes
@@ -864,28 +785,23 @@ Totally `ESM` version
 - Integrate `tauri` version
 - Added barcode function
 - Added QR code function
-- Use the `Cascader` cascade selector in `element-plus` to write a three-level and two-level linkage demo of Chinese
-  provinces and cities
+- Use the `Cascader` cascade selector in `element-plus` to write a three-level and two-level linkage demo of Chinese provinces and cities
 - Integrate `Swiper` plugin
 - Routing supports passing `component`, representing the component path
 - Added pre-release packaging mode
-- Add [hooks] to close a
-  tag (https://github.com/pure-admin/vue-pure-admin/commit/5e8723a031923e79f507e5a17151d3bd88a51523)
+- Add [hooks] to close a tag (https://github.com/pure-admin/vue-pure-admin/commit/5e8723a031923e79f507e5a17151d3bd88a51523)
 
 ### ✔️ Refactor
 
 - Refactored the landing page to be more inclined to the actual business scenario
-- Use `unocss` instead of `windicss`, `unocss` has better performance in development environment, no memory leaks, and
-  `api` is compatible with `windicss`
+- Use `unocss` instead of `windicss`, `unocss` has better performance in development environment, no memory leaks, and `api` is compatible with `windicss`
 
 ### 🍏 Perf
 
 - Optimized the style of the `split-pane` component for the platform
-- Optimize internationalization, no longer pass the `i18n` field in the route, the platform automatically reads the
-  files in the `locales` folder of the root directory for internationalization matching
+- Optimize internationalization, no longer pass the `i18n` field in the route, the platform automatically reads the files in the `locales` folder of the root directory for internationalization matching
 - Optimized icon selector
-- Optimize `layout` to display user
-  information [commit](https://github.com/pure-admin/vue-pure-admin/commit/56f9dc85e7fbe0637605c43577c794de9f8968aa)
+- Optimize `layout` to display user information [commit](https://github.com/pure-admin/vue-pure-admin/commit/56f9dc85e7fbe0637605c43577c794de9f8968aa)
 
 ### 🐞 Bug fixes
 
@@ -906,8 +822,7 @@ Totally `ESM` version
 
 - Optimized the error page UI
 - Optimize the internationalization function
-- Optimized routing `rank` sorting, compatible with the case where the value of the `rank` field in the routing `meta`
-  is `null`
+- Optimized routing `rank` sorting, compatible with the case where the value of the `rank` field in the routing `meta` is `null`
 
 ### 🐞 Bug fixes
 
@@ -920,8 +835,7 @@ Totally `ESM` version
 - iframe supports dynamic loading
 - Watermark example
 - Print examples (pictures, tables, echarts)
-- Add running and packaging information, use `lodash-unified` to replace `lodash-es`, `lodash-unified` supports `ESM`
-  and is compatible with `CJS`
+- Add running and packaging information, use `lodash-unified` to replace `lodash-es`, `lodash-unified` supports `ESM` and is compatible with `CJS`
 
 ### 🐞 Bug fixes
 
@@ -972,9 +886,7 @@ Totally `ESM` version
 
 -Optimize internationalization, compatible with the vscode plug-in i18n Ally smart reminder
 -Optimize the back-end return routing structure
--Optimize local storage, with four built-in buttons `responsive-configure`, `responsive-locale`, `responsive-layout`,
-`responsive-tags`, which are basic configuration, international configuration, layout configuration, and tab persistent
-configuration
+-Optimize local storage, with four built-in buttons `responsive-configure`, `responsive-locale`, `responsive-layout`, `responsive-tags`, which are basic configuration, international configuration, layout configuration, and tab persistent configuration
 
 # 2.7.0(2021-12-18)
 
@@ -985,11 +897,9 @@ configuration
 - Added front-end menu tree structure example
 - Refactor routing, optimize permissions modules, and bring a more convenient experience
 - Refactor the env environment and http request to bring a more convenient experience
-- Currently, the tabs of the platform are forced to associate with local storage. The next step is to put the tabs in
-  the memory by default and support configurable persistent tabs
+- Currently, the tabs of the platform are forced to associate with local storage. The next step is to put the tabs in the memory by default and support configurable persistent tabs
 - Navigation menu icons support fontawesome, iconfont, remixicon, element-plus/icons, custom svg
-- Update font-awesome to version 5.0, because versions below 5.0 are no longer officially maintained, but the platform
-  will still be compatible with font-awesome4 version
+- Update font-awesome to version 5.0, because versions below 5.0 are no longer officially maintained, but the platform will still be compatible with font-awesome4 version
 
 ### 🍏 Perf
 
@@ -1015,8 +925,7 @@ configuration
 ### 🎫 Feat
 
 - Route animation (each route can add different animations)
-- Extra icons (for example, this is a newly added page, a new icon is displayed in the upper right corner of the routing
-  menu)
+- Extra icons (for example, this is a newly added page, a new icon is displayed in the upper right corner of the routing menu)
 - Extract the default configuration options
 - Perfect type file
 

@@ -48,7 +48,7 @@ public class LogAlertController {
      * @param logAlert {@link LogAlert}
      * @return Page<LogError>
      */
-    @SaCheckPermission("system:logAlert:query")
+    @SaCheckPermission("monitor:logAlert:query")
     @GetMapping("/page")
     public IPage<LogAlert> page(Page<LogAlert> page, LogAlert logAlert) {
         return logAlertService.page(page, logAlert);
@@ -61,7 +61,7 @@ public class LogAlertController {
      * @param logAlert {@link LogAlert}
      * @return List<LogError>
      */
-    @SaCheckPermission("system:logAlert:query")
+    @SaCheckPermission("monitor:logAlert:query")
     @GetMapping("/list")
     public List<LogAlert> list(LogAlert logAlert) {
         return logAlertService.list(new LambdaQueryWrapper<>(logAlert));
@@ -74,7 +74,7 @@ public class LogAlertController {
      * @param id id
      * @return LogError
      */
-    @SaCheckPermission("system:logAlert:query")
+    @SaCheckPermission("monitor:logAlert:query")
     @GetMapping("/{id}")
     public LogAlert getById(@PathVariable("id") Long id) {
         return logAlertService.getById(id);
@@ -87,7 +87,7 @@ public class LogAlertController {
      * @param logAlert {@link LogAlert}
      */
     @Log(operationType = EOperationType.INSERT)
-    @SaCheckPermission("system:logAlert:create")
+    @SaCheckPermission("monitor:logAlert:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody LogAlert logAlert) {
         boolean bool = logAlertService.save(logAlert);
@@ -101,7 +101,7 @@ public class LogAlertController {
      * @param logAlert {@link LogAlert}
      */
     @Log(operationType = EOperationType.UPDATE)
-    @SaCheckPermission("system:logAlert:update")
+    @SaCheckPermission("monitor:logAlert:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody LogAlert logAlert) {
         boolean bool = logAlertService.updateById(logAlert);
@@ -115,7 +115,7 @@ public class LogAlertController {
      * @param ids id
      */
     @Log(operationType = EOperationType.DELETE)
-    @SaCheckPermission("system:logAlert:delete")
+    @SaCheckPermission("monitor:logAlert:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logAlertService.getBaseMapper().deleteByIds(Arrays.asList(ids));

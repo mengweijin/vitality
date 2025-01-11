@@ -48,7 +48,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      * @return Page<LogOperation>
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("monitor:logOperation:query")
     @GetMapping("/page")
     public IPage<LogOperation> page(Page<LogOperation> page, LogOperation logOperation) {
         return logOperationService.page(page, logOperation);
@@ -61,7 +61,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      * @return List<LogOperation>
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("monitor:logOperation:query")
     @GetMapping("/list")
     public List<LogOperation> list(LogOperation logOperation) {
         return logOperationService.list(new LambdaQueryWrapper<>(logOperation));
@@ -74,7 +74,7 @@ public class LogOperationController {
      * @param id id
      * @return LogOperation
      */
-    @SaCheckPermission("system:logOperation:query")
+    @SaCheckPermission("monitor:logOperation:query")
     @GetMapping("/{id}")
     public LogOperation getById(@PathVariable("id") Long id) {
         return logOperationService.getById(id);
@@ -87,7 +87,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      */
     @Log(operationType = EOperationType.INSERT)
-    @SaCheckPermission("system:logOperation:create")
+    @SaCheckPermission("monitor:logOperation:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody LogOperation logOperation) {
         boolean bool = logOperationService.save(logOperation);
@@ -101,7 +101,7 @@ public class LogOperationController {
      * @param logOperation {@link LogOperation}
      */
     @Log(operationType = EOperationType.UPDATE)
-    @SaCheckPermission("system:logOperation:update")
+    @SaCheckPermission("monitor:logOperation:update")
     @PostMapping("update")
     public R<Void> update(@Valid @RequestBody LogOperation logOperation) {
         boolean bool = logOperationService.updateById(logOperation);
@@ -115,7 +115,7 @@ public class LogOperationController {
      * @param ids id
      */
     @Log(operationType = EOperationType.DELETE)
-    @SaCheckPermission("system:logOperation:delete")
+    @SaCheckPermission("monitor:logOperation:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logOperationService.getBaseMapper().deleteByIds(Arrays.asList(ids));

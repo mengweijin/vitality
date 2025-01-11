@@ -1,1 +1,0 @@
-import{aB as t}from"./index-BOgzzpjy.js";const g=o=>t.get("/monitor/log-login/page",{params:o}),n=o=>t.post("/monitor/log-login/create",{data:o}),r=o=>t.post("/monitor/log-login/update",{data:o}),i=o=>t.post("/monitor/log-login/delete/"+o);export{n as c,i as d,g,r as u};

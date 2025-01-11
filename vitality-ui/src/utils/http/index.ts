@@ -18,6 +18,8 @@ import { $t, transformI18n } from "@/plugins/i18n";
 
 const { VITE_BASE_API } = import.meta.env;
 
+export const TOKEN_KEY = "Authorization";
+
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
   baseURL: VITE_BASE_API,
@@ -56,7 +58,7 @@ class PureHttp {
   private static retryOriginalRequest(config: PureHttpRequestConfig) {
     return new Promise(resolve => {
       PureHttp.requests.push((token: string) => {
-        config.headers["Authorization"] = formatToken(token);
+        config.headers[TOKEN_KEY] = formatToken(token);
         resolve(config);
       });
     });
@@ -78,13 +80,13 @@ class PureHttp {
           return config;
         }
         /** 请求白名单，放置一些不需要`token`的接口（通过设置请求白名单，防止`token`过期后再请求造成的死循环问题） */
-        const whiteList = ["/refresh-token", "/login"];
+        const whiteList = ["/login"];
         return whiteList.some(url => config.url.endsWith(url))
           ? config
           : new Promise(resolve => {
-              const data = getToken();
-              if (data) {
-                config.headers["Authorization"] = formatToken(data.accessToken);
+              const token = getToken();
+              if (token) {
+                config.headers[TOKEN_KEY] = formatToken(token);
                 resolve(config);
               } else {
                 resolve(config);

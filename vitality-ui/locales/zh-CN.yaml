@@ -197,7 +197,7 @@ login:
   pureUsername: 账号
   purePassword: 密码
   pureVerifyCode: 验证码
-  pureRemember: 天内免登录
+  pureRemember: 记住我
   pureRememberInfo: 勾选并登录后，规定天数内无需输入用户名和密码会自动登入系统
   pureSure: 确认密码
   pureForget: 忘记密码?

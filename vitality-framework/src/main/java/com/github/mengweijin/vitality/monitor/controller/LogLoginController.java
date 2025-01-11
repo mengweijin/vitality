@@ -50,7 +50,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      * @return Page<LogLogin>
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("monitor:logLogin:query")
     @GetMapping("/page")
     public IPage<LogLoginVO> page(Page<LogLogin> page, LogLogin logLogin) {
         IPage<LogLogin> paged = logLoginService.page(page, logLogin);
@@ -64,7 +64,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      * @return List<LogLogin>
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("monitor:logLogin:query")
     @GetMapping("/list")
     public List<LogLogin> list(LogLogin logLogin) {
         return logLoginService.list(new LambdaQueryWrapper<>(logLogin));
@@ -77,7 +77,7 @@ public class LogLoginController {
      * @param id id
      * @return LogLogin
      */
-    @SaCheckPermission("system:logLogin:query")
+    @SaCheckPermission("monitor:logLogin:query")
     @GetMapping("/{id}")
     public LogLogin getById(@PathVariable("id") Long id) {
         return logLoginService.getById(id);
@@ -90,7 +90,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      */
     @Log(operationType = EOperationType.INSERT)
-    @SaCheckPermission("system:logLogin:create")
+    @SaCheckPermission("monitor:logLogin:create")
     @PostMapping("/create")
     public R<Void> create(@Valid @RequestBody LogLogin logLogin) {
         boolean bool = logLoginService.save(logLogin);
@@ -104,7 +104,7 @@ public class LogLoginController {
      * @param logLogin {@link LogLogin}
      */
     @Log(operationType = EOperationType.UPDATE)
-    @SaCheckPermission("system:logLogin:update")
+    @SaCheckPermission("monitor:logLogin:update")
     @PostMapping("/update")
     public R<Void> update(@Valid @RequestBody LogLogin logLogin) {
         boolean bool = logLoginService.updateById(logLogin);
@@ -118,7 +118,7 @@ public class LogLoginController {
      * @param ids id
      */
     @Log(operationType = EOperationType.DELETE)
-    @SaCheckPermission("system:logLogin:delete")
+    @SaCheckPermission("monitor:logLogin:delete")
     @PostMapping("/delete/{ids}")
     public R<Void> delete(@PathVariable("ids") Long[] ids) {
         int i = logLoginService.getBaseMapper().deleteByIds(Arrays.asList(ids));

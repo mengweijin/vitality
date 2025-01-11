@@ -32,20 +32,20 @@
 
 ## 配套保姆级文档
 
-[点我查看 vue-pure-admin 文档](https://pure-admin.github.io/pure-admin-doc)  
+[点我查看 vue-pure-admin 文档](https://pure-admin.cn/)  
 [点我查看 @pureadmin/utils 文档](https://pure-admin-utils.netlify.app)
 
 ## 优质服务、软件外包、赞助支持
 
-[点我查看详情](https://pure-admin.github.io/pure-admin-doc/pages/service/)
+[点我查看详情](https://pure-admin.cn/pages/service/)
 
 ## `js` 版本
 
-[点我查看 js 版本](https://pure-admin.github.io/pure-admin-doc/pages/js/)
+[点我查看 js 版本](https://pure-admin.cn/pages/js/)
 
 ## `max` 版本
 
-[点我查看 max 版本](https://github.com/pure-admin/vue-pure-admin-max)
+[点我查看 max 版本](https://pure-admin.cn/pages/max/)
 
 ## `Tauri` 版本
 
@@ -187,8 +187,8 @@ docker run -dp 8080:80  --name pure-admin vue-pure-admin
 
 非常感谢你们能深入了解源码并对 `pure-admin` 组织作出优秀贡献 ❤️
 
-|                     **贡献人**                     |                                    **具体代码**                                    |
-|:-----------------------------------------------:|:------------------------------------------------------------------------------:|
+|                   **贡献人**                    |                                   **具体代码**                                   |
+| :---------------------------------------------: | :------------------------------------------------------------------------------: |
 |       [hb0730](https://github.com/hb0730)       |    [代码](https://github.com/pure-admin/vue-pure-admin/commits?author=hb0730)    |
 |         [o-cc](https://github.com/o-cc)         |     [代码](https://github.com/pure-admin/vue-pure-admin/commits?author=o-cc)     |
 | [yj-liuzepeng](https://github.com/yj-liuzepeng) | [代码](https://github.com/pure-admin/vue-pure-admin/commits?author=yj-liuzepeng) |
@@ -227,8 +227,8 @@ docker run -dp 8080:80  --name pure-admin vue-pure-admin
 和 [Vite 浏览器兼容性](https://cn.vitejs.dev/guide/build#browser-compatibility)
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|                                                                                                 不支持                                                                                                  |                                                                                                 最后两个版本                                                                                                 |                                                                                                      最后两个版本                                                                                                       |                                                                                                    最后两个版本                                                                                                     |                                                                                                    最后两个版本                                                                                                     |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                                不支持                                                                                                |                                                                                              最后两个版本                                                                                              |                                                                                                   最后两个版本                                                                                                    |                                                                                                 最后两个版本                                                                                                  |                                                                                                 最后两个版本                                                                                                  |
 
 ## 维护者
 

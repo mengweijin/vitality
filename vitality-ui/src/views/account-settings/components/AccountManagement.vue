@@ -1,31 +1,43 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
+import { getSensitiveMine } from "@/api/system/user";
+import { useDictStoreHook } from "@/store/modules/dict";
 
 defineOptions({
   name: "AccountManagement"
 });
 
+const userInfo = ref(null);
+
 const list = ref([
   {
+    prop: "passwordLevel",
     title: "账户密码",
-    illustrate: "当前密码强度：强",
+    prefix: "密码强度：",
+    illustrate: "一般",
     button: "修改"
   },
   {
-    title: "密保手机",
-    illustrate: "已经绑定手机：158****6789",
+    prop: "mobile",
+    title: "绑定手机",
+    prefix: "已绑定手机：",
+    illustrate: "未绑定",
     button: "修改"
   },
   {
-    title: "密保问题",
-    illustrate: "未设置密保问题，密保问题可有效保护账户安全",
+    prop: "email",
+    title: "绑定邮箱",
+    prefix: "已绑定邮箱：",
+    illustrate: "未绑定",
     button: "修改"
   },
   {
-    title: "备用邮箱",
-    illustrate: "已绑定邮箱：pure***@163.com",
+    prop: "totp",
+    title: "动态口令（TOTP）",
+    prefix: "绑定动态口令：",
+    illustrate: "未绑定",
     button: "修改"
   }
 ]);
@@ -34,6 +46,29 @@ function onClick(item) {
   console.log("onClick", item.title);
   message("请根据具体业务自行实现", { type: "success" });
 }
+
+function getIllustrateValue(prop: string) {
+  let val = userInfo.value[prop];
+  if (prop === "passwordLevel") {
+    let dict = useDictStoreHook().getDictByCodeAndVal(
+      "vtl_password_level",
+      val
+    );
+    return dict?.label;
+  } else if (prop === "totp") {
+    return val ? "已绑定" : "未绑定";
+  } else {
+    return val;
+  }
+}
+
+onMounted(async () => {
+  userInfo.value = await getSensitiveMine();
+  for (let i in list.value) {
+    list.value[i]["illustrate"] =
+      list.value[i]["prefix"] + getIllustrateValue(list.value[i]["prop"]);
+  }
+});
 </script>
 
 <template>

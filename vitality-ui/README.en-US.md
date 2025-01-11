@@ -34,20 +34,20 @@ compression and `cdn` to replace the local library mode, the package size is les
 
 ## Nanny-level documents
 
-[Click me to view vue-pure-admin documentation](https://pure-admin.github.io/pure-admin-doc)  
+[Click me to view vue-pure-admin documentation](https://pure-admin.cn/)  
 [Click me to view @pureadmin/utils documentation](https://pure-admin-utils.netlify.app)
 
 ## Quality service, software outsourcing, sponsorship support
 
-[Click me for details](https://pure-admin.github.io/pure-admin-doc/pages/service/)
+[Click me for details](https://pure-admin.cn/pages/service/)
 
 ## `js` version
 
-[Click me to view js version](https://pure-admin.github.io/pure-admin-doc/pages/js/)
+[Click me to view js version](https://pure-admin.cn/pages/js/)
 
 ## `max` version
 
-[Click me to view the max version](https://github.com/pure-admin/vue-pure-admin-max)
+[Click me to view the max version](https://pure-admin.cn/pages/max/)
 
 ## Tauri
 
@@ -194,7 +194,7 @@ Thank you very much for your in-depth understanding of the source code and your 
 `pure-admin` organization ❤️
 
 |                 **Contributor**                 |                                 **SpecificCode**                                 |
-|:-----------------------------------------------:|:--------------------------------------------------------------------------------:|
+| :---------------------------------------------: | :------------------------------------------------------------------------------: |
 |       [hb0730](https://github.com/hb0730)       |    [code](https://github.com/pure-admin/vue-pure-admin/commits?author=hb0730)    |
 |         [o-cc](https://github.com/o-cc)         |     [code](https://github.com/pure-admin/vue-pure-admin/commits?author=o-cc)     |
 | [yj-liuzepeng](https://github.com/yj-liuzepeng) | [code](https://github.com/pure-admin/vue-pure-admin/commits?author=yj-liuzepeng) |
@@ -236,7 +236,7 @@ see [Which browsers does Vue support? ](https://vuejs.org/about/faq.html#what-br
 and [Vite browser compatibility](https://vitejs.dev/guide/build.html#browser-compatibility)
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                             not support                                                                                              |                                                                                            last 2 versions                                                                                             |                                                                                                  last 2 versions                                                                                                  |                                                                                                last 2 versions                                                                                                |                                                                                                last 2 versions                                                                                                |
 
 ## Maintainer

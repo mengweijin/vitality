@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import cn.idev.excel.EasyExcel;
+import cn.idev.excel.FastExcel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class ExcelUtils {
      * @param cls 对象
      * */
     public static <T> List<T> read(String filePath, Class<T> cls) {
-        return EasyExcel.read(filePath).head(cls).sheet().doReadSync();
+        return FastExcel.read(filePath).head(cls).sheet().doReadSync();
     }
 
     /**
@@ -38,7 +38,7 @@ public class ExcelUtils {
      * @param cls 对象
      * */
     public static <T> List<T> read(InputStream in, Class<T> cls) {
-        return EasyExcel.read(in).head(cls).sheet().doReadSync();
+        return FastExcel.read(in).head(cls).sheet().doReadSync();
     }
 
     /**
@@ -62,7 +62,7 @@ public class ExcelUtils {
      * @param cls
      * */
     public static <T> void write(Class<T> cls, List<T> list, File targetFile) {
-        EasyExcel.write(targetFile, cls).sheet(0).doWrite(list);
+        FastExcel.write(targetFile, cls).sheet(0).doWrite(list);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ExcelUtils {
      * @param cls
      * */
     public static <T> void write(Class<T> cls, List<T> list, OutputStream out) {
-        EasyExcel.write(out, cls).sheet(0).doWrite(list);
+        FastExcel.write(out, cls).sheet(0).doWrite(list);
     }
 
     /**

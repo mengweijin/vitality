@@ -1,4 +1,5 @@
 import { http } from "@/utils/http";
+import type { DictDataVO } from "@/views/vitality/system/dict-data/utils/types";
 
 export const getDictDataList = () => {
   return http.get<DictDataVO[], any>("/system/dict-data/list");
@@ -10,21 +11,3 @@ export const getDictDataListByCode = (code: string) => {
     "/system/dict-data/get-by-code/" + code
   );
 };
-
-interface DictDataVO {
-  id?: string;
-  /** 字典编码 */
-  code?: string;
-  /** 字典标签 */
-  label?: string;
-  /** 字典值 */
-  val?: string;
-  /** 字典排序 */
-  seq?: number;
-  /** 是否禁用。[Y, N] */
-  disabled?: string;
-  /** 备注 */
-  remark?: string;
-}
-
-export type { DictDataVO };

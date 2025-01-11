@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping("/monitor/user-online")
 public class UserOnlineController {
 
-    @SaCheckPermission("system:userOnline:query")
+    @SaCheckPermission("monitor:userOnline:query")
     @GetMapping("/page")
     public IPage<SaSessionVO> page(Page<SaSessionVO> page, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         long size = page.getSize();
@@ -52,7 +52,7 @@ public class UserOnlineController {
         return page;
     }
 
-    @SaCheckPermission("system:userOnline:query")
+    @SaCheckPermission("monitor:userOnline:query")
     @GetMapping("/token-sign-list/{sessionId}")
     public List<TokenSign> tokenSignList(@PathVariable("sessionId") String sessionId) {
         SaSession session = StpUtil.getSessionBySessionId(sessionId);
@@ -60,7 +60,7 @@ public class UserOnlineController {
         return session.getTokenSignList();
     }
 
-    @SaCheckPermission("system:userOnline:kickOut")
+    @SaCheckPermission("monitor:userOnline:kickOut")
     @PostMapping("/kick-out-by-username/{username}")
     public R<Void> kickoffByLoginId(@PathVariable("username") String loginId) {
         // 强制指定账号注销下线
@@ -68,7 +68,7 @@ public class UserOnlineController {
         return R.success();
     }
 
-    @SaCheckPermission("system:userOnline:kickOut")
+    @SaCheckPermission("monitor:userOnline:kickOut")
     @PostMapping("/kick-out-by-token")
     public R<Void> kickoffByToken(@RequestBody TokenSignVO vo) {
         // 强制指定 Token 注销下线

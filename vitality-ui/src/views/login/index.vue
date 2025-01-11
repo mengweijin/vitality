@@ -44,7 +44,7 @@ const imgCode = ref("");
 const loginDay = ref(7);
 const router = useRouter();
 const loading = ref(false);
-const checked = ref(false);
+const rememberMe = ref(false);
 const disabled = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const currentPage = computed(() => {
@@ -62,7 +62,8 @@ const { locale, translationCh, translationEn } = useTranslationLang();
 const ruleForm = reactive({
   username: "admin",
   password: "aday.fun",
-  verifyCode: ""
+  verifyCode: "",
+  rememberMe: false
 });
 
 const onLogin = async (formEl: FormInstance | undefined) => {
@@ -113,14 +114,14 @@ useEventListener(document, "keypress", ({ code }) => {
     immediateDebounce(ruleFormRef.value);
 });
 
+const onRememberMeChange = value => {
+  if (value) {
+    useUserStoreHook().SET_ISREMEMBERED(value);
+  }
+};
+
 watch(imgCode, value => {
   useUserStoreHook().SET_VERIFYCODE(value);
-});
-watch(checked, bool => {
-  useUserStoreHook().SET_ISREMEMBERED(bool);
-});
-watch(loginDay, value => {
-  useUserStoreHook().SET_LOGINDAY(value);
 });
 </script>
 
@@ -242,21 +243,11 @@ watch(loginDay, value => {
             <Motion :delay="250">
               <el-form-item>
                 <div class="w-full h-[20px] flex justify-between items-center">
-                  <el-checkbox v-model="checked">
+                  <el-checkbox
+                    v-model="ruleForm.rememberMe"
+                    @change="onRememberMeChange"
+                  >
                     <span class="flex">
-                      <select
-                        v-model="loginDay"
-                        :style="{
-                          width: loginDay < 10 ? '10px' : '16px',
-                          outline: 'none',
-                          background: 'none',
-                          appearance: 'none'
-                        }"
-                      >
-                        <option value="1">1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                      </select>
                       {{ t("login.pureRemember") }}
                       <IconifyIconOffline
                         v-tippy="{

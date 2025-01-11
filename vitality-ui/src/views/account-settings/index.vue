@@ -16,7 +16,7 @@ import ProfileIcon from "@iconify-icons/ri/user-3-line";
 import PreferencesIcon from "@iconify-icons/ri/settings-3-line";
 import SecurityLogIcon from "@iconify-icons/ri/window-line";
 import AccountManagementIcon from "@iconify-icons/ri/profile-line";
-import { UserVO } from "../system/user/utils/types";
+import { UserVO } from "@/views/vitality/system/user/utils/types";
 import { useNav } from "@/layout/hooks/useNav";
 const { userAvatar } = useNav();
 
@@ -130,7 +130,7 @@ getMine().then((res: UserVO) => {
 
 <style lang="scss">
 .pure-account-settings {
-  background: $menuBg;
+  background: var(--pure-theme-menu-bg) !important;
 }
 
 .pure-account-settings-menu {
@@ -139,12 +139,12 @@ getMine().then((res: UserVO) => {
 
   .el-menu-item {
     height: 48px !important;
-    color: $menuText;
+    color: var(--pure-theme-menu-text);
     background-color: transparent !important;
     transition: color 0.2s;
 
     &:hover {
-      color: $menuTitleHover !important;
+      color: var(--pure-theme-menu-title-hover) !important;
     }
 
     &.is-active {

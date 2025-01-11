@@ -1,34 +1,57 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { message } from "@/utils/message";
+import { onMounted, ref } from "vue";
 import { deviceDetection } from "@pureadmin/utils";
+import {
+  getUserPreference,
+  saveUserPreference,
+  type UserPreferenceVO
+} from "@/api/system/user-preference";
 
 defineOptions({
   name: "Preferences"
 });
 
+const userPreference = ref<UserPreferenceVO>(null);
+
 const list = ref([
   {
-    title: "账户密码",
+    prop: "userMessage",
+    title: "用户消息",
     illustrate: "其他用户的消息将以站内信的形式通知",
     checked: true
   },
   {
+    prop: "systemMessage",
     title: "系统消息",
     illustrate: "系统消息将以站内信的形式通知",
     checked: true
   },
   {
+    prop: "todoTask",
     title: "待办任务",
     illustrate: "待办任务将以站内信的形式通知",
     checked: true
   }
 ]);
 
-function onChange(val, item) {
-  console.log("onChange", val);
-  message(`${item.title}设置成功`, { type: "success" });
+function getCheckedValue(prop: string) {
+  if (!userPreference.value) {
+    return true;
+  }
+  let val = userPreference.value[prop];
+  return !val || val === "Y";
 }
+
+function onChange(val, item) {
+  saveUserPreference({ [item.prop]: val === false ? "N" : "Y" });
+}
+
+onMounted(async () => {
+  userPreference.value = await getUserPreference();
+  for (let i in list.value) {
+    list.value[i]["checked"] = getCheckedValue(list.value[i]["prop"]);
+  }
+});
 </script>
 
 <template>

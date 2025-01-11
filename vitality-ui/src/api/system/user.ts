@@ -5,7 +5,7 @@ import type {
   ChangePasswordBO,
   UserAvatarBO,
   RoleFormItemProps
-} from "@/views/system/user/utils/types";
+} from "@/views/vitality/system/user/utils/types";
 
 /** 查询 */
 export const getUserPage = (params?: UserVO) => {
@@ -15,6 +15,11 @@ export const getUserPage = (params?: UserVO) => {
 /** 查询 */
 export const getSensitiveUserById = (id: string) => {
   return http.get<UserVO, string>("/system/user/sensitive/" + id);
+};
+
+/** 查询 */
+export const getSensitiveMine = () => {
+  return http.get<UserVO, any>("/system/user/sensitive-mine");
 };
 
 /** 账户设置-个人信息 */
@@ -50,6 +55,17 @@ export const changeUserPassword = (data: ChangePasswordBO) => {
 export const setUserAvatar = (data: UserAvatarBO) => {
   return http.post<R, UserAvatarBO>("/system/user/set-avatar", {
     data
+  });
+};
+
+/** 设置用户启用/禁用状态 */
+export const setUserDisabled = (id: string, disabled: string) => {
+  let params = {
+    id: id,
+    disabled: disabled
+  };
+  return http.post<R, any>("/system/user/set-disabled", {
+    params
   });
 };
 

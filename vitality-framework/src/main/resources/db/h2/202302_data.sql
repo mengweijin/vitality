@@ -109,7 +109,7 @@ insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1001001003,1001001,'BTN','通知公告-更新',null,null,null,3,null,null,null,null,null,null,'system:notice:update',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1001001004,1001001,'BTN','通知公告-删除',null,null,null,4,null,null,null,null,null,null,'system:notice:delete',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1002,0,'MENU','我的消息','SystemMessageDir','/vitality/message',null,2,null,'ep:chat-dot-round',null,null,null,null,'system:message:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1002,0,'MENU','我的消息','SystemMessageDir','/vitality/message',null,2,null,'ep:chat-dot-round',null,null,null,null,'system:message:view',null,'N','N','N','N','N','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1002001,1002,'MENU','我的消息','SystemMessage','/vitality/system/message/index',null,2,null,'ep:chat-dot-round',null,null,null,null,'system:message:view',null,'N','N','N','N','Y','N',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1002001001,1002001,'BTN','我的消息-查询',null,null,null,1,null,null,null,null,null,null,'system:message:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (1002001002,1002001,'BTN','我的消息-创建',null,null,null,2,null,null,null,null,null,null,'system:message:create',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
@@ -141,6 +141,10 @@ insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004002, 10011004,   'BTN',  '用户-创建',null,               null,                           null,   2,null,null,                null,null,null,null,'system:user:create',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004003, 10011004,   'BTN',  '用户-更新',null,               null,                           null,   3,null,null,                null,null,null,null,'system:user:update',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004004, 10011004,   'BTN',  '用户-删除',null,               null,                           null,   4,null,null,                null,null,null,null,'system:user:delete',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004011, 10011004,   'BTN',  '用户偏好-查询',null,               null,                           null,   11,null,null,                null,null,null,null,'system:userPreference:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004012, 10011004,   'BTN',  '用户偏好-创建',null,               null,                           null,   12,null,null,                null,null,null,null,'system:userPreference:create',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004013, 10011004,   'BTN',  '用户偏好-更新',null,               null,                           null,   13,null,null,                null,null,null,null,'system:userPreference:update',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011004014, 10011004,   'BTN',  '用户偏好-删除',null,               null,                           null,   14,null,null,                null,null,null,null,'system:userPreference:delete',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011005,    10011,      'MENU', '角色管理', 'SystemRole',   '/vitality/system/role/index',  null,   5,null,'fa-solid:users',    null,null,null,null,'system:role:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10011005001, 10011005,   'BTN',  '角色-查询',null,               null,                           null,   1,null,null,                null,null,null,null,'system:role:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
@@ -179,9 +183,9 @@ insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_
 
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021,0,'MENU','系统监控','SystemMonitor','/vitality/system/monitor',null,21,null,'ep:monitor',null,null,null,null,'monitor:system:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021001,10021,'MENU','应用监控','MonitorApplication','/vitality/monitor/application/index',null,1,null,'fa-solid:chart-line',null,null,null,null,'monitor:application:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021001,10021,'MENU','应用监控','MonitorApplication','/vitality/monitor/application/index',null,1,null,'fa-solid:chart-line',null,null,null,null,'monitor:application:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021002,10021,'MENU','缓存监控','MonitorCache','/vitality/monitor/cache/index',null,2,null,'ep:data-line',null,null,null,null,'monitor:cache:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021002,10021,'MENU','缓存监控','MonitorCache','/vitality/monitor/cache/index',null,2,null,'ep:data-line',null,null,null,null,'monitor:cache:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021003,      10021,'MENU','在线用户',       'MonitorUserOnline','/vitality/monitor/user-online/index',null,3,null,'ri:user-voice-fill',null,null,null,null,'monitor:userOnline:view',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10021003001,10021003,'BTN', '在线用户-查询',   null,null,null,1,null,null,null,null,null,null,'monitor:userOnline:query',null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
@@ -205,8 +209,88 @@ insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_
 insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10081002,10081,'IFRAME','接口文档','ToolApiDocument','/vitality/tool/api',null,2,null,'ep:document',null,null,null,null,'tool:api:view','http://localhost:8080/doc.html','N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
 -- EXTRA_ICON iconfont 配置：IF-icon-vitality-new svg: [以 IF- 开头] [icon-vitality-: 为 iconfont.json 中 css_prefix_text 配置的值] [new: 为 iconfont.json 中 font_class 配置的值] [svg: 为文件格式]
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10091,0,'URL','个人博客',            'https://home.aday.fun',                    '/link/home/aday/fun',       null,91,null,'ep:link',                    'IF-icon-vitality-fire svg', null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10092,0,'URL','Vitality 管理系统',   'https://vitality.aday.fun',                '/link/vitality/aday/fun',   null,92,null,'ep:link',                    'IF-icon-vitality-new svg',  null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10093,0,'URL','GitHub',              'https://github.com/mengweijin/vitality',  '/link/github',              null,93,null,'ri:github-fill',              null,                        null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
-insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10094,0,'URL','Gitee',               'https://gitee.com/mengweijin/vitality',   '/link/gitee',               null,94,null,'IF-icon-vitality-gitee',      null,                        null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10091,0,'URL','个人博客',            'https://aday.fun:8000',                    '/link/home/aday/fun',       null,91,null,'ep:link',                    'IF-icon-vitality-fire svg', null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10092,0,'URL','Vitality - Vue 版',   'https://vitality.aday.fun:8000',           '/link/vitality-vue',   null,92,null,'ep:link',                    'IF-icon-vitality-new svg',  null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10093,0,'URL','Vitality - Layui 版',   'https://layui.vitality.aday.fun:8000',           '/link/vitality-layui',   null,92,null,'ep:link',                    'IF-icon-vitality-new svg',  null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10094,0,'URL','GitHub',              'https://github.com/mengweijin/vitality',  '/link/github',              null,93,null,'ri:github-fill',              null,                        null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
+insert into VTL_MENU (ID,PARENT_ID,TYPE,TITLE,ROUTER_NAME,ROUTER_PATH,COMPONENT_PATH,SEQ,REDIRECT,ICON,EXTRA_ICON,ENTER_TRANSITION,LEAVE_TRANSITION,ACTIVE_PATH,PERMISSION,IFRAME_SRC,IFRAME_LOADING,KEEP_ALIVE,HIDDEN_TAG,FIXED_TAG,SHOW_LINK,SHOW_PARENT,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) values (10095,0,'URL','Gitee',               'https://gitee.com/mengweijin/vitality',   '/link/gitee',               null,94,null,'IF-icon-vitality-gitee',      null,                        null,null,null,null,null,'N','N','N','N','Y','Y',1,current_timestamp(),1,current_timestamp());
 
+-- 用户-角色
+INSERT INTO VTL_USER_ROLE (ID,USER_ID,ROLE_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458459928420354,3,3,1,current_timestamp(),1,current_timestamp());
+
+-- 角色-权限
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392433680385,3,1001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392433680386,3,1002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392496594945,3,10081,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392496594946,3,10091,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392496594947,3,10092,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703810,3,10093,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703811,3,10094,1,current_timestamp(),1,current_timestamp()),
+	 (1876458342563703811,3,10095,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703812,3,1001001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703813,3,1002001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703814,3,10021001,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392563703815,3,10021002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703816,3,10081001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703817,3,10081002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703818,3,1001001001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392563703819,3,1001001002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618369,3,1001001003,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618370,3,1001001004,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618371,3,1002001001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618372,3,1002001002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618373,3,1002001003,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392626618374,3,1002001004,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618375,3,10011001001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618376,3,10011001002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618377,3,10011002001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618378,3,10011002002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618379,3,10011003001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618380,3,10011003002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618381,3,10011004001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618382,3,10011004002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392626618383,3,10011004003,1,current_timestamp(),1,current_timestamp()),
+     (1876345392612618381,3,10011004011,1,current_timestamp(),1,current_timestamp()),
+	 (1876345392612618382,3,10011004012,1,current_timestamp(),1,current_timestamp()),
+	 (1876345392612618383,3,10011004013,1,current_timestamp(),1,current_timestamp()),
+	 (1876345392612618384,3,10011004014,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392626618384,3,10011005001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727234,3,10011005002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727235,3,10011005003,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727236,3,10011006001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727237,3,10011006002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727238,3,10011007001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727239,3,10011007002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727240,3,10011007005,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727241,3,10011007006,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727242,3,10011008001,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392693727243,3,10011008002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727244,3,10011009001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727245,3,10011009002,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727246,3,10021003001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727247,3,10021004001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727248,3,10021005001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727249,3,10021006001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727250,3,10011001,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727251,3,10011,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392693727252,3,10011002,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392760836097,3,10011003,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836098,3,10011004,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836099,3,10011005,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836100,3,10011006,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836101,3,10011007,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836102,3,10011008,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836103,3,10011009,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836104,3,10021,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836105,3,10021003,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836106,3,10021004,1,current_timestamp(),1,current_timestamp());
+INSERT INTO VTL_ROLE_MENU (ID,ROLE_ID,MENU_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME) VALUES
+	 (1876458392760836107,3,10021005,1,current_timestamp(),1,current_timestamp()),
+	 (1876458392760836108,3,10021006,1,current_timestamp(),1,current_timestamp());

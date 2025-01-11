@@ -37,7 +37,30 @@ import {
  * 如何排除文件请看：https://cn.vitejs.dev/guide/features.html#negative-patterns
  */
 const modules: Record<string, any> = import.meta.glob(
-  ["./modules/**/*.ts", "!./modules/**/remaining.ts"],
+  [
+    "./modules/**/*.ts",
+    "!./modules/**/remaining.ts",
+    "!./modules/**/able.ts",
+    "!./modules/**/about.ts",
+    "!./modules/**/board.ts",
+    "!./modules/**/components.ts",
+    "!./modules/**/editor.ts",
+    "!./modules/**/error.ts",
+    "!./modules/**/flowchart.ts",
+    "!./modules/**/form.ts",
+    "!./modules/**/formdesign.ts",
+    "!./modules/**/ganttastic.ts",
+    "!./modules/**/guide.ts",
+    // "!./modules/**/home.ts",
+    "!./modules/**/list.ts",
+    "!./modules/**/menuoverflow.ts",
+    "!./modules/**/mind.ts",
+    "!./modules/**/nested.ts",
+    "!./modules/**/ppt.ts",
+    "!./modules/**/result.ts",
+    "!./modules/**/table.ts",
+    "!./modules/**/vueflow.ts"
+  ],
   {
     eager: true
   }
@@ -114,7 +137,7 @@ router.beforeEach((to: ToRouteType, _from, next) => {
       handleAliveRoute(to);
     }
   }
-  const userInfo = storageLocal().getItem<DataInfo<number>>(userKey);
+  const userInfo = storageLocal().getItem<DataInfo>(userKey);
   NProgress.start();
   const externalLink = isUrl(to?.name as string);
   if (!externalLink) {

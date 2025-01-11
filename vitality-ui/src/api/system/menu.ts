@@ -1,5 +1,8 @@
 import { http } from "@/utils/http";
-import type { FormItemProps, MenuVO } from "@/views/system/menu/utils/types";
+import type {
+  FormItemProps,
+  MenuVO
+} from "@/views/vitality/system/menu/utils/types";
 
 /** 查询 */
 export const getMenuList = (params?: MenuVO) => {

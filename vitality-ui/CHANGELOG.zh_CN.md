@@ -1,3 +1,23 @@
+# 5.9.0 (2024-12-10)
+
+### ✔️ Refactor
+
+- 升级`vite`至`v6`版本，升级`sass`至最新版，重构主题写法，弃用 [@pureadmin/theme](https://www.npmjs.com/package/@pureadmin/theme)，点击查看 [相关优化点细节](https://github.com/pure-admin/vue-pure-admin/pull/1188#issue-2630095115)。对于拥有 [Max版本](https://pure-admin.cn/pages/max/) 的用户平台强烈建议升级，后续`Max版本用户`会享有一套更现代、美观且自定义程度高的主题色
+- 使用 [code-inspector-plugin](https://www.npmjs.com/package/code-inspector-plugin) 替换 [vite-plugin-vue-inspector](https://www.npmjs.com/package/vite-plugin-vue-inspector)
+
+### 🎫 Feat
+
+- 新增函数式抽屉组件
+- `pure-table`添加动态表头示例
+
+### 🐞 Bug fixes
+
+- 修复在菜单、部门管理中，表格展开后启用或关闭全屏功能时，表格高度未自动适应的问题
+
+### 🍏 Perf
+
+- 优化用户管理左侧部门树的布局
+
 # 5.8.0 (2024-08-19)
 
 ### 🎫 Feat
@@ -53,7 +73,7 @@
 
 文档站和完整版预览站地址更换！
 
-- 最新文档站地址：https://pure-admin.github.io/pure-admin-doc
+- 最新文档站地址：https://pure-admin.cn
 - 最新完整版预览站地址：https://pure-admin.github.io/vue-pure-admin
 
 ### ✔️ Refactor
@@ -179,10 +199,7 @@
 ### ✔️ Refactor
 
 - 升级`vite`至`v5`版本，规定`node`版本`>18.18.0`，`pnpm`版本`>=8.6.10`
-- 使用 [vite-plugin-fake-server](https://www.npmjs.com/package/vite-plugin-fake-server)
-  替换 [vite-plugin-mock](https://www.npmjs.com/package/vite-plugin-mock)
-  ，使用 [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker)
-  替换 [mockjs](https://www.npmjs.com/package/mockjs)
+- 使用 [vite-plugin-fake-server](https://www.npmjs.com/package/vite-plugin-fake-server) 替换 [vite-plugin-mock](https://www.npmjs.com/package/vite-plugin-mock)，使用 [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) 替换 [mockjs](https://www.npmjs.com/package/mockjs)
 - 重命名`tailwind.config.js`为`tailwind.config.ts`并更新其文件为`esm`语法
 - 更新`.prettierrc.js`文件为`esm`语法
 - 更新`postcss.config.js`文件为`esm`语法
@@ -224,8 +241,7 @@
 - 添加折叠面板组件示例
 - 添加进度条组件示例
 - 升级`Swiper 11`
-- 添加 [vite-plugin-router-warn](https://www.npmjs.com/package/vite-plugin-router-warn) 插件，根治非必要的`vue-router`
-  动态路由警告`No match found for location with path`
+- 添加 [vite-plugin-router-warn](https://www.npmjs.com/package/vite-plugin-router-warn) 插件，根治非必要的`vue-router`动态路由警告`No match found for location with path`
 
 ### 🐞 Bug fixes
 
@@ -296,10 +312,7 @@
 
 ### 🎫 Feat
 
-- 路由 `meta` 添加 `activePath` 属性，可将某个菜单激活（主要用于通过 `query` 或 `params` 传参的路由，当它们通过配置
-  `showLink: false` 后不在菜单中显示，就不会有任何菜单高亮，而通过设置 `activePath` 指定激活菜单即可获得高亮，`activePath`
-  为指定激活菜单的
-  `path` [查看详情](https://github.com/pure-admin/vue-pure-admin/commit/58cafbc73ffa27253446ee93077e1e382519ce8a#commitcomment-117834411)）
+- 路由 `meta` 添加 `activePath` 属性，可将某个菜单激活（主要用于通过 `query` 或 `params` 传参的路由，当它们通过配置 `showLink: false` 后不在菜单中显示，就不会有任何菜单高亮，而通过设置 `activePath` 指定激活菜单即可获得高亮，`activePath` 为指定激活菜单的 `path` [查看详情](https://github.com/pure-admin/vue-pure-admin/commit/58cafbc73ffa27253446ee93077e1e382519ce8a#commitcomment-117834411)）
 - `pure-admin-table` 高级用法添加自适应内容区高度示例
 - 添加防抖、节流和文本复制指令并规范自定义指令用法错误时的提示以及添加使用示例
 - `notice` 消息提示组件空数据时添加 `el-empty` 组件
@@ -313,8 +326,7 @@
 
 ### 🍏 Perf
 
-- 页面切换性能优化，不考虑网络的情况下，页面切换逻辑的速度差不多比之前快 `3-4`
-  倍 [查看优化详情](https://github.com/pure-admin/vue-pure-admin/pull/600#issuecomment-1586094078)
+- 页面切换性能优化，不考虑网络的情况下，页面切换逻辑的速度差不多比之前快 `3-4` 倍 [查看优化详情](https://github.com/pure-admin/vue-pure-admin/pull/600#issuecomment-1586094078)
 - 优化标签页操作-路由传参模式用法
 - 系统管理中表格均改为自适应内容区高度，需将 `@pureadmin/table` 升级到最新版
 - 使用 `vueuse` 的 `useResizeObserver` 函数替换 `v-resize` 自定义指令，从测试后的表现来看性能会更好
@@ -389,8 +401,7 @@
 
 ### ✔️ Refactor
 
-- 采用 `css` 伪类 `before`
-  写法重构菜单的激活背景，类似于 [ant.design-menu](https://ant.design/components/menu-cn#components-menu-demo-inline-collapsed)
+- 采用 `css` 伪类 `before` 写法重构菜单的激活背景，类似于 [ant.design-menu](https://ant.design/components/menu-cn#components-menu-demo-inline-collapsed)
 
 ### 🎫 Feat
 
@@ -462,7 +473,7 @@
 ### ✔️ Refactor
 
 - 完全移除了 `lodash` 和其相关库
-  [点击此处查看为什么移除？如何自行集成？](https://pure-admin.github.io/pure-admin-doc/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-5-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-lodash-%E5%92%8C%E5%85%B6%E7%9B%B8%E5%85%B3%E5%BA%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
+  [点击此处查看为什么移除？如何自行集成？](https://pure-admin.cn/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-5-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-lodash-%E5%92%8C%E5%85%B6%E7%9B%B8%E5%85%B3%E5%BA%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
 
 ### 🎫 Feat
 
@@ -482,7 +493,7 @@
 ### ✔️ Refactor
 
 - 完全移除了 `vxe-table`，移除后，完整版整体打包大小减少 `1.82MB`，首启动时长基本和精简版持平 🐮
-  [点击此处查看为什么移除？如何自行集成？](https://pure-admin.github.io/pure-admin-doc/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-4-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-vxe-table-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
+  [点击此处查看为什么移除？如何自行集成？](https://pure-admin.cn/pages/FAQ/#%E5%B9%B3%E5%8F%B0%E5%9C%A8-v3-9-4-%E7%89%88%E6%9C%AC%E5%AE%8C%E5%85%A8%E7%A7%BB%E9%99%A4%E4%BA%86-vxe-table-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%BB%E9%99%A4-%E5%A6%82%E4%BD%95%E8%87%AA%E8%A1%8C%E9%9B%86%E6%88%90)
 
 ### 🎫 Feat
 
@@ -509,8 +520,7 @@
 
 ### 🍏 Perf
 
-- 全局覆盖 `element-plus` 的 `el-dialog`、`el-drawer`、`el-message-box`、`el-notification`
-  组件右上角关闭图标的样式，使其表现更鲜明 [具体代码修改记录](https://github.com/pure-admin/vue-pure-admin/commit/c80818d792276666aaea4b18413a0f08777f2ed1)
+- 全局覆盖 `element-plus` 的 `el-dialog`、`el-drawer`、`el-message-box`、`el-notification` 组件右上角关闭图标的样式，使其表现更鲜明 [具体代码修改记录](https://github.com/pure-admin/vue-pure-admin/commit/c80818d792276666aaea4b18413a0f08777f2ed1)
 - 打包输出信息兼容不同打包输出路径
 - 优化一些动画
 
@@ -542,16 +552,13 @@
 
 ### 🍏 Perf
 
-- perf: 打包大优化，请务必升级！使用 `unplugin-vue-define-options` 替换 `unplugin-vue-macros` ，打包速度提升数倍，使用
-  `unplugin-vue-macros` 以性能中等偏上的 `mac` 为例完整版打包时长为 `6` 分钟 😭，使用 `unplugin-vue-define-options`
-  替换后，相同电脑下打包时长为 `50` 秒 ☺️
+- perf: 打包大优化，请务必升级！使用 `unplugin-vue-define-options` 替换 `unplugin-vue-macros` ，打包速度提升数倍，使用 `unplugin-vue-macros` 以性能中等偏上的 `mac` 为例完整版打包时长为 `6` 分钟 😭，使用 `unplugin-vue-define-options` 替换后，相同电脑下打包时长为 `50` 秒 ☺️
 
 # 3.8.6 (2022-11-27)
 
 ### 🎫 Feat
 
-- 添加 `message` 消息提示函数，兼容 `Element Plus` 和 `Ant Design` 两种 `Message` 样式风格，使用和打包大小成本极低并适配暗黑模式，真香
-  😂
+- 添加 `message` 消息提示函数，兼容 `Element Plus` 和 `Ant Design` 两种 `Message` 样式风格，使用和打包大小成本极低并适配暗黑模式，真香 😂
 
 ### 🍏 Perf
 
@@ -561,8 +568,7 @@
 
 ### 🍏 Perf
 
-- 大优化，移除 `@pureadmin/components` 并采用兼容写法，平台打包大小在未启用压缩前对比优化前减少 `0.4` MB , 首屏请求减少
-  `2.3` MB 的资源，这对于 [精简版](https://github.com/pure-admin/pure-admin-thin) 来说是非常大的优化，精简版已经同步代码
+- 大优化，移除 `@pureadmin/components` 并采用兼容写法，平台打包大小在未启用压缩前对比优化前减少 `0.4` MB , 首屏请求减少 `2.3` MB 的资源，这对于 [精简版](https://github.com/pure-admin/pure-admin-thin) 来说是非常大的优化，精简版已经同步代码
 
 # 3.8.0 (2022-11-26)
 
@@ -599,13 +605,10 @@
 
 ### 🎫 Feat
 
--
-添加前端单点登录，测试地址 https://pure-admin.github.io/vue-pure-admin/#/pure-table/index?username=sso&roles=admin&accessToken=eyJhbGciOiJIUzUxMiJ9.admin
-- 为 [@pureadmin/table](https://github.com/pure-admin/pure-admin-table) 添加更多的示例和 `element-plus`
-  的 [table](https://element-plus.org/zh-CN/component/table.html) 示例保持一致
+- 添加前端单点登录，测试地址 https://pure-admin.github.io/vue-pure-admin/#/pure-table/index?username=sso&roles=admin&accessToken=eyJhbGciOiJIUzUxMiJ9.admin
+- 为 [@pureadmin/table](https://github.com/pure-admin/pure-admin-table) 添加更多的示例和 `element-plus` 的 [table](https://element-plus.org/zh-CN/component/table.html) 示例保持一致
 - 丰富水印功能页面（支持自定义各种颜色、阴影、文字、额外属性、设置不可删除水印以及给指定元素设置水印）
-- 优化菜单，添加 `MenuArrowIconNoTransition` 全局配置，在 `public/platform-config.json` 中配置即可，对于出现左侧菜单模式，菜单展开卡顿的可设置
-  `MenuArrowIconNoTransition: true` 即可解决
+- 优化菜单，添加 `MenuArrowIconNoTransition` 全局配置，在 `public/platform-config.json` 中配置即可，对于出现左侧菜单模式，菜单展开卡顿的可设置 `MenuArrowIconNoTransition: true` 即可解决
 - 更换表单设计器组件演示
 
 ### 🐞 Bug fixes
@@ -677,8 +680,7 @@
 
 ### ✔️ Refactor
 
-- 重构权限模块，采用目前最常用的`RBAC`（Role-Based Access List）: 基于角色的权限控制（ 用户 -> 角色 -> 权限 ），并更新页面权限和按钮权限
-  `demo`示例，按钮权限支持三种操作模式（组件方式判断权限、函数方式判断权限、指令方式判断权限）
+- 重构权限模块，采用目前最常用的`RBAC`（Role-Based Access List）: 基于角色的权限控制（ 用户 -> 角色 -> 权限 ），并更新页面权限和按钮权限`demo`示例，按钮权限支持三种操作模式（组件方式判断权限、函数方式判断权限、指令方式判断权限）
 
 ### 🐞 Bug fixes
 
@@ -704,8 +706,7 @@
 
 ### ✔️ Refactor
 
-- 使用 `tailwindcss` 替换 `unocss`，新增
-  `tailwindcss` [使用文档](https://pure-admin.github.io/pure-admin-doc/pages/tailwindcss/)
+- 使用 `tailwindcss` 替换 `unocss`，新增 `tailwindcss` [使用文档](https://pure-admin.cn/pages/tailwindcss/)
 
 ### 🐞 Bug fixes
 
@@ -741,13 +742,10 @@
 
 ### 🎫 Feat
 
-- 将 `element-plus` 的 `Table` 二次封装到[@pureadmin/table](https://github.com/pure-admin/pure-admin-table)
-  ，提供灵活的配置项并集成到平台里
-- 将 `element-plus` 的 `Descriptions`
-  二次封装到[@pureadmin/descriptions](https://github.com/pure-admin/pure-admin-descriptions)，提供灵活的配置项并集成到平台里
+- 将 `element-plus` 的 `Table` 二次封装到[@pureadmin/table](https://github.com/pure-admin/pure-admin-table)，提供灵活的配置项并集成到平台里
+- 将 `element-plus` 的 `Descriptions` 二次封装到[@pureadmin/descriptions](https://github.com/pure-admin/pure-admin-descriptions)，提供灵活的配置项并集成到平台里
 - 将平台的大部分工具以及 `hooks` 都集中到[@pureadmin/utils](https://pure-admin-utils.netlify.app)，并删除集中到这个库里的代码，减少平台体积
-- 添加[unplugin-vue-define-options](https://www.npmjs.com/package/unplugin-vue-define-options)插件，页面可直接写
-  `defineOptions({name: 自定义名称})`
+- 添加[unplugin-vue-define-options](https://www.npmjs.com/package/unplugin-vue-define-options)插件，页面可直接写 `defineOptions({name: 自定义名称})`
 - 添加项目文件、语言分析工具 [cloc](https://www.npmjs.com/package/cloc)
 - 添加登录页国际化
 - 添加完整路由配置表类型声明
@@ -790,8 +788,7 @@
 - 集成`Swiper`插件
 - 路由支持传`component`，代表组件路径
 - 添加预发布打包模式
--
-添加关闭某个标签的[hooks](https://github.com/pure-admin/vue-pure-admin/commit/5e8723a031923e79f507e5a17151d3bd88a51523)
+- 添加关闭某个标签的[hooks](https://github.com/pure-admin/vue-pure-admin/commit/5e8723a031923e79f507e5a17151d3bd88a51523)
 
 ### ✔️ Refactor
 
@@ -803,8 +800,7 @@
 - 优化平台的`split-pane`组件样式
 - 优化国际化，路由不再传`i18n`字段，平台自动读取根目录`locales`文件夹下文件进行国际化匹配
 - 优化图标选择器
-- 优化`layout`
-  显示用户信息[commit](https://github.com/pure-admin/vue-pure-admin/commit/56f9dc85e7fbe0637605c43577c794de9f8968aa)
+- 优化`layout`显示用户信息[commit](https://github.com/pure-admin/vue-pure-admin/commit/56f9dc85e7fbe0637605c43577c794de9f8968aa)
 
 ### 🐞 Bug fixes
 
@@ -889,8 +885,7 @@
 
 - 优化国际化，兼容 vscode 插件 i18n Ally 智能提醒
 - 优化后端返回路由结构
-- 优化本地存储，内置四个键`responsive-configure`、`responsive-locale`、`responsive-layout`、`responsive-tags`
-  ，分别为基本配置、国际化配置、布局配置、标签页持久化配置
+- 优化本地存储，内置四个键`responsive-configure`、`responsive-locale`、`responsive-layout`、`responsive-tags`，分别为基本配置、国际化配置、布局配置、标签页持久化配置
 
 # 2.7.0(2021-12-18)
 

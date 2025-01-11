@@ -1,8 +1,11 @@
 package com.github.mengweijin.vitality.framework.satoken;
 
+import cn.dev33.satoken.filter.SaPathCheckFilterForJakartaServlet;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.strategy.SaStrategy;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2023/7/2
  */
 @Configuration
-public class SaTokenConfig implements WebMvcConfigurer {
+public class SaTokenConfig implements WebMvcConfigurer, InitializingBean {
 
     /**
      * 注册sa-token的拦截器，打开注解式鉴权功能
@@ -39,4 +42,19 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/", "/vitality/**", "/doc.html", "/webjars/**", "/v3/api-docs/**");
     }
 
+    /**
+     * SaStrategy.instance.requestPathInvalidHandle: 自定义当请求 path 校验不通过时 sa-token 处理方案的算法。
+     * 比如访问：localhost:8080/.xxx
+     * 上面这个 url 包含了 .xxx 这样包含小数点的非常规 url，很多漏洞扫描工具（比如：AppScan）会模拟类似的 url 对应用进行扫描。
+     * sa-token 默认的处理方式会返回 http 状态为 200 和 “非法请求” 的文字提示，而漏洞扫描工具要求返回 400、500 这样的错误状态码。
+     * 因此通过自定义修改 SaStrategy.instance.requestPathInvalidHandle 的处理默认处理方式来规避。
+     * 这里直接 throw new RuntimeException(e);
+     * {@link SaPathCheckFilterForJakartaServlet } 在处理的时候就会抛运行时异常，客户端收到的就是 500 的异常。
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        SaStrategy.instance.requestPathInvalidHandle = (e, request, response) -> {
+            throw new RuntimeException(e.getMessage());
+        };
+    }
 }

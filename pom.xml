@@ -22,7 +22,7 @@
     </modules>
     <properties>
         <!-- 全局版本控制，如果要修改版本号，修改此处即可-->
-        <revision>2.0.0-SNAPSHOT</revision>
+        <revision>1.5.0-SNAPSHOT</revision>
         <!--<gpg.skip>true</gpg.skip>-->
         <!--<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
         <skipTests>true</skipTests>  

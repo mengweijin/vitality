@@ -6,7 +6,6 @@ import com.github.mengweijin.vitality.framework.filter.repeatable.RepeatableFilt
 import com.github.mengweijin.vitality.framework.filter.xss.XssFilter;
 import com.github.mengweijin.vitality.framework.filter.xss.XssProperties;
 import jakarta.servlet.DispatcherType;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,6 @@ import java.util.Map;
 public class FilterConfig {
 
     @Bean
-    @ConditionalOnMissingBean
     public FilterRegistrationBean<RepeatableFilter> repeatableFilter() {
         FilterRegistrationBean<RepeatableFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new RepeatableFilter());
@@ -35,7 +33,6 @@ public class FilterConfig {
 
 
     @Bean
-    @ConditionalOnMissingBean
     public FilterRegistrationBean<XssFilter> xssFilter(VitalityProperties vitalityProperties) {
         XssProperties xssProperties = vitalityProperties.getXss();
         FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();

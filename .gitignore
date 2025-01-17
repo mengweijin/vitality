@@ -15,3 +15,5 @@ logs
 /file
 /data
 application-local.yml
+/ehcache/**
+/vitality-ui/.eslintcache

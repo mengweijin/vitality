@@ -35,7 +35,7 @@ class EncryptUtilsTest {
     void encrypt() {
         long start = System.currentTimeMillis();
 
-        byte[] encrypt = AESUtils.encrypt(IoUtil.toStream(FILE));
+        byte[] encrypt = AESUtils.getAES().encrypt(IoUtil.toStream(FILE));
 
         long end = System.currentTimeMillis();
         log.info("加密执行时长：{} 毫秒", (end - start));
@@ -51,7 +51,7 @@ class EncryptUtilsTest {
         long start = System.currentTimeMillis();
 
         try (FileOutputStream out = new FileOutputStream(encryptedFile)) {
-            AESUtils.encrypt(IoUtil.toStream(FILE), out);
+            AESUtils.getAES().encrypt(IoUtil.toStream(FILE));
         }
 
         long end = System.currentTimeMillis();
@@ -72,7 +72,7 @@ class EncryptUtilsTest {
         long start = System.currentTimeMillis();
 
         try (FileOutputStream out = new FileOutputStream(decryptedFile)) {
-            AESUtils.decrypt(IoUtil.toStream(FileUtil.file(FILE_PATH_ENCRYPTED)), out);
+            AESUtils.getAES().decrypt(IoUtil.toStream(FileUtil.file(FILE_PATH_ENCRYPTED)));
         }
 
         long end = System.currentTimeMillis();

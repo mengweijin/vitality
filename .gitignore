@@ -10,10 +10,11 @@ target/
 *.iml
 *.ipr
 
-/h2
 logs
-/file
-/data
+/h2
+/ehcache
+/uploads
+
 application-local.yml
 /ehcache/**
 /vitality-ui/.eslintcache

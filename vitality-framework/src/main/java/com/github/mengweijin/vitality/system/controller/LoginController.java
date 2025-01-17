@@ -3,55 +3,63 @@ package com.github.mengweijin.vitality.system.controller;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.domain.R;
-import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.entity.UserDO;
+import com.github.mengweijin.vitality.framework.ratelimit.ERateLimitStrategy;
+import com.github.mengweijin.vitality.framework.ratelimit.RateLimit;
+import com.github.mengweijin.vitality.framework.repeatsubmit.RepeatSubmit;
+import com.github.mengweijin.vitality.system.domain.LoginUser;
+import com.github.mengweijin.vitality.system.domain.bo.LoginBO;
+import com.github.mengweijin.vitality.system.domain.pure.PureLoginUser;
 import com.github.mengweijin.vitality.system.service.LoginService;
-import com.github.mengweijin.vitality.system.service.UserService;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author mengweijin
- * @date 2022/10/30
+ * @since 2022/10/30
  */
+@Validated
 @RestController
-public class LoginController extends BaseController {
+@AllArgsConstructor
+public class LoginController {
 
-    @Autowired
     private LoginService loginService;
-    @Autowired
-    private UserService userService;
 
     @SaIgnore
+    @RepeatSubmit
+    @RateLimit(duration = 5, max = 1, strategy = ERateLimitStrategy.IP)
     @PostMapping("/login")
-    public R login(@NotBlank String username, @NotBlank String password, boolean rememberMe, String captcha) {
-        UserDO user = loginService.login(username, password, rememberMe, captcha);
-
-        UserDO userDO = new UserDO();
-        userDO.setUsername(user.getUsername());
-        userDO.setNickname(user.getNickname());
-        userDO.setGender(user.getGender());
-        userDO.setId(user.getId());
-        return R.success(userDO);
+    public PureLoginUser login(@Valid @RequestBody LoginBO loginBO) {
+        LoginUser loginUser = loginService.login(loginBO);
+        return PureLoginUser.success(loginUser);
     }
 
-    @GetMapping("/login/userId")
-    public Long getLoginUserId() {
-        return userService.getSessionUser().getId();
+    @Deprecated
+    @SaIgnore
+    @RepeatSubmit
+    @PostMapping("/login-token")
+    public R<LoginUser> loginR(@Valid @RequestBody LoginBO loginBO) {
+        LoginUser loginUser = loginService.login(loginBO);
+        return R.success(loginUser);
     }
 
     @PostMapping("/logout")
-    public R logout() {
+    public R<Void> logout() {
         StpUtil.logout();
         return R.success();
     }
 
+
+    @SaIgnore
     @GetMapping("/captcha")
-    public String getCaptcha() {
-        return loginService.getCaptcha();
+    @Deprecated
+    @RateLimit(duration = 5, max = 1, strategy = ERateLimitStrategy.IP)
+    public String createCaptcha() {
+        return loginService.createCaptcha();
     }
 
 }

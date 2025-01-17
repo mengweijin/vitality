@@ -1,49 +1,27 @@
 package com.github.mengweijin.vitality.framework.mvc;
 
 import com.github.mengweijin.vitality.framework.VitalityProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author Meng Wei Jin
  **/
 @Configuration
+@AllArgsConstructor
+@SuppressWarnings({"unused"})
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
     private VitalityProperties vitalityProperties;
-
-    @Bean
-    @ConditionalOnMissingBean
-    public GlobalExceptionHandler globalExceptionHandler() {
-        return new GlobalExceptionHandler();
-    }
-
-    /**
-     * 跨域
-     * @param registry CorsRegistry
-     */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        if(vitalityProperties.isAllowedCors()) {
-            registry.addMapping("/**")
-                    .allowedOriginPatterns("*")
-                    .allowedHeaders("*")
-                    .allowedMethods("*")
-                    .allowCredentials(true)
-                    .maxAge(3600);
-        }
-    }
 
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
@@ -54,18 +32,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * debug 模式不缓存静态资源
+     * 允许跨域
+     *
+     * @param registry CorsRegistry
      */
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if(vitalityProperties.isDebug()) {
-            registry
-                    // 设置哪些页面的静态资源不缓存，比如：[ "/**/index.html", "/" ]。
-                    // 不要配置为 "/**"，会使某些页面 404 无法加载，比如 Knife4j 的 doc.html。
-                    .addResourceHandler("/")
-                    .addResourceLocations("classpath:/static/")
-                    .setCacheControl(CacheControl.noStore());
-        }
+    public void addCorsMappings(@NonNull CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
+
+    /**
+     * 重定向：registry.addViewController("/").setViewName("/vitality/index.html");
+     * 转发：registry.addRedirectViewController("/", "/vitality/index.html");
+     *
+     * @param registry ViewControllerRegistry
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/vitality/index.html");
     }
 
 }

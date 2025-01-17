@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    contexts: test
+    change-log: classpath:/db/db.changelog-oracle.xml
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/ORCLCDB
+    username: SYS
+    password: 12345678
+decorator:
+  datasource:
+    enabled: true
+vitality:
+  debug: true

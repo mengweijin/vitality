@@ -1,48 +1,82 @@
 package com.github.mengweijin.vitality.system.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.system.dto.DictDataDTO;
-import com.github.mengweijin.vitality.system.entity.DictDataDO;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.framework.cache.CacheConst;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.mapper.DictDataMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
- * 字典数据表 服务类
+ * <p>
+ *  DictData Service
+ *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-02
+ * @since 2023-06-03
  */
+@Slf4j
 @Service
-public class DictDataService extends ServiceImpl<DictDataMapper, DictDataDO> {
+public class DictDataService extends CrudRepository<DictDataMapper, DictData> {
 
-    @Autowired
-    private DictDataMapper dictDataMapper;
-
-    public IPage<DictDataDTO> page(IPage<DictDataDTO> page, DictDataDTO dto){
-        return dictDataMapper.page(page, dto);
+    /**
+     * Custom paging query
+     * @param page page
+     * @param dictData {@link DictData}
+     * @return IPage
+     */
+    public IPage<DictData> page(IPage<DictData> page, DictData dictData){
+        LambdaQueryWrapper<DictData> query = new LambdaQueryWrapper<>();
+        query
+                .eq(StrUtil.isNotBlank(dictData.getCode()), DictData::getCode, dictData.getCode())
+                .eq(StrUtil.isNotBlank(dictData.getVal()), DictData::getVal, dictData.getVal())
+                .eq(!Objects.isNull(dictData.getSeq()), DictData::getSeq, dictData.getSeq())
+                .eq(StrUtil.isNotBlank(dictData.getDisabled()), DictData::getDisabled, dictData.getDisabled())
+                .eq(StrUtil.isNotBlank(dictData.getRemark()), DictData::getRemark, dictData.getRemark())
+                .eq(!Objects.isNull(dictData.getId()), DictData::getId, dictData.getId())
+                .eq(!Objects.isNull(dictData.getCreateBy()), DictData::getCreateBy, dictData.getCreateBy())
+                .eq(!Objects.isNull(dictData.getCreateTime()), DictData::getCreateTime, dictData.getCreateTime())
+                .eq(!Objects.isNull(dictData.getUpdateBy()), DictData::getUpdateBy, dictData.getUpdateBy())
+                .eq(!Objects.isNull(dictData.getUpdateTime()), DictData::getUpdateTime, dictData.getUpdateTime())
+                .like(StrUtil.isNotBlank(dictData.getLabel()), DictData::getLabel, dictData.getLabel());
+        query.orderByAsc(DictData::getSeq);
+        return this.page(page, query);
     }
 
-    public void removeByTypeCode(String typeCode) {
-        this.lambdaUpdate().eq(DictDataDO::getTypeCode, typeCode).remove();
+    @Cacheable(value = CacheNames.DICT_DATA_VAL_TO_LABEL, key = "#code + ':' + #val", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getLabelByCodeAndVal(String code, String val) {
+        return this.lambdaQuery()
+                .select(DictData::getLabel)
+                .eq(DictData::getCode, code)
+                .eq(DictData::getVal, val)
+                .oneOpt()
+                .map(DictData::getLabel)
+                .orElse(null);
     }
 
-    public boolean setDisabledValue(Long id, boolean disabled) {
-        return this.lambdaUpdate().set(DictDataDO::getDisabled, disabled).eq(DictDataDO::getId, id).update();
+    public List<DictData> getByCode(String code) {
+        return this.lambdaQuery()
+                .eq(DictData::getCode, code)
+                .orderByAsc(DictData::getSeq)
+                .list();
     }
 
-    public List<DictDataDO> getByTypeCode(String typeCode) {
-        return this.lambdaQuery().eq(DictDataDO::getTypeCode, typeCode).eq(DictDataDO::getDisabled, 0).orderByAsc(DictDataDO::getSeq).list();
+    public void checkValDuplicate(String code, String val) {
+        Optional<DictData> optional = this.lambdaQuery().eq(DictData::getCode, code).eq(DictData::getVal, val).oneOpt();
+        if (optional.isPresent()) {
+            throw new ClientException(StrUtil.format("The dict type code[{}] and value[{}] already exists!", code, val));
+        }
     }
 
-    @Transactional(rollbackFor = RuntimeException.class)
-    public boolean setDefaultSelected(Long id) {
-        DictDataDO dictDataDO = this.getById(id);
-        this.lambdaUpdate().set(DictDataDO::getDefaultSelected, 1).eq(DictDataDO::getTypeCode, dictDataDO.getTypeCode()).eq(DictDataDO::getId, id).update();
-        return this.lambdaUpdate().set(DictDataDO::getDefaultSelected, 0).eq(DictDataDO::getTypeCode, dictDataDO.getTypeCode()).ne(DictDataDO::getId, id).update();
-    }
 }

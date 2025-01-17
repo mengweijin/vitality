@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class P7zipUtils {
 
-	private final static String CMD_PREFIX_WINDOWS = Const.PROJECT_PATH + File.separator + "files/7z/7z.exe";
+	private final static String CMD_PREFIX_WINDOWS = Const.PROJECT_DIR + File.separator + "files/7z/7z.exe";
 
 	private final static String CMD_PREFIX_LINUX = "7za";
 

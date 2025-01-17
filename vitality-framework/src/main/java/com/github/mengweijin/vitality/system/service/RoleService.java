@@ -1,105 +1,87 @@
 package com.github.mengweijin.vitality.system.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.framework.exception.ClientException;
-import com.github.mengweijin.vitality.system.dto.RoleDTO;
-import com.github.mengweijin.vitality.system.entity.MenuRoleRltDO;
-import com.github.mengweijin.vitality.system.entity.RoleDO;
-import com.github.mengweijin.vitality.system.entity.UserRoleRltDO;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.system.constant.UserConst;
+import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
+import com.github.mengweijin.vitality.system.domain.entity.Role;
+import com.github.mengweijin.vitality.system.domain.entity.RoleMenu;
 import com.github.mengweijin.vitality.system.mapper.RoleMapper;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * 角色管理表 服务类
+ * <p>
+ *  Role Service
+ *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-09
+ * @since 2023-06-03
  */
+@Slf4j
 @Service
-public class RoleService extends ServiceImpl<RoleMapper, RoleDO> {
+@AllArgsConstructor
+public class RoleService extends CrudRepository<RoleMapper, Role> {
 
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private UserRoleRltService userRoleRltService;
-    @Autowired
-    private MenuRoleRltService menuRoleRltService;
+    private RoleMenuService roleMenuService;
 
-    @Override
-    public boolean removeById(Serializable id) {
-        Long count = userRoleRltService.lambdaQuery().eq(UserRoleRltDO::getRoleId, id).count();
-        if(count > 0) {
-            throw new ClientException("Users already exist in current role and cannot be deleted!");
+    /**
+     * Custom paging query
+     * @param page page
+     * @param role {@link Role}
+     * @return IPage
+     */
+    public IPage<Role> page(IPage<Role> page, Role role){
+        LambdaQueryWrapper<Role> query = new LambdaQueryWrapper<>();
+        query
+                .eq(StrUtil.isNotBlank(role.getCode()), Role::getCode, role.getCode())
+                .eq(!Objects.isNull(role.getSeq()), Role::getSeq, role.getSeq())
+                .eq(StrUtil.isNotBlank(role.getDisabled()), Role::getDisabled, role.getDisabled())
+                .like(StrUtil.isNotBlank(role.getName()), Role::getName, role.getName())
+                .eq(StrUtil.isNotBlank(role.getRemark()), Role::getRemark, role.getRemark())
+                .eq(!Objects.isNull(role.getId()), Role::getId, role.getId())
+                .eq(!Objects.isNull(role.getCreateBy()), Role::getCreateBy, role.getCreateBy())
+                .eq(!Objects.isNull(role.getCreateTime()), Role::getCreateTime, role.getCreateTime())
+                .eq(!Objects.isNull(role.getUpdateBy()), Role::getUpdateBy, role.getUpdateBy())
+                .eq(!Objects.isNull(role.getUpdateTime()), Role::getUpdateTime, role.getUpdateTime());
+
+        query.orderByAsc(Role::getSeq);
+        return this.page(page, query);
+    }
+
+    public Set<String> getRoleCodeByUsername(String username) {
+        if (UserConst.ADMIN_USERNAME.equals(username)) {
+            return this.list().stream().map(Role::getCode).collect(Collectors.toSet());
         }
-        return super.removeById(id);
+        return this.getBaseMapper().getRoleCodeByUsername(username);
     }
 
-    public RoleDTO detailById(Long id) {
-        return roleMapper.detailById(id);
-    }
+    public boolean setMenuPermission(RolePermissionBO bo) {
+        roleMenuService.removeByRoleId(bo.getRoleId());
 
-    public IPage<RoleDTO> page(IPage<RoleDTO> page, RoleDTO dto){
-        return roleMapper.page(page, dto);
-    }
-
-    public boolean setDisabledValue(Long id, boolean disabled) {
-        return this.lambdaUpdate().set(RoleDO::getDisabled, disabled).eq(RoleDO::getId, id).update();
-    }
-
-    public List<RoleDTO> getByUserId(Long userId) {
-        return roleMapper.getByUserId(userId);
-    }
-
-    public void addUsers(Long roleId, List<Long> userIdList) {
-        if(CollUtil.isEmpty(userIdList)) {
-            return;
+        List<RoleMenu> collect = bo.getMenuIds().stream().map(menuId -> {
+            RoleMenu roleMenu = new RoleMenu();
+            roleMenu.setRoleId(bo.getRoleId());
+            roleMenu.setMenuId(menuId);
+            return roleMenu;
+        }).collect(Collectors.toList());
+        if(!collect.isEmpty()) {
+            return roleMenuService.saveBatch(collect, Constants.DEFAULT_BATCH_SIZE);
         }
-        List<Long> alreadyExistedUserIdList = userRoleRltService.lambdaQuery()
-                .select(UserRoleRltDO::getUserId)
-                .eq(UserRoleRltDO::getRoleId, roleId)
-                .in(UserRoleRltDO::getUserId, userIdList)
-                .list()
-                .stream().map(UserRoleRltDO::getUserId).toList();
-
-        List<UserRoleRltDO> userRoleRltList = userIdList.stream()
-                .filter(userId -> alreadyExistedUserIdList.stream().noneMatch(existed -> existed.equals(userId)))
-                .map(userId -> {
-                    UserRoleRltDO rlt = new UserRoleRltDO();
-                    rlt.setUserId(userId);
-                    rlt.setRoleId(roleId);
-                    return rlt;
-                })
-                .toList();
-
-        if (CollUtil.isNotEmpty(userRoleRltList)) {
-            userRoleRltService.saveBatch(userRoleRltList);
-        }
+        return true;
     }
 
-    public void removeUsers(Long roleId, List<Long> userIdList) {
-        if(CollUtil.isEmpty(userIdList)) {
-            return;
-        }
-        userRoleRltService.lambdaUpdate()
-                .eq(UserRoleRltDO::getRoleId, roleId)
-                .in(UserRoleRltDO::getUserId, userIdList)
-                .remove();
-    }
-
-    @Transactional
-    public void setMenu(Long id, List<Long> menuIdList) {
-        menuRoleRltService.lambdaUpdate().eq(MenuRoleRltDO::getRoleId, id).remove();
-        if(CollUtil.isEmpty(menuIdList)) {
-            return;
-        }
-        List<MenuRoleRltDO> list = menuIdList.stream().map(menuId -> new MenuRoleRltDO().setRoleId(id).setMenuId(menuId)).toList();
-        menuRoleRltService.saveBatch(list);
+    public Role getByCode(String code) {
+        return this.lambdaQuery().eq(Role::getCode, code).one();
     }
 }

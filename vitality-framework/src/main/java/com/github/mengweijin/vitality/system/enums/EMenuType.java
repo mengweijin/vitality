@@ -1,20 +1,25 @@
 package com.github.mengweijin.vitality.system.enums;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author mengweijin
- * @date 2023/5/20
+ * @since 2023/5/20
  */
-public enum EMenuType {
+@Getter
+@AllArgsConstructor
+public enum EMenuType implements IEnum<String> {
 
-    DIR(0), MENU(1), BTN(2), OTHER(3);
+    MENU("MENU"),
 
-    private final Integer value;
+    BTN("BTN"),
 
-    EMenuType(Integer value) {
-        this.value = value;
-    }
+    IFRAME("IFRAME"),
 
-    public Integer getValue() {
-        return this.value;
-    }
+    URL("URL");
+
+    private final String value;
+
 }

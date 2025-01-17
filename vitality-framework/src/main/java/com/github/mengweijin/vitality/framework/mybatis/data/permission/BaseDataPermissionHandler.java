@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * {@link DataScope} Can only be used in *Mapper.java.
  * @author mengweijin
- * @date 2022/11/20
+ * @since 2022/11/20
  */
 @Slf4j
 public abstract class BaseDataPermissionHandler implements DataPermissionHandler {
@@ -43,7 +43,7 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
      */
     private Expression dataScopeFilter(DataScope dataScope, Expression where) {
         // 如果是特权用户，不控制数据权限
-        if (this.isAdminForLoginUserId()) {
+        if (this.isAdmin()) {
             return where;
         }
 
@@ -86,7 +86,7 @@ public abstract class BaseDataPermissionHandler implements DataPermissionHandler
 
     protected abstract String getLoginUserId();
 
-    protected abstract boolean isAdminForLoginUserId();
+    protected abstract boolean isAdmin();
 
     protected abstract List<String> getLoginUserDeptIdList();
 

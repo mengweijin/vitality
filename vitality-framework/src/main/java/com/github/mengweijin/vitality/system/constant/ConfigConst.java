@@ -2,11 +2,14 @@ package com.github.mengweijin.vitality.system.constant;
 
 /**
  * @author mengweijin
- * @date 2023/4/16
+ * @since 2023/4/16
  */
 public interface ConfigConst {
 
-    String CODE_USER_INIT_PASSWORD = "vtl_user_init_password";
+    String USER_INIT_PASSWORD = "vtl_user_init_password";
 
+    String USER_PASSWORD_CHANGE_INTERVAL = "vtl_user_password_change_interval";
+
+    String SYSTEM_ADMIN_ROLE_CODE = "vtl_system_admin_role_code";
 
 }

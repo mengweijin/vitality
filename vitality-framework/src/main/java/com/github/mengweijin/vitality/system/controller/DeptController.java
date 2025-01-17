@@ -1,114 +1,132 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
-import com.github.mengweijin.vitality.framework.frontend.layui.LayuiTreeNode;
-import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.dto.DeptDTO;
-import com.github.mengweijin.vitality.system.entity.DeptDO;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import com.github.mengweijin.vitality.system.service.DeptService;
-import org.dromara.hutool.core.collection.ListUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 部门管理表 控制器
+ * <p>
+ *  Dept Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-18
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
 @RestController
-@RequestMapping("/vtl-dept")
-public class DeptController extends BaseController {
+@RequestMapping("/system/dept")
+public class DeptController {
 
-    @Autowired
     private DeptService deptService;
 
-    @SaCheckPermission("system:dept:add")
-    @PostMapping
-    public R add(DeptDO deptDO) {
-        boolean bool = deptService.save(deptDO);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get Dept page by Dept
+     * </p>
+     * @param page page
+     * @param dept {@link Dept}
+     * @return Page<Dept>
+     */
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/page")
+    public IPage<Dept> page(Page<Dept> page, Dept dept) {
+        return deptService.page(page, dept);
     }
 
-    @SaCheckPermission("system:dept:edit")
-    @PutMapping
-    public R edit(DeptDO deptDO) {
-        boolean bool = deptService.updateById(deptDO);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get Dept list by Dept
+     * </p>
+     * @param dept {@link Dept}
+     * @return List<Dept>
+     */
+    @SaCheckPermission("system:dept:query")
+    @GetMapping("/list")
+    public List<Dept> list(Dept dept) {
+        return deptService.list(new LambdaQueryWrapper<>(dept).orderByAsc(Dept::getSeq));
     }
 
-    @SaCheckPermission("system:dept:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = deptService.setDisabledValue(id, disabled);
-        return R.bool(bool);
-    }
-
-    @SaCheckPermission("system:dept:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = deptService.removeById(id);
-        return R.bool(bool);
-    }
-
+    /**
+     * <p>
+     * Get Dept by id
+     * </p>
+     * @param id id
+     * @return Dept
+     */
+    @SaCheckPermission("system:dept:query")
     @GetMapping("/{id}")
-    public DeptDO getById(@PathVariable("id") Long id) {
+    public Dept getById(@PathVariable("id") Long id) {
         return deptService.getById(id);
     }
 
-    @SaCheckPermission("system:dept:detail")
-    @GetMapping("/detail/{id}")
-    public DeptDTO detailById(@PathVariable("id") Long id) {
-        return deptService.detailById(id);
+    /**
+     * <p>
+     * Add Dept
+     * </p>
+     * @param dept {@link Dept}
+     */
+    @Log(operationType = EOperationType.INSERT)
+    @SaCheckPermission("system:dept:create")
+    @PostMapping("/create")
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Dept dept) {
+        boolean bool = deptService.save(dept);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dept:list")
-    @GetMapping("/page")
-    public IPage<DeptDTO> page(Page<DeptDTO> page, DeptDTO dto) {
-        return deptService.page(page, dto);
+    /**
+     * <p>
+     * Update Dept
+     * </p>
+     * @param dept {@link Dept}
+     */
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:dept:update")
+    @PostMapping("/update")
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Dept dept) {
+        boolean bool = deptService.updateById(dept);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:dept:list")
-    @GetMapping("/treeTableDataList")
-    public List<DeptDTO> treeTableDataList(DeptDTO dto) {
-        return deptService.treeTableDataList(dto);
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:dept:update")
+    @PostMapping("/setDisabled/{id}/{disabled}")
+    public R<Void> setDisabledValue(@PathVariable("id") Long id, @PathVariable("disabled") String disabled) {
+        boolean bool = deptService.setDisabled(id, disabled);
+        return R.ajax(bool);
     }
 
-    @GetMapping("/layuiTree")
-    public List<LayuiTreeNode> layuiTree() {
-        return deptService.layuiTree();
+    /**
+     * <p>
+     * Delete Dept by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @Log(operationType = EOperationType.DELETE)
+    @SaCheckPermission("system:dept:delete")
+    @PostMapping("/delete/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        return R.ajax(deptService.removeByIds(Arrays.asList(ids)));
     }
 
-    @SaCheckPermission("system:dept:assignUser")
-    @PostMapping("/addUser/{id}")
-    public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        deptService.addUsers(id, ListUtil.of(userIdList));
-        return R.success();
-    }
-
-    @DeleteMapping("/removeUser/{id}")
-    public R removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        deptService.removeUsers(id, Arrays.asList(userIdList));
-        return R.success();
-    }
-
-    @SaCheckPermission("system:dept:authorization")
-    @PostMapping("/setMenu/{id}")
-    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
-        deptService.setMenu(id, ListUtil.of(menuIdList));
-        return R.success();
-    }
 }
+

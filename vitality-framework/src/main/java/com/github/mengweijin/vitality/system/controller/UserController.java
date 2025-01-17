@@ -1,141 +1,266 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
-import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.constant.ConfigConst;
-import com.github.mengweijin.vitality.system.dto.UserChangePasswordDTO;
-import com.github.mengweijin.vitality.system.dto.UserDTO;
-import com.github.mengweijin.vitality.system.dto.UserDetailDTO;
-import com.github.mengweijin.vitality.system.dto.UserEditDTO;
-import com.github.mengweijin.vitality.system.entity.ConfigDO;
-import com.github.mengweijin.vitality.system.service.ConfigService;
-import com.github.mengweijin.vitality.system.service.UserProfileService;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
+import com.github.mengweijin.vitality.framework.util.BeanUtils;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.constant.UserConst;
+import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
+import com.github.mengweijin.vitality.system.domain.bo.UserBO;
+import com.github.mengweijin.vitality.system.domain.bo.UserRolesBO;
+import com.github.mengweijin.vitality.system.domain.entity.User;
+import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
+import com.github.mengweijin.vitality.system.domain.vo.UserSensitiveVO;
+import com.github.mengweijin.vitality.system.domain.vo.UserVO;
+import com.github.mengweijin.vitality.system.service.UserAvatarService;
+import com.github.mengweijin.vitality.system.service.UserRoleService;
 import com.github.mengweijin.vitality.system.service.UserService;
-import jakarta.validation.Valid;
-import org.dromara.hutool.core.collection.ListUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.math.NumberUtil;
+import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
- * 用户表 控制器
+ * <p>
+ * User Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
 @RestController
-@RequestMapping("/vtl-user")
-public class UserController extends BaseController {
+@RequestMapping("/system/user")
+public class UserController {
 
-    @Autowired
     private UserService userService;
-    @Autowired
-    private UserProfileService userProfileService;
-    @Autowired
-    private ConfigService configService;
 
-    @SaCheckPermission("system:user:add")
-    @PostMapping
-    public R add(UserEditDTO vtlUser) {
-        boolean bool = userService.save(vtlUser);
-        return R.bool(bool);
-    }
+    private UserAvatarService userAvatarService;
 
-    @SaCheckPermission("system:user:edit")
-    @PutMapping
-    public R edit(UserEditDTO vtlUser) {
-        boolean bool = userService.updateById(vtlUser);
-        return R.bool(bool);
-    }
+    private UserRoleService userRoleService;
 
-    @SaCheckPermission("system:user:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = userService.removeById(id);
-        return R.bool(bool);
-    }
-
-    @SaCheckPermission("system:user:delete")
-    @DeleteMapping
-    public R delete(Long[] ids) {
-        boolean bool = userService.removeBatchByIds(Arrays.asList(ids));
-        return R.bool(bool);
-    }
-
-    @GetMapping("/{id}")
-    public UserDTO getById(@PathVariable("id") Long id) {
-        return userService.detailById(id);
-    }
-
-    @SaCheckPermission("system:user:detail")
-    @GetMapping("/detail/{id}")
-    public UserDetailDTO detailById(@PathVariable("id") Long id) {
-        return userService.detailById(id);
-    }
-
-    @SaCheckPermission("system:user:list")
+    /**
+     * <p>
+     * Get User page by User
+     * </p>
+     *
+     * @param page page
+     * @param user {@link User}
+     * @return Page<User>
+     */
+    @SaCheckPermission("system:user:query")
     @GetMapping("/page")
-    public IPage<UserDTO> page(Page<UserDTO> page, UserDTO dto, Long deptId) {
-        return userService.page(page, dto, deptId);
+    public IPage<UserVO> page(Page<User> page, User user) {
+        IPage<User> userPage = userService.page(page, user);
+        return BeanUtils.copyPage(userPage, UserVO.class);
     }
 
-    @GetMapping("/page/byRole/{roleId}")
-    public IPage<UserDTO> pageByRole(@PathVariable("roleId") Long roleId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByRole(page, roleId, dto);
+    /**
+     * <p>
+     * Get User list by User
+     * </p>
+     *
+     * @param user {@link User}
+     * @return List<User>
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/list")
+    public List<UserVO> list(User user) {
+        List<User> userList = userService.list(new LambdaQueryWrapper<>(user));
+        return BeanUtils.copyList(userList, UserVO.class);
     }
 
-    @GetMapping("/page/byDept/{deptId}")
-    public IPage<UserDTO> pageByDept(@PathVariable("deptId") Long deptId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByDept(page, deptId, dto);
+    /**
+     * <p>
+     * Get User by id
+     * </p>
+     *
+     * @param id id
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/{id}")
+    public UserVO getById(@PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        return BeanUtils.copyBean(user, UserVO.class);
     }
 
-    @GetMapping("/page/byPost/{postId}")
-    public IPage<UserDTO> pageByPost(@PathVariable("postId") Long postId, Page<UserDTO> page, UserDTO dto) {
-        return userService.pageByPost(page, postId, dto);
+    /**
+     * <p>
+     * Get Sensitive User by id
+     * </p>
+     *
+     * @param id id
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/sensitive/{id}")
+    public User getSensitiveById(@PathVariable("id") Long id) {
+        return userService.getById(id);
     }
 
-    @SaCheckPermission("system:user:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = userService.setDisabledValue(id, disabled);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get Sensitive Login User
+     * </p>
+     *
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/sensitive-mine")
+    public UserVO getSensitive() {
+        User user = userService.getById(LoginHelper.getLoginUser().getUserId());
+        return BeanUtils.copyBean(user, new UserVO());
     }
 
-    @PostMapping("/updateProfile/{id}")
-    public R updateProfile(@PathVariable("id") Long id, String profilePicture) {
-        boolean bool = userProfileService.updateProfileById(id, profilePicture);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get mine User by id
+     * </p>
+     *
+     * @return User
+     */
+    @SaCheckPermission("system:user:query")
+    @GetMapping("/mine")
+    public UserSensitiveVO getMine() {
+        User user = userService.getById(LoginHelper.getLoginUser().getUserId());
+        return BeanUtils.copyBean(user, new UserSensitiveVO());
     }
 
-    @PostMapping("/changePassword")
-    public R changePassword(@Valid UserChangePasswordDTO dto) {
-        return R.bool(userService.changePassword(dto));
+    /**
+     * <p>
+     * Add User
+     * </p>
+     *
+     * @param user {@link User}
+     */
+    @Log(operationType = EOperationType.INSERT, saveRequestData = false)
+    @SaCheckPermission("system:user:create")
+    @PostMapping("/create")
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody UserBO user) {
+        boolean bool = userService.save(BeanUtils.copyBean(user, new User()));
+        return R.ajax(bool);
     }
 
+    /**
+     * <p>
+     * Update User
+     * </p>
+     *
+     * @param user {@link User}
+     */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
+    @SaCheckPermission("system:user:update")
+    @PostMapping("/update")
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody UserBO user) {
+        boolean bool = userService.updateById(BeanUtils.copyBean(user, new User()));
+        return R.ajax(bool);
+    }
+
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:user:update")
+    @PostMapping("/set-disabled")
+    public R<Void> setDisabled(@NotNull Long id, @NotBlank String disabled) {
+        boolean bool = userService.setDisabled(id, disabled);
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * Delete User by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     *
+     * @param ids id
+     */
+    @Log(operationType = EOperationType.DELETE)
+    @SaCheckPermission("system:user:delete")
+    @PostMapping("/delete/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        List<Long> list = Arrays.asList(ids);
+        boolean isAdmin = list.stream().anyMatch(id -> UserConst.ADMIN_USER_ID == NumberUtil.parseLong(StrUtil.toString(id)));
+        if (isAdmin) {
+            throw new ClientException("Can't delete admin account!");
+        }
+        return R.ajax(userService.removeByIds(list));
+    }
+
+    /**
+     * <p>
+     * change user password
+     * </p>
+     *
+     * @param bo {@link ChangePasswordBO}
+     */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
+    @SaCheckPermission("system:user:changePassword")
+    @PostMapping("/change-password")
+    public R<Void> changePassword(@Validated @RequestBody ChangePasswordBO bo) {
+        boolean bool = userService.changePassword(bo);
+        return R.ajax(bool);
+    }
+
+    /**
+     * <p>
+     * change user password
+     * </p>
+     *
+     * @param bo {@link ChangePasswordBO}
+     */
+    @Log(operationType = EOperationType.UPDATE, saveRequestData = false)
     @SaCheckPermission("system:user:resetPassword")
-    @PostMapping("/resetPassword/{id}")
-    public R resetPassword(@PathVariable("id") Long id) {
-        ConfigDO config = configService.getByCode(ConfigConst.CODE_USER_INIT_PASSWORD);
-        boolean bool = userService.updatePassword(id, config.getVal());
-        return R.bool(bool);
+    @PostMapping("/reset-password")
+    public R<Void> resetPassword(@Validated @RequestBody ChangePasswordBO bo) {
+        boolean bool = userService.updatePassword(bo.getUsername(), bo.getNewPassword());
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:user:authorization")
-    @PostMapping("/setMenu/{id}")
-    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
-        userService.setMenu(id, ListUtil.of(menuIdList));
-        return R.success();
+    /**
+     * <p>
+     * set user avatar
+     * </p>
+     *
+     * @param userAvatar {@link UserAvatar}
+     */
+    @SaCheckPermission("system:user:setAvatar")
+    @PostMapping("/set-avatar")
+    public R<Void> setAvatar(@Validated @RequestBody UserAvatar userAvatar) {
+        boolean bool = userAvatarService.setAvatar(userAvatar);
+        return R.ajax(bool);
     }
 
+    /**
+     * <p>
+     * set user Roles
+     * </p>
+     *
+     * @param bo {@link UserRolesBO}
+     */
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:user:setRoles")
+    @PostMapping("/set-roles")
+    public R<Void> setRoles(@Validated @RequestBody UserRolesBO bo) {
+        boolean bool = userRoleService.setUserRoles(bo);
+        return R.ajax(bool);
+    }
 }
+

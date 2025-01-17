@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
  *
  * @author Meng Wei Jin
  **/
+@SuppressWarnings({"unused"})
 public interface Const {
 
     String TILDA = "~";
@@ -119,10 +120,6 @@ public interface Const {
     String SUCCESS = "SUCCESS";
     String FAILURE = "FAILURE";
 
-    int ENABLED = 0;
-    int DISABLED = 1;
-
-
     /**
      * 系统字符集编码
      */
@@ -131,11 +128,20 @@ public interface Const {
     /**
      * java项目根路径
      */
-    String PROJECT_PATH = System.getProperty("user.dir") + File.separatorChar;
+    String PROJECT_DIR = System.getProperty("user.dir") + File.separator;
 
     /**
      * 操作系统的临时目录 Temp\  已经携带 File.separatorChar 字符
      */
-    String JAVA_TMP_PATH = System.getProperty("java.io.tmpdir");
+    String JAVA_TMP_DIR = System.getProperty("java.io.tmpdir");
 
+    /**
+     * 前端权限格式
+     */
+    String ALL_PERMISSIONS = "*:*:*";
+
+    /**
+     * Java虚拟机可用的CPU处理器个数
+     */
+    int PROCESSORS = Runtime.getRuntime().availableProcessors();
 }

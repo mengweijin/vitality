@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.dromara.hutool.core.io.IoUtil;
 import org.springframework.http.HttpHeaders;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -72,7 +73,7 @@ public class DownLoadUtils {
      */
     public static void chunkDownload(File file, HttpServletRequest request, HttpServletResponse response) {
         String range = request.getHeader(HttpHeaders.RANGE);
-        log.debug("current request rang:" + range);
+        log.debug("current request rang:{}", range);
         //开始下载位置
         long startByte = 0;
         //结束下载位置
@@ -117,7 +118,7 @@ public class DownLoadUtils {
 
         //解决下载文件时文件名乱码问题
         byte[] fileNameBytes = fileName.getBytes(StandardCharsets.UTF_8);
-        fileName = new String(fileNameBytes, 0, fileNameBytes.length, StandardCharsets.ISO_8859_1);
+        fileName = new String(fileNameBytes, StandardCharsets.ISO_8859_1);
 
         //各种响应头设置
         //http状态码要为206：表示获取部分内容
@@ -155,10 +156,10 @@ public class DownLoadUtils {
 
             outputStream.flush();
             response.flushBuffer();
-            log.debug("Download completed：" + startByte + "-" + endByte + "：" + transmitted);
+            log.debug("Download completed：{}-{}：{}", startByte, endByte, transmitted);
         } catch (ClientAbortException e) {
             //捕获此异常表示用户停止下载
-            log.warn("User stop download：" + startByte + "-" + endByte + "：" + transmitted);
+            log.warn("User stop download：{}-{}：{}", startByte, endByte, transmitted);
         } catch (IOException e) {
             log.error("User download IO Exception，Message：{}", e.getLocalizedMessage());
         }

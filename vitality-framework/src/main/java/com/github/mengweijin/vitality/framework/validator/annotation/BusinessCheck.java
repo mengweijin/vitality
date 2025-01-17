@@ -18,11 +18,12 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {BusinessCheckValidator.class})
 public @interface BusinessCheck {
 
-    String message() default "Business Check failed!";
-
-    Class<? extends BusinessCheckValidator.BusinessCheckRule> clazz();
+    String message() default "Business check failed!";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    Class<? extends BusinessCheckValidator.CheckRule>[] checkRule();
+
 }

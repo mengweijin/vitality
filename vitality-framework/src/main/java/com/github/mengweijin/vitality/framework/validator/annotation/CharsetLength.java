@@ -4,6 +4,7 @@ package com.github.mengweijin.vitality.framework.validator.annotation;
 import com.github.mengweijin.vitality.framework.validator.CharsetLengthValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +14,7 @@ import java.lang.annotation.Target;
 /**
  * @author Meng Wei Jin
  * 自定义字段验证
- * @date Create in 2019-10-21 19:58
+ * @since 2019-10-21
  **/
 @Documented
 @Constraint(validatedBy = CharsetLengthValidator.class)

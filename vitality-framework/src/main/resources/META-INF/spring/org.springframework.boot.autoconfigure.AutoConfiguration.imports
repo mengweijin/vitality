@@ -1,9 +1,9 @@
 com.github.mengweijin.vitality.framework.cache.CacheConfig
-com.github.mengweijin.vitality.framework.filter.FilterConfig
 com.github.mengweijin.vitality.framework.jackson.JacksonConfig
-com.github.mengweijin.vitality.framework.minio.MinioConfig
+com.github.mengweijin.vitality.framework.log.LogConfig
+com.github.mengweijin.vitality.framework.mvc.AsyncConfig
 com.github.mengweijin.vitality.framework.mvc.WebMvcConfig
+com.github.mengweijin.vitality.framework.repeatable.RepeatableConfig
 com.github.mengweijin.vitality.framework.mybatis.MybatisPlusConfig
-com.github.mengweijin.vitality.framework.redis.RedisConfig
 com.github.mengweijin.vitality.framework.satoken.SaTokenConfig
 com.github.mengweijin.vitality.framework.VitalityAutoConfiguration

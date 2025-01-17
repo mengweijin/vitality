@@ -1,105 +1,47 @@
 package com.github.mengweijin.vitality.system.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.mengweijin.vitality.framework.exception.ClientException;
-import com.github.mengweijin.vitality.system.dto.PostDTO;
-import com.github.mengweijin.vitality.system.entity.MenuPostRltDO;
-import com.github.mengweijin.vitality.system.entity.PostDO;
-import com.github.mengweijin.vitality.system.entity.UserPostRltDO;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.system.domain.entity.Post;
 import com.github.mengweijin.vitality.system.mapper.PostMapper;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Objects;
 
 /**
- * 岗位管理表 服务类
+ * <p>
+ *  Post Service
+ *  Add @Transactional(rollbackFor = Exception.class) if you need.
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-09
+ * @since 2023-06-03
  */
+@Slf4j
 @Service
-public class PostService extends ServiceImpl<PostMapper, PostDO> {
+public class PostService extends CrudRepository<PostMapper, Post> {
 
-    @Autowired
-    private PostMapper postMapper;
-    @Autowired
-    private UserPostRltService userPostRltService;
-    @Autowired
-    private MenuPostRltService menuPostRltService;
-
-    @Override
-    public boolean removeById(Serializable id) {
-        Long count = userPostRltService.lambdaQuery().eq(UserPostRltDO::getPostId, id).count();
-        if(count > 0) {
-            throw new ClientException("Users already exist in current post and cannot be deleted!");
-        }
-        return super.removeById(id);
-    }
-
-    public PostDTO detailById(Long id) {
-        return postMapper.detailById(id);
-    }
-
-    public IPage<PostDTO> page(IPage<PostDTO> page, PostDTO dto){
-        return postMapper.page(page, dto);
-    }
-
-    public boolean setDisabledValue(Long id, boolean disabled) {
-        return this.lambdaUpdate().set(PostDO::getDisabled, disabled).eq(PostDO::getId, id).update();
-    }
-
-    public List<PostDTO> getByUserId(Long userId) {
-        return postMapper.getByUserId(userId);
-    }
-
-    public void addUsers(Long postId, List<Long> userIdList) {
-        if(CollUtil.isEmpty(userIdList)) {
-            return;
-        }
-        List<Long> alreadyExistedUserIdList = userPostRltService.lambdaQuery()
-                .select(UserPostRltDO::getUserId)
-                .eq(UserPostRltDO::getPostId, postId)
-                .in(UserPostRltDO::getUserId, userIdList)
-                .list()
-                .stream().map(UserPostRltDO::getUserId).toList();
-
-        List<UserPostRltDO> userPostRltList = userIdList.stream()
-                .filter(userId -> alreadyExistedUserIdList.stream().noneMatch(existed -> existed.equals(userId)))
-                .map(userId -> {
-                    UserPostRltDO rlt = new UserPostRltDO();
-                    rlt.setUserId(userId);
-                    rlt.setPostId(postId);
-                    return rlt;
-                })
-                .toList();
-
-        if (CollUtil.isNotEmpty(userPostRltList)) {
-            userPostRltService.saveBatch(userPostRltList);
-        }
-    }
-
-    public void removeUsers(Long postId, List<Long> userIdList) {
-        if(CollUtil.isEmpty(userIdList)) {
-            return;
-        }
-        userPostRltService.lambdaUpdate()
-                .eq(UserPostRltDO::getPostId, postId)
-                .in(UserPostRltDO::getUserId, userIdList)
-                .remove();
-    }
-
-    @Transactional
-    public void setMenu(Long id, List<Long> menuIdList) {
-        menuPostRltService.lambdaUpdate().eq(MenuPostRltDO::getPostId, id).remove();
-        if(CollUtil.isEmpty(menuIdList)) {
-            return;
-        }
-        List<MenuPostRltDO> list = menuIdList.stream().map(menuId -> new MenuPostRltDO().setPostId(id).setMenuId(menuId)).toList();
-        menuPostRltService.saveBatch(list);
+    /**
+     * Custom paging query
+     * @param page page
+     * @param post {@link Post}
+     * @return IPage
+     */
+    public IPage<Post> page(IPage<Post> page, Post post){
+        LambdaQueryWrapper<Post> query = new LambdaQueryWrapper<>();
+        query
+                .eq(!Objects.isNull(post.getSeq()), Post::getSeq, post.getSeq())
+                .eq(StrUtil.isNotBlank(post.getDisabled()), Post::getDisabled, post.getDisabled())
+                .eq(StrUtil.isNotBlank(post.getRemark()), Post::getRemark, post.getRemark())
+                .eq(!Objects.isNull(post.getId()), Post::getId, post.getId())
+                .eq(!Objects.isNull(post.getCreateBy()), Post::getCreateBy, post.getCreateBy())
+                .eq(!Objects.isNull(post.getCreateTime()), Post::getCreateTime, post.getCreateTime())
+                .eq(!Objects.isNull(post.getUpdateBy()), Post::getUpdateBy, post.getUpdateBy())
+                .eq(!Objects.isNull(post.getUpdateTime()), Post::getUpdateTime, post.getUpdateTime())
+                .like(StrUtil.isNotBlank(post.getName()), Post::getName, post.getName());
+        return this.page(page, query);
     }
 }

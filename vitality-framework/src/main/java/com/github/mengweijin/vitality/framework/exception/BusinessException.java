@@ -4,6 +4,7 @@ package com.github.mengweijin.vitality.framework.exception;
  * @author Meng Wei Jin
  * 应用
  **/
+@SuppressWarnings({"unused"})
 public class BusinessException extends RuntimeException {
 
     public BusinessException(String message) {

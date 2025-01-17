@@ -2,20 +2,21 @@ package com.github.mengweijin.vitality.framework.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.dromara.hutool.extra.spring.SpringUtil;
 
 /**
  * @author mengweijin
- * @date 2022/5/17
+ * @since 2022/5/17
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class P {
-
-    private P(){
-    }
 
     public static ObjectMapper objectMapper() {
         return SpringUtil.getBean(ObjectMapper.class);
     }
+
 
     public static String writeValueAsString(Object value) {
         try {

@@ -1,5 +1,3 @@
-Spring Boot Version: ${spring-boot.version}
-
 
                        风 调 码 顺
 
@@ -56,3 +54,19 @@ _/_/__/_(___ _/___/_(___/_|/_|/__(___ _/___/___/___/___/__
                        /                  /
                    (_ /               (_ /
 
+${AnsiColor.BRIGHT_GREEN}
+=====================================================================================
+           Application Name:  ${application.name}
+        Application Version:  ${application.version} ${application.formatted-version}
+        Spring Boot Version:  ${spring-boot.version} ${spring-boot.formatted-version}
+                Server Port:  ${server.port}
+     Spring Profiles Active:  ${spring.profiles.active}
+Server Servlet Content-Path:  ${server.servlet.context-path}
+                     Author:  ${application.author}
+                      Email:  ${application.email}
+              Vitality Link:  ${application.vitality}
+                  Home Link:  ${application.home}
+                GitHub Link:  ${application.github}
+                 Gitee Link:  ${application.gitee}
+=====================================================================================
+${AnsiColor.BLACK}

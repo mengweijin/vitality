@@ -1,7 +1,8 @@
 package com.github.mengweijin.vitality.framework.util;
 
-import org.dromara.hutool.core.date.DatePattern;
+import org.dromara.hutool.core.date.DateFormatPool;
 import org.dromara.hutool.core.date.TimeUtil;
+
 import java.time.LocalDateTime;
 
 /**
@@ -35,7 +36,7 @@ public class TimestampIdUtils {
 		synchronized (LOCK) {
 			now = LocalDateTime.now();
 		}
-		return Long.parseLong(TimeUtil.format(now, DatePattern.PURE_DATETIME_MS_PATTERN));
+        return Long.parseLong(TimeUtil.format(now, DateFormatPool.PURE_DATETIME_MS_PATTERN));
 	}
 
 }

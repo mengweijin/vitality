@@ -1,15 +1,13 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.log.DbErrorLoggerAppender;
-import com.github.mengweijin.vitality.framework.log.LogAspect;
-import com.github.mengweijin.vitality.framework.otp.TOTPService;
-import com.github.mengweijin.vitality.system.VitalitySystemBeanDefinitionRegistryPostProcessor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -21,9 +19,9 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author mengweijin
  */
-//@EnableAsync // 不推荐使用
-//@EnableScheduling // 不推荐使用
-@MapperScan({ "com.github.mengweijin.vitality.**.mapper" })
+@EnableAspectJAutoProxy(exposeProxy = true)
+@EnableAsync(proxyTargetClass = true)
+@EnableScheduling
 @Configuration
 @EnableConfigurationProperties({VitalityProperties.class})
 public class VitalityAutoConfiguration {
@@ -34,23 +32,4 @@ public class VitalityAutoConfiguration {
         return restTemplateBuilder.build();
     }
 
-    @Bean
-    public static VitalitySystemBeanDefinitionRegistryPostProcessor vitalitySystemBeanDefinitionRegistryPostProcessor() {
-        return new VitalitySystemBeanDefinitionRegistryPostProcessor();
-    }
-
-    @Bean
-    public LogAspect logAspect() {
-        return new LogAspect(aopLog -> {});
-    }
-
-    @Bean
-    public DbErrorLoggerAppender dbErrorLoggerAppender() {
-        return new DbErrorLoggerAppender();
-    }
-
-    @Bean
-    public TOTPService totpService() {
-        return new TOTPService();
-    }
 }

@@ -1,107 +1,153 @@
 package com.github.mengweijin.vitality.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.mengweijin.vitality.framework.domain.R;
-import com.github.mengweijin.vitality.framework.mvc.BaseController;
-import com.github.mengweijin.vitality.system.dto.RoleDTO;
-import com.github.mengweijin.vitality.system.entity.RoleDO;
+import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
+import com.github.mengweijin.vitality.framework.log.aspect.enums.EOperationType;
+import com.github.mengweijin.vitality.framework.validator.group.Group;
+import com.github.mengweijin.vitality.system.domain.bo.RolePermissionBO;
+import com.github.mengweijin.vitality.system.domain.entity.Role;
+import com.github.mengweijin.vitality.system.enums.EYesNo;
 import com.github.mengweijin.vitality.system.service.RoleService;
-import org.dromara.hutool.core.collection.ListUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import com.github.mengweijin.vitality.system.service.UserRoleService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
- * 角色管理表 控制器
+ * <p>
+ *  Role Controller
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-09
+ * @since 2023-06-03
  */
+@Slf4j
+@AllArgsConstructor
 @RestController
-@RequestMapping("/vtl-role")
-public class RoleController extends BaseController {
+@RequestMapping("/system/role")
+public class RoleController {
 
-    @Autowired
     private RoleService roleService;
 
-    @SaCheckPermission("system:role:add")
-    @PostMapping
-    public R add(RoleDO roleDO) {
-        boolean bool = roleService.save(roleDO);
-        return R.bool(bool);
+    private UserRoleService userRoleService;
+
+    /**
+     * <p>
+     * Get Role page by Role
+     * </p>
+     * @param page page
+     * @param role {@link Role}
+     * @return Page<Role>
+     */
+    @SaCheckPermission("system:role:query")
+    @GetMapping("/page")
+    public IPage<Role> page(Page<Role> page, Role role) {
+        return roleService.page(page, role);
     }
 
-    @SaCheckPermission("system:role:edit")
-    @PutMapping
-    public R edit(RoleDO roleDO) {
-        boolean bool = roleService.updateById(roleDO);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get Role list by Role
+     * </p>
+     * @param role {@link Role}
+     * @return List<Role>
+     */
+    @SaCheckPermission("system:role:query")
+    @GetMapping("/list")
+    public List<Role> list(Role role) {
+        return roleService.list(new LambdaQueryWrapper<>(role).eq(Role::getDisabled, EYesNo.N.getValue()));
     }
 
-    @SaCheckPermission("system:role:delete")
-    @DeleteMapping("/{id}")
-    public R delete(@PathVariable("id") Long id) {
-        boolean bool = roleService.removeById(id);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Get Role ids by id
+     * </p>
+     *
+     * @param userId userId
+     * @return Role
+     */
+    @SaCheckPermission("system:role:query")
+    @GetMapping("/list-role-ids-by-user-id/{userId}")
+    public Set<Long> getRoleIdsByUserId(@PathVariable("userId") Long userId) {
+        return userRoleService.getRoleIdsByUserId(userId);
     }
 
+    /**
+     * <p>
+     * Get Role by id
+     * </p>
+     * @param id id
+     * @return Role
+     */
+    @SaCheckPermission("system:role:query")
     @GetMapping("/{id}")
-    public RoleDO getById(@PathVariable("id") Long id) {
+    public Role getById(@PathVariable("id") Long id) {
         return roleService.getById(id);
     }
 
-    @SaCheckPermission("system:role:detail")
-    @GetMapping("/detail/{id}")
-    public RoleDTO detailById(@PathVariable("id") Long id) {
-        return roleService.detailById(id);
+    /**
+     * <p>
+     * Add Role
+     * </p>
+     * @param role {@link Role}
+     */
+    @Log(operationType = EOperationType.INSERT)
+    @SaCheckPermission("system:role:create")
+    @PostMapping("/create")
+    public R<Void> create(@Validated({Group.Default.class, Group.Create.class}) @RequestBody Role role) {
+        boolean bool = roleService.save(role);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:role:list")
-    @GetMapping("/page")
-    public IPage<RoleDTO> page(Page<RoleDTO> page, RoleDTO dto) {
-        return roleService.page(page, dto);
+    /**
+     * <p>
+     * Update Role
+     * </p>
+     * @param role {@link Role}
+     */
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:role:update")
+    @PostMapping("/update")
+    public R<Void> update(@Validated({Group.Default.class, Group.Update.class}) @RequestBody Role role) {
+        boolean bool = roleService.updateById(role);
+        return R.ajax(bool);
     }
 
-    @GetMapping("/list")
-    public List<RoleDO> list() {
-        return roleService.lambdaQuery().eq(RoleDO::getDisabled, 0).list();
+    @Log(operationType = EOperationType.UPDATE)
+    @SaCheckPermission("system:role:update")
+    @PostMapping("/set-permission")
+    public R<Void> setPermission(@Valid @RequestBody RolePermissionBO rolePermissionBO) {
+        boolean bool = roleService.setMenuPermission(rolePermissionBO);
+        return R.ajax(bool);
     }
 
-    @SaCheckPermission("system:role:disabled")
-    @PostMapping("/setDisabledValue/{id}")
-    public R setDisabledValue(@PathVariable("id") Long id, boolean disabled) {
-        boolean bool = roleService.setDisabledValue(id, disabled);
-        return R.bool(bool);
+    /**
+     * <p>
+     * Delete Role by id(s), Multiple ids can be separated by commas ",".
+     * </p>
+     * @param ids id
+     */
+    @Log(operationType = EOperationType.DELETE)
+    @SaCheckPermission("system:role:delete")
+    @PostMapping("/delete/{ids}")
+    public R<Void> delete(@PathVariable("ids") Long[] ids) {
+        return R.ajax(roleService.removeByIds(Arrays.asList(ids)));
     }
 
-    @SaCheckPermission("system:role:assignUser")
-    @PostMapping("/addUser/{id}")
-    public R addUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        roleService.addUsers(id, ListUtil.of(userIdList));
-        return R.success();
-    }
-
-    @DeleteMapping("/removeUser/{id}")
-    public R removeUsers(@PathVariable("id") Long id, @RequestParam(value = "userIdList[]") Long[] userIdList) {
-        roleService.removeUsers(id, Arrays.asList(userIdList));
-        return R.success();
-    }
-
-    @SaCheckPermission("system:role:authorization")
-    @PostMapping("/setMenu/{id}")
-    public R setMenu(@PathVariable("id") Long id, @RequestParam(value = "menuIdList[]", required = false) Long[] menuIdList) {
-        roleService.setMenu(id, ListUtil.of(menuIdList));
-        return R.success();
-    }
 }
+

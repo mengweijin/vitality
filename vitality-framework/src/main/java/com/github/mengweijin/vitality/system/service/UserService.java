@@ -1,191 +1,199 @@
 package com.github.mengweijin.vitality.system.service;
 
 import cn.dev33.satoken.secure.BCrypt;
-import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.framework.cache.CacheConst;
+import com.github.mengweijin.vitality.framework.cache.CacheNames;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.exception.ClientException;
-import com.github.mengweijin.vitality.system.constant.UserConst;
-import com.github.mengweijin.vitality.system.dto.UserChangePasswordDTO;
-import com.github.mengweijin.vitality.system.dto.UserDTO;
-import com.github.mengweijin.vitality.system.dto.UserDetailDTO;
-import com.github.mengweijin.vitality.system.dto.UserEditDTO;
-import com.github.mengweijin.vitality.system.entity.MenuUserRltDO;
-import com.github.mengweijin.vitality.system.entity.UserDO;
-import com.github.mengweijin.vitality.system.entity.UserDeptRltDO;
-import com.github.mengweijin.vitality.system.entity.UserPostRltDO;
-import com.github.mengweijin.vitality.system.entity.UserRoleRltDO;
+import com.github.mengweijin.vitality.system.constant.ConfigConst;
+import com.github.mengweijin.vitality.system.domain.bo.ChangePasswordBO;
+import com.github.mengweijin.vitality.system.domain.entity.Config;
+import com.github.mengweijin.vitality.system.domain.entity.User;
+import com.github.mengweijin.vitality.system.domain.entity.UserAvatar;
+import com.github.mengweijin.vitality.system.enums.EMessageCategory;
+import com.github.mengweijin.vitality.system.enums.EMessageTemplate;
 import com.github.mengweijin.vitality.system.mapper.UserMapper;
-import com.github.mengweijin.vitality.system.mapper.UserProfileMapper;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.data.PasswdStrength;
+import org.dromara.hutool.core.date.TimeUtil;
+import org.dromara.hutool.core.math.NumberUtil;
+import org.dromara.hutool.core.text.StrUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
- * 用户表 服务类
+ * <p>
+ * User Service
+ * Add @Transactional(rollbackFor = Exception.class) if you need.
+ * </p>
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-03
  */
+@Slf4j
 @Service
-public class UserService extends ServiceImpl<UserMapper, UserDO> {
-    @Autowired
-    private ConfigService configService;
-    @Autowired
+@AllArgsConstructor
+public class UserService extends CrudRepository<UserMapper, User> {
+
+    private UserAvatarService userAvatarService;
+
     private DeptService deptService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private PostService postService;
-    @Autowired
-    private UserDeptRltService userDeptRltService;
-    @Autowired
-    private UserPostRltService userPostRltService;
-    @Autowired
-    private UserRoleRltService userRoleRltService;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private UserProfileMapper userProfileMapper;
-    @Autowired
-    private MenuUserRltService menuUserRltService;
 
-    @Transactional(rollbackFor = Exception.class)
+    private MessageService messageService;
+
+    private ConfigService configService;
+
     @Override
-    public boolean save(UserDO entity) {
-        String salt = BCrypt.gensalt();
-        String hashedPwd = BCrypt.hashpw(entity.getPassword(), salt);
-        entity.setPwdSalt(salt);
-        entity.setPassword(hashedPwd);
-        super.save(entity);
+    public boolean save(User user) {
+        user.setPasswordLevel(PasswdStrength.getLevel(user.getPassword()).name());
+        String hashedPwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPwd);
+        user.setPasswordChangeTime(LocalDateTime.now());
+        return super.save(user);
+    }
 
-        if(entity instanceof UserEditDTO dto) {
-            this.updateToDept(entity.getId(), dto.getDeptIdList());
-            this.updateToPost(entity.getId(), dto.getPostIdList());
-            this.updateToRole(entity.getId(), dto.getRoleIdList());
+    /**
+     * Custom paging query
+     *
+     * @param page page
+     * @param user {@link User}
+     * @return IPage
+     */
+    public IPage<User> page(IPage<User> page, User user) {
+        List<Long> deptIds = new ArrayList<>();
+        if (!Objects.isNull(user.getDeptId())) {
+            deptIds = deptService.selectChildrenIdsWithCurrentIdById(user.getDeptId());
         }
-        return true;
+        LambdaQueryWrapper<User> query = new LambdaQueryWrapper<>();
+        query
+                .eq(StrUtil.isNotBlank(user.getPasswordLevel()), User::getPassword, user.getPasswordLevel())
+                .eq(StrUtil.isNotBlank(user.getIdCard()), User::getIdCard, user.getIdCard())
+                .eq(StrUtil.isNotBlank(user.getGender()), User::getGender, user.getGender())
+                .eq(StrUtil.isNotBlank(user.getDisabled()), User::getDisabled, user.getDisabled())
+                .eq(StrUtil.isNotBlank(user.getRemark()), User::getRemark, user.getRemark())
+                .eq(!Objects.isNull(user.getId()), User::getId, user.getId())
+                .eq(!Objects.isNull(user.getCreateBy()), User::getCreateBy, user.getCreateBy())
+                .eq(!Objects.isNull(user.getCreateTime()), User::getCreateTime, user.getCreateTime())
+                .eq(!Objects.isNull(user.getUpdateBy()), User::getUpdateBy, user.getUpdateBy())
+                .eq(!Objects.isNull(user.getUpdateTime()), User::getUpdateTime, user.getUpdateTime())
+                .in(!Objects.isNull(user.getDeptId()), User::getDeptId, deptIds)
+                .like(StrUtil.isNotBlank(user.getUsername()), User::getUsername, user.getUsername())
+                .like(StrUtil.isNotBlank(user.getNickname()), User::getNickname, user.getNickname())
+                .like(StrUtil.isNotBlank(user.getMobile()), User::getMobile, user.getMobile())
+                .like(StrUtil.isNotBlank(user.getEmail()), User::getEmail, user.getEmail());
+        return this.page(page, query);
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean updateById(UserDO entity) {
-        if(entity instanceof UserEditDTO dto) {
-            this.updateToDept(entity.getId(), dto.getDeptIdList());
-            this.updateToPost(entity.getId(), dto.getPostIdList());
-            this.updateToRole(entity.getId(), dto.getRoleIdList());
-        }
-        return super.updateById(entity);
+    public User getByUsername(String username) {
+        return this.lambdaQuery().eq(User::getUsername, username).one();
     }
 
-    private void updateToDept(Long id, List<Long> deptIdList) {
-        if(CollUtil.isEmpty(deptIdList)) {
-            return;
-        }
-        userDeptRltService.lambdaUpdate().eq(UserDeptRltDO::getUserId, id).remove();
-        List<UserDeptRltDO> list = deptIdList.stream().map(deptId -> new UserDeptRltDO().setUserId(id).setDeptId(deptId)).toList();
-        userDeptRltService.saveBatch(list);
+    public Set<Long> getUserIdsInDeptId(Long deptId) {
+        List<Long> deptIds = deptService.selectChildrenIdsWithCurrentIdById(deptId);
+        List<User> list = this.lambdaQuery().select(User::getId).in(User::getDeptId, deptIds).list();
+        return list.stream().map(User::getId).collect(Collectors.toSet());
     }
 
-    private void updateToPost(Long id, List<Long> postIdList) {
-        if(CollUtil.isEmpty(postIdList)) {
-            return;
-        }
-        userPostRltService.lambdaUpdate().eq(UserPostRltDO::getUserId, id).remove();
-        List<UserPostRltDO> list = postIdList.stream().map(deptId -> new UserPostRltDO().setUserId(id).setPostId(deptId)).toList();
-        userPostRltService.saveBatch(list);
+    public String getUsernameByIds(String ids) {
+        List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
+        return idList.stream().map(this::getUsernameById).collect(Collectors.joining());
     }
 
-    private void updateToRole(Long id, List<Long> roleIdList) {
-        if(CollUtil.isEmpty(roleIdList)) {
-            return;
-        }
-        userRoleRltService.lambdaUpdate().eq(UserRoleRltDO::getUserId, id).remove();
-        List<UserRoleRltDO> list = roleIdList.stream().map(deptId -> new UserRoleRltDO().setUserId(id).setRoleId(deptId)).toList();
-        userRoleRltService.saveBatch(list);
+    public String getUserNicknameByIds(String ids) {
+        List<Long> idList = Arrays.stream(ids.split(Const.COMMA)).map(NumberUtil::parseLong).distinct().toList();
+        return idList.stream().map(this::getNicknameById).collect(Collectors.joining());
     }
 
-    public UserDetailDTO detailById(Long id) {
-        UserDetailDTO dto = userMapper.detailById(id);
-        //dto.setIdCardNumber(IdcardUtil.hide(dto.getIdCardNumber(), 6, 14));
-        dto.setDeptList(deptService.getByUserId(id));
-        dto.setRoleList(roleService.getByUserId(id));
-        dto.setPostList(postService.getByUserId(id));
-        return dto;
+    @Cacheable(value = CacheNames.USER_ID_TO_USERNAME, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getUsernameById(Long id) {
+        return this.lambdaQuery()
+                .select(User::getUsername)
+                .eq(User::getId, id)
+                .oneOpt()
+                .map(User::getUsername)
+                .orElse(null);
     }
 
-    public IPage<UserDTO> page(IPage<UserDTO> page, UserDTO dto, Long deptId) {
-        List<Long> deptIdList = new ArrayList<>();
-        if(deptId != null) {
-            deptIdList.add(deptId);
-            deptIdList.addAll(deptService.getAllChildrenById(deptId));
-        }
-        dto.setDeleted(0);
-        return userMapper.page(page, dto, deptIdList);
+    @Cacheable(value = CacheNames.USER_ID_TO_NICKNAME, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getNicknameById(Long id) {
+        return this.lambdaQuery()
+                .select(User::getNickname)
+                .eq(User::getId, id)
+                .oneOpt()
+                .map(User::getNickname)
+                .orElse(null);
     }
 
-    public IPage<UserDTO> pageByRole(IPage<UserDTO> page, Long roleId, UserDTO dto){
-        dto.setDeleted(0);
-        return userMapper.pageByRole(page, roleId, dto);
-    }
-
-    public IPage<UserDTO> pageByDept(Page<UserDTO> page, Long deptId, UserDTO dto) {
-        dto.setDeleted(0);
-        return userMapper.pageByDept(page, deptId, dto);
-    }
-
-    public IPage<UserDTO> pageByPost(Page<UserDTO> page, Long postId, UserDTO dto) {
-        dto.setDeleted(0);
-        return userMapper.pageByPost(page, postId, dto);
-    }
-
-    public boolean setDisabledValue(Long id, boolean disabled) {
-        return this.lambdaUpdate().set(UserDO::getDisabled, disabled).eq(UserDO::getId, id).update();
-    }
-
-    public UserDO getByUsername(String username) {
-        return this.lambdaQuery().eq(UserDO::getUsername, username).one();
+    @Cacheable(value = CacheNames.USER_ID_TO_AVATAR, key = "#id + ''", unless = CacheConst.UNLESS_OBJECT_NULL)
+    public String getAvatarById(Long id) {
+        return userAvatarService.lambdaQuery().eq(UserAvatar::getUserId, id).oneOpt()
+                .map(UserAvatar::getAvatar).orElse(null);
     }
 
     public boolean checkPassword(String plaintext, String hashed) {
         return BCrypt.checkpw(plaintext, hashed);
     }
 
-    public boolean changePassword(UserChangePasswordDTO dto) {
-        UserDO userDO = this.getById(dto.getId());
-        boolean checked = this.checkPassword(dto.getPassword(), userDO.getPassword());
-        if(!checked) {
-            throw new ClientException("Old password check failed!");
+    public boolean changePassword(ChangePasswordBO bo) {
+        User user = this.getByUsername(bo.getUsername());
+        boolean checked = this.checkPassword(bo.getPassword(), user.getPassword());
+        if (!checked) {
+            throw new ClientException("User or password check failed!");
         }
-        return this.updatePassword(dto.getId(), dto.getNewPassword());
+        return this.updatePassword(bo.getUsername(), bo.getNewPassword());
     }
 
-    public boolean updatePassword(Long id, String password) {
-        String salt = BCrypt.gensalt();
-        String hashedPwd = BCrypt.hashpw(password, salt);
-        return this.lambdaUpdate().set(UserDO::getPassword, hashedPwd).set(UserDO::getPwdSalt, salt).eq(UserDO::getId, id).update();
+    public boolean updatePassword(String username, String password) {
+        String passwordLevel = PasswdStrength.getLevel(password).name();
+        String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt());
+        return this.lambdaUpdate()
+                .set(User::getPassword, hashedPwd)
+                .set(User::getPasswordLevel, passwordLevel)
+                .set(User::getPasswordChangeTime, LocalDateTime.now())
+                .eq(User::getUsername, username)
+                .update();
     }
 
-    @Transactional
-    public void setMenu(Long id, List<Long> menuIdList) {
-        menuUserRltService.lambdaUpdate().eq(MenuUserRltDO::getUserId, id).remove();
-        if(CollUtil.isEmpty(menuIdList)) {
-            return;
-        }
-        List<MenuUserRltDO> list = menuIdList.stream().map(menuId -> new MenuUserRltDO().setUserId(id).setMenuId(menuId)).toList();
-        menuUserRltService.saveBatch(list);
+    public boolean setDisabled(Long id, String disabled) {
+        return this.lambdaUpdate().set(User::getDisabled, disabled).eq(User::getId, id).update();
     }
 
-    public void setSessionUser(UserDO user) {
-        StpUtil.getSession().set(UserConst.SA_TOKEN_SESSION_USER_KEY, user);
-    }
+    public void checkAndSendPasswordLongTimeNoChangeMessageAsync(String username) {
+        CompletableFuture.runAsync(() -> {
+                    Config config = configService.getByCode(ConfigConst.USER_PASSWORD_CHANGE_INTERVAL);
+                    if (config == null) {
+                        return;
+                    }
+                    long daysInterval = NumberUtil.parseLong(config.getVal());
+                    if (daysInterval <= 0) {
+                        return;
+                    }
 
-    public UserDO getSessionUser() {
-        return (UserDO) StpUtil.getSession().get(UserConst.SA_TOKEN_SESSION_USER_KEY);
+                    User user = this.getByUsername(username);
+                    Duration duration = TimeUtil.between(user.getPasswordChangeTime(), LocalDateTime.now());
+                    if (duration.toDays() < daysInterval) {
+                        return;
+                    }
+
+                    messageService.sendMessageToUser(user.getId(), EMessageCategory.SECURITY, EMessageTemplate.USER_PASSWORD_LONG_TIME_NO_CHANGE, duration.toDays());
+                })
+                .exceptionally(e -> {
+                    log.error(e.getMessage(), e);
+                    return null;
+                });
     }
 }

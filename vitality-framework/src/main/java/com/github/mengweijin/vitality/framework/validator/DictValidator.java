@@ -1,7 +1,7 @@
 package com.github.mengweijin.vitality.framework.validator;
 
 import com.github.mengweijin.vitality.framework.validator.annotation.Dict;
-import com.github.mengweijin.vitality.system.entity.DictDataDO;
+import com.github.mengweijin.vitality.system.domain.entity.DictData;
 import com.github.mengweijin.vitality.system.service.DictDataService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,6 +10,7 @@ import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
+
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +23,11 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
 
     private static final Log LOG = LoggerFactory.make(MethodHandles.lookup());
 
-    private String typeCode;
+    private String code;
 
     @Override
     public void initialize(Dict parameters) {
-        typeCode = parameters.typeCode();
+        code = parameters.code();
         validateParameters();
     }
 
@@ -35,21 +36,23 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
         if (value == null) {
             return true;
         }
-        //禁止默认消息返回
-        context.disableDefaultConstraintViolation();
 
         DictDataService dictDataService = SpringUtil.getBean(DictDataService.class);
-        List<DictDataDO> dictDataList = dictDataService.getByTypeCode(typeCode);
+        List<DictData> dictDataList = dictDataService.getByCode(code);
         if(CollUtil.isEmpty(dictDataList)) {
+            //禁止默认消息返回
+            context.disableDefaultConstraintViolation();
             //自定义返回消息
-            context.buildConstraintViolationWithTemplate("No dict data was found by dict typeCode=" + typeCode).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate("No dict data was found by dict code=" + code).addConstraintViolation();
             return false;
         }
 
-        boolean anyMatch = dictDataList.stream().map(DictDataDO::getDataCode).anyMatch(item -> item.equals(value.toString()));
+        boolean anyMatch = dictDataList.stream().map(DictData::getVal).anyMatch(item -> item.equals(value.toString()));
         if(!anyMatch) {
-            String correctDictDataCode = dictDataList.stream().map(DictDataDO::getDataCode).collect(Collectors.joining());
-            String message = StrUtil.format("The dict typeCode[{}] of dataCode[{}] is incorrect! The correct dataCode should be in [{}]", typeCode, value, correctDictDataCode);
+            //禁止默认消息返回
+            context.disableDefaultConstraintViolation();
+            String correctDictDataCode = dictDataList.stream().map(DictData::getVal).collect(Collectors.joining());
+            String message = StrUtil.format("The dict_data_code[{}] of dict_type_code[{}] is incorrect! The correct dict_data_code should be in [{}]", value, code, correctDictDataCode);
             context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;
         }
@@ -58,8 +61,8 @@ public class DictValidator implements ConstraintValidator<Dict, CharSequence> {
     }
 
     private void validateParameters() {
-        if (StrUtil.isBlankOrUndefined(typeCode)) {
-            throw LOG.getAnnotationDoesNotContainAParameterException(Dict.class, "typeCode");
+        if (StrUtil.isBlankOrUndefined(code)) {
+            throw LOG.getAnnotationDoesNotContainAParameterException(Dict.class, "code");
         }
     }
 

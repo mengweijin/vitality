@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
+
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 
@@ -17,7 +18,7 @@ import java.nio.charset.Charset;
  *
  * 出现以上问题的原因是因为在创建表字段时长度用varchar(20 byte), 添加了byte表名该字段是以字节长度计算，一般情况下要严格避免使用byte,
  * 可以直接使用varchar(20)来定义字段长度，这样就是以字符长度来计算，就不会出现以上问题。
- * @date Create in 2019-10-21 21:06
+ * @since 2019-10-21
  **/
 public class CharsetLengthValidator implements ConstraintValidator<CharsetLength, CharSequence> {
 

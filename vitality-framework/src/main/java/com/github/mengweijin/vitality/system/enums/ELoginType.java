@@ -1,20 +1,25 @@
 package com.github.mengweijin.vitality.system.enums;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author mengweijin
- * @date 2023/5/20
+ * @since 2023/5/20
  */
-public enum ELoginType {
+@Getter
+@AllArgsConstructor
+public enum ELoginType implements IEnum<String> {
 
-    LOGIN("LOGIN"), LOGOUT("LOGOUT"), KICK_OUT("KICK_OUT"), REPLACED("REPLACED");
+    LOGIN("LOGIN"),
+
+    LOGOUT("LOGOUT"),
+
+    KICK_OUT("KICK_OUT"),
+
+    REPLACED("REPLACED");
 
     private final String value;
 
-    ELoginType(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
 }

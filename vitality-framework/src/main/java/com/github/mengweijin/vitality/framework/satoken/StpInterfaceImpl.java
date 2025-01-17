@@ -1,41 +1,35 @@
 package com.github.mengweijin.vitality.framework.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.github.mengweijin.vitality.system.dto.RoleDTO;
-import com.github.mengweijin.vitality.system.entity.MenuDO;
-import com.github.mengweijin.vitality.system.entity.RoleDO;
-import com.github.mengweijin.vitality.system.entity.UserDO;
 import com.github.mengweijin.vitality.system.service.MenuService;
 import com.github.mengweijin.vitality.system.service.RoleService;
-import com.github.mengweijin.vitality.system.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 自定义权限验证接口扩展
  * @author mengweijin
- * @date 2023/6/22
+ * @since 2023/6/22
  */
 @Component
+@AllArgsConstructor
 public class StpInterfaceImpl implements StpInterface {
 
-    @Autowired
     private MenuService menuService;
-    @Autowired
+
     private RoleService roleService;
-    @Autowired
-    private UserService userService;
 
     /**
-     * 返回一个账号所拥有的权限码集合
+     * 返回一个账号所拥有的权限码集合。这里的 loginId 即为用户登录名 username
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        UserDO user = userService.getByUsername((String) loginId);
-        List<MenuDO> menuList = menuService.getMenuByLoginUser(user.getId());
-        return menuList.stream().map(MenuDO::getPermission).toList();
+        Set<String> permissionSet = menuService.getMenuPermissionListByLoginUsername((String) loginId);
+        return new ArrayList<>(permissionSet);
     }
 
     /**
@@ -43,9 +37,8 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        UserDO user = userService.getByUsername((String) loginId);
-        List<RoleDTO> roleList = roleService.getByUserId(user.getId());
-        return roleList.stream().map(RoleDO::getCode).toList();
+        Set<String> roleSet = roleService.getRoleCodeByUsername((String) loginId);
+        return new ArrayList<>(roleSet);
     }
 
 }

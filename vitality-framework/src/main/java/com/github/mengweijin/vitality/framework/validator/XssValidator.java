@@ -4,11 +4,13 @@ package com.github.mengweijin.vitality.framework.validator;
 import com.github.mengweijin.vitality.framework.validator.annotation.Xss;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 自定义xss校验注解实现
+ * @author mengweijin
  */
 public class XssValidator implements ConstraintValidator<Xss, String> {
 

@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>  
     <parent> 
         <groupId>org.springframework.boot</groupId>  
-        <artifactId>spring-boot-starter-parent</artifactId>  
-        <version>3.3.0</version>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.0</version>
         <relativePath/> 
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
-    <artifactId>vitality-parent</artifactId>  
-    <version>1.4.1-SNAPSHOT</version>  
+    <artifactId>vitality-parent</artifactId>
+    <version>${revision}</version>
     <packaging>pom</packaging>  
     <name>vitality-parent</name>  
     <description>vitality-parent</description>  
@@ -18,31 +18,30 @@
     <modules> 
         <module>vitality-admin</module>  
         <module>vitality-framework</module>
-        <module>vitality-layui</module>  
         <module>vitality-generator</module>
-    </modules>  
-    <properties> 
-        <vitality.version>1.4.1-SNAPSHOT</vitality.version>  
-        <!--    <gpg.skip>true</gpg.skip>-->  
-        <!--    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->  
+    </modules>
+    <properties>
+        <!-- 全局版本控制，如果要修改版本号，修改此处即可-->
+        <revision>2.0.0-SNAPSHOT</revision>
+        <!--<gpg.skip>true</gpg.skip>-->
+        <!--<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
         <skipTests>true</skipTests>  
         <java.version>17</java.version>  
         <maven.compiler.source>${java.version}</maven.compiler.source>  
         <maven.compiler.target>${java.version}</maven.compiler.target>  
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>  
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <mybatis-plus.version>3.5.7</mybatis-plus.version>
-        <hutool.version>6.0.0-M13</hutool.version>
-        <sa-token.version>1.38.0</sa-token.version>
-        <oshi.version>6.6.0</oshi.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <hutool.version>6.0.0-M18</hutool.version>
+        <sa-token.version>1.39.0</sa-token.version>
+        <oshi.version>6.6.5</oshi.version>
         <zxing.version>3.5.3</zxing.version>
-        <easyexcel.version>3.3.4</easyexcel.version>
-        <minio.version>8.5.10</minio.version>
-        <ip2region.version>2.7.0</ip2region.version>  
-        <p6spy-spring-boot-starter.version>1.9.1</p6spy-spring-boot-starter.version>
+        <fastexcel.version>1.0.0</fastexcel.version>
+        <ip2region.version>2.7.0</ip2region.version>
+        <p6spy-spring-boot-starter.version>1.9.2</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
-    </properties>  
+    </properties>
     <profiles> 
         <profile> 
             <id>local</id>  
@@ -50,8 +49,24 @@
                 <!-- 环境标识，需要与配置文件的名称相对应 -->  
                 <profiles.active>local</profiles.active>  
                 <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
+        <profile>
+            <id>demo</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>demo</profiles.active>
+                <logging.level>info</logging.level>
+            </properties>
+        </profile>
         <profile> 
             <id>h2</id>  
             <properties> 
@@ -62,24 +77,32 @@
             <activation> 
                 <!-- 默认环境 -->  
                 <activeByDefault>true</activeByDefault> 
-            </activation> 
+            </activation>
         </profile>
-        <profile> 
-            <id>mysql</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>mysql</profiles.active>  
-                <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
-        <profile> 
-            <id>dev</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>dev</profiles.active>  
-                <logging.level>debug</logging.level> 
-            </properties> 
-        </profile>  
+        <profile>
+            <id>postgresql</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>postgresql</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>mysql</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>oracle</profiles.active>
+                <logging.level>debug</logging.level>
+            </properties>
+        </profile>
         <profile> 
             <id>prod</id>  
             <properties> 
@@ -95,28 +118,18 @@
             <!--    <artifactId>spring-boot-dependencies</artifactId>-->  
             <!--    <version>${spring.boot.version}</version>-->  
             <!--    <type>pom</type>-->  
-            <!--    <scope>import</scope>-->  
-            <!--</dependency>-->  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>vitality-framework</artifactId>  
-                <version>${vitality.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>vitality-layui</artifactId>  
-                <version>${vitality.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.github.mengweijin</groupId>  
-                <artifactId>vitality-generator</artifactId>  
-                <version>${vitality.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.baomidou</groupId>  
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>  
-                <version>${mybatis-plus.version}</version> 
-            </dependency>  
+            <!--    <scope>import</scope>-->
+            <!--</dependency>-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>com.github.gavlyukovskiy</groupId>  
                 <artifactId>p6spy-spring-boot-starter</artifactId>  
@@ -126,12 +139,12 @@
                 <groupId>cn.dev33</groupId>  
                 <artifactId>sa-token-spring-boot3-starter</artifactId>  
                 <version>${sa-token.version}</version> 
-            </dependency>  
+            </dependency>
             <dependency> 
                 <groupId>org.dromara.hutool</groupId>  
                 <artifactId>hutool-all</artifactId>  
                 <version>${hutool.version}</version> 
-            </dependency>  
+            </dependency>
             <dependency> 
                 <groupId>com.github.oshi</groupId>  
                 <artifactId>oshi-core</artifactId>  
@@ -141,22 +154,17 @@
                 <groupId>com.google.zxing</groupId>  
                 <artifactId>core</artifactId>  
                 <version>${zxing.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>io.minio</groupId>  
-                <artifactId>minio</artifactId>  
-                <version>${minio.version}</version> 
-            </dependency>  
+            </dependency>
             <dependency> 
                 <groupId>org.lionsoul</groupId>  
                 <artifactId>ip2region</artifactId>  
                 <version>${ip2region.version}</version> 
-            </dependency>  
-            <dependency> 
-                <groupId>com.alibaba</groupId>  
-                <artifactId>easyexcel</artifactId>  
-                <version>${easyexcel.version}</version> 
-            </dependency>  
+            </dependency>
+            <dependency>
+                <groupId>cn.idev.excel</groupId>
+                <artifactId>fastexcel</artifactId>
+                <version>${fastexcel.version}</version>
+            </dependency>
             <dependency> 
                 <groupId>com.github.xiaoymin</groupId>  
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>  
@@ -175,7 +183,7 @@
     <developers> 
         <developer> 
             <name>Meng Wei Jin</name>  
-            <email>mengweijin.work@foxmail.com</email> 
+            <email>mwjwork@qq.com</email>
         </developer> 
     </developers>  
     <!--开源地址-->  
@@ -254,18 +262,6 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>  
                     <autoReleaseAfterClose>true</autoReleaseAfterClose> 
                 </configuration> 
-            </plugin>
-            <plugin>
-                <groupId>com.github.mengweijin</groupId>
-                <artifactId>code-generator-maven-plugin</artifactId>
-                <version>1.1.0-SNAPSHOT</version>
-                <configuration>
-                    <config>
-                        <baseEntity>com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity</baseEntity>
-                        <tablePrefix>vtl_</tablePrefix>
-                        <templateDir>generator</templateDir>
-                    </config>
-                </configuration>
             </plugin>
         </plugins> 
     </build>  

@@ -1,60 +1,19 @@
 package com.github.mengweijin.vitality.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.vitality.system.dto.UserDTO;
-import com.github.mengweijin.vitality.system.dto.UserDetailDTO;
-import com.github.mengweijin.vitality.system.entity.UserDO;
+import com.github.mengweijin.vitality.system.domain.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
- * 用户表 Mapper 接口
+ * <p>
+ *  User Mapper
+ * </p>
  *
  * @author mengweijin
- * @since 2023-05-28
+ * @since 2023-06-03
  */
 @Mapper
-public interface UserMapper extends BaseMapper<UserDO> {
-
-    /**
-     * Get VtlUser detail by id
-     * @param id id
-     */
-    UserDetailDTO detailById(Long id);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlUserDTO
-     * @return IPage
-     */
-    IPage<UserDTO> page(IPage<UserDTO> page, @Param("p") UserDTO dto, @Param("deptIdList") List<Long> deptIdList);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlUserDTO
-     * @return IPage
-     */
-    IPage<UserDTO> pageByRole(IPage<UserDTO> page, @Param("roleId") Long roleId, @Param("p") UserDTO dto);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlUserDTO
-     * @return IPage
-     */
-    IPage<UserDTO> pageByDept(IPage<UserDTO> page, @Param("deptId") Long deptId, @Param("p") UserDTO dto);
-
-    /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlUserDTO
-     * @return IPage
-     */
-    IPage<UserDTO> pageByPost(IPage<UserDTO> page, @Param("postId") Long postId, @Param("p") UserDTO dto);
+public interface UserMapper extends BaseMapper<User> {
 
 }
+

@@ -1,11 +1,8 @@
 package com.github.mengweijin.vitality.framework;
 
-import com.github.mengweijin.vitality.framework.filter.xss.XssProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 加@Validated可对配置属性进行数据格式校验
@@ -22,12 +19,6 @@ import java.util.List;
 @Validated
 public class VitalityProperties {
 
-    private XssProperties xss = new XssProperties();
-
-    private boolean allowedCors = false;
-
     private boolean debug = false;
-
-    private List<String> bodyAdviceExcludePathPrefix = new ArrayList<>();
 
 }

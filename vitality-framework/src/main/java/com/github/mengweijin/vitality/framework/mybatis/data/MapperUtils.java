@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 /**
  * @author mengweijin
- * @date 2023/5/7
+ * @since 2023/5/7
  */
 public class MapperUtils {
 

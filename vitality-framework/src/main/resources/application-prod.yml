@@ -1,0 +1,21 @@
+spring:
+  liquibase:
+    change-log: classpath:/db/db.changelog-h2.xml
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./h2/vitality;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
+    username: sa
+    password: 1qaz2wsx
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: false
+decorator:
+  datasource:
+    enabled: false
+vitality:
+  debug: false
+knife4j:
+  production: true

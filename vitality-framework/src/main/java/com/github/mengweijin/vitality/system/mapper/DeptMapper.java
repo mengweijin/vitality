@@ -1,38 +1,44 @@
 package com.github.mengweijin.vitality.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.vitality.system.dto.DeptDTO;
-import com.github.mengweijin.vitality.system.entity.DeptDO;
+import com.github.mengweijin.vitality.system.domain.entity.Dept;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * 部门管理表 Mapper 接口
+ * <p>
+ *  Dept Mapper
+ * </p>
  *
  * @author mengweijin
- * @since 2023-06-18
+ * @since 2023-06-03
  */
 @Mapper
-public interface DeptMapper extends BaseMapper<DeptDO> {
+public interface DeptMapper extends BaseMapper<Dept> {
 
     /**
-     * Get VtlDept detail by id
-     * @param id id
+     * select children ids
+     *
+     * @param id current id
+     * @return children ids
      */
-    DeptDTO detailById(Long id);
+    List<Long> selectChildrenIdsById(Long id);
 
     /**
-     * 自定义分页
-     * @param page page
-     * @param dto VtlDeptDTO
-     * @return IPage
+     * select children ids with current id
+     *
+     * @param id current id
+     * @return children ids with current id
      */
-    IPage<DeptDTO> page(IPage<DeptDTO> page, @Param("p") DeptDTO dto);
+    List<Long> selectChildrenIdsWithCurrentIdById(Long id);
 
-    List<DeptDTO> treeTableDataList(@Param("p") DeptDTO dto);
-
-    List<DeptDTO> getByUserId(Long userId);
+    /**
+     * select parent ids with current id
+     *
+     * @param id current id
+     * @return parent ids with current id
+     */
+    List<Long> selectParentIdsWithCurrentIdById(Long id);
 }
+

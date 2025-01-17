@@ -29,6 +29,13 @@
 
 在线演示：https://vitality.aday.fun:8000
 
+## 代码分支
+
+* **maser 分支**：同 V1.5-vue 分支；
+* **V1.5-vue 分支**：SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus等；
+* **V1.4-layui 分支**：基于 SpringBoot 3、sa-token、mybatis-plus、hutool、layui、jquery 等；
+
+
 ### 捉急请联系👇
 |     QQ      |       邮箱        |
 |:-----------:|:---------------:|

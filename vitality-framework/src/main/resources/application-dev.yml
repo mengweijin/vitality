@@ -3,9 +3,9 @@ spring:
     resources:
       cache:
         cachecontrol:
-          no-store: false
+          no-store: true
   liquibase:
-    contexts: test
+    contexts: dev
     change-log: classpath:/db/db.changelog-h2.xml
   datasource:
     driver-class-name: org.h2.Driver
@@ -22,7 +22,7 @@ spring:
   h2:
     console:
       # 是否允许网页访问，默认false
-      enabled: true
+      enabled: false
       # h2数据库的访问路径：http://localhost:8080/h2（默认为/h2-console）
       path: /h2
       settings:
@@ -30,6 +30,6 @@ spring:
         web-allow-others: false
 decorator:
   datasource:
-    enabled: false
+    enabled: true
 vitality:
-  debug: false
+  debug: true

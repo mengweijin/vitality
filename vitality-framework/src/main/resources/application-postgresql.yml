@@ -5,8 +5,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://locahost:5432/postgres
-    username: root
-    password: root
+    username:
+    password:
 decorator:
   datasource:
     enabled: true

@@ -155,7 +155,7 @@
 
     <!-- 4. 最终的策略 -->
     <!-- 4.1 开发环境-->
-    <springProfile name="local,dev,demo,h2,mysql,postgresql,oracle">
+    <springProfile name="local,dev,h2,mysql,postgresql,oracle">
         <!-- 系统模块日志级别控制  -->
         <logger name="com.github.mengweijin" level="debug" />
         <!-- Spring日志级别控制  -->

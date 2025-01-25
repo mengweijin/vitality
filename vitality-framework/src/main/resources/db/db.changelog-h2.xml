@@ -6,6 +6,6 @@
 
     <include file="./h2/202301_ddl.sql" relativeToChangelogFile="true"/>
     <include file="./h2/202302_data.sql" relativeToChangelogFile="true"/>
-    <include file="./h2/202303_test.sql" relativeToChangelogFile="true"/>
+    <include file="./h2/202303_dev.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

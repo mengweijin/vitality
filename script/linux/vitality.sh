@@ -3,7 +3,7 @@
 AppName=vitality-admin.jar
 
 # JVM参数
-JVM_OPTS="-Dname=$AppName -Duser.timezone=Asia/Shanghai -Xms128m -Xmx512m"
+JVM_OPTS="-Dname=$AppName -Dserver.port=8080 -Dspring.profiles.active=h2 -Duser.timezone=Asia/Shanghai -Xms128m -Xmx512m"
 APP_HOME=`pwd`
 LOG_PATH=$APP_HOME/logs/$AppName.log
 

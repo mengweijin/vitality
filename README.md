@@ -19,21 +19,25 @@
 
 ## 介绍
 
-基于 SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus等 **前后端分离**开发，不依赖任何第三方服务的轻量级管理系统。
+基于 SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus 等 **前后端分离** 开发，不依赖任何第三方服务的轻量级管理系统。
 
-主要包含用户-部门-角色-权限管理、代码生成、数据脱敏、字典翻译、接口限流、日志管理、系统监控、缓存过期、接口防抖等主要功能。
+主要包含用户-部门-角色-权限管理、代码生成、数据脱敏、字典翻译、接口限流、日志管理、系统监控、缓存过期、接口防抖等功能。
 
 有时候我们就想做一个简单的东西，却要依赖一大堆 redis、文件服务、配置中心等服务，两个字：**真的太麻烦了！**
 
 于是，就自己搞一个不依赖任何其他三方服务的 Web 应用，小作坊，哪有那么多高并发！ 欢迎 issue!
 
-在线演示：https://vitality.aday.fun:8000
+### 在线演示
+|           版本           |            演示链接            |    源码分支    |
+|:----------------------:|:--------------------------:|:----------:|
+|  Vitality Admin Vue 版  | http://124.70.184.112:8002 |  V1.5-vue  |
+| Vitality Admin Layui 版 | http://124.70.184.112:8001 | V1.4-layui |
 
 ## 代码分支
 
 * **maser 分支**：开发中......（请勿用于生产环境）；
-* **V1.5-vue 分支**：SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus等（过渡分支，请勿用于生产环境）；
-* **V1.4-layui 分支**：基于 SpringBoot 3、sa-token、mybatis-plus、hutool、layui、jquery 等（暂停维护）；
+* **V1.5-vue 分支**：SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus等（**过渡分支，生产慎用**）；
+* **V1.4-layui 分支**：基于 SpringBoot 3、sa-token、mybatis-plus、hutool、layui、jquery 等（**暂停维护**）；
 
 
 ### 捉急请联系👇
@@ -43,15 +47,15 @@
 
 #### 最简单的启动
 
-你只需要一个 JDK 17 的运行环境，然后执行下面命令启动即可！
+你只需要一个 JDK 17 的运行环境，执行下面命令启动即可！
 
 ```shell
-java -jar vitality-admin.jar
+java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
 ```
 
-然后浏览器访问：http://localhost:8080 即可。就是这么简单！
+然后浏览器访问：http://localhost:8080。就是这么简单！
 
-注：默认使用 h2 数据库。生产环境可替换为其他关系型数据库。
+注：-Dspring.profiles.active=h2：使用 h2 数据库。生产环境可替换为其他关系型数据库。
 
 ### 内置功能
 

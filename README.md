@@ -83,16 +83,13 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
   - 接口文档：后台接口文档。
 
 ### 演示图
-|                                                            |                                                                 |    
-|-----------------------------------------------------------:|:----------------------------------------------------------------|
-|            ![用户管理](docs/readme/images/user_management.png) | ![用户详情](docs/readme/images/user_detail.png)                     | 
-|            ![角色管理](docs/readme/images/role_management.png) | ![角色授权](docs/readme/images/role_authorization.png)              | 
-|            ![菜单管理](docs/readme/images/menu_management.png) | ![部门管理](docs/readme/images/dept_management.png)                 | 
-|            ![岗位管理](docs/readme/images/post_management.png) | ![字典管理](docs/readme/images/dict_management.png)                 | 
-|          ![公告编辑](docs/readme/images/announcement_edit.png) | ![应用监控](docs/readme/images/monitor_server.png)                  | 
-|        ![在线用户](docs/readme/images/monitor_online_user.png) | ![登录日志](docs/readme/images/monitor_log_login.png)               | 
-|      ![操作日志](docs/readme/images/monitor_log_operation.png) | ![错误日志](docs/readme/images/monitor_log_error.png)               | 
-| ![img.png](docs/readme/images/dev_tool_code_generator.png) | ![代码生成器](docs/readme/images/dev_tool_code_generator_detail.png) | 
+|                                    |                                    |    
+|-----------------------------------:|:-----------------------------------|
+| ![image](docs/readme/images/1.png) | ![image](docs/readme/images/2.png) | 
+| ![image](docs/readme/images/3.png) | ![image](docs/readme/images/4.png) | 
+| ![image](docs/readme/images/5.png) | ![image](docs/readme/images/6.png) | 
+| ![image](docs/readme/images/7.png) | ![image](docs/readme/images/8.png) | 
+
 
 ## 主要技术栈
 

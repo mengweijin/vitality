@@ -8,9 +8,9 @@
         <version>1.4.1-SNAPSHOT</version>  
         <relativePath>../pom.xml</relativePath> 
     </parent>  
-    <artifactId>vitality-layui</artifactId>  
+    <artifactId>vitality-ui</artifactId>
     <packaging>jar</packaging>  
-    <name>vitality-layui</name>  
+    <name>vitality-ui</name>
     <url>https://gitee.com/mengweijin/vitality</url>  
     <dependencies> 
         <dependency> 

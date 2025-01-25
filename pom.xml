@@ -18,7 +18,7 @@
     <modules> 
         <module>vitality-admin</module>  
         <module>vitality-framework</module>
-        <module>vitality-layui</module>  
+        <module>vitality-ui</module>
         <module>vitality-generator</module>
     </modules>  
     <properties> 
@@ -104,7 +104,7 @@
             </dependency>  
             <dependency> 
                 <groupId>com.github.mengweijin</groupId>  
-                <artifactId>vitality-layui</artifactId>  
+                <artifactId>vitality-ui</artifactId>
                 <version>${vitality.version}</version> 
             </dependency>  
             <dependency> 

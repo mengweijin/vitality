@@ -5,8 +5,7 @@ rem jar平级目录
 set AppName=vitality-admin.jar
 
 rem JVM参数
-set JVM_OPTS="-Dname=%AppName% -Duser.timezone=Asia/Shanghai -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC"
-
+set JVM_OPTS="-Dname=%AppName% -Dserver.port=8080 -Dspring.profiles.active=h2 -Duser.timezone=Asia/Shanghai -Xms128m -Xmx512m"
 
 ECHO.
 	ECHO.  [1] 启动%AppName%

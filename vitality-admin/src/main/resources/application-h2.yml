@@ -12,11 +12,11 @@ spring:
     # 以本地文件存储数据的方式使用H2数据库。./h2/test 在项目根路径下保存数据库文件
     # AUTO_SERVER=true 启动自动混合模式，允许开启多个连接，该参数不支持在内存中运行模式
     # DB_CLOSE_ON_EXIT 当虚拟机退出时并不关闭数据库
-    url: jdbc:h2:file:./h2/vitality;AUTO_SERVER=TRUE;IGNORECASE=TRUE
+    #url: jdbc:h2:file:./h2/vitality;AUTO_SERVER=TRUE;IGNORECASE=TRUE;MODE=MYSQL
     # jdbc:h2:file:C:/h2/vitality;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     # 以内存方式使用数据库（这里会创建一个数据库名为 vitality 的数据库实例）
     # MODE=MYSQL 兼容模式
-    #url: jdbc:h2:mem:vitality;MODE=MYSQL;IGNORECASE=TRUE
+    url: jdbc:h2:mem:vitality;MODE=MYSQL;IGNORECASE=TRUE
     username: sa
     password:
   h2:

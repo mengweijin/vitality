@@ -62,7 +62,7 @@ public class UploadUtils {
         return fileList;
     }
 
-    public static String storagePath(String suffix) {
+    public static String getPath(String suffix) {
         LocalDateTime now = LocalDateTime.now();
         String year = String.valueOf(now.getYear());
         String month = StrUtil.padPre(String.valueOf(now.getMonthValue()), 2, "0");
@@ -70,7 +70,7 @@ public class UploadUtils {
         return STORAGE_DIR + String.join(File.separator, year, month, day, IdUtil.simpleUUID()) + Const.DOT + suffix;
     }
 
-    public static void storageFile(MultipartFile multipartFile, String path) {
+    public static void saveFile(MultipartFile multipartFile, String path) {
         try {
             FileUtil.copy(multipartFile.getInputStream(), FileUtil.file(path));
         } catch (IOException e) {

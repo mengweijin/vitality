@@ -4,8 +4,7 @@ application:
   formatted-version: (v@version@)
   author: Meng Wei Jin
   email: mwjwork@qq.com
-  vitality: https://vitality.aday.fun:8000
-  home: https://aday.fun:8000
+  home: https://aday.fun
   github: https://github.com/mengweijin
   gitee: https://gitee.com/mengweijin
 server:

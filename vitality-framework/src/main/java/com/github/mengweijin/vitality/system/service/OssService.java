@@ -94,13 +94,13 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
 
             List<Oss> ossList = this.getByMd5(md5);
             if (CollUtil.isEmpty(ossList)) {
-                String storagePath = UploadUtils.storagePath(suffix);
-                UploadUtils.storageFile(multipartFile, storagePath);
+                String storagePath = UploadUtils.getPath(suffix);
+                UploadUtils.saveFile(multipartFile, storagePath);
                 oss.setStoragePath(storagePath);
             } else {
                 String storagePath = ossList.get(0).getStoragePath();
                 if (!FileUtil.exists(storagePath)) {
-                    UploadUtils.storageFile(multipartFile, storagePath);
+                    UploadUtils.saveFile(multipartFile, storagePath);
                 }
                 oss.setStoragePath(storagePath);
             }

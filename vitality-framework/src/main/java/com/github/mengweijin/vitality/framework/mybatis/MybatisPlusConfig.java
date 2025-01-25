@@ -1,7 +1,6 @@
 package com.github.mengweijin.vitality.framework.mybatis;
 
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
@@ -16,7 +15,6 @@ import lombok.AllArgsConstructor;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.dromara.hutool.core.net.NetUtil;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -33,7 +31,6 @@ import java.util.Properties;
 @AllArgsConstructor
 @Configuration
 @ConditionalOnBean(DataSource.class)
-@AutoConfigureAfter({MybatisPlusAutoConfiguration.class})
 public class MybatisPlusConfig {
 
     private DataSourceProperties dataSourceProperties;

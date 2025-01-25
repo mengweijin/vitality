@@ -66,7 +66,7 @@ public class RepeatSubmitAspect {
                 return object;
             } else {
                 // 缓存中存在，并且在时间间隔内，则这个url视为重复提交
-                log.warn("Repeat request, please try again later! url={}", url);
+                log.warn("Repeat request! url={}", url);
                 return R.failure(HttpStatus.BAD_REQUEST.value(), repeatSubmit.message());
             }
         } catch (Throwable e) {

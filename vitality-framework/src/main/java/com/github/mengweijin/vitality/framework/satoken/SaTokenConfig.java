@@ -4,11 +4,15 @@ import cn.dev33.satoken.filter.SaPathCheckFilterForJakartaServlet;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.strategy.SaStrategy;
+import cn.dev33.satoken.strategy.SaFirewallStrategy;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.io.IOException;
 
 /**
  * 注册拦截器
@@ -43,7 +47,10 @@ public class SaTokenConfig implements WebMvcConfigurer, InitializingBean {
     }
 
     /**
-     * SaStrategy.instance.requestPathInvalidHandle: 自定义当请求 path 校验不通过时 sa-token 处理方案的算法。
+     * 自定义当请求 path 校验不通过时 sa-token 处理方案。
+     * Version <= 1.39.0：SaStrategy.instance.requestPathInvalidHandle
+     * Version >= 1.40.0：SaFirewallStrategy.instance.requestPathInvalidHandle
+     *
      * 比如访问：localhost:8080/.xxx
      * 上面这个 url 包含了 .xxx 这样包含小数点的非常规 url，很多漏洞扫描工具（比如：AppScan）会模拟类似的 url 对应用进行扫描。
      * sa-token 默认的处理方式会返回 http 状态为 200 和 “非法请求” 的文字提示，而漏洞扫描工具要求返回 400、500 这样的错误状态码。
@@ -53,8 +60,17 @@ public class SaTokenConfig implements WebMvcConfigurer, InitializingBean {
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        SaStrategy.instance.requestPathInvalidHandle = (e, request, response) -> {
-            throw new RuntimeException(e.getMessage());
+        SaFirewallStrategy.instance.requestPathInvalidHandle = (e, requestObject, responseObject) -> {
+            if(responseObject instanceof HttpServletResponse response) {
+                try {
+                    response.setContentType("text/plain; charset=utf-8");
+                    response.setStatus(HttpStatus.BAD_REQUEST.value());
+                    response.getWriter().print(e.getMessage());
+                    response.getWriter().flush();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         };
     }
 }

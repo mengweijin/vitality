@@ -3,8 +3,8 @@ package com.github.mengweijin.vitality.framework.util;
 import org.dromara.hutool.core.codec.binary.Base32;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.crypto.digest.otp.TOTP;
-import org.dromara.hutool.extra.qrcode.QrCodeUtil;
-import org.dromara.hutool.extra.qrcode.QrConfig;
+import org.dromara.hutool.swing.qrcode.QrCodeUtil;
+import org.dromara.hutool.swing.qrcode.QrConfig;
 
 import java.time.Duration;
 import java.time.Instant;

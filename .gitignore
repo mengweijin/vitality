@@ -12,9 +12,8 @@ target/
 
 logs
 /h2
-/ehcache
+/cache
 /uploads
 
 application-local.yml
-/ehcache/**
 /vitality-ui/.eslintcache

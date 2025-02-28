@@ -3,7 +3,7 @@
         xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
 
     <!-- 持久化 路径 -->
-    <persistence directory="./ehcache"/>
+    <persistence directory="./cache"/>
 
     <!-- 缓存模版, 也可以不用模版直接在cache中配置与模版参数相同 -->
     <cache-template name="DEFAULT_TEMPLATE">

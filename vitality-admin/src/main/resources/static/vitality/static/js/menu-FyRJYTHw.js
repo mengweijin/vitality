@@ -1,1 +1,0 @@
-import{bc as t}from"./index-DcU5f0E9.js";const n=e=>t.get("/system/menu/list",{params:e}),u=e=>t.get("/system/menu/get-menu-id-by-role/"+e),r=e=>t.post("/system/menu/create",{data:e}),m=e=>t.post("/system/menu/update",{data:e}),o=e=>t.post("/system/menu/delete/"+e);export{u as a,r as c,o as d,n as g,m as u};

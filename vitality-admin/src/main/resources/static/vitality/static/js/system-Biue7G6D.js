@@ -1,1 +1,0 @@
-import{bc as t}from"./index-DcU5f0E9.js";const o=s=>t.request("post","/online-logs",{data:s}),r=s=>t.request("post","/login-logs",{data:s}),g=s=>t.request("post","/operation-logs",{data:s}),n=s=>t.request("post","/system-logs",{data:s}),i=s=>t.request("post","/system-logs-detail",{data:s});export{g as a,i as b,n as c,o as d,r as g};

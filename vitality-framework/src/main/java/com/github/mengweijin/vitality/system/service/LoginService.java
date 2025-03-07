@@ -5,7 +5,6 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.github.mengweijin.vitality.framework.exception.LoginFailedException;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
-import com.github.mengweijin.vitality.monitor.service.LogLoginService;
 import com.github.mengweijin.vitality.system.domain.LoginUser;
 import com.github.mengweijin.vitality.system.domain.bo.LoginBO;
 import com.github.mengweijin.vitality.system.domain.entity.User;

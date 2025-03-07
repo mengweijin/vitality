@@ -5,7 +5,7 @@ import com.github.mengweijin.vitality.framework.log.aspect.annotation.Log;
 import com.github.mengweijin.vitality.framework.repeatable.RepeatedlyRequestWrapper;
 import com.github.mengweijin.vitality.framework.satoken.LoginHelper;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
-import com.github.mengweijin.vitality.monitor.domain.entity.LogOperation;
+import com.github.mengweijin.vitality.system.domain.entity.LogOperation;
 import com.github.mengweijin.vitality.system.enums.EYesNo;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -110,7 +110,7 @@ public class LogOperationAspect {
             }
             StopWatch stopWatch = STOP_WATCH.get();
             stopWatch.stop();
-            logOperation.setCostTime(stopWatch.getTime());
+            logOperation.setCostTime(stopWatch.getDuration().toMillis());
 
             Long loginUserId = LoginHelper.getLoginUserIdQuietly();
             LocalDateTime now = LocalDateTime.now();

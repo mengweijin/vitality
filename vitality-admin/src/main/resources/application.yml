@@ -14,6 +14,7 @@ server:
   compression:
     enabled: true
 logging:
+  # 根据环境动态加载：classpath:logback-spring-${spring.profiles.active}.xml
   config: classpath:logback-spring.xml
 spring:
   application:

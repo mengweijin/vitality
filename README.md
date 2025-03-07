@@ -19,13 +19,11 @@
 
 ## 介绍
 
-基于 SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus 等 **前后端分离** 开发，不依赖任何第三方服务的轻量级管理系统。
+基于 SpringBoot 3、sa-token、mybatis-plus、hutool、Layui 等 **前后端分离** 开发，不依赖任何第三方服务的超轻量级管理系统。
 
-主要包含用户-部门-角色-权限管理、代码生成、数据脱敏、字典翻译、接口限流、日志管理、系统监控、缓存过期、接口防抖等功能。
+有时候我们就想做一个简单的东西，并且不想把前后端混在一起，后端却要依赖一大堆 redis、文件服务、配置中心等服务，前端工程化又要依赖诸如 nodejs、npm、vue 等一大堆东西，**真的太麻烦了！**
 
-有时候我们就想做一个简单的东西，却要依赖一大堆 redis、文件服务、配置中心等服务，两个字：**真的太麻烦了！**
-
-于是，就自己搞一个不依赖任何其他三方服务的 Web 应用，小作坊，哪有那么多高并发！ 欢迎 issue!
+于是，就自己搞一个不依赖任何其他三方服务的后台管理系统，小作坊，哪有那么多高并发！
 
 ### 在线演示
 |           版本           |            演示链接            |
@@ -57,7 +55,7 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
 
 注：-Dspring.profiles.active=h2：使用 h2 数据库。生产环境可替换为其他关系型数据库。
 
-### 内置功能
+### 系统功能
 
 - 我的消息：系统消息列表查看和维护。
 - 系统管理
@@ -82,6 +80,10 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
   - 代码生成器：前后端代码的生成（java、vue、js、sql、脚本）支持代码直接下载。
   - 接口文档：后台接口文档。
 
+### 开发功能
+
+主要包含用户-部门-岗位-角色-菜单-权限管理、代码生成、数据脱敏、字典翻译、接口限流、日志管理、系统监控、缓存过期、接口防抖等功能。
+
 ### 演示图
 |                                    |                                    |    
 |-----------------------------------:|:-----------------------------------|
@@ -95,7 +97,7 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
 
 后端：Spring Boot 3、sa-token、mybatis-plus、hutool 等。
 
-前端：vue 3、element-plus、pinia、pure-admin 模板等。
+前端：Layui、javascript、html、css、pear-admin-layui 4 模板等。
 
 ## ⭐Star Vitality on GitHub
 

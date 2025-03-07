@@ -6,6 +6,13 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
 
+    <!-- 获取 spring boot 中的数据库配置 -->
+    <springProperty scope="context" name="driverClassName" source="spring.datasource.driverClassName" defaultValue="driverClassName"/>
+    <springProperty scope="context" name="url" source="spring.datasource.url" defaultValue="url"/>
+    <springProperty scope="context" name="username" source="spring.datasource.username" defaultValue="username"/>
+    <springProperty scope="context" name="password" source="spring.datasource.password" defaultValue="password"/>
+
+
     <!-- name的值是变量的名称，value的值是变量定义的值。通过定义的值会被插入到logger上下文中。定义后，可以使“${}”来使用变量。 -->
     <property name="log.path" value="./logs" />
     <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{100} - [%method,%line] - %msg%n" />
@@ -66,8 +73,8 @@
             <!--日志文档保留天数-->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-        <!-- 此日志文档只记录info级别的 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <!-- 此日志文档只记录info及以上级别的 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <!-- 过滤的级别 -->
             <level>INFO</level>
             <!-- 匹配时的操作：接收（记录） -->
@@ -94,8 +101,8 @@
             <!--日志文档保留天数-->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-        <!-- 此日志文档只记录warn级别的 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <!-- 此日志文档只记录warn及以上级别的 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <!-- 过滤的级别 -->
             <level>WARN</level>
             <!-- 匹配时的操作：接收（记录） -->
@@ -134,6 +141,25 @@
     </appender>
 
     <!--
+        添加 DBAppender：https://logback.qos.ch/manual/appenders.html#DBAppender
+        默认 class="ch.qos.logback.classic.db.DBAppender"，这里修改为自定义的
+    -->
+    <appender name="DB" class="com.github.mengweijin.vitality.framework.logback.ApplicationDBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.zaxxer.hikari.HikariDataSource">
+                <driverClassName>${driverClassName}</driverClassName>
+                <jdbcUrl>${url}</jdbcUrl>
+                <username>${username}</username>
+                <password>${password}</password>
+            </dataSource>
+        </connectionSource>
+        <!--临界值过滤。只记录指定级别以及高于该级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!--
         <logger>用来设置某一个包或者具体的某一个类的日志打印级别、
         以及指定<appender>。<logger>仅有一个name属性，
         一个可选的level和一个可选的addtivity属性。
@@ -158,29 +184,23 @@
     <springProfile name="local,dev,h2,mysql,postgresql,oracle">
         <!-- 系统模块日志级别控制  -->
         <logger name="com.github.mengweijin" level="debug" />
-        <!-- Spring日志级别控制  -->
-        <logger name="org.springframework" level="warn" />
         <root level="info">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
             <appender-ref ref="INFO_FILE" />
             <appender-ref ref="WARN_FILE" />
             <appender-ref ref="ERROR_FILE" />
+            <appender-ref ref="DB" />
         </root>
     </springProfile>
 
     <!-- 4.2 生产环境 -->
     <springProfile name="prod">
-        <!-- 系统模块日志级别控制  -->
-        <logger name="com.github.mengweijin" level="info" />
-        <!-- Spring日志级别控制  -->
-        <logger name="org.springframework" level="warn" />
         <root level="info">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="DEBUG_FILE" />
             <appender-ref ref="INFO_FILE" />
             <appender-ref ref="WARN_FILE" />
             <appender-ref ref="ERROR_FILE" />
+            <appender-ref ref="DB" />
         </root>
     </springProfile>
 

@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.system.domain.bo;
 
-import com.github.mengweijin.vitality.framework.constant.ConstRegex;
+import com.github.mengweijin.vitality.framework.constant.Regex;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class LoginBO implements Serializable {
     private String username;
 
     @NotBlank
-    @Pattern(regexp = ConstRegex.PASSWORD, message = "{user.password.pattern}")
+    @Pattern(regexp = Regex.PASSWORD, message = "{user.password.pattern}")
     private String password;
 
     private boolean rememberMe;

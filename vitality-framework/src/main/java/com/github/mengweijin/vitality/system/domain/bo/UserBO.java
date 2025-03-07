@@ -1,6 +1,6 @@
 package com.github.mengweijin.vitality.system.domain.bo;
 
-import com.github.mengweijin.vitality.framework.constant.ConstRegex;
+import com.github.mengweijin.vitality.framework.constant.Regex;
 import com.github.mengweijin.vitality.framework.mybatis.entity.BaseEntity;
 import com.github.mengweijin.vitality.framework.validator.annotation.BusinessCheck;
 import com.github.mengweijin.vitality.framework.validator.group.Group;
@@ -32,7 +32,7 @@ public class UserBO extends BaseEntity {
      * 用户登录名（字母数字下划线）
      */
     @NotBlank(groups = {Group.Create.class})
-    @Pattern(regexp = ConstRegex.GENERAL, message = "{user.username.pattern}")
+    @Pattern(regexp = Regex.GENERAL, message = "{user.username.pattern}")
     @BusinessCheck(groups = {Group.Create.class}, checkRule = UsernameDuplicateCheckRule.class)
     private String username;
 
@@ -46,13 +46,13 @@ public class UserBO extends BaseEntity {
      * 登录密码
      */
     @NotBlank(groups = {Group.Create.class})
-    @Pattern(groups = {Group.Create.class}, regexp = ConstRegex.PASSWORD, message = "{user.password.pattern}")
+    @Pattern(groups = {Group.Create.class}, regexp = Regex.PASSWORD, message = "{user.password.pattern}")
     private String password;
 
     /**
      * 身份证号
      */
-    @Pattern(regexp = ConstRegex.CITIZEN_ID, message = "{user.idCard.pattern}")
+    @Pattern(regexp = Regex.CITIZEN_ID, message = "{user.idCard.pattern}")
     private String idCard;
 
     /**
@@ -69,7 +69,7 @@ public class UserBO extends BaseEntity {
     /**
      * 移动电话
      */
-    @Pattern(regexp = ConstRegex.MOBILE, message = "{user.mobile.pattern}")
+    @Pattern(regexp = Regex.MOBILE, message = "{user.mobile.pattern}")
     private String mobile;
 
     /**

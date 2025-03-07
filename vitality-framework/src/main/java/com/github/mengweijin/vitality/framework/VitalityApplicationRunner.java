@@ -35,15 +35,15 @@ public class VitalityApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         String databaseProductName = this.getDatabaseProductName();
-        log.info("-----> Product name of the database is: {}", databaseProductName);
+        log.info("----------- Product name of the database is: {}", databaseProductName);
 
         configService.list();
-        log.info("-----> Load config data success.");
+        log.info("----------- Load config data success.");
 
         dictTypeService.list().forEach(dictType -> {
             dictDataService.getByCode(dictType.getCode());
         });
-        log.info("-----> Load dict data success.");
+        log.info("----------- Load dict data success.");
     }
 
     private String getDatabaseProductName() throws SQLException {

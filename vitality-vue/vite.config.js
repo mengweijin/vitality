@@ -21,11 +21,11 @@ export default ({ mode }) => {
     },
     server: {
       // 端口号
-      port: env.VITE_PORT,
+      port: 8848,
       host: '0.0.0.0',
       proxy: {
         [env.VITE_API_BASE]: {
-          target: env.VITE_API_TARGET,
+          target: 'http://localhost:8080',
           changeOrigin: true,
           rewrite: (path) => path.replace(new  RegExp(`^\\${env.VITE_API_BASE}`), '')
         }

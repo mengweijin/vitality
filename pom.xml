@@ -32,6 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <mybatis-plus.version>3.5.10.1</mybatis-plus.version>
+        <logback-classic-db.version>1.2.11.1</logback-classic-db.version>
         <hutool.version>6.0.0-M20</hutool.version>
         <sa-token.version>1.40.0</sa-token.version>
         <oshi.version>6.6.6</oshi.version>
@@ -41,18 +42,14 @@
         <p6spy-spring-boot-starter.version>1.10.0</p6spy-spring-boot-starter.version>
         <knife4j.version>4.5.0</knife4j.version>
     </properties>
-    <profiles> 
-        <profile> 
-            <id>local</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>local</profiles.active>  
-                <logging.level>debug</logging.level> 
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>local</profiles.active>
+                <logging.level>debug</logging.level>
             </properties>
-            <activation>
-                <!-- 默认环境 -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
         <profile>
             <id>dev</id>
@@ -62,13 +59,17 @@
                 <logging.level>debug</logging.level>
             </properties>
         </profile>
-        <profile> 
-            <id>h2</id>  
-            <properties> 
-                <!-- 环境标识，需要与配置文件的名称相对应 -->  
-                <profiles.active>h2</profiles.active>  
-                <logging.level>debug</logging.level> 
+        <profile>
+            <id>h2</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>h2</profiles.active>
+                <logging.level>debug</logging.level>
             </properties>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <profile>
             <id>postgresql</id>
@@ -130,6 +131,11 @@
                 <groupId>cn.dev33</groupId>  
                 <artifactId>sa-token-spring-boot3-starter</artifactId>  
                 <version>${sa-token.version}</version> 
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback.db</groupId>
+                <artifactId>logback-classic-db</artifactId>
+                <version>${logback-classic-db.version}</version>
             </dependency>
             <dependency> 
                 <groupId>org.dromara.hutool</groupId>  

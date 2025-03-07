@@ -63,7 +63,7 @@
     "@wangeditor/editor-for-vue": "^5.1.12",
     "@zxcvbn-ts/core": "^3.0.4",
     "animate.css": "^4.1.1",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "china-area-data": "^5.0.1",
     "cropperjs": "^1.6.2",
     "dayjs": "^1.11.13",

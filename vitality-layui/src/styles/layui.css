@@ -1,0 +1,39 @@
+.layui-logo > img {
+  max-width: auto;
+  height: 100%;
+}
+
+.layui-body {
+  padding: 15px;
+}
+
+.layui-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+/* 父子选择器 >。相邻兄弟选择器：+ 符号选择紧邻的后一个同级元素。*/
+.layui-footer > p + p {
+  margin-left: 15px;
+}
+
+.layui-form-label {
+  width: 150px;
+}
+
+.layui-input-block {
+  margin-left: 180px;
+}
+
+.layui-form-label.required:before {
+  content: "* ";
+  color: red;
+}
+
+.layui-layer-setwin .layui-layer-close2 {
+  right: -24px;
+  top: -24px;
+}

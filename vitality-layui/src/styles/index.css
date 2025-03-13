@@ -1,0 +1,28 @@
+/* 导入其它样式文件 */
+@import url("./menu.css");
+@import url("./layui.css");
+
+/* --：定义全局变量，可在文档任意位置通过 var() 调用。比如引用变量：color: var(--primary-color); */
+:root {
+  --primary-color: #1e9fff;
+}
+
+.dark {
+  --theme-color: #333333;
+}
+
+.a {
+  color: var(--primary-color);
+}
+
+.a:hover {
+  /* 兼容旧版浏览器 */
+  color: var(--primary-color);
+  /* 
+    hsl(from #1e9fff h s l): 提取颜色中的 h s l 的值（色度，饱和度，亮度）。
+    hsl() 语法：https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl#syntax
+    浏览器兼容性：https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl#browser_compatibility 
+  */
+  color: hsl(from var(--primary-color) h calc(s - 40) l);
+  text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>首页 | Vitality 后台管理系统</title>
+</head>
+
+<body>
+    <script type="module" src="./src/main.js"></script>
+    <div id="app"></div>
+
+    <script type="module">
+        layui.use(function () {
+            let layer = layui.layer;
+            let $ = layui.jquery;
+            let element = layui.element;
+
+            let login = true;
+
+            if (login) {
+                // open loading
+                let loading = layer.load(2, { shade: [1, "#FFF"] });
+                // 加载 layout
+                $.ajax({
+                    // 关闭默认 loading
+                    loading: false,
+                    url: "views/layout/layout.html",
+                    type: 'get',
+                    dataType: 'html',
+                    success: function (res) {
+                        $("#app").html(res);
+                        // close loading
+                        layer.close(loading);
+                    },
+                    error: function (xhr) {
+                        return layer.msg('Status:' + xhr.status + '，' + xhr.statusText + '，请稍后再试！');
+                    }
+                });
+            } else {
+                top.window.location.href = "/login.html";
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

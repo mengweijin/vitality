@@ -10,6 +10,8 @@ let template = {
   data: null,
   // 数据请求链接。当存在 url 时，优先使用接口返回的数据，而不是默认的 data 中的数据。
   url: null,
+  // 回调函数
+  callback: function() {},
 
   /**
    * 渲染
@@ -27,6 +29,7 @@ let template = {
       // 渲染并输出结果
       laytpl(tplString).render(this.data, (str) => {
         $(this.elem).html(str);
+        this.callback();
       });
     };
 

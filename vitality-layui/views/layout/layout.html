@@ -151,7 +151,7 @@
     </div>
 
     <script type="module">
-      import { template } from "@/scripts/components.js";
+      import { template } from "@/scripts/template.js";
 
       layui.use(function () {
         let element = layui.element;
@@ -166,6 +166,9 @@
           data: {
             name: "张三",
             sex: 0,
+          },
+          callback: function() {
+            layer.msg('模板加载完成');
           }
         });
 

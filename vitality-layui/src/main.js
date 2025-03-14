@@ -2,7 +2,7 @@ import "layui/dist/css/layui.css";
 import "layui";
 
 import "@/styles/index.css";
-import { ajaxSetup } from "@/scripts/jquery-settings.js";
+import { ajaxSetup } from "@/scripts/settings/jquery-settings.js";
 
 layui.use(function () {
   let $ = layui.jquery;

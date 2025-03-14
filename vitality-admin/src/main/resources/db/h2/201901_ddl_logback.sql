@@ -22,7 +22,7 @@ CREATE TABLE logging_event (
   caller_filename VARCHAR(256), 
   caller_class VARCHAR(256), 
   caller_method VARCHAR(256), 
-  caller_line CHAR(4),
+  caller_line VARCHAR(4),
   event_id BIGINT NOT NULL PRIMARY KEY);
 
 

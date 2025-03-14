@@ -1,7 +1,11 @@
 import { defineConfig, loadEnv } from "vite";
-import { resolve } from "path";
 import legacy from "@vitejs/plugin-legacy";
-import copyPlugin from 'rollup-plugin-copy';
+import { globSync } from "glob";
+// 隐式引用 Node.js 内置模块 path，依赖 Node.js 的模块解析机制。默认情况下，Node.js 会优先解析内置模块，而非第三方同名模块
+// import { resolve } from "path";
+// 使用 node: 前缀显式声明导入 Node.js 内置 path 模块，绕过模块缓存机制，直接调用核心模块
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // https://cn.vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -10,6 +14,34 @@ export default defineConfig(({ mode }) => {
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有
   // `VITE_` 前缀。
   const env = loadEnv(mode, process.cwd(), "");
+
+  /**
+   * https://rollupjs.org/configuration-options/#input
+   * 打包的入口文件配置。示例：
+   * input: {
+   *   index: "index.html",
+   *   login: "login.html",
+   * },
+   * 
+   * 1.1  globSync：是一个用于文件路径匹配的函数，通常来自 glob 库。它会同步地查找所有匹配 views 下所有 .html 文件。
+   * 1.2  .map((file) => [...])：对 globSync 返回的文件路径数组进行映射操作，为每个文件路径生成一个包含两个元素的子数组。
+   * 1.3  path.extname(file) ：获取文件的扩展名，例如 .html
+   * 1.4  file.slice(0, file.length - path.extname(file).length) ：去掉文件的扩展名，得到文件的基本名称。
+   * 1.5  path.relative(from, to)：计算相对于当前工作目录的相对路径，这个相对路径将作为对象的键。
+   * 
+   * 2.1  import.meta.url 表示当前模块的 URL。
+   * 2.2  new URL(file, import.meta.url) ：创建一个基于 import.meta.url 的绝对 URL 对象。
+   * 2.3  fileURLToPath(...)：将 URL 对象转换为文件系统路径，这个绝对路径将作为对象的值。
+   */
+  const rollupInput = Object.fromEntries(
+    globSync("views/**/*.html").map((file) => [
+      path.relative( "", file.slice(0, file.length - path.extname(file).length)),
+      fileURLToPath(new URL(file, import.meta.url)),
+    ])
+  );
+  rollupInput.index = "index.html";
+  rollupInput.login = "login.html";
+
   return {
     // 项目根目录（index.html 文件所在的位置）。可以是一个绝对路径，或者一个相对于该配置文件本身的相对路径。
     root: process.cwd(),
@@ -28,18 +60,14 @@ export default defineConfig(({ mode }) => {
       // 目录别名
       alias: {
         // 目录 → src
-        "@": resolve(__dirname, "src"),
-        "@assets": resolve(__dirname, "src/assets"),
-        "@scripts": resolve(__dirname, "src/scripts"),
-        "@styles": resolve(__dirname, "src/styles"),
-        "@views": resolve(__dirname, "src/views"),
+        "@": path.resolve(__dirname, "src"),
+        // "@assets": path.resolve(__dirname, "src/assets"),
+        // "@scripts": path.resolve(__dirname, "src/scripts"),
+        // "@styles": path.resolve(__dirname, "src/styles"),
       },
     },
     // 设为 false 可以避免 Vite 清屏而错过在终端中打印某些关键信息。
     clearScreen: false,
-    build: {
-      outDir: "dist",
-    },
     server: {
       // 端口号
       port: 5173,
@@ -67,18 +95,9 @@ export default defineConfig(({ mode }) => {
       legacy({
         targets: ["defaults", "not IE 11"],
       }),
-      copyPlugin({
-        targets: [
-          // 格式：{ src: '源路径', dest: '目标路径' }
-          { src: 'login.html', dest: 'dist' },
-          // 复制 views 下的 文件到 dist/views 
-          { src: 'views/**/*', dest: 'dist/views' },
-        ],
-        // 在打包的某个声明周期执行复制。 buildStart, buildEnd, generateBundle, writeBundle
-        hook: 'writeBundle'
-      }),
     ],
     build: {
+      outDir: "dist",
       // https://cn.vitejs.dev/guide/build.html#browser-compatibility
       target: "es2015",
       // https://cn.vitejs.dev/config/build-options.html#build-assetsdir
@@ -89,18 +108,16 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       // 消除打包大小超过500kb警告
       chunkSizeWarningLimit: 4000,
+      // https://rollupjs.org/configuration-options/
       rollupOptions: {
-        input: {
-          // 入口文件
-          index: "index.html"
-        },
+        input: rollupInput,
         // 静态资源分类打包
         output: {
           chunkFileNames: "static/js/[name]-[hash].js",
           entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]"
-        }
-      }
+          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+        },
+      },
     },
   };
 });

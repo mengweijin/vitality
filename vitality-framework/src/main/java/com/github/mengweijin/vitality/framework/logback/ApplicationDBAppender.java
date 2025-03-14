@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class ApplicationDBAppender extends DBAppender {
 
-    private DBNameResolver dbNameResolver = new DefaultDBNameResolver();
+    private final DBNameResolver dbNameResolver = new DefaultDBNameResolver();
 
     @Override
     protected void subAppend(ILoggingEvent event, Connection connection, PreparedStatement insertStatement) throws Throwable {
@@ -32,7 +32,7 @@ public class ApplicationDBAppender extends DBAppender {
 
     @Override
     protected void secondarySubAppend(ILoggingEvent event, Connection connection, long eventId) throws Throwable {
-        Map<String, String> mergedMap = mergePropertyMaps(event);
+        Map<String, String> mergedMap = mergePropertyMap(event);
         // 过滤敏感字段
         mergedMap.keySet().removeIf(key  -> "username".equals(key) || "password".equals(key));
         insertProperties(mergedMap, connection, eventId);
@@ -42,7 +42,7 @@ public class ApplicationDBAppender extends DBAppender {
         }
     }
 
-    Map<String, String> mergePropertyMaps(ILoggingEvent event) {
+    protected Map<String, String> mergePropertyMap(ILoggingEvent event) {
         Map<String, String> mergedMap = new HashMap<String, String>();
         // we add the context properties first, then the event properties, since
         // we consider that event-specific properties should have priority over

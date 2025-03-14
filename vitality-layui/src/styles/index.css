@@ -11,11 +11,11 @@
   --theme-color: #333333;
 }
 
-.a {
+a {
   color: var(--primary-color);
 }
 
-.a:hover {
+a:hover {
   /* 兼容旧版浏览器 */
   color: var(--primary-color);
   /* 

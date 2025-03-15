@@ -19,33 +19,6 @@
             let layer = layui.layer;
             let $ = layui.jquery;
             let element = layui.element;
-
-            let login = true;
-
-            if (login) {
-                // open loading
-                let loading = layer.load(2, { shade: [1, "#FFF"] });
-                // 加载 layout
-                $.ajax({
-                    // 关闭默认 loading
-                    loading: false,
-                    url: "views/layout/layout.html",
-                    type: 'get',
-                    dataType: 'html',
-                    success: function (res) {
-                        $("#app").html(res);
-                        // close loading
-                        layer.close(loading);
-                    },
-                    error: function (xhr) {
-                        return layer.msg('Status:' + xhr.status + '，' + xhr.statusText + '，请稍后再试！');
-                    }
-                });
-            } else {
-                top.window.location.href = "/login.html";
-            }
-
-
         });
     </script>
 </body>

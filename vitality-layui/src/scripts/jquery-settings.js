@@ -68,7 +68,7 @@ let ajaxSetup = function ($, layer) {
           });
           break;
         case 500:
-          layui.layer.msg(message + "<br>服务器异常！", {
+          layer.msg(message + "<br>服务器异常！", {
             icon: 2,
             time: 0,
             closeBtn: 1,
@@ -76,8 +76,8 @@ let ajaxSetup = function ($, layer) {
           });
           break;
         default:
-          message = message + "<br>未知异常，请联系系统管理员！";
-          layui.layer.msg(message, {
+          message = message + "<br>发生异常，请联系系统管理员！";
+          layer.msg(message, {
             icon: 2,
             time: 0,
             closeBtn: 1,
@@ -92,7 +92,7 @@ let ajaxSetup = function ($, layer) {
       if (this.url.endsWith("/login")) {
         return;
       } else if (this.type.toUpperCase() != "GET" && xhr.status == 200) {
-        layui.layer.msg("操作成功！", {
+        layer.msg("操作成功！", {
           icon: 1,
           time: 800,
         });

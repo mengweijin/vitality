@@ -77,7 +77,6 @@ public class LoginService {
         return loginUser;
     }
 
-    @Deprecated
     public String createCaptcha() {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
         AbstractCaptcha captcha = CaptchaUtil.ofLineCaptcha(200, 60, 4, 200);

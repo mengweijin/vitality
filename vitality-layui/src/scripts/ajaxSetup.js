@@ -1,3 +1,5 @@
+import { admin } from "@/scripts/admin.js";
+
 /**
  * 设置 jquery ajax 全局配置
  */
@@ -9,25 +11,38 @@ let ajaxSetup = function ($, layer) {
     async: true,
     // default is: application/x-www-form-urlencoded
     // contentType 为 'application/json;charset=UTF-8' 时, 每一个请求携带的请求体就要使用 JSON.stringify(data) 处理。
-    contentType: 'application/json;charset=UTF-8', 
+    contentType: "application/json;charset=UTF-8",
     // 配合 contentType，关闭 data 参数自动转换为查询字符串格式（如 key1=value1&key2=value2）
     processData: false,
     beforeSend: function (xhr) {
       if (this.loading) {
         this.layerIndex = layer.load(2, { shade: [0.5, "#393D49"] });
       }
-      // if(this.contentType.indexOf("application/json")  !== -1) {
-      //   this.data = JSON.stringify(this.data); 
-      // }
+
+      if (this.dataType !== "html") {
+        let prefix = "/";
+        let apiUrl = this.url;
+        if (apiUrl.startsWith(prefix)) {
+          // 去前缀
+          apiUrl = apiUrl.slice(prefix.length);
+        }
+        this.url = `${import.meta.env.VITE_API_BASE}/${apiUrl}`;
+      }
+
+      if (this.data && this.contentType.indexOf("application/json") !== -1) {
+        this.data = JSON.stringify(this.data);
+      }
+
+      xhr.setRequestHeader('Authorization',  'Bearer ' + admin.getToken());
     },
     error: function (xhr, textStatus, errorThrown) {
-      let message = "Unknown error!";
+      let message = "发生异常！";
       if (xhr.responseJSON && xhr.responseJSON.message) {
         message = xhr.responseJSON.message;
       }
       switch (xhr.status) {
         case 400:
-          message = message + "<br>客户端操作异常，请检查你的输入或操作！";
+          message = xhr?.responseJSON?.msg;
           layer.msg(message, {
             icon: 5,
             time: 0,
@@ -37,13 +52,18 @@ let ajaxSetup = function ($, layer) {
           break;
         case 401:
           message = "未登录或者会话已过期！";
-          //layer.msg(message, { icon: 2, title: xhr.status });
-          //top.location.reload(true);    // 刷新当前页面
-          top.window.location.href = "/login.html";
-          //top.window.open('/login.html', '_self');
+          layer.alert(
+            message,
+            { icon: 0, closeBtn: 0, title: "信息" },
+            function (index) {
+              layer.close(index);
+              admin.toLogin();
+            }
+          );
+
           break;
         case 403:
-          message = message + "<br>无权限！";
+          message = message + "无权限！";
           layer.open({
             icon: 4,
             title: xhr.status,
@@ -56,7 +76,7 @@ let ajaxSetup = function ($, layer) {
           });
           break;
         case 404:
-          layer.msg(message + "<br>找不到资源！", {
+          layer.msg(message + "找不到资源！", {
             icon: 2,
             title: xhr.status,
           });
@@ -68,7 +88,7 @@ let ajaxSetup = function ($, layer) {
           });
           break;
         case 500:
-          layer.msg(message + "<br>服务器异常！", {
+          layer.msg(message + "服务器异常！", {
             icon: 2,
             time: 0,
             closeBtn: 1,
@@ -76,7 +96,7 @@ let ajaxSetup = function ($, layer) {
           });
           break;
         default:
-          message = message + "<br>发生异常，请联系系统管理员！";
+          message = message + "发生异常，请联系系统管理员！";
           layer.msg(message, {
             icon: 2,
             time: 0,
@@ -97,9 +117,9 @@ let ajaxSetup = function ($, layer) {
           time: 800,
         });
       }
-      if (xhr.status == 401 && this.url.indexOf("/login.html") == -1) {
-        top.window.location.href = "/login.html";
-      }
+      // if (xhr.status == 401 && this.url.indexOf("/login.html") == -1) {
+      //   top.window.location.href = "/login.html";
+      // }
     },
   });
 };

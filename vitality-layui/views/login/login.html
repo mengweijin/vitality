@@ -63,7 +63,7 @@
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-username"></i>
                     </div>
-                    <input type="text" name="username" value="" lay-verify="required" placeholder="用户名"
+                    <input type="text" name="username" value="admin" lay-verify="required" placeholder="用户名"
                         lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
                 </div>
             </div>
@@ -72,8 +72,9 @@
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-password"></i>
                     </div>
-                    <input id="password" type="password" name="password" value="" lay-verify="required" placeholder="密&emsp;码" lay-reqtext="请填写密码"
-                        autocomplete="off" class="layui-input" lay-affix="eye">
+                    <input id="password" type="password" name="password" value="aday.fun" lay-verify="required"
+                        placeholder="密&emsp;码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input"
+                        lay-affix="eye">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -81,7 +82,7 @@
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-key"></i>
                     </div>
-                    <input id="totp" type="text" name="totp" value="" placeholder="动态口令" lay-reqtext="请填写动态口令" autocomplete="off"
+                    <input id="totp" type="text" name="totp" placeholder="动态口令" lay-reqtext="请填写动态口令" autocomplete="off"
                         class="layui-input layui-hide" lay-affix="clear">
                 </div>
             </div>
@@ -98,9 +99,7 @@
                     </div>
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
-                            <!-- <img src="https://www.oschina.net/action/user/captcha"
-                                onclick="this.src='https://www.oschina.net/action/user/captcha?t='+ new Date().getTime();"> -->
-                            <img src="/captcha.gif">
+                            <a href="javascript:;"><img id="captchaImg" lay-on="captcha"></a>
                         </div>
                     </div>
                 </div>
@@ -117,7 +116,8 @@
                 <span>
                     <input type="radio" name="loginMethod" value="password" title="密码"
                         lay-filter="radio-login-method-filter" checked>
-                    <input type="radio" name="loginMethod" value="totp" title="动态口令" lay-filter="radio-login-method-filter">
+                    <input type="radio" name="loginMethod" value="totp" title="动态口令"
+                        lay-filter="radio-login-method-filter">
                 </span>
             </div>
             <div class="layui-form-item login-other layui-hide">
@@ -135,31 +135,33 @@
 
 
     <script type="module">
+        import { admin } from '@/scripts/admin.js';
+
         layui.use(function () {
             let $ = layui.$;
-            var form = layui.form;
-            var layer = layui.layer;
+            let form = layui.form;
+            let layer = layui.layer;
+            let util = layui.util;
 
             form.render();
 
+            let refreshCaptcha = function () {
+                $.ajax({
+                    url: "/captcha",
+                    method: "get",
+                    cache: false,
+                    success: (base64) => {
+                        $("#captchaImg").attr('src', base64);
+                    },
+                });
+            }
+
+            refreshCaptcha();
+
             // 提交事件
             form.on('submit(login-btn)', function (data) {
-                var field = data.field; // 获取表单字段值
-                // 显示填写结果，仅作演示用
-                layer.alert(JSON.stringify(field), {
-                    title: '当前填写的字段值'
-                });
-                // 此处可执行 Ajax 等操作
-                // …
-
-                layui.sessionData(import.meta.env.VITE_STORAGE_TABLE, {
-                    key: 'user',
-                    value: field.username
-                });
-
-                // 重载页面
-                top.location.reload();
-
+                // 登录
+                admin.login(data.field);
                 return false; // 阻止默认 form 跳转
             });
 
@@ -174,6 +176,12 @@
 
                 $(`#${value}`).removeClass("layui-hide").attr("lay-verify", "required");
 
+            });
+
+            util.on({
+                captcha: function () {
+                    refreshCaptcha();
+                },
             });
         });
     </script>

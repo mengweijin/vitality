@@ -14,33 +14,22 @@
           <i class="layui-icon layui-icon-spread-left"></i>
         </li>
         <li class="layui-nav-item layui-hide-xs">
-          <a href="javascript:;">nav 1</a>
+          <a href="javascript:;" lay-on="shrink" class="layui-icon layui-icon-shrink-right" title="收缩"></a>
         </li>
         <li class="layui-nav-item layui-hide-xs">
-          <a href="javascript:;">nav 2</a>
-        </li>
-        <li class="layui-nav-item layui-hide-xs">
-          <a href="javascript:;">nav 3</a>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">nav groups</a>
-          <dl class="layui-nav-child">
-            <dd><a href="javascript:;">menu 11</a></dd>
-            <dd><a href="javascript:;">menu 22</a></dd>
-            <dd><a href="javascript:;">menu 33</a></dd>
-          </dl>
+          <a href="javascript:;" lay-on="refresh" class="layui-icon layui-icon-refresh-1" title="刷新"></a>
         </li>
       </ul>
-      <ul class="layui-nav layui-layout-right">
+      <ul class="layui-nav layui-layout-right" lay-filter="nav-logout-filter">
         <li class="layui-nav-item layui-hide layui-show-sm-inline-block">
           <a href="javascript:;">
-            <img src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" class="layui-nav-img" />
-            tester
+            <img src="/favicon.svg" class="layui-nav-img" />
+            admin
           </a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">Your Profile</a></dd>
-            <dd><a href="javascript:;">Settings</a></dd>
-            <dd><a href="javascript:;">Sign out</a></dd>
+            <dd><a href="javascript:;" lay-on="profile">个人主页</a></dd>
+            <dd><a href="javascript:;" lay-on="setting">设置</a></dd>
+            <dd><a href="javascript:;" lay-on="logout">退出</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
@@ -140,7 +129,8 @@
   </div>
 
   <script type="module">
-    import { admin } from "@/scripts/components/admin.js";
+    import { admin } from "@/scripts/admin.js";
+    import { template } from "@/scripts/template.js";
 
     layui.use(function () {
       let element = layui.element;
@@ -150,7 +140,7 @@
 
       element.render();
 
-      admin.load('#view', '#tpl', { name: "张三", sex: 0, }, function () { layer.msg('模板加载完成'); });
+      template.load('#view', '#tpl', { name: "张三", sex: 0, }, function () { layer.msg('模板加载完成'); });
 
       $("#footerYear").text(new Date().getFullYear());
 
@@ -174,6 +164,27 @@
           });
         },
       });
+
+      util.on({
+        shrink: function () {
+          console.log(this); // 当前触发事件的 DOM 元素
+          layer.msg('触发了事件 shrink');
+        },
+        refresh: function () {
+          // 刷新当前页面
+          top.location.reload();
+        },
+        profile: function () {
+          layer.msg('触发了事件 profile');
+        },
+        setting: function () {
+          layer.msg('触发了事件 setting');
+        },
+        logout: function () {
+          admin.logout();
+        }
+      });
+
     });
   </script>
 </body>

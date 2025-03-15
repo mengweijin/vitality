@@ -1,4 +1,5 @@
 # Vitality
+
 <p align="center">	
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-parent%22">
 		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-parent" />
@@ -14,6 +15,45 @@
 	</a>
 	<a target="_blank" href='https://github.com/mengweijin/vitality'>
 		<img src="https://img.shields.io/github/stars/mengweijin/vitality.svg?style=social" alt="github star"/>
+	</a>
+</p>
+
+<p align="center">
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/quality_gate?project=mengweijin_vitality&branch=master" />
+	</a>
+</p>
+
+<p align="center">
+	<a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=alert_status&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=reliability_rating&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=security_rating&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=sqale_rating&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=vulnerabilities&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=bugs&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=ncloc&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=duplicated_lines_density&branch=master" />
+	</a>
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=code_smells&branch=master" />
+	</a>
+    <a style="display: none;" target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=coverage&branch=master" />
 	</a>
 </p>
 
@@ -97,7 +137,7 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
 
 后端：Spring Boot 3、sa-token、mybatis-plus、hutool 等。
 
-前端：Layui、javascript、html、css、pear-admin-layui 4 模板等。
+前端：Vite、pnpm、Layui、javascript、html、css 等。
 
 ## ⭐Star Vitality on GitHub
 

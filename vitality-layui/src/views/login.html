@@ -143,8 +143,6 @@
             let layer = layui.layer;
             let util = layui.util;
 
-            form.render();
-
             let refreshCaptcha = function () {
                 $.ajax({
                     url: "/captcha",
@@ -157,6 +155,7 @@
             }
 
             refreshCaptcha();
+            form.render();
 
             // 提交事件
             form.on('submit(login-btn)', function (data) {
@@ -166,16 +165,12 @@
             });
 
             form.on('radio(radio-login-method-filter)', function (data) {
-                let elem = data.elem; // 获得 radio 原始 DOM 对象
-                let checked = elem.checked; // 获得 radio 选中状态
-                let value = elem.value;
-                let othis = data.othis; // 获得 radio 元素被替换后的 jQuery 对象
+                let value = data.elem.value;
 
                 $("#password").addClass("layui-hide").removeAttr("lay-verify");
                 $("#totp").addClass("layui-hide").removeAttr("lay-verify");
 
                 $(`#${value}`).removeClass("layui-hide").attr("lay-verify", "required");
-
             });
 
             util.on({

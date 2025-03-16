@@ -1,4 +1,4 @@
-import { admin } from "@/scripts/admin.js";
+import { userStorage } from "@/storage/userStorage.js";
 
 /**
  * 设置 jquery ajax 全局配置
@@ -33,7 +33,7 @@ let ajaxSetup = function ($, layer) {
         this.data = JSON.stringify(this.data);
       }
 
-      xhr.setRequestHeader('Authorization',  'Bearer ' + admin.getToken());
+      xhr.setRequestHeader('Authorization',  'Bearer ' + userStorage.getToken());
     },
     error: function (xhr, textStatus, errorThrown) {
       let message = "发生异常！";
@@ -57,7 +57,8 @@ let ajaxSetup = function ($, layer) {
             { icon: 0, closeBtn: 0, title: "信息" },
             function (index) {
               layer.close(index);
-              admin.toLogin();
+              // 刷新页面，触发登录检查
+              top.location.reload();
             }
           );
 

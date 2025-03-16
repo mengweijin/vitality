@@ -1,4 +1,5 @@
 import { template } from "@/scripts/template.js";
+import { userStorage } from "@/storage/userStorage.js";
 
 const VTL_STORAGE = `${import.meta.env.VITE_STORAGE_PREFIX}-store`;
 const VTL_STORAGE_USER = 'user';
@@ -16,15 +17,8 @@ let admin = {
   },
 
   isLogin: function () {
-    let table = layui.sessionData(VTL_STORAGE);
-    let user = table?.user;
+    let user = userStorage.get();
     return user !== undefined && user !== null;
-  },
-
-  getToken: function(){
-    let table = layui.sessionData(VTL_STORAGE);
-    let token = table?.user?.token;
-    return token;
   },
 
   /**
@@ -37,10 +31,7 @@ let admin = {
         method: "post",
         data: data,
         success: (r) => {
-          layui.sessionData(VTL_STORAGE, {
-            key: VTL_STORAGE_USER,
-            value: r.data,
-          });
+          userStorage.set(r.data);
           this.toAdmin();
         },
       });
@@ -55,22 +46,21 @@ let admin = {
       url: "/logout",
       method: "post",
       success: (r) => {
-        layui.sessionData(VTL_STORAGE, {
-          key: VTL_STORAGE_USER,
-          remove: true,
-        });
+        userStorage.del();
         this.toLogin();
       },
     });
   },
 
+  /**
+   * 默认值为 undefined 时才触发 ES6 函数默认值的赋值，null 不会触发。
+   */
   toAdmin: function (callback = function () {}) {
-    // 默认值为 undefined 时才触发默认值的赋值，null 不会触发。
-    template.load("#app", "views/admin/admin.html", undefined, callback);
+    template.load("#app", "src/views/admin.html", undefined, callback);
   },
 
   toLogin: function (callback = function () {}) {
-    template.load("#app", "views/login/login.html", undefined, callback);
+    template.load("#app", "src/views/login.html", undefined, callback);
   },
 };
 

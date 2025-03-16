@@ -34,8 +34,8 @@ export default defineConfig(({ mode }) => {
    * 2.3  fileURLToPath(...)：将 URL 对象转换为文件系统路径，这个绝对路径将作为对象的值。
    */
   const rollupInput = Object.fromEntries(
-    globSync("views/**/*.html").map((file) => [
-      path.relative( "", file.slice(0, file.length - path.extname(file).length)),
+    globSync("src/views/**/*.html").map((file) => [
+      path.relative( "src", file.slice(0, file.length - path.extname(file).length)),
       fileURLToPath(new URL(file, import.meta.url)),
     ])
   );
@@ -112,9 +112,9 @@ export default defineConfig(({ mode }) => {
         input: rollupInput,
         // 静态资源分类打包
         output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+          chunkFileNames: "src/static/js/[name]-[hash].js",
+          entryFileNames: "src/static/js/[name]-[hash].js",
+          assetFileNames: "src/static/[ext]/[name]-[hash].[ext]",
         },
       },
     },

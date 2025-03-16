@@ -2,7 +2,7 @@ import "layui/dist/css/layui.css";
 import "layui";
 
 import "@/styles/index.css";
-import { ajaxSetup } from "@/scripts/ajaxSetup.js";
+import { ajaxSetup } from "@/scripts/http.js";
 import { admin } from "@/scripts/admin.js";
 
 layui.use(function () {

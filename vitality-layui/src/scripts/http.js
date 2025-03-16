@@ -1,9 +1,13 @@
+import * as layui from "@/scripts/layui.js";
 import { userStorage } from "@/storage/userStorage.js";
+
+let $ = layui.$;
+let layer = layui.layer;
 
 /**
  * 设置 jquery ajax 全局配置
  */
-let ajaxSetup = function ($, layer) {
+let ajaxSetup = function () {
   $.ajaxSetup({
     loading: true,
     layerIndex: -1,
@@ -20,20 +24,14 @@ let ajaxSetup = function ($, layer) {
       }
 
       if (this.dataType !== "html") {
-        let prefix = "/";
-        let apiUrl = this.url;
-        if (apiUrl.startsWith(prefix)) {
-          // 去前缀
-          apiUrl = apiUrl.slice(prefix.length);
-        }
-        this.url = `${import.meta.env.VITE_API_BASE}/${apiUrl}`;
+        this.url = import.meta.env.VITE_API_BASE + this.url;
       }
 
       if (this.data && this.contentType.indexOf("application/json") !== -1) {
         this.data = JSON.stringify(this.data);
       }
 
-      xhr.setRequestHeader('Authorization',  'Bearer ' + userStorage.getToken());
+      xhr.setRequestHeader('Authorization', 'Bearer ' + userStorage.getToken());
     },
     error: function (xhr, textStatus, errorThrown) {
       let message = "发生异常！";
@@ -57,7 +55,7 @@ let ajaxSetup = function ($, layer) {
             { icon: 0, closeBtn: 0, title: "信息" },
             function (index) {
               layer.close(index);
-              // 刷新页面，触发登录检查
+              // 刷新页面，触发登录检查，从而跳转登录页
               top.location.reload();
             }
           );
@@ -118,9 +116,6 @@ let ajaxSetup = function ($, layer) {
           time: 800,
         });
       }
-      // if (xhr.status == 401 && this.url.indexOf("/login.html") == -1) {
-      //   top.window.location.href = "/login.html";
-      // }
     },
   });
 };

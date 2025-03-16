@@ -135,50 +135,61 @@
 
 
     <script type="module">
-        import { admin } from '@/scripts/admin.js';
+        const modules = [import("@/scripts/layui.js"), import("@/scripts/admin.js")];
+        Promise.all(modules)
+            .then(([layui, admin]) => {
+                // layui.use(function () {
+                    let $ = layui.$;
+                    let form = layui.form;
+                    let layer = layui.layer;
+                    let util = layui.util;
 
-        layui.use(function () {
-            let $ = layui.$;
-            let form = layui.form;
-            let layer = layui.layer;
-            let util = layui.util;
+                    let refreshCaptcha = function () {
+                        $.ajax({
+                            url: "/captcha",
+                            method: "get",
+                            async: false,
+                            cache: false,
+                            success: (base64) => {
+                                $("#captchaImg").prop('src', base64);
+                            },
+                        });
+                    }
 
-            let refreshCaptcha = function () {
-                $.ajax({
-                    url: "/captcha",
-                    method: "get",
-                    cache: false,
-                    success: (base64) => {
-                        $("#captchaImg").attr('src', base64);
-                    },
-                });
-            }
-
-            refreshCaptcha();
-            form.render();
-
-            // 提交事件
-            form.on('submit(login-btn)', function (data) {
-                // 登录
-                admin.login(data.field);
-                return false; // 阻止默认 form 跳转
-            });
-
-            form.on('radio(radio-login-method-filter)', function (data) {
-                let value = data.elem.value;
-
-                $("#password").addClass("layui-hide").removeAttr("lay-verify");
-                $("#totp").addClass("layui-hide").removeAttr("lay-verify");
-
-                $(`#${value}`).removeClass("layui-hide").attr("lay-verify", "required");
-            });
-
-            util.on({
-                captcha: function () {
                     refreshCaptcha();
-                },
+                    form.render();
+
+                    // 提交事件
+                    form.on('submit(login-btn)', function (data) {
+                        // 登录
+                        admin.login(data.field);
+                        return false; // 阻止默认 form 跳转
+                    });
+
+                    form.on('radio(radio-login-method-filter)', function (data) {
+                        let value = data.elem.value;
+
+                        $("#password").addClass("layui-hide").removeAttr("lay-verify");
+                        $("#totp").addClass("layui-hide").removeAttr("lay-verify");
+
+                        $(`#${value}`).removeClass("layui-hide").attr("lay-verify", "required");
+                    });
+
+                    util.on({
+                        captcha: function () {
+                            refreshCaptcha();
+                        },
+                    });
+                // });
+            })
+            .catch((error) => {
+                console.error(" 模块加载失败:", error);
             });
-        });
+        // import { layui } from "@/scripts/layui.js";
+        // import { admin } from '@/scripts/admin.js';
+
+
+
     </script>
 
 

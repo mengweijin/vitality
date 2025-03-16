@@ -129,8 +129,8 @@
   </div>
 
   <script type="module">
-    import { admin } from "@/scripts/admin.js";
-    import { template } from "@/scripts/template.js";
+    // import { admin } from "@/scripts/admin.js";
+    // import { template } from "@/scripts/template.js";
 
     layui.use(function () {
       let element = layui.element;
@@ -138,9 +138,9 @@
       let util = layui.util;
       let $ = layui.$;
 
-      element.render();
-
       template.load('#view', '#tpl', { name: "张三", sex: 0, }, function () { layer.msg('模板加载完成'); });
+
+      element.render();
 
       $("#footerYear").text(new Date().getFullYear());
 

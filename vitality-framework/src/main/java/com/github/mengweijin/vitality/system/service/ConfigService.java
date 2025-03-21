@@ -3,13 +3,12 @@ package com.github.mengweijin.vitality.system.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
-import com.github.mengweijin.vitality.framework.cache.CacheConst;
-import com.github.mengweijin.vitality.framework.cache.CacheNames;
+import com.github.mengweijin.vitality.system.constant.ConfigConst;
 import com.github.mengweijin.vitality.system.domain.entity.Config;
 import com.github.mengweijin.vitality.system.mapper.ConfigMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.cache.annotation.Cacheable;
+import org.dromara.hutool.core.util.BooleanUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,4 +57,8 @@ public class ConfigService extends CrudRepository<ConfigMapper, Config> {
         return this.lambdaQuery().eq(Config::getCode, code).one();
     }
 
+    public boolean getCaptchaEnabled() {
+        Config config = this.getByCode(ConfigConst.CAPTCHA_ENABLED);
+        return BooleanUtil.toBoolean(config.getVal());
+    }
 }

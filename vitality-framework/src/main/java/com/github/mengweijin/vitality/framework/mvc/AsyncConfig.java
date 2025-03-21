@@ -1,8 +1,8 @@
 package com.github.mengweijin.vitality.framework.mvc;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +18,9 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Slf4j
 @Configuration
+@AllArgsConstructor
 public class AsyncConfig implements AsyncConfigurer {
 
-    @Autowired
     private TaskExecutionProperties taskExecutionProperties;
 
     @Bean

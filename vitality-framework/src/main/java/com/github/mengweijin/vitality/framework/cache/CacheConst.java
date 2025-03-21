@@ -6,17 +6,17 @@ package com.github.mengweijin.vitality.framework.cache;
  * @since 2022/9/3
  */
 @SuppressWarnings({"unused"})
-public interface CacheConst {
+public final class CacheConst {
 
-    String KEY_CLASS = "#root.targetClass.name";
+    public static final String KEY_CLASS = "#root.targetClass.name";
 
-    String KEY_CLASS_METHOD = "#root.targetClass.name + ':' + #root.methodName";
+    public static final String KEY_CLASS_METHOD = "#root.targetClass.name + ':' + #root.methodName";
 
-    String KEY_ARGS_0_VALUE = " #root.args[0]";
+    public static final String KEY_ARGS_0_VALUE = " #root.args[0]";
 
-    String KEY_ALL = "'ALL'";
+    public static final String KEY_ALL = "'ALL'";
 
-    String UNLESS_LIST_EMPTY = "#result?.size() == 0";
+    public static final String UNLESS_LIST_EMPTY = "#result?.size() == 0";
 
-    String UNLESS_OBJECT_NULL = "#result == null";
+    public static final String UNLESS_OBJECT_NULL = "#result == null";
 }

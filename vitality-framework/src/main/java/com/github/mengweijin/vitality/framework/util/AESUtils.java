@@ -31,7 +31,7 @@ import java.security.SecureRandom;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AESUtils {
 
-    private static final byte[] DEFAULT = new byte[]{85, -74, -21, 118, 32, -56, 87, 2, 26, -50, 40, 33, 87, 42, 123, 63};
+    private static final byte[] DEFAULT = new byte[]{-23, 120, -87, 80, 108, 66, -30, 109, 103, -88, 94, -14, -47, 114, -16, -38};
 
     private static final AES INSTANCE = new AES(DEFAULT);
 

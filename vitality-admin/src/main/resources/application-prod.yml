@@ -3,7 +3,7 @@ spring:
     change-log: classpath:/db/db.changelog-h2.xml
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./h2/vitality;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
+    url: jdbc:h2:file:./h2/vita;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
     username: sa
     password:
   h2:
@@ -15,7 +15,5 @@ spring:
 decorator:
   datasource:
     enabled: false
-vitality:
-  debug: false
 knife4j:
   production: true

@@ -22,7 +22,7 @@ public class VitalityAdminApplication {
             log.info("-----------------------------------------------------------------------");
 		} catch (Exception e) {
             log.error("----------------------------------------------------------------------");
-            log.error("----------- Vitality Admin startup failed!");
+            log.error("---------- Vitality Admin startup failed!");
             log.error("----------------------------------------------------------------------");
 		}
 	}

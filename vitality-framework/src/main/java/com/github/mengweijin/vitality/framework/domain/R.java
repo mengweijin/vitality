@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.framework.domain;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

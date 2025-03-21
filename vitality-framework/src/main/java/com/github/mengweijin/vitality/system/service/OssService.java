@@ -4,17 +4,25 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.github.mengweijin.vitality.framework.VitalityProperties;
+import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.util.UploadUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Oss;
 import com.github.mengweijin.vitality.system.mapper.OssMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.collection.CollUtil;
+import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.io.file.FileNameUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +39,10 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class OssService extends CrudRepository<OssMapper, Oss> {
+
+    private VitalityProperties vitalityProperties;
 
     @Override
     public boolean removeByIds(Collection<?> list) {
@@ -94,13 +105,13 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
 
             List<Oss> ossList = this.getByMd5(md5);
             if (CollUtil.isEmpty(ossList)) {
-                String storagePath = UploadUtils.getPath(suffix);
-                UploadUtils.saveFile(multipartFile, storagePath);
+                String storagePath = getPath(vitalityProperties.getFileDir(), suffix);
+                copyFile(multipartFile, storagePath);
                 oss.setStoragePath(storagePath);
             } else {
                 String storagePath = ossList.get(0).getStoragePath();
                 if (!FileUtil.exists(storagePath)) {
-                    UploadUtils.saveFile(multipartFile, storagePath);
+                    copyFile(multipartFile, storagePath);
                 }
                 oss.setStoragePath(storagePath);
             }
@@ -108,5 +119,21 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
         });
         this.saveBatch(list, Constants.DEFAULT_BATCH_SIZE);
         return list;
+    }
+
+    public static void copyFile(MultipartFile multipartFile, String path) {
+        try {
+            FileUtil.copy(multipartFile.getInputStream(), FileUtil.file(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getPath(String dir, String suffix) {
+        LocalDateTime now = LocalDateTime.now();
+        String year = String.valueOf(now.getYear());
+        String month = StrUtil.padPre(String.valueOf(now.getMonthValue()), 2, "0");
+        String day = StrUtil.padPre(String.valueOf(now.getDayOfMonth()), 2, "0");
+        return dir + String.join(File.separator, year, month, day, IdUtil.simpleUUID()) + Const.DOT + suffix;
     }
 }

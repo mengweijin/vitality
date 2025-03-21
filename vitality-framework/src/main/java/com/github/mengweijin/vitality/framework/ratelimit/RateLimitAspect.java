@@ -15,6 +15,7 @@ import com.github.mengweijin.vitality.system.service.MessageService;
 import com.github.mengweijin.vitality.system.service.RoleService;
 import com.github.mengweijin.vitality.system.service.UserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +25,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.date.TimeUtil;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.cache.Cache;
@@ -43,21 +43,18 @@ import java.util.Set;
 @Slf4j
 @Aspect
 @Component
+@AllArgsConstructor
 @SuppressWarnings({"unused"})
 public class RateLimitAspect {
 
     private static final String CACHE_NAME_PREFIX = "RATE_LIMIT_";
 
-    @Autowired
     private MessageService messageService;
 
-    @Autowired
     private ConfigService configService;
 
-    @Autowired
     private RoleService roleService;
 
-    @Autowired
     private UserRoleService userRoleService;
 
     @Pointcut("@annotation(rateLimit)")

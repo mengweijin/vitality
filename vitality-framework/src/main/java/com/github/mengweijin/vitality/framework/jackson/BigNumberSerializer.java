@@ -18,7 +18,7 @@ public class BigNumberSerializer extends NumberSerializer {
 
     private static final long JS_MIN_SAFE_INTEGER = -9007199254740991L;
 
-    public final static BigNumberSerializer INSTANCE = new BigNumberSerializer();
+    public static final BigNumberSerializer BIG_NUMBER_SERIALIZER_INSTANCE = new BigNumberSerializer();
 
     public BigNumberSerializer() {
         super(Number.class);

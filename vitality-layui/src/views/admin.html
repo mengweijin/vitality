@@ -117,7 +117,7 @@
       <!-- 底部固定区域 -->
       <p><a href="https://aday.fun" target="_blank">https://aday.fun</a></p>
       <p>
-        <a href="https://vitality.aday.fun" target="_blank">Vitality 后台管理系统</a>
+        <a href="https://vitality.aday.fun" target="_blank">Vita 管理系统</a>
       </p>
       <p>
         <a href="https://beian.miit.gov.cn/#/Integrated/lawStatute" target="_blank">陕ICP备2022013125号</a>
@@ -129,8 +129,8 @@
   </div>
 
   <script type="module">
-    // import { admin } from "@/scripts/admin.js";
-    // import { template } from "@/scripts/template.js";
+    import { admin } from "@/scripts/admin.js";
+    import { template } from "@/scripts/template.js";
 
     layui.use(function () {
       let element = layui.element;
@@ -138,9 +138,9 @@
       let util = layui.util;
       let $ = layui.$;
 
-      template.load('#view', '#tpl', { name: "张三", sex: 0, }, function () { layer.msg('模板加载完成'); });
-
       element.render();
+
+      template.load('#view', '#tpl', { name: "张三", sex: 0, }, function () { layer.msg('模板加载完成'); });
 
       $("#footerYear").text(new Date().getFullYear());
 

@@ -38,7 +38,7 @@ let template = {
   /**
    * 获取模板渲染所需要的数据
    * @param {String | Object | Array} obj 模板渲染所需要的数据接口链接、对象、或数组的数据。
-   * @returns 
+   * @returns
    */
   getData: function name(obj) {
     let $ = layui.jquery;
@@ -67,9 +67,8 @@ let template = {
    * - CSS选择器：'#id'
    * - 字符串：'我的名字是：<p>{{- name}}</p>'
    * @param {String | Object | Array} obj 模板渲染所需要的数据接口链接、对象、或数组的数据
-   * @param {Function} callback 回调函数
    */
-  load: function (elem, tpl, obj = {}, callback = function () {}) {
+  load: function (elem, tpl, obj = {}) {
     let $ = layui.jquery;
     let laytpl = layui.laytpl;
 
@@ -81,10 +80,37 @@ let template = {
     let data = this.getData(obj);
     // 渲染并输出结果
     laytpl(template).render(data, (str) => {
-      $(elem).html(str);
-      callback();
-
+      // 先清空内容以及绑定的事件，避免残留元素导致事件叠加
+      $(elem).empty().html(str);
+      this.reLoadJS(elem);
       layer.close(loading);
+    });
+  },
+
+  /**
+   * 重新加载 html 中的 <script> 脚本，以解决动态加载页面时，<script> 脚本不执行的问题。
+   * @param {String} elem 
+   */
+  reLoadJS: function (elem) {
+    // 提取并执行所有script标签
+    let targetElement = document.querySelector(elem);
+
+    let scripts = targetElement.getElementsByTagName("script");
+    Array.from(scripts).forEach((oldScript) => {
+      let newScript = document.createElement("script");
+      // 同步，保证加载顺序
+      newScript.async = false;
+      newScript.type = oldScript.type ? oldScript.type : "text/javascript";
+
+      if (oldScript.src) {
+        newScript.src = oldScript.src + "?t=" + Date.now(); // 防缓存
+      } else {
+        newScript.textContent = oldScript.innerHTML;
+      }
+      // 移除旧脚本
+      oldScript.remove();
+      // 追加新脚本
+      targetElement.appendChild(newScript);
     });
   },
 };

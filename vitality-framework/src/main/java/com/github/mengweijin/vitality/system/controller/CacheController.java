@@ -4,8 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.mengweijin.vitality.framework.cache.CacheFactory;
 import com.github.mengweijin.vitality.framework.domain.R;
 import com.github.mengweijin.vitality.system.domain.vo.CacheVO;
+import lombok.AllArgsConstructor;
 import org.dromara.hutool.core.text.StrUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +23,11 @@ import java.util.List;
  * @author mengweijin
  * @since 2022/10/30
  */
+@AllArgsConstructor
 @RestController
 @RequestMapping("/system/cache")
 public class CacheController {
 
-    @Autowired
     private CacheManager cacheManager;
 
     @SaCheckPermission("system:cache:query")

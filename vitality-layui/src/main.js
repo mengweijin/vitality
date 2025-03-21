@@ -1,15 +1,15 @@
+import "layui/dist/css/layui.css";
+import "layui";
+
 import "@/styles/index.css";
+import { ajaxSetup } from "@/scripts/ajaxSetup.js";
+import { admin } from "@/scripts/admin.js";
 
-// 将多个模块的 import() 放入数组
-const modules = [import("@/scripts/http.js"), import("@/scripts/admin.js")];
+layui.use(function () {
+  let $ = layui.jquery;
+  let layer = layui.layer;
+  
+  ajaxSetup($, layer);
 
-// 等待所有模块加载完成
-Promise.all(modules)
-  .then(([http, admin]) => {
-    // 所有模块加载完成后执行此回调
-    http.ajaxSetup();
-    admin.render();
-  })
-  .catch((error) => {
-    console.error(" 模块加载失败:", error);
-  });
+  admin.render();
+});

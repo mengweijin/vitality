@@ -3,6 +3,7 @@ package com.github.mengweijin.vitality.system.domain;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -48,4 +49,8 @@ public class LoginUser implements Serializable {
      */
     private String token;
 
+    /**
+     * 登录时间
+     */
+    private LocalDateTime loginTime;
 }

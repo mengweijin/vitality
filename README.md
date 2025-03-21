@@ -1,4 +1,4 @@
-# Vitality
+# Vita（微塔）
 
 <p align="center">	
 	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-parent%22">
@@ -59,41 +59,29 @@
 
 ## 介绍
 
-基于 SpringBoot 3、sa-token、mybatis-plus、layui、jquery 等技术，**前后端分离开发**（前端工程化，基于 Vite、pnpm 等）的超轻量级管理系统，不依赖任何第三方服务的超轻量级管理系统。
+**Vita（中文名：微塔）**：是一款**轻量级管理系统**。
 
-有时候我们就想做一个简单的东西，却要依赖一大堆 redis、文件服务、配置中心等一大堆东西，**真的太麻烦了！**
+基于 SpringBoot 3、sa-token、mybatis-plus、vite、npm、layui、jquery 等技术，**前后端分离开发**，不依赖任何第三方服务。
 
-于是，就自己搞一个。普通场景哪有那么多高并发！
+有时候我们就想做一个简单的东西，采用已有的开源框架却要依赖一大堆东西，和很复杂的配置文件，自己搭建又太耗费时间，**真的太麻烦了！**
+
+于是，就有了 **Vita**，它可以帮你节省很多时间和精力，非常适合一个人即一个团队的工作环境。
 
 ### 在线演示
-|           版本           |            演示链接            |
-|:----------------------:|:--------------------------:|
-|  Vitality Admin Vue 版  | http://124.70.184.112:8002 |
-| Vitality Admin Layui 版 | http://124.70.184.112:8001 |
-
-## 代码分支
-
-* **maser 分支**：开发中......（请勿用于生产环境）；
-* **V1.5-vue 分支**：SpringBoot 3、sa-token、mybatis-plus、hutool、vue 3、element-plus等（**过渡分支，生产慎用**）；
-* **V1.4-layui 分支**：基于 SpringBoot 3、sa-token、mybatis-plus、hutool、layui、jquery 等（**暂停维护**）；
-
-
-### 捉急请联系👇联系前请先提 issue!
-|     QQ      |       邮箱        |
-|:-----------:|:---------------:|
-| 1002284406  | mwjwork@qq.com  |
+|        版本         |            演示链接            |
+|:-----------------:|:--------------------------:|
+|    Vita Vue 版     | http://124.70.184.112:8002 |
+|   Vita Layui 版    | http://124.70.184.112:8001 |
 
 #### 最简单的启动
 
-你只需要一个 JDK 17 的运行环境，执行下面命令启动即可！
+你只需要一个 JDK 17 的运行环境，然后直接启动即可！
 
 ```shell
-java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
+java -jar vitality-admin.jar
 ```
 
-然后浏览器访问：http://localhost:8080。就是这么简单！
-
-注：-Dspring.profiles.active=h2：使用 h2 数据库。生产环境可替换为其他关系型数据库。
+浏览器访问：http://localhost:8080
 
 ### 系统功能
 
@@ -130,15 +118,8 @@ java -Dserver.port=8080 -Dspring.profiles.active=h2 -jar vitality-admin.jar
 | ![image](docs/readme/images/1.png) | ![image](docs/readme/images/2.png) | 
 | ![image](docs/readme/images/3.png) | ![image](docs/readme/images/4.png) | 
 | ![image](docs/readme/images/5.png) | ![image](docs/readme/images/6.png) | 
-| ![image](docs/readme/images/7.png) | ![image](docs/readme/images/8.png) | 
+| ![image](docs/readme/images/7.png) | ![image](docs/readme/images/8.png) |
 
-
-## 主要技术栈
-
-后端：Spring Boot 3、sa-token、mybatis-plus、hutool 等。
-
-前端：Vite、pnpm、Layui、javascript、html、css 等。
-
-## ⭐Star Vitality on GitHub
+## ⭐Star Vita on GitHub
 
 [![Stargazers over time](https://starchart.cc/mengweijin/vitality.svg)](https://starchart.cc/mengweijin/vitality)

@@ -4,6 +4,7 @@ import com.github.mengweijin.vitality.framework.cache.CacheFactory;
 import com.github.mengweijin.vitality.framework.constant.Const;
 import com.github.mengweijin.vitality.framework.domain.P;
 import com.github.mengweijin.vitality.framework.domain.R;
+import com.github.mengweijin.vitality.framework.exception.ClientException;
 import com.github.mengweijin.vitality.framework.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,7 +45,7 @@ public class RepeatSubmitAspect {
         try {
             long interval = repeatSubmit.interval();
             if (interval < 1000 || interval > 10000) {
-                throw new RuntimeException("Repeat submission interval can not be less than 1 second, and no longer than 10 seconds!");
+                throw new ClientException("Repeat submission interval can not be less than 1 second, and no longer than 10 seconds!");
             }
 
             String sessionId = ServletUtils.getSession().getId();
@@ -99,20 +100,18 @@ public class RepeatSubmitAspect {
      */
     @SuppressWarnings("rawtypes")
     public boolean isFilterObject(final Object obj) {
-        Class<?> clazz = obj.getClass();
-        if (clazz.isArray()) {
-            return MultipartFile.class.isAssignableFrom(clazz.getComponentType());
-        } else if (Collection.class.isAssignableFrom(clazz)) {
-            Collection collection = (Collection) obj;
+        if (obj instanceof Collection<?> collection) {
             for (Object value : collection) {
-                return value instanceof MultipartFile;
+                return (value instanceof MultipartFile);
             }
-        } else if (Map.class.isAssignableFrom(clazz)) {
-            Map map = (Map) obj;
+        } else if (obj instanceof Map map) {
             for (Object value : map.values()) {
-                return value instanceof MultipartFile;
+                return (value instanceof MultipartFile);
             }
+        } else if (obj.getClass().isArray()) {
+            return MultipartFile.class.isAssignableFrom(obj.getClass().getComponentType());
         }
+
         return obj instanceof MultipartFile || obj instanceof HttpServletRequest || obj instanceof HttpServletResponse || obj instanceof BindingResult;
     }
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
+import com.github.mengweijin.vitality.framework.exception.ServerException;
 import com.github.mengweijin.vitality.framework.jackson.JacksonConfig;
 import com.github.mengweijin.vitality.framework.jackson.mapper.modifier.SensitiveBeanSerializerModifier;
 import lombok.AccessLevel;
@@ -30,8 +31,9 @@ public final class SensitiveObjectMapper {
         if (objectMapper == null) {
             synchronized (SensitiveObjectMapper.class) {
                 if (objectMapper == null) {
-                    objectMapper = new ObjectMapper();
-                    init(objectMapper);
+                    ObjectMapper mapper = new ObjectMapper();
+                    init(mapper);
+                    objectMapper = mapper;
                 }
             }
         }
@@ -60,7 +62,7 @@ public final class SensitiveObjectMapper {
         try {
             return getObjectMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e);
         }
     }
 
@@ -68,7 +70,7 @@ public final class SensitiveObjectMapper {
         try {
             return getObjectMapper().readValue(content, valueType);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e);
         }
     }
 }

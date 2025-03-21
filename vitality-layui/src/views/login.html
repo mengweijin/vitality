@@ -72,41 +72,41 @@
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-password"></i>
                     </div>
-                    <input id="password" type="password" name="password" value="aday.fun" lay-verify="required"
-                        placeholder="密&emsp;码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input"
-                        lay-affix="eye">
+                    <input type="password" name="password" value="aday.fun" lay-verify="required" placeholder="密&emsp;码"
+                        lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item layui-hide">
                 <div class="layui-input-wrap">
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-key"></i>
                     </div>
-                    <input id="totp" type="text" name="totp" placeholder="动态口令" lay-reqtext="请填写动态口令" autocomplete="off"
-                        class="layui-input layui-hide" lay-affix="clear">
+                    <input type="text" name="totp" placeholder="动态口令" lay-reqtext="请填写动态口令" autocomplete="off"
+                        class="layui-input" lay-affix="clear">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item layui-hide">
                 <div class="layui-row">
                     <div class="layui-col-xs7">
                         <div class="layui-input-wrap">
                             <div class="layui-input-prefix">
                                 <i class="layui-icon layui-icon-vercode"></i>
                             </div>
-                            <input type="text" name="captcha" value="" lay-verify="required" placeholder="验证码"
-                                lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                            <input type="text" name="captcha" value="" placeholder="验证码" lay-reqtext="请填写验证码"
+                                autocomplete="off" class="layui-input" lay-affix="clear">
                         </div>
                     </div>
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
                             <a href="javascript:;"><img id="captchaImg" lay-on="captcha"></a>
+                            <a href="javascript:;" style="float: right; margin-top: 7px; margin-right: 7px;" lay-on="captcha">获取验证码</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-                <a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a>
+                <a href="javascript:;" style="float: right; margin-top: 7px;">忘记密码？</a>
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login-btn">登录</button>
@@ -116,7 +116,7 @@
                 <span>
                     <input type="radio" name="loginMethod" value="password" title="密码"
                         lay-filter="radio-login-method-filter" checked>
-                    <input type="radio" name="loginMethod" value="totp" title="动态口令"
+                    <input type="radio" name="loginMethod" value="totp" title="动态口令" disabled
                         lay-filter="radio-login-method-filter">
                 </span>
             </div>
@@ -135,61 +135,63 @@
 
 
     <script type="module">
-        const modules = [import("@/scripts/layui.js"), import("@/scripts/admin.js")];
-        Promise.all(modules)
-            .then(([layui, admin]) => {
-                // layui.use(function () {
-                    let $ = layui.$;
-                    let form = layui.form;
-                    let layer = layui.layer;
-                    let util = layui.util;
+        import { admin } from '@/scripts/admin.js';
 
-                    let refreshCaptcha = function () {
-                        $.ajax({
-                            url: "/captcha",
-                            method: "get",
-                            async: false,
-                            cache: false,
-                            success: (base64) => {
-                                $("#captchaImg").prop('src', base64);
-                            },
-                        });
+        layui.use(function () {
+            let $ = layui.$;
+            let form = layui.form;
+            let layer = layui.layer;
+            let util = layui.util;
+
+            let initCaptcha = function () {
+                $.ajax({
+                    loading: false,
+                    url: "/captchaEnabled",
+                    method: "get",
+                    cache: false
+                }).then(function (enabled) {
+                    if (enabled) {
+                        // closest(): 筛选第一个符合条件的父元素
+                        $("input[name='captcha']").attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
                     }
+                });
+            }
 
-                    refreshCaptcha();
-                    form.render();
+            let refreshCaptcha = function () {
+                $.ajax({
+                    url: "/captcha",
+                    method: "get",
+                    cache: false,
+                }).then((base64) => {
+                    $("#captchaImg").attr('src', base64).parent().next().addClass("layui-hide");
+                });
+            }
 
-                    // 提交事件
-                    form.on('submit(login-btn)', function (data) {
-                        // 登录
-                        admin.login(data.field);
-                        return false; // 阻止默认 form 跳转
-                    });
+            initCaptcha();
+            form.render();
 
-                    form.on('radio(radio-login-method-filter)', function (data) {
-                        let value = data.elem.value;
-
-                        $("#password").addClass("layui-hide").removeAttr("lay-verify");
-                        $("#totp").addClass("layui-hide").removeAttr("lay-verify");
-
-                        $(`#${value}`).removeClass("layui-hide").attr("lay-verify", "required");
-                    });
-
-                    util.on({
-                        captcha: function () {
-                            refreshCaptcha();
-                        },
-                    });
-                // });
-            })
-            .catch((error) => {
-                console.error(" 模块加载失败:", error);
+            // 提交事件
+            form.on('submit(login-btn)', function (data) {
+                // 登录
+                admin.login(data.field);
+                // 阻止默认 form 跳转
+                return false; 
             });
-        // import { layui } from "@/scripts/layui.js";
-        // import { admin } from '@/scripts/admin.js';
 
+            form.on('radio(radio-login-method-filter)', function (data) {
+                let value = data.elem.value;
+                $("input[name='password']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
+                $("input[name='totp']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
 
+                $(`input[name='${value}']`).attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
+            });
 
+            util.on({
+                captcha: function () {
+                    refreshCaptcha();
+                },
+            });
+        });
     </script>
 
 

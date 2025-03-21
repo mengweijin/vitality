@@ -1,13 +1,10 @@
-import * as layui from "@/scripts/layui.js";
 import { userStorage } from "@/storage/userStorage.js";
-
-let $ = layui.$;
-let layer = layui.layer;
+import { admin } from "@/scripts/admin.js";
 
 /**
  * 设置 jquery ajax 全局配置
  */
-let ajaxSetup = function () {
+let ajaxSetup = function ($, layer) {
   $.ajaxSetup({
     loading: true,
     layerIndex: -1,
@@ -24,48 +21,43 @@ let ajaxSetup = function () {
       }
 
       if (this.dataType !== "html") {
-        this.url = import.meta.env.VITE_API_BASE + this.url;
+        let prefix = "/";
+        let apiUrl = this.url;
+        if (apiUrl.startsWith(prefix)) {
+          // 去前缀
+          apiUrl = apiUrl.slice(prefix.length);
+        }
+        this.url = `${import.meta.env.VITE_API_BASE}/${apiUrl}`;
       }
 
       if (this.data && this.contentType.indexOf("application/json") !== -1) {
         this.data = JSON.stringify(this.data);
       }
 
-      xhr.setRequestHeader('Authorization', 'Bearer ' + userStorage.getToken());
+      xhr.setRequestHeader("Authorization", "Bearer " + userStorage.getToken());
     },
     error: function (xhr, textStatus, errorThrown) {
-      let message = "发生异常！";
-      if (xhr.responseJSON && xhr.responseJSON.message) {
-        message = xhr.responseJSON.message;
-      }
+      let message = xhr?.responseJSON?.msg;;
+      console.error(xhr?.responseJSON);
       switch (xhr.status) {
         case 400:
-          message = xhr?.responseJSON?.msg;
-          layer.msg(message, {
-            icon: 5,
-            time: 0,
-            closeBtn: 1,
-            title: xhr.status,
-          });
+          layer.msg(message, { icon: 0 });
           break;
         case 401:
           message = "未登录或者会话已过期！";
           layer.alert(
             message,
-            { icon: 0, closeBtn: 0, title: "信息" },
+            { icon: 0, closeBtn: 0, title: "会话过期提！" },
             function (index) {
               layer.close(index);
-              // 刷新页面，触发登录检查，从而跳转登录页
-              top.location.reload();
+              admin.toLogin();
             }
           );
-
           break;
         case 403:
-          message = message + "无权限！";
           layer.open({
             icon: 4,
-            title: xhr.status,
+            title: "无权限！",
             content: message,
             closeBtn: 0,
             yes: function (index, layero, that) {
@@ -75,33 +67,13 @@ let ajaxSetup = function () {
           });
           break;
         case 404:
-          layer.msg(message + "找不到资源！", {
-            icon: 2,
-            title: xhr.status,
-          });
+          layer.msg(message, { icon: 2, title:  "找不到资源！" });
           break;
         case 408:
-          layer.msg("请求超时！", {
-            icon: 2,
-            title: xhr.status,
-          });
-          break;
-        case 500:
-          layer.msg(message + "服务器异常！", {
-            icon: 2,
-            time: 0,
-            closeBtn: 1,
-            title: xhr.status,
-          });
+          layer.msg("请求超时！", { icon: 2 });
           break;
         default:
-          message = message + "发生异常，请联系系统管理员！";
-          layer.msg(message, {
-            icon: 2,
-            time: 0,
-            closeBtn: 1,
-            title: xhr.status,
-          });
+          layer.msg("服务器发生异常，请联系管理员！", { icon: 2 });
           break;
       }
     },
@@ -110,7 +82,7 @@ let ajaxSetup = function () {
       layer.close(this.layerIndex);
       if (this.url.endsWith("/login")) {
         return;
-      } else if (this.type.toUpperCase() != "GET" && xhr.status == 200) {
+      } else if (this.type.toUpperCase() !== "GET" && xhr.status == 200) {
         layer.msg("操作成功！", {
           icon: 1,
           time: 800,

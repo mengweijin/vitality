@@ -112,9 +112,9 @@ export default defineConfig(({ mode }) => {
         input: rollupInput,
         // 静态资源分类打包
         output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+          chunkFileNames: "src/static/js/[name]-[hash].js",
+          entryFileNames: "src/static/js/[name]-[hash].js",
+          assetFileNames: "src/static/[ext]/[name]-[hash].[ext]",
         },
       },
     },

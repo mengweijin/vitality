@@ -10,5 +10,3 @@ spring:
 decorator:
   datasource:
     enabled: true
-vitality:
-  debug: true

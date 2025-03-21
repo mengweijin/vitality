@@ -16,7 +16,7 @@ spring:
     # jdbc:h2:file:C:/h2/vitality;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     # 以内存方式使用数据库（这里会创建一个数据库名为 vitality 的数据库实例）
     # MODE=MYSQL 兼容模式
-    url: jdbc:h2:mem:vitality;MODE=MYSQL;IGNORECASE=TRUE
+    url: jdbc:h2:mem:vita;MODE=MYSQL;IGNORECASE=TRUE
     username: sa
     password:
   h2:
@@ -31,5 +31,3 @@ spring:
 decorator:
   datasource:
     enabled: true
-vitality:
-  debug: true

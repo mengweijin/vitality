@@ -16,4 +16,3 @@ logs
 /uploads
 
 application-local.yml
-/vitality-ui/.eslintcache

@@ -6,10 +6,12 @@ package com.github.mengweijin.vitality.system.constant;
  */
 public interface ConfigConst {
 
-    String USER_INIT_PASSWORD = "vtl_user_init_password";
+    String CAPTCHA_ENABLED = "vt_captcha_enabled";
 
-    String USER_PASSWORD_CHANGE_INTERVAL = "vtl_user_password_change_interval";
+    String USER_INIT_PASSWORD = "vt_user_init_password";
 
-    String SYSTEM_ADMIN_ROLE_CODE = "vtl_system_admin_role_code";
+    String USER_PASSWORD_CHANGE_INTERVAL = "vt_user_password_change_interval";
+
+    String SYSTEM_ADMIN_ROLE_CODE = "vt_system_admin_role_code";
 
 }

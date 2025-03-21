@@ -183,6 +183,7 @@ public class UserNickNameInnerInterceptorTest {
             resultSelect.addJoins(join);
 
             System.out.println(resultSelect);
+            Assertions.assertFalse(resultSelect.toString().isEmpty());
         }
     }
 

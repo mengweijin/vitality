@@ -8,6 +8,7 @@ import com.github.mengweijin.vitality.framework.ratelimit.RateLimit;
 import com.github.mengweijin.vitality.framework.repeatsubmit.RepeatSubmit;
 import com.github.mengweijin.vitality.system.domain.LoginUser;
 import com.github.mengweijin.vitality.system.domain.bo.LoginBO;
+import com.github.mengweijin.vitality.system.service.ConfigService;
 import com.github.mengweijin.vitality.system.service.LoginService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class LoginController {
 
     private LoginService loginService;
 
+    private ConfigService configService;
+
     @SaIgnore
     @RepeatSubmit
     @RateLimit(duration = 5, max = 1, strategy = ERateLimitStrategy.IP)
@@ -43,11 +46,16 @@ public class LoginController {
         return R.success();
     }
 
+    @SaIgnore
+    @GetMapping("/captchaEnabled")
+    public boolean getCaptchaEnabled() {
+        return configService.getCaptchaEnabled();
+    }
 
     @SaIgnore
     @GetMapping("/captcha")
-    public String createCaptcha() {
-        return loginService.createCaptcha();
+    public String getCaptcha() {
+        return loginService.getCaptcha();
     }
 
 }

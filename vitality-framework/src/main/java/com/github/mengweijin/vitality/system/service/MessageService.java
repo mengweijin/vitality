@@ -11,12 +11,12 @@ import com.github.mengweijin.vitality.system.domain.entity.MessageReceiver;
 import com.github.mengweijin.vitality.system.enums.EMessageCategory;
 import com.github.mengweijin.vitality.system.enums.EMessageTemplate;
 import com.github.mengweijin.vitality.system.mapper.MessageMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.core.thread.ThreadUtil;
 import org.dromara.hutool.extra.spring.SpringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -38,12 +38,11 @@ import java.util.concurrent.ExecutorService;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class MessageService extends CrudRepository<MessageMapper, Message> {
 
-    @Autowired
     private MessageReceiverService messageReceiverService;
 
-    @Autowired
     private TransactionTemplate transactionTemplate;
 
     private final ExecutorService executorService = ThreadUtil.newFixedExecutor(Const.PROCESSORS * 2, "thread-pool-message-", true);

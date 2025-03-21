@@ -36,9 +36,9 @@ public class JacksonConfig {
 
     public static JavaTimeModule javaTimeModule() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(Long.class, BigNumberSerializer.INSTANCE);
-        javaTimeModule.addSerializer(Long.TYPE, BigNumberSerializer.INSTANCE);
-        javaTimeModule.addSerializer(BigInteger.class, BigNumberSerializer.INSTANCE);
+        javaTimeModule.addSerializer(Long.class, BigNumberSerializer.BIG_NUMBER_SERIALIZER_INSTANCE);
+        javaTimeModule.addSerializer(Long.TYPE, BigNumberSerializer.BIG_NUMBER_SERIALIZER_INSTANCE);
+        javaTimeModule.addSerializer(BigInteger.class, BigNumberSerializer.BIG_NUMBER_SERIALIZER_INSTANCE);
         javaTimeModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(formatter));

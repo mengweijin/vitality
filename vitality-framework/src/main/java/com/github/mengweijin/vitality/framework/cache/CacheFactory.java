@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.extra.spring.SpringUtil;
+import org.dromara.hutool.swing.captcha.AbstractCaptcha;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.cache.Cache;
@@ -60,5 +61,9 @@ public final class CacheFactory {
 
     public static Cache<String, List<LocalDateTime>> getRateLimitCache() {
         return CACHE_MANAGER.getCache(CacheNames.RATE_LIMIT);
+    }
+
+    public static Cache<String, AbstractCaptcha> getCaptchaCache() {
+        return CACHE_MANAGER.getCache(CacheNames.CAPTCHA);
     }
 }

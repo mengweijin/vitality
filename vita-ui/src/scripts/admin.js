@@ -16,11 +16,7 @@ let admin = {
    * 登录
    */
   login: function (data) {
-    $.ajax({
-      url: "/login",
-      method: "post",
-      data: data,
-    }).then((r) => {
+    $.ajax({ url: "/login", method: "post", data: data }).then((r) => {
       userStorage.set(r.data);
       this.loadAdmin();
     });
@@ -30,10 +26,7 @@ let admin = {
    * 登出
    */
   logout: function () {
-    $.ajax({
-      url: "/logout",
-      method: "post",
-    }).then((r) => {
+    $.ajax({ url: "/logout", method: "post" }).then((r) => {
       // 前端登出
       userStorage.del();
       // 跳转页面

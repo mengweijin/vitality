@@ -1,4 +1,3 @@
-import { admin } from "@/scripts/admin.js";
 import { template } from "@/scripts/template.js";
 
 const ID = "tabs";
@@ -11,7 +10,6 @@ let page = {
   
   render: function () {
     tabs.render({ elem: `#${ID}`, closable: true });
-
     // 为标签头添加上下文菜单
     dropdown.render(this.contextmenuOpts());
   },
@@ -46,16 +44,16 @@ let page = {
       trigger: "contextmenu",
       data: [
         {
-          title: "关闭",
+          title: "关闭当前",
           mode: "this",
-        },
-        {
-          title: "关闭其他",
-          mode: "other",
         },
         {
           title: "关闭右侧",
           mode: "right",
+        },
+        {
+          title: "关闭其他",
+          mode: "other",
         },
         {
           title: "关闭所有",

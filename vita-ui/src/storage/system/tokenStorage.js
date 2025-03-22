@@ -1,7 +1,9 @@
 const VT_STORAGE = import.meta.env.VITE_STORAGE;
 
-let localStorage = {
-  name: "local",
+let tokenStorage = {
+
+  name: "token",
+  
   get: function () {
     return layui.data(VT_STORAGE)[this.name];
   },
@@ -16,4 +18,4 @@ let localStorage = {
 
 };
 
-export { localStorage };
+export { tokenStorage };

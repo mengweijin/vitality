@@ -1,13 +1,21 @@
-import { sessionStorage } from "@/storage/session.js";
+const VT_STORAGE = import.meta.env.VITE_STORAGE;
 
 let userStorage = {
-  /** 自定义一个存储的 key 值 */
+
   name: "user",
 
-  /** 使用展开运算符继承 storage */
-  ...sessionStorage,
+  get: function () {
+    return layui.sessionData(VT_STORAGE)[this.name];
+  },
 
-  /** 扩展方法 */
+  set: function (data) {
+    layui.sessionData(VT_STORAGE, { key: this.name, value: data });
+  },
+
+  del: function () {
+    layui.sessionData(VT_STORAGE, { key: this.name, remove: true });
+  },
+
   getToken: function () {
     return this.get()?.token;
   },

@@ -29,7 +29,7 @@ a:hover {
   /* 兼容旧版浏览器 */
   color: var(--primary-color);
   /* 
-    hsl(from #1e9fff h s l): 提取颜色中的 h s l 的值（色度，饱和度，亮度）。
+    hsl(from #1e9fff h s l): 提取颜色中的 h s l 的值（色相，饱和度，亮度）。
     hsl() 语法：https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl#syntax
     浏览器兼容性：https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl#browser_compatibility 
   */

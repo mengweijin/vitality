@@ -52,9 +52,6 @@
     <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
 		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=code_smells&branch=master" />
 	</a>
-    <a style="display: none;" target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=coverage&branch=master" />
-	</a>
 </p>
 
 ## 介绍

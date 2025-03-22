@@ -9,16 +9,16 @@
         <relativePath/> 
     </parent>  
     <groupId>com.github.mengweijin</groupId>  
-    <artifactId>vitality-parent</artifactId>
+    <artifactId>vita-parent</artifactId>
     <version>${revision}</version>
-    <packaging>pom</packaging>  
-    <name>vitality-parent</name>  
-    <description>vitality-parent</description>  
-    <url>https://gitee.com/mengweijin/vitality</url>  
+    <packaging>pom</packaging>
+    <name>vita-parent</name>
+    <description>vita-parent</description>
+    <url>https://gitee.com/mengweijin/vita</url>
     <modules> 
-        <module>vitality-admin</module>  
-        <module>vitality-framework</module>
-        <module>vitality-generator</module>
+        <module>vita-admin</module>
+        <module>vita-framework</module>
+        <module>vita-generator</module>
     </modules>
     <properties>
         <!-- 全局版本控制，如果要修改版本号，修改此处即可-->

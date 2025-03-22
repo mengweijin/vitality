@@ -4,25 +4,25 @@
     <modelVersion>4.0.0</modelVersion>  
     <parent> 
         <groupId>com.github.mengweijin</groupId>
-        <artifactId>vitality-parent</artifactId>
+        <artifactId>vita-parent</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>
-    <artifactId>vitality-admin</artifactId>
+    <artifactId>vita-admin</artifactId>
     <version>${revision}</version>
 
     <packaging>jar</packaging>  
-    <name>vitality-admin</name>  
+    <name>vita-admin</name>
     <properties/>  
     <dependencies> 
         <dependency> 
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-framework</artifactId>
+            <artifactId>vita-framework</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.github.mengweijin</groupId>
-            <artifactId>vitality-generator</artifactId>
+            <artifactId>vita-generator</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency> 

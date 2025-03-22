@@ -1,6 +1,6 @@
 package com.github.mengweijin.framework.otp;
 
-import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vita.framework.constant.Const;
 import org.dromara.hutool.core.codec.binary.Base32;
 import org.dromara.hutool.core.io.file.FileUtil;
 import org.dromara.hutool.core.text.StrUtil;

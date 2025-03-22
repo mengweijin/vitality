@@ -15,7 +15,7 @@
         </expiry>
         <listeners>
             <listener>
-                <class>com.github.mengweijin.vitality.framework.cache.listener.DefaultCacheEventListener</class>
+                <class>com.github.mengweijin.vita.framework.cache.listener.DefaultCacheEventListener</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>UNORDERED</event-ordering-mode>
                 <events-to-fire-on>CREATED</events-to-fire-on>

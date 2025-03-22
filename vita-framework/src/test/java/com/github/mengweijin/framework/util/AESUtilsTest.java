@@ -1,6 +1,6 @@
 package com.github.mengweijin.framework.util;
 
-import com.github.mengweijin.vitality.framework.util.AESUtils;
+import com.github.mengweijin.vita.framework.util.AESUtils;
 import org.dromara.hutool.core.text.StrUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

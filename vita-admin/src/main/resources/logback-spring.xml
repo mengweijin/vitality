@@ -144,7 +144,7 @@
         添加 DBAppender：https://logback.qos.ch/manual/appenders.html#DBAppender
         默认 class="ch.qos.logback.classic.db.DBAppender"，这里修改为自定义的
     -->
-    <appender name="DB" class="com.github.mengweijin.vitality.framework.logback.ApplicationDBAppender">
+    <appender name="DB" class="com.github.mengweijin.vita.framework.logback.ApplicationDBAppender">
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
             <dataSource class="com.zaxxer.hikari.HikariDataSource">
                 <driverClassName>${driverClassName}</driverClassName>

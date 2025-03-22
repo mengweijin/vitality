@@ -1,6 +1,6 @@
 package com.github.mengweijin.framework.util;
 
-import com.github.mengweijin.vitality.framework.util.AESUtils;
+import com.github.mengweijin.vita.framework.util.AESUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.io.IoUtil;

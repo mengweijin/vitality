@@ -7,4 +7,4 @@ import { admin } from "@/scripts/admin.js";
 
 ajaxSetup();
 
-admin.isLogin() ? admin.toAdmin() : admin.toLogin();
+admin.isLogin() ? admin.loadAdmin() : admin.loadLogin();

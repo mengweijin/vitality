@@ -134,13 +134,17 @@
         </form>
     </div>
 
+    <div id="footer"></div>
+
     <script type="module">
-        import { admin } from '@/scripts/admin.js';
+        import { admin } from "@/scripts/admin.js";
 
         let $ = layui.$;
         let form = layui.form;
         let layer = layui.layer;
         let util = layui.util;
+
+        admin.loadFooter();
 
         let initCaptcha = function () {
             $.ajax({

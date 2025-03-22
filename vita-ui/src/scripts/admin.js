@@ -7,7 +7,6 @@ let $ = layui.$;
  * admin 组件
  */
 let admin = {
-  
   isLogin: function () {
     let user = userStorage.get();
     return user !== undefined && user !== null;
@@ -23,7 +22,7 @@ let admin = {
       data: data,
     }).then((r) => {
       userStorage.set(r.data);
-      this.toAdmin();
+      this.loadAdmin();
     });
   },
 
@@ -38,19 +37,23 @@ let admin = {
       // 前端登出
       userStorage.del();
       // 跳转页面
-      this.toLogin();
+      this.loadLogin();
     });
   },
 
   /**
    * 默认值为 undefined 时才触发 ES6 函数默认值的赋值，null 不会触发。
    */
-  toAdmin: function () {
+  loadAdmin: function () {
     template.load("#app", "src/views/admin.html");
   },
 
-  toLogin: function () {
+  loadLogin: function () {
     template.load("#app", "src/views/login.html");
+  },
+
+  loadFooter: function () {
+    template.load("#footer", "src/views/layout/lay-footer.html");
   },
 };
 

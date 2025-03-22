@@ -47,13 +47,13 @@ let ajaxSetup = function () {
           layer.msg(message, { icon: 0 });
           break;
         case 401:
-          message = "未登录或者会话已过期！";
+          message = "未登录或会话已过期！";
           layer.alert(
             message,
-            { icon: 0, closeBtn: 0, title: "会话过期提！" },
+            { icon: 0, closeBtn: 0, title: "会话过期提醒！" },
             function (index) {
               layer.close(index);
-              admin.toLogin();
+              admin.loadLogin();
             }
           );
           break;

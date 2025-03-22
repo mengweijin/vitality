@@ -79,24 +79,11 @@
       </div>
     </div>
 
-    <div class="layui-footer">
-      <!-- 底部固定区域 -->
-      <p><a href="https://aday.fun" target="_blank">https://aday.fun</a></p>
-      <p>
-        <a href="https://vita.aday.fun" target="_blank">Vita 管理系统</a>
-      </p>
-      <p>
-        <a href="https://beian.miit.gov.cn/#/Integrated/lawStatute" target="_blank">陕ICP备2022013125号</a>
-      </p>
-      <p>Copyright © 2018 ~ <span id="footerYear"></span></p>
-      <p>Meng Wei Jin</p>
-      <p>APACHE LICENSED 2.0</p>
-    </div>
+    <div id="footer"></div>
   </div>
 
   <script type="module">
     import { admin } from "@/scripts/admin.js";
-    import { template } from "@/scripts/template.js";
     import { page } from "@/scripts/page.js";
 
     let element = layui.element;
@@ -105,15 +92,14 @@
     let $ = layui.$;
     let tabs = layui.tabs;
 
-
+    admin.loadFooter();
+    
     page.render();
 
     // page.addTab({});
 
 
     element.render();
-
-    $("#footerYear").text(new Date().getFullYear());
 
     //头部事件
     util.event("lay-header-event", {

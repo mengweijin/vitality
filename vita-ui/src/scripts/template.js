@@ -1,3 +1,7 @@
+let $ = layui.jquery;
+let layer = layui.layer;
+let laytpl = layui.laytpl;
+
 /**
  * 模板组件
  */
@@ -11,7 +15,6 @@ let template = {
    * @returns 模板字符串
    */
   getTemplate: function (tpl) {
-    let $ = layui.jquery;
     let template;
     if (tpl.endsWith(".html")) {
       // 加载页面
@@ -41,7 +44,6 @@ let template = {
    * @returns
    */
   getData: function name(obj) {
-    let $ = layui.jquery;
     let data;
     if (typeof obj === "string" || obj instanceof String) {
       $.ajax({
@@ -69,9 +71,6 @@ let template = {
    * @param {String | Object | Array} obj 模板渲染所需要的数据接口链接、对象、或数组的数据
    */
   load: function (elem, tpl, obj = {}) {
-    let $ = layui.jquery;
-    let laytpl = layui.laytpl;
-
     let loading = layer.load(2, { shade: [1, "#FFF"] });
 
     // 获取模板字符串

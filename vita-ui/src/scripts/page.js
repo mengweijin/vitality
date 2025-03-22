@@ -3,12 +3,13 @@ import { template } from "@/scripts/template.js";
 
 const ID = "tabs";
 
+let $ = layui.$;
+let tabs = layui.tabs;
+let dropdown = layui.dropdown;
+
 let page = {
   
   render: function () {
-    let tabs = layui.tabs;
-    let dropdown = layui.dropdown;
-
     tabs.render({ elem: `#${ID}`, closable: true });
 
     // 为标签头添加上下文菜单
@@ -17,10 +18,6 @@ let page = {
 
   // 新增标签
   addTab: function (opts) {
-    let $ = layui.$;
-    let tabs = layui.tabs;
-    let dropdown = layui.dropdown;
-
     let config = {
       id: `tab-${new Date()}`,
       // 此处加 n 仅为演示区分，实际应用不需要
@@ -44,8 +41,6 @@ let page = {
   },
 
   contextmenuOpts: function () {
-    let tabs = layui.tabs;
-
     let opts = {
       elem: `#${ID} .layui-tabs-header>li`,
       trigger: "contextmenu",

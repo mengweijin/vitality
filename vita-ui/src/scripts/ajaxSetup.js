@@ -1,10 +1,13 @@
 import { userStorage } from "@/storage/userStorage.js";
 import { admin } from "@/scripts/admin.js";
 
+let $ = layui.$;
+let layer = layui.layer;
+
 /**
  * 设置 jquery ajax 全局配置
  */
-let ajaxSetup = function ($, layer) {
+let ajaxSetup = function () {
   $.ajaxSetup({
     loading: true,
     layerIndex: -1,

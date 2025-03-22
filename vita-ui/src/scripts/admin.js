@@ -1,6 +1,8 @@
 import { template } from "@/scripts/template.js";
 import { userStorage } from "@/storage/userStorage.js";
 
+let $ = layui.$;
+
 /**
  * admin 组件
  */
@@ -15,7 +17,6 @@ let admin = {
    * 登录
    */
   login: function (data) {
-    let $ = layui.jquery;
     $.ajax({
       url: "/login",
       method: "post",
@@ -30,7 +31,6 @@ let admin = {
    * 登出
    */
   logout: function () {
-    let $ = layui.jquery;
     $.ajax({
       url: "/logout",
       method: "post",

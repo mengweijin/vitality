@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
-import com.github.mengweijin.vita.framework.VitalityProperties;
+import com.github.mengweijin.vita.framework.VitaProperties;
 import com.github.mengweijin.vita.framework.constant.Const;
 import com.github.mengweijin.vita.framework.exception.ServerException;
 import com.github.mengweijin.vita.framework.util.UploadUtils;
@@ -44,7 +44,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class OssService extends CrudRepository<OssMapper, Oss> {
 
-    private VitalityProperties vitalityProperties;
+    private VitaProperties vitaProperties;
 
     @Override
     public boolean removeByIds(Collection<?> list) {
@@ -107,7 +107,7 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
 
             List<Oss> ossList = this.getByMd5(md5);
             if (CollUtil.isEmpty(ossList)) {
-                String storagePath = getPath(vitalityProperties.getFileDir(), suffix);
+                String storagePath = getPath(vitaProperties.getFileDir(), suffix);
                 copyFile(multipartFile, storagePath);
                 oss.setStoragePath(storagePath);
             } else {

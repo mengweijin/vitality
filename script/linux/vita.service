@@ -1,0 +1,16 @@
+[Unit]
+Description=vita-admin
+After=syslog.target network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/opt/vita/
+ExecStart=/bin/bash ./vita.sh start
+ExecStop=/bin/bash ./vita.sh stop
+ExecReload=/bin/bash ./vita.sh restart
+PrivateTmp=true
+TimeoutStartSec=0
+KillMode=none
+
+[Install]
+WantedBy=multi-user.target

@@ -23,8 +23,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync(proxyTargetClass = true)
 @EnableScheduling
 @Configuration
-@EnableConfigurationProperties({VitalityProperties.class})
-public class VitalityAutoConfiguration {
+@EnableConfigurationProperties({VitaProperties.class})
+public class VitaAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean

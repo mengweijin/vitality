@@ -15,13 +15,13 @@ import org.springframework.lang.NonNull;
  * @author mengweijin
  * @since 2022/7/27
  */
-public class VitalityMapperBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
+public class VitaMapperBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        String pkg = ClassUtil.getPackage(VitalityMapperBeanDefinitionRegistryPostProcessor.class);
+        String pkg = ClassUtil.getPackage(VitaMapperBeanDefinitionRegistryPostProcessor.class);
         String parentPkg = StrUtil.subBefore(pkg, Const.DOT, true);
         ClassPathMapperScanner mapperScanner = new ClassPathMapperScanner(beanDefinitionRegistry, applicationContext.getEnvironment());
         mapperScanner.registerFilters();

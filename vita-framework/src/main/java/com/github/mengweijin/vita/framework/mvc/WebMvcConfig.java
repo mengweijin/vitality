@@ -1,6 +1,6 @@
 package com.github.mengweijin.vita.framework.mvc;
 
-import com.github.mengweijin.vita.framework.VitalityProperties;
+import com.github.mengweijin.vita.framework.VitaProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SuppressWarnings({"unused"})
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private VitalityProperties vitalityProperties;
+    private VitaProperties vitaProperties;
 
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {

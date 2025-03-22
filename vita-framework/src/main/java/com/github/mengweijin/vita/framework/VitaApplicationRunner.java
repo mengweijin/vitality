@@ -22,7 +22,7 @@ import java.sql.SQLException;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class VitalityApplicationRunner implements ApplicationRunner {
+public class VitaApplicationRunner implements ApplicationRunner {
 
     private SqlSessionFactory sqlSessionFactory;
 

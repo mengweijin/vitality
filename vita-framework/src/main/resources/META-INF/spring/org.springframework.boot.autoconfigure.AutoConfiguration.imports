@@ -6,4 +6,4 @@ com.github.mengweijin.vita.framework.mvc.WebMvcConfig
 com.github.mengweijin.vita.framework.repeatable.RepeatableConfig
 com.github.mengweijin.vita.framework.mybatis.MybatisPlusConfig
 com.github.mengweijin.vita.framework.satoken.SaTokenConfig
-com.github.mengweijin.vita.framework.VitalityAutoConfiguration
+com.github.mengweijin.vita.framework.VitaAutoConfiguration

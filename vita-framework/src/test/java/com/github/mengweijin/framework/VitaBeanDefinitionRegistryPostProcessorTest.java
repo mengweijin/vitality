@@ -1,6 +1,6 @@
 package com.github.mengweijin.framework;
 
-import com.github.mengweijin.vita.framework.VitalityBeanDefinitionRegistryPostProcessor;
+import com.github.mengweijin.vita.framework.VitaBeanDefinitionRegistryPostProcessor;
 import com.github.mengweijin.vita.framework.constant.Const;
 import org.dromara.hutool.core.reflect.ClassUtil;
 import org.dromara.hutool.core.text.StrUtil;
@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 /**
  * @author mengweijin
  */
-class VitalityBeanDefinitionRegistryPostProcessorTest {
+class VitaBeanDefinitionRegistryPostProcessorTest {
 
     @Test
     void packagePath() {
-        String pkg = ClassUtil.getPackage(VitalityBeanDefinitionRegistryPostProcessor.class);
+        String pkg = ClassUtil.getPackage(VitaBeanDefinitionRegistryPostProcessor.class);
         Assertions.assertEquals("com.github.mengweijin.framework", pkg);
 
         String parentPkg = StrUtil.subBefore(pkg, Const.DOT, true);

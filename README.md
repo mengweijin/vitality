@@ -59,7 +59,7 @@
 
 ## 介绍
 
-**Vita（中文名：微塔）**：是一款**轻量级管理系统**。
+**Vita（中文名：微塔）**：是一款**轻量级快速开发平台应用系统**。
 
 基于 SpringBoot 3、sa-token、mybatis-plus、vite、npm、layui、jquery 等技术，**前后端分离开发**，不依赖任何第三方服务。
 

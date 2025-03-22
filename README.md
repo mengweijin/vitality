@@ -19,41 +19,41 @@
 </p>
 
 <p align="center">
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/quality_gate?project=mengweijin_vitality&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/quality_gate?project=mengweijin_vita&branch=master" />
 	</a>
 </p>
 
 <p align="center">
-	<a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=alert_status&branch=master" />
+	<a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=alert_status&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=reliability_rating&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=reliability_rating&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=security_rating&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=security_rating&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=sqale_rating&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=sqale_rating&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=vulnerabilities&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=vulnerabilities&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=bugs&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=bugs&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=ncloc&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=ncloc&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=duplicated_lines_density&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=duplicated_lines_density&branch=master" />
 	</a>
-    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=code_smells&branch=master" />
+    <a target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=code_smells&branch=master" />
 	</a>
-    <a style="display: none;" target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vitality&branch=master">
-		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vitality&metric=coverage&branch=master" />
+    <a style="display: none;" target="_blank" href="https://sonarcloud.io/summary/overall?id=mengweijin_vita&branch=master">
+		<img src="https://sonarcloud.io/api/project_badges/measure?project=mengweijin_vita&metric=coverage&branch=master" />
 	</a>
 </p>
 

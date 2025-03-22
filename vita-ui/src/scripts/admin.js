@@ -12,13 +12,6 @@ let admin = {
   },
 
   /**
-   * 渲染
-   */
-  render: function () {
-    return this.isLogin() ? this.toAdmin() : this.toLogin();
-  },
-
-  /**
    * 登录
    */
   login: function (data) {
@@ -44,6 +37,7 @@ let admin = {
     }).then((r) => {
       // 前端登出
       userStorage.del();
+      // 跳转页面
       this.toLogin();
     });
   },

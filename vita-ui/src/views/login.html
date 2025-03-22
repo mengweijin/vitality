@@ -63,8 +63,8 @@
                     <div class="layui-input-prefix">
                         <i class="layui-icon layui-icon-username"></i>
                     </div>
-                    <input type="text" name="username" value="admin" lay-verify="required" placeholder="用户名"
-                    autofocus lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
+                    <input type="text" name="username" value="admin" lay-verify="required" placeholder="用户名" autofocus
+                        lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -99,7 +99,8 @@
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
                             <a href="javascript:;"><img id="captchaImg" lay-on="captcha"></a>
-                            <a href="javascript:;" style="float: right; margin-top: 7px; margin-right: 7px;" lay-on="captcha">获取验证码</a>
+                            <a href="javascript:;" style="float: right; margin-top: 7px; margin-right: 7px;"
+                                lay-on="captcha">获取验证码</a>
                         </div>
                     </div>
                 </div>
@@ -133,64 +134,61 @@
         </form>
     </div>
 
-
     <script type="module">
         import { admin } from '@/scripts/admin.js';
 
-        layui.use(function () {
-            let $ = layui.$;
-            let form = layui.form;
-            let layer = layui.layer;
-            let util = layui.util;
+        let $ = layui.$;
+        let form = layui.form;
+        let layer = layui.layer;
+        let util = layui.util;
 
-            let initCaptcha = function () {
-                $.ajax({
-                    loading: false,
-                    url: "/captchaEnabled",
-                    method: "get",
-                    cache: false
-                }).then(function (enabled) {
-                    if (enabled) {
-                        // closest(): 筛选第一个符合条件的父元素
-                        $("input[name='captcha']").attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
-                    }
-                });
-            }
-
-            let refreshCaptcha = function () {
-                $.ajax({
-                    url: "/captcha",
-                    method: "get",
-                    cache: false,
-                }).then((base64) => {
-                    $("#captchaImg").attr('src', base64).parent().next().addClass("layui-hide");
-                });
-            }
-
-            initCaptcha();
-            form.render();
-
-            // 提交事件
-            form.on('submit(login-btn)', function (data) {
-                // 登录
-                admin.login(data.field);
-                // 阻止默认 form 跳转
-                return false; 
+        let initCaptcha = function () {
+            $.ajax({
+                loading: false,
+                url: "/captchaEnabled",
+                method: "get",
+                cache: false
+            }).then(function (enabled) {
+                if (enabled) {
+                    // closest(): 筛选第一个符合条件的父元素
+                    $("input[name='captcha']").attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
+                }
             });
+        }
 
-            form.on('radio(radio-login-method-filter)', function (data) {
-                let value = data.elem.value;
-                $("input[name='password']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
-                $("input[name='totp']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
-
-                $(`input[name='${value}']`).attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
+        let refreshCaptcha = function () {
+            $.ajax({
+                url: "/captcha",
+                method: "get",
+                cache: false,
+            }).then((base64) => {
+                $("#captchaImg").attr('src', base64).parent().next().addClass("layui-hide");
             });
+        }
 
-            util.on({
-                captcha: function () {
-                    refreshCaptcha();
-                },
-            });
+        initCaptcha();
+        form.render();
+
+        // 提交事件
+        form.on('submit(login-btn)', function (data) {
+            // 登录
+            admin.login(data.field);
+            // 阻止默认 form 跳转
+            return false;
+        });
+
+        form.on('radio(radio-login-method-filter)', function (data) {
+            let value = data.elem.value;
+            $("input[name='password']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
+            $("input[name='totp']").removeAttr("lay-verify").closest(".layui-form-item").addClass("layui-hide");
+
+            $(`input[name='${value}']`).attr("lay-verify", "required").closest(".layui-form-item").removeClass("layui-hide");
+        });
+
+        util.on({
+            captcha: function () {
+                refreshCaptcha();
+            },
         });
     </script>
 

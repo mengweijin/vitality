@@ -5,11 +5,9 @@ import "@/styles/index.css";
 import { ajaxSetup } from "@/scripts/ajaxSetup.js";
 import { admin } from "@/scripts/admin.js";
 
-layui.use(function () {
-  let $ = layui.jquery;
-  let layer = layui.layer;
-  
-  ajaxSetup($, layer);
+let $ = layui.jquery;
+let layer = layui.layer;
 
-  admin.render();
-});
+ajaxSetup($, layer);
+
+admin.isLogin() ? admin.toAdmin() : admin.toLogin();

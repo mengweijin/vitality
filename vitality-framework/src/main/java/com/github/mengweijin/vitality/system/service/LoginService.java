@@ -13,6 +13,7 @@ import com.github.mengweijin.vitality.system.enums.ELoginType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import org.dromara.hutool.http.server.servlet.ServletUtil;
 import org.dromara.hutool.http.useragent.Platform;
 import org.dromara.hutool.http.useragent.UserAgent;
 import org.dromara.hutool.swing.captcha.AbstractCaptcha;
@@ -93,7 +94,7 @@ public class LoginService {
     }
 
     public String getCaptcha() {
-        String ip = ServletUtils.getClientIP(ServletUtils.getRequest());
+        String ip = ServletUtil.getClientIP(ServletUtils.getRequest());
         Cache<String, AbstractCaptcha> captchaCache = CacheFactory.getCaptchaCache();
 
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
@@ -107,7 +108,7 @@ public class LoginService {
 
     private boolean checkCaptcha(HttpServletRequest request, @NotBlank String captcha) {
         Cache<String, AbstractCaptcha> captchaCache = CacheFactory.getCaptchaCache();
-        String ip = ServletUtils.getClientIP(request);
+        String ip = ServletUtil.getClientIP(request);
         AbstractCaptcha abstractCaptcha = captchaCache.get(ip);
         return abstractCaptcha != null && abstractCaptcha.verify(captcha);
     }

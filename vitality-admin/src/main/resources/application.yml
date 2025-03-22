@@ -32,8 +32,8 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 8GB
-      max-request-size: 8GB
+      max-file-size: 1GB
+      max-request-size: 1GB
   main:
     # 是否允许循环依赖（Spring Cloud Alibaba Sentinel 中就有循环依赖）
     allow-circular-references: false

@@ -1,5 +1,8 @@
 package com.github.mengweijin.vitality.framework.constant;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.File;
 import java.nio.charset.Charset;
 
@@ -8,6 +11,7 @@ import java.nio.charset.Charset;
  *
  * @author Meng Wei Jin
  **/
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings({"unused"})
 public final class Const {
 

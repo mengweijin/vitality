@@ -1,8 +1,12 @@
 package com.github.mengweijin.vitality.framework.cache;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * @author mengweijin
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CacheNames {
 
     public static final String DICT_DATA_VAL_TO_LABEL = "DICT_DATA_VAL_TO_LABEL";

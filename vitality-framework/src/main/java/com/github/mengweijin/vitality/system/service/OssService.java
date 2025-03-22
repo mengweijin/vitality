@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.github.mengweijin.vitality.framework.VitalityProperties;
 import com.github.mengweijin.vitality.framework.constant.Const;
+import com.github.mengweijin.vitality.framework.exception.ServerException;
 import com.github.mengweijin.vitality.framework.util.UploadUtils;
 import com.github.mengweijin.vitality.system.domain.entity.Oss;
 import com.github.mengweijin.vitality.system.mapper.OssMapper;
@@ -16,6 +17,7 @@ import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.io.file.FileNameUtil;
 import org.dromara.hutool.core.io.file.FileUtil;
+import org.dromara.hutool.core.text.CharSequenceUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -125,15 +127,15 @@ public class OssService extends CrudRepository<OssMapper, Oss> {
         try {
             FileUtil.copy(multipartFile.getInputStream(), FileUtil.file(path));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ServerException(e);
         }
     }
 
     public static String getPath(String dir, String suffix) {
         LocalDateTime now = LocalDateTime.now();
         String year = String.valueOf(now.getYear());
-        String month = StrUtil.padPre(String.valueOf(now.getMonthValue()), 2, "0");
-        String day = StrUtil.padPre(String.valueOf(now.getDayOfMonth()), 2, "0");
+        String month = CharSequenceUtil.padPre(String.valueOf(now.getMonthValue()), 2, "0");
+        String day = CharSequenceUtil.padPre(String.valueOf(now.getDayOfMonth()), 2, "0");
         return dir + String.join(File.separator, year, month, day, IdUtil.simpleUUID()) + Const.DOT + suffix;
     }
 }

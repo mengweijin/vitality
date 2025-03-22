@@ -100,19 +100,26 @@ public class RepeatSubmitAspect {
      */
     @SuppressWarnings("rawtypes")
     public boolean isFilterObject(final Object obj) {
+        boolean flag = false;
         if (obj instanceof Collection<?> collection) {
             for (Object value : collection) {
-                return (value instanceof MultipartFile);
+                if(value instanceof MultipartFile) {
+                    flag = true;
+                    break;
+                }
             }
         } else if (obj instanceof Map map) {
             for (Object value : map.values()) {
-                return (value instanceof MultipartFile);
+                if(value instanceof MultipartFile) {
+                    flag = true;
+                    break;
+                }
             }
         } else if (obj.getClass().isArray()) {
             return MultipartFile.class.isAssignableFrom(obj.getClass().getComponentType());
         }
 
-        return obj instanceof MultipartFile || obj instanceof HttpServletRequest || obj instanceof HttpServletResponse || obj instanceof BindingResult;
+        return flag || obj instanceof MultipartFile || obj instanceof HttpServletRequest || obj instanceof HttpServletResponse || obj instanceof BindingResult;
     }
 
 }

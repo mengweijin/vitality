@@ -78,7 +78,7 @@
 你只需要一个 JDK 17 的运行环境，然后直接启动即可！
 
 ```shell
-java -jar vitality-admin.jar
+java -jar vita-admin.jar
 ```
 
 浏览器访问：http://localhost:8080

@@ -6,8 +6,8 @@
 -- 2、h2 中，int/bigint 类型不能限制位数，比如：int(4) 会报错，需要去掉；
 -- 3、h2 中，文本大字段用 clob；mysql 中用 text；
 
-drop table IF EXISTS VTL_NOTICE;
-create TABLE VTL_NOTICE (
+drop table IF EXISTS VT_NOTICE;
+create TABLE VT_NOTICE (
   ID                            bigint NOT NULL comment '主键ID',
   NAME                          varchar(255) DEFAULT NULL comment '名称',
   DESCRIPTION                   text DEFAULT NULL comment '内容',
@@ -20,8 +20,8 @@ create TABLE VTL_NOTICE (
 );
 
 
-drop table IF EXISTS VTL_MESSAGE;
-create TABLE VTL_MESSAGE (
+drop table IF EXISTS VT_MESSAGE;
+create TABLE VT_MESSAGE (
   ID                            bigint NOT NULL comment '主键ID',
   CATEGORY                      varchar(50) DEFAULT NULL comment '消息分类。{@link EMessageCategory}',
   TITLE                         varchar(255) DEFAULT NULL comment '标题',
@@ -34,8 +34,8 @@ create TABLE VTL_MESSAGE (
 );
 
 
-drop table IF EXISTS VTL_MESSAGE_RECEIVER;
-create TABLE VTL_MESSAGE_RECEIVER (
+drop table IF EXISTS VT_MESSAGE_RECEIVER;
+create TABLE VT_MESSAGE_RECEIVER (
   ID                            bigint NOT NULL comment '主键ID',
   MESSAGE_ID                    bigint NOT NULL comment '消息ID',
   USER_ID                       bigint DEFAULT NULL comment '消息接收者用户ID',
@@ -49,8 +49,8 @@ create TABLE VTL_MESSAGE_RECEIVER (
 );
 
 
-drop table IF EXISTS VTL_CONFIG;
-create TABLE VTL_CONFIG (
+drop table IF EXISTS VT_CONFIG;
+create TABLE VT_CONFIG (
   ID                            bigint NOT NULL comment '主键ID',
   NAME                          varchar(255) NOT NULL comment '名称',
   CODE                          varchar(100) NOT NULL comment '编码',
@@ -62,12 +62,12 @@ create TABLE VTL_CONFIG (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_CONFIG_CODE on VTL_CONFIG(CODE);
-create unique index UIDX_VTL_CONFIG_NAME on VTL_CONFIG(NAME);
+create unique index UIDX_VT_CONFIG_CODE on VT_CONFIG(CODE);
+create unique index UIDX_VT_CONFIG_NAME on VT_CONFIG(NAME);
 
 
-drop table IF EXISTS VTL_CATEGORY;
-create TABLE VTL_CATEGORY (
+drop table IF EXISTS VT_CATEGORY;
+create TABLE VT_CATEGORY (
   ID                            bigint NOT NULL comment '主键ID',
   PARENT_ID                     bigint NOT NULL DEFAULT 0 comment 'PARENT ID',
   CODE                          varchar(500) NOT NULL comment '编码',
@@ -81,11 +81,11 @@ create TABLE VTL_CATEGORY (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_CATEGORY_CODE on VTL_CATEGORY(CODE);
+create unique index UIDX_VT_CATEGORY_CODE on VT_CATEGORY(CODE);
 
 
-drop table IF EXISTS VTL_DICT_TYPE;
-create TABLE VTL_DICT_TYPE (
+drop table IF EXISTS VT_DICT_TYPE;
+create TABLE VT_DICT_TYPE (
   ID                            bigint NOT NULL comment '主键ID',
   NAME 		                    varchar(100) NOT NULL comment '字典名称',
   CODE 		                    varchar(100) NOT NULL comment '字典类型编码',
@@ -96,11 +96,11 @@ create TABLE VTL_DICT_TYPE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_DICT_TYPE_CODE on VTL_DICT_TYPE(CODE);
+create unique index UIDX_VT_DICT_TYPE_CODE on VT_DICT_TYPE(CODE);
 
 
-drop table IF EXISTS VTL_DICT_DATA;
-create TABLE VTL_DICT_DATA (
+drop table IF EXISTS VT_DICT_DATA;
+create TABLE VT_DICT_DATA (
   ID                            bigint NOT NULL comment '主键ID',
   CODE 		                    varchar(100) NOT NULL comment '字典类型编码',
   VAL 		                    varchar(100) NOT NULL comment '字典数据值',
@@ -115,11 +115,11 @@ create TABLE VTL_DICT_DATA (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_DICT_DATA_CODE_VAL on VTL_DICT_DATA(CODE, VAL);
+create unique index UIDX_VT_DICT_DATA_CODE_VAL on VT_DICT_DATA(CODE, VAL);
 
 
-drop table IF EXISTS VTL_LOG_OPERATION;
-create TABLE VTL_LOG_OPERATION (
+drop table IF EXISTS VT_LOG_OPERATION;
+create TABLE VT_LOG_OPERATION (
   ID                            bigint NOT NULL comment '主键ID',
   TITLE                         varchar(255) DEFAULT NULL comment '操作日志模块标题',
   OPERATION_TYPE                varchar(10) DEFAULT NULL comment '操作类型枚举：EOperationType.java',
@@ -139,8 +139,8 @@ create TABLE VTL_LOG_OPERATION (
 );
 
 
-drop table IF EXISTS VTL_LOG_LOGIN;
-create TABLE VTL_LOG_LOGIN (
+drop table IF EXISTS VT_LOG_LOGIN;
+create TABLE VT_LOG_LOGIN (
   ID                            bigint NOT NULL comment '主键ID',
   USERNAME                      varchar(50) DEFAULT NULL comment '登录账号',
   LOGIN_TYPE                    varchar(50) DEFAULT NULL comment '登录类型。枚举类 ELoginType.java',
@@ -159,8 +159,8 @@ create TABLE VTL_LOG_LOGIN (
 );
 
 
-drop table IF EXISTS VTL_OSS;
-create TABLE VTL_OSS (
+drop table IF EXISTS VT_OSS;
+create TABLE VT_OSS (
   ID                            bigint NOT NULL comment '主键ID',
   NAME                          varchar(255) NOT NULL comment '原始文件名称',
   SUFFIX                        varchar(10) comment '文件后缀',
@@ -172,10 +172,10 @@ create TABLE VTL_OSS (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create index IDX_VTL_OSS_MD5 on VTL_OSS(MD5);
+create index IDX_VT_OSS_MD5 on VT_OSS(MD5);
 
-drop table IF EXISTS VTL_MENU;
-create TABLE VTL_MENU (
+drop table IF EXISTS VT_MENU;
+create TABLE VT_MENU (
   ID                            bigint NOT NULL comment '主键ID',
   PARENT_ID              		bigint DEFAULT 0 comment '父菜单ID',
   TYPE 		                    varchar(10) NOT NULL DEFAULT 'BTN' comment '菜单类型。{ MENU=菜单; BTN=按钮; IFRAME=内嵌页面；URL=外链页面；}。前端对应：（0代表菜单、1代表iframe、2代表外链、3代表按钮）',
@@ -206,8 +206,8 @@ create TABLE VTL_MENU (
 );
 
 
-drop table IF EXISTS VTL_DEPT;
-create TABLE VTL_DEPT (
+drop table IF EXISTS VT_DEPT;
+create TABLE VT_DEPT (
   ID                            bigint NOT NULL comment '主键ID',
   PARENT_ID              		bigint DEFAULT 0 comment '父部门ID',
   NAME 		                    varchar(50) NOT NULL comment '部门名称',
@@ -222,8 +222,8 @@ create TABLE VTL_DEPT (
 );
 
 
-drop table IF EXISTS VTL_ROLE;
-create TABLE VTL_ROLE (
+drop table IF EXISTS VT_ROLE;
+create TABLE VT_ROLE (
   ID                            bigint NOT NULL comment '主键ID',
   NAME 		                    varchar(50) NOT NULL comment '角色名称',
   CODE 		                    varchar(50) NOT NULL comment '角色编码',
@@ -236,11 +236,11 @@ create TABLE VTL_ROLE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_ROLE_CODE on VTL_ROLE(CODE);
+create unique index UIDX_VT_ROLE_CODE on VT_ROLE(CODE);
 
 
-drop table IF EXISTS VTL_POST;
-create TABLE VTL_POST (
+drop table IF EXISTS VT_POST;
+create TABLE VT_POST (
   ID                            bigint NOT NULL comment '主键ID',
   NAME 		                    varchar(50) NOT NULL comment '岗位名称',
   SEQ 		                    int DEFAULT 0 comment '展示顺序',
@@ -254,8 +254,8 @@ create TABLE VTL_POST (
 );
 
 
-drop table IF EXISTS VTL_USER;
-create TABLE VTL_USER (
+drop table IF EXISTS VT_USER;
+create TABLE VT_USER (
   ID                            bigint NOT NULL comment '主键ID',
   DEPT_ID                       bigint NOT NULL comment '部门ID',
   USERNAME                      varchar(64) NOT NULL comment '用户登录名（字母数字下划线）',
@@ -278,11 +278,11 @@ create TABLE VTL_USER (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_USER_USERNAME on VTL_USER(USERNAME);
+create unique index UIDX_VT_USER_USERNAME on VT_USER(USERNAME);
 
 
-drop table IF EXISTS VTL_USER_AVATAR;
-create TABLE VTL_USER_AVATAR (
+drop table IF EXISTS VT_USER_AVATAR;
+create TABLE VT_USER_AVATAR (
   ID                            bigint NOT NULL comment '主键ID',
   USER_ID                       bigint NOT NULL comment '用户ID',
   AVATAR                        clob DEFAULT NULL comment '用户头像，以 Base64 文本存储的大字段。',
@@ -292,11 +292,11 @@ create TABLE VTL_USER_AVATAR (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_USER_AVATAR_UID on VTL_USER_AVATAR(USER_ID);
+create unique index UIDX_VT_USER_AVATAR_UID on VT_USER_AVATAR(USER_ID);
 
 
-drop table IF EXISTS VTL_USER_POST;
-create TABLE VTL_USER_POST (
+drop table IF EXISTS VT_USER_POST;
+create TABLE VT_USER_POST (
   ID                            bigint NOT NULL comment '主键ID',
   USER_ID                       bigint NOT NULL comment '用户ID',
   POST_ID                       bigint NOT NULL comment '岗位ID',
@@ -306,11 +306,11 @@ create TABLE VTL_USER_POST (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_USER_POST_UPID on VTL_USER_POST(USER_ID, POST_ID);
+create unique index UIDX_VT_USER_POST_UPID on VT_USER_POST(USER_ID, POST_ID);
 
 
-drop table IF EXISTS VTL_USER_ROLE;
-create TABLE VTL_USER_ROLE (
+drop table IF EXISTS VT_USER_ROLE;
+create TABLE VT_USER_ROLE (
   ID                            bigint NOT NULL comment '主键ID',
   USER_ID                       bigint NOT NULL comment '用户ID',
   ROLE_ID                       bigint NOT NULL comment '角色ID',
@@ -320,11 +320,11 @@ create TABLE VTL_USER_ROLE (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_USER_ROLE_URID on VTL_USER_ROLE(USER_ID, ROLE_ID);
+create unique index UIDX_VT_USER_ROLE_URID on VT_USER_ROLE(USER_ID, ROLE_ID);
 
 
-drop table IF EXISTS VTL_ROLE_MENU;
-create TABLE VTL_ROLE_MENU (
+drop table IF EXISTS VT_ROLE_MENU;
+create TABLE VT_ROLE_MENU (
   ID                            bigint NOT NULL comment '主键ID',
   ROLE_ID                       bigint NOT NULL comment '角色ID',
   MENU_ID                       bigint NOT NULL comment '菜单ID',
@@ -334,5 +334,5 @@ create TABLE VTL_ROLE_MENU (
   UPDATE_TIME 	                datetime NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP comment '更新时间',
   PRIMARY KEY (ID)
 );
-create unique index UIDX_VTL_ROLE_MENU_RMID on VTL_ROLE_MENU(ROLE_ID, MENU_ID);
+create unique index UIDX_VT_ROLE_MENU_RMID on VT_ROLE_MENU(ROLE_ID, MENU_ID);
 

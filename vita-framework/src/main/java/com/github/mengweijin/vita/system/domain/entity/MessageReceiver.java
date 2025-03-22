@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_MESSAGE_RECEIVER")
+@TableName("VT_MESSAGE_RECEIVER")
 public class MessageReceiver extends BaseEntity {
 
     /**

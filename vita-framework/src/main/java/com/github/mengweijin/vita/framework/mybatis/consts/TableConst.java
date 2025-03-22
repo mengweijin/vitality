@@ -7,10 +7,10 @@ package com.github.mengweijin.vita.framework.mybatis.consts;
 @SuppressWarnings({"unused"})
 public interface TableConst {
 
-    String VTL_USER = "VTL_USER";
-    String VTL_DEPT = "VTL_DEPT";
-    String VTL_ROLE = "VTL_ROLE";
-    String VTL_USER_DEPT = "VTL_USER_DEPT";
-    String VTL_USER_ROLE = "VTL_USER_ROLE";
+    String VT_USER = "VT_USER";
+    String VT_DEPT = "VT_DEPT";
+    String VT_ROLE = "VT_ROLE";
+    String VT_USER_DEPT = "VT_USER_DEPT";
+    String VT_USER_ROLE = "VT_USER_ROLE";
 
 }

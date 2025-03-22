@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_CATEGORY")
+@TableName("VT_CATEGORY")
 public class Category extends BaseEntity {
 
     /**

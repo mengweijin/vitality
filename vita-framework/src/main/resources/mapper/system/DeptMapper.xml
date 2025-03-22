@@ -4,40 +4,40 @@
 
     <select id="selectChildrenIdsById" resultType="java.lang.Long">
         WITH RECURSIVE LINK(ID, PARENT_ID) AS (
-        SELECT t1.ID, t1.PARENT_ID FROM VTL_DEPT t1 WHERE t1.PARENT_ID = #{id} AND t1.DISABLED = 'N'
+        SELECT t1.ID, t1.PARENT_ID FROM VT_DEPT t1 WHERE t1.PARENT_ID = #{id} AND t1.DISABLED = 'N'
         UNION ALL
-        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VTL_DEPT t2 ON link.ID = t2.PARENT_ID
+        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VT_DEPT t2 ON link.ID = t2.PARENT_ID
         )
         SELECT DISTINCT ID FROM LINK ORDER BY ID
     </select>
     <select id="selectChildrenIdsById" resultType="java.lang.Long" databaseId="oracle">
-        SELECT DISTINCT t.ID FROM VTL_DEPT t WHERE t.DISABLED = 'N'
+        SELECT DISTINCT t.ID FROM VT_DEPT t WHERE t.DISABLED = 'N'
         START WITH t.PARENT_ID = #{id} CONNECT BY PRIOR t.ID = t.PARENT_ID
     </select>
 
     <select id="selectChildrenIdsWithCurrentIdById" resultType="java.lang.Long">
         WITH RECURSIVE LINK(ID, PARENT_ID) AS (
-        SELECT t1.ID, t1.PARENT_ID FROM VTL_DEPT t1 WHERE t1.ID = #{id} AND t1.DISABLED = 'N'
+        SELECT t1.ID, t1.PARENT_ID FROM VT_DEPT t1 WHERE t1.ID = #{id} AND t1.DISABLED = 'N'
         UNION ALL
-        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VTL_DEPT t2 ON link.ID = t2.PARENT_ID
+        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VT_DEPT t2 ON link.ID = t2.PARENT_ID
         )
         SELECT DISTINCT ID FROM LINK ORDER BY ID
     </select>
     <select id="selectChildrenIdsWithCurrentIdById" resultType="java.lang.Long" databaseId="oracle">
-        SELECT DISTINCT t.ID FROM VTL_DEPT t WHERE t.DISABLED = 'N'
+        SELECT DISTINCT t.ID FROM VT_DEPT t WHERE t.DISABLED = 'N'
         START WITH t.ID = #{id} CONNECT BY PRIOR t.ID = t.PARENT_ID
     </select>
 
     <select id="selectParentIdsWithCurrentIdById" resultType="java.lang.Long">
         WITH RECURSIVE LINK(ID, PARENT_ID) AS (
-        SELECT t1.ID, t1.PARENT_ID FROM VTL_DEPT t1 WHERE t1.ID = #{id} AND t1.DISABLED = 'N'
+        SELECT t1.ID, t1.PARENT_ID FROM VT_DEPT t1 WHERE t1.ID = #{id} AND t1.DISABLED = 'N'
         UNION ALL
-        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VTL_DEPT t2 ON link.PARENT_ID = t2.ID
+        SELECT t2.ID, t2.PARENT_ID FROM LINK link INNER JOIN VT_DEPT t2 ON link.PARENT_ID = t2.ID
         )
         SELECT DISTINCT ID FROM LINK ORDER BY ID
     </select>
     <select id="selectParentIdsWithCurrentIdById" resultType="java.lang.Long" databaseId="oracle">
-        SELECT DISTINCT t.ID FROM VTL_DEPT t WHERE t.DISABLED = 'N'
+        SELECT DISTINCT t.ID FROM VT_DEPT t WHERE t.DISABLED = 'N'
         START WITH t.ID = #{id} CONNECT BY t.ID = PRIOR t.PARENT_ID
     </select>
 

@@ -3,9 +3,9 @@
 <mapper namespace="com.github.mengweijin.vita.system.mapper.RoleMapper">
 
     <select id="getRoleCodeByUsername" resultType="java.lang.String">
-        select distinct r.CODE from VTL_ROLE r
-        inner join VTL_USER_ROLE ur on ur.ROLE_ID = r.ID
-        inner join VTL_USER u on u.ID = ur.USER_ID
+        select distinct r.CODE from VT_ROLE r
+        inner join VT_USER_ROLE ur on ur.ROLE_ID = r.ID
+        inner join VT_USER u on u.ID = ur.USER_ID
         where u.USERNAME = #{username}
     </select>
 

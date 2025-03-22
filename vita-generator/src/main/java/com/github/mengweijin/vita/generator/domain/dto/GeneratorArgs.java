@@ -23,7 +23,7 @@ public class GeneratorArgs {
 
     /**
      * Optional.
-     * For example: SYS_, VTL_
+     * For example: SYS_, VT_
      * Note: Separated by commas.
      */
     private String[] tablePrefix;

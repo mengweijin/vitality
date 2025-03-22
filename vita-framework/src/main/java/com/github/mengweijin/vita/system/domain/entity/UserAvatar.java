@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_USER_AVATAR")
+@TableName("VT_USER_AVATAR")
 public class UserAvatar extends BaseEntity {
 
     /**

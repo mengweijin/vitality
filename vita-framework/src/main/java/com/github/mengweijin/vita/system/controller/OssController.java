@@ -54,7 +54,7 @@ public class OssController {
     }
 
     /**
-     * @param id id in table VTL_OSS
+     * @param id id in table VT_OSS
      */
     @Log(operationType = EOperationType.DOWNLOAD)
     @GetMapping("/download/{id}")

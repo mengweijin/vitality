@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_MENU")
+@TableName("VT_MENU")
 public class Menu extends BaseEntity {
 
     /**

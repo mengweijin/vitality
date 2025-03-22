@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_DICT_TYPE")
+@TableName("VT_DICT_TYPE")
 public class DictType extends BaseEntity {
 
     /**

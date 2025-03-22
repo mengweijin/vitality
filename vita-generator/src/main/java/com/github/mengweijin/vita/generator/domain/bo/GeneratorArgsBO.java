@@ -20,7 +20,7 @@ public class GeneratorArgsBO {
     @NotBlank
     private String tableName;
 
-    private String tablePrefix = String.join(",", "VTL_", "SYS_");
+    private String tablePrefix = String.join(",", "VT_", "SYS_");
 
     private String packages = SpringBootMainClassUtils.getSpringBootApplicationClassPackage();
 

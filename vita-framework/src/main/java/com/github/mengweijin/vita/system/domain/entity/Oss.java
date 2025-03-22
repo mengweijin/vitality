@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_OSS")
+@TableName("VT_OSS")
 public class Oss extends BaseEntity {
 
     /**

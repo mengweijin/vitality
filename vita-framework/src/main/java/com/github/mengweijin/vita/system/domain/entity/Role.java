@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_ROLE")
+@TableName("VT_ROLE")
 public class Role extends BaseEntity {
 
     /**

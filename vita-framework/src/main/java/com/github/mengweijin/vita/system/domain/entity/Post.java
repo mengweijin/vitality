@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_POST")
+@TableName("VT_POST")
 public class Post extends BaseEntity {
 
     /**

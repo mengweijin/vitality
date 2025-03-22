@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_CONFIG")
+@TableName("VT_CONFIG")
 public class Config extends BaseEntity {
 
     /**

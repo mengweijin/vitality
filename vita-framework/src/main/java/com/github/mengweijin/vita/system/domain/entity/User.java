@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("VTL_USER")
+@TableName("VT_USER")
 public class User extends BaseEntity {
 
     /**

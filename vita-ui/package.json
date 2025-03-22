@@ -14,7 +14,8 @@
     "clean:linux": "rm -rf pnpm-lock.yaml && rm -rf node_modules && pnpm store prune"
   },
   "dependencies": {
-    "layui": "2.10.1"
+    "layui": "2.10.1",
+    "screenfull": "^6.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^6.0.1",

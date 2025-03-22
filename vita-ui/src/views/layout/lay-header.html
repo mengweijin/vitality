@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <style>
+        .vt-header-icon-size-right {
+            font-size: medium;
+        }
+
+        .vt-header-icon-message {
+            border-radius: 90% !important;
+            padding: 0 3px;
+            margin: -18px 0 0 0 !important;
+            right: 7px;
+        }
+    </style>
+</head>
+
 <body>
     <div class="layui-logo layui-hide-xs layui-bg-black">
         <img src="/logo.svg" />
@@ -18,9 +33,25 @@
             <a href="javascript:;" lay-on="refresh" class="layui-icon layui-icon-refresh-1" title="刷新"></a>
         </li>
     </ul>
-    <ul class="layui-nav layui-layout-right" lay-filter="nav-logout-filter">
+    <ul class="layui-nav layui-layout-right" style="padding-right: 0;">
+        <li id="exitFullScreenIcon" class="layui-nav-item layui-hide-xs layui-hide">
+            <a href="javascript:;" lay-on="exitFullScreen" title="退出全屏"
+                class="layui-icon layui-icon-screen-restore vt-header-icon-size-right"></a>
+        </li>
+        <li id="fullScreenIcon" class="layui-nav-item layui-hide-xs">
+            <a href="javascript:;" lay-on="fullScreen" title="全屏"
+                class="layui-icon layui-icon-screen-full vt-header-icon-size-right"></a>
+        </li>
+
+        <li class="layui-nav-item layui-hide-xs">
+            <a href="javascript:;" lay-on="message" title="消息">
+                <i class="layui-icon layui-icon-notice vt-header-icon-size-right"></i>
+                <span class="layui-badge vt-header-icon-message">+9</span>
+            </a>
+        </li>
+
         <li class="layui-nav-item layui-hide layui-show-sm-inline-block">
-            <a href="javascript:;">
+            <a href="javascript:;" class="vt-header-icon-size-right">
                 <img src="/favicon.svg" class="layui-nav-img" />
                 admin
             </a>
@@ -30,17 +61,18 @@
                 <dd><a href="javascript:;" lay-on="logout">退出</a></dd>
             </dl>
         </li>
+
         <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-            <a href="javascript:;">
-                <i class="layui-icon layui-icon-set-fill"></i>
-            </a>
+            <a href="javascript:;" class="layui-icon layui-icon-set-fill vt-header-icon-size-right"></a>
         </li>
     </ul>
 
     <script type="module">
+        import screenfull from 'screenfull';
         import { admin } from "@/scripts/admin.js";
 
         let element = layui.element;
+        let $ = layui.$;
         let util = layui.util;
 
         element.render();
@@ -74,6 +106,19 @@
             refresh: function () {
                 // 刷新当前页面
                 top.location.reload();
+            },
+            exitFullScreen: function () {
+                $("#fullScreenIcon").removeClass("layui-hide");
+                $("#exitFullScreenIcon").addClass("layui-hide");
+                screenfull.toggle();
+            },
+            fullScreen: function (othis, e) {
+                $("#fullScreenIcon").addClass("layui-hide");
+                $("#exitFullScreenIcon").removeClass("layui-hide");
+                screenfull.toggle();
+            },
+            message: function () {
+                layer.msg('触发了事件 message');
             },
             profile: function () {
                 layer.msg('触发了事件 profile');

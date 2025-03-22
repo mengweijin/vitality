@@ -42,14 +42,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 重定向：registry.addViewController("/").setViewName("/vitality/index.html");
-     * 转发：registry.addRedirectViewController("/", "/vitality/index.html");
+     * 重定向：registry.addViewController("/").setViewName("/vita/index.html");
+     * 转发：registry.addRedirectViewController("/", "/vita/index.html");
      *
      * @param registry ViewControllerRegistry
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "/vitality/index.html");
+        registry.addRedirectViewController("/", "/vita/index.html");
     }
 
 }

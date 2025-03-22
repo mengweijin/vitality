@@ -19,7 +19,7 @@ public class GeneratorArgs {
 
     private String author;
 
-    private String templateDir = "vitality-generator/src/main/resources/velocity";
+    private String templateDir = "vita-generator/src/main/resources/velocity";
 
     /**
      * Optional.

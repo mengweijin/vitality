@@ -181,7 +181,7 @@ create TABLE VTL_MENU (
   TYPE 		                    varchar(10) NOT NULL DEFAULT 'BTN' comment '菜单类型。{ MENU=菜单; BTN=按钮; IFRAME=内嵌页面；URL=外链页面；}。前端对应：（0代表菜单、1代表iframe、2代表外链、3代表按钮）',
   TITLE 		                varchar(50) NOT NULL comment '菜单标题。兼容国际化、非国际化，如果用国际化的写法就必须在根目录的locales文件夹下对应添加',
   ROUTER_NAME                   varchar(100) comment '路由名称。必须唯一并且和当前路由component字段对应的页面里用defineOptions包起来的name保持一致',
-  ROUTER_PATH                   varchar(100) comment '路由路径。如：/vitality/system/user/index',
+  ROUTER_PATH                   varchar(100) comment '路由路径。如：/vita/system/user/index',
   COMPONENT_PATH                varchar(100) comment '组件路径。传component组件路径，那么path可以随便写，如果不传，component组件路径会跟path保持一致',
   SEQ 		                    int DEFAULT 1 comment '排序。平台规定只有`home`路由的`rank`才能为`0`',
   REDIRECT                      varchar(100) comment '路由重定向。（默认跳转地址）',

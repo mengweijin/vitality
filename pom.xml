@@ -185,12 +185,12 @@
     </developers>  
     <!--开源地址-->  
     <scm> 
-        <url>https://gitee.com/mengweijin/vitality</url> 
+        <url>https://gitee.com/mengweijin/vita</url>
     </scm>  
     <!--  Issue地址  -->  
     <issueManagement> 
         <system>Gitee Issue</system>  
-        <url>https://gitee.com/mengweijin/vitality/issues</url> 
+        <url>https://gitee.com/mengweijin/vita/issues</url>
     </issueManagement>  
     <build> 
         <plugins>

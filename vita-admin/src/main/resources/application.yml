@@ -1,5 +1,5 @@
 application:
-  name: Vitality-Admin
+  name: Vita-Admin
   version: @version@
   formatted-version: (v@version@)
   author: Meng Wei Jin

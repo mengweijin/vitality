@@ -39,7 +39,7 @@ public class Menu extends BaseEntity {
     private String routerName;
 
     /**
-     * 路由路径。如：/vitality/system/user/index
+     * 路由路径。如：/vita/system/user/index
      */
     private String routerPath;
 

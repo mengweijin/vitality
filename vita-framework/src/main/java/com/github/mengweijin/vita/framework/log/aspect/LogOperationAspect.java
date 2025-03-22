@@ -46,7 +46,7 @@ public class LogOperationAspect {
 
     private static final ThreadLocal<StopWatch> STOP_WATCH = new ThreadLocal<>();
 
-    @Pointcut("@annotation(com.github.mengweijin.vitality.framework.log.aspect.annotation.Log)")
+    @Pointcut("@annotation(com.github.mengweijin.vita.framework.log.aspect.annotation.Log)")
     public void pointCut() {}
 
     /**

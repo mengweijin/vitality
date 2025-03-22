@@ -1,20 +1,20 @@
 # Vita（微塔）
 
 <p align="center">	
-	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vitality-parent%22">
-		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vitality-parent" />
+	<a target="_blank" href="https://search.maven.org/search?q=g:%22com.github.mengweijin%22%20AND%20a:%22vita-parent%22">
+		<img src="https://img.shields.io/maven-central/v/com.github.mengweijin/vita-parent" />
 	</a>
-	<a target="_blank" href="https://github.com/mengweijin/vitality/blob/master/LICENSE">
+	<a target="_blank" href="https://github.com/mengweijin/vita/blob/master/LICENSE">
 		<img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-17-green.svg" />
 	</a>
-	<a target="_blank" href="https://gitee.com/mengweijin/vitality/stargazers">
-		<img src="https://gitee.com/mengweijin/vitality/badge/star.svg?theme=dark" alt='gitee star'/>
+	<a target="_blank" href="https://gitee.com/mengweijin/vita/stargazers">
+		<img src="https://gitee.com/mengweijin/vita/badge/star.svg?theme=dark" alt='gitee star'/>
 	</a>
-	<a target="_blank" href='https://github.com/mengweijin/vitality'>
-		<img src="https://img.shields.io/github/stars/mengweijin/vitality.svg?style=social" alt="github star"/>
+	<a target="_blank" href='https://github.com/mengweijin/vita'>
+		<img src="https://img.shields.io/github/stars/mengweijin/vita.svg?style=social" alt="github star"/>
 	</a>
 </p>
 
@@ -119,4 +119,4 @@ java -jar vita-admin.jar
 
 ## ⭐Star Vita on GitHub
 
-[![Stargazers over time](https://starchart.cc/mengweijin/vitality.svg)](https://starchart.cc/mengweijin/vitality)
+[![Stargazers over time](https://starchart.cc/mengweijin/vita.svg)](https://starchart.cc/mengweijin/vita)

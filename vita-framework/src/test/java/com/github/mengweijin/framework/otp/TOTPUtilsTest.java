@@ -22,10 +22,10 @@ class TOTPUtilsTest {
      *
      * account 在 Microsoft Authenticator 软件中，表示用户账户名称，仅作标识。
      * StrUtil.format("otpauth://totp/{}?secret={}", account, secretKey);
-     * 比如：admin，也可以随意定义，比如加上系统名称：vitality_admin
+     * 比如：admin，也可以随意定义，比如加上系统名称：vita_admin
      */
     private static final String label = "admin";
-    private static final String issuer = "vitality";
+    private static final String issuer = "vita";
 
     /**
      * 这里仅作测试，使用下面代码生产随机的 secretKey。

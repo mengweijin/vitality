@@ -1,6 +1,6 @@
 rem 使用者应根据自身平台编码自行转换 防止乱码 例如 win使用gbk编码
 @echo off
-title=Vitality-Admin
+title=Vita-Admin
 
 chcp 65001 > nul
 
@@ -8,7 +8,7 @@ echo  启动倒计时（单位：秒）：
 timeout /T 10 /NOBREAK
 
 rem jar平级目录
-set AppName=vitality-admin.jar
+set AppName=vita-admin.jar
 
 rem JVM参数
 set JVM_OPTS="-Dname=%AppName% -Dserver.port=8080 -Dspring.profiles.active=h2 -Dfile.encoding=utf-8 -Duser.timezone=Asia/Shanghai -Xms128m -Xmx512m"

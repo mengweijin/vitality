@@ -83,7 +83,7 @@
                 </executions>  
                 <configuration> 
                     <includeSystemScope>true</includeSystemScope>  
-                    <!-- <mainClass>com.github.mengweijin.VitalityAdminApplication</mainClass> -->
+                    <!-- <mainClass>com.github.mengweijin.VitaAdminApplication</mainClass> -->
                     <!--
                           这里只包含一个不存在的项nothing,即代表什么都不包含，当然名字可以随便写。
                           如果要打可执行 jar，则删掉这段 include

@@ -16,7 +16,7 @@ public class DatasourceTest {
     @Test
     void getDatabaseProductName() {
         String driver = "org.h2.Driver";
-        String url = "jdbc:h2:file:./h2/vitality;AUTO_SERVER=TRUE;IGNORECASE=TRUE";
+        String url = "jdbc:h2:file:./h2/vita;AUTO_SERVER=TRUE;IGNORECASE=TRUE";
         String user = "sa";
         String pass = null;
 

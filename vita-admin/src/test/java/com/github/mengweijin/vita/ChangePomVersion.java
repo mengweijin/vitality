@@ -22,10 +22,10 @@ import java.util.Optional;
 class ChangePomVersion {
     private static final String PARENT_POM_XML = Const.PROJECT_DIR + "pom.xml";
     private static final String[] MODULE_POM_XML = {
-            Const.PROJECT_DIR + "vitality-admin/pom.xml",
-            Const.PROJECT_DIR + "vitality-framework/pom.xml",
-            Const.PROJECT_DIR + "vitality-generator/pom.xml",
-            Const.PROJECT_DIR + "vitality-layui/pom.xml",
+            Const.PROJECT_DIR + "vita-admin/pom.xml",
+            Const.PROJECT_DIR + "vita-framework/pom.xml",
+            Const.PROJECT_DIR + "vita-generator/pom.xml",
+            Const.PROJECT_DIR + "vita-layui/pom.xml",
     };
 
     private static final String NEW_VERSION = "1.4.1-SNAPSHOT";
@@ -49,10 +49,10 @@ class ChangePomVersion {
         Element versionElement = rootOptional.map(e -> e.element("version")).orElse(null);
         versionElement.setText(ChangePomVersion.NEW_VERSION); // 更新 Version
 
-        Element vitalityVersionElement = rootOptional
+        Element vitaVersionElement = rootOptional
                 .map(e -> e.element("properties"))
-                .map(e -> e.element("vitality.version")).orElse(null);
-        vitalityVersionElement.setText(ChangePomVersion.NEW_VERSION);
+                .map(e -> e.element("vita.version")).orElse(null);
+        vitaVersionElement.setText(ChangePomVersion.NEW_VERSION);
 
         write(document, file);
     }

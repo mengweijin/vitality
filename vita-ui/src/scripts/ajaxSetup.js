@@ -1,4 +1,4 @@
-import { userStorage } from "@/storage/userStorage.js";
+import { userStorage } from "@/storage/system/userStorage.js";
 import { admin } from "@/scripts/admin.js";
 
 let $ = layui.$;

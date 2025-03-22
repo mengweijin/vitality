@@ -32,7 +32,7 @@ public class LoginController {
     private ConfigService configService;
 
     @SaIgnore
-    @RepeatSubmit
+    @RepeatSubmit(interval = 3000)
     @RateLimit(duration = 5, max = 1, strategy = ERateLimitStrategy.IP)
     @PostMapping("/login")
     public R<LoginUser> login(@Valid @RequestBody LoginBO loginBO) {

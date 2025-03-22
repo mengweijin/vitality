@@ -3,7 +3,6 @@ package com.github.mengweijin.vita.framework.repeatsubmit;
 import com.github.mengweijin.vita.framework.cache.CacheFactory;
 import com.github.mengweijin.vita.framework.constant.Const;
 import com.github.mengweijin.vita.framework.domain.P;
-import com.github.mengweijin.vita.framework.domain.R;
 import com.github.mengweijin.vita.framework.exception.ClientException;
 import com.github.mengweijin.vita.framework.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.crypto.SecureUtil;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,7 +66,7 @@ public class RepeatSubmitAspect {
             } else {
                 // 缓存中存在，并且在时间间隔内，则这个url视为重复提交
                 log.warn("Repeat request! url={}", url);
-                return R.failure(HttpStatus.BAD_REQUEST.value(), repeatSubmit.message());
+                throw new ClientException(repeatSubmit.message());
             }
         } catch (Throwable e) {
             log.error(e.getMessage(), e);

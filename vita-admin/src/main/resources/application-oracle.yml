@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    contexts: test
+    contexts: dev
     change-log: classpath:/db/db.changelog-oracle.xml
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver

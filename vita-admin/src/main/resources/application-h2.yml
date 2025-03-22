@@ -5,7 +5,7 @@ spring:
         cachecontrol:
           no-store: true
   liquibase:
-    contexts: test
+    contexts: dev
     change-log: classpath:/db/db.changelog-h2.xml
   datasource:
     driver-class-name: org.h2.Driver

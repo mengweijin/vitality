@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    contexts: test
+    contexts: dev
     change-log: classpath:/db/db.changelog-mysql.xml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

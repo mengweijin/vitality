@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    contexts: test
+    contexts: dev
     change-log: classpath:/db/db.changelog-postgresql.xml
   datasource:
     driver-class-name: org.postgresql.Driver

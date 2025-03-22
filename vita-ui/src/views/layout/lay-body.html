@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- 内容主体区域 -->
+    <div class="layui-tabs layui-hide-v" id="tabs">
+        <ul class="layui-tabs-header">
+            <li lay-id="home" lay-closable="false"><a href="#">首页</a></li>
+        </ul>
+        <div class="layui-tabs-body">
+            <div class="layui-tabs-item">Tab Home Content</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { page } from "@/scripts/page.js";
+        
+        page.render();
+
+        // page.addTab({});
+    </script>
+</body>
+
+</html>

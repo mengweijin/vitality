@@ -52,8 +52,19 @@ let admin = {
     template.load("#app", "src/views/login.html");
   },
 
+  loadHeader: function () {
+    template.load(".layui-header", "src/views/layout/lay-header.html");
+  },
+
+  loadSide: function () {
+    template.load(".layui-side", "src/views/layout/lay-side.html");
+  },
+
+  loadBody: function () {
+    template.load(".layui-body", "src/views/layout/lay-body.html");
+  },
   loadFooter: function () {
-    template.load("#footer", "src/views/layout/lay-footer.html");
+    template.load(".layui-footer", "src/views/layout/lay-footer.html");
   },
 };
 

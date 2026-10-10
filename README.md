@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="logo" src="vita-ui/public/webp/favicon.webp" width="100">
+	<img alt="logo" src="vita-ui/public/images/webp/favicon.webp" width="100">
 </p>
 <h1 align="center" style="margin: -15px 0 35px 0;">Vita（微塔）管理系统</h1>
 <p align="center">
@@ -162,6 +162,4 @@ java -Dname=vita-admin -Dspring.profiles.active=h2 -Dfile.encoding=utf-8 -Duser.
 
 ## ⭐Star History on GitHub
 
-<picture>
-  <img alt="Star history" src="./assets/star-history/star-history.png">
-</picture>
+[![Star History Chart](https://api.star-history.com/chart?repos=mengweijin/vita&type=date&legend=top-left)](https://www.star-history.com/?repos=mengweijin%2Fvita&type=date&legend=top-left)

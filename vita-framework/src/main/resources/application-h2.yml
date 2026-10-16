@@ -1,4 +1,11 @@
 spring:
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-store: true
+          no-cache: true
+          must-revalidate: true
   liquibase:
     contexts: prod
     change-log: classpath:/db/db.changelog-h2.yaml
